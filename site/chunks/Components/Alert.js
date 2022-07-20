@@ -14,8 +14,9 @@ const source = locate(cn, en)
 
 const examples = [
   {
-    name: '1-base.tsx',
+    name: '1-base',
     isTs: true,
+
     title: locate(
       '基本用法 \n 基本的使用',
       'Base \n Basic usage'
@@ -26,8 +27,9 @@ const examples = [
 
   },
   {
-    name: '2-type.tsx',
+    name: '2-type',
     isTs: true,
+
     title: locate(
       '类型 \n 内置了 4 种类型（样式），[success, info, warning, danger]，默认为 warning',
       'type \n There are four built-in types (styles), [success, info, warning, danger], the default value is warning.'
@@ -38,8 +40,9 @@ const examples = [
 
   },
   {
-    name: '3-close.tsx',
+    name: '3-close',
     isTs: true,
+
     title: locate(
       '关闭 \n 设置 onClose 属性时，显示关闭按钮 \n onClose 为 true 时，只关闭提示，不处理 \n onClose 为函数时，关闭后调用此函数',
       'onClose \n When the onClose property is set, the close button is displayed. \n When the onClose property is true, only hide the component. \n When the onClose is a function, call this function after hiding it.'
@@ -50,8 +53,9 @@ const examples = [
 
   },
   {
-    name: '4-icon.tsx',
+    name: '4-icon',
     isTs: true,
+
     title: locate(
       '内置图标 \n 设置 icon 属性可以显示内置的图标，不同类型的图标见示例',
       'Icon \n Set the icon property to display the built-in icon.'

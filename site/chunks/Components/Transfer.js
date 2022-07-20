@@ -16,6 +16,7 @@ const examples = [
   {
     name: '1-base',
     isTs: false,
+
     title: locate(
       '基本用法 \n 基本的使用',
       'Base \n Basic usage'
@@ -27,6 +28,7 @@ const examples = [
   {
     name: '2-controlled',
     isTs: false,
+
     title: locate(
       '受控 \n 组件受控',
       'Controlled \n Component controlled'
@@ -38,6 +40,7 @@ const examples = [
   {
     name: '3-customTitle',
     isTs: false,
+
     title: locate(
       '自定义 \n 可以自定义标题, 按钮, 底部, 样式等属性',
       'Customize \n Customizable title, button, bottom properties'
@@ -49,6 +52,7 @@ const examples = [
   {
     name: '4-selected',
     isTs: false,
+
     title: locate(
       '受控选中 \n 可以通过 selectedKeys 和 onSelectChange 去控制哪些列表项被选中 \n <b>注: 勾选的值均使用的是 keygen 的结果</b>',
       'Controlled selected \n Can control which elements are selected by selectedKeys and onSelectChange'
@@ -60,6 +64,7 @@ const examples = [
   {
     name: '5-filter',
     isTs: false,
+
     title: locate(
       '筛选 \n 可以通过设置 onFilter 去筛选列表项',
       'Filter \n Can filter list items by setting onFilter'
@@ -71,6 +76,7 @@ const examples = [
   {
     name: '6-loading',
     isTs: false,
+
     title: locate(
       '加载中 \n 穿梭框的加载中',
       'Loading \n Loading'
@@ -82,6 +88,7 @@ const examples = [
   {
     name: '6-mloading',
     isTs: false,
+
     title: locate(
       ' \n 可以通过给 loading 设置数组的方式, 给两边设置一个不同的loading',
       ' \n You can set an array for loading and set an unused loading for both sides'
@@ -93,6 +100,7 @@ const examples = [
   {
     name: '7-bigdata',
     isTs: false,
+
     title: locate(
       '性能 \n Transfer 内部使用了虚拟列表来优化性能，本例加载了10000条数据',
       ' \n Transfer uses a lazy loading to optimize performance. This example loads 10,000 pieces of data.'
@@ -104,6 +112,7 @@ const examples = [
   {
     name: '8-renderFilter',
     isTs: false,
+
     title: locate(
       '自定义过滤渲染 \n 自定义渲染过滤框区域内容',
       'RenderFilter \n Custom render filter'

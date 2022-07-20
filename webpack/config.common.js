@@ -41,6 +41,7 @@ module.exports = function getCommon(config) {
         SO_PREFIX: JSON.stringify(process.env.SO_PREFIX || ''),
         CSS_MODULE: !!process.env.LOCAL_IDENT_NAME,
         LOG_ENV: JSON.stringify(process.env.LOG_ENV || ''),
+        CASE_ENV: JSON.stringify(process.env.CASE_ENV || ''),
       },
     }),
   ]
@@ -72,7 +73,7 @@ module.exports = function getCommon(config) {
 
     resolve: {
       alias: config.alias,
-      extensions: ['.js', '.json', '.jsx', '.tsx'],
+      extensions: ['.js', '.json', '.jsx', 'tsx'],
     },
 
     resolveLoader: {

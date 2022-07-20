@@ -288,3 +288,26 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-11-dragger.t
   </div>
 </div>
 `;
+
+exports[`Snapshot test: Upload[site/pages/components/Upload/example-test-001-tip.tsx] 1`] = `
+<form>
+  <div>
+    <div>
+      <div>
+        <span>
+          <button>
+            <i />
+            <span>
+              Upload file
+            </span>
+          </button>
+          <input />
+        </span>
+      </div>
+      <div>
+        hello world
+      </div>
+    </div>
+  </div>
+</form>
+`;

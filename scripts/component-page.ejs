@@ -15,8 +15,9 @@ const source = locate(cn, en)
 const examples = [
 <% examples.forEach(function (exam, i) { -%>
   {
-    name: '<%= exam.path.replace("example-", "").replace(".js", "") %>',
+    name: '<%= exam.path.replace("example-", "").replace(/\.[jt]sx?$/, "") %>',
     isTs: <%= exam.path.endsWith(".tsx") %>,
+    isTest: <%= exam.path.startsWith("test-") %>,
     title: locate(
       '<%- exam.cn.replace(/'/g, '\\\'') %>',
       '<%- exam.en.replace(/'/g, '\\\'') %>'
