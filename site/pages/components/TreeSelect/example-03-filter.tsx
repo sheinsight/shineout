@@ -7,7 +7,11 @@
 import React from 'react'
 import { TreeSelect } from 'shineout'
 
-type DataItem = { id: string; title: string; children?: DataItem[] }
+interface DataItem {
+  id: string
+  title: string
+  children?: DataItem[]
+}
 
 const data = [
   {
@@ -27,14 +31,14 @@ const data = [
 const App: React.FC = () => {
   const [single, setSingle] = React.useState<string>('')
   const [multi, setMulti] = React.useState<string[]>([])
-  const handleChangeSingle = React.useCallback((v: string) => {
+  const handleChangeSingle = (v: string) => {
     setSingle(v)
-  }, [])
-  const handleChangeMultiple = React.useCallback((v: string[]) => {
+  }
+  const handleChangeMultiple = (v: string[]) => {
     setMulti(v)
-  }, [])
+  }
 
-  const handleFilter = React.useCallback((text: string) => (d: DataItem) => d.title.indexOf(text) > -1, [])
+  const handleFilter = (text: string) => (d: DataItem) => d.title.indexOf(text) > -1
   return (
     <div>
       <TreeSelect

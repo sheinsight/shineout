@@ -14,19 +14,16 @@ type TreeProps = TYPE.Tree.Props<DataItem, string[]>
 const App: React.FC = () => {
   const [data, setData] = React.useState<TreeProps['data']>(tree)
 
-  const handleDrop: TreeProps['onDrop'] = React.useCallback((d, key, targetKey, position) => {
+  const handleDrop: TreeProps['onDrop'] = (d, key, targetKey, position) => {
     console.log(data, key, targetKey, position)
     setData(d)
-  }, [])
+  }
 
-  const renderItem: TreeProps['renderItem'] = React.useCallback(
-    node => (
-      <div>
-        <span>node </span>
-        <span id={`node-id-${node.id}`}>{node.text}</span>
-      </div>
-    ),
-    []
+  const renderItem: TreeProps['renderItem'] = node => (
+    <div>
+      <span>node </span>
+      <span id={`node-id-${node.id}`}>{node.text}</span>
+    </div>
   )
 
   return (

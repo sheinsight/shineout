@@ -1,6 +1,6 @@
 # Tree *树形选择*
 
-## 
+##
 
 #### 本页面中用到的数据如下（数据量比较大，请谨慎点开）
 <example name="data" />
@@ -23,10 +23,10 @@
 | mode | 0 \| 1 \| 2 \| 3 \| 4 | 1 | 选中值模式<br />0: 只返回完全选中的节点，包含父节点<br />1: 返回全部选中的节点和半选中的父节点<br />2: 只返回选中的子节点<br />3: 如果父节点选中，只返回父节点<br />4: 所选即所得 |
 | onExpand | (value: string[]) => void | 无 | 节点展开回调，参数为当前展开节点 key 数组 |
 | renderItem | (data: object) => ReactNode | 必填 | 为 string 时，返回 d\[string]<br />为 function 时，返回函数结果 |
-| defaultValue | string[] | 无 | 默认选中的 key （非受控） | 
-| value | string[] | 无 | 选中的 key （受控） | 
-| onDrop | (data: object, key: string, targetKey: string, position: number) => void | 无 | 设置 onDrop 属性时，为可拖动状态<br />data: 拖动后重新排序的完整数据<br />key: 拖动的节点key<br />targetKey: 目标节点 key<br />position: 在目标节点的位置，以 0 开始 | 
-| defaultExpandAll | boolean | false | 默认展开所有节点 | 
+| defaultValue | string[] | 无 | 默认选中的 key （非受控） |
+| value | string[] | 无 | 选中的 key （受控） |
+| onDrop | (data: object, key: string, targetKey: string, position: number) => void | 无 | 设置 onDrop 属性时，为可拖动状态<br />data: 拖动后重新排序的完整数据<br />key: 拖动的节点key<br />targetKey: 目标节点 key<br />position: 在目标节点的位置，以 0 开始 |
+| defaultExpandAll | boolean | false | 默认展开所有节点 |
 | childrenKey | string | 'children' | 指定子数据的属性名 |
 | expandIcons | \[ReactNode, ReactNode] | 无 | 自定义展开/收起按钮 |
 | dragImageSelector | (data: object) => string \| string | 无 | 定义拖拽图片的选择器 |

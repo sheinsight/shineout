@@ -7,7 +7,11 @@
 import React from 'react'
 import { TreeSelect, TYPE } from 'shineout'
 
-type DataItem = { id: string; title: string; children?: DataItem[] }
+interface DataItem {
+  id: string
+  title: string
+  children?: DataItem[]
+}
 type TreeSelectProps = TYPE.TreeSelect.Props<DataItem, string[]>
 
 const data: TreeSelectProps['data'] = [
@@ -25,9 +29,9 @@ const data: TreeSelectProps['data'] = [
 
 const App: React.FC = () => {
   const [value, setValue] = React.useState<TreeSelectProps['value']>([])
-  const handleChange: TreeSelectProps['onChange'] = React.useCallback(v => {
+  const handleChange: TreeSelectProps['onChange'] = v => {
     setValue(v)
-  }, [])
+  }
   return (
     <div>
       <TreeSelect

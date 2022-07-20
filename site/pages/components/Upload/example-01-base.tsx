@@ -11,10 +11,6 @@ import FontAwesome from '../Icon/FontAwesome'
 
 const App: React.FC = () => {
   const [value, setValue] = React.useState([])
-  const handleChange = React.useCallback(v => {
-    console.log(v)
-    setValue(v)
-  }, [])
 
   return (
     <Upload
@@ -23,7 +19,9 @@ const App: React.FC = () => {
       value={value}
       name="file"
       onSuccess={(_res, file) => file.name}
-      onChange={handleChange}
+      onChange={v => {
+        setValue(v)
+      }}
       limit={3}
       style={{ width: 300 }}
     >

@@ -59,13 +59,13 @@ const App: React.FC = () => {
   const [mode, setMode] = React.useState<TreeProps['mode']>(1)
   console.log(mode)
 
-  const handleChange: TreeProps['onChange'] = React.useCallback(v => {
+  const handleChange: TreeProps['onChange'] = v => {
     setValue(v)
-  }, [])
-  const handleModeChange = React.useCallback(v => {
+  }
+  const handleModeChange = (v: TreeProps['mode']) => {
     setMode(v)
     setValue([])
-  }, [])
+  }
   const renderItem: TreeProps['renderItem'] = node => `node ${node.id}`
 
   return (

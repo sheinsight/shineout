@@ -21,7 +21,6 @@ const DraggerImage: React.FC = () => (
     onStart={f => console.log(f)}
     width={250}
     drop
-    disabled
   >
     <div style={placholderStyle}>
       <FontAwesome style={{ color: '#409dfd', fontSize: 20 }} name="image" />
@@ -39,7 +38,6 @@ const DraggerFile: React.FC = () => (
     limit={3}
     style={{ width: 400 }}
     drop
-    disabled
   >
     <div style={placholderStyle}>
       <FontAwesome style={{ color: '#409dfd', fontSize: 28 }} name="archive" />

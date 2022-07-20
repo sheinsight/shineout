@@ -13,24 +13,29 @@ type TreeProps = TYPE.Tree.Props<DataItem, string[]>
 
 const App: React.FC = () => {
   const [expanded, setExpanded] = React.useState<TreeProps['expanded']>(['1'])
-  const expandAll = React.useCallback(() => {
+  const expandAll = () => {
     setExpanded([...allIds])
-  }, [])
-
-  const collapseAll = React.useCallback(() => {
+  }
+  const collapseAll = () => {
     setExpanded([])
-  }, [])
-  const handleExpand = React.useCallback(ids => {
+  }
+  const handleExpand = (ids: string[]) => {
     setExpanded([...ids])
-  }, [])
-  const renderItem = React.useCallback(node => `node ${node.id}`, [])
+  }
   return (
     <div>
       <div style={{ marginBottom: 12 }}>
         <Button onClick={expandAll}>Expand all</Button>
         <Button onClick={collapseAll}>Collapse all</Button>
       </div>
-      <Tree data={data} keygen="id" line={false} expanded={expanded} onExpand={handleExpand} renderItem={renderItem} />
+      <Tree
+        data={data}
+        keygen="id"
+        line={false}
+        expanded={expanded}
+        onExpand={handleExpand}
+        renderItem={node => `node ${node.id}`}
+      />
     </div>
   )
 }

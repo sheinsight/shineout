@@ -106,7 +106,7 @@ export interface TreeSelectProps<Item, Value> extends StandardProps,
    *
    * default: index
    */
-  keygen?: keygenType<Item>;
+  keygen: keygenType<Item>;
 
   /**
    * Expanded node key (controlled)
@@ -180,7 +180,7 @@ export interface TreeSelectProps<Item, Value> extends StandardProps,
    *
    * default: -
    */
-  onAdvancedFilter?: (text: string, form: string) => (data: Item) => boolean;
+  onAdvancedFilter?: (text: string, from: 'edit' | 'blur') => (data: Item) => boolean;
 
   /**
    * Merges selected values, valid only in multiselect mode

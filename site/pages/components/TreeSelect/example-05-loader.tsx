@@ -8,7 +8,10 @@ import React from 'react'
 import immer from 'immer'
 import { TreeSelect, TYPE } from 'shineout'
 
-type DataItem = { id: string; children?: DataItem[] }
+interface DataItem {
+  id: string
+  children?: DataItem[]
+}
 type TreeSelectProps = TYPE.TreeSelect.Props<DataItem, string[]>
 
 const initData: DataItem[] = ['0', '1', '2', '3', '4'].map(i => ({ id: i }))
@@ -17,20 +20,17 @@ let index = 0
 
 const App: React.FC = () => {
   const [data, setData] = React.useState<TreeSelectProps['data']>(initData)
-  const loader: TreeSelectProps['loader'] = React.useCallback(
-    key => {
-      setTimeout(() => {
-        const nextData = immer(data, (d: DataItem[]) => {
-          d[parseInt(key, 10)].children = Array(6)
-            .fill(0)
-            // eslint-disable-next-line no-plusplus
-            .map(() => ({ id: `-${index++}`, children: [] }))
-        })
-        setData(nextData)
-      }, 500)
-    },
-    [data]
-  )
+  const loader: TreeSelectProps['loader'] = key => {
+    setTimeout(() => {
+      const nextData = immer(data, (d: DataItem[]) => {
+        d[parseInt(key, 10)].children = Array(6)
+          .fill(0)
+          // eslint-disable-next-line no-plusplus
+          .map(() => ({ id: `-${index++}`, children: [] }))
+      })
+      setData(nextData)
+    }, 500)
+  }
 
   return <TreeSelect multiple loader={loader} keygen="id" renderItem={node => `node ${node.id}`} data={data} />
 }

@@ -8,7 +8,10 @@ import React from 'react'
 import immer from 'immer'
 import { Tree, TYPE } from 'shineout'
 
-type DataItem = { id: string; children?: DataItem[] }
+interface DataItem {
+  id: string
+  children?: DataItem[]
+}
 type TreeProps = TYPE.Tree.Props<DataItem, string[]>
 
 const initData = ['0', '1', '2', '3', '4'].map(i => ({ id: i }))
@@ -16,28 +19,22 @@ const createRange = () => Array.from({ length: Math.round(Math.random() * 4) }, 
 
 const App: React.FC = () => {
   const [data, setData] = React.useState<TreeProps['data']>(initData)
-  const loader: TreeProps['loader'] = React.useCallback(
-    key => {
-      const nextData = immer(data, draft => {
-        const path: string[] = key.split(',')
-        let target: any = draft
-        path.forEach((pid, i) => {
-          target = target.find((d: DataItem) => d.id === pid)
-          if (i < path.length - 1) target = target.children
-        })
-        target.children = [...createRange().map(i => ({ id: `${target.id}-${i}` }))]
+  const loader: TreeProps['loader'] = (key: string) => {
+    const nextData = immer(data, draft => {
+      const path: string[] = key.split(',')
+      let target: any = draft
+      path.forEach((pid, i) => {
+        target = target.find((d: DataItem) => d.id === pid)
+        if (i < path.length - 1) target = target.children
       })
-      setTimeout(() => setData(nextData), 500)
-    },
-    [data]
-  )
+      target.children = [...createRange().map(i => ({ id: `${target.id}-${i}` }))]
+    })
+    setTimeout(() => setData(nextData), 500)
+  }
 
-  const keyGenerator: TreeProps['keygen'] = React.useCallback(
-    (node, parentKey) => `${parentKey},${node.id}`.replace(/^,/, ''),
-    []
-  )
+  const keyGenerator: TreeProps['keygen'] = (node, parentKey) => `${parentKey},${node.id}`.replace(/^,/, '')
 
-  const renderItem: TreeProps['renderItem'] = React.useCallback(node => `node ${node.id}`, [])
+  const renderItem: TreeProps['renderItem'] = node => `node ${node.id}`
 
   return <Tree data={data} keygen={keyGenerator} loader={loader} renderItem={renderItem} />
 }
