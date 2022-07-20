@@ -16,7 +16,7 @@ const examples = [
   {
     name: '01-base',
     isTs: false,
-
+    isTest: false,
     title: locate(
       '基本用法 \n 图片设置宽高后即使图片未加载，仍然会先占位',
       'Base \n The most basic image.'
@@ -28,7 +28,7 @@ const examples = [
   {
     name: '02-shape',
     isTs: false,
-
+    isTest: false,
     title: locate(
       '形状 \n 内置了三种图片样式，rounded, cricle, thumbnail',
       'Shape \n There are three built-in styles, rounded, cricle, thumbnail.'
@@ -40,7 +40,7 @@ const examples = [
   {
     name: '03-fit',
     isTs: false,
-
+    isTest: false,
     title: locate(
       '适应 \n 内置了 4 种适应容器的方式，填充、居中、原图、拉伸',
       'Fit \n There are four built ways that fit the container, fill, center, original, stretch.'
@@ -52,7 +52,7 @@ const examples = [
   {
     name: '04-alt',
     isTs: false,
-
+    isTest: false,
     title: locate(
       '备用地址 \n 在 src 获取失败的情况下，自动使用 alt 属性设置的地址',
       'Alt \n If the src address fails to load, use the alt property instead.'
@@ -64,7 +64,7 @@ const examples = [
   {
     name: '05-error',
     isTs: false,
-
+    isTest: false,
     title: locate(
       '错误处理 \n alt 属性失效或没有 alt 属性时，会显示 title 属性',
       'Title \n The title property is displayed when the alt property is invalid or there is no alt property.'
@@ -76,7 +76,7 @@ const examples = [
   {
     name: '06-target',
     isTs: false,
-
+    isTest: false,
     title: locate(
       '原始图片 \n 提供了 4 种方式展示原始图片，弹出层、新窗口打开、当前窗口打开、下载',
       'Target \n There are 4 ways to display the original image, pop-up layer, new window open, current window open, download.'
@@ -88,7 +88,7 @@ const examples = [
   {
     name: '07-group',
     isTs: false,
-
+    isTest: false,
     title: locate(
       '图片组 \n 一组图片可以放在 Image.Group 中',
       'Group \n A group of images can be placed in the Image.Group .'
@@ -100,7 +100,7 @@ const examples = [
   {
     name: '08-group',
     isTs: false,
-
+    isTest: false,
     title: locate(
       ' \n 设置 pile 属性可以把缩略图堆叠展示',
       ' \n Set the pile property to show the image stack.'
@@ -112,7 +112,7 @@ const examples = [
   {
     name: '09-lazy',
     isTs: false,
-
+    isTest: false,
     title: locate(
       '延迟加载 \n lazy 属性为 true 时，图片会在进入屏幕可视区域后加载, 默认以 document 的滚动条为判断',
       'Lazy load \n When the lazy property is true, the image will load when it enter the visual area of the screen.'
@@ -124,7 +124,7 @@ const examples = [
   {
     name: '10-lazy',
     isTs: false,
-
+    isTest: false,
     title: locate(
       ' \n 如果需要在特定的元素内部进行懒加载, 则需要提供一个选择器, 请确保 Image 组件渲染的时候能够通过选择器获取到指定元素.',
       ' \n If you need to lazy loading inside a specific element, you need to provide a selector, please ensure that the Image component can get the specified element through the selector when rendering.'

@@ -16,7 +16,7 @@ const examples = [
   {
     name: '1-base',
     isTs: false,
-
+    isTest: false,
     title: locate(
       '基本用法 \n Dropdown 通过数据来渲染，支持 json 格式数据、React 组件',
       'Base \n Dropdown is rendered through data and supports json formatted data and React components.'
@@ -28,7 +28,7 @@ const examples = [
   {
     name: '2-hover',
     isTs: false,
-
+    isTest: false,
     title: locate(
       '触发 \n Dropdown 默认通过点击触发下拉行为，设置 trigger="hover" 属性可以改为移入触发',
       'Trigger \n By default, Dropdown toggled clicking, setting trigger="hover" can toggled by mouse move in.'
@@ -40,7 +40,7 @@ const examples = [
   {
     name: '3-position',
     isTs: false,
-
+    isTest: false,
     title: locate(
       '弹出位置 \n 设置 position 属性可以控制下拉菜单弹出的方向和位置',
       'Position \n Set position property can control the direction and position of the drop-down menu.'
@@ -52,7 +52,7 @@ const examples = [
   {
     name: '4-items',
     isTs: false,
-
+    isTest: false,
     title: locate(
       '多列平铺 \n 设置 columns 属性可以让选项多列平铺',
       'Multiple columns \n Set columns property can make the option multi-column tiled.'
@@ -64,7 +64,7 @@ const examples = [
   {
     name: '5-split',
     isTs: false,
-
+    isTest: false,
     title: locate(
       '组合 \n 在 Button.Group 中组合使用，通常用于隐藏一组按钮中不太常用的选项',
       'Group \n Dropdown can be combined with Button used in Button.Group.'
@@ -76,7 +76,7 @@ const examples = [
   {
     name: '6-type',
     isTs: false,
-
+    isTest: false,
     title: locate(
       '样式 \n 使用了和Button相同的 type 和 size 设置样式',
       'type \n Style is set using the same type and size as Button.'
@@ -88,7 +88,7 @@ const examples = [
   {
     name: '7-base',
     isTs: false,
-
+    isTest: false,
     title: locate(
       '绝对定位 \n 如果选项弹出层的父容器被遮挡，可以设置 absolute 属性使弹出选项在单独层中渲染。',
       'Absolute \n If the parent container of the pop-up layer is occluded, you can set the absolute property to make the pop-up options rendered in a separate layer.'
