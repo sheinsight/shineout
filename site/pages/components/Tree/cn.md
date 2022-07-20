@@ -34,7 +34,7 @@
 | leafClass | (data: object) => string \| string | 无 | 叶子节点的 class, 函数的参数为该条叶子节点数据 |
 | dragHoverExpand | boolean | false | 拖拽时自动展开含有子节点的节点 |
 | doubleClickExpand | boolean | false | 双击是否展开节点 |
-| onClick | (data: object) => void | 无 | 节点点击事件 |
+| onClick | (data: object, key:string\|number) => void | 无 | 节点点击事件 |
 | iconClass | string | 无 | 展开/收起按钮的类名 |
 | nodeClass | string \| ((data: any) => string) | 无 | 节点的class，如果是函数，参数为该节点数据 |
 | dragSibling | boolean  | 无 | 是否只能平级拖拽 |
