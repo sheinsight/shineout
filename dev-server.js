@@ -71,6 +71,21 @@ router.post('/upload/', upload.single('file'), async ctx => {
   }
 })
 
+router.post('/upload-test', upload.single('file'), async ctx => {
+  await new Promise(resolve =>
+    setTimeout(() => {
+      resolve()
+    }, 1000)
+  )
+  ctx.body = {
+    success: true,
+    model: {
+      id: Date.now().toString(),
+      name: ctx.req.file.originalname,
+    },
+  }
+})
+
 // dev code proxy
 router.get(config.dev.scriptPath, async (ctx, next) => {
   // console.log(ctx.url)
