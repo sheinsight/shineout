@@ -11,6 +11,7 @@
         "esModuleInterop": true,
         "experimentalDecorators": true,
         "jsx": "preserve",
+        "types": ["jest"],
         "noUnusedParameters": true,
         "noUnusedLocals": true,
         "noImplicitAny": true,

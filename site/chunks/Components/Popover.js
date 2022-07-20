@@ -16,6 +16,7 @@ const examples = [
   {
     name: '1-base',
     isTs: false,
+    isTest: false,
     title: locate(
       '基本用法 \n Popover 放置在一个组件内部弹出',
       'Base \n The basic usage.'
@@ -27,6 +28,7 @@ const examples = [
   {
     name: '1-controll',
     isTs: false,
+    isTest: false,
     title: locate(
       '受控 \n 可以通过 visible 去控制',
       'controll \n Use cisible to controll the show/hidden'
@@ -38,6 +40,7 @@ const examples = [
   {
     name: '10-container',
     isTs: false,
+    isTest: false,
     title: locate(
       '自定义容器 \n 使用 getPopupContainer 指定渲染的目标容器',
       'Custom container \n use getPopupContainer return target container'
@@ -49,6 +52,7 @@ const examples = [
   {
     name: '11-disabled',
     isTs: false,
+    isTest: false,
     title: locate(
       '禁用元素 \n 当父元素被禁用，可以将 Popver 和禁用元素置于同一层级，并用元素将他们包裹',
       'Disabled \n When the parent element is disabled, you can place the Popver and the disabled element in the same hierarchy and wrap them with the element'
@@ -58,8 +62,9 @@ const examples = [
 
   },
   {
-    name: '12-content.tsx',
+    name: '12-content',
     isTs: true,
+    isTest: false,
     title: locate(
       '默认样式 \n Popover.Content 添加 padding 和  maxLength 的默认样式',
       'default style \n Popover.Content adds default styles for padding and maxLength'
@@ -72,6 +77,7 @@ const examples = [
   {
     name: '13-nested',
     isTs: false,
+    isTest: false,
     title: locate(
       '嵌套使用 \n 使用多个 Popover 进行嵌套展示',
       'Nested of Popovers \n Using more than one Popover by nested'
@@ -83,6 +89,7 @@ const examples = [
   {
     name: '13-useTextStyle',
     isTs: false,
+    isTest: false,
     title: locate(
       '内置文本样式 \n 当采用自定义函数渲染时，允许通过useTextStyle来使用采用内置的文本样式',
       'useTextStyle \n Render by the innerstyle of text when the children prop is render function'
@@ -94,6 +101,7 @@ const examples = [
   {
     name: '2-delay',
     isTs: false,
+    isTest: false,
     title: locate(
       '延迟 \n 可以设置展示延时和关闭延时',
       'delay \n the hidden/show delay'
@@ -105,6 +113,7 @@ const examples = [
   {
     name: '2-position',
     isTs: false,
+    isTest: false,
     title: locate(
       '弹出位置 \n 内置了十二个弹出的位置',
       'Position \n Twelve pop-up positions are built in.'
@@ -116,6 +125,7 @@ const examples = [
   {
     name: '3-click',
     isTs: false,
+    isTest: false,
     title: locate(
       '点击触发 \n 默认是移入组件触发，设置 trigger 为 \'click\'，可以改为点击触发',
       'Trigger \n Set the trigger property to change the trigger event to \'click\'.'
@@ -127,6 +137,7 @@ const examples = [
   {
     name: '4-confirm',
     isTs: false,
+    isTest: false,
     title: locate(
       '确认 \n Popover.Confirm 提供弹出气泡式的确认框',
       'Confirm \n Popover.Confirm provide popover confirm.'
@@ -138,6 +149,7 @@ const examples = [
   {
     name: '5-func',
     isTs: false,
+    isTest: false,
     title: locate(
       '关闭事件 \n content 属性可以为一个函数，会传递 close 函数，用来在弹出面板内部处理关闭事件',
       'Close \n Set the content property to a function, you can handle the close event inside the popup panel.'
@@ -149,6 +161,7 @@ const examples = [
   {
     name: '6-type',
     isTs: false,
+    isTest: false,
     title: locate(
       '样式 \n 内置四种样式',
       'Type \n Four styles are built in.'
@@ -160,6 +173,7 @@ const examples = [
   {
     name: '7-type',
     isTs: false,
+    isTest: false,
     title: locate(
       ' \n 如果内置样式不满足需求，可以通过 background 和 border 自定义样式',
       ' \n Customize the style with background and border.'
@@ -171,6 +185,7 @@ const examples = [
   {
     name: '8-old',
     isTs: false,
+    isTest: false,
     title: locate(
       '旧API \n 旧接口使用 Popover 包在组件外使用，通过 content 传递内容，已不推荐',
       'Old API \n Old API, is out of date.'
@@ -182,6 +197,7 @@ const examples = [
   {
     name: '9-event',
     isTs: false,
+    isTest: false,
     title: locate(
       '事件 \n 提供了onOpen 和 onClose 事件',
       'Events \n provider onOpen and onClose event'

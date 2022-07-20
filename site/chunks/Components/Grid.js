@@ -16,6 +16,7 @@ const examples = [
   {
     name: '01-base',
     isTs: false,
+    isTest: false,
     title: locate(
       '任意等分 \n Grid 的栅格体系是动态生成，可以实现任意等份',
       'Arbitrary \n Grid system is dynamic generated and can be any number.'
@@ -27,6 +28,7 @@ const examples = [
   {
     name: '02-offset',
     isTs: false,
+    isTest: false,
     title: locate(
       '偏移 \n offset 属性可以设置偏移，取值方式和宽度相同',
       'Offset \n The offset property set the offset in the same way as the width.'
@@ -38,6 +40,7 @@ const examples = [
   {
     name: '03-nested',
     isTs: false,
+    isTest: false,
     title: locate(
       '嵌套 \n 嵌套的栅格',
       'Nested \n Nested grids'
@@ -49,6 +52,7 @@ const examples = [
   {
     name: '04-gutter',
     isTs: false,
+    isTest: false,
     title: locate(
       '间距 \n 通过 gutter 属性设置栅格间距',
       'Gutter \n Set grid spacing through the gutter property.'

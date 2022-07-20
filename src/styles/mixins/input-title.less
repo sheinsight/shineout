@@ -1,0 +1,66 @@
+.inner-title-responsive-offset(@sizePrefix, @offsetStart, @offsetEnd, @sameLevel: '0') {
+  &-ltr {
+    padding-left: @title-padding-base-horizontal + @offsetStart;
+    padding-right: @title-padding-base-horizontal + @offsetEnd;
+
+    & when (%('%s', @sameLevel) = '0') {
+      .@{sizePrefix}-small & {
+        padding-left: @title-padding-small-horizontal + @offsetStart;
+        padding-right: @title-padding-small-horizontal + @offsetEnd;
+      }
+      .@{sizePrefix}-large & {
+        padding-left: @title-padding-large-horizontal + @offsetStart;
+        padding-right: @title-padding-large-horizontal + @offsetEnd;
+      }
+    }
+
+    & when (%('%s', @sameLevel) = '1') {
+      .@{sizePrefix}-small& {
+        padding-left: @title-padding-small-horizontal + @offsetStart;
+        padding-right: @title-padding-small-horizontal + @offsetEnd;
+      }
+      .@{sizePrefix}-large& {
+        padding-left: @title-padding-large-horizontal + @offsetStart;
+        padding-right: @title-padding-large-horizontal + @offsetEnd;
+      }
+    }
+
+  }
+  &-rtl {
+    padding-left: @title-padding-base-horizontal + @offsetEnd;
+    padding-right: @title-padding-base-horizontal + @offsetStart;
+
+    & when (%('%s', @sameLevel) = '0') {
+      .@{sizePrefix}-small & {
+        padding-left: @title-padding-small-horizontal + @offsetEnd;
+        padding-right: @title-padding-small-horizontal + @offsetStart;
+      }
+      .@{sizePrefix}-large & {
+        padding-left: @title-padding-large-horizontal + @offsetEnd;
+        padding-right: @title-padding-large-horizontal + @offsetStart;
+      }
+    }
+
+    & when (%('%s', @sameLevel) = '1') {
+      .@{sizePrefix}-small& {
+        padding-left: @title-padding-small-horizontal + @offsetEnd;
+        padding-right: @title-padding-small-horizontal + @offsetStart;
+      }
+      .@{sizePrefix}-large& {
+        padding-left: @title-padding-large-horizontal + @offsetEnd;
+        padding-right: @title-padding-large-horizontal + @offsetStart;
+      }
+    }
+
+  }
+}
+
+.inner-title-responsive-scroll-item-bottom(@sizePrefix) {
+  margin-bottom: @title-padding-base-vertical;
+  .@{sizePrefix}-small & {
+    margin-bottom: @title-padding-small-vertical;
+  }
+  .@{sizePrefix}-large & {
+    margin-bottom: @title-padding-large-vertical;
+  }
+}

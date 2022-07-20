@@ -16,6 +16,7 @@ const examples = [
   {
     name: '1-base',
     isTs: false,
+    isTest: false,
     title: locate(
       '基本用法 \n 最基本的使用',
       'Base \n The basic usage'
@@ -27,6 +28,7 @@ const examples = [
   {
     name: '10-span',
     isTs: false,
+    isTest: false,
     title: locate(
       '按钮数量 \n 分页器页码按钮数量',
       'Span \n The number of pagination buttons'
@@ -38,6 +40,7 @@ const examples = [
   {
     name: '2-size',
     isTs: false,
+    isTest: false,
     title: locate(
       '大小 \n 内置了 3 种大小供选择，small, default, large，默认为 default',
       'Size \n Three sizes are built in for selection: small, default, large, default value is default.'
@@ -49,6 +52,7 @@ const examples = [
   {
     name: '3-layout',
     isTs: false,
+    isTest: false,
     title: locate(
       '布局 \n 通过 layout 属性来控制组件是否显示以及显示的位置',
       'Layout \n Use the layout property to control whether the child elements is displayed and where is displayed.'
@@ -60,6 +64,7 @@ const examples = [
   {
     name: '4-text',
     isTs: false,
+    isTest: false,
     title: locate(
       '文字 \n 通过 text 替换文字',
       'Text \n Set text property to replace the default text..'
@@ -71,6 +76,7 @@ const examples = [
   {
     name: '5-align',
     isTs: false,
+    isTest: false,
     title: locate(
       '位置 \n 内置了 3 种位置，left, center, right，默认为 left',
       'Alignment \n Options: \'left\', \'center\', \'right\', the default value is left.'
@@ -82,6 +88,7 @@ const examples = [
   {
     name: '7-controlled',
     isTs: false,
+    isTest: false,
     title: locate(
       '受控组件 \n 同时设置 current 和 onChange 属性，可以作为受控组件使用',
       'Controlled \n Set both the current and onChange properties for being used as a controlled component.'
@@ -93,6 +100,7 @@ const examples = [
   {
     name: '8-disabled',
     isTs: false,
+    isTest: false,
     title: locate(
       '禁用 \n 设置 disabled 属性，可以禁用组件',
       'Disabled \n Set the disabled property to disable the component.'
@@ -104,6 +112,7 @@ const examples = [
   {
     name: '9-simple',
     isTs: false,
+    isTest: false,
     title: locate(
       'Simple 模式 \n layout 设置为 simple；注意：simple 模式不与其他layout共存。',
       'Simple mode \n layout set to simple; Note: simple mode does not coexist with other layouts.'
