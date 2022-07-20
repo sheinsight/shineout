@@ -16,7 +16,7 @@ const examples = [
   {
     name: 'locale',
     isTs: false,
-
+    isTest: false,
     title: locate(
       '',
       ''

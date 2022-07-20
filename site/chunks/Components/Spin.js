@@ -16,6 +16,7 @@ const examples = [
   {
     name: '01-01-default',
     isTs: false,
+    isTest: false,
     title: locate(
       'default \n name="default"',
       'default \n name="default"'
@@ -27,6 +28,7 @@ const examples = [
   {
     name: '01-02-tip',
     isTs: false,
+    isTest: false,
     title: locate(
       'tip \n 自定义提示文案',
       'tip \n custom tip'
@@ -38,6 +40,7 @@ const examples = [
   {
     name: '01-wrapper',
     isTs: false,
+    isTest: false,
     title: locate(
       '包裹容器 \n 直接把内容内嵌到 Spin 中，将现有容器变为加载状态。',
       'Container \n children in Spin'
@@ -49,6 +52,7 @@ const examples = [
   {
     name: '02-chasing-dots',
     isTs: false,
+    isTest: false,
     title: locate(
       'chasing-dots \n name="chasing-dots"',
       'chasing-dots \n name="chasing-dots"'
@@ -60,6 +64,7 @@ const examples = [
   {
     name: '03-cube-grid',
     isTs: false,
+    isTest: false,
     title: locate(
       'cube-grid \n name="cube-grid"',
       'cube-grid \n name="cube-grid"'
@@ -71,6 +76,7 @@ const examples = [
   {
     name: '04-double-bounce',
     isTs: false,
+    isTest: false,
     title: locate(
       'double-bounce \n name="double-bounce"',
       'double-bounce \n name="double-bounce"'
@@ -82,6 +88,7 @@ const examples = [
   {
     name: '05-fading-circle',
     isTs: false,
+    isTest: false,
     title: locate(
       'fading-circle \n name="fading-circle"',
       'fading-circle \n name="fading-circle"'
@@ -93,6 +100,7 @@ const examples = [
   {
     name: '06-four-dots',
     isTs: false,
+    isTest: false,
     title: locate(
       'four-dots \n name="four-dots"',
       'four-dots \n name="four-dots"'
@@ -104,6 +112,7 @@ const examples = [
   {
     name: '07-plane',
     isTs: false,
+    isTest: false,
     title: locate(
       'plane \n name="plane"',
       'plane \n name="plane"'
@@ -115,6 +124,7 @@ const examples = [
   {
     name: '08-pulse',
     isTs: false,
+    isTest: false,
     title: locate(
       'pulse \n name="pulse"',
       'pulse \n name="pulse"'
@@ -126,6 +136,7 @@ const examples = [
   {
     name: '09-ring',
     isTs: false,
+    isTest: false,
     title: locate(
       'ring \n name="ring"',
       'ring \n name="ring"'
@@ -137,6 +148,7 @@ const examples = [
   {
     name: '10-scale-circle',
     isTs: false,
+    isTest: false,
     title: locate(
       'scale-circle \n name="scale-circle"',
       'scale-circle \n name="scale-circle"'
@@ -148,6 +160,7 @@ const examples = [
   {
     name: '11-three-bounce',
     isTs: false,
+    isTest: false,
     title: locate(
       'three-bounce \n name="three-bounce"',
       'three-bounce \n name="three-bounce"'
@@ -159,6 +172,7 @@ const examples = [
   {
     name: '12-wave',
     isTs: false,
+    isTest: false,
     title: locate(
       'wave \n name="wave"',
       'wave \n name="wave"'

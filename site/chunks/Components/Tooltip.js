@@ -14,8 +14,9 @@ const source = locate(cn, en)
 
 const examples = [
   {
-    name: '1-base.tsx',
+    name: '1-base',
     isTs: true,
+    isTest: false,
     title: locate(
       '基本用法 \n 内置了四个弹出方向',
       'Base \n There are four pop-up directions built in.'
@@ -26,8 +27,9 @@ const examples = [
 
   },
   {
-    name: '2-click.tsx',
+    name: '2-click',
     isTs: true,
+    isTest: false,
     title: locate(
       '点击触发 \n 默认触发事件为 hover，如果需要点击触发，可以设置 trigger 为 click',
       'Click \n Set the trigger property to change the trigger event to \'click\'.'
@@ -38,8 +40,9 @@ const examples = [
 
   },
   {
-    name: '3-disabled-inner.tsx',
+    name: '3-disabled-inner',
     isTs: true,
+    isTest: false,
     title: locate(
       '禁用元素 \n 设置 disabledChild 来使内部禁用的元素正常工作',
       'Disabled \n Set disabledChild make disabled child work'

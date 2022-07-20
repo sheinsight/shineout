@@ -24,9 +24,9 @@ for (let i = 1; i < 20; i++) {
 
 const App: React.FC = () => {
   const [value, setValue] = React.useState<number[]>([1, 3, 5, 7, 9])
-  const onChange: TransferProps['onChange'] = React.useCallback(v => {
+  const onChange: TransferProps['onChange'] = v => {
     setValue(v)
-  }, [])
+  }
   return (
     <Transfer
       data={data}

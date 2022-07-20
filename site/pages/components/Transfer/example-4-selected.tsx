@@ -26,13 +26,13 @@ for (let i = 1; i < 20; i++) {
 const App: React.FC = () => {
   const [value, setValue] = React.useState<TransferProps['value']>([1, 3, 5, 7, 9])
   const [selectedKeys, setSelectedKeys] = React.useState<TransferProps['selectedKeys']>([1, 2, 3, 4])
-  const selectChange: TransferProps['onSelectChange'] = React.useCallback((sourceKeys, targetKeys) => {
+  const selectChange: TransferProps['onSelectChange'] = (sourceKeys, targetKeys) => {
     setSelectedKeys([...sourceKeys, ...targetKeys])
-  }, [])
+  }
 
-  const handleChange: TransferProps['onChange'] = React.useCallback(v => {
+  const handleChange: TransferProps['onChange'] = v => {
     setValue(v)
-  }, [])
+  }
 
   return (
     <Transfer

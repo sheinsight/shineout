@@ -16,7 +16,7 @@ const examples = [
   {
     name: '1-base',
     isTs: true,
-
+    isTest: false,
     title: locate(
       '基本用法 \n 组件调用通过 json 数据配置',
       'Base \n The basic usage.'
@@ -29,7 +29,7 @@ const examples = [
   {
     name: '2-separator',
     isTs: true,
-
+    isTest: false,
     title: locate(
       '分隔符 \n 默认的分隔符为 \'/\'，可以通过 separator 属性自定义',
       'separator \n The default separator is \'/\'.'
@@ -42,7 +42,7 @@ const examples = [
   {
     name: '3-icon',
     isTs: true,
-
+    isTest: false,
     title: locate(
       '图标 \n 带图标的面包屑',
       'icon \n Breadcrumbs with icons'
@@ -55,7 +55,7 @@ const examples = [
   {
     name: '4-renderItem',
     isTs: true,
-
+    isTest: false,
     title: locate(
       '自定义渲染 \n 自定义渲染面包屑中的内容',
       'Base \n Custom render content in Breadcrumb'

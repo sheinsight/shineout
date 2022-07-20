@@ -16,7 +16,7 @@ const examples = [
   {
     name: '01-base',
     isTs: false,
-
+    isTest: false,
     title: locate(
       '基本用法 \n EditableArea 默认展示一行，超过一行的内容用...代替',
       'Base \n Editablearea displays one line by default, and more than one line is replaced by ...'
@@ -28,7 +28,7 @@ const examples = [
   {
     name: '02-controlled',
     isTs: false,
-
+    isTest: false,
     title: locate(
       '受控 \n 传递value, onChange使组件受控',
       'Controlled \n Pass value and onChange props to make the component controlled'
@@ -40,7 +40,7 @@ const examples = [
   {
     name: '03-container',
     isTs: false,
-
+    isTest: false,
     title: locate(
       '自定义容器 \n 在内滚容器中使用此组件，可使用 getPopupContainer 指定渲染的目标容器，使之随之滚动',
       'Custom container \n use getPopupContainer return target container'
@@ -52,7 +52,7 @@ const examples = [
   {
     name: '04-renderFooter',
     isTs: false,
-
+    isTest: false,
     title: locate(
       '渲染 textarea footer \n 在输入框内嵌入标题',
       'RenderFooter \n render textarea footer'
@@ -64,7 +64,7 @@ const examples = [
   {
     name: '05-renderResult',
     isTs: false,
-
+    isTest: false,
     title: locate(
       '自定义显示结果 \n 自定义显示结果',
       'RenderResult \n Customize display results'

@@ -16,6 +16,7 @@ const examples = [
   {
     name: '1-base',
     isTs: false,
+    isTest: false,
     title: locate(
       '基本用法 \n 最基本的组件用法。 \n Modal 会在 document.body 中创建一个新的层显示弹出内容。',
       'Base \n The basic usage for component.'
@@ -27,6 +28,7 @@ const examples = [
   {
     name: '10-noPadding',
     isTs: false,
+    isTest: false,
     title: locate(
       '无边距 \n 取消内容区域的padding。在 antd 主题下可见具体效果，sheinout主题本无边距。',
       'NoPadding \n Set the content style padding to 0'
@@ -38,6 +40,7 @@ const examples = [
   {
     name: '2-special',
     isTs: false,
+    isTest: false,
     title: locate(
       '类型 \n Modal 内置了 4 个类型的样式：info（纯信息展示，不带有状态）、Success、Warn 和 Error，为了方便调用，设计为静态函数。',
       'Type \n Modal has 4 built in style.'
@@ -49,6 +52,7 @@ const examples = [
   {
     name: '3-confirm',
     isTs: false,
+    isTest: false,
     title: locate(
       '确认框 \n 调用 confirm 函数可以快捷的显示确认框，便于用户操作；同时可以通过 text 配置 Modal 按钮文案，onOk 与 onClose 配置 Modal 确认和取消事件回调（当事件返回 Promise 时会等待 Promise resolve 后关闭 Modal）',
       'Confirm \n The confirmation modal dialog.'
@@ -60,6 +64,7 @@ const examples = [
   {
     name: '3-focus',
     isTs: false,
+    isTest: false,
     title: locate(
       '默认聚焦按钮 \n 设置 autoFocusButton 可以在打开的时候默认聚焦到某个按钮, 再点击回车可以触发改按钮的点击事件, 方便用户进行键盘操作. 该属性仅在 Modal的 methods 中生效.',
       'Default focus button \n Setting autoFocusButton can focus on a button by default when you open it, and then press Enter to trigger the click event of the button, which is convenient for the user to perform keyboard operation. This property only takes effect in Modal methods'
@@ -71,6 +76,7 @@ const examples = [
   {
     name: '3-full-screen',
     isTs: false,
+    isTest: false,
     title: locate(
       '全屏 \n 使用 fullScreen 属性来使对话框全屏展示',
       'Full Screen \n Use the fullScreen property to display the modal in full screen'
@@ -82,6 +88,7 @@ const examples = [
   {
     name: '3-gcontainer',
     isTs: false,
+    isTest: false,
     title: locate(
       '指定目标 \n 使用 container 来指定 Modal 渲染的目标节点',
       'Target \n set container to render target node'
@@ -93,6 +100,7 @@ const examples = [
   {
     name: '4-form',
     isTs: false,
+    isTest: false,
     title: locate(
       '表单 \n Modal 支持 Form 表单，并且支持 Form 的所有特性，表单提交可以使用 Modal.Submit 来代替 Button[type=submit]',
       'Form \n The internal form of Modal can use Modal.Submit to trigger submit.'
@@ -104,6 +112,7 @@ const examples = [
   {
     name: '4-moveable',
     isTs: false,
+    isTest: false,
     title: locate(
       '可移动/伸缩 \n 设置 moveable 来使 Modal 可以按住头部移动, 设置 resizable 来自由调整 Modal 大小',
       'Moveable/resizable \n set moveable mark modal move by header, set resizable to resize modal'
@@ -115,6 +124,7 @@ const examples = [
   {
     name: '5-multistage',
     isTs: false,
+    isTest: false,
     title: locate(
       '多层 Modal \n 支持多层叠加 Modal',
       'Multistage \n Multi-layer Modal'
@@ -126,6 +136,7 @@ const examples = [
   {
     name: '6-close',
     isTs: false,
+    isTest: false,
     title: locate(
       '点击空白关闭 \n 默认点击对话框外部空白页面会关闭对话框。 \n 设置 maskCloseAble 属性为 false，禁用点击空白关闭，同时右上角的关闭图标也会隐藏。 \n 设置 maskCloseAble 属性为 null，禁用点击空白关闭，右上角的关闭图标会保留。',
       'Close \n By default, clicking on the blank page outside the Modal box will closes the Modal box. \n Set maskCloseAble to false to disable the function that click mask to close and the close icon in the upper right corner will be hidden at the same time. \n Set maskCloseAbel to null to disable the function that click mask to close and the close icon in the upper right corner will be preserved.'
@@ -137,6 +148,7 @@ const examples = [
   {
     name: '7-position',
     isTs: false,
+    isTest: false,
     title: locate(
       '位置（抽屉） \n 通过 position 可设置 Modal 弹出的位置，这时 Modal 就如 Drawer 一样。现支持 top、right、bottom 和 left 四个位置配置。',
       'Position \n Set position property to specify the pop-up position.'
@@ -148,6 +160,7 @@ const examples = [
   {
     name: '8-type',
     isTs: false,
+    isTest: false,
     title: locate(
       '附带图标 \n 使用 type 属性来指定标题附带的图标',
       'Icon \n use type display type icon'
@@ -159,6 +172,7 @@ const examples = [
   {
     name: '9-zoom',
     isTs: false,
+    isTest: false,
     title: locate(
       '缩放动画 \n 设置 zoom 属性来开启缩放动画',
       'Zoom \n Set the zoom property to enable zoom animation'
