@@ -15,7 +15,7 @@ const App: React.FC = () => {
   const [data, setData] = React.useState<TreeProps['data']>(tree)
 
   const handleDrop: TreeProps['onDrop'] = React.useCallback((d, key, targetKey, position) => {
-    console.log(data, key, targetKey, position)
+    console.log(d, key, targetKey, position)
     setData(d)
   }, [])
 

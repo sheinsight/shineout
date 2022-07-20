@@ -38,6 +38,7 @@ const App: React.FC = () => {
       dragImageSelector={d => `#node-id-${d.id}`}
       dragImageStyle={{ color: 'red' }}
       renderItem={renderItem}
+      dragHoverExpand
     />
   )
 }

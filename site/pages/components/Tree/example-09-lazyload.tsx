@@ -27,7 +27,7 @@ const App: React.FC = () => {
         })
         target.children = [...createRange().map(i => ({ id: `${target.id}-${i}` }))]
       })
-      setData(nextData)
+      setTimeout(() => setData(nextData), 500)
     },
     [data]
   )

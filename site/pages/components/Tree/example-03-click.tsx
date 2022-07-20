@@ -57,7 +57,7 @@ const App: React.FC = () => {
       ) : (
         `node ${node.text}`
       ),
-    [active]
+    []
   )
 
   return (
