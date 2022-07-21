@@ -61,6 +61,8 @@
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
 | type | string | primary | As same as Button type |
+| size | string | default | As same as Button size |
+| outline | boolean | false | As same as Button outline |
 | placeholder | ReactNode | none | button default content |
 | loading | ReactNode | none | content of uploading, will have spin if a string |
 
