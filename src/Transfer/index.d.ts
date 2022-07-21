@@ -1,10 +1,10 @@
 import * as React from 'react'
-import { StandardProps, StructDataStandardProps, FormItemStandardProps, ListItemStandardProps } from '../@types/common'
+import { StandardProps, StructDataStandardProps, FormItemStandardProps, ListItemStandardProps, keyType } from '../@types/common'
 
 type filterProps = {
   value: string,
   disabled: boolean,
-  onFilter?: Function,
+  onFilter?: (value: string) => void,
   placeholder?: string,
 }
 export interface TransferProps<Item, Value> extends
@@ -109,7 +109,7 @@ export interface TransferProps<Item, Value> extends
    *
    * default: none
    */
-  onSelectChange?: (sourceKeys: Value, targetKeys: Value) => void;
+  onSelectChange?: (sourceKeys: keyType[], targetKeys: keyType[]) => void;
 
   /**
    * desc: whether to display the icon of the operation button
@@ -145,7 +145,7 @@ export interface TransferProps<Item, Value> extends
    *
    * default: none
    */
-  selectedKeys?: Value[];
+  selectedKeys?: keyType[];
 
   /**
    * desc: title

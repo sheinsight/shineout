@@ -76,5 +76,5 @@ const columns = [
 ]
 
 export default function() {
-  return <Table keygen="id" width={1500} columns={columns} data={data} />
+  return <Table keygen="id" wid columns={columns} data={data} />
 }
