@@ -25,8 +25,10 @@ const App: React.FC = () => (
           src="../../../images/1_s.jpg"
           href="../../../images/1_b.jpg"
         />
+
         <br />
-        {target}
+
+        {t}
       </div>
     ))}
   </div>

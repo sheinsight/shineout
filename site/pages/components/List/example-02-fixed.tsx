@@ -16,16 +16,16 @@ import { fetchSync } from 'doc/data/user'
 
 interface ListItem {
   id: number
-  firstName: string
-  lastName: string
-  position: string
-  start: string
   time: string
-  salary: number
-  country: string
-  office: string
-  office5: string
+  start: string
   height: number
+  salary: number
+  office: string
+  country: string
+  office5: string
+  position: string
+  lastName: string
+  firstName: string
 }
 type ListProps = TYPE.List.Props<ListItem, any>
 type ListRenderItem = ListProps['renderItem']
