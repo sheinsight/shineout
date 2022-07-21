@@ -16,12 +16,6 @@ export default class extends React.Component {
     this.show = this.show.bind(this)
   }
 
-  show() {
-    this.setState({
-      visible: true,
-    })
-  }
-
   bindElement = ref => {
     this.wrapper = ref
   }
@@ -29,6 +23,12 @@ export default class extends React.Component {
   handleDismiss = () => {
     this.setState({
       visible: false,
+    })
+  }
+
+  show() {
+    this.setState({
+      visible: true,
     })
   }
 
