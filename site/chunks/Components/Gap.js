@@ -16,6 +16,7 @@ const examples = [
   {
     name: '1-base',
     isTs: false,
+    isTest: false,
     title: locate(
       '基本用法 \n 为子元素设置水平和垂直间距',
       'Base \n Set horizontal and vertical spacing for child elements'
@@ -27,6 +28,7 @@ const examples = [
   {
     name: '2-custom',
     isTs: false,
+    isTest: false,
     title: locate(
       '自定义间距 \n 通过 row 和 column 分别来调整垂直和水平间距',
       'Custom \n custom the vertical and horizontal spacing by row and column'

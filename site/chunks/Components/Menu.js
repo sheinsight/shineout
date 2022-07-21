@@ -16,6 +16,7 @@ const examples = [
   {
     name: '1-base',
     isTs: false,
+    isTest: false,
     title: locate(
       '基本用法 \n Menu 通过数据来生成菜单项',
       'Base \n Menu generates menu items through data.'
@@ -27,6 +28,7 @@ const examples = [
   {
     name: '1-link',
     isTs: false,
+    isTest: false,
     title: locate(
       '链接 \n 可以通过设置 linkKey 来渲染出对应的链接',
       'link \n Can render the corresponding link by setting linkKey'
@@ -38,6 +40,7 @@ const examples = [
   {
     name: '1-onClick',
     isTs: false,
+    isTest: false,
     title: locate(
       '父菜单可选中 \n 设置 parentSelectable 使父级菜单支持单独选中 <br /> 此时父级菜单左侧区域用于选中，偏右侧区域用于展开和收起子菜单',
       'Parent Selectable \n Setting the parentSelectable property can make the parent menu trigger the onClick of the Menu after clicking'
@@ -49,6 +52,7 @@ const examples = [
   {
     name: '2-horizontal',
     isTs: false,
+    isTest: false,
     title: locate(
       '水平布局 \n 设置 mode 为 "horizontal"，显示为水平布局（子菜单在右侧弹出）',
       'Horizontal \n Set mode to "horizontal" to display it as horizontal layout (submenu pops up on the right).'
@@ -60,6 +64,7 @@ const examples = [
   {
     name: '3-vertical',
     isTs: false,
+    isTest: false,
     title: locate(
       '垂直样式 \n 设置 mode 为 "vertical"，显示为垂直布局 \n 设置 mode 为 "vertical-auto" 可以自动选择弹出方向（上下）',
       'Vertical \n Set mode to "vertical" to display it as vertical layout. \n set \'vertical-auto\' auto popup position'
@@ -71,6 +76,7 @@ const examples = [
   {
     name: '4-disabled',
     isTs: false,
+    isTest: false,
     title: locate(
       '禁用菜单 \n 通过 disabled 属性可以禁用选项',
       'Disabled \n Disable the option by the disabled property.'
@@ -82,6 +88,7 @@ const examples = [
   {
     name: '5-selected',
     isTs: false,
+    isTest: false,
     title: locate(
       '受控 \n active 参数控制选中选项',
       'Controlled \n Set active property to control the actived option.'
@@ -93,6 +100,7 @@ const examples = [
   {
     name: '6-itemRender',
     isTs: false,
+    isTest: false,
     title: locate(
       '自定义渲染 \n 设置 renderItem 属性展现稍微复杂的内容',
       'RenderItem \n Set the renderItem property to show format content.'
@@ -104,6 +112,7 @@ const examples = [
   {
     name: '7-click',
     isTs: false,
+    isTest: false,
     title: locate(
       '点击事件 \n 如果选项未设置单独的 onClick 事件，点击后会调用 Menu 定义的 onClick 事件',
       'Click \n If the data item set the onClick event, this event is called. Otherwise, the onClick event defined by Menu is called.'
@@ -115,6 +124,7 @@ const examples = [
   {
     name: '8-dark',
     isTs: false,
+    isTest: false,
     title: locate(
       '暗系主题 \n 内置了一个暗色的主题，通过 theme 使用',
       'Dark theme \n The dark theme.'
@@ -126,6 +136,7 @@ const examples = [
   {
     name: '9-toggleDuration',
     isTs: false,
+    isTest: false,
     title: locate(
       '菜单项状态改变后持续时间 \n 当鼠标从菜单项中移开时，菜单项会在停留指定时间后消失',
       'ToggleDuration \n When the mouse cursor is removed from  menuitem, the menuitem disappears for a specified period of time'
