@@ -7,10 +7,14 @@
 import React, { useState } from 'react'
 import { Drawer, Button, Form, Input, Message, TYPE } from 'shineout'
 
+interface FormValue {
+  email?: string
+  password?: string
+}
 type DrawerProps = TYPE.Drawer.Props
 type DrawerFooter = DrawerProps['footer']
 
-type FormProps<Value = any> = TYPE.Form.Props<Value>
+type FormProps = TYPE.Form.Props<FormValue>
 type FormRules = FormProps['rules']
 type FormOnSubmit = FormProps['onSubmit']
 

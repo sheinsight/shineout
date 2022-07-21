@@ -11,7 +11,11 @@
 import React from 'react'
 import { Drawer, Button, Select, TYPE } from 'shineout'
 
-type SelectProps<Item = any, Value = any> = TYPE.Select.Props<Item, Value>
+interface SelectItem {
+  title: string
+  value: boolean | null
+}
+type SelectProps = TYPE.Select.Props<SelectItem, SelectItem>
 type SelectData = SelectProps['data']
 type SelectValue = SelectProps['value']
 type SelectOnChange = SelectProps['onChange']
@@ -57,12 +61,12 @@ const App: React.FC = () => {
         width={400}
         visible={visible}
         title="Drawer Title"
-        maskCloseAble={selected.value}
+        maskCloseAble={selected!.value}
         onClose={() => setVisible(false)}
         footer={<Button onClick={() => setVisible(false)}>Close</Button>}
       >
         The prop maskCloseAble is &nbsp;
-        {selected.title}
+        {selected!.title}
         .
         <br />
         You must click the button to close the Drawer.

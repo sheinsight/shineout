@@ -7,15 +7,15 @@
 import React, { useState } from 'react'
 import { Drawer, Button, Select, TYPE } from 'shineout'
 
-type SelectProps<Item = any, Value = any> = TYPE.Select.Props<Item, Value>
-type SelectData = SelectProps['data']
-type SelectOnChange = SelectProps['onChange']
-
 type DrawerProps = TYPE.Drawer.Props
 type DrawerType = DrawerProps['type']
 type DrawerFooter = DrawerProps['footer']
 type DrawerOnClose = DrawerProps['onClose']
 type DrawerVisible = DrawerProps['visible']
+
+type SelectProps = TYPE.Select.Props<DrawerType, DrawerType>
+type SelectData = SelectProps['data']
+type SelectOnChange = SelectProps['onChange']
 
 const App: React.FC = () => {
   const [type, setType] = useState<DrawerType>('success')
