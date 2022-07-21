@@ -3,8 +3,7 @@ import { Tree } from 'shineout'
 import { mount, shallow } from 'enzyme'
 import Render from 'react-test-renderer'
 import FontAwesome from '../../../site/pages/components/Icon/FontAwesome'
-import TreeExpanded from '../../../site/pages/components/Tree/example-05-expanded'
-import TreeDisabled from '../../../site/pages/components/Tree/example-07-disabled'
+import TreeDisabled from '../../../site/pages/components/Tree/example-07-disabled.tsx'
 
 const data = [
   {
@@ -119,11 +118,11 @@ describe('Tree[no-line]', () => {
 
 describe('Tree[expanded]', () => {
   test('should expanded in controller', () => {
-    const wrapper = mount(<TreeExpanded />)
+    const wrapper = mount(<Tree data={data} keygen="id" line={false} expanded={[]} renderItem="id" />)
     const propData = wrapper.find('ShineoutTree').prop('data')
     propData.forEach(v => {
       const { id } = v
-      wrapper.setState({
+      wrapper.setProps({
         expanded: [id],
       })
       wrapper.update()
