@@ -8,11 +8,11 @@ import React, { useState, useEffect } from 'react'
 import { Form, Input, Checkbox, Radio, Textarea, Select, DatePicker, Tree, Upload } from 'shineout'
 
 interface FormValue {
-  age: number
-  email: string
-  endDate: number
-  startDate: number
-  favoriteColor: string[]
+  age?: number
+  email?: string
+  endDate?: number
+  startDate?: number
+  favoriteColor?: string[]
 }
 
 const citys = [
