@@ -8,9 +8,13 @@ import React from 'react'
 import { Form, Input, Button, Rule, TYPE } from 'shineout'
 import FontAwesome from '../Icon/FontAwesome'
 
-interface Value {
+interface Friends {
   name: string
-  [x: string]: string
+  age: number
+}
+interface Value {
+  name?: string
+  friends?: Friends[]
 }
 type RuleFunc = TYPE.Rule.validFunc
 type FieldSetEmpty = TYPE.Form.FieldSetProps<Value>['empty']
