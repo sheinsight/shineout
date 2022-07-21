@@ -16,6 +16,7 @@ const examples = [
   {
     name: '1-base',
     isTs: false,
+    isTest: false,
     title: locate(
       '基本用法 \n Radio.Group 通过数据来生成一组单选框。',
       'Base \n Radio.Group generate a group of radios from an array.'
@@ -27,6 +28,7 @@ const examples = [
   {
     name: '2-group',
     isTs: false,
+    isTest: false,
     title: locate(
       ' \n 将一组 Radio 放在 Radio.Group 中，以 React 组件方式调用。',
       ' \n A series of radios group by Radio.Group.'
@@ -38,6 +40,7 @@ const examples = [
   {
     name: '3-format',
     isTs: false,
+    isTest: false,
     title: locate(
       '复杂数据 \n 复杂的数据可以使用 format 处理 value',
       'Complex data \n Complex data can use format to process value.'
@@ -49,6 +52,7 @@ const examples = [
   {
     name: '5-block',
     isTs: false,
+    isTest: false,
     title: locate(
       '垂直布局 \n 默认为水平布局，设置 block 属性可以改为垂直布局',
       'Vertical layout \n The default is horizontal layout and setting the block property can changed it to be vertical layout.'
@@ -60,6 +64,7 @@ const examples = [
   {
     name: '6-button-1',
     isTs: false,
+    isTest: false,
     title: locate(
       '按钮样式 \n 设置 button 属性可以展示为按钮样式',
       'Button \n set button to show button style'
@@ -71,6 +76,7 @@ const examples = [
   {
     name: '6-button-2',
     isTs: false,
+    isTest: false,
     title: locate(
       ' \n 设置 button 为 outline 可以展示透明背景的按钮样式',
       ' \n set button with outline to show outline button style'
@@ -82,6 +88,7 @@ const examples = [
   {
     name: '6-button-3',
     isTs: false,
+    isTest: false,
     title: locate(
       ' \n 设置 size 可以控制按钮样式的大小',
       ' \n size to set button style size'
@@ -93,6 +100,7 @@ const examples = [
   {
     name: '7-disabled',
     isTs: false,
+    isTest: false,
     title: locate(
       '禁用 \n 设置 disabled 为 true 时，禁用所有选项',
       'Disabled \n Set disabled property is set to true, all the options is disabled.'
@@ -104,6 +112,7 @@ const examples = [
   {
     name: '8-disabled',
     isTs: false,
+    isTest: false,
     title: locate(
       ' \n disabled 为函数时，根据函数返回结果实现有条件禁用',
       ' \n When the disabled is a function, disbale the option that the function to return true.'
@@ -115,6 +124,7 @@ const examples = [
   {
     name: '9-toggle',
     isTs: false,
+    isTest: false,
     title: locate(
       '支持取消 \n 使用组件形式来支持取消选中',
       'Cancel \n Use component list for toggle radio'

@@ -54,24 +54,25 @@ export default function MarkDown({ onHeadingSetted, codes, examples, source }) {
       level: 2,
       children: [text],
     })
-
     cache.examples = [
       <h2 key="h" id={id}>
         {text}
       </h2>,
-      ...examples.map((prop, i) => {
-        if (/\d+-/.test(prop.name)) {
-          const sid = `heading-${prop.name}`
-          const [title] = prop.title.split('\n')
-          appendHeading({
-            id: sid,
-            level: 3,
-            children: [title],
-          })
-          return <Example key={i} id={sid} {...prop} lazy={i > 2} />
-        }
-        return undefined
-      }),
+      ...examples
+        .filter(({ isTest }) => process.env.CASE_ENV === 'test' || !isTest)
+        .map((prop, i) => {
+          if (/\d+-/.test(prop.name)) {
+            const sid = `heading-${prop.name}`
+            const [title] = prop.title.split('\n')
+            appendHeading({
+              id: sid,
+              level: 3,
+              children: [title],
+            })
+            return <Example key={i} id={sid} {...prop} lazy={i > 2} />
+          }
+          return undefined
+        }),
     ]
 
     return cache.examples

@@ -16,6 +16,7 @@ const examples = [
   {
     name: '01-base',
     isTs: false,
+    isTest: false,
     title: locate(
       '基本用法 \n 基础的文件上传, onSuccess 的返回值会作为 value 传给 onChange',
       'Base \n Basic usage for uploading file, the onSuccess\'s returns will be the onChange params'
@@ -27,6 +28,7 @@ const examples = [
   {
     name: '01-onChange',
     isTs: false,
+    isTest: false,
     title: locate(
       '自定义结果 \n 默认展示的结果和 value 里面所存储的值是一样的, 如果有需求需要, 可以用 renderResult 自行处理',
       'Custom result \n The result of the default display is the same as the value stored in the value. If there is a need, you can use the renderResult to handle it yourself.'
@@ -38,6 +40,7 @@ const examples = [
   {
     name: '02-image',
     isTs: false,
+    isTest: false,
     title: locate(
       '上传图片 \n 使用 Upload.Image 处理带预览的图片上传',
       'Image \n Use Upload.Image to upload and preview images.'
@@ -49,6 +52,7 @@ const examples = [
   {
     name: '02-show-image',
     isTs: false,
+    isTest: false,
     title: locate(
       '自定义结果内容 \n 使用  renderContent 可以自定义上传之后的图片结果.',
       'Custom result content \n Use renderContent to customize the image results after uploading.'
@@ -60,6 +64,7 @@ const examples = [
   {
     name: '03-button',
     isTs: false,
+    isTest: false,
     title: locate(
       '按钮上传 \n 使用 Upload.Button 展示单个文件的上传进度',
       'Button \n Use Upload.Button to show the upload progress of individual files'
@@ -71,6 +76,7 @@ const examples = [
   {
     name: '03-confirm',
     isTs: false,
+    isTest: false,
     title: locate(
       '删除确认 \n 设置 removeConfirm 属性来开启删除前确认',
       'Remove Confirm \n Set the removeConfirm property to enable confirmation before deleting'
@@ -82,6 +88,7 @@ const examples = [
   {
     name: '04-validator',
     isTs: false,
+    isTest: false,
     title: locate(
       '校验 \n 通过 validator.imageSize 校验图片长宽，本例为 200px * 100px',
       'Validator \n Set validator.imageSize to validate the width and height of the image.'
@@ -93,6 +100,7 @@ const examples = [
   {
     name: '05-filesize',
     isTs: false,
+    isTest: false,
     title: locate(
       '文件大小 \n 文件大小校验，本例为 10KB',
       ' \n Set validator.size to validate the size of the file. This example is 10KB.'
@@ -104,6 +112,7 @@ const examples = [
   {
     name: '06-error',
     isTs: false,
+    isTest: false,
     title: locate(
       '异常处理 \n onHttpError 用来处理上传到服务器返回的异常',
       'Error \n Set onHttpError to handle exceptions returned by uploading to the server.'
@@ -115,6 +124,7 @@ const examples = [
   {
     name: '08-request-a',
     isTs: false,
+    isTest: false,
     title: locate(
       '自定义上传 \n 通过 request 函数，替代默认上传方法',
       'Custom Request \n Set request property to use your own XMLHttpRequest.'
@@ -126,6 +136,7 @@ const examples = [
   {
     name: '08-request-ignore',
     isTs: false,
+    isTest: false,
     title: locate(
       ' \n 使用 request 略过上传过程',
       ' \n ignore request with request'
@@ -137,6 +148,7 @@ const examples = [
   {
     name: '09-zip',
     isTs: false,
+    isTest: false,
     title: locate(
       ' \n 此事例演示通过自定义函数压缩文件后上传',
       ' \n Zip file and upload.'
@@ -148,6 +160,7 @@ const examples = [
   {
     name: '10-defaultValue',
     isTs: false,
+    isTest: false,
     title: locate(
       '默认值 \n 默认值示例',
       'defaultValue \n defaultValue example'
@@ -159,12 +172,26 @@ const examples = [
   {
     name: '11-dragger',
     isTs: false,
+    isTest: false,
     title: locate(
       '拖拽上传 \n 设置 drop 来支持拖拽上传',
       'Drag and Drop \n set drop to Drag files to upload.'
     ),
     component: require('doc/pages/components/Upload/example-11-dragger.js').default,
     rawText: require('!raw-loader!doc/pages/components/Upload/example-11-dragger.js'),
+
+  },
+  {
+    name: 'test-001-tip',
+    isTs: true,
+    isTest: false,
+    title: locate(
+      'Tip不恢复问题 \n 修复删除错误后Tip不恢复的问题',
+      ''
+    ),
+    component: require('doc/pages/components/Upload/example-test-001-tip.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Upload/example-test-001-tip.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Upload/example-test-001-tip.tsx'),
 
   },
 ]
