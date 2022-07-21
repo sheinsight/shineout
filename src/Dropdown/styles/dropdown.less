@@ -19,12 +19,19 @@
   }
 
   &-button.@{button-prefix}-default {
+    border-color: @dropdown-default-border-width-color;
     &:not(.@{button-prefix}-disabled):hover span.@{dropdown-prefix}-caret,
     &:not(.@{button-prefix}-disabled):active span.@{dropdown-prefix}-caret,
     &:not(.@{button-prefix}-disabled):focus span.@{dropdown-prefix}-caret {
       svg path {
         fill: @colors-primary;
       }
+    }
+
+    &:hover,
+    &:active,
+    &:focus {
+      border-color: @dropdown-default-border-width-hover-color;
     }
 
   }
@@ -296,6 +303,7 @@
       border-radius: 0 @btn-border-radius-base @btn-border-radius-base 0 !important;
       border-top-width: @dropdown-button-group-split-border-width;
       border-bottom-width: @dropdown-button-group-split-border-width;
+      border-color: @btn-default-border;
       &.@{dropdown-prefix}-rtl {
         border-radius:  @btn-border-radius-base 0 0 @btn-border-radius-base !important;
       }
@@ -321,6 +329,12 @@
             margin-right: 0;
           }
         }
+      }
+
+      &:hover,
+      &:active,
+      &:focus {
+        border-color: @btn-primary-border;
       }
     }
   }
