@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Snapshot test: Input[site/pages/components/Input/example-01-base.js] 1`] = `
+exports[`Snapshot test: Input[site/pages/components/Input/example-01-base.tsx] 1`] = `
 <label>
   <input />
 </label>
 `;
 
-exports[`Snapshot test: Input[site/pages/components/Input/example-02-size.js] 1`] = `
+exports[`Snapshot test: Input[site/pages/components/Input/example-02-size.tsx] 1`] = `
 <div>
   <label>
     <input />
@@ -20,7 +20,7 @@ exports[`Snapshot test: Input[site/pages/components/Input/example-02-size.js] 1`
 </div>
 `;
 
-exports[`Snapshot test: Input[site/pages/components/Input/example-03-number.js] 1`] = `
+exports[`Snapshot test: Input[site/pages/components/Input/example-03-number.tsx] 1`] = `
 <div>
   <label>
     <input />
@@ -49,7 +49,7 @@ exports[`Snapshot test: Input[site/pages/components/Input/example-03-number.js] 
 </div>
 `;
 
-exports[`Snapshot test: Input[site/pages/components/Input/example-04-number.js] 1`] = `
+exports[`Snapshot test: Input[site/pages/components/Input/example-04-number.tsx] 1`] = `
 <label>
   <input />
   <a>
@@ -67,7 +67,7 @@ exports[`Snapshot test: Input[site/pages/components/Input/example-04-number.js] 
 </label>
 `;
 
-exports[`Snapshot test: Input[site/pages/components/Input/example-05-group.js] 1`] = `
+exports[`Snapshot test: Input[site/pages/components/Input/example-05-group.tsx] 1`] = `
 <div>
   <div>
     <i />
@@ -121,7 +121,7 @@ exports[`Snapshot test: Input[site/pages/components/Input/example-05-group.js] 1
 </div>
 `;
 
-exports[`Snapshot test: Input[site/pages/components/Input/example-06-tip.js] 1`] = `
+exports[`Snapshot test: Input[site/pages/components/Input/example-06-tip.tsx] 1`] = `
 <div>
   <label>
     <input />
@@ -141,13 +141,13 @@ exports[`Snapshot test: Input[site/pages/components/Input/example-06-tip.js] 1`]
 </div>
 `;
 
-exports[`Snapshot test: Input[site/pages/components/Input/example-07-validate.js] 1`] = `
+exports[`Snapshot test: Input[site/pages/components/Input/example-07-validate.tsx] 1`] = `
 <label>
   <input />
 </label>
 `;
 
-exports[`Snapshot test: Input[site/pages/components/Input/example-08-disabled.js] 1`] = `
+exports[`Snapshot test: Input[site/pages/components/Input/example-08-disabled.tsx] 1`] = `
 <div>
   <div>
     <label>
@@ -166,25 +166,25 @@ exports[`Snapshot test: Input[site/pages/components/Input/example-08-disabled.js
 </div>
 `;
 
-exports[`Snapshot test: Input[site/pages/components/Input/example-09-password.js] 1`] = `
+exports[`Snapshot test: Input[site/pages/components/Input/example-09-password.tsx] 1`] = `
 <label>
   <input />
 </label>
 `;
 
-exports[`Snapshot test: Input[site/pages/components/Input/example-1-clearable.js] 1`] = `
+exports[`Snapshot test: Input[site/pages/components/Input/example-1-clearable.tsx] 1`] = `
 <label>
   <input />
 </label>
 `;
 
-exports[`Snapshot test: Input[site/pages/components/Input/example-1-underline.js] 1`] = `
+exports[`Snapshot test: Input[site/pages/components/Input/example-1-underline.tsx] 1`] = `
 <label>
   <input />
 </label>
 `;
 
-exports[`Snapshot test: Input[site/pages/components/Input/example-10-innertitle.js] 1`] = `
+exports[`Snapshot test: Input[site/pages/components/Input/example-10-innertitle.tsx] 1`] = `
 Array [
   <label
     className="so-input"
@@ -291,7 +291,7 @@ Array [
 ]
 `;
 
-exports[`Snapshot test: Input[site/pages/components/Input/example-11-autoSelect.js] 1`] = `
+exports[`Snapshot test: Input[site/pages/components/Input/example-11-autoSelect.tsx] 1`] = `
 <label>
   <input />
 </label>

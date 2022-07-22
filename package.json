@@ -14,7 +14,7 @@
     "test:update": "jest -u",
     "lint": "eslint src/",
     "stylelint": "stylelint site/**/*.less --fix && stylelint src/**/*.less --fix",
-    "start": "cross-env NODE_ENV=development LOG_ENV=rc CASE_NNV=test node dev-server.js",
+    "start": "cross-env NODE_ENV=development LOG_ENV=rc CASE_ENV=test node dev-server.js",
     "start-site": "cross-env NODE_ENV=development node dev-server.js",
     "css-module": "cross-env NODE_ENV=development LOCAL_IDENT_NAME=[local]-[hash:base64:5] node dev-server.js",
     "docs-build-clean": "node scripts/gh-clean.js",
