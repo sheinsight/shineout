@@ -18,16 +18,17 @@ const App: React.FC = () => {
       v = 100
       setValue(v)
     } else {
-      store += v
+      store = v
       if (store > 100) {
         setValue(100)
         store = 0
       } else {
-        setValue(store)
+        setValue(v)
         setTimeout(handleClick, 320)
       }
     }
   }
+
   return (
     <div>
       <Progress style={{ width: 400 }} value={value}>
