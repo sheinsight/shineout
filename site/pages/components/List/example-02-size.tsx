@@ -21,6 +21,7 @@ interface ListItem {
   firstName: string
 }
 type ListProps = TYPE.List.Props<ListItem, ListItem>
+type ListSize = ListProps['size']
 type ListRenderItem = ListProps['renderItem']
 
 const data: ListItem[] = [
@@ -81,7 +82,7 @@ const data: ListItem[] = [
 const select = ['small', 'default', 'large']
 
 const App: React.FC = () => {
-  const [size, setSize] = useState('default')
+  const [size, setSize] = useState<ListSize>('default')
 
   const renderItem: ListRenderItem = rowData => (
     <List.BaseItem
