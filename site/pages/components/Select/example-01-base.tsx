@@ -7,9 +7,7 @@
 import React from 'react'
 import { Select } from 'shineout'
 
-type SelectItem = string
-
-const data: SelectItem[] = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
+const data: string[] = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
 
 const App: React.FC = () => <Select keygen style={{ width: 240 }} data={data} defaultValue="" />
 

@@ -22,7 +22,7 @@ interface SelectItem {
   lastName: string
   firstName: string
 }
-type SelectProps = TYPE.Select.Props<SelectItem, number>
+type SelectProps = TYPE.Select.Props<SelectItem, number[]>
 type SelectOnFilter = SelectProps['onFilter']
 type SelectRenderItem = SelectProps['renderItem']
 

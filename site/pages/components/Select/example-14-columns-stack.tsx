@@ -12,7 +12,7 @@ interface SelectItem {
   id: number
   city: string
 }
-type SelectProps = TYPE.Select.Props<SelectItem, string>
+type SelectProps = TYPE.Select.Props<SelectItem, number[]>
 type SelectOnFilter = SelectProps['onFilter']
 
 const citys: SelectItem[] = fetchCity(200)

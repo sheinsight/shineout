@@ -9,7 +9,7 @@
 import React from 'react'
 import { Slider, TYPE } from 'shineout'
 
-type SliderProps = TYPE.Slider.Props<number | number[]>
+type SliderProps = TYPE.Slider.Props<number[]>
 type SliderFormatScale = SliderProps['formatScale']
 type SliderFormatValue = SliderProps['formatValue']
 

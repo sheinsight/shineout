@@ -8,7 +8,7 @@ import React from 'react'
 import { Select, TYPE } from 'shineout'
 
 type SelectItem = string
-type SelectProps = TYPE.Select.Props<SelectItem, string>
+type SelectProps = TYPE.Select.Props<SelectItem, string[]>
 type SelectResultClassName = SelectProps['resultClassName']
 
 const style: React.CSSProperties = { width: 240, marginBottom: 12 }
