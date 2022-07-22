@@ -21,7 +21,6 @@ interface TableRowData {
   firstName: string
 }
 type TableColumnItem = TYPE.Table.ColumnItem<TableRowData>
-// type TableProps = TYPE.Table.Props<TableRow, any>
 
 const data: TableRowData[] = [
   {
