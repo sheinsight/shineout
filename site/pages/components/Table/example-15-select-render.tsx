@@ -23,7 +23,7 @@ interface TableRowData {
 }
 
 type TableColumnItem = TYPE.Table.ColumnItem<TableRowData>
-type TableProps = TYPE.Table.Props<TableRowData[], TableRowData>
+type TableProps = TYPE.Table.Props<TableRowData, TableRowData[]>
 type TableOnRowSelect = TableProps['onRowSelect']
 
 const data: TableRowData[] = fetchSync(100)

@@ -217,7 +217,7 @@ export interface TableRef {
   [key: string]: any;
 }
 
-export interface TableProps<Value, TRD> extends StandardProps, ListItemStandardProps<TRD, Value> {
+export interface TableProps<TRD, Value> extends StandardProps, ListItemStandardProps<TRD, Value> {
 
   /**
    * Whether to display the border
@@ -398,7 +398,7 @@ export interface TableProps<Value, TRD> extends StandardProps, ListItemStandardP
    *
    * default: alphaSort(Column.sorter, sorter)
    */
-  sorter?: (sortKey: keyType, sorter: 'asc' | 'desc', sortedList: any[]) => (a: TRD, b: TRD) => boolean;
+  sorter?: (sortKey: string, sorter: 'asc' | 'desc', sortedList: any[]) => (a: TRD, b: TRD) => number;
 
   /**
    * Tree Table expanded row keys
@@ -619,7 +619,7 @@ export interface TableProps<Value, TRD> extends StandardProps, ListItemStandardP
 
 }
 
-declare class Table<Value = any, TRD = TableRowData> extends React.Component<TableProps<Value, TRD>, {}> {
+declare class Table<TRD = TableRowData, Value = any> extends React.Component<TableProps<TRD, Value>, {}> {
   render(): JSX.Element;
 }
 

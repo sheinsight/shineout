@@ -15,9 +15,6 @@ import React from 'react'
 import { Table, TYPE } from 'shineout'
 import { fetchSync } from 'doc/data/user'
 
-interface Sorter {
-  [x: string]: any
-}
 interface TableRowData {
   id: number
   time: string
@@ -67,7 +64,9 @@ const columns: TableColumnItem[] = [
   { title: 'Start Date', render: 'start' },
 ]
 
-const sorter: Sorter = {
+const sorter: {
+  [x: string]: Function
+} = {
   id: (order: TableColumnOrder) => (a: TableRowData, b: TableRowData) => (order === 'asc' ? a.id - b.id : b.id - a.id),
   firstName: (order: TableColumnOrder) => (a: TableRowData, b: TableRowData) =>
     order === 'asc' ? a.firstName.localeCompare(b.firstName) : b.firstName.localeCompare(a.firstName),
@@ -82,15 +81,15 @@ const App: React.FC = () => {
 
   return (
     <Table
-      sorter={handleSorter}
-      fixed="both"
-      keygen="id"
       striped
-      width={1200}
-      style={{ maxHeight: 400 }}
-      columns={columns}
       data={data}
+      keygen="id"
+      fixed="both"
+      width={1200}
       rowsInView={10}
+      columns={columns}
+      sorter={handleSorter}
+      style={{ maxHeight: 400 }}
       onSortCancel={handleCancel}
     />
   )

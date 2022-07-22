@@ -159,10 +159,10 @@ const App: React.FC = () => {
 
   return (
     <Table
-      keygen="id"
-      columns={columns}
       data={d}
+      keygen="id"
       cellSelectable
+      columns={columns}
       rowClassName={(_row, index) => (index === target ? 'example-drag-in' : '')}
       rowEvents={{
         draggable: true,

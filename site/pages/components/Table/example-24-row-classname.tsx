@@ -23,7 +23,7 @@ interface TableRowData {
 }
 
 type TableColumnItem = TYPE.Table.ColumnItem<TableRowData>
-type TableProps = TYPE.Table.Props<TableRowData[], TableRowData>
+type TableProps = TYPE.Table.Props<TableRowData, TableRowData[]>
 type TableRowClassName = TableProps['rowClassName']
 
 const data: TableRowData[] = fetchSync(20)

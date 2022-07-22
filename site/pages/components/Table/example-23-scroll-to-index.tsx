@@ -80,15 +80,15 @@ const App: React.FC = () => {
       </Form>
 
       <Table
-        fixed="both"
         keygen="id"
-        width={1400}
-        style={{ height: 600 }}
-        columns={columns}
         data={data}
-        tableRef={t => setTable(t)}
-        rowsInView={10}
+        fixed="both"
+        width={1400}
         rowHeight={80}
+        rowsInView={10}
+        columns={columns}
+        style={{ height: 600 }}
+        tableRef={t => setTable(t)}
       />
     </div>
   )
