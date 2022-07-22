@@ -8,10 +8,10 @@ import React from 'react'
 import { Button, Popover, Message, TYPE } from 'shineout'
 
 type PopoverProps = TYPE.Popover.Props
-type PopoverContent = PopoverProps['content']
+type PopoverContentChildren = PopoverProps['children']
 
 const App: React.FC = () => {
-  const content: PopoverContent = (close: () => void) => (
+  const content: PopoverContentChildren = (close: () => void) => (
     <div style={{ padding: 20 }}>
       <div>Are you sure you want to close this panel?</div>
       <div style={{ marginTop: 30, textAlign: 'right' }}>

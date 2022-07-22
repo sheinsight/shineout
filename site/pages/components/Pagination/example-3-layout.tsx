@@ -5,12 +5,9 @@
  *    -- Use the layout property to control whether the child elements is displayed and where is displayed.
  */
 import React from 'react'
-import { Pagination, TYPE } from 'shineout'
+import { Pagination } from 'shineout'
 
-type PaginationProps = TYPE.Pagination.Props
-type PaginationLayout = PaginationProps['layout']
-
-const info = ({ total }: { total: PaginationLayout }) => `total ${total}`
+const info = ({ total }: { total: number }) => `total ${total}`
 
 const App: React.FC = () => (
   <Pagination
