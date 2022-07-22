@@ -16,6 +16,7 @@ const examples = [
   {
     name: '1-top',
     isTs: false,
+    isTest: false,
     title: locate(
       '基本 \n 附着在顶部 20px',
       'Basic \n Sticky 20px to top'
@@ -27,6 +28,7 @@ const examples = [
   {
     name: '2-element',
     isTs: false,
+    isTest: false,
     title: locate(
       '指定元素 \n 附着在元素内',
       'Element \n Sticky to element'
@@ -38,6 +40,7 @@ const examples = [
   {
     name: '3-bottom',
     isTs: false,
+    isTest: false,
     title: locate(
       '位置 \n 附着在底部',
       'Position \n Sticky to bottom'
