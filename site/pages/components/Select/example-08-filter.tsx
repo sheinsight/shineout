@@ -24,7 +24,7 @@ const highlight = (Component: any) => (props: SelectProps) => {
   }
 
   const handleRenderItem: SelectRenderItem = (d, index) => {
-    const { renderItem = v => v, highlightStyle } = props
+    const { renderItem = v => v } = props
     const result = typeof renderItem === 'function' ? renderItem(d, index) : d[renderItem]
 
     if (!filterText) return result
@@ -34,7 +34,7 @@ const highlight = (Component: any) => (props: SelectProps) => {
       return (
         <React.Fragment key={i}>
           {item}
-          <span style={highlightStyle}>{filterText}</span>
+          <span style={{ color: '#FF4E50' }}>{filterText}</span>
         </React.Fragment>
       )
     })
