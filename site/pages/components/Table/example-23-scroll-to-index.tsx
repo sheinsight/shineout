@@ -48,16 +48,17 @@ const App: React.FC = () => {
   const [table, setTable] = useState<any>()
 
   const [state, setState] = useState({
-    index: 1,
+    index: 25,
   })
 
   const handleScroll = () => {
-    table.scrollToIndex(state.index - 1, () => {
-      const el: HTMLElement = document.querySelector(`#name_${state.index}`)!
-      if (el) {
-        el.style.color = 'red'
-      }
-    })
+    if (table)
+      table.scrollToIndex(state.index - 1, () => {
+        const el: HTMLElement = document.querySelector(`#name_${state.index}`)!
+        if (el) {
+          el.style.color = 'red'
+        }
+      })
   }
 
   const handleIndexChange = ({ index }: { index: number }) => {
