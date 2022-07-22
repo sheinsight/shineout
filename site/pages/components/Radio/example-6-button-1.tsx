@@ -7,9 +7,7 @@
 import React from 'react'
 import { Radio } from 'shineout'
 
-type RadioGroupItem = string
-
-const data: RadioGroupItem[] = ['red', 'orange', 'yellow']
+const data: string[] = ['red', 'orange', 'yellow']
 
 const App: React.FC = () => <Radio.Group button keygen data={data} defaultValue="red" />
 

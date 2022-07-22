@@ -9,7 +9,7 @@ import { Radio } from 'shineout'
 
 type RadioGroupItem = string
 
-const data: RadioGroupItem[] = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
+const data: string[] = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
 
 const App: React.FC = () => {
   const [current, setCurrent] = useState<RadioGroupItem>('red')
