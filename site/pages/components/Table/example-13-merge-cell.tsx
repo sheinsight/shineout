@@ -31,11 +31,11 @@ type TableColumnOrder = TYPE.Table.ColumnOrder
 
 const App: React.FC = () => {
   const [total, setTotal] = useState(0)
-  const [sorter, setSorter] = useState({})
   const [current, setCurrent] = useState(1)
-  const [pageSize, setPageSize] = useState(20)
+  const [pageSize, setPageSize] = useState(10)
   const [loading, setLoading] = useState(false)
   const [data, setData] = useState<TableRowData[]>([])
+  const [sorter, setSorter] = useState({ name: 'start', order: 'asc' })
 
   const fetchData = () => {
     setLoading(true)
