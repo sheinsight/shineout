@@ -16,6 +16,7 @@ const examples = [
   {
     name: '1-base',
     isTs: false,
+    isTest: false,
     title: locate(
       '基本用法 \n 基本的 Switch',
       'Base \n Base Switch.'
@@ -27,6 +28,7 @@ const examples = [
   {
     name: '2-disabled',
     isTs: false,
+    isTest: false,
     title: locate(
       '禁用 \n 设置 disabled 为 true 禁用 switch',
       'Disabled \n disabled check while disabled true'
@@ -38,6 +40,7 @@ const examples = [
   {
     name: '3-content',
     isTs: false,
+    isTest: false,
     title: locate(
       '内容 \n 为每个状态添加描述',
       'Base \n Description for every status.'
@@ -49,6 +52,7 @@ const examples = [
   {
     name: '4-size',
     isTs: false,
+    isTest: false,
     title: locate(
       '大小 \n 通过 size 设置 Switch 大小',
       'Size \n size set'

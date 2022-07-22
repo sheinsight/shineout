@@ -3,7 +3,7 @@ import * as utils from './utils'
 
 declare const __default: {
   utils: typeof utils,
-  version: '1.11.0-rc.17'
+  version: '1.11.0-rc.18'
 }
 
 export default __default
@@ -52,6 +52,7 @@ export { default as Divider } from './Divider'
 import { DividerProps as __DividerProps ,  } from './Divider'
 
 export { default as Drawer } from './Drawer'
+import { DrawerProps as __DrawerProps ,  } from './Drawer'
 
 export { default as Dropdown } from './Dropdown'
 import { DropdownProps as __DropdownProps , DropdownItem as __DropdownItem } from './Dropdown'
@@ -104,7 +105,7 @@ export { default as Rate } from './Rate'
 import { RateProps as __RateProps ,  } from './Rate'
 
 export { default as Rule } from './Rule'
-import { Max as __Max,Min as __Min,Type as __Type,Range as __Range,Required as __Required,validFunc as __validFunc,RuleParams as __RuleParams,RuleResult as __RuleResult,RegExpParams as __RegExpParams,paramFunc as __paramFunc , RuleParamsType as __RuleParamsType } from './Rule'
+import { Max as __Max,Min as __Min,Type as __Type,Range as __Range,Required as __Required,validFunc as __validFunc,RuleParams as __RuleParams,RuleResult as __RuleResult,RegExpParams as __RegExpParams,paramFunc as __paramFunc , RuleCommon as __RuleCommon,RuleParamsType as __RuleParamsType } from './Rule'
 
 export { default as Scroll } from './Scroll'
 
@@ -203,6 +204,9 @@ export namespace TYPE {
   export namespace Divider {
     export type Props = __DividerProps
   }
+  export namespace Drawer {
+    export type Props = __DrawerProps
+  }
   export namespace Dropdown {
     export type Props = __DropdownProps  
     export type Item = __DropdownItem
@@ -288,6 +292,7 @@ export namespace TYPE {
     export type Result = __RuleResult
     export type RegExpParams = __RegExpParams
     export type paramFunc<U> = __paramFunc<U>  
+    export type Common<U> = __RuleCommon<U>
     export type ParamsType<Value, P> = __RuleParamsType<Value, P>
   }
   export namespace Select {
@@ -326,7 +331,7 @@ export namespace TYPE {
     export type InputProps = __TagInputProps
   }
   export namespace Textarea {
-    export type Props<Value> = __TextareaProps<Value>
+    export type Props = __TextareaProps
   }
   export namespace Tooltip {
     export type Props = __TooltipProps
@@ -338,7 +343,7 @@ export namespace TYPE {
     export type Props<Item, Value> = __TreeProps<Item, Value>
   }
   export namespace TreeSelect {
-    export type Props<Value, Data> = __TreeSelectProps<Value, Data>
+    export type Props<Item, Value> = __TreeSelectProps<Item, Value>
   }
   export namespace Upload {
     export type Props<T> = __UploadProps<T>

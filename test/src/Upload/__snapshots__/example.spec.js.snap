@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Snapshot test: Upload[site/pages/components/Upload/example-01-base.js] 1`] = `
+exports[`Snapshot test: Upload[site/pages/components/Upload/example-01-base.tsx] 1`] = `
 <div>
   <span>
     <button>
@@ -14,7 +14,7 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-01-base.js] 
 </div>
 `;
 
-exports[`Snapshot test: Upload[site/pages/components/Upload/example-01-onChange.js] 1`] = `
+exports[`Snapshot test: Upload[site/pages/components/Upload/example-01-onChange.tsx] 1`] = `
 <div>
   <span>
     <button>
@@ -28,7 +28,7 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-01-onChange.
 </div>
 `;
 
-exports[`Snapshot test: Upload[site/pages/components/Upload/example-02-image.js] 1`] = `
+exports[`Snapshot test: Upload[site/pages/components/Upload/example-02-image.tsx] 1`] = `
 <div>
   <div>
     <div>
@@ -45,7 +45,7 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-02-image.js]
 </div>
 `;
 
-exports[`Snapshot test: Upload[site/pages/components/Upload/example-02-show-image.js] 1`] = `
+exports[`Snapshot test: Upload[site/pages/components/Upload/example-02-show-image.tsx] 1`] = `
 <div>
   <div>
     <div>
@@ -60,7 +60,7 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-02-show-imag
 </div>
 `;
 
-exports[`Snapshot test: Upload[site/pages/components/Upload/example-03-button.js] 1`] = `
+exports[`Snapshot test: Upload[site/pages/components/Upload/example-03-button.tsx] 1`] = `
 <div>
   <span>
     <button>
@@ -73,7 +73,7 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-03-button.js
 </div>
 `;
 
-exports[`Snapshot test: Upload[site/pages/components/Upload/example-04-validator.js] 1`] = `
+exports[`Snapshot test: Upload[site/pages/components/Upload/example-04-validator.tsx] 1`] = `
 <div>
   <div>
     <div>
@@ -81,7 +81,7 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-04-validator
         <div>
           <div>
             <i />
-             Upload Image
+            Upload Image
             <br />
             Allow size 200 * 100
           </div>
@@ -93,14 +93,14 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-04-validator
 </div>
 `;
 
-exports[`Snapshot test: Upload[site/pages/components/Upload/example-05-filesize.js] 1`] = `
+exports[`Snapshot test: Upload[site/pages/components/Upload/example-05-filesize.tsx] 1`] = `
 <div>
   <div>
     <span>
       <button>
         <i />
         <span>
-           Upload file
+          Upload file
         </span>
       </button>
       <input />
@@ -121,14 +121,14 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-05-filesize.
 </div>
 `;
 
-exports[`Snapshot test: Upload[site/pages/components/Upload/example-06-error.js] 1`] = `
+exports[`Snapshot test: Upload[site/pages/components/Upload/example-06-error.tsx] 1`] = `
 <div>
   <div>
     <span>
       <button>
         <i />
         <span>
-           Upload file
+          Upload file
         </span>
       </button>
       <input />
@@ -149,7 +149,7 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-06-error.js]
 </div>
 `;
 
-exports[`Snapshot test: Upload[site/pages/components/Upload/example-08-request-a.js] 1`] = `
+exports[`Snapshot test: Upload[site/pages/components/Upload/example-08-request-a.tsx] 1`] = `
 <div>
   <span>
     <button>
@@ -163,7 +163,7 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-08-request-a
 </div>
 `;
 
-exports[`Snapshot test: Upload[site/pages/components/Upload/example-08-request-ignore.js] 1`] = `
+exports[`Snapshot test: Upload[site/pages/components/Upload/example-08-request-ignore.tsx] 1`] = `
 <div>
   <div>
     <div>
@@ -178,13 +178,13 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-08-request-i
 </div>
 `;
 
-exports[`Snapshot test: Upload[site/pages/components/Upload/example-09-zip.js] 1`] = `
+exports[`Snapshot test: Upload[site/pages/components/Upload/example-09-zip.tsx] 1`] = `
 <div>
   <span>
     <button>
       <i />
       <span>
-         Upload file
+        Upload file
       </span>
     </button>
     <input />
@@ -192,7 +192,7 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-09-zip.js] 1
 </div>
 `;
 
-exports[`Snapshot test: Upload[site/pages/components/Upload/example-10-defaultValue.js] 1`] = `
+exports[`Snapshot test: Upload[site/pages/components/Upload/example-10-defaultValue.tsx] 1`] = `
 <div>
   <div>
     <span>
@@ -251,7 +251,7 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-10-defaultVa
 </div>
 `;
 
-exports[`Snapshot test: Upload[site/pages/components/Upload/example-11-dragger.js] 1`] = `
+exports[`Snapshot test: Upload[site/pages/components/Upload/example-11-dragger.tsx] 1`] = `
 <div>
   <div>
     <div>
@@ -287,4 +287,27 @@ exports[`Snapshot test: Upload[site/pages/components/Upload/example-11-dragger.j
     </span>
   </div>
 </div>
+`;
+
+exports[`Snapshot test: Upload[site/pages/components/Upload/example-test-001-tip.tsx] 1`] = `
+<form>
+  <div>
+    <div>
+      <div>
+        <span>
+          <button>
+            <i />
+            <span>
+              Upload file
+            </span>
+          </button>
+          <input />
+        </span>
+      </div>
+      <div>
+        hello world
+      </div>
+    </div>
+  </div>
+</form>
 `;
