@@ -7,13 +7,13 @@
 import React from 'react'
 import { Button, Popover } from 'shineout'
 
-export default function() {
-  return (
-    <Button>
-      <Popover.Content>
-        <span> hello world </span>
-      </Popover.Content>
-      content
-    </Button>
-  )
-}
+const App: React.FC = () => (
+  <Button>
+    <Popover.Content>
+      <span> hello world </span>
+    </Popover.Content>
+    content
+  </Button>
+)
+
+export default App

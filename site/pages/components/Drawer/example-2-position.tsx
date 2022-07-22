@@ -10,13 +10,14 @@ import { Drawer, Button, Form, Input, Select, TYPE } from 'shineout'
 type DrawerProps = TYPE.Drawer.Props
 type DrawerFooter = DrawerProps['footer']
 type DrawerOnClose = DrawerProps['onClose']
+type DrawerPosition = DrawerProps['position']
 
 type ButtonProps = TYPE.Button.Props
 type ButtonOnClick = ButtonProps['onClick']
 
 const App: React.FC = () => {
   const [visible, setVisible] = useState(false)
-  const [position, setPosition] = useState('right')
+  const [position, setPosition] = useState<DrawerPosition>('right')
 
   const handleClose: DrawerOnClose = () => {
     setVisible(false)
