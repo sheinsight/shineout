@@ -60,13 +60,13 @@ const App: React.FC = () => {
       <Table rowClickAttr={attrs} onRowClick={handleClick} keygen="id" columns={columns} data={dataList} />
       Select rowClickAttr：
       <Select
-        style={{ width: '300px', margin: '0 0 10px 10px' }}
-        data={['data-info', 'data-call', '*']}
         keygen
         multiple
-        placeholder="select rowClickAttr"
         value={attrs}
         onChange={handleChange}
+        placeholder="select rowClickAttr"
+        data={['data-info', 'data-call', '*']}
+        style={{ width: '300px', margin: '0 0 10px 10px' }}
       />
       <div>
         <span>onRowClick call count： </span>
