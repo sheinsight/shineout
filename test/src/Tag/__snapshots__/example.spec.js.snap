@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Snapshot test: Tag[site/pages/components/Tag/example-1-base.js] 1`] = `
+exports[`Snapshot test: Tag[site/pages/components/Tag/example-1-base.tsx] 1`] = `
 <div>
   <div>
     <span>
@@ -27,7 +27,7 @@ exports[`Snapshot test: Tag[site/pages/components/Tag/example-1-base.js] 1`] = `
 </div>
 `;
 
-exports[`Snapshot test: Tag[site/pages/components/Tag/example-2-type.js] 1`] = `
+exports[`Snapshot test: Tag[site/pages/components/Tag/example-2-type.tsx] 1`] = `
 <div>
   <div>
     <span>
@@ -57,7 +57,7 @@ exports[`Snapshot test: Tag[site/pages/components/Tag/example-2-type.js] 1`] = `
 </div>
 `;
 
-exports[`Snapshot test: Tag[site/pages/components/Tag/example-3-bgcolor.js] 1`] = `
+exports[`Snapshot test: Tag[site/pages/components/Tag/example-3-bgcolor.tsx] 1`] = `
 <div>
   <div>
     <span>
@@ -82,7 +82,7 @@ exports[`Snapshot test: Tag[site/pages/components/Tag/example-3-bgcolor.js] 1`] 
 </div>
 `;
 
-exports[`Snapshot test: Tag[site/pages/components/Tag/example-4-close.js] 1`] = `
+exports[`Snapshot test: Tag[site/pages/components/Tag/example-4-close.tsx] 1`] = `
 <div>
   <div>
     <div>
@@ -123,7 +123,7 @@ exports[`Snapshot test: Tag[site/pages/components/Tag/example-4-close.js] 1`] = 
 </div>
 `;
 
-exports[`Snapshot test: Tag[site/pages/components/Tag/example-5-disabled.js] 1`] = `
+exports[`Snapshot test: Tag[site/pages/components/Tag/example-5-disabled.tsx] 1`] = `
 <div>
   <div>
     <span>
@@ -150,7 +150,7 @@ exports[`Snapshot test: Tag[site/pages/components/Tag/example-5-disabled.js] 1`]
 </div>
 `;
 
-exports[`Snapshot test: Tag[site/pages/components/Tag/example-6-dynamic.js] 1`] = `
+exports[`Snapshot test: Tag[site/pages/components/Tag/example-6-dynamic.tsx] 1`] = `
 <div>
   <div>
     <div>
@@ -196,7 +196,7 @@ exports[`Snapshot test: Tag[site/pages/components/Tag/example-6-dynamic.js] 1`] 
 </div>
 `;
 
-exports[`Snapshot test: Tag[site/pages/components/Tag/example-7-editable.js] 1`] = `
+exports[`Snapshot test: Tag[site/pages/components/Tag/example-7-editable.tsx] 1`] = `
 <div>
   <div>
     <div>

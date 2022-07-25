@@ -5,7 +5,7 @@
  *    -- Style is set using the same type and size as Button.
  */
 import React, { Component } from 'react'
-import { Dropdown, Message, Select, Checkbox } from 'shineout'
+import { Dropdown, Message, Select, Checkbox, Button } from 'shineout'
 
 const menu = [
   {
@@ -78,7 +78,7 @@ export default class extends Component {
             disabled
           </Checkbox>
         </div>
-
+        <Button type="primary">123</Button>
         <Dropdown placeholder="Dropdown" data={menu} disabled={disabled} outline={outline} size={size} type={type} />
       </div>
     )
