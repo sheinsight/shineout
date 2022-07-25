@@ -13,8 +13,8 @@ const App: React.FC = () => (
   <div>
     <FontAwesome style={margin} name="home" />
     <FontAwesome style={margin} name="home" type="info" fontSize={18} />
-    <FontAwesome style={{ fontSize: 30, color: '#f5222d' }} name="home" />
     <FontAwesome style={margin} name="home" type="success" fontSize="24px" />
+    <FontAwesome style={{ fontSize: 30, color: '#f5222d' }} name="home" />
   </div>
 )
 
