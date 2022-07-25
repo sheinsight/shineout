@@ -64,6 +64,8 @@
 | 属性 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
 | type | string | primary | 按钮类型详见按钮type属性 |
+| size | string | default | 按钮类型详见按钮size属性 |
+| outline | boolean | false | 按钮类型详见按钮outline属性 |
 | placeholder | ReactNode | 无 | 按钮默认内容 |
 | loading | ReactNode | 无 | 上传中按钮的内容，如果是字符串默认会有spin loading |
 
