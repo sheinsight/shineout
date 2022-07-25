@@ -303,7 +303,11 @@
       border-radius: 0 @btn-border-radius-base @btn-border-radius-base 0 !important;
       border-top-width: @dropdown-button-group-split-border-width;
       border-bottom-width: @dropdown-button-group-split-border-width;
-      border-color: @btn-default-border;
+      
+      &.@{button-prefix}-default {
+        border-color: @btn-default-border;
+      }
+
       &.@{dropdown-prefix}-rtl {
         border-radius:  @btn-border-radius-base 0 0 @btn-border-radius-base !important;
       }
@@ -320,6 +324,7 @@
           }
         }
       }
+      
       &.@{dropdown-prefix}-rtl {
         &:after {
           margin-right: 0;
@@ -331,11 +336,14 @@
         }
       }
 
-      &:hover,
-      &:active,
-      &:focus {
-        border-color: @btn-primary-border;
+      &.@{button-prefix}-default{
+        &:hover,
+        &:active,
+        &:focus {
+          border-color: @btn-primary-border;
+        }
       }
     }
+    
   }
 }
