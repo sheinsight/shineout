@@ -1,6 +1,6 @@
 {
   "name": "shineout",
-  "version": "1.10.13",
+  "version": "1.10.14",
   "description": "Shein 前端组件库",
   "main": "./lib/index.js",
   "module": "./es/index.js",
