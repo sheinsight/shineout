@@ -14,7 +14,7 @@ export interface BaseParams {
 }
 
 export interface Validator {
-  customValidator?: (blob: Blob) => (void | Error | Promise<any>)
+  customValidator?: (file: File) => (void | Error | Promise<any>)
   ext?: (ext: string) => (void | Error | Promise<any>),
   imageSize?: (image: {width: number, height: number}) => (void | Error),
   size?: (size: number) => (void | Error | Promise<any>),
@@ -28,7 +28,7 @@ export interface Options<T> {
    *
    * default: -
    */
-  file: Blob | File;
+  file:  File;
   /**
    * header
    *
@@ -87,7 +87,7 @@ export interface Options<T> {
   params?: BaseParams;
 }
 
-export interface UploadProps<T> extends StandardProps, OmitFormProps<T[]>{
+export interface UploadProps<T> extends StandardProps, OmitFormProps<T[]> {
 
   /**
    * The type of the upload file, same as the standard,See details [accept](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept)
@@ -285,7 +285,7 @@ export interface UploadProps<T> extends StandardProps, OmitFormProps<T[]>{
    *
    * default: none
    */
-  onErrorRemove?: (xhr: XMLHttpRequest, file: Blob) => void;
+  onErrorRemove?: (xhr: XMLHttpRequest, file: File) => void;
 
   /**
    * After disabled the file type filtering provided by accept, it is mandatory to check the file type, value same as accept
@@ -362,7 +362,7 @@ export interface UploadProps<T> extends StandardProps, OmitFormProps<T[]>{
    *  default: -
    *
    */
-  // beforeUpload?: (blob: Blob) => Promise<any>
+  // beforeUpload?: (file: File) => Promise<any>
 
 
   /**
@@ -374,7 +374,18 @@ export interface UploadProps<T> extends StandardProps, OmitFormProps<T[]>{
    *
    */
   webkitdirectory?: boolean | string
+
+  /**
+   *  The same as the native webkitdirectory tag
+   *
+   *  同原生 input 标签的 webkitdirectory 属性
+   *
+   *  default: -
+   *
+   */
+  onStart?: (file: File) => void
 }
+
 
 export interface UploadImageProps<T> extends UploadProps<T>{
 
@@ -412,7 +423,7 @@ export interface UploadImageProps<T> extends UploadProps<T>{
    *
    * default: none
    */
-  onErrorRemove?: (xhr: XMLHttpRequest, file: Blob) => void;
+  onErrorRemove?: (xhr: XMLHttpRequest, file: File) => void;
 
   /**
    *  how to preview the image

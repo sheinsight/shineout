@@ -27,6 +27,7 @@
 | rowsInView | number | 10 | 否 | 同时展示的列表项数量 |
 | lineHeight | number | 32 | 否 | 列表项高度 |
 | colNum | number | 1 | 否 | 多列展示 |
+| size | small \| default \| large | default | 否 | 尺寸 |
 
 ### List.BaseItem
 

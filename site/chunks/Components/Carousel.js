@@ -14,8 +14,9 @@ const source = locate(cn, en)
 
 const examples = [
   {
-    name: '1-base.tsx',
+    name: '1-base',
     isTs: true,
+    isTest: false,
     title: locate(
       '基本用法 \n 轮播组件提供了三种动画过渡方式，可以切换选项查看效果',
       'Base \n The carousel component provides three modes of animation transition. Change the option to view the result.'
@@ -26,8 +27,9 @@ const examples = [
 
   },
   {
-    name: '2-custom-indicator.tsx',
+    name: '2-custom-indicator',
     isTs: true,
+    isTest: false,
     title: locate(
       '自定义 Indicator \n 当 indicatorType 为函数时，可以自定义 Indicator',
       'Custom Indicator \n Indicators can be customized when indicatorType is a function.'

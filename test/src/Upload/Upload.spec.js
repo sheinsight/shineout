@@ -1,8 +1,8 @@
 import React from 'react'
 import { mount } from 'enzyme'
 import { Upload } from 'shineout'
-import UploadImage from '../../../site/pages/components/Upload/example-02-image'
-import UploadButton from '../../../site/pages/components/Upload/example-03-button'
+import UploadImage from '../../../site/pages/components/Upload/example-02-image.tsx'
+import UploadButton from '../../../site/pages/components/Upload/example-03-button.tsx'
 
 /* global SO_PREFIX */
 describe('Upload[Base]', () => {

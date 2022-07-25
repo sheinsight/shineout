@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { StandardProps, StructDataStandardProps, ListItemStandardProps } from '../@types/common'
+import { StandardProps, StructDataStandardProps, ListItemStandardProps, RegularAttributes} from '../@types/common'
 
 type ReactNode = React.ReactNode;
 
@@ -76,7 +76,7 @@ export interface ListProps<Item, Value> extends StandardProps,
    *
    * default: null
    */
-  onChange?: (rowData: Item, index: number) => void;
+  onChange?: (rowData: Value[], index: number) => void;
 
 
   /**
@@ -117,6 +117,16 @@ export interface ListProps<Item, Value> extends StandardProps,
    * default: none
    */
   value?: Value[];
+
+
+  /**
+   * size of list
+   *
+   * 尺寸
+   *
+   * default: 'default'
+   */
+  size?: RegularAttributes.Size;
 }
 
 export interface ListBaseItemProps{

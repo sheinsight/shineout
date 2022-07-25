@@ -97,7 +97,9 @@ export { color, style } from './utils/expose'
 export { default as config, setConfig, isRTL } from './config'
 
 export { default as LazyList } from './AnimationList/LazyList'
+
 export { default as List } from './DataList'
+import { ListProps as __ListProps , ListBaseItemProps as __ListBaseItemProps } from './DataList'
 
 <% for(let key in components){ -%>
 export { default as <%= key %> } from './<%= key %>'
@@ -108,6 +110,12 @@ import { <%- getAsName(getTypeName(components[key].props)) -%><%- components[key
 <% } -%>
 
 export namespace <%= NAMESPACE -%> {
+
+  export namespace List {
+    export type Props<Item,Value> = __ListProps<Item , Value>
+    export type BaseItemProps = __ListBaseItemProps
+  }
+
 <% for(let key in components){ -%>
 <% if(!components[key].hideProps) { -%>
   export namespace <%= key -%> {

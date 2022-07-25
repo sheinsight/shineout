@@ -1,12 +1,13 @@
 import React from 'react'
 import { Pagination } from 'shineout'
 import { mount } from 'enzyme'
-import PaginationSize from '../../../site/pages/components/Pagination/example-2-size'
-import PaginationLayout from '../../../site/pages/components/Pagination/example-3-layout'
-import PaginationText from '../../../site/pages/components/Pagination/example-4-text'
-import PaginationAlign from '../../../site/pages/components/Pagination/example-5-align'
-import PaginationController from '../../../site/pages/components/Pagination/example-7-controlled'
-import PaginationDisabled from '../../../site/pages/components/Pagination/example-8-disabled'
+import { appendToDOM } from '../../utils'
+import PaginationSize from '../../../site/pages/components/Pagination/example-2-size.tsx'
+import PaginationLayout from '../../../site/pages/components/Pagination/example-3-layout.tsx'
+import PaginationText from '../../../site/pages/components/Pagination/example-4-text.tsx'
+import PaginationAlign from '../../../site/pages/components/Pagination/example-5-align.tsx'
+import PaginationController from '../../../site/pages/components/Pagination/example-7-controlled.tsx'
+import PaginationDisabled from '../../../site/pages/components/Pagination/example-8-disabled.tsx'
 
 /* global SO_PREFIX */
 describe('Pagination[Base]', () => {
@@ -150,16 +151,28 @@ describe('Pagination[position]', () => {
 describe('Pagination[controller]', () => {
   test('should render controller component', () => {
     const wrapper = mount(<PaginationController />)
-    Array(50)
-      .fill(1)
-      .forEach((p, index) => {
-        wrapper.setState({
-          current: index + 1,
-        })
-        wrapper.find(`.${SO_PREFIX}-pagination-current`).forEach(item => {
-          expect(item.find('a').text()).toBe(String(index + 1))
-        })
-      })
+    wrapper
+      .find('ShineoutInputNumber')
+      .props()
+      .onChange(3)
+
+    wrapper.update()
+
+    const textFirst = wrapper
+      .find(Pagination)
+      .first()
+      .find(`.${SO_PREFIX}-pagination-current`)
+      .text()
+
+    const textLast = wrapper
+      .find(Pagination)
+      .last()
+      .find(`.${SO_PREFIX}-pagination-current`)
+      .text()
+
+    expect(textLast).toBe('3')
+    expect(textFirst).toBe('3')
+    expect(textFirst === textLast).toBeTruthy()
   })
 })
 

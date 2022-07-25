@@ -40,15 +40,10 @@ describe('Table[expand]', () => {
 
   test('should control the expandKeys', () => {
     const wrapper = mount(<TableCExpand />)
-    const expandNum = wrapper.find(`span.${SO_PREFIX}-table-expand-indicator`).length
-    const dataProp = wrapper.find('ShineoutTable').prop('data')
-    for (let i = 0; i < expandNum; i++) {
-      wrapper.setState({
-        expandKeys: [dataProp[i].id],
-      })
-      wrapper.update()
-      const expand = wrapper.find(`.${SO_PREFIX}-scroll table tbody tr`).at(i + 1)
-      expect(expand.find('iframe')).toHaveLength(1)
-    }
+    wrapper.find(`span.${SO_PREFIX}-table-expand-indicator`).forEach(i => {
+      i.prop('onClick')()
+    })
+    wrapper.update()
+    expect(wrapper.find(`.${SO_PREFIX}-checkinput-checked`).length).toBe(4)
   })
 })

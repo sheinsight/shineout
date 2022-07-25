@@ -1,8 +1,8 @@
 const fs = require('fs')
 const path = require('path')
-const ejs = require('./ejs')
 const chokidar = require('chokidar')
 const rimraf = require('rimraf')
+const ejs = require('./ejs')
 
 const pagesPath = path.resolve(__dirname, '../site/pages')
 const chunkPath = path.resolve(__dirname, '../site/chunks')
@@ -50,7 +50,7 @@ function getComponentPage(name, file) {
   })
 
   fs.readdirSync(pagePath)
-    .filter(n => n.indexOf('example-') === 0 || n.indexOf('code-') === 0)
+    .filter(n => n.indexOf('example-') === 0 || n.indexOf('code-') === 0 || n.indexOf('test-') === 0)
     .forEach(e => {
       const text = fs.readFileSync(path.resolve(pagePath, e))
       const comment = /(^|\n|\r)\s*\/\*[\s\S]*?\*\/\s*(?:\r|\n|$)/.exec(text)
@@ -63,7 +63,8 @@ function getComponentPage(name, file) {
             langlabel = 'cn'
             exam.cn = getComment(t, '* cn -')
             return
-          } else if (t.trim().indexOf('* en -') >= 0) {
+          }
+          if (t.trim().indexOf('* en -') >= 0) {
             langlabel = 'en'
             exam.en = getComment(t, '* en -')
             return
@@ -80,6 +81,8 @@ function getComponentPage(name, file) {
       }
 
       if (e.indexOf('example-') === 0) {
+        page.examples.push(exam)
+      } else if (e.indexOf('test-') === 0) {
         page.examples.push(exam)
       } else {
         page.codes.push(exam.path.replace('code-', '').replace('.js', ''))

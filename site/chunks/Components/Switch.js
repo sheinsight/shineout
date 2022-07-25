@@ -15,46 +15,54 @@ const source = locate(cn, en)
 const examples = [
   {
     name: '1-base',
-    isTs: false,
+    isTs: true,
+    isTest: false,
     title: locate(
       '基本用法 \n 基本的 Switch',
       'Base \n Base Switch.'
     ),
-    component: require('doc/pages/components/Switch/example-1-base.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Switch/example-1-base.js'),
+    component: require('doc/pages/components/Switch/example-1-base.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Switch/example-1-base.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Switch/example-1-base.tsx'),
 
   },
   {
     name: '2-disabled',
-    isTs: false,
+    isTs: true,
+    isTest: false,
     title: locate(
       '禁用 \n 设置 disabled 为 true 禁用 switch',
       'Disabled \n disabled check while disabled true'
     ),
-    component: require('doc/pages/components/Switch/example-2-disabled.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Switch/example-2-disabled.js'),
+    component: require('doc/pages/components/Switch/example-2-disabled.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Switch/example-2-disabled.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Switch/example-2-disabled.tsx'),
 
   },
   {
     name: '3-content',
-    isTs: false,
+    isTs: true,
+    isTest: false,
     title: locate(
       '内容 \n 为每个状态添加描述',
       'Base \n Description for every status.'
     ),
-    component: require('doc/pages/components/Switch/example-3-content.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Switch/example-3-content.js'),
+    component: require('doc/pages/components/Switch/example-3-content.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Switch/example-3-content.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Switch/example-3-content.tsx'),
 
   },
   {
     name: '4-size',
-    isTs: false,
+    isTs: true,
+    isTest: false,
     title: locate(
       '大小 \n 通过 size 设置 Switch 大小',
       'Size \n size set'
     ),
-    component: require('doc/pages/components/Switch/example-4-size.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Switch/example-4-size.js'),
+    component: require('doc/pages/components/Switch/example-4-size.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Switch/example-4-size.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Switch/example-4-size.tsx'),
 
   },
 ]

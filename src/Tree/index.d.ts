@@ -1,12 +1,17 @@
 import * as React from 'react'
-import { StandardProps, StructDataStandardProps, ListItemStandardProps, keyType, FormItemStandardProps } from '../@types/common'
+import {
+  StandardProps,
+  StructDataStandardProps,
+  keyType,
+  FormItemStandardProps,
+  keygenType
+} from "../@types/common"
 import TreeSelect from '../TreeSelect'
 
 export interface TreeProps<Item, Value> extends
 StandardProps,
 Omit<StructDataStandardProps<Item>, 'renderItem'>,
-FormItemStandardProps<Value>,
-Pick<ListItemStandardProps<Item, Value>, 'keygen'>
+FormItemStandardProps<Value>
 {
 
   /**
@@ -34,7 +39,7 @@ Pick<ListItemStandardProps<Item, Value>, 'keygen'>
    *
    * default: []
    */
-  data?: Item[],
+  data: Item[],
 
   /**
    * desc: expanded all nodes
@@ -187,7 +192,7 @@ Pick<ListItemStandardProps<Item, Value>, 'keygen'>
    *
    * default: none
    */
-  onClick?: (data: Item) => void,
+  onClick?: (data: Item, key: keyType,) => void,
 
   /**
    * desc: drop event
@@ -196,7 +201,7 @@ Pick<ListItemStandardProps<Item, Value>, 'keygen'>
    *
    * default: none
    */
-  onDrop?: (data: Item, key: keyType, targetKey: keyType, position: number) => void,
+  onDrop?: (data: Item[], key: keyType, targetKey: keyType, position: number) => void,
 
   /**
    * desc: expand event
@@ -224,6 +229,24 @@ Pick<ListItemStandardProps<Item, Value>, 'keygen'>
    * default: -
    */
   parentClickExpand?: boolean
+
+  /**
+   * active node key
+   *
+   * 激活节点的key
+   *
+   * default: -
+   */
+  active?:keyType
+
+  /**
+   * Auxiliary method for generating key. When it is a function, use the return value of this function. When it is a string, use the data value corresponding to this string. For example, 'id' is the same thing as (d) => d.id.
+   *
+   * 生成key的辅助方法, 为函数时，使用此函数返回值, 为string时，使用这个string对应的数据值。如 'id'，相当于 (d) => d.id
+   *
+   * default: index
+   */
+  keygen: keygenType<Item> | ((data: Item, parentKey: keyType) => keyType)
 }
 
 declare class Tree<Item, Value> extends React.PureComponent<TreeProps<Item, Value>, {}> {

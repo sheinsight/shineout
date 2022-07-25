@@ -17,6 +17,7 @@ const getContainer = () => {
 
 export default () => {
   if (process.env.LOG_ENV !== 'rc') return
+  if (process.env.CASE_ENV === 'test') return
   if (features.length === 0) return
   if (!firstEnter()) return
   const container = getContainer()

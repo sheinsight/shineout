@@ -85,7 +85,7 @@ export interface ModalProps extends StandardProps {
    *
    * default: -
    */
-  position?: string;
+  position?: 'top'| 'right'| 'bottom'| 'left';
 
   /**
    * the title of the pop-up layer

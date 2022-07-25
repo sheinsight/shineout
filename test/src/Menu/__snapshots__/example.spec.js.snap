@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Snapshot test: Menu[site/pages/components/Menu/example-1-base.js] 1`] = `
+exports[`Snapshot test: Menu[site/pages/components/Menu/example-1-base.tsx] 1`] = `
 <div>
   <div>
     <ul>
@@ -75,7 +75,7 @@ exports[`Snapshot test: Menu[site/pages/components/Menu/example-1-base.js] 1`] =
 </div>
 `;
 
-exports[`Snapshot test: Menu[site/pages/components/Menu/example-1-link.js] 1`] = `
+exports[`Snapshot test: Menu[site/pages/components/Menu/example-1-link.tsx] 1`] = `
 <div>
   <div>
     <ul>
@@ -102,7 +102,7 @@ exports[`Snapshot test: Menu[site/pages/components/Menu/example-1-link.js] 1`] =
 </div>
 `;
 
-exports[`Snapshot test: Menu[site/pages/components/Menu/example-1-onClick.js] 1`] = `
+exports[`Snapshot test: Menu[site/pages/components/Menu/example-1-onClick.tsx] 1`] = `
 <div>
   <div>
     <ul>
@@ -157,7 +157,7 @@ exports[`Snapshot test: Menu[site/pages/components/Menu/example-1-onClick.js] 1`
 </div>
 `;
 
-exports[`Snapshot test: Menu[site/pages/components/Menu/example-2-horizontal.js] 1`] = `
+exports[`Snapshot test: Menu[site/pages/components/Menu/example-2-horizontal.tsx] 1`] = `
 <div>
   <div>
     <ul>
@@ -218,7 +218,148 @@ exports[`Snapshot test: Menu[site/pages/components/Menu/example-2-horizontal.js]
 </div>
 `;
 
-exports[`Snapshot test: Menu[site/pages/components/Menu/example-4-disabled.js] 1`] = `
+exports[`Snapshot test: Menu[site/pages/components/Menu/example-3-vertical.tsx] 1`] = `
+<div>
+  <div>
+    <ul>
+      <li>
+        <a>
+          Navigation One
+          <span />
+        </a>
+      </li>
+      <li>
+        <a>
+          Navigation Two
+          <span />
+        </a>
+        <ul>
+          <li>
+            <a>
+              Option 1
+              <span />
+            </a>
+          </li>
+          <li>
+            <a>
+              Option 2
+              <span />
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a>
+          Navigation 21
+          <span />
+        </a>
+      </li>
+      <li>
+        <a>
+          Navigation 22
+          <span />
+        </a>
+      </li>
+      <li>
+        <a>
+          Navigation 23
+          <span />
+        </a>
+      </li>
+      <li>
+        <a>
+          Navigation 24
+          <span />
+        </a>
+      </li>
+      <li>
+        <a>
+          Navigation 25
+          <span />
+        </a>
+      </li>
+      <li>
+        <a>
+          Navigation 26
+          <span />
+        </a>
+      </li>
+      <li>
+        <a>
+          Navigation 27
+          <span />
+        </a>
+      </li>
+      <li>
+        <a>
+          Navigation 28
+          <span />
+        </a>
+      </li>
+      <li>
+        <a>
+          Navigation 29
+          <span />
+        </a>
+      </li>
+      <li>
+        <a>
+          Navigation 30
+          <span />
+        </a>
+        <ul>
+          <li>
+            <a>
+              Option 3
+              <span />
+            </a>
+          </li>
+          <li>
+            <a>
+              Option 4
+              <span />
+            </a>
+            <ul>
+              <li>
+                <a>
+                  Optic 1
+                  <span />
+                </a>
+              </li>
+              <li>
+                <a>
+                  Optic 2
+                  <span />
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a>
+          Navigation 31
+          <span />
+        </a>
+      </li>
+      <li>
+        <a>
+          Navigation 32
+          <span />
+        </a>
+      </li>
+      <li>
+        <a>
+          Navigation 33
+          <span />
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Menu[site/pages/components/Menu/example-4-disabled.tsx] 1`] = `
 <div>
   <div>
     <ul>
@@ -293,7 +434,7 @@ exports[`Snapshot test: Menu[site/pages/components/Menu/example-4-disabled.js] 1
 </div>
 `;
 
-exports[`Snapshot test: Menu[site/pages/components/Menu/example-5-selected.js] 1`] = `
+exports[`Snapshot test: Menu[site/pages/components/Menu/example-5-selected.tsx] 1`] = `
 <div>
   <div>
     <ul>
@@ -368,7 +509,7 @@ exports[`Snapshot test: Menu[site/pages/components/Menu/example-5-selected.js] 1
 </div>
 `;
 
-exports[`Snapshot test: Menu[site/pages/components/Menu/example-6-itemRender.js] 1`] = `
+exports[`Snapshot test: Menu[site/pages/components/Menu/example-6-itemRender.tsx] 1`] = `
 <div>
   <div>
     <ul>
@@ -376,8 +517,7 @@ exports[`Snapshot test: Menu[site/pages/components/Menu/example-6-itemRender.js]
         <a>
           <span>
             <i />
-             
-            Navigation One
+             Navigation One
           </span>
           <span />
         </a>
@@ -386,8 +526,7 @@ exports[`Snapshot test: Menu[site/pages/components/Menu/example-6-itemRender.js]
         <a>
           <span>
             <i />
-             
-            Navigation Two
+             Navigation Two
           </span>
           <span />
         </a>
@@ -410,8 +549,7 @@ exports[`Snapshot test: Menu[site/pages/components/Menu/example-6-itemRender.js]
         <a>
           <span>
             <i />
-             
-            Navigation Three
+             Navigation Three
           </span>
           <span />
         </a>
@@ -448,8 +586,7 @@ exports[`Snapshot test: Menu[site/pages/components/Menu/example-6-itemRender.js]
         <a>
           <span>
             <i />
-             
-            Navigation Four
+             Navigation Four
           </span>
           <span />
         </a>
@@ -459,7 +596,7 @@ exports[`Snapshot test: Menu[site/pages/components/Menu/example-6-itemRender.js]
 </div>
 `;
 
-exports[`Snapshot test: Menu[site/pages/components/Menu/example-7-click.js] 1`] = `
+exports[`Snapshot test: Menu[site/pages/components/Menu/example-7-click.tsx] 1`] = `
 <div>
   <div>
     <ul>
@@ -534,7 +671,7 @@ exports[`Snapshot test: Menu[site/pages/components/Menu/example-7-click.js] 1`] 
 </div>
 `;
 
-exports[`Snapshot test: Menu[site/pages/components/Menu/example-8-dark.js] 1`] = `
+exports[`Snapshot test: Menu[site/pages/components/Menu/example-8-dark.tsx] 1`] = `
 <div>
   <div>
     <ul>
@@ -609,7 +746,7 @@ exports[`Snapshot test: Menu[site/pages/components/Menu/example-8-dark.js] 1`] =
 </div>
 `;
 
-exports[`Snapshot test: Menu[site/pages/components/Menu/example-9-toggleDuration.js] 1`] = `
+exports[`Snapshot test: Menu[site/pages/components/Menu/example-9-toggleDuration.tsx] 1`] = `
 <div>
   <button>
     <span>
