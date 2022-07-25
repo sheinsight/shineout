@@ -57,7 +57,7 @@ export function getResetMore(onFilter, container, doms) {
     }
   }
   // at least show one
-  if (num === 0 && itemWidthArr[0] && itemWidthArr[0] > 70) {
+  if (num === 0 && itemWidthArr[0]) {
     num = 1
   }
   return num
