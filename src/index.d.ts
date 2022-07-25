@@ -3,7 +3,7 @@ import * as utils from './utils'
 
 declare const __default: {
   utils: typeof utils,
-  version: '1.11.0-rc.18'
+  version: '1.11.0-rc.19'
 }
 
 export default __default
@@ -311,7 +311,7 @@ export namespace TYPE {
     export type Props = __SwitchProps
   }
   export namespace Table {
-    export type Props<Value, TRD> = __TableProps<Value, TRD>
+    export type Props<TRD, Value> = __TableProps<TRD, Value>
     export type Ref = __TableRef
     export type RowEvents = __RowEvents
     export type CheckColumn<T> = __CheckColumn<T>
