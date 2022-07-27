@@ -69,7 +69,7 @@ describe('Alert[icon, iconSize, type]', () => {
   })
 
   it('customIcon', () => {
-    wrapper.setProps({ Icon: <i>i</i> })
+    wrapper.setProps({ icon: <i>i</i> })
     wrapper.update()
     expect(
       wrapper
