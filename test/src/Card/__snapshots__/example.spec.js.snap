@@ -1,0 +1,241 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot test: Card[site/pages/components/Card/example-1-base.tsx] 1`] = `
+<div>
+  <div>
+    <div>
+      Header
+    </div>
+    <div>
+      Body
+    </div>
+    <div>
+      Footer
+    </div>
+  </div>
+  <div>
+    <div>
+      Header
+    </div>
+    <div>
+      Body
+    </div>
+    <div>
+      Footer
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Card[site/pages/components/Card/example-2-boxshadow.tsx] 1`] = `
+<div>
+  <div>
+    <div>
+      Never
+    </div>
+  </div>
+  <div>
+    <div>
+      Hover
+    </div>
+  </div>
+  <div>
+    <div>
+      Always
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Card[site/pages/components/Card/example-3-form.tsx] 1`] = `
+<div>
+  <div>
+    Header
+  </div>
+  <div>
+    <br />
+    <form>
+      <div>
+        <div>
+          User name
+        </div>
+        <div>
+          <label>
+            <input />
+          </label>
+        </div>
+      </div>
+      <div>
+        <div>
+          Email
+        </div>
+        <div>
+          <label>
+            <input />
+          </label>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div>
+    <button>
+      <span>
+        Submit
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Card[site/pages/components/Card/example-4-collapse.tsx] 1`] = `
+<div>
+  <div>
+    <span>
+      <svg>
+        <path />
+        <path />
+      </svg>
+    </span>
+    Header
+  </div>
+  <div>
+    <div>
+      <div>
+        <label>
+          <div>
+            <div>
+              <span>
+                <span>
+                   
+                </span>
+              </span>
+              <span>
+                <svg>
+                  <path />
+                </svg>
+              </span>
+            </div>
+            <div />
+          </div>
+        </label>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Card[site/pages/components/Card/example-5-accordion.tsx] 1`] = `
+Array [
+  <div
+    className="so-card so-card-collapsible so-card-collapsed so-card-accordion so-card-accordion-rtl"
+    style={Object {}}
+  >
+    <div
+      className="so-card-header"
+      onClick={[Function]}
+    >
+      <span
+        className="so-card-indicator"
+      >
+        <svg
+          viewBox="0 0 1024 1024"
+        >
+          <path
+            d="M728.76 561.68c-11.785 0-23.57-4.496-32.561-13.488l-402.523-402.521c-17.984-17.984-17.984-47.14 0-65.123 17.983-17.983 47.14-17.983 65.123 0l402.521 402.522c17.984 17.984 17.984 47.14 0 65.122-8.991 8.993-20.776 13.488-32.561 13.488z"
+          />
+          <path
+            d="M326.238 964.202c-11.785 0-23.57-4.496-32.562-13.488-17.984-17.983-17.984-47.139 0-65.122l402.522-402.522c17.982-17.983 47.14-17.983 65.122 0 17.984 17.984 17.984 47.14 0 65.122l-402.521 402.522c-8.992 8.992-20.776 13.488-32.562 13.488z"
+          />
+        </svg>
+      </span>
+      Header 1
+    </div>
+    <div
+      className="so-list so-hidable so-hidable-collapse so-hidable-fade-animation-240 __hidable_l638l6eu__"
+      size="default"
+      style={Object {}}
+      type="default"
+    >
+      <div
+        className="so-card-body"
+      >
+        Body
+      </div>
+    </div>
+  </div>,
+  <div
+    className="so-card so-card-collapsible so-card-accordion so-card-accordion-rtl"
+    style={Object {}}
+  >
+    <div
+      className="so-card-header"
+      onClick={[Function]}
+    >
+      <span
+        className="so-card-indicator"
+      >
+        <svg
+          viewBox="0 0 1024 1024"
+        >
+          <path
+            d="M728.76 561.68c-11.785 0-23.57-4.496-32.561-13.488l-402.523-402.521c-17.984-17.984-17.984-47.14 0-65.123 17.983-17.983 47.14-17.983 65.123 0l402.521 402.522c17.984 17.984 17.984 47.14 0 65.122-8.991 8.993-20.776 13.488-32.561 13.488z"
+          />
+          <path
+            d="M326.238 964.202c-11.785 0-23.57-4.496-32.562-13.488-17.984-17.983-17.984-47.139 0-65.122l402.522-402.522c17.982-17.983 47.14-17.983 65.122 0 17.984 17.984 17.984 47.14 0 65.122l-402.521 402.522c-8.992 8.992-20.776 13.488-32.562 13.488z"
+          />
+        </svg>
+      </span>
+      Header 2
+    </div>
+    <div
+      className="so-list so-hidable so-hidable-collapse so-hidable-fade-animation-240 so-hidable-show __hidable_l638l6ex__"
+      size="default"
+      style={Object {}}
+      type="default"
+    >
+      <div
+        className="so-card-body"
+      >
+        Body
+      </div>
+    </div>
+  </div>,
+  <div
+    className="so-card so-card-collapsible so-card-collapsed so-card-accordion so-card-accordion-rtl"
+    style={Object {}}
+  >
+    <div
+      className="so-card-header"
+      onClick={[Function]}
+    >
+      <span
+        className="so-card-indicator"
+      >
+        <svg
+          viewBox="0 0 1024 1024"
+        >
+          <path
+            d="M728.76 561.68c-11.785 0-23.57-4.496-32.561-13.488l-402.523-402.521c-17.984-17.984-17.984-47.14 0-65.123 17.983-17.983 47.14-17.983 65.123 0l402.521 402.522c17.984 17.984 17.984 47.14 0 65.122-8.991 8.993-20.776 13.488-32.561 13.488z"
+          />
+          <path
+            d="M326.238 964.202c-11.785 0-23.57-4.496-32.562-13.488-17.984-17.983-17.984-47.139 0-65.122l402.522-402.522c17.982-17.983 47.14-17.983 65.122 0 17.984 17.984 17.984 47.14 0 65.122l-402.521 402.522c-8.992 8.992-20.776 13.488-32.562 13.488z"
+          />
+        </svg>
+      </span>
+      Header 3
+    </div>
+    <div
+      className="so-list so-hidable so-hidable-collapse so-hidable-fade-animation-240 __hidable_l638l6f0__"
+      size="default"
+      style={Object {}}
+      type="default"
+    >
+      <div
+        className="so-card-body"
+      >
+        Body
+      </div>
+    </div>
+  </div>,
+]
+`;

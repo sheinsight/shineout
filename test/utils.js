@@ -1,4 +1,5 @@
 import enzyme from 'enzyme'
+import { func } from 'prop-types'
 import React from 'react'
 
 export function isInstance(instance, constructor) {
@@ -35,20 +36,18 @@ export function appendToDOM(html) {
   document.body.appendChild(dom)
 }
 
-export function styleTest(Component, selector, style = { color: 'blue' }) {
-  const wrapper = enzyme.mount(<Component style={style} />)
+export function baseTest(Component, selector, style = { color: 'blue' }, className = 'class-name-test') {
+  const contains = (a, b) => Object.entries(b).every(([k, v]) => a[k] === v)
+  const wrapper = enzyme.mount(<Component style={style} className={className} />)
+
   expect(wrapper.exists(selector)).toBeTruthy()
-  return expect(wrapper.find(selector).props().style).toBe(style)
+  expect(wrapper.find(selector || Component).hasClass(className)).toBe(true)
+  expect(contains(wrapper.find(selector).getDOMNode().style, style)).toBeTruthy()
 }
 
-export function classNameTest(Component, selector, className = 'class-name-test') {
-  const wrapper = enzyme.mount(<Component className={className} />)
-  if (selector) expect(wrapper.exists(selector)).toBeTruthy()
-  return expect(wrapper.find(selector || Component).hasClass(className)).toBe(true)
-}
-
-export function childrenTest(Component) {
+export function childrenTest(Component, selector) {
   const children = <div>Test Children</div>
   const wrapper = enzyme.mount(<Component>{children}</Component>)
-  return expect(wrapper.children().text()).toBe('Test Children')
+  expect(wrapper.exists(selector)).toBeTruthy()
+  return expect(wrapper.find(selector).contains(children)).toBeTruthy()
 }

@@ -1,7 +1,7 @@
 import enzyme from 'enzyme'
 import React from 'react'
 import { Button } from 'shineout'
-import { styleTest, classNameTest, childrenTest } from '../../utils'
+import { childrenTest, baseTest } from '../../utils'
 import ButtonBase from '../../../site/pages/components/Button/example-1-base'
 import ButtonOutLine from '../../../site/pages/components/Button/example-7-outline'
 import ButtonDisabled from '../../../site/pages/components/Button/example-4-disabled'
@@ -110,25 +110,33 @@ describe('Button[displayName]', () => {
 })
 
 describe('Button[children]', () => {
-  childrenTest(Button)
+  test('should mount children', () => {
+    childrenTest(Button, `.${SO_PREFIX}-button`)
+  })
 })
-describe('Button[className]', () => {
-  classNameTest(Button, 'button')
-})
-describe('Button[style]', () => {
-  styleTest(Button, 'button')
+describe('Button[baseTest]', () => {
+  const style = { color: 'red', fontSize: '12px' }
+  test('should custom style and className', () => {
+    baseTest(Button, `.${SO_PREFIX}-button`, style)
+  })
 })
 describe('Button[onClick]', () => {
-  const onClick = jest.fn()
-  const wrapper = enzyme.mount(<Button onClick={onClick} />)
-  wrapper.simulate('click')
-  expect(onClick).toHaveBeenCalled()
+  test('should onClick', () => {
+    const onClick = jest.fn()
+    const wrapper = enzyme.mount(<Button onClick={onClick} />)
+    wrapper.simulate('click')
+    expect(onClick).toHaveBeenCalled()
+  })
 })
 describe('Button[htmlType]', () => {
-  const wrapper = enzyme.mount(<Button htmlType="submit" />)
-  expect(wrapper.find('button').props().type).toBe('submit')
+  test('should set htmlType while has htmlType', () => {
+    const wrapper = enzyme.mount(<Button htmlType="submit" />)
+    expect(wrapper.find('button').props().type).toBe('submit')
+  })
 })
 describe('Button[space]', () => {
-  const wrapper = enzyme.mount(<Button space>测试</Button>)
-  expect(wrapper.find('button').text()).toBe('测 试')
+  test('should set space while has space', () => {
+    const wrapper = enzyme.mount(<Button space>测试</Button>)
+    expect(wrapper.find('button').text()).toBe('测 试')
+  })
 })
