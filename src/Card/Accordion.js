@@ -51,7 +51,7 @@ class Accordion extends PureComponent {
 Accordion.propTypes = {
   active: PropTypes.any,
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]),
-  defaultActive: PropTypes.number,
+  defaultActive: PropTypes.any,
   onChange: PropTypes.func,
 }
 
