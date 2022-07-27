@@ -1,6 +1,7 @@
 import enzyme from 'enzyme'
 import React from 'react'
 import { Button } from 'shineout'
+import { styleTest, classNameTest, childrenTest } from '../../utils'
 import ButtonBase from '../../../site/pages/components/Button/example-1-base'
 import ButtonOutLine from '../../../site/pages/components/Button/example-7-outline'
 import ButtonDisabled from '../../../site/pages/components/Button/example-4-disabled'
@@ -106,4 +107,28 @@ describe('Button[displayName]', () => {
   test('should start with Shineout', () => {
     expect(Button.displayName).toBe('ShineoutButton')
   })
+})
+
+describe('Button[children]', () => {
+  childrenTest(Button)
+})
+describe('Button[className]', () => {
+  classNameTest(Button, 'button')
+})
+describe('Button[style]', () => {
+  styleTest(Button, 'button')
+})
+describe('Button[onClick]', () => {
+  const onClick = jest.fn()
+  const wrapper = enzyme.mount(<Button onClick={onClick} />)
+  wrapper.simulate('click')
+  expect(onClick).toHaveBeenCalled()
+})
+describe('Button[htmlType]', () => {
+  const wrapper = enzyme.mount(<Button htmlType="submit" />)
+  expect(wrapper.find('button').props().type).toBe('submit')
+})
+describe('Button[space]', () => {
+  const wrapper = enzyme.mount(<Button space>测试</Button>)
+  expect(wrapper.find('button').text()).toBe('测 试')
 })
