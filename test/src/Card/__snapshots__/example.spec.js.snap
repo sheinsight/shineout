@@ -151,7 +151,7 @@ Array [
       Header 1
     </div>
     <div
-      className="so-list so-hidable so-hidable-collapse so-hidable-fade-animation-240 __hidable_l63anpni__"
+      className="so-list so-hidable so-hidable-collapse so-hidable-fade-animation-240 __hidable_l63b0lhf__"
       size="default"
       style={Object {}}
       type="default"
@@ -188,7 +188,7 @@ Array [
       Header 2
     </div>
     <div
-      className="so-list so-hidable so-hidable-collapse so-hidable-fade-animation-240 so-hidable-show __hidable_l63anpnl__"
+      className="so-list so-hidable so-hidable-collapse so-hidable-fade-animation-240 so-hidable-show __hidable_l63b0lhi__"
       size="default"
       style={Object {}}
       type="default"
@@ -225,7 +225,7 @@ Array [
       Header 3
     </div>
     <div
-      className="so-list so-hidable so-hidable-collapse so-hidable-fade-animation-240 __hidable_l63anpno__"
+      className="so-list so-hidable so-hidable-collapse so-hidable-fade-animation-240 __hidable_l63b0lhl__"
       size="default"
       style={Object {}}
       type="default"
