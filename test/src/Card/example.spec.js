@@ -1,3 +1,7 @@
 import exampleTest from '../../example'
 
-exampleTest('Card')
+describe('Card[snapshot]', () => {
+  exampleTest('Card', {
+    ignore: 'example-5-accordion.tsx',
+  })
+})
