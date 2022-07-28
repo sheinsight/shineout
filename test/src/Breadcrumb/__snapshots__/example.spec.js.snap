@@ -1,0 +1,147 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Breadcrumb[snapshot] Snapshot test: Breadcrumb[site/pages/components/Breadcrumb/example-1-base.tsx] 1`] = `
+<div>
+  <div>
+    <span>
+      <span>
+        <a>
+           
+          Home
+        </a>
+        <span>
+          <svg>
+            <path />
+          </svg>
+        </span>
+        <noscript />
+      </span>
+      <span>
+        /
+      </span>
+    </span>
+    <span>
+      <a>
+        Button
+      </a>
+      <span>
+        /
+      </span>
+    </span>
+    <span>
+      <a>
+         
+        Self
+      </a>
+    </span>
+  </div>
+</div>
+`;
+
+exports[`Breadcrumb[snapshot] Snapshot test: Breadcrumb[site/pages/components/Breadcrumb/example-2-separator.tsx] 1`] = `
+<div>
+  <div>
+    <span>
+      <a>
+         
+        Home
+      </a>
+      <span>
+        |
+      </span>
+    </span>
+    <span>
+      <b>
+        Self
+      </b>
+    </span>
+  </div>
+  <div>
+    <span>
+      <a>
+         
+        Home
+      </a>
+      <span>
+        <span>
+          ~
+        </span>
+      </span>
+    </span>
+    <span>
+      <b>
+        Self
+      </b>
+    </span>
+  </div>
+</div>
+`;
+
+exports[`Breadcrumb[snapshot] Snapshot test: Breadcrumb[site/pages/components/Breadcrumb/example-3-icon.tsx] 1`] = `
+<div>
+  <span>
+    <a>
+      <i />
+       
+      Home
+    </a>
+    <span>
+      /
+    </span>
+  </span>
+  <span>
+    <b>
+      Menu
+    </b>
+    <span>
+      /
+    </span>
+  </span>
+  <span>
+    <a>
+       
+      Self
+    </a>
+  </span>
+</div>
+`;
+
+exports[`Breadcrumb[snapshot] Snapshot test: Breadcrumb[site/pages/components/Breadcrumb/example-4-renderItem.tsx] 1`] = `
+<div>
+  <div>
+    <span>
+      <span>
+        <a>
+           
+          Home
+        </a>
+        <span>
+          <svg>
+            <path />
+          </svg>
+        </span>
+        <noscript />
+      </span>
+      <span>
+        /
+      </span>
+    </span>
+    <span>
+      <button>
+        <a>
+          Button
+        </a>
+      </button>
+      <span>
+        /
+      </span>
+    </span>
+    <span>
+      <a>
+         
+        Self
+      </a>
+    </span>
+  </div>
+</div>
+`;
