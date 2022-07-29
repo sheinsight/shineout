@@ -37,7 +37,7 @@ describe('Checkbox[Base]', () => {
   })
 })
 
-describe('Checkbox[Status]', () => {
+describe('Checkbox[checked Status]', () => {
   test('should set correct class', () => {
     const wrapper = mount(<CheckboxStatus />)
     const statusMap = {
@@ -66,21 +66,21 @@ describe('Checkbox[htmlValue]', () => {
   })
 })
 
-describe('Checkbox[RawGroup]', () => {
+describe('CheckboxGroup[RawGroup]', () => {
   test('should render checkbox while use raw checkbox', () => {
     const wrapper = mount(<CheckboxRawGroup />)
     expect(wrapper.find(Checkbox).length).toBe(7)
   })
 })
 
-describe('Checkbox[Group-Datum]', () => {
+describe('CheckboxGroup[Group-Datum]', () => {
   test('should render checkbox while have data prop', () => {
     const wrapper = mount(<CheckboxGroup />)
     expect(wrapper.find('CheckItem').length).toBe(wrapper.find(Checkbox.Group).prop('data').length)
   })
 })
 
-describe('Checkbox[Format]', () => {
+describe('CheckboxGroup[Format]', () => {
   test('should render format value', () => {
     const data = [
       { id: 1, color: 'red' },
@@ -100,14 +100,14 @@ describe('Checkbox[Format]', () => {
   })
 })
 
-describe('Checkbox[Group]', () => {
+describe('CheckboxGroup[block]', () => {
   test('should have block class', () => {
     const wrapper = mount(<CheckboxBlock />)
     expect(wrapper.find(`.${SO_PREFIX}-checkinput-block`).length).toBe(1)
   })
 })
 
-describe('Checkbox[Disabled]', () => {
+describe('Checkbox[disabled]', () => {
   test('should have disabled class', () => {
     const wrapper = mount(<CheckboxDisabled />)
     wrapper.find('CheckItem').forEach(item => {
@@ -126,7 +126,7 @@ describe('Checkbox[Disabled]', () => {
   })
 })
 
-describe('Checkbox[Input]', () => {
+describe('Checkbox[inputable]', () => {
   test('should show input while selected', () => {
     const wrapper = mount(<CheckboxInput />)
     expect(wrapper.find(`.${SO_PREFIX}-input`).length).toBe(0)
@@ -137,5 +137,42 @@ describe('Checkbox[Input]', () => {
       },
     })
     expect(wrapper.find(`.${SO_PREFIX}-input`).length).toBe(1)
+  })
+})
+
+describe('Checkbox[value]', () => {
+  test('should checked same as value === htmlValue ', () => {
+    const wrapper = mount(<Checkbox htmlValue="red" value="blue" onChange={() => {}} />)
+    expect(
+      wrapper
+        .find('CheckItem')
+        .instance()
+        .getChecked()
+    ).toBeFalsy()
+    wrapper.setProps({ value: 'red' })
+    expect(
+      wrapper
+        .find('CheckItem')
+        .instance()
+        .getChecked()
+    ).toBeTruthy()
+  })
+})
+
+describe('CheckboxGroup[prediction]', () => {
+  test('should render true value', () => {
+    const data = [{ value: 'red' }]
+    const value = [{ value: 'red' }]
+    const wrapper = mount(
+      <Checkbox.Group
+        format="value"
+        keygen="value"
+        renderItem="value"
+        defaultValue={value}
+        data={data}
+        prediction={(v, d) => v && v.value === d.value}
+      />
+    )
+    expect(wrapper.find('.so-checkinput').hasClass('so-checkinput-checked')).toBeTruthy()
   })
 })
