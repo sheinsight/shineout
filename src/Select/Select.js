@@ -86,16 +86,11 @@ class Select extends PureComponent {
     this.clearClickAway()
   }
 
-  getText(key) {
-    return this.props.text[key] || getLocale(key)
-  }
-
   getDisabledStatus() {
-    if (typeof this.props.disabled == 'function') {
+    if (typeof this.props.disabled === 'function') {
       return this.props.disabled
-    } else {
-      return !!this.props.disabled
     }
+    return !!this.props.disabled
   }
 
   getFocusSelected() {
@@ -388,14 +383,14 @@ class Select extends PureComponent {
   }
 
   handleDelete(e) {
-    const { multiple, filterText, datum, value, data } = this.props
+    const { multiple, inputText, datum, value, data } = this.props
     if (!multiple) return
-    if (filterText) {
+    if (inputText) {
       this.deleteLock = true
     } else if (this.deleteLock) {
       this.cancelDeleteLock()
     }
-    if (filterText || this.deleteLock) return
+    if (inputText || this.deleteLock) return
     if (!value || !value.length) return
     e.preventDefault()
     const raws = Array.isArray(value) ? value : [value]
@@ -428,29 +423,29 @@ class Select extends PureComponent {
     const { focus, position } = this.state
     const { optionWidth } = this.props
     const props = {}
-      ;[
-        'treeData',
-        'expanded',
-        'onExpand',
-        'loader',
-        'defaultExpanded',
-        'defaultExpandAll',
-        'datum',
-        'keygen',
-        'multiple',
-        'text',
-        'height',
-        'loading',
-        'onFilter',
-        'filterText',
-        'absolute',
-        'zIndex',
-        'childrenKey',
-        'expandIcons',
-        'emptyText',
-      ].forEach(k => {
-        props[k] = this.props[k]
-      })
+    ;[
+      'treeData',
+      'expanded',
+      'onExpand',
+      'loader',
+      'defaultExpanded',
+      'defaultExpandAll',
+      'datum',
+      'keygen',
+      'multiple',
+      'text',
+      'height',
+      'loading',
+      'onFilter',
+      'filterText',
+      'absolute',
+      'zIndex',
+      'childrenKey',
+      'expandIcons',
+      'emptyText',
+    ].forEach(k => {
+      props[k] = this.props[k]
+    })
     const style = optionWidth && { width: optionWidth }
     props.renderItem = this.renderItem
     return (
@@ -474,29 +469,29 @@ class Select extends PureComponent {
     const { focus, control, position } = this.state
     const { autoAdapt, value, optionWidth } = this.props
     const props = {}
-      ;[
-        'data',
-        'datum',
-        'keygen',
-        'multiple',
-        'columns',
-        'columnWidth',
-        'columnsTitle',
-        'text',
-        'itemsInView',
-        'absolute',
-        'lineHeight',
-        'height',
-        'loading',
-        'onFilter',
-        'filterText',
-        'zIndex',
-        'groupKey',
-        'hideCreateOption',
-        'emptyText',
-      ].forEach(k => {
-        props[k] = this.props[k]
-      })
+    ;[
+      'data',
+      'datum',
+      'keygen',
+      'multiple',
+      'columns',
+      'columnWidth',
+      'columnsTitle',
+      'text',
+      'itemsInView',
+      'absolute',
+      'lineHeight',
+      'height',
+      'loading',
+      'onFilter',
+      'filterText',
+      'zIndex',
+      'groupKey',
+      'hideCreateOption',
+      'emptyText',
+    ].forEach(k => {
+      props[k] = this.props[k]
+    })
 
     const List = props.columns >= 1 || props.columns === -1 ? WrappedBoxList : WrappedOptionList
     const style = optionWidth && { width: optionWidth }
@@ -650,6 +645,7 @@ Select.propTypes = {
   header: PropTypes.node,
   maxLength: PropTypes.number,
   innerTitle: PropTypes.node,
+  inputText: PropTypes.string,
 }
 
 Select.defaultProps = {
