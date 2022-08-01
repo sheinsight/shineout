@@ -279,7 +279,9 @@ class Container extends PureComponent {
 
     switch (mode) {
       case 'time':
-        return isRange ? disabledMap.time[index](date, undefined, undefined, true) : disabledMap.time(date)
+        return isRange
+          ? disabledMap.time[index](date, undefined, undefined, true)
+          : disabledMap.time(date, undefined, undefined, true)
       case 'date':
         return isRange ? disabledMap.day[index](date) : disabledMap.day(date)
       case 'week':
