@@ -44,7 +44,7 @@ function handleDisabled(...args) {
 }
 
 function judgeTimeByRange(...args) {
-  const [target, value, mode, min, max, range, disabled, disabledTime, test] = args
+  const [target, value, mode, min, max, range, disabled, disabledTime] = args
   const date = new Date(value.getTime())
   switch (mode) {
     case 'H':
@@ -78,7 +78,7 @@ function judgeTimeByRange(...args) {
     default:
       break
   }
-  const isDisabled = handleDisabled(date, min, max, range, disabled, disabledTime, test)
+  const isDisabled = handleDisabled(date, min, max, range, disabled, disabledTime)
   return [isDisabled, date]
 }
 
