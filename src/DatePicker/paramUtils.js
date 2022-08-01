@@ -1,4 +1,5 @@
 import utils from './utils'
+import { isNumber } from '../utils/is'
 
 const { TIME_FORMAT, compareAsc, addSeconds, format } = utils
 
@@ -26,23 +27,24 @@ function handleTimeDisabled(date, disabledTime) {
 
 function handleDisabled(...args) {
   const [date, min, max, range, disabled, disabledTime] = args
+
   let isDisabled
   if (disabled) isDisabled = disabled(date)
   if (disabledTime) isDisabled = isDisabled || handleTimeDisabled(date, disabledTime)
   if (isDisabled) return true
   if (!isDisabled && min) {
     if (compareAsc(date, min) < 0) return true
-    if (range && compareAsc(date, addSeconds(min, range)) > 0) return true
+    if (range && isNumber(range) && compareAsc(date, addSeconds(min, range)) > 0) return true
   }
   if (!isDisabled && max) {
     if (compareAsc(date, max) > 0) return true
-    if (range && compareAsc(date, addSeconds(max, -range)) < 0) return true
+    if (range && isNumber(range) && compareAsc(date, addSeconds(max, -range)) < 0) return true
   }
   return false
 }
 
 function judgeTimeByRange(...args) {
-  const [target, value, mode, min, max, range, disabled, disabledTime] = args
+  const [target, value, mode, min, max, range, disabled, disabledTime, test] = args
   const date = new Date(value.getTime())
   switch (mode) {
     case 'H':
@@ -76,8 +78,7 @@ function judgeTimeByRange(...args) {
     default:
       break
   }
-
-  const isDisabled = handleDisabled(date, min, max, range, disabled, disabledTime)
+  const isDisabled = handleDisabled(date, min, max, range, disabled, disabledTime, test)
   return [isDisabled, date]
 }
 
