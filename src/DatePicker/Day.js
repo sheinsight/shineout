@@ -198,7 +198,7 @@ class Day extends PureComponent {
       classList.push(utils.isSameDay(date, rangeDate[index]) && 'active')
 
       hoverClass = datepickerClass(
-        utils.compareAsc(rangeDate[0], date) <= 0 && utils.compareAsc(rangeDate[1], date) >= 0 && 'hover',
+        utils.compareDay(rangeDate[0], date) <= 0 && utils.compareDay(rangeDate[1], date) >= 0 && 'hover',
         // Datetime Picker range end datetime classname #330
         utils.isSameDay(rangeDate[index], date) && `hover-${index === 0 ? 'start' : 'end'} active`
       )
