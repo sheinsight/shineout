@@ -275,7 +275,6 @@ class Container extends PureComponent {
     const mode = this.props.type
     const { disabledMap } = this
     const isRange = index !== undefined
-    const { min, max, range, disabled, disabledTime } = this.props
 
     switch (mode) {
       case 'time':
@@ -289,10 +288,9 @@ class Container extends PureComponent {
       case 'month':
         return isRange ? disabledMap.month[index](date) : disabledMap.month(date)
       case 'datetime':
-        return (
-          ParamFns.handleDisabled(date, min, max, range, disabled, disabledTime) ||
-          (isRange ? disabledMap.day[index](date) : disabledMap.day(date))
-        )
+        return isRange
+          ? disabledMap.time[index](date, undefined, undefined, true) || disabledMap.day[index](date)
+          : disabledMap.time(date, undefined, undefined, true) || disabledMap.day(date)
       default:
         return false
     }
