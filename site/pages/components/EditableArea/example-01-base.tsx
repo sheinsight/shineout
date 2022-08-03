@@ -8,6 +8,6 @@
 import React from 'react'
 import { EditableArea } from 'shineout'
 
-const App: React.FC = () => <EditableArea bordered placeholder="input something" disabled />
+const App: React.FC = () => <EditableArea bordered placeholder="input something" />
 
 export default App
