@@ -1,0 +1,33 @@
+describe('Cascader compressed', () => {
+  it('should render 2 item', () => {
+    cy.visit('/cn/components/Cascader?example=test-001-compressed')
+    cy.get('.so-input.so-select').eq(0).as('Cascader0')
+    cy.get('@Cascader0').click()
+    cy.get('@Cascader0').click()
+    cy.get('@Cascader0').find('label.so-checkinput').first().click()
+    cy.get('@Cascader0').find('.so-cascader-item').should('have.length', 2)
+    cy.get('@Cascader0').find('.so-cascader-item-only').should('have.length', 1)
+    cy.get('@Cascader0').find('.so-cascader-item-compressed').should('have.length', 1)
+  })
+  it('should render 4 item', () => {
+    cy.visit('/cn/components/Cascader?example=test-001-compressed')
+    cy.get('.so-input.so-select').eq(1).as('Cascader0')
+    cy.get('@Cascader0').click()
+    cy.get('@Cascader0').click()
+    cy.get('@Cascader0').find('label.so-checkinput').first().click()
+    cy.get('@Cascader0').find('.so-cascader-item').should('have.length', 4)
+    cy.get('@Cascader0').find('.so-cascader-item-only').should('have.length', 0)
+    cy.get('@Cascader0').find('.so-cascader-item-compressed').should('have.length', 1)
+  })
+
+  it('compressedBound should always render 2', () => {
+    cy.visit('/cn/components/Cascader?example=test-001-compressed')
+    cy.get('.so-input.so-select').eq(2).as('Cascader0')
+    cy.get('@Cascader0').click()
+    cy.get('@Cascader0').click()
+    cy.get('@Cascader0').find('label.so-checkinput').first().click()
+    cy.get('@Cascader0').find('.so-cascader-item').should('have.length', 2)
+    cy.get('@Cascader0').find('.so-cascader-item-only').should('have.length', 1)
+    cy.get('@Cascader0').find('.so-cascader-item-compressed').should('have.length', 1)
+  })
+})

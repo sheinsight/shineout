@@ -81,6 +81,20 @@ describe('Cascader[Base]', () => {
       }
     }
   })
+
+  test('classname style', () => {
+    const wrapper = mount(
+      <Cascader
+        className="test-class"
+        style={{ color: 'red' }}
+        data={data}
+        keygen="id"
+        renderItem={n => `node ${n.text}`}
+      />
+    ).find(`.${SO_PREFIX}-input.${SO_PREFIX}-select`)
+    expect(wrapper.hasClass('test-class')).toBeTruthy()
+    expect(wrapper.getDOMNode().style.color).toBe('red')
+  })
 })
 
 describe('Cascader[multiple]', () => {
@@ -151,5 +165,259 @@ describe('Cascader[Lazyload]', () => {
       wrapper.update()
       expect(node.html().indexOf(`${SO_PREFIX}-spin-ring`) > 0).toBeTruthy()
     })
+  })
+})
+
+describe('Cascader[childrenKey]', () => {
+  it('should render children correctly', () => {
+    const cData = [
+      {
+        value: 'jiangsu',
+        city: [
+          {
+            value: 'nanjing',
+            city: [
+              {
+                value: 'jiangning',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        value: 'anhui',
+        city: [
+          {
+            value: 'hefei',
+            city: [
+              {
+                value: 'feidong',
+              },
+            ],
+          },
+        ],
+      },
+    ]
+    const wrapper = mount(<Cascader data={cData} keygen="value" renderItem="value" childrenKey="city" />)
+    wrapper.find(`.${SO_PREFIX}-cascader`).simulate('click')
+    expect(wrapper.find('.so-cascader-list').length).toBe(1)
+    jest.useFakeTimers()
+    wrapper
+      .find('.so-cascader-node')
+      .at(0)
+      .simulate('click')
+    jest.runAllTimers()
+    wrapper.update()
+    expect(wrapper.find('.so-cascader-list').length).toBe(2)
+  })
+})
+
+describe('Cascader[onCollapse]', () => {
+  const func = jest.fn()
+  const wrapper = mount(<Cascader data={userData} keygen="id" renderItem={n => `node ${n.text}`} onCollapse={func} />)
+  it('onCollpase should called when show or hide List', () => {
+    expect(wrapper.find(`.${SO_PREFIX}-select-options`).length).toBe(0)
+    // simulate click
+    wrapper.find(`.${SO_PREFIX}-cascader`).simulate('click')
+    expect(wrapper.render().find(`.${SO_PREFIX}-select-options`).length).toBe(1)
+    expect(func.mock.calls[0][0]).toBe(true)
+    // click the document to dismiss
+    jest.useFakeTimers()
+    wrapper
+      .find(`Cascader`)
+      .instance()
+      .handleClickAway({ target: document.body })
+    jest.runAllTimers()
+    wrapper.update()
+    expect(func.mock.calls[1][0]).toBe(false)
+  })
+})
+
+describe('Cascader[onFilter]', () => {
+  it('single  filter', () => {
+    const wrapper = mount(
+      <Cascader
+        onFilter={text => d => d.text.indexOf(text) >= 0}
+        data={userData}
+        keygen="id"
+        renderItem={n => `node ${n.text}`}
+      />
+    )
+    jest.useFakeTimers()
+    // 点击展开
+    wrapper.find(`.so-cascader`).simulate('click')
+    // 聚焦输入框
+    wrapper.find(`.so-cascader-input`).simulate('focus')
+    wrapper.find('.so-cascader-input').simulate('input', { target: { innerText: '0' } })
+    jest.runAllTimers()
+    wrapper.update()
+    expect(wrapper.find('.so-cascader-filter-list').length).toBe(1)
+    expect(wrapper.find('.so-cascader-filter-list .so-cascader-node').length).toBe(3)
+    const right = wrapper
+      .find('.so-cascader-node')
+      .reduce((result, item) => result && item.text().indexOf('0') > -1, true)
+    expect(right).toBe(true)
+  })
+  it('multiple filter', () => {
+    const wrapper = mount(
+      <Cascader
+        mode={0}
+        onFilter={text => d => d.text.indexOf(text) >= 0}
+        data={userData}
+        keygen="id"
+        renderItem={n => `node ${n.text}`}
+      />
+    )
+    jest.useFakeTimers()
+    // 点击展开
+    wrapper.find(`.so-cascader`).simulate('click')
+    // 聚焦输入框
+    wrapper.find(`.so-cascader-input`).simulate('focus')
+    wrapper.find('.so-cascader-input').simulate('input', { target: { innerText: '1-0-0' } })
+    jest.runAllTimers()
+    wrapper.update()
+    const right = wrapper
+      .find('.so-cascader-list .so-cascader-node')
+      .reduce((result, item) => result && item.text().indexOf('1') > -1, true)
+    expect(right).toBe(true)
+  })
+})
+
+describe('Cascader[renderItem, renderResult]', () => {
+  const wrapper = mount(
+    <Cascader data={userData} keygen="id" renderItem={d => `item-${d.id}`} renderResult={d => `result-${d.id}`} />
+  )
+  it('should renderItem', () => {
+    wrapper.find(`.so-cascader`).simulate('click')
+    const should = wrapper
+      .find('.so-cascader-node')
+      .reduce((result, item) => result && item.text().indexOf('item-') === 0, true)
+    expect(should).toBeTruthy()
+  })
+  it('should renderResult', () => {
+    jest.useFakeTimers()
+    wrapper
+      .find('.so-cascader-node')
+      .at(0)
+      .simulate('click')
+    jest.runAllTimers()
+    wrapper.update()
+    const should = wrapper
+      .find('.so-cascader-result .so-cascader-item')
+      .reduce((result, item) => result && item.text().indexOf('result-') === 0, true)
+    expect(should).toBeTruthy()
+  })
+})
+
+describe('Cascader[singleRemove]', () => {
+  it('should render remove and can click', () => {
+    const wrapper = mount(
+      <Cascader
+        data={userData}
+        keygen="id"
+        singleRemove
+        renderItem="id"
+        defaultValue={['0', '0-0', '0-1', '1', '1-0', '1-0-0']}
+      />
+    )
+    const items = wrapper.find('.so-cascader-result .so-cascader-item')
+    items.forEach(item => {
+      if (item.text() === '0' || item.text() === '1') {
+        expect(item.find('.so-cascader-single-remove').length).toBe(1)
+        item.find('.so-cascader-single-remove').simulate('click')
+      }
+    })
+    wrapper.update()
+    expect(wrapper.find('.so-cascader-result .so-cascader-item').length).toBe(0)
+  })
+})
+
+describe('Cascader[size]', () => {
+  const wrapper = mount(<Cascader data={userData} keygen="id" singleRemove renderItem="id" />)
+  it.each(['small', 'large', 'default'], 'size: %s', size => {
+    wrapper.setProps({ size })
+    wrapper.update()
+    expect(wrapper.find('.so-cascader').hasClass(`.so-cascader-${size}`)).toBeTruthy()
+  })
+})
+
+describe('Cascader[defaultValue, clearable]', () => {
+  const wrapper = mount(
+    <Cascader
+      data={userData}
+      keygen="id"
+      clearable
+      renderItem="id"
+      defaultValue={['0', '0-0', '0-1', '1', '1-0', '1-0-0']}
+    />
+  )
+  it('should render defaultValue ', () => {
+    expect(wrapper.find('.so-cascader-result .so-cascader-item').length).toBe(6)
+  })
+
+  it('should clear value when click clear', () => {
+    expect(wrapper.find('.so-cascader-close').length).toBe(1)
+    wrapper.find('.so-cascader-close').simulate('click')
+    wrapper.update()
+    expect(wrapper.find('.so-cascader-result .so-cascader-item').length).toBe(0)
+  })
+})
+
+describe('Cascader[underline]', () => {
+  const wrapper = mount(<Cascader data={userData} keygen="id" clearable renderItem="id" underline />)
+  it('should render underline class', () => {
+    expect(wrapper.find('.so-input').hasClass('so-input-underline')).toBeTruthy()
+  })
+})
+
+describe('Cascader[showArrow]', () => {
+  const wrapper = mount(<Cascader data={userData} keygen="id" clearable renderItem="id" showArrow={false} />)
+  it('should render underline class', () => {
+    expect(wrapper.find('.so-select-indicator.so-select-caret').length).toBe(0)
+  })
+})
+
+describe('Cascader[unmatch]', () => {
+  it('should render unmatch options', () => {
+    const wrapper = mount(
+      <Cascader
+        data={userData}
+        keygen="id"
+        clearable
+        renderItem={d => `id-${d.id}`}
+        unmatch
+        showArrow={false}
+        defaultValue={['aaa', 'bbb']}
+      />
+    )
+    expect(wrapper.find('.so-cascader .so-cascader-item').length).toBe(2)
+  })
+})
+
+describe('Cascader[value onChange, filterSameChange]', () => {
+  const onChangeHandler = jest.fn()
+  const wrapper = mount(
+    <Cascader data={userData} keygen="id" clearable renderItem="id" value={['0']} onChange={onChangeHandler} />
+  )
+  it('should value be 0', () => {
+    expect(wrapper.find('.so-cascader-result .so-cascader-item').text()).toBe('0')
+  })
+  it('should trigger onChange', () => {
+    wrapper.find(`.so-cascader`).simulate('click')
+    wrapper
+      .find(`.so-cascader-list .so-cascader-node`)
+      .first()
+      .simulate('click')
+    expect(onChangeHandler.mock.calls.length).toBe(1)
+    expect(onChangeHandler.mock.calls[0][0][0]).toBe('0')
+  })
+
+  it('should not trigger onChange', () => {
+    wrapper.setProps({ filterSameChange: true })
+    wrapper
+      .find(`.so-cascader-list .so-cascader-node`)
+      .first()
+      .simulate('click')
+    expect(onChangeHandler.mock.calls.length).toBe(1)
   })
 })
