@@ -168,8 +168,11 @@ class Tr extends Component {
       rowClassName,
       treeExpandKeys,
       rowEvents,
-      ...other
+      ...reset
     } = this.props
+    const other = Object.keys(reset)
+      .filter(key => !['format', 'prediction', 'value', 'onChange'].includes(key))
+      .reduce((r, key) => ({ ...r, [key]: reset[key] }), {})
     const tds = []
     let skip = 0
     for (let i = 0, c = columns.length; i < c; i++) {
