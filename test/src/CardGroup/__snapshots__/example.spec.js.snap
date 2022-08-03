@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot test: CardGroup[site/pages/components/CardGroup/example-1-base.tsx] 1`] = `
+<div>
+  <div>
+    <div />
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: CardGroup[site/pages/components/CardGroup/example-2-width.tsx] 1`] = `
+<div>
+  <div>
+    <div />
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: CardGroup[site/pages/components/CardGroup/example-3-lazyload.tsx] 1`] = `
+<div>
+  <div>
+    <div />
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: CardGroup[site/pages/components/CardGroup/example-4-checkbox.tsx] 1`] = `
+<div>
+  <p>
+    <label>
+      <input />
+      <i />
+      <span>
+        全选
+      </span>
+    </label>
+  </p>
+  <div>
+    <div>
+      <div />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: CardGroup[site/pages/components/CardGroup/example-5-disabled.tsx] 1`] = `
+<div>
+  <div>
+    <div>
+      <div />
+    </div>
+  </div>
+</div>
+`;
