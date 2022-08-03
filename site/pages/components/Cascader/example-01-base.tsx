@@ -41,16 +41,6 @@ const data: CascaderData = [
   },
 ]
 
-const App: React.FC = () => (
-  <Cascader
-    data={data}
-    absolute
-    onChange={d => {
-      console.log(d)
-    }}
-    keygen="value"
-    renderItem={n => `${n.value}`}
-  />
-)
+const App: React.FC = () => <Cascader data={data} absolute keygen="value" renderItem={n => `${n.value}`} />
 
 export default App
