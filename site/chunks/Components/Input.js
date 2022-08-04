@@ -194,6 +194,32 @@ const examples = [
     rawText: require('!raw-loader!doc/pages/components/Input/example-12-trim.js'),
 
   },
+  {
+    name: '13-keypress',
+    isTs: true,
+    isTest: false,
+    title: locate(
+      '键盘事件 \n Input 支持部分键盘按键的事件，在按下按键后触发相应的事件',
+      'Keyboard events \n Input supports events for some keyboard keys, which trigger the corresponding event when a key is pressed'
+    ),
+    component: require('doc/pages/components/Input/example-13-keypress.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Input/example-13-keypress.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Input/example-13-keypress.tsx'),
+
+  },
+  {
+    name: '14-limit',
+    isTs: true,
+    isTest: false,
+    title: locate(
+      '限制输入 \n Input 支持部分限制输入功能，比如最大值、最小值、最大输入长度。',
+      'Limit \n Input supports some rules of Input to limit the inputing, such as maximum, minimum, and maximum Input length.'
+    ),
+    component: require('doc/pages/components/Input/example-14-limit.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Input/example-14-limit.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Input/example-14-limit.tsx'),
+
+  },
 ]
 
 const codes = undefined
