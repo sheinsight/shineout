@@ -315,7 +315,7 @@ Day.propTypes = {
   onChangeSync: PropTypes.func,
   onDayHover: PropTypes.func,
   onModeChange: PropTypes.func.isRequired,
-  range: PropTypes.number,
+  range: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
   rangeDate: PropTypes.array,
   rangeTemp: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   showTimePicker: PropTypes.bool,
