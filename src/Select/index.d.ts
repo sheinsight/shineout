@@ -196,7 +196,7 @@ export interface SelectProps<Item, Value> extends
    */
   onFilter?: (text: string, from: string) => (((data: Item) => boolean) | void);
 
-  
+
   /**
    * Use the onAdvancedFilter property to enable filtering to switch between filtering results and raw data for the current hierarchy.
    *
@@ -412,7 +412,7 @@ export interface SelectProps<Item, Value> extends
    *
    * default: ","
    */
-  convertBr?: string;
+  convertBr?: string | ((text: string) => string);
 }
 
 declare class Select<Item = any, Value = any> extends React.Component<SelectProps<Item, Value>, {}> {
