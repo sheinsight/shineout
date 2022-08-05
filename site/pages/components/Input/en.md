@@ -23,13 +23,15 @@
 | value | string \| number | - | The defaultValue and value can be set at the same time and defaultValue will be overridden by value<br />In the Form, the value will be taken over by the form and the value will lose efficacy. |
 | clearable | () => void \| boolean | false | Remove content of the input when clicking the clear icon, clear event function |
 | coin | boolean | false | Show as thousands separator, valid only when type is 'number' |
-| info | (value: string) => string \| number | - | Infomation |
+| info | ((value: string) => string) \| number | - | Infomation |
 | popoverProps | object | none | Vilidate popup properties, specific properties refer to Popover component description |
 | maxLength | number | none | input max length |
 | forwardedRef | (el: HTMLElement) => void | none | get input element |
 | underline | boolean | false | only display border bottom  |
 | onKeyUp | (e: KeyboardEvent) => void | none | callback with key up |
 | onKeyDown | (e: KeyboardEvent) => void | none | callback with key down |
+| onMouseUp | () => void | 无 | callback with mouse up |
+| onMouseDown | () => void | 无 | callback with mouse down |
 | innerTitle | string | - | inner title |
 | clearToUndefined | boolean | - | After clicking the clear button, the data becomes undefined |
 | integerLimit | number | - | Integer bit limit (valid when type is number) |

@@ -64,6 +64,24 @@ export interface InputProps<Value> extends
   onKeyUp?: (e: KeyboardEvent) => void;
 
   /**
+   * The callback function for mouse down
+   *
+   * 鼠标按下后的回调
+   *
+   * default: none
+   */
+  onMouseDown?: () => void;
+
+  /**
+   * The callback function for mouse up
+   *
+   * 鼠标按下后抬起的回调
+   *
+   * default: none
+   */
+  onMouseUp?: () => void;
+
+  /**
    * The position where the text pop up
    *
    * 信息弹出位置
@@ -124,7 +142,7 @@ export interface InputProps<Value> extends
    *
    * default: -
    */
-  info?: (msg: string) => string;
+  info?: ((msg: string) => string) | number;
 
   /**
    * Vilidate popup properties, specific properties refer to Popover component description
