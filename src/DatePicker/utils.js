@@ -195,6 +195,13 @@ function toDateWithFormat(dirtyDate, fmt, def) {
   return date
 }
 
+function compareDay(dateLeft, dateRight) {
+  if (!dateLeft || !dateRight) return NaN
+  const left = new Date(dateLeft.getFullYear(), dateLeft.getMonth(), dateLeft.getDate())
+  const right = new Date(dateRight.getFullYear(), dateRight.getMonth(), dateRight.getDate())
+  return compareAsc(left, right)
+}
+
 function compareMonth(dateLeft, dateRight, pad = 0) {
   if (!dateLeft || !dateRight) return 0
   const left = new Date(dateLeft.getFullYear(), dateLeft.getMonth(), 1)
@@ -284,6 +291,7 @@ export default {
   cloneTime,
   compareAsc,
   compareMonth,
+  compareDay,
   getDaysOfMonth,
   format: formatted,
   isInvalid,

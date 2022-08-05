@@ -174,7 +174,7 @@ Time.propTypes = {
   min: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   max: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   onChange: PropTypes.func.isRequired,
-  range: PropTypes.number,
+  range: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
   value: PropTypes.object,
   defaultTime: PropTypes.array,
   index: PropTypes.number,
