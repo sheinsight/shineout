@@ -17,58 +17,6 @@ exports[`Cascader[snapshot] Snapshot test: Cascader[site/pages/components/Cascad
 </span>
 `;
 
-exports[`Cascader[snapshot] Snapshot test: Cascader[site/pages/components/Cascader/example-02-multiple.tsx] 1`] = `
-<div>
-  <div>
-    <label>
-      <input />
-      <i />
-      <span>
-        mode=0 (full)
-      </span>
-    </label>
-    <label>
-      <input />
-      <i />
-      <span>
-        mode=1 (half)
-      </span>
-    </label>
-    <label>
-      <input />
-      <i />
-      <span>
-        mode=2 (child only)
-      </span>
-    </label>
-    <label>
-      <input />
-      <i />
-      <span>
-        mode=3 (shallow)
-      </span>
-    </label>
-  </div>
-  <br />
-  <span>
-    <div>
-      <div>
-        <a>
-          node 0
-        </a>
-        <a>
-          node 0-0
-        </a>
-        <a>
-          node 0-0-0
-        </a>
-        <a />
-      </div>
-    </div>
-  </span>
-</div>
-`;
-
 exports[`Cascader[snapshot] Snapshot test: Cascader[site/pages/components/Cascader/example-03-hover.tsx] 1`] = `
 <span>
   <div>

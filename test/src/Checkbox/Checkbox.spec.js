@@ -8,9 +8,14 @@ import CheckboxFormat from '../../../site/pages/components/Checkbox/example-06-f
 import CheckboxBlock from '../../../site/pages/components/Checkbox/example-08-block.tsx'
 import CheckboxDisabled from '../../../site/pages/components/Checkbox/example-09-disabled.tsx'
 import CheckboxDisabledFunc from '../../../site/pages/components/Checkbox/example-10-disabled.tsx'
-import CheckboxInput from '../../../site/pages/components/Checkbox/example-11-input.tsx'
+import exampleTest from '../../example'
+import { delay } from '../../utils'
 
 /* global SO_PREFIX */
+
+describe('Checkbox[snapshot]', () => {
+  exampleTest('Checkbox')
+})
 describe('Checkbox[Base]', () => {
   test('should react while click', () => {
     const wrapper = mount(<Checkbox>Checkbox</Checkbox>)
@@ -97,6 +102,20 @@ describe('CheckboxGroup[Format]', () => {
       const innerText = item.find(`.${SO_PREFIX}-checkinput span span`).text()
       expect(innerText).toBe(data[index][format])
     })
+    // click
+    wrapper
+      .find('input[type="checkbox"]')
+      .at(0)
+      .simulate('change', { target: { checked: true } })
+
+    expect(wrapper.find('CheckboxGroup').props().value.length).toBe(3)
+
+    wrapper
+      .find('input[type="checkbox"]')
+      .at(0)
+      .simulate('change', { target: { checked: false } })
+
+    expect(wrapper.find('CheckboxGroup').props().value.length).toBe(2)
   })
 })
 
@@ -127,8 +146,13 @@ describe('Checkbox[disabled]', () => {
 })
 
 describe('Checkbox[inputable]', () => {
-  test('should show input while selected', () => {
-    const wrapper = mount(<CheckboxInput />)
+  const fn = jest.fn()
+  test('should show input while selected', async () => {
+    const wrapper = mount(
+      <Checkbox inputable onChange={fn}>
+        more...
+      </Checkbox>
+    )
     expect(wrapper.find(`.${SO_PREFIX}-input`).length).toBe(0)
     // simulate chose
     wrapper.find('input[type="checkbox"]').simulate('change', {
@@ -136,7 +160,16 @@ describe('Checkbox[inputable]', () => {
         checked: true,
       },
     })
+    console.log(wrapper.find('input[type="text"]').html())
+    wrapper.find('input[type="text"]').simulate('focus')
+    wrapper.find('input[type="text"]').simulate('change', {
+      target: {
+        value: '哈哈哈',
+      },
+    })
+    await delay(500)
     expect(wrapper.find(`.${SO_PREFIX}-input`).length).toBe(1)
+    expect(fn.mock.calls[1][0]).toBe('哈哈哈')
   })
 })
 
@@ -174,5 +207,36 @@ describe('CheckboxGroup[prediction]', () => {
       />
     )
     expect(wrapper.find('.so-checkinput').hasClass('so-checkinput-checked')).toBeTruthy()
+  })
+})
+
+describe('CheckboxGroup[Children]', () => {
+  const fn = jest.fn()
+  const wrapper = mount(
+    <Checkbox.Group keygen onChange={fn}>
+      <Checkbox key="red" htmlValue="red">
+        Red
+      </Checkbox>
+      <Checkbox key="blue" htmlValue="blue">
+        Blue
+      </Checkbox>
+    </Checkbox.Group>
+  )
+  it('should click', () => {
+    wrapper
+      .find('input[type="checkbox"]')
+      .at(0)
+      .simulate('change', { target: { checked: true } })
+    expect(JSON.stringify(fn.mock.calls[0])).toBe(JSON.stringify([['red'], 'red', true]))
+    wrapper
+      .find('input[type="checkbox"]')
+      .at(1)
+      .simulate('change', { target: { checked: true } })
+    expect(JSON.stringify(fn.mock.calls[1])).toBe(JSON.stringify([['red', 'blue'], 'blue', true]))
+    wrapper
+      .find('input[type="checkbox"]')
+      .at(1)
+      .simulate('change', { target: { checked: false } })
+    expect(JSON.stringify(fn.mock.calls[2])).toBe(JSON.stringify([['red'], 'blue', false]))
   })
 })

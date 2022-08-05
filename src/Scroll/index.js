@@ -4,6 +4,8 @@ import { PureComponent } from '../component'
 import Scroll from './Scroll'
 
 export default class extends PureComponent {
+  static displayName = 'ShineoutScroll'
+
   static propTypes = {
     onScroll: PropTypes.func,
     scroll: PropTypes.oneOf(['x', 'y', 'both', '']),

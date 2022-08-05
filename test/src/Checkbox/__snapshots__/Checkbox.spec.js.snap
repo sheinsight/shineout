@@ -1,0 +1,448 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Checkbox[snapshot] Snapshot test: Checkbox[site/pages/components/Checkbox/example-01-base.tsx] 1`] = `
+<label>
+  <input />
+  <i />
+  <span>
+    Checkbox
+  </span>
+</label>
+`;
+
+exports[`Checkbox[snapshot] Snapshot test: Checkbox[site/pages/components/Checkbox/example-02-checked.tsx] 1`] = `
+<div>
+  <label>
+    <input />
+    <i />
+    <span>
+      not checked
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      checked
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      indeterminate
+    </span>
+  </label>
+</div>
+`;
+
+exports[`Checkbox[snapshot] Snapshot test: Checkbox[site/pages/components/Checkbox/example-03-value.tsx] 1`] = `
+<label>
+  <input />
+  <i />
+  <span>
+    value is "ok"
+  </span>
+</label>
+`;
+
+exports[`Checkbox[snapshot] Snapshot test: Checkbox[site/pages/components/Checkbox/example-04-rawgroup.tsx] 1`] = `
+<div>
+  <label>
+    <input />
+    <i />
+    <span>
+      red
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      cyan
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      blue
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      green
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      yellow
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      orange
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      violet
+    </span>
+  </label>
+</div>
+`;
+
+exports[`Checkbox[snapshot] Snapshot test: Checkbox[site/pages/components/Checkbox/example-05-group.tsx] 1`] = `
+<div>
+  <label>
+    <input />
+    <i />
+    <span>
+      <span>
+        red
+      </span>
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      <span>
+        orange
+      </span>
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      <span>
+        yellow
+      </span>
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      <span>
+        green
+      </span>
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      <span>
+        cyan
+      </span>
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      <span>
+        blue
+      </span>
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      <span>
+        violet
+      </span>
+    </span>
+  </label>
+</div>
+`;
+
+exports[`Checkbox[snapshot] Snapshot test: Checkbox[site/pages/components/Checkbox/example-06-format.tsx] 1`] = `
+<div>
+  <label>
+    <input />
+    <i />
+    <span>
+      <span>
+        red
+      </span>
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      <span>
+        cyan
+      </span>
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      <span>
+        blue
+      </span>
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      <span>
+        green
+      </span>
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      <span>
+        yellow
+      </span>
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      <span>
+        orange
+      </span>
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      <span>
+        violet
+      </span>
+    </span>
+  </label>
+</div>
+`;
+
+exports[`Checkbox[snapshot] Snapshot test: Checkbox[site/pages/components/Checkbox/example-08-block.tsx] 1`] = `
+<div>
+  <label>
+    <input />
+    <i />
+    <span>
+      red
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      cyan
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      blue
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      green
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      yellow
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      orange
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      violet
+    </span>
+  </label>
+</div>
+`;
+
+exports[`Checkbox[snapshot] Snapshot test: Checkbox[site/pages/components/Checkbox/example-09-disabled.tsx] 1`] = `
+<div>
+  <div>
+    <label>
+      <input />
+      <i />
+      <span>
+        red
+      </span>
+    </label>
+    <label>
+      <input />
+      <i />
+      <span>
+        orange
+      </span>
+    </label>
+    <label>
+      <input />
+      <i />
+      <span>
+        yellow
+      </span>
+    </label>
+    <label>
+      <input />
+      <i />
+      <span>
+        green
+      </span>
+    </label>
+    <label>
+      <input />
+      <i />
+      <span>
+        cyan
+      </span>
+    </label>
+    <label>
+      <input />
+      <i />
+      <span>
+        blue
+      </span>
+    </label>
+    <label>
+      <input />
+      <i />
+      <span>
+        violet
+      </span>
+    </label>
+  </div>
+  <br />
+  <label>
+    <input />
+    <i />
+    <span>
+      not checked
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      checked
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      indeterminate
+    </span>
+  </label>
+</div>
+`;
+
+exports[`Checkbox[snapshot] Snapshot test: Checkbox[site/pages/components/Checkbox/example-10-disabled.tsx] 1`] = `
+<div>
+  <div>
+    <label>
+      <input />
+      <i />
+      <span>
+        red
+      </span>
+    </label>
+    <label>
+      <input />
+      <i />
+      <span>
+        orange
+      </span>
+    </label>
+    <label>
+      <input />
+      <i />
+      <span>
+        yellow
+      </span>
+    </label>
+    <label>
+      <input />
+      <i />
+      <span>
+        green
+      </span>
+    </label>
+    <label>
+      <input />
+      <i />
+      <span>
+        cyan
+      </span>
+    </label>
+    <label>
+      <input />
+      <i />
+      <span>
+        blue
+      </span>
+    </label>
+    <label>
+      <input />
+      <i />
+      <span>
+        violet
+      </span>
+    </label>
+  </div>
+</div>
+`;
+
+exports[`Checkbox[snapshot] Snapshot test: Checkbox[site/pages/components/Checkbox/example-11-input.tsx] 1`] = `
+<label>
+  <input />
+  <i />
+  <span>
+    more...
+  </span>
+</label>
+`;
+
+exports[`Checkbox[snapshot] Snapshot test: Checkbox[site/pages/components/Checkbox/example-12-onClick.tsx] 1`] = `
+<div>
+  <label>
+    <input />
+    <i />
+    <span>
+      Click Me
+       0 Times!
+    </span>
+  </label>
+</div>
+`;

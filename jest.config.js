@@ -1,3 +1,12 @@
+const ignoreFiles = [
+  '!**/*.ts',
+  '!src/Form/Block.js',
+  '!src/Form/BlockField.js',
+  '!src/Form/Loop.js',
+  '!src/Button/Once.js',
+  '!src/Checkbox/Checkbox.js',
+]
+const target = '**'
 module.exports = {
   setupFiles: ['<rootDir>/test/jest.init.js'],
   moduleNameMapper: {
@@ -10,4 +19,6 @@ module.exports = {
     SO_PREFIX: 'so',
   },
   modulePathIgnorePatterns: ['publish'],
+  testMatch: [`**/test/src/${target}/*.js`],
+  collectCoverageFrom: [`src/${target}`, ...ignoreFiles],
 }

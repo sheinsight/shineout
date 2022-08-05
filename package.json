@@ -10,7 +10,7 @@
   "scripts": {
     "test": "cross-env NODE_ENV=test jest --config jest.config.js",
     "test:silent": "cross-env NODE_ENV=test jest --silent",
-    "test:cover": "jest --coverage",
+    "test:cover": "cross-env NODE_ENV=test jest --coverage",
     "test:update": "jest -u",
     "lint": "eslint src/",
     "stylelint": "stylelint site/**/*.less --fix && stylelint src/**/*.less --fix",
@@ -90,7 +90,7 @@
     "cypress-file-upload": "^5.0.8",
     "docsearch.js": "^2.6.2",
     "ejs": "^2.5.7",
-    "enzyme": "^3.8.0",
+    "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.8.0",
     "es6-object-assign": "^1.1.0",
     "eslint": "^5.16.0",
