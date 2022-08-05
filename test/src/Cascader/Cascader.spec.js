@@ -1,4 +1,4 @@
-import { mount, shallow } from 'enzyme'
+import { mount } from 'enzyme'
 import React from 'react'
 import { Cascader } from 'shineout'
 import Tree from 'shineout/Datum/Tree'
@@ -104,12 +104,24 @@ describe('Cascader[multiple]', () => {
     expect(wrapper.find('input[type="checkbox"]').length).toBe(2)
   })
   test('should return correct value while use diff mode', () => {
+    jest.useRealTimers()
     const modes = [0, 1, 2, 3]
     const expectsChose = [['0-0', '0-1', '0'], ['0-0', '0-1', '0'], ['0-0', '0-1'], ['0']]
     modes.forEach((mode, index) => {
       const wrapper = mount(<Cascader data={userData} keygen="id" mode={mode} renderItem={n => `${n.text}`} />)
       const datum = wrapper.find('Result').prop('datum')
       datum.set('0', 1)
+      expect(datum.getValue()).toEqual(expectsChose[index])
+    })
+    modes.forEach((mode, index) => {
+      const wrapper = mount(<Cascader data={userData} keygen="id" mode={mode} renderItem={n => `${n.text}`} />)
+      wrapper.find(`.${SO_PREFIX}-cascader`).simulate('click')
+      wrapper
+        .find(`input[type="checkbox"]`)
+        .at(0)
+        .simulate('change', { target: { checked: true } })
+      wrapper.update()
+      const datum = wrapper.find('Result').prop('datum')
       expect(datum.getValue()).toEqual(expectsChose[index])
     })
   })
@@ -257,6 +269,11 @@ describe('Cascader[onFilter]', () => {
       .find('.so-cascader-node')
       .reduce((result, item) => result && item.text().indexOf('0') > -1, true)
     expect(right).toBe(true)
+    wrapper
+      .find('.so-cascader-filter-list .so-cascader-node')
+      .at(0)
+      .simulate('click', { stopPropagation: () => {} })
+    expect(wrapper.find('.so-cascader-result .so-cascader-item').length).toBe(2)
   })
   it('multiple filter', () => {
     const wrapper = mount(

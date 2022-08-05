@@ -1,0 +1,1533 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Form[snapshot] Snapshot test: Form[site/pages/components/Form/example-02-controlform.tsx] 1`] = `
+<form>
+  <div>
+    <button>
+      <span>
+        reset
+      </span>
+    </button>
+    <button>
+      <span>
+        submit
+      </span>
+    </button>
+    <button>
+      <span>
+        validate
+      </span>
+    </button>
+    <button>
+      <span>
+        clear validate
+      </span>
+    </button>
+    <button>
+      <span>
+        get value
+      </span>
+    </button>
+    <button>
+      <span>
+        submit without validate
+      </span>
+    </button>
+  </div>
+  <div>
+    <div>
+      name
+    </div>
+    <div>
+      <label>
+        <input />
+      </label>
+    </div>
+  </div>
+  <div>
+    <div>
+      Password
+    </div>
+    <div>
+      <label>
+        <input />
+      </label>
+    </div>
+  </div>
+  <div>
+    <div>
+      
+    </div>
+    <div>
+      <button>
+        <span>
+          Submit
+        </span>
+      </button>
+      <button>
+        <span>
+          Reset
+        </span>
+      </button>
+    </div>
+  </div>
+</form>
+`;
+
+exports[`Form[snapshot] Snapshot test: Form[site/pages/components/Form/example-02-label.tsx] 1`] = `
+<form>
+  <div>
+    <div>
+      Email
+    </div>
+    <div>
+      <label>
+        <input />
+      </label>
+    </div>
+  </div>
+  <div>
+    <div>
+      Password
+    </div>
+    <div>
+      <label>
+        <input />
+      </label>
+    </div>
+  </div>
+  <div>
+    <div>
+      
+    </div>
+    <div>
+      <button>
+        <span>
+          Submit
+        </span>
+      </button>
+    </div>
+  </div>
+</form>
+`;
+
+exports[`Form[snapshot] Snapshot test: Form[site/pages/components/Form/example-03-label.tsx] 1`] = `
+<form>
+  <div>
+    <div>
+      Email
+    </div>
+    <div>
+      <label>
+        <input />
+      </label>
+    </div>
+  </div>
+  <div>
+    <div>
+      Password
+    </div>
+    <div>
+      <label>
+        <input />
+      </label>
+    </div>
+  </div>
+  <button>
+    <span>
+      Submit
+    </span>
+  </button>
+</form>
+`;
+
+exports[`Form[snapshot] Snapshot test: Form[site/pages/components/Form/example-03-label-vertical.tsx] 1`] = `
+<form>
+  <div>
+    <div>
+      Your Email Address
+    </div>
+    <div>
+      <label>
+        <input />
+      </label>
+    </div>
+  </div>
+  <div>
+    <div>
+      Password
+    </div>
+    <div>
+      <label>
+        <input />
+      </label>
+    </div>
+  </div>
+  <div>
+    <div>
+      
+    </div>
+    <div>
+      <button>
+        <span>
+          Submit
+        </span>
+      </button>
+    </div>
+  </div>
+</form>
+`;
+
+exports[`Form[snapshot] Snapshot test: Form[site/pages/components/Form/example-04-inline.tsx] 1`] = `
+<form>
+  <div>
+    <div>
+      Email
+    </div>
+    <div>
+      <label>
+        <input />
+      </label>
+    </div>
+  </div>
+  <label>
+    <input />
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      Remember
+    </span>
+  </label>
+  <button>
+    <span>
+      Submit
+    </span>
+  </button>
+</form>
+`;
+
+exports[`Form[snapshot] Snapshot test: Form[site/pages/components/Form/example-05-tip.tsx] 1`] = `
+<form>
+  <div>
+    <div>
+      Email
+    </div>
+    <div>
+      <label>
+        <input />
+      </label>
+      <div>
+        Email or nickname or phonenumber
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      Password
+    </div>
+    <div>
+      <label>
+        <input />
+      </label>
+      <div>
+        Use at least one letter, one numeral, and seven characters.
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      Favorite Color
+    </div>
+    <div>
+      <div>
+        <label>
+          <input />
+          <i />
+          <span>
+            red
+          </span>
+        </label>
+        <label>
+          <input />
+          <i />
+          <span>
+            orange
+          </span>
+        </label>
+        <label>
+          <input />
+          <i />
+          <span>
+            yellow
+          </span>
+        </label>
+        <label>
+          <input />
+          <i />
+          <span>
+            green
+          </span>
+        </label>
+        <label>
+          <input />
+          <i />
+          <span>
+            cyan
+          </span>
+        </label>
+        <label>
+          <input />
+          <i />
+          <span>
+            blue
+          </span>
+        </label>
+        <label>
+          <input />
+          <i />
+          <span>
+            violet
+          </span>
+        </label>
+      </div>
+      <div>
+        select your favorite colors
+      </div>
+    </div>
+  </div>
+</form>
+`;
+
+exports[`Form[snapshot] Snapshot test: Form[site/pages/components/Form/example-06-tip.tsx] 1`] = `
+<form>
+  <div>
+    <i />
+    <label>
+      <input />
+    </label>
+  </div>
+  <label>
+    <input />
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      Remember
+    </span>
+  </label>
+  <button>
+    <span>
+      Submit
+    </span>
+  </button>
+</form>
+`;
+
+exports[`Form[snapshot] Snapshot test: Form[site/pages/components/Form/example-07-validate.tsx] 1`] = `
+<form>
+  <div>
+    <div>
+      Email
+    </div>
+    <div>
+      <label>
+        <input />
+      </label>
+    </div>
+  </div>
+  <div>
+    <div>
+      Name
+    </div>
+    <div>
+      <label>
+        <input />
+      </label>
+    </div>
+  </div>
+  <div>
+    <div>
+      Password
+    </div>
+    <div>
+      <label>
+        <input />
+      </label>
+      <div>
+        At least one letter, one numeral, and 6 - 20 characters.
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      Age
+    </div>
+    <div>
+      <label>
+        <input />
+      </label>
+      <div>
+        between 18 and 60
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      Tel
+    </div>
+    <div>
+      <label>
+        <input />
+      </label>
+    </div>
+  </div>
+  <div>
+    <div>
+      IPv4
+    </div>
+    <div>
+      <label>
+        <input />
+      </label>
+    </div>
+  </div>
+  <div>
+    <div>
+      Favorite Colors
+    </div>
+    <div>
+      <div>
+        <label>
+          <input />
+          <i />
+          <span>
+            red
+          </span>
+        </label>
+        <label>
+          <input />
+          <i />
+          <span>
+            orange
+          </span>
+        </label>
+        <label>
+          <input />
+          <i />
+          <span>
+            yellow
+          </span>
+        </label>
+        <label>
+          <input />
+          <i />
+          <span>
+            green
+          </span>
+        </label>
+        <label>
+          <input />
+          <i />
+          <span>
+            cyan
+          </span>
+        </label>
+        <label>
+          <input />
+          <i />
+          <span>
+            blue
+          </span>
+        </label>
+        <label>
+          <input />
+          <i />
+          <span>
+            violet
+          </span>
+        </label>
+      </div>
+      <div>
+        select your favorite colors
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      
+    </div>
+    <div>
+      <button>
+        <span>
+          Sumbit
+        </span>
+      </button>
+      <button>
+        <span>
+          Reset
+        </span>
+      </button>
+      <button>
+        <span>
+          校验部分字段
+        </span>
+      </button>
+    </div>
+  </div>
+</form>
+`;
+
+exports[`Form[snapshot] Snapshot test: Form[site/pages/components/Form/example-08-validate.tsx] 1`] = `
+<form>
+  <div>
+    <div>
+      Name
+    </div>
+    <div>
+      <label>
+        <input />
+      </label>
+    </div>
+  </div>
+  <div>
+    <div>
+      Password
+    </div>
+    <div>
+      <label>
+        <input />
+      </label>
+      <div>
+        At least one letter, one numeral, and 6 - 20 characters.
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      Favorite Colors
+    </div>
+    <div>
+      <div>
+        <label>
+          <input />
+          <i />
+          <span>
+            red
+          </span>
+        </label>
+        <label>
+          <input />
+          <i />
+          <span>
+            orange
+          </span>
+        </label>
+        <label>
+          <input />
+          <i />
+          <span>
+            yellow
+          </span>
+        </label>
+        <label>
+          <input />
+          <i />
+          <span>
+            green
+          </span>
+        </label>
+        <label>
+          <input />
+          <i />
+          <span>
+            cyan
+          </span>
+        </label>
+        <label>
+          <input />
+          <i />
+          <span>
+            blue
+          </span>
+        </label>
+        <label>
+          <input />
+          <i />
+          <span>
+            violet
+          </span>
+        </label>
+      </div>
+      <div>
+        select your favorite colors
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      
+    </div>
+    <div>
+      <button>
+        <span>
+          Sumbit
+        </span>
+      </button>
+      <button>
+        <span>
+          Reset
+        </span>
+      </button>
+    </div>
+  </div>
+</form>
+`;
+
+exports[`Form[snapshot] Snapshot test: Form[site/pages/components/Form/example-08-x-validate-bind.tsx] 1`] = `
+<form>
+  <div>
+    <div>
+      Password
+    </div>
+    <div>
+      <label>
+        <input />
+      </label>
+    </div>
+  </div>
+  <div>
+    <div>
+      Repeat Password
+    </div>
+    <div>
+      <label>
+        <input />
+      </label>
+    </div>
+  </div>
+  <div>
+    <div>
+      
+    </div>
+    <div>
+      <button>
+        <span>
+          Sumbit
+        </span>
+      </button>
+      <button>
+        <span>
+          Reset
+        </span>
+      </button>
+    </div>
+  </div>
+</form>
+`;
+
+exports[`Form[snapshot] Snapshot test: Form[site/pages/components/Form/example-08-y-validate-keep-height.tsx] 1`] = `
+<form>
+  <div>
+    <div>
+      Name
+    </div>
+    <div>
+      <label>
+        <input />
+      </label>
+    </div>
+  </div>
+  <div>
+    <div>
+      Password
+    </div>
+    <div>
+      <label>
+        <input />
+      </label>
+    </div>
+  </div>
+  <div>
+    <div>
+      
+    </div>
+    <div>
+      <button>
+        <span>
+          Sumbit
+        </span>
+      </button>
+      <button>
+        <span>
+          Reset
+        </span>
+      </button>
+    </div>
+  </div>
+</form>
+`;
+
+exports[`Form[snapshot] Snapshot test: Form[site/pages/components/Form/example-09-server-validate.tsx] 1`] = `
+<form>
+  <div>
+    <div>
+      Email
+    </div>
+    <div>
+      <label>
+        <input />
+      </label>
+    </div>
+  </div>
+  <div>
+    <div>
+      Name
+    </div>
+    <div>
+      <label>
+        <input />
+      </label>
+    </div>
+  </div>
+  <div>
+    <div>
+      Password
+    </div>
+    <div>
+      <label>
+        <input />
+      </label>
+      <div>
+        At least one letter, one numeral, and 6 - 20 characters.
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      
+    </div>
+    <div>
+      <button>
+        <span>
+          Sumbit
+        </span>
+      </button>
+      <button>
+        <span>
+          Reset
+        </span>
+      </button>
+    </div>
+  </div>
+</form>
+`;
+
+exports[`Form[snapshot] Snapshot test: Form[site/pages/components/Form/example-11-disabled.tsx] 1`] = `
+<form>
+  <div>
+    <div>
+      Email
+    </div>
+    <div>
+      <label>
+        <input />
+      </label>
+    </div>
+  </div>
+  <div>
+    <div>
+      Password
+    </div>
+    <div>
+      <label>
+        <input />
+      </label>
+    </div>
+  </div>
+  <div>
+    <div>
+      Name
+    </div>
+    <div>
+      <div>
+        <label>
+          <input />
+        </label>
+        <span>
+          -
+        </span>
+        <label>
+          <input />
+        </label>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      Age
+    </div>
+    <div>
+      <label>
+        <input />
+      </label>
+    </div>
+  </div>
+  <div>
+    <div>
+      Favorite Color
+    </div>
+    <div>
+      <div>
+        <label>
+          <input />
+          <i />
+          <span>
+            red
+          </span>
+        </label>
+        <label>
+          <input />
+          <i />
+          <span>
+            orange
+          </span>
+        </label>
+        <label>
+          <input />
+          <i />
+          <span>
+            yellow
+          </span>
+        </label>
+        <label>
+          <input />
+          <i />
+          <span>
+            green
+          </span>
+        </label>
+        <label>
+          <input />
+          <i />
+          <span>
+            cyan
+          </span>
+        </label>
+        <label>
+          <input />
+          <i />
+          <span>
+            blue
+          </span>
+        </label>
+        <label>
+          <input />
+          <i />
+          <span>
+            violet
+          </span>
+        </label>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      
+    </div>
+    <div>
+      <button>
+        <span>
+          <div />
+        </span>
+        <span>
+          Submit
+        </span>
+      </button>
+      <button>
+        <span>
+          Reset
+        </span>
+      </button>
+    </div>
+  </div>
+</form>
+`;
+
+exports[`Form[snapshot] Snapshot test: Form[site/pages/components/Form/example-12-field.tsx] 1`] = `
+<form>
+  <div>
+    <div>
+      Email
+    </div>
+    <div>
+      <input />
+    </div>
+  </div>
+  <div>
+    <div>
+      Password
+    </div>
+    <div>
+      <input />
+      <div>
+        Use at least one letter, one numeral, and seven characters.
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      
+    </div>
+    <div>
+      <button>
+        <span>
+          Submit
+        </span>
+      </button>
+    </div>
+  </div>
+</form>
+`;
+
+exports[`Form[snapshot] Snapshot test: Form[site/pages/components/Form/example-13-func-field.tsx] 1`] = `
+<form>
+  <div>
+    <div>
+      Favorite color
+    </div>
+    <div>
+      <div>
+        <a />
+      </div>
+      <div>
+        Choose your favorite color.
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      
+    </div>
+    <div>
+      <button>
+        <span>
+          Submit
+        </span>
+      </button>
+    </div>
+  </div>
+</form>
+`;
+
+exports[`Form[snapshot] Snapshot test: Form[site/pages/components/Form/example-14-fieldset.tsx] 1`] = `
+<form>
+  <div>
+    <div>
+      Email
+    </div>
+    <div>
+      <label>
+        <input />
+      </label>
+    </div>
+  </div>
+  <div>
+    <div>
+      Password
+    </div>
+    <div>
+      <label>
+        <input />
+      </label>
+    </div>
+  </div>
+  <div>
+    <div>
+      Account
+    </div>
+    <div>
+      <div>
+        <div>
+          Name
+        </div>
+        <div>
+          <div>
+            <label>
+              <input />
+            </label>
+            <span>
+              -
+            </span>
+            <label>
+              <input />
+            </label>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div>
+          <label>
+            <input />
+            <i />
+            <span>
+              Age
+            </span>
+          </label>
+        </div>
+        <div>
+          <span />
+        </div>
+      </div>
+      <div>
+        <div>
+          City
+        </div>
+        <div>
+          <div>
+            <div>
+              <div>
+                <span>
+                  <span />
+                   
+                </span>
+                <a>
+                  <svg>
+                    <path />
+                  </svg>
+                </a>
+              </div>
+              <div>
+                <span>
+                  Data not found
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      Hate Color
+    </div>
+    <div>
+      <div>
+        <div>
+          <div>
+            <span>
+              green
+            </span>
+            <a>
+              <svg>
+                <path />
+              </svg>
+            </a>
+          </div>
+          <div>
+            <span>
+              Data not found
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      Favorite Color
+    </div>
+    <div>
+      <div>
+        <label>
+          <input />
+          <i />
+          <span>
+            red
+          </span>
+        </label>
+        <label>
+          <input />
+          <i />
+          <span>
+            orange
+          </span>
+        </label>
+        <label>
+          <input />
+          <i />
+          <span>
+            yellow
+          </span>
+        </label>
+        <label>
+          <input />
+          <i />
+          <span>
+            green
+          </span>
+        </label>
+        <label>
+          <input />
+          <i />
+          <span>
+            cyan
+          </span>
+        </label>
+        <label>
+          <input />
+          <i />
+          <span>
+            blue
+          </span>
+        </label>
+        <label>
+          <input />
+          <i />
+          <span>
+            violet
+          </span>
+        </label>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      
+    </div>
+    <div>
+      <button>
+        <span>
+          Submit
+        </span>
+      </button>
+      <button>
+        <span>
+          Reset
+        </span>
+      </button>
+    </div>
+  </div>
+</form>
+`;
+
+exports[`Form[snapshot] Snapshot test: Form[site/pages/components/Form/example-15-fieldset.tsx] 1`] = `
+<form>
+  <div>
+    <div>
+      Name
+    </div>
+    <div>
+      <label>
+        <input />
+      </label>
+    </div>
+  </div>
+  <div>
+    <div>
+      Friends
+    </div>
+    <div>
+      <div>
+        <div>
+          <label>
+            <input />
+          </label>
+          <label>
+            <input />
+          </label>
+          <a>
+            <i />
+          </a>
+          <a>
+            <i />
+          </a>
+        </div>
+      </div>
+      <div>
+        <div>
+          <label>
+            <input />
+          </label>
+          <label>
+            <input />
+          </label>
+          <a>
+            <i />
+          </a>
+          <a>
+            <i />
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      
+    </div>
+    <div>
+      <button>
+        <span>
+          Submit
+        </span>
+      </button>
+      <button>
+        <span>
+          Reset
+        </span>
+      </button>
+    </div>
+  </div>
+</form>
+`;
+
+exports[`Form[snapshot] Snapshot test: Form[site/pages/components/Form/example-16-fieldset.tsx] 1`] = `
+<form>
+  <div>
+    <div>
+      Name
+    </div>
+    <div>
+      <label>
+        <input />
+      </label>
+    </div>
+  </div>
+  <div>
+    <div>
+      Friends
+    </div>
+    <div>
+      <div>
+        <div>
+          <label>
+            <input />
+          </label>
+          <a>
+            <i />
+          </a>
+          <a>
+            <i />
+          </a>
+        </div>
+      </div>
+      <div>
+        <div>
+          <label>
+            <input />
+          </label>
+          <a>
+            <i />
+          </a>
+          <a>
+            <i />
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      
+    </div>
+    <div>
+      <button>
+        <span>
+          Submit
+        </span>
+      </button>
+      <button>
+        <span>
+          Reset
+        </span>
+      </button>
+    </div>
+  </div>
+</form>
+`;
+
+exports[`Form[snapshot] Snapshot test: Form[site/pages/components/Form/example-17-flow.tsx] 1`] = `
+<form>
+  <div>
+    <div>
+      First Name
+    </div>
+    <div>
+      <label>
+        <input />
+      </label>
+    </div>
+  </div>
+  <div>
+    <div>
+      Last Name
+    </div>
+    <div>
+      <label>
+        <input />
+      </label>
+    </div>
+  </div>
+  <div>
+    <div>
+      Full Name
+    </div>
+    <div>
+      <div>
+        undefined-undefined
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      Password
+    </div>
+    <div>
+      <label>
+        <input />
+      </label>
+    </div>
+  </div>
+  <div>
+    <div>
+      
+    </div>
+    <div>
+      <label>
+        <input />
+        <i />
+        <span>
+          Show age
+        </span>
+      </label>
+      <label>
+        <input />
+        <i />
+        <span>
+          Show colors
+        </span>
+      </label>
+      <label>
+        <input />
+        <i />
+        <span>
+          Date range
+        </span>
+      </label>
+    </div>
+  </div>
+  <div>
+    <div>
+      Date
+    </div>
+    <div>
+      <label>
+        <div>
+          <div>
+            <span>
+              <span>
+                 
+              </span>
+            </span>
+            <span>
+              <svg>
+                <path />
+              </svg>
+            </span>
+          </div>
+          <div />
+        </div>
+      </label>
+    </div>
+  </div>
+  <div>
+    <div>
+      
+    </div>
+    <div>
+      <button>
+        <span>
+          Sumbit
+        </span>
+      </button>
+    </div>
+  </div>
+</form>
+`;
+
+exports[`Form[snapshot] Snapshot test: Form[site/pages/components/Form/example-19-nested.tsx] 1`] = `
+<form>
+  <div>
+    <div>
+      Email
+    </div>
+    <div>
+      <label>
+        <input />
+      </label>
+    </div>
+  </div>
+  <div>
+    <div>
+      Password
+    </div>
+    <div>
+      <label>
+        <input />
+      </label>
+    </div>
+  </div>
+  <div>
+    <div>
+      Account Name
+    </div>
+    <div>
+      <div>
+        <label>
+          <input />
+        </label>
+        <span>
+          -
+        </span>
+        <label>
+          <input />
+        </label>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      Account Age
+    </div>
+    <div>
+      <label>
+        <input />
+      </label>
+    </div>
+  </div>
+  <div>
+    <div>
+      Favorite Color
+    </div>
+    <div>
+      <div>
+        <label>
+          <input />
+          <i />
+          <span>
+            red
+          </span>
+        </label>
+        <label>
+          <input />
+          <i />
+          <span>
+            orange
+          </span>
+        </label>
+        <label>
+          <input />
+          <i />
+          <span>
+            yellow
+          </span>
+        </label>
+        <label>
+          <input />
+          <i />
+          <span>
+            green
+          </span>
+        </label>
+        <label>
+          <input />
+          <i />
+          <span>
+            cyan
+          </span>
+        </label>
+        <label>
+          <input />
+          <i />
+          <span>
+            blue
+          </span>
+        </label>
+        <label>
+          <input />
+          <i />
+          <span>
+            violet
+          </span>
+        </label>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      
+    </div>
+    <div>
+      <button>
+        <span>
+          Submit
+        </span>
+      </button>
+      <button>
+        <span>
+          Reset
+        </span>
+      </button>
+    </div>
+  </div>
+</form>
+`;
+
+exports[`Form[snapshot] Snapshot test: Form[site/pages/components/Form/example-21-mode.tsx] 1`] = `
+<div>
+  <div>
+    <div>
+      <label>
+        <input />
+        <i />
+        <span>
+          create
+        </span>
+      </label>
+      <label>
+        <input />
+        <i />
+        <span>
+          edit
+        </span>
+      </label>
+      <label>
+        <input />
+        <i />
+        <span>
+          other
+        </span>
+      </label>
+    </div>
+  </div>
+  <form>
+    <div>
+      <div>
+        name
+      </div>
+      <div>
+        <label>
+          <input />
+        </label>
+        <div>
+          Current mode is 'edit', can not change name.
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+`;
