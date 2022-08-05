@@ -19,6 +19,6 @@ module.exports = {
     SO_PREFIX: 'so',
   },
   modulePathIgnorePatterns: ['publish'],
-  testMatch: [`**/test/src/${target}/*.js`],
+  testMatch: [`**/test/src/${target}/*.spec.js`],
   collectCoverageFrom: [`src/${target}`, ...ignoreFiles],
 }
