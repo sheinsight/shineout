@@ -100,7 +100,7 @@ export interface EditableAreaProps extends StandardProps, FormItemStandardProps<
    *
    * default: -
    */
-  innerTitle?: ReactNode,
+  // innerTitle?: ReactNode,
 
   /**
    * Placeholder title, which needs to be used together with innerTitle
@@ -109,7 +109,7 @@ export interface EditableAreaProps extends StandardProps, FormItemStandardProps<
    *
    * default: -
    */
-  placeTitle?: ReactNode,
+  // placeTitle?: ReactNode,
 
   /**
    * render textarea footer
