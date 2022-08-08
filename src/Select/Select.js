@@ -650,7 +650,7 @@ Select.propTypes = {
   header: PropTypes.node,
   maxLength: PropTypes.number,
   innerTitle: PropTypes.node,
-  convertBr: PropTypes.string,
+  convertBr: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   inputText: PropTypes.string,
 }
 
