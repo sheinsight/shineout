@@ -15,6 +15,9 @@ class Time extends PureComponent {
     this.handleMinuteChange = this.handleChange.bind(this, 'minute')
     this.handleSecondChange = this.handleChange.bind(this, 'second')
     this.handleAMPMChange = this.handleChange.bind(this, 'ampm')
+    this.handleDisabled = this.handleDisabled.bind(this)
+
+    props.disabledRegister(this.handleDisabled, 'time', props.index)
   }
 
   getDefaultTime() {
@@ -30,8 +33,14 @@ class Time extends PureComponent {
     return this.props.value || this.defaultValue
   }
 
+  handleDisabled(value, val, mode, onlyVaild) {
+    const { disabled, min, max, range, disabledTime } = this.props
+    const [isDisabled, date] = paramUtils.judgeTimeByRange(val, value, mode, min, max, range, disabled, disabledTime)
+    return onlyVaild ? isDisabled : [isDisabled, date]
+  }
+
   handleChange(type, val) {
-    const { disabled, format, min, max, range, disabledTime } = this.props
+    const { format } = this.props
     const value = this.getValue()
 
     let mode = type
@@ -43,8 +52,7 @@ class Time extends PureComponent {
         mode = 'H'
       }
     }
-
-    const [isDisabled, date] = paramUtils.judgeTimeByRange(val, value, mode, min, max, range, disabled, disabledTime)
+    const [isDisabled, date] = this.handleDisabled(value, val, mode)
 
     if (isDisabled) return
     this.props.onChange(...paramUtils.timeHandleChangeParams(date, true, false, 'time'))
@@ -166,7 +174,7 @@ Time.propTypes = {
   min: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   max: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   onChange: PropTypes.func.isRequired,
-  range: PropTypes.number,
+  range: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
   value: PropTypes.object,
   defaultTime: PropTypes.array,
   index: PropTypes.number,
@@ -174,6 +182,7 @@ Time.propTypes = {
   minuteStep: PropTypes.number,
   secondStep: PropTypes.number,
   disabledTime: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+  disabledRegister: PropTypes.func,
 }
 
 export default Time

@@ -35,6 +35,7 @@ export default Origin =>
         innerFilter: undefined,
         innerData: undefined,
         filterText: '',
+        text: '',
       }
       this.handleCreate = this.handleCreate.bind(this)
       this.handleFilter = this.handleFilter.bind(this)
@@ -106,6 +107,7 @@ export default Origin =>
     handleFilter(text) {
       const { filterDelay, onFilter, onCreate } = this.props
 
+      this.setState({ text })
       // not filter
       if (!text) {
         this.setState({ filterText: '', innerFilter: undefined, innerData: undefined })
@@ -181,12 +183,13 @@ export default Origin =>
 
     render() {
       const { treeData, onFilter, onCreate, ...other } = this.props
-      const { filterText, innerData } = this.state
+      const { filterText, innerData, text } = this.state
       const filterFn = onFilter || onCreate ? this.handleFilter : undefined
       const dataGenerator = treeData ? this.filterTreeData : this.filterData
       const props = {
         ...other,
         filterText,
+        inputText: text,
         result: this.getResultByValues(),
         inputable: !!onCreate,
         onCreate: onCreate ? this.handleCreate : undefined,
