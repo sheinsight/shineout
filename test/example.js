@@ -25,10 +25,17 @@ export default function exampleTest(module, options = {}) {
   const filesJS = glob.sync(`site/pages/components/${module}/example-*.js`)
   const files = [...filesTs, ...filesJS]
   files.forEach(file => {
-    if (options.ignore && file.endsWith(options.ignore)) return
-    const Example = require(`../${file}`).default
     const names = file.split('/')
     const name = names[names.length - 1].split('.')[0]
+    if (options.ignore) {
+      if (typeof options.ignore === 'string' && name.endsWith(options.ignore)) return
+      if (Array.isArray(options.ignore)) {
+        for (let i = 0; i < options.ignore.length; i++) {
+          if (name.endsWith(options.ignore[i])) return
+        }
+      }
+    }
+    const Example = require(`../${file}`).default
     let Case = <Example />
     if (options.withRouter && options.withRouter.includes(name)) {
       Case = (

@@ -51,7 +51,7 @@ export interface RuleParams {
   } | validFunc | any) ;
 }
 
-export type RuleParamsType<Value, P = any, FormData = any> = Array<RuleParams  | ((value?: Value, formData?: FormData, callback?: ((cbArgs: true | Error) => void), props?: P) => void) | object>
+export type RuleParamsType<Value, P = any, FormData = any> = Array<RuleParams  | ((value: Value, formData: FormData, callback: ((cbArgs: true | Error) => void), props?: P) => void) | object>
 
 export type RuleCommon<U> =  {
   [key: string]: paramFunc<U>

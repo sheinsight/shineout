@@ -414,7 +414,7 @@ Result.propTypes = {
   innerTitle: PropTypes.node,
   keygen: PropTypes.any,
   data: PropTypes.array,
-  convertBr: PropTypes.string,
+  convertBr: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 }
 
 export default Result

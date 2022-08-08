@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EditableArea[snapshot] Snapshot test: EditableArea[site/pages/components/EditableArea/example-01-base.tsx] 1`] = `
+<div>
+  <label>
+    <input />
+  </label>
+  <noscript />
+</div>
+`;
+
+exports[`EditableArea[snapshot] Snapshot test: EditableArea[site/pages/components/EditableArea/example-02-controlled.tsx] 1`] = `
+<div>
+  <label>
+    <input />
+  </label>
+  <noscript />
+</div>
+`;
+
+exports[`EditableArea[snapshot] Snapshot test: EditableArea[site/pages/components/EditableArea/example-03-container.tsx] 1`] = `
+<div>
+  <div />
+  <div>
+    <label>
+      <input />
+    </label>
+    <noscript />
+  </div>
+  <div />
+</div>
+`;
+
+exports[`EditableArea[snapshot] Snapshot test: EditableArea[site/pages/components/EditableArea/example-04-renderFooter.tsx] 1`] = `
+<div>
+  <div>
+    <label>
+      <input />
+    </label>
+    <noscript />
+  </div>
+</div>
+`;
+
+exports[`EditableArea[snapshot] Snapshot test: EditableArea[site/pages/components/EditableArea/example-05-renderResult.tsx] 1`] = `
+<div>
+  <div>
+    <div>
+      <div>
+        <div>
+          Guessing what I inputed ?
+        </div>
+      </div>
+    </div>
+    <noscript />
+  </div>
+</div>
+`;

@@ -6,7 +6,12 @@ import TableSort from '../../../site/pages/components/Table/example-10-sort-defa
 /* global SO_PREFIX */
 describe('Table[sort]', () => {
   test('should render sort icon', () => {
-    const wrapper = mount(<TableSort />)
+    TableSort.displayName = 'TableSort'
+    const wrapper = mount(
+      <div>
+        <TableSort />
+      </div>
+    )
     const columns = wrapper.find('ShineoutTable').prop('columns')
     wrapper.find(`.${SO_PREFIX}-table-head table thead th`).forEach((th, index) => {
       if (!columns[index].sorter) return
