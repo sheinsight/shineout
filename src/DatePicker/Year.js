@@ -18,7 +18,7 @@ class Year extends PureComponent {
     this.renderYear = this.renderYear.bind(this)
     this.handleDisabled = this.handleDisabled.bind(this)
 
-    props.disabledRegister(this.handleDisabled, 'year')
+    props.disabledRegister(this.handleDisabled, 'year', props.index)
   }
 
   getOptions() {

@@ -252,6 +252,18 @@ function toDateWithFormat(dirtyDate, fmt, def, options) {
   return date
 }
 
+function compareDay(dateLeft, dateRight, pad = 0, options) {
+  if (!dateLeft || !dateRight) return NaN
+  const left = dayjs(transDateWithZone(dateLeft, options))
+    .startOf('date')
+    .toDate()
+  const right = dayjs(transDateWithZone(dateRight, options))
+    .startOf('date')
+    .add(pad, 'day')
+    .toDate()
+  return compareAsc(left, right)
+}
+
 function compareMonth(dateLeft, dateRight, pad = 0, options) {
   if (!dateLeft || !dateRight) return 0
   const left = dayjs(transDateWithZone(dateLeft, options))
@@ -377,6 +389,7 @@ export default {
   cloneTime,
   compareAsc,
   compareMonth,
+  compareDay,
   compareQuarter,
   getDaysOfMonth,
   format: formatted,
