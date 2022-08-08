@@ -65,6 +65,19 @@ const examples = [
     parseTsText: require('!raw-loader!ts-loader!doc/pages/components/CardGroup/example-4-checkbox.tsx'),
 
   },
+  {
+    name: '5-disabled',
+    isTs: true,
+    isTest: false,
+    title: locate(
+      '禁用 \n 是否禁用选择框',
+      'Disabled \n disable checkbox'
+    ),
+    component: require('doc/pages/components/CardGroup/example-5-disabled.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/CardGroup/example-5-disabled.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/CardGroup/example-5-disabled.tsx'),
+
+  },
 ]
 
 const codes = undefined

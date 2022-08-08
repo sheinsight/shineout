@@ -138,11 +138,15 @@ export const focusElement = {
   copyBoundingClientRect,
 }
 
-export const preventPasteFile = (e, beforeHandler, { noLineBreak = true, convertBr = ',' } = {}) => {
+export const preventPasteFile = (e, beforeHandler, { noLineBreak = true, convertBr = ' ' } = {}) => {
   let text = (e.clipboardData || window.clipboardData).getData('text/plain')
   // 删除复制的换行符号
   if (noLineBreak && text) {
-    text = text.replace(/[\t\n\f\r\v]/g, convertBr)
+    if (typeof convertBr === 'function') {
+      text = convertBr(text).replace(/([\t\n\f\r\v])+/g, ' ')
+    } else {
+      text = text.replace(/([\t\n\f\r\v])+/g, convertBr)
+    }
   }
   e.preventDefault()
   if (beforeHandler) {

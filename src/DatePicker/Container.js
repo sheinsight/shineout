@@ -19,7 +19,6 @@ import { getRTLPosition } from '../utils/strings'
 import List from '../AnimationList'
 import { getLocale } from '../locale'
 import DateFns from './utils'
-import ParamFns from './paramUtils'
 import { isRTL } from '../config'
 import InputTitle from '../InputTitle'
 import { inputTitleClass } from '../InputTitle/styles'
@@ -277,33 +276,39 @@ class Container extends PureComponent {
     }
   }
 
-  disabledRegister(disabled, mode) {
-    this.disabledMap[mode] = disabled
+  disabledRegister(disabled, mode, index) {
+    if (index === undefined) {
+      this.disabledMap[mode] = disabled
+      return
+    }
+    if (!this.disabledMap[mode]) this.disabledMap[mode] = []
+    this.disabledMap[mode][index] = disabled
   }
 
-  handleDisabled(date) {
+  handleDisabled(date, index) {
     const mode = this.props.type
     const { disabledMap } = this
-    const { min, max, range, disabled, disabledTime } = this.props
+    const isRange = index !== undefined
 
     switch (mode) {
       case 'time':
-        return ParamFns.handleDisabled(date, min, max, range, disabled, disabledTime)
+        return isRange
+          ? disabledMap.time[index](date, undefined, undefined, true)
+          : disabledMap.time(date, undefined, undefined, true)
       case 'date':
-        return disabledMap.day(date)
+        return isRange ? disabledMap.day[index](date) : disabledMap.day(date)
       case 'week':
-        return disabledMap.day(date)
+        return isRange ? disabledMap.day[index](date) : disabledMap.day(date)
       case 'month':
-        return disabledMap.month(date)
+        return isRange ? disabledMap.month[index](date) : disabledMap.month(date)
       case 'year':
-        return disabledMap.year(date)
+        return isRange ? disabledMap.year[index](date) : disabledMap.year(date)
       case 'quarter':
-        return disabledMap.quarter(date)
+        return isRange ? disabledMap.quarter[index](date) : disabledMap.quarter(date)
       case 'datetime':
-        return (
-          ParamFns.handleDisabled(date, min, max, range, disabled, disabledTime, this.getOptions()) ||
-          disabledMap.day(date)
-        )
+        return isRange
+          ? disabledMap.time[index](date, undefined, undefined, true) || disabledMap.day[index](date)
+          : disabledMap.time(date, undefined, undefined, true) || disabledMap.day(date)
       default:
         return false
     }
@@ -316,7 +321,7 @@ class Container extends PureComponent {
     let isDisabled
 
     if (disabled || disabledTime || max || min || range) {
-      isDisabled = this.handleDisabled(date)
+      isDisabled = this.handleDisabled(date, index)
       if (isDisabled) return
     }
 
@@ -327,7 +332,7 @@ class Container extends PureComponent {
     }
 
     const value = [
-      ...immer(this.props.value, draft => {
+      ...immer(this.props.value === undefined && range ? [] : this.props.value, draft => {
         draft[index] = val
       }),
     ]

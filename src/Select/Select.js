@@ -86,10 +86,6 @@ class Select extends PureComponent {
     this.clearClickAway()
   }
 
-  getText(key) {
-    return this.props.text[key] || getLocale(key)
-  }
-
   getDisabledStatus() {
     if (typeof this.props.disabled === 'function') {
       return this.props.disabled
@@ -387,14 +383,14 @@ class Select extends PureComponent {
   }
 
   handleDelete(e) {
-    const { multiple, filterText, datum, value, data } = this.props
+    const { multiple, inputText, datum, value, data } = this.props
     if (!multiple) return
-    if (filterText) {
+    if (inputText) {
       this.deleteLock = true
     } else if (this.deleteLock) {
       this.cancelDeleteLock()
     }
-    if (filterText || this.deleteLock) return
+    if (inputText || this.deleteLock) return
     if (!value || !value.length) return
     e.preventDefault()
     const raws = Array.isArray(value) ? value : [value]
@@ -654,7 +650,8 @@ Select.propTypes = {
   header: PropTypes.node,
   maxLength: PropTypes.number,
   innerTitle: PropTypes.node,
-  convertBr: PropTypes.string,
+  convertBr: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+  inputText: PropTypes.string,
 }
 
 Select.defaultProps = {
