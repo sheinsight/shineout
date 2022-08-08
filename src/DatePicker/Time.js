@@ -41,7 +41,17 @@ class Time extends PureComponent {
 
   handleDisabled(value, val, mode, onlyVaild) {
     const { disabled, min, max, range, disabledTime } = this.props
-    const [isDisabled, date] = paramUtils.judgeTimeByRange(val, value, mode, min, max, range, disabled, disabledTime, this.getOptions())
+    const [isDisabled, date] = paramUtils.judgeTimeByRange(
+      val,
+      value,
+      mode,
+      min,
+      max,
+      range,
+      disabled,
+      disabledTime,
+      this.getOptions()
+    )
     return onlyVaild ? isDisabled : [isDisabled, date]
   }
 

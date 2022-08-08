@@ -16,7 +16,7 @@ class Quarter extends PureComponent {
     this.handleQuarterClick = this.handleQuarterClick.bind(this)
     this.handleDisabled = this.handleDisabled.bind(this)
 
-    props.disabledRegister(this.handleDisabled, 'quarter')
+    props.disabledRegister(this.handleDisabled, 'quarter', props.index)
   }
 
   getOptions() {

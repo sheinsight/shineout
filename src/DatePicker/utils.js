@@ -258,8 +258,8 @@ function compareDay(dateLeft, dateRight, pad = 0, options) {
     .startOf('date')
     .toDate()
   const right = dayjs(transDateWithZone(dateRight, options))
-    .startOf('month')
-    .add(pad, 'month')
+    .startOf('date')
+    .add(pad, 'day')
     .toDate()
   return compareAsc(left, right)
 }

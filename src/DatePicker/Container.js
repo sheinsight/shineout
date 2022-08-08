@@ -19,7 +19,6 @@ import { getRTLPosition } from '../utils/strings'
 import List from '../AnimationList'
 import { getLocale } from '../locale'
 import DateFns from './utils'
-import ParamFns from './paramUtils'
 import { isRTL } from '../config'
 import InputTitle from '../InputTitle'
 import { inputTitleClass } from '../InputTitle/styles'
@@ -303,7 +302,7 @@ class Container extends PureComponent {
       case 'month':
         return isRange ? disabledMap.month[index](date) : disabledMap.month(date)
       case 'year':
-        return  isRange ? disabledMap.year[index](date) : disabledMap.year(date)
+        return isRange ? disabledMap.year[index](date) : disabledMap.year(date)
       case 'quarter':
         return isRange ? disabledMap.quarter[index](date) : disabledMap.quarter(date)
       case 'datetime':
