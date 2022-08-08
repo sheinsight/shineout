@@ -152,7 +152,7 @@ TimeScroll.propTypes = {
   disabled: PropTypes.func,
   min: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   max: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  range: PropTypes.number,
+  range: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
   current: PropTypes.object,
   mode: PropTypes.string,
   disabledTime: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
