@@ -30,7 +30,7 @@ class Day extends PureComponent {
     this.handleDisabled = this.handleDisabled.bind(this)
     this.formatWithDefaultTime = this.formatWithDefaultTime.bind(this)
 
-    props.disabledRegister(this.handleDisabled, 'day')
+    props.disabledRegister(this.handleDisabled, 'day', props.index)
   }
 
   getOptions() {
@@ -178,7 +178,9 @@ class Day extends PureComponent {
       classList.push(utils.isSameDay(date, rangeDate[index], this.getOptions()) && 'active')
 
       hoverClass = datepickerClass(
-        utils.compareAsc(rangeDate[0], date) <= 0 && utils.compareAsc(rangeDate[1], date) >= 0 && 'hover',
+        utils.compareDay(rangeDate[0], date, 0, this.getOptions()) <= 0 &&
+          utils.compareDay(rangeDate[1], date, 0, this.getOptions()) >= 0 &&
+          'hover',
         // Datetime Picker range end datetime classname #330
         utils.isSameDay(rangeDate[index], date, this.getOptions()) && `hover-${index === 0 ? 'start' : 'end'} active`
       )
@@ -288,7 +290,7 @@ Day.propTypes = {
   onChangeSync: PropTypes.func,
   onDayHover: PropTypes.func,
   onModeChange: PropTypes.func.isRequired,
-  range: PropTypes.number,
+  range: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
   rangeDate: PropTypes.array,
   rangeTemp: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   showTimePicker: PropTypes.bool,

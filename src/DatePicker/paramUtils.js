@@ -1,4 +1,5 @@
 import utils from './utils'
+import { isNumber } from '../utils/is'
 
 const { TIME_FORMAT, compareAsc, addSeconds, format } = utils
 
@@ -33,11 +34,11 @@ function handleDisabled(...args) {
   if (isDisabled) return true
   if (!isDisabled && min) {
     if (compareAsc(date, min) < 0) return true
-    if (range && compareAsc(date, addSeconds(min, range, options)) > 0) return true
+    if (range && isNumber(range) && compareAsc(date, addSeconds(min, range, options)) > 0) return true
   }
   if (!isDisabled && max) {
     if (compareAsc(date, max) > 0) return true
-    if (range && compareAsc(date, addSeconds(max, -range, options)) < 0) return true
+    if (range && isNumber(range) && compareAsc(date, addSeconds(max, -range, options)) < 0) return true
   }
   return false
 }
