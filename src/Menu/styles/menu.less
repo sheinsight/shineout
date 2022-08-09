@@ -213,7 +213,7 @@
     & > .@{menu-prefix}-active > a,
     & > .@{menu-prefix}-highlight > a {
       position: relative;
-      color: @menu-item-active-indicator;
+      color: @menu-highlight-color;
 
       &:before {
         position: absolute;
@@ -221,7 +221,7 @@
         bottom: -1px;
         left: 0;
         height: 2px;
-        background: @menu-item-active-indicator;
+        background: @menu-active-bar-color;
         content: ' ';
       }
     }
