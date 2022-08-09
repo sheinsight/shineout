@@ -41,3 +41,9 @@
 | innerTitle | string | - | inner title |
 | onChangeAddition | ({data, current, checked}) => void | - | \onChange additional parameters (current is the data of the clicked node, data is the currently selected data, checked is whether it is selected or canceled in the multi-select state)  |
 | parentClickExpand | boolean | - | Click on the parent node to expand the node |
+| getComponentRef | (componentRef: any => void) | - | A reference to a bound component, which can call certain component methods |
+
+### ComponentRef
+| Property | Type | Default | Description | Version |
+| --- | --- | --- | --- | --- |
+| getDataByValues | (value: any[]) => any[] | - | Get the data corresponding to the value | 1.11.0 |

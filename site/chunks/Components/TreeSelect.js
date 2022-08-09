@@ -104,6 +104,19 @@ const examples = [
     parseTsText: require('!raw-loader!ts-loader!doc/pages/components/TreeSelect/example-06-innertitle.tsx'),
 
   },
+  {
+    name: '07-componentref',
+    isTs: true,
+    isTest: false,
+    title: locate(
+      '组件方法 \n 通过 getComponentRef 获取一些组件方法目前支持 getDataByValues',
+      'Component method \n Get some component methods through getComponentRef currently support getDataByValues'
+    ),
+    component: require('doc/pages/components/TreeSelect/example-07-componentref.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/TreeSelect/example-07-componentref.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/TreeSelect/example-07-componentref.tsx'),
+
+  },
 ]
 
 const codes = undefined
