@@ -1,5 +1,6 @@
 import { mount } from 'enzyme'
 import React from 'react'
+import { baseTest } from '../../utils'
 import IconAwesome from '../../../site/pages/components/Icon/example-1-awesome'
 import IconIconfont from '../../../site/pages/components/Icon/example-2-iconfont'
 import IconSize from '../../../site/pages/components/Icon/example-3-size'
@@ -50,5 +51,14 @@ describe('Icon[Size]', () => {
           expect(propSize).toBe(iconSize)
         }
       })
+  })
+})
+
+describe('Icon[Name]', () => {
+  test('should set name', () => {
+    const wrapper = mount(<IconSize />)
+    wrapper.find(`.${SO_PREFIX}-icon`).forEach(icon => {
+      expect(icon.hasClass('fa-home')).toBeTruthy()
+    })
   })
 })
