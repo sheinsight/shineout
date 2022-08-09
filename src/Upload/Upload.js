@@ -109,10 +109,10 @@ class Upload extends PureComponent {
   }
 
   removeFile(id) {
-    const { onBeforeRemove, onErrorRemove } = this.props
+    const { beforeCancel, onErrorRemove } = this.props
     const file = this.state.files[id]
 
-    if (onBeforeRemove && isFunc(onBeforeRemove)) onBeforeRemove(file)
+    if (beforeCancel && isFunc(beforeCancel)) beforeCancel(file)
 
     if (file) {
       if (file.xhr && file.xhr.abort) file.xhr.abort()
@@ -577,7 +577,7 @@ Upload.propTypes = {
   onSuccess: PropTypes.func,
   onError: PropTypes.func,
   onHttpError: PropTypes.func,
-  onBeforeRemove: PropTypes.func,
+  beforeCancel: PropTypes.func,
   params: PropTypes.object,
   recoverAble: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
   renderResult: PropTypes.func,
