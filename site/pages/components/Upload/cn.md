@@ -26,6 +26,7 @@
 | onChange | (values: any[]) => void | 无 | 值改变回调(上传成功，删除)<br />values: 数组, 其每个值是 onSuccess 的返回值 |
 | onSuccess | (res: string, file: File, data: any, xhr: any) => any | 无 | 上传成功回调，返回结果作为新的 value<br />res: 上传接口返回结果<br />file: 选择的文件<br />data: 请求的数据<br />xhr: 返回的 response |
 | onHttpError | (xhr: any) => string | 无 | 上传失败时回调，返回结果作为错误内容提示 |
+| onBeforeRemove | (xhr: any) => void | 无 | 删除文件前的回调 |
 | params | object | 无 | 提交到服务端的额外参数 |
 | recoverAble | boolean | false | 是否可以恢复已删除的value |
 | renderResult | (data: any) => ReactNode | a => a | 结果展示 |
