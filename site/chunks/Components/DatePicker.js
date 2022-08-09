@@ -131,16 +131,29 @@ const examples = [
 
   },
   {
-    name: '07-time',
+    name: '07-a-time',
     isTs: true,
     isTest: false,
     title: locate(
       '选择时间 \n 设置 type 为 time，选择时间，根据 format 自动加载相应的选择列',
       'Time Mode \n Set type to be time to select time and automatically load the corresponding selection column according to the format property.'
     ),
-    component: require('doc/pages/components/DatePicker/example-07-time.tsx').default,
-    rawText: require('!raw-loader!doc/pages/components/DatePicker/example-07-time.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/DatePicker/example-07-time.tsx'),
+    component: require('doc/pages/components/DatePicker/example-07-a-time.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/DatePicker/example-07-a-time.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/DatePicker/example-07-a-time.tsx'),
+
+  },
+  {
+    name: '07-b-time-step',
+    isTs: true,
+    isTest: false,
+    title: locate(
+      ' \n 步进设置',
+      'Step \n Set step of TimePicker'
+    ),
+    component: require('doc/pages/components/DatePicker/example-07-b-time-step.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/DatePicker/example-07-b-time-step.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/DatePicker/example-07-b-time-step.tsx'),
 
   },
   {
@@ -322,6 +335,45 @@ const examples = [
     component: require('doc/pages/components/DatePicker/example-16-timezone.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-16-timezone.tsx'),
     parseTsText: require('!raw-loader!ts-loader!doc/pages/components/DatePicker/example-16-timezone.tsx'),
+
+  },
+  {
+    name: '17-clearable',
+    isTs: true,
+    isTest: false,
+    title: locate(
+      '可清空 \n 允许清空内容',
+      'Clearable \n Could be clearable'
+    ),
+    component: require('doc/pages/components/DatePicker/example-17-clearable.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/DatePicker/example-17-clearable.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/DatePicker/example-17-clearable.tsx'),
+
+  },
+  {
+    name: '18-clearable',
+    isTs: true,
+    isTest: false,
+    title: locate(
+      ' \n 在清空值时抛出抛出 undefined',
+      ' \n onChange get undefined while clear value'
+    ),
+    component: require('doc/pages/components/DatePicker/example-18-clearable.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/DatePicker/example-18-clearable.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/DatePicker/example-18-clearable.tsx'),
+
+  },
+  {
+    name: '19-default-picker-value',
+    isTs: true,
+    isTest: false,
+    title: locate(
+      '面板默认时间 \n 打开面板后的默认时间，仅在未选择日期时生效',
+      'DefaultPickerValue \n default date of panel，work under has no value'
+    ),
+    component: require('doc/pages/components/DatePicker/example-19-default-picker-value.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/DatePicker/example-19-default-picker-value.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/DatePicker/example-19-default-picker-value.tsx'),
 
   },
 ]

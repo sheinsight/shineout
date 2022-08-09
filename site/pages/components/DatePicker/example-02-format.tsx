@@ -18,9 +18,14 @@ type InputOnChange = InputProps['onChange']
 const App: React.FC = () => {
   const [value, setValue] = useState<DatePickerValue>(new Date())
   const [format, setFormat] = useState<DatePickerFormat>('yyyy-M-d HH:mm')
+  const [formatResult, setFormatResult] = useState<DatePickerFormat>('yy/MM/dd')
+  const [formatResultValue, setFormatResultValue] = useState<DatePickerValue>(new Date())
 
   const handleFormatChange: InputOnChange = v => setFormat(v)
+
   const handleValueChange: DatePickerOnChange = v => setValue(v)
+
+  const handleFormatResultChange: InputOnChange = v => setFormatResult(v)
 
   return (
     <div>
@@ -29,11 +34,34 @@ const App: React.FC = () => {
         format={format}
         type="datetime"
         placeholder="format date"
+        style={{ marginBottom: 5 }}
         onChange={handleValueChange}
-        style={{ marginInlineEnd: 12 }}
       />
 
-      <Input width={200} value={format} onChange={handleFormatChange} />
+      <Input.Group width={240} style={{ marginBottom: 20 }}>
+        <Input style={{ flex: 1 }} value="format" disabled />
+        <Input style={{ flex: 3 }} placeholder="格式化" value={format} onChange={handleFormatChange} />
+      </Input.Group>
+
+      <DatePicker
+        type="datetime"
+        format="yyyy-MM-dd HH:mm:ss"
+        placeholder="format date"
+        value={formatResultValue}
+        formatResult={formatResult}
+        onChange={setFormatResultValue}
+        style={{ marginBottom: 5 }}
+      />
+
+      <Input.Group width={240} style={{ marginBottom: 5 }} disabled>
+        <Input style={{ flex: 1 }} value="value" />
+        <Input style={{ flex: 3 }} placeholder="值" value={String(formatResultValue)} />
+      </Input.Group>
+
+      <Input.Group width={240} style={{ marginBottom: 20 }}>
+        <Input style={{ flex: 3 }} value="formatResult" disabled />
+        <Input style={{ flex: 4 }} placeholder="展示格式化" value={formatResult} onChange={handleFormatResultChange} />
+      </Input.Group>
     </div>
   )
 }
