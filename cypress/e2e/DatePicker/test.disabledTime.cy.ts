@@ -40,6 +40,6 @@ describe('DataPicker[allowSingle]', () => {
     cy.get('@Second')
       .children()
       .filter(':contains("00")')
-      .should('have.html', '<span class="">00</span>')
+      .should('have.text', '00')
   })
 })
