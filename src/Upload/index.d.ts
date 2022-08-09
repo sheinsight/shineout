@@ -189,6 +189,15 @@ export interface UploadProps<T> extends StandardProps, OmitFormProps<T[]> {
   onHttpError?: (xhr: any) => string;
 
   /**
+   * The callback function before cancel upload file.
+   *
+   * 取消文件上传前的回调
+   *
+   * default: none
+   */
+   beforeCancel?: (xhr: any) => void;
+
+  /**
    * Additional parameters submitted to the server
    *
    * 提交到服务端的额外参数
