@@ -6,7 +6,7 @@ TreeSelect 用来选择树形数据结构，若需要非关联树形结构选择
 
 ## API
 
-| 属性 | 类型 | 默认值 | 说明 |
+| 属性 | 类型 | 默认值 | 说明 |!
 | --- | --- | --- | --- |
 | width | number | 无 | 宽度 |
 | clearable | boolean | false | 是否可清除值 |
@@ -43,4 +43,12 @@ TreeSelect 用来选择树形数据结构，若需要非关联树形结构选择
 | innerTitle | string | - | 内嵌标题 |
 | onChangeAddition | ({data, current, checked}) => void       | 无 | onChange 额外参数 (current 为点击的节点的数据， data为当前选中的数据， checked为多选状态下是选中还是取消) |
 | parentClickExpand | boolean | 无 | 点击父节点后展开节点 |
+| getComponentRef | (componentRef: any => void) | 无 | 绑定组件的引用，可以调用某些组件方法 |
+
+### ComponentRef
+| 属性 | 类型 | 默认值 | 说明 | 版本 |
+| --- | --- | --- | --- | --- |
+| getDataByValues | (value: any[]) => any[] | - | 获取 value 对应的 data | 1.11.0 |
+
+
 

@@ -3,7 +3,7 @@ import * as utils from './utils'
 
 declare const __default: {
   utils: typeof utils,
-  version: '1.11.0-rc.19'
+  version: '1.11.0-rc.20'
 }
 
 export default __default
@@ -146,7 +146,7 @@ export { default as Tree } from './Tree'
 import { TreeProps as __TreeProps ,  } from './Tree'
 
 export { default as TreeSelect } from './TreeSelect'
-import { TreeSelectProps as __TreeSelectProps ,  } from './TreeSelect'
+import { TreeSelectProps as __TreeSelectProps , ComponentRef as __ComponentRef ,  } from './TreeSelect'
 
 export { default as Upload } from './Upload'
 import { UploadProps as __UploadProps , Validator as __Validator,BaseParams as __BaseParams,Options as __Options,UploadImageProps as __UploadImageProps,UploadButtonProps as __UploadButtonProps,UploadImageHandlerProps as __UploadImageHandlerProps , OmitFormProps as __OmitFormProps } from './Upload'
@@ -344,6 +344,7 @@ export namespace TYPE {
   }
   export namespace TreeSelect {
     export type Props<Item, Value> = __TreeSelectProps<Item, Value>
+    export type ComponentRef<Item, Value> = __ComponentRef<Item, Value>
   }
   export namespace Upload {
     export type Props<T> = __UploadProps<T>

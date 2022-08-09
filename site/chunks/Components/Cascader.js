@@ -104,32 +104,6 @@ const examples = [
     parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Cascader/example-07-innertitle.tsx'),
 
   },
-  {
-    name: 'test-001-compressed',
-    isTs: true,
-    isTest: true,
-    title: locate(
-      '超长合并选项 \n 设置 compressed 属性，当选项超长的时候会合并选项',
-      'Extra long merge option \n Set the compressed attribute, when the option is too long, the option will be merged'
-    ),
-    component: require('doc/pages/components/Cascader/test-001-compressed.tsx').default,
-    rawText: require('!raw-loader!doc/pages/components/Cascader/test-001-compressed.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Cascader/test-001-compressed.tsx'),
-
-  },
-  {
-    name: 'test-002-expandtrigger-finaldismiss',
-    isTs: true,
-    isTest: true,
-    title: locate(
-      'expandTrigger 和 finalDismiss 示例',
-      'Hover'
-    ),
-    component: require('doc/pages/components/Cascader/test-002-expandtrigger-finaldismiss.tsx').default,
-    rawText: require('!raw-loader!doc/pages/components/Cascader/test-002-expandtrigger-finaldismiss.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Cascader/test-002-expandtrigger-finaldismiss.tsx'),
-
-  },
 ]
 
 const codes = undefined
