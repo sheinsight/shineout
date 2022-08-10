@@ -1,7 +1,7 @@
 import React from 'react'
 import { Pagination } from 'shineout'
 import { mount } from 'enzyme'
-import { appendToDOM } from '../../utils'
+import { baseTest } from '../../utils'
 import PaginationSize from '../../../site/pages/components/Pagination/example-2-size.tsx'
 import PaginationLayout from '../../../site/pages/components/Pagination/example-3-layout.tsx'
 import PaginationText from '../../../site/pages/components/Pagination/example-4-text.tsx'
@@ -184,5 +184,72 @@ describe('Pagination[Disabled]', () => {
     })
     wrapper.find(`.${SO_PREFIX}-select-inner`).simulate('click')
     expect(wrapper.find(`.${SO_PREFIX}-select-disabled`).length).toBe(1)
+  })
+})
+
+describe('Pagination[className]', () => {
+  test('should custom style and className', () => {
+    baseTest(Pagination, `.${SO_PREFIX}-pagination`)
+  })
+})
+
+describe('Pagination[simple]', () => {
+  test('should set simple', () => {
+    const wrapper = mount(<Pagination layout={['simple']} />)
+    expect(wrapper.find(`.${SO_PREFIX}-input`).hasClass(`${SO_PREFIX}-pagination-simple-input`)).toBe(true)
+  })
+
+  test('should set value when layout is simple', () => {
+    const current = 3
+    const handleChange = jest.fn()
+    const wrapper = mount(<Pagination layout={['simple']} pageSize={20} total={100} onChange={handleChange} />)
+    wrapper.find('input').simulate('keydown', { keyCode: 13, target: { value: current } })
+    expect(handleChange).toBeCalled()
+    expect(handleChange.mock.calls[0][0]).toBe(current)
+  })
+
+  test('should set finite/NaN value when layout is simple', () => {
+    const current = NaN
+    const handleChange = jest.fn()
+    const wrapper = mount(<Pagination layout={['simple']} pageSize={20} total={100} onChange={handleChange} />)
+    wrapper.find('input').simulate('keydown', { keyCode: 13, target: { value: current } })
+    expect(handleChange).not.toBeCalled()
+  })
+
+  test('should set larger value when layout is simple', () => {
+    const total = 200
+    const current = 100
+    const pageSize = 20
+    const handleChange = jest.fn()
+    const wrapper = mount(<Pagination layout={['simple']} pageSize={pageSize} total={total} onChange={handleChange} />)
+    wrapper.find('input').simulate('keydown', { keyCode: 13, target: { value: current } })
+    expect(handleChange).toBeCalled()
+    expect(handleChange.mock.calls[0][0]).toBe(Math.ceil(total / pageSize) || 1)
+  })
+})
+
+describe('Pagination[list]', () => {
+  test('should set simple', () => {
+    const total = 200
+    const current = 2
+    const pageSize = 20
+    const handleChange = jest.fn()
+    const wrapper = mount(
+      <Pagination
+        total={total}
+        current={current}
+        pageSize={pageSize}
+        onChange={handleChange}
+        layout={['links', 'list']}
+      />
+    )
+    // show options
+    wrapper.find(`.${SO_PREFIX}-select-inner`).simulate('click')
+    const options = wrapper.find(`.${SO_PREFIX}-select-option`)
+    expect(options.length).toBe(5)
+    options.last().simulate('click')
+    expect(handleChange).toBeCalled()
+    expect(handleChange.mock.calls[0][0]).toBe(Math.ceil(((current - 1) * pageSize + 1) / options.last().text()))
+    expect(handleChange.mock.calls[0][1]).toBe(Number(options.last().text()))
   })
 })
