@@ -209,6 +209,58 @@ const examples = [
 
   },
   {
+    name: 'test-001-content',
+    isTs: true,
+    isTest: true,
+    title: locate(
+      'T:content \n ',
+      'T:content \n '
+    ),
+    component: require('doc/pages/components/Popover/test-001-content.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Popover/test-001-content.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Popover/test-001-content.tsx'),
+
+  },
+  {
+    name: 'test-13-nested',
+    isTs: true,
+    isTest: true,
+    title: locate(
+      '嵌套使用 \n 使用多个 Popover 进行嵌套展示',
+      'Nested of Popovers \n Using more than one Popover by nested'
+    ),
+    component: require('doc/pages/components/Popover/test-13-nested.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Popover/test-13-nested.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Popover/test-13-nested.tsx'),
+
+  },
+  {
+    name: 'test-13-nested',
+    isTs: true,
+    isTest: true,
+    title: locate(
+      '嵌套使用 \n 使用多个 Popover 进行嵌套展示',
+      'Nested of Popovers \n Using more than one Popover by nested'
+    ),
+    component: require('doc/pages/components/Popover/test-13-nested.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Popover/test-13-nested.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Popover/test-13-nested.tsx'),
+
+  },
+  {
+    name: 'test-001-content',
+    isTs: true,
+    isTest: true,
+    title: locate(
+      'T:content \n ',
+      'T:content \n '
+    ),
+    component: require('doc/pages/components/Popover/test-001-content.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Popover/test-001-content.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Popover/test-001-content.tsx'),
+
+  },
+  {
     name: 'test-13-nested',
     isTs: true,
     isTest: true,
