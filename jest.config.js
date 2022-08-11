@@ -5,6 +5,7 @@ const ignoreFiles = [
   '!src/Form/Loop.js',
   '!src/Button/Once.js',
   '!src/Checkbox/Checkbox.js',
+  '!src/Rule/convert.js',
 ]
 const target = '**'
 module.exports = {
