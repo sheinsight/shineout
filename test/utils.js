@@ -52,8 +52,7 @@ export function childrenTest(Component, selector) {
   return expect(wrapper.find(selector).contains(children)).toBeTruthy()
 }
 
-
-export const  delay = time =>
+export const delay = time =>
   new Promise(resolve =>
     setTimeout(() => {
       resolve()

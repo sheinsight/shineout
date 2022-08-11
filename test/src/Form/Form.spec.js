@@ -124,11 +124,10 @@ describe('Form[classname, style, inline, labelAlign, labelVerticalAlign, labelWi
 
 describe('defaultValue, value, onChange, onReset, onSubmit', () => {
   const onChange = jest.fn()
-  const onError = jest.fn()
   const onReset = jest.fn()
   const onSubmit = jest.fn()
   const wrapper = mount(
-    <Form defaultValue={{ name: 'leo' }} onChange={onChange} onError={onError} onReset={onReset} onSubmit={onSubmit}>
+    <Form defaultValue={{ name: 'leo' }} onChange={onChange} onReset={onReset} onSubmit={onSubmit}>
       <Form.Item label="姓名">
         <Input name="name" rules={[{ required: true, message: '必填' }]} />
       </Form.Item>
@@ -193,8 +192,9 @@ describe('defaultValue, value, onChange, onReset, onSubmit', () => {
 })
 
 describe('Form[initValidate, keepErrorHeight, onError, rule]', () => {
+  const onError = jest.fn()
   const wrapper = mount(
-    <Form keepErrorHeight initValidate rules={{ name: [{ max: 3, message: '最长3个字符' }] }}>
+    <Form onError={onError} keepErrorHeight initValidate rules={{ name: [{ max: 3, message: '最长3个字符' }] }}>
       <Form.Item label="姓名">
         <Input name="name" />
       </Form.Item>
@@ -202,27 +202,33 @@ describe('Form[initValidate, keepErrorHeight, onError, rule]', () => {
       <Form.Reset>重置</Form.Reset>
     </Form>
   )
-  it('should initValidate rule onerror', async () => {
+  // it('should initValidate rule onerror', async () => {
+  //   jest.useRealTimers()
+  //   wrapper.setProps({ ...wrapper.props(), value: { name: '6666' }, initValidate: true })
+  //   await delay(200)
+  //   wrapper.update()
+  //   expect(wrapper.find('.so-input-invalid').length).toBe(1)
+  //   wrapper.setProps({ ...wrapper.props(), value: { name: 'leo' } })
+  //   await delay(200)
+  //   wrapper.update()
+  //   expect(wrapper.find('.so-input-invalid').length).toBe(0)
+  // })
+  // it('should keepErrorHeight', () => {
+  //   expect(wrapper.find('.so-form-item-keep-height').length).toBe(1)
+  // })
+  it('should call onError when error', async () => {
     jest.useRealTimers()
-    wrapper.setProps({ ...wrapper.props(), value: { name: '6666' }, initValidate: true })
-    await delay(200)
+    wrapper.find('input').simulate('change', { target: { value: '6666' } })
+    await delay(500)
     wrapper.update()
     expect(wrapper.find('.so-input-invalid').length).toBe(1)
-    wrapper.setProps({ ...wrapper.props(), value: { name: 'leo' } })
+    wrapper
+      .find('button')
+      .at(0)
+      .simulate('click')
     await delay(200)
-    wrapper.update()
-    expect(wrapper.find('.so-input-invalid').length).toBe(0)
+    expect(onError.mock.calls.length).toBe(1)
   })
-  it('should keepErrorHeight', () => {
-    expect(wrapper.find('.so-form-item-keep-height').length).toBe(1)
-  })
-  // it('should call onError when error', () => {
-  //   jest.useFakeTimers()
-  //   wrapper.find('input').simulate('change', { target: { value: '' } })
-  //   jest.runAllTimers()
-  //   wrapper.update()
-  //   expect(onError.mock.calls[0][0].message).toBe('必填')
-  // })
 })
 
 describe('removeUndefined', () => {

@@ -53,6 +53,19 @@ const examples = [
 
   },
   {
+    name: '10-frontCaret',
+    isTs: true,
+    isTest: false,
+    title: locate(
+      '前置展开符 \n 使用 frontCaret 来前置展开符 \n 使用 frontCaretType 来设置展开图标类型',
+      'put the expander in front \n use frontCaret to put the expander in front \n Use frontCaretType to set the Icon type'
+    ),
+    component: require('doc/pages/components/Menu/example-10-frontCaret.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Menu/example-10-frontCaret.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Menu/example-10-frontCaret.tsx'),
+
+  },
+  {
     name: '2-horizontal',
     isTs: true,
     isTest: false,
@@ -144,16 +157,81 @@ const examples = [
 
   },
   {
-    name: '9-toggleDuration',
+    name: 'test-001-link-func',
     isTs: true,
-    isTest: false,
+    isTest: true,
+    title: locate(
+      'LinkKey 使用函数 \n 可以通过设置 linkKey 为函数返回值作为链接地址',
+      ''
+    ),
+    component: require('doc/pages/components/Menu/test-001-link-func.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Menu/test-001-link-func.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Menu/test-001-link-func.tsx'),
+
+  },
+  {
+    name: 'test-002-tooggleDuration',
+    isTs: true,
+    isTest: true,
     title: locate(
       '菜单项状态改变后持续时间 \n 当鼠标从菜单项中移开时，菜单项会在停留指定时间后消失',
       'ToggleDuration \n When the mouse cursor is removed from  menuitem, the menuitem disappears for a specified period of time'
     ),
-    component: require('doc/pages/components/Menu/example-9-toggleDuration.tsx').default,
-    rawText: require('!raw-loader!doc/pages/components/Menu/example-9-toggleDuration.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Menu/example-9-toggleDuration.tsx'),
+    component: require('doc/pages/components/Menu/test-002-tooggleDuration.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Menu/test-002-tooggleDuration.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Menu/test-002-tooggleDuration.tsx'),
+
+  },
+  {
+    name: 'test-003-renderLink-click',
+    isTs: true,
+    isTest: true,
+    title: locate(
+      '自定义渲染成链接和点击测试 \n 如果自定义在最外层渲染 a 标签内部将不会再生成 a 标签',
+      '自定义渲染成链接 \n 如果自定义在最外层渲染 a 标签内部将不会再生成 a 标签'
+    ),
+    component: require('doc/pages/components/Menu/test-003-renderLink-click.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Menu/test-003-renderLink-click.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Menu/test-003-renderLink-click.tsx'),
+
+  },
+  {
+    name: 'test-004-verticalauto',
+    isTs: true,
+    isTest: true,
+    title: locate(
+      '垂直样式-vertical-auto \n 设置 mode 为 "vertical-auto" 可以自动选择弹出方向（上下）',
+      'Vertical--vertical-auto \n set \'vertical-auto\' auto popup position'
+    ),
+    component: require('doc/pages/components/Menu/test-004-verticalauto.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Menu/test-004-verticalauto.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Menu/test-004-verticalauto.tsx'),
+
+  },
+  {
+    name: 'test-005-openKeys',
+    isTs: true,
+    isTest: true,
+    title: locate(
+      'openKeys 受控 \n openKeys onOpenChange',
+      'openKeys 受控 \n openKeys onOpenChange'
+    ),
+    component: require('doc/pages/components/Menu/test-005-openKeys.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Menu/test-005-openKeys.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Menu/test-005-openKeys.tsx'),
+
+  },
+  {
+    name: 'test-006-defaultOpenKeys',
+    isTs: true,
+    isTest: true,
+    title: locate(
+      'defaultOpenKeys \n defaultOpenKeys',
+      'defaultOpenKeys \n defaultOpenKeys'
+    ),
+    component: require('doc/pages/components/Menu/test-006-defaultOpenKeys.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Menu/test-006-defaultOpenKeys.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Menu/test-006-defaultOpenKeys.tsx'),
 
   },
 ]
