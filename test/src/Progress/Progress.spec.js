@@ -1,6 +1,7 @@
 import React from 'react'
 import { mount } from 'enzyme'
 import { Progress } from 'shineout'
+import { baseTest } from '../../utils'
 
 /* global SO_PREFIX */
 describe('Progress[base]', () => {
@@ -9,6 +10,7 @@ describe('Progress[base]', () => {
       state = {
         progress: 0,
       }
+
       render() {
         return <Progress value={this.state.progress} />
       }
@@ -68,5 +70,63 @@ describe('Progress[base]', () => {
     const wrapper = mount(<Progress shape="circle" strokeLinecap="butt" value={70} />)
     document.body.innerHTML = wrapper.html()
     expect(document.querySelectorAll(`circle[stroke-linecap="butt"]`)).toHaveLength(1)
+  })
+})
+
+describe('Progress[base]', () => {
+  test('should custom style and className', () => {
+    baseTest(Progress, `.${SO_PREFIX}-progress-line`)
+  })
+})
+
+describe('Progress[popup]', () => {
+  test('should set popup', () => {
+    const children = '50%'
+    const wrapper = mount(
+      <Progress value={50} popup>
+        {children}
+      </Progress>
+    )
+    expect(wrapper.find(`.${SO_PREFIX}-progress-line`).length).toBe(1)
+    expect(wrapper.find(`.${SO_PREFIX}-progress-popup`).length).toBe(1)
+    expect(wrapper.find(`.${SO_PREFIX}-progress-popup`).text()).toBe(children)
+  })
+})
+
+describe('Progress[shape]', () => {
+  test('should set shape', () => {
+    const shape = ['line', 'circle']
+    shape.forEach(i => {
+      const wrapper = mount(<Progress value={50} shape={i} />)
+      expect(wrapper.find(`.${SO_PREFIX}-progress-${i}`).length).toBe(1)
+    })
+  })
+})
+
+describe('Progress[size]', () => {
+  test('should set size', () => {
+    const size = 50
+    const wrapper = mount(<Progress size={50} shape="circle" />)
+    expect(wrapper.find(`.${SO_PREFIX}-progress-circle`).length).toBe(1)
+    expect(wrapper.find(`.${SO_PREFIX}-progress-circle`).getDOMNode().style.width).toBe(`${size}px`)
+    expect(wrapper.find(`.${SO_PREFIX}-progress-circle`).getDOMNode().style.height).toBe(`${size}px`)
+  })
+})
+
+describe('Progress[strokeWidth]', () => {
+  test('should set line strokeWidth', () => {
+    const strokeWidth = 10
+    const wrapper = mount(<Progress strokeWidth={strokeWidth} />)
+    expect(wrapper.find(`.${SO_PREFIX}-progress-line`).length).toBe(1)
+    expect(wrapper.find(`.${SO_PREFIX}-progress-background`).getDOMNode().style.height).toBe(`${strokeWidth}px`)
+  })
+
+  test('should set circle strokeWidth', () => {
+    const strokeWidth = 10
+    const wrapper = mount(<Progress strokeWidth={strokeWidth} shape="circle" />)
+    expect(wrapper.find(`.${SO_PREFIX}-progress-circle`).length).toBe(1)
+    wrapper.find('circle').forEach(i => {
+      expect(i.html().indexOf(`stroke-width="${strokeWidth * 2}"`) > -1).toBe(true)
+    })
   })
 })
