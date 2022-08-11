@@ -6,7 +6,7 @@ const ignoreFiles = [
   '!src/Button/Once.js',
   '!src/Checkbox/Checkbox.js',
 ]
-const target = '**'
+const target = 'Message/**'
 module.exports = {
   setupFiles: ['<rootDir>/test/jest.init.js'],
   moduleNameMapper: {
