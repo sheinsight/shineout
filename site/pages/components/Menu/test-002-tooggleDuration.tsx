@@ -81,8 +81,8 @@ const App: React.FC = () => {
       <Button type={toggleDuration === 500 ? 'primary' : 'default'} onClick={() => setToggleDuration(500)}>
         0.5s
       </Button>
-      <Button type={toggleDuration === 2000 ? 'primary' : 'default'} onClick={() => setToggleDuration(2000)}>
-        2s
+      <Button type={toggleDuration === 2000 ? 'primary' : 'default'} onClick={() => setToggleDuration(0)}>
+        0s
       </Button>
       <Menu
         keygen="id"
