@@ -14,7 +14,8 @@ type SpinName = 'default' |
 'ring' |
 'scale-circle' |
 'three-bounce' |
-'wave'
+'wave'|
+'chasing-ring'
 
 declare class Spin extends React.Component<SpinProps, {}> {
 
