@@ -5,7 +5,6 @@ import { getProps } from '../utils/proptypes'
 import { getUidStr } from '../utils/uid'
 import { selectClass } from './styles'
 import Result from './Result'
-import { getLocale } from '../locale'
 import OptionList from './OptionList'
 import OptionTree from './OptionTree'
 import BoxList from './BoxList'
@@ -50,7 +49,7 @@ class Select extends PureComponent {
     this.handleClickAway = this.handleClickAway.bind(this)
     this.handleInputBlur = this.handleInputBlur.bind(this)
     this.bindFocusInputFunc = this.bindFocusInputFunc.bind(this)
-    this.toInputTriggerCollapse = this.toInputTriggerCollapse.bind(this)
+    // this.toInputTriggerCollapse = this.toInputTriggerCollapse.bind(this)
 
     this.renderItem = this.renderItem.bind(this)
     this.renderResult = this.renderResult.bind(this)
@@ -231,13 +230,13 @@ class Select extends PureComponent {
     if (emptyAfterSelect && onFilter && filterText) onFilter('', 'select')
   }
 
-  toInputTriggerCollapse(text) {
-    const { onCreate, datum } = this.props
-    if (onCreate) {
-      datum.set(onCreate(text))
-    }
-    this.handleState(true)
-  }
+  // toInputTriggerCollapse(text) {
+  //   const { onCreate, datum } = this.props
+  //   if (onCreate) {
+  //     datum.set(onCreate(text))
+  //   }
+  //   this.handleState(true)
+  // }
 
   shouldFocus(el) {
     if (el.getAttribute('data-id') === this.selectId) return true
@@ -592,7 +591,7 @@ class Select extends PureComponent {
           onInputFocus={this.handleInputFocus}
           setInputReset={this.setInputReset}
           bindFocusInputFunc={this.bindFocusInputFunc}
-          collapse={this.toInputTriggerCollapse}
+          // collapse={this.toInputTriggerCollapse}
           compressed={compressed}
           compressedBound={compressedBound}
           showArrow={showArrow}

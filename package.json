@@ -37,8 +37,8 @@
     "build-ts": "node scripts/build-ts.js",
     "build-css": "node scripts/build-css.js",
     "build": "npm-run-all build-*",
-    "cypress:open": "cypress open",
-    "cypress:run": "cypress run --browser chrome"
+    "cypress:open": "cross-env NODE_ENV=development cypress open",
+    "cypress:run": "cross-env NODE_ENV=development cypress run --browser chrome"
   },
   "sideEffects": [
     "*.less"
@@ -50,6 +50,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.14.6",
+    "@cypress/code-coverage": "^3.10.0",
     "@types/react-color": "3.0.6",
     "@types/react-router-dom": "5.3.3",
     "classnames": "^2.3.1",

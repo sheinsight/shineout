@@ -1,13 +1,5 @@
-const ignoreFiles = [
-  '!**/*.ts',
-  '!src/Form/Block.js',
-  '!src/Form/BlockField.js',
-  '!src/Form/Loop.js',
-  '!src/Button/Once.js',
-  '!src/Checkbox/Checkbox.js',
-  '!src/Rule/convert.js',
-]
-const target = '**'
+const nycConfig = require('./nyc.config')
+
 module.exports = {
   setupFiles: ['<rootDir>/test/jest.init.js'],
   moduleNameMapper: {
@@ -20,6 +12,8 @@ module.exports = {
     SO_PREFIX: 'so',
   },
   modulePathIgnorePatterns: ['publish'],
-  testMatch: [`**/test/src/${target}/*.spec.js`],
-  collectCoverageFrom: [`src/${target}`, ...ignoreFiles],
+  testMatch: [`**/test/src/${nycConfig.target}/*.spec.js`],
+  collectCoverageFrom: [...nycConfig.include, ...nycConfig.exclude.map(item => `!${item}`)],
+  coverageDirectory: 'jest-coverage',
+  // coverageReporters: ['json'],
 }

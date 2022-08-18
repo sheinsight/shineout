@@ -325,6 +325,32 @@ const examples = [
     parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Select/example-19-loading.tsx'),
 
   },
+  {
+    name: 'test-001-maxlength',
+    isTs: true,
+    isTest: true,
+    title: locate(
+      '筛选限制字符长度 \n maxLength',
+      '筛选限制字符长度 \n maxLength'
+    ),
+    component: require('doc/pages/components/Select/test-001-maxlength.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/test-001-maxlength.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Select/test-001-maxlength.tsx'),
+
+  },
+  {
+    name: 'test-002-header',
+    isTs: true,
+    isTest: true,
+    title: locate(
+      '自定义 header \n header',
+      '自定义 header \n header'
+    ),
+    component: require('doc/pages/components/Select/test-002-header.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/test-002-header.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Select/test-002-header.tsx'),
+
+  },
 ]
 
 const codes = undefined

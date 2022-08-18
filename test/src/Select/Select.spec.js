@@ -1,7 +1,8 @@
 import React from 'react'
 import { mount } from 'enzyme'
 import { Select } from 'shineout'
-import { appendToDOM } from '../../utils'
+import { appendToDOM, baseTest } from '../../utils'
+import SelectHeader from '../../../site/pages/components/Select/test-002-header'
 
 /* global SO_PREFIX */
 
@@ -9,21 +10,45 @@ describe('Select[Base]', () => {
   let wrapper
   const data = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
   const placeholder = 'select_test'
+  const div = document.createElement('div')
+  document.body.appendChild(div)
   beforeAll(() => {
-    wrapper = mount(<Select keygen data={data} placeholder={placeholder} />)
+    wrapper = mount(<Select keygen data={data} placeholder={placeholder} />, { attachTo: div })
   })
   test('should render result label', () => {
     expect(wrapper.find(`.${SO_PREFIX}-select .${SO_PREFIX}-select-inner .${SO_PREFIX}-select-result`).length).toBe(1)
   })
+  test('should render clsssName style', () => {
+    const className = 'test-name'
+    const style = { color: 'red' }
+    baseTest(<Select data={[]} keygen className={className} style={style} />, '.so-select', style, className)
+  })
   test('should show options while click', () => {
-    appendToDOM(wrapper.html())
     // show options
     wrapper.find(`.${SO_PREFIX}-select-inner`).simulate('click')
+    wrapper.update()
+    expect(wrapper.find(`.${SO_PREFIX}-select-inner`).hasClass('so-select-focus')).toBe(true)
     const options = wrapper.find(`.${SO_PREFIX}-select-option`)
     expect(options.length).toBe(data.length)
     options.forEach((option, index) => {
       expect(option.text()).toBe(data[index])
     })
+    // 再次点击后隐藏 list
+    const target = wrapper.find(`.${SO_PREFIX}-select-result`).getDOMNode()
+    wrapper.find(`.${SO_PREFIX}-select-inner`).simulate('click', { target })
+    wrapper.update()
+    expect(wrapper.find(`.${SO_PREFIX}-select-inner`).hasClass('so-select-focus')).toBe(false)
+
+    // 点击Icon 也可以关闭
+    wrapper.find(`.${SO_PREFIX}-select-inner`).simulate('click', { target })
+    wrapper.update()
+    expect(wrapper.find(`.${SO_PREFIX}-select-inner`).hasClass('so-select-focus')).toBe(true)
+
+    wrapper
+      .find(`.${SO_PREFIX}-select-caret`)
+      .simulate('click', { target: wrapper.find(`.${SO_PREFIX}-select-caret`).getDOMNode() })
+    wrapper.update()
+    expect(wrapper.find(`.${SO_PREFIX}-select-inner`).hasClass('so-select-focus')).toBe(false)
   })
   test('should render placeholder', () => {
     expect(
@@ -67,4 +92,14 @@ describe('Select[Size]', () => {
       }
     })
   })
+})
+
+describe('Select[Header]', () => {
+  const div = document.createElement('div')
+  document.body.appendChild(div)
+  const wrapper = mount(<SelectHeader />, { attachTo: div })
+  wrapper.find('.so-select-inner').simulate('click')
+  wrapper.update()
+  const header = wrapper.find('.so-select-custom-header')
+  expect(header.length).toBe(1)
 })

@@ -38,7 +38,10 @@ export function appendToDOM(html) {
 
 export function baseTest(Component, selector, style = { color: 'blue' }, className = 'class-name-test') {
   const contains = (a, b) => Object.entries(b).every(([k, v]) => a[k] === v)
-  const wrapper = enzyme.mount(<Component style={style} className={className} />)
+
+  const wrapper = enzyme.mount(
+    React.isValidElement(Component) ? Component : <Component style={style} className={className} />
+  )
 
   expect(wrapper.exists(selector)).toBeTruthy()
   expect(wrapper.find(selector || Component).hasClass(className)).toBe(true)
