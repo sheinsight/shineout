@@ -2,7 +2,7 @@ import { mount } from 'enzyme/build'
 import React from 'react'
 import { Select } from 'shineout'
 import * as vFilter from './v_filter'
-import { appendToDOM } from '../../utils'
+import { appendToDOM, delay } from '../../utils'
 
 describe('Select[Create]', () => {
   test('should render value while create', () => {
@@ -39,6 +39,8 @@ describe('Select[Create]', () => {
     })
     jest.runAllTimers()
     wrapper.update()
+    jest.useRealTimers()
+    delay(200)
     expect(wrapper.find('.so-select-option').length).toBe(data.length)
   })
 })
