@@ -37,6 +37,7 @@ describe('Rate[Base]', () => {
     const wrapper = mount(<StarRate defaultValue={0} onChange={changeFn} />)
     // change to max
     const fronts = wrapper.find(`.${SO_PREFIX}-rate-front`).children()
+    fronts.at(fronts.length - 2).simulate('mouseenter')
     fronts.at(fronts.length - 2).simulate('click')
     expect(changeFn.mock.calls[0][0]).toBe(5)
   })
@@ -68,7 +69,7 @@ describe('Rate[Max]', () => {
 })
 
 describe('Rate[Size]', () => {
-  test('should set size on item', () => {
+  test('should set size on item ', () => {
     const wrapper = mount(<RateSize />)
     wrapper.find('Rate').forEach(rate => {
       const size = rate.prop('size')
@@ -80,6 +81,14 @@ describe('Rate[Size]', () => {
         expect(span.prop('style').fontSize).toBe(size)
       })
     })
+  })
+
+  test('should set size small than 12', () => {
+    const size = 6
+    const star = <FontAwesome name="star" />
+    const StarRate = Rate(star, star)
+    const wrapper = mount(<StarRate defaultValue={0} size={size} />)
+    expect(wrapper.find(`.${SO_PREFIX}-rate`).getDOMNode().style.transform).toBe(`scale(${size / 12})`)
   })
 })
 
@@ -187,5 +196,26 @@ describe('Rate[Clearable]', () => {
           .simulate('click')
         expect(wrapper.find('Rate').prop('value')).toBe(0)
       })
+  })
+})
+
+describe('Rate[allowHalf]', () => {
+  test('should set allowHalf', () => {
+    const changeFn = jest.fn()
+    const getBoundingClientRect = jest.fn(() => ({
+      x: 1,
+      width: 100,
+    }))
+    const star = <FontAwesome name="star" />
+    const StarRate = Rate(star, star)
+    const wrapper = mount(<StarRate defaultValue={0} onChange={changeFn} allowHalf />)
+    const fronts = wrapper.find(`.${SO_PREFIX}-rate-front`).children()
+    fronts.at(fronts.length - 2).simulate('mousemove', {
+      target: {
+        getBoundingClientRect,
+      },
+      clientX: 2,
+    })
+    expect(getBoundingClientRect).toBeCalled()
   })
 })
