@@ -22,7 +22,7 @@ describe('Select[Create]', () => {
     vFilter.vCreate({ wrapper, finalValue, multiple: true })
   })
 
-  test('should not render option when  set hideCreateOption', () => {
+  test('should not render option when  set hideCreateOption', async () => {
     jest.useFakeTimers()
     const data = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
     const finalValue = 'test'
@@ -40,7 +40,7 @@ describe('Select[Create]', () => {
     jest.runAllTimers()
     wrapper.update()
     jest.useRealTimers()
-    delay(200)
+    await delay(200)
     expect(wrapper.find('.so-select-option').length).toBe(data.length)
   })
 })
