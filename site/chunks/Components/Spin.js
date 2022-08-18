@@ -195,6 +195,19 @@ const examples = [
     parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Spin/example-12-wave.tsx'),
 
   },
+  {
+    name: '13-chasing-ring',
+    isTs: true,
+    isTest: false,
+    title: locate(
+      'chasing-ring \n name="chasing-ring"',
+      'chasing-ring \n name="chasing-ring"'
+    ),
+    component: require('doc/pages/components/Spin/example-13-chasing-ring.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Spin/example-13-chasing-ring.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Spin/example-13-chasing-ring.tsx'),
+
+  },
 ]
 
 const codes = undefined

@@ -18,8 +18,8 @@ class Container extends PureComponent {
     this.bindElement = this.bindElement.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.handleChange = this.handleChange.bind(this)
-    this.handleFirstDrag = this.handleDrag.bind(this, 0)
-    this.handleSecondDrag = this.handleDrag.bind(this, 1)
+    // this.handleFirstDrag = this.handleDrag.bind(this, 0)
+    // this.handleSecondDrag = this.handleDrag.bind(this, 1)
   }
 
   getValue() {
@@ -74,10 +74,10 @@ class Container extends PureComponent {
     this.props.onChange(value)
   }
 
-  handleDrag(index, value) {
-    const { range } = this.props
-    if (!range) this.props.onDrag(value)
-  }
+  // handleDrag(index, value) {
+  //   const { range } = this.props
+  //   if (!range) this.props.onDrag(value)
+  // }
 
   renderScale() {
     const { autoHide, formatScale, scale } = this.props

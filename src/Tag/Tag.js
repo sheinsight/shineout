@@ -87,8 +87,9 @@ class Tag extends PureComponent {
     const { inputVisible, value } = this.state
     const { onCompleted } = this.props
     // if onCompleted is not null
-    if (onCompleted && !isEmpty(value))
+    if (onCompleted && !isEmpty(value)) {
       this.setState({ inputVisible: inputVisible === hideInput ? showInput : hideInput })
+    }
   }
 
   handleClick(e) {
@@ -132,17 +133,34 @@ class Tag extends PureComponent {
     const { dismiss, inputVisible, value } = this.state
     if (dismiss === 2) return null
 
-    const { children, className, type, backgroundColor, onClose, disabled, onCompleted } = this.props
+    const {
+      children,
+      className,
+      type,
+      backgroundColor,
+      onClose,
+      disabled,
+      onCompleted,
+      onEnterPress,
+      onKeyUp,
+    } = this.props
 
     const rtl = isRTL()
 
     // if editable and input visible
     if (onCompleted && inputVisible === showInput)
-      return <Input value={value} onBlur={this.inputBlur} onChange={this.inputChange} />
+      return (
+        <Input
+          value={value}
+          onBlur={this.inputBlur}
+          onChange={this.inputChange}
+          onEnterPress={onEnterPress}
+          onKeyUp={onKeyUp}
+        />
+      )
 
     const childrenParsed = wrapSpan(children)
     const { style } = this.props
-
     let tagClassName = tagClass('_', disabled && 'disabled', type, rtl && 'rtl')
     const inlineClassName = tagClass('inline')
     const click = !onClose ? { onClick: this.handleClick } : {}
@@ -178,6 +196,8 @@ Tag.propTypes = {
   onClose: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
   backgroundColor: PropTypes.string,
   onCompleted: PropTypes.func,
+  onKeyUp: PropTypes.func,
+  onEnterPress: PropTypes.func,
 }
 
 Tag.defaultProps = {
