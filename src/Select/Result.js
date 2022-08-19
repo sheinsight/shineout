@@ -246,7 +246,7 @@ class Result extends PureComponent {
       setInputReset,
       focusSelected,
       bindFocusInputFunc,
-      collapse,
+      // collapse,
       maxLength,
       convertBr,
     } = this.props
@@ -264,7 +264,7 @@ class Result extends PureComponent {
         setInputReset={setInputReset}
         focusSelected={focusSelected}
         bindFocusInputFunc={bindFocusInputFunc}
-        collapse={collapse}
+        // collapse={collapse}
         maxLength={maxLength}
         convertBr={convertBr}
       />
@@ -401,7 +401,7 @@ Result.propTypes = {
   placeholder: PropTypes.string,
   setInputReset: PropTypes.func,
   bindFocusInputFunc: PropTypes.func,
-  collapse: PropTypes.func,
+  // collapse: PropTypes.func,
   compressed: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   compressedBound: PropTypes.number,
   trim: PropTypes.bool,

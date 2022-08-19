@@ -50,7 +50,7 @@
 | resultClassName | ((value: any) => string) \| string | 无 | 选中结果内容容器的className |
 | columnsTitle | ReactNode | 无 | 多列选项多选时的标题文字 |
 | reFocus | boolean | 无 | 存在onFilter和onCreate，选中 Option，自动focus Input |
-| header | () => ReactNode \| ReactNode | 无 | 自定义渲染 Option List Header |
+| header | ReactElement | 无 | 自定义渲染 Option List Header |
 | lineHeight | number | 34 | 选项高度。列表项使用虚拟列表渲染，当选项高度改变时，应该通过 lineHeight 来指定正确高度 |
 | hideCreateOption | boolean | false | 在使用创建选项时，在选项列表中隐藏该选项，回车后直接选中该值 |
 | underline | boolean | false | 是否只展示下边框 |

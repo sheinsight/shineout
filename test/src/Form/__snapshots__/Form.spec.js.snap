@@ -1018,9 +1018,7 @@ exports[`Form[snapshot] Snapshot test: Form[site/pages/components/Form/example-1
       <div>
         <div>
           <div>
-            <span>
-              green
-            </span>
+            <span />
             <a>
               <svg>
                 <path />

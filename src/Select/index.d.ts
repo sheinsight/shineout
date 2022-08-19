@@ -2,6 +2,7 @@ import * as React from 'react'
 import { StandardProps, RegularAttributes, StructDataStandardProps, FormItemStandardProps, ListItemStandardProps, CommonProps } from '../@types/common'
 
 type ReactNode = React.ReactNode;
+type ReactElement = React.ReactElement;
 
 export interface SelectProps<Item, Value> extends
   StandardProps,
@@ -367,7 +368,7 @@ export interface SelectProps<Item, Value> extends
    *
    * default: null
    */
-  header?: ReactNode;
+  header?: ReactElement;
 
   /**
    * hide the creat option while set onCreate
