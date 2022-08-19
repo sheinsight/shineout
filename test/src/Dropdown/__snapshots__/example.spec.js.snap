@@ -903,9 +903,7 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-6-type.t
     <div>
       <div>
         <div>
-          <span>
-            primary
-          </span>
+          <span />
           <a>
             <svg>
               <path />
@@ -925,9 +923,7 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-6-type.t
     <div>
       <div>
         <div>
-          <span>
-            default
-          </span>
+          <span />
           <a>
             <svg>
               <path />
