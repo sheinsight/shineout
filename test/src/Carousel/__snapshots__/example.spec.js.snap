@@ -7,9 +7,7 @@ exports[`Snapshot test: Carousel[site/pages/components/Carousel/example-1-base.t
     <div>
       <div>
         <div>
-          <span>
-            slide
-          </span>
+          <span />
           <a>
             <svg>
               <path />
@@ -27,9 +25,7 @@ exports[`Snapshot test: Carousel[site/pages/components/Carousel/example-1-base.t
     <div>
       <div>
         <div>
-          <span>
-            center
-          </span>
+          <span />
           <a>
             <svg>
               <path />
@@ -47,9 +43,7 @@ exports[`Snapshot test: Carousel[site/pages/components/Carousel/example-1-base.t
     <div>
       <div>
         <div>
-          <span>
-            circle
-          </span>
+          <span />
           <a>
             <svg>
               <path />

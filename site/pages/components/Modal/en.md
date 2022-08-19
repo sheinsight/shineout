@@ -14,7 +14,7 @@ You can use Modal to display secondary content or actions without jumping to the
 | footer | ReactNode | - | The content at the bottom | |
 | maskCloseAble | boolean | true | Whether to close the mask when the mask is clicked | |
 | maskOpacity | number | 0.25 | The opacity of the mask | |
-| padding | number\|string | 16 | Padding style of the content | |
+| padding | number\|string | none | Padding style of the content | |
 | position | string | - | Pop-up position, one of \['top', 'right', 'bottom', 'left'] | |
 | style | object | - | Extend style | |
 | title | ReactNode | - | the title of the pop-up layer | |

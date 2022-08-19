@@ -110,7 +110,7 @@ export interface EditableAreaProps extends StandardProps, FormItemStandardProps<
    *
    * default: -
    */
-  placeTitle?: ReactNode,
+  // placeTitle?: ReactNode,
 
   /**
    * render textarea footer

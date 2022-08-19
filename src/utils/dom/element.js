@@ -113,7 +113,7 @@ function end(element) {
 }
 
 function select(element) {
-  if (element && element.innerText.length === 0) {
+  if (element && element.innerText && element.innerText.length === 0) {
     element.focus()
     return
   }

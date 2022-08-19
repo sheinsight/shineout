@@ -3,6 +3,10 @@ import { CommonProps, keygenType, StandardProps, FormItemStandardProps, StructDa
 
 type ReactNode = React.ReactNode;
 
+export interface ComponentRef<Item, Value> {
+  getDataByValues: (values: Value) =>  Value extends any[] ? Item[] : Item
+}
+
 
 export interface TreeSelectProps<Item, Value> extends StandardProps,
   FormItemStandardProps<Value>,
@@ -289,6 +293,15 @@ export interface TreeSelectProps<Item, Value> extends StandardProps,
    * default: -
    */
    compressedBound?: number;
+
+  /**
+   * Some methods of getting components Currently only support getDataByValue
+   *
+   * 获取组件的一些方法 目前只支持 getDataByValues
+   *
+   * default: -
+   */
+  getComponentRef?: ((ref: ComponentRef<Item, any>) => void)  | {current?: ComponentRef<Item, any>}
 }
 
 

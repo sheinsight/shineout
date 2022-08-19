@@ -302,3 +302,85 @@ exports[`Snapshot test: Input[site/pages/components/Input/example-12-trim.js] 1`
   <input />
 </label>
 `;
+
+exports[`Snapshot test: Input[site/pages/components/Input/example-13-keypress.tsx] 1`] = `
+<div>
+  <div>
+    <label>
+      <input />
+    </label>
+    <b>
+      onKeyUp: 0 times
+    </b>
+  </div>
+  <div>
+    <label>
+      <input />
+    </label>
+    <b>
+      onKeyDown: 0 times
+    </b>
+  </div>
+  <div>
+    <label>
+      <input />
+    </label>
+    <b>
+      onEnterPress: 0 times
+    </b>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Input[site/pages/components/Input/example-14-limit.tsx] 1`] = `
+<div>
+  <div>
+    <b>
+      min
+    </b>
+    <label>
+      <input />
+      <a>
+        <svg>
+          <path />
+          <path />
+        </svg>
+      </a>
+      <a>
+        <svg>
+          <path />
+          <path />
+        </svg>
+      </a>
+    </label>
+  </div>
+  <div>
+    <b>
+      max
+    </b>
+    <label>
+      <input />
+      <a>
+        <svg>
+          <path />
+          <path />
+        </svg>
+      </a>
+      <a>
+        <svg>
+          <path />
+          <path />
+        </svg>
+      </a>
+    </label>
+  </div>
+  <div>
+    <b>
+      maxLength
+    </b>
+    <label>
+      <input />
+    </label>
+  </div>
+</div>
+`;

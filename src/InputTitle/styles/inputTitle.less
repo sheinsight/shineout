@@ -13,6 +13,11 @@
 .@{input-title-prefix} {
   position: relative;
   width: 100%;
+  input.@{input-title-prefix}-item,
+  textarea.@{input-title-prefix}-item{
+    line-height: inherit;
+  }
+
   &:not(&-open) &-hidable {
     opacity: 0;
   }
@@ -100,26 +105,26 @@
 }
 
 .@{input-prefix}-small {
-  .@{input-title-prefix} {
-    &-title {
+    .@{input-title-prefix}-title {
       padding: @title-padding-small-vertical @title-padding-small-horizontal;
       font-size: @font-size-small;
     }
-    &-content > &-item{
+
+  *.@{input-title-prefix}-item{
       padding: @title-padding-small-vertical @title-padding-small-horizontal;
     }
-  }
 }
 .@{input-prefix}-large {
   .@{input-title-prefix} {
     line-height: 24px;
-    &-title {
-      padding: @title-padding-large-vertical @title-padding-large-horizontal;
-      font-size: @font-size-large;
-    }
-    &-content > &-item{
-      padding: @title-padding-large-vertical @title-padding-large-horizontal;
-    }
+  }
+
+  .@{input-title-prefix}-title {
+    padding: @title-padding-large-vertical @title-padding-large-horizontal;
+    font-size: @font-size-large;
+  }
+  *.@{input-title-prefix}-item{
+    padding: @title-padding-large-vertical @title-padding-large-horizontal;
   }
 }
 .@{datepicker-prefix}-inner-title {
