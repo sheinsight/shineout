@@ -35,23 +35,24 @@ export const objectValues = obj => {
 }
 
 // object only, not handle array.
-export const deepMerge = (target = {}, source, { clone, removeUndefined, skipUndefined } = {}) => {
+export const deepMerge = (target = {}, source, options = {}) => {
+  const { clone, removeUndefined, skipUndefined } = options
   if (!isMergeable(source)) return source
 
   const dest = {}
   if (isMergeable(target)) {
     Object.keys(target).forEach(k => {
-      dest[k] = clone ? deepMerge({}, target[k], clone) : target[k]
+      dest[k] = clone ? deepMerge({}, target[k], options) : target[k]
       if (removeUndefined && dest[k] === undefined) delete dest[k]
     })
   }
 
   Object.keys(source).forEach(k => {
     if (isMergeable(source[k]) && isMergeable(target[k])) {
-      dest[k] = deepMerge(target[k], source[k], clone)
+      dest[k] = deepMerge(target[k], source[k], options)
     } else {
       if (skipUndefined && source[k] === undefined) return
-      dest[k] = deepMerge({}, source[k], clone)
+      dest[k] = deepMerge({}, source[k], options)
       if (removeUndefined && dest[k] === undefined) delete dest[k]
     }
   })

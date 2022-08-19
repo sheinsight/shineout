@@ -891,3 +891,26 @@ exports[`Snapshot test: Spin[site/pages/components/Spin/example-12-wave.tsx] 1`]
   </div>
 </div>
 `;
+
+exports[`Snapshot test: Spin[site/pages/components/Spin/example-13-chasing-ring.tsx] 1`] = `
+<div>
+  <div>
+    <div />
+    <div />
+    <div />
+    <div />
+  </div>
+  <div>
+    <div />
+    <div />
+    <div />
+    <div />
+  </div>
+  <div>
+    <div />
+    <div />
+    <div />
+    <div />
+  </div>
+</div>
+`;
