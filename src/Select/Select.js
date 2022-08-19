@@ -49,6 +49,7 @@ class Select extends PureComponent {
     this.handleClickAway = this.handleClickAway.bind(this)
     this.handleInputBlur = this.handleInputBlur.bind(this)
     this.bindFocusInputFunc = this.bindFocusInputFunc.bind(this)
+    this.handleFilter = this.handleFilter.bind(this)
     // this.toInputTriggerCollapse = this.toInputTriggerCollapse.bind(this)
 
     this.renderItem = this.renderItem.bind(this)
@@ -398,6 +399,17 @@ class Select extends PureComponent {
     datum.handleChange(values, datum.getDataByValue(data, last), false)
   }
 
+  handleFilter(...args) {
+    const { onFilter, onCreate, hideCreateOption } = this.props
+    const hideCreate = onCreate && hideCreateOption
+    if (hideCreate) {
+      this.optionList.handleHover(-1, true)
+    }
+    if (onFilter) {
+      onFilter(...args)
+    }
+  }
+
   renderItem(data, index) {
     const { renderItem } = this.props
     return typeof renderItem === 'function' ? renderItem(data, index) : data[renderItem]
@@ -578,7 +590,7 @@ class Select extends PureComponent {
           onClear={clearable ? this.handleClear : undefined}
           onCreate={onCreate}
           onRemove={this.handleRemove}
-          onFilter={onFilter}
+          onFilter={this.handleFilter}
           datum={datum}
           disabled={disabled}
           focus={this.state.focus}

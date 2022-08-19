@@ -351,6 +351,19 @@ const examples = [
     parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Select/test-002-header.tsx'),
 
   },
+  {
+    name: 'test-003-hideCreateOption',
+    isTs: true,
+    isTest: true,
+    title: locate(
+      'hideCreateOption \n 创建选项不展示option',
+      'hideCreateOption \n 创建选项不展示option'
+    ),
+    component: require('doc/pages/components/Select/test-003-hideCreateOption.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/test-003-hideCreateOption.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Select/test-003-hideCreateOption.tsx'),
+
+  },
 ]
 
 const codes = undefined
