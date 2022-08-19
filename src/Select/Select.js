@@ -454,6 +454,7 @@ class Select extends PureComponent {
       'childrenKey',
       'expandIcons',
       'emptyText',
+      'renderOptionList',
     ].forEach(k => {
       props[k] = this.props[k]
     })
@@ -500,6 +501,7 @@ class Select extends PureComponent {
       'groupKey',
       'hideCreateOption',
       'emptyText',
+      'renderOptionList',
     ].forEach(k => {
       props[k] = this.props[k]
     })
@@ -542,7 +544,6 @@ class Select extends PureComponent {
       multiple,
       clearable,
       size,
-      onFilter,
       datum,
       filterText,
       onCreate,
@@ -663,6 +664,7 @@ Select.propTypes = {
   innerTitle: PropTypes.node,
   convertBr: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   inputText: PropTypes.string,
+  renderOptionList: PropTypes.func,
 }
 
 Select.defaultProps = {

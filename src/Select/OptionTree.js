@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import loading from 'docs/Loading'
 import { getDirectionClass } from '../utils/classname'
 import List from '../AnimationList'
 import Tree from '../Tree'
 import Spin from '../Spin'
 import { getLocale } from '../locale'
 import { selectClass } from './styles'
+import { getCustomList } from './utils'
 
 const ScaleList = List(['fade', 'scale-y'], 'fast')
 const DATA_PATH_KEY = '$PATH'
@@ -91,8 +93,14 @@ class OptionList extends Component {
   }
 
   render() {
-    const { focus, style, selectId, height, getRef, customHeader } = this.props
+    const { focus, style, selectId, height, getRef, customHeader, renderOptionList } = this.props
     const mergeStyle = Object.assign({}, { maxHeight: height, overflowY: 'auto' }, style)
+    const result = (
+      <>
+        {customHeader}
+        {this.renderTree()}
+      </>
+    )
     return (
       <ScaleList
         getRef={getRef}
@@ -101,8 +109,7 @@ class OptionList extends Component {
         data-id={selectId}
         className={selectClass('options', 'tree')}
       >
-        {customHeader}
-        {this.renderTree()}
+        {getCustomList(result, renderOptionList, loading)}
       </ScaleList>
     )
   }
@@ -131,6 +138,7 @@ OptionList.propTypes = {
   customHeader: PropTypes.node,
   expandIcons: PropTypes.array,
   emptyText: PropTypes.node,
+  renderOptionList: PropTypes.func,
 }
 
 export default OptionList
