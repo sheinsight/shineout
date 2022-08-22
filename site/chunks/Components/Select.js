@@ -331,7 +331,7 @@ const examples = [
     isTest: false,
     title: locate(
       '自定义渲染下拉列表 \n 使用 renderOptionList 来自定义渲染下拉列表',
-      ''
+      'custom render dropdown \n Use the renderOptionList property to customize the render dropdown list'
     ),
     component: require('doc/pages/components/Select/example-20-renderOptionList.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Select/example-20-renderOptionList.tsx'),

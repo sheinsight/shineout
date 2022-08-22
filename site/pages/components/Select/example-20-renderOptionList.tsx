@@ -1,12 +1,14 @@
 /**
  * cn - 自定义渲染下拉列表
  *    -- 使用 renderOptionList 来自定义渲染下拉列表
+ * en - custom render dropdown
+ *    -- Use the renderOptionList property to customize the render dropdown list
  */
 import React from 'react'
 import { Select } from 'shineout'
 import treeDta from 'doc/data/tree'
 
-const data: string[] = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet', 'aaa', 'bbb', 'ccc', 'ddd']
+const data = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet', 'aaa', 'bbb', 'ccc', 'ddd']
 
 const App: React.FC = () => (
   <>
@@ -14,7 +16,7 @@ const App: React.FC = () => (
       keygen
       style={{ width: 240, marginInlineEnd: 16 }}
       data={data}
-      renderOptionList={(s: any) => (
+      renderOptionList={s => (
         <div>
           <div>header</div>
           <div>{s}</div>
