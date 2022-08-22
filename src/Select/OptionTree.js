@@ -92,7 +92,7 @@ class OptionList extends Component {
   }
 
   render() {
-    const { focus, style, selectId, height, getRef, customHeader, renderOptionList } = this.props
+    const { focus, style, selectId, height, getRef, customHeader, renderOptionList, loading } = this.props
     const mergeStyle = Object.assign({}, { maxHeight: height, overflowY: 'auto' }, style)
     const result = (
       <>
