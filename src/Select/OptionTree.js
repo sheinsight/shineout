@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import loading from 'docs/Loading'
 import { getDirectionClass } from '../utils/classname'
 import List from '../AnimationList'
 import Tree from '../Tree'
