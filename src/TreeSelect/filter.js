@@ -54,7 +54,11 @@ export default Origin =>
           else if (!res) res = { [IS_NOT_MATCHED_VALUE]: true, value: v }
         }
         if (res) {
-          result.push(res)
+          const newRes = datum.dataMap.get(res.value)
+          if (newRes) {
+            this.resultCache.set(v, newRes)
+            result.push(newRes)
+          } else result.push(res)
         }
       })
       return result

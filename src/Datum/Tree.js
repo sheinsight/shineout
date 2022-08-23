@@ -129,11 +129,16 @@ export default class {
     // self
     if (!this.isDisabled(id)) this.setValueMap(id, checked)
 
+    const data = this.getDataById(id)
+
     if (CheckedMode.Freedom === this.mode) {
       // Free mode will return zero
+      if (this.isUnMatch(data)) {
+        this.unmatchedValueMap.set(id, checked)
+      }
       return 0
     }
-    const data = this.getDataById(id)
+
     if (data && data[IS_NOT_MATCHED_VALUE]) {
       if (checked) this.unmatchedValueMap.set(id, true)
       else this.unmatchedValueMap.delete(id)
