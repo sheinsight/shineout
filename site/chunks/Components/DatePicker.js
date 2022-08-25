@@ -376,6 +376,19 @@ const examples = [
     parseTsText: require('!raw-loader!ts-loader!doc/pages/components/DatePicker/example-19-default-picker-value.tsx'),
 
   },
+  {
+    name: 'test-001-control',
+    isTs: true,
+    isTest: true,
+    title: locate(
+      '完全受控 \n 通过封装实现完全受控',
+      '完全受控 \n 通过封装实现完全受控'
+    ),
+    component: require('doc/pages/components/DatePicker/test-001-control.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/DatePicker/test-001-control.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/DatePicker/test-001-control.tsx'),
+
+  },
 ]
 
 const codes = undefined
