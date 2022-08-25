@@ -16,7 +16,7 @@
 | fixed | 'both' \| 'x' \| 'y' \| 'auto' | 无 | 虚拟滚动条方向设置，不设置则使用原生滚动条且关闭懒加载 |
 | format | (data: object) => any \| string | d => d | 格式化 value<br />默认值，返回原始数据<br />为string时，会作为key从原始数据中获取值，相当于 (d) => d\[format\]<br /> 为函数时，以函数返回结果作为 value |
 | loading | boolean \| ReactNode | false | 数据加载中，为true时会展示一个默认的[Spin](/components/Spin)组件，可以传入一个自定义的Spin代替 |
-| keygen | ((data: object) => any) \| string \| true | 必填 | 生成每一项key的辅助方法<br />为 true 时，以数据项本身作为key，相当于 (d => d)<br />为函数时，使用此函数返回值<br />为string时，使用这个string对应的数据值。如 'id'，相当于 (d => d.id) |
+| keygen | ((data: object) => any) \| string | 必填 | 生成每一项key的辅助方法<br />为函数时，使用此函数返回值<br />为string时，使用这个string对应的数据值。如 'id'，相当于 (d => d.id) |
 | onScroll | (x: number, y: number) => void | 无 | 滚动条滚动后回调函数；<br />x: 横向滚动比(0 <= x <= 1)<br />y: 纵向滚动比(0 <= y <= 1) |
 | onRowClick | (data: object, index: number) => void | 无 | 行点击事件; <br />data: 当前行数据<br />index: 当前行索引 |
 | onRowSelect | (rows: any[]) => void | 无 | 选择行。rows为选中的数据。如果需要数据需要格式化的处理，建议配置 format 和 prediction |
@@ -34,7 +34,7 @@
 | sorter | (sortKey: any, sorter: 'asc' \| 'desc', sortedList: object[]) => (a: object, b: object) => number | alphaSort(Column.sorter, sorter) | 表格统一排序函数，参数分别为 Column.sorter 和 排序方式;<br />支持多列排序，sorter传入对象{ rule: string \| function, weight: number }, rule为排序规则，为字符串时参考单列排序的用法, weight为权重，指明排序的优先级. <br />多列排序时，sortedList返回所有参与排序的字段信息|
 | treeExpandKeys | any[] | 无  | 树形数据展开行，受控 |
 | hover | boolean | true | 数据行鼠标悬浮高亮效果 |
-| onTreeExpand | (openKeys: (string\|number)[], data: object, expand: boolean) => void | 无 |  展开行，keys为展开的行 |
+| onTreeExpand | (openKeys: (string\|number)[], data: object, expand: boolean) => void | 无 |  当设置 treeExpandKeys 后，展开行时会触发该回调，keys为展开的行 |
 | treeEmptyExpand | boolean | false | 树形表格子数据为空时依然展示展开按钮 |
 | treeCheckAll | boolean | false | 全选时是否将子孙数据选中 |
 | onSortCancel | () => void | 无 | 排序取消事件 |

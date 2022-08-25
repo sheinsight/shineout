@@ -32,7 +32,7 @@ exports[`Table[Border&striped] should render border & striped 1`] = `
         <col
           style={
             Object {
-              "width": undefined,
+              "width": 50,
             }
           }
         />
@@ -90,7 +90,7 @@ exports[`Table[Border&striped] should render border & striped 1`] = `
         <col
           style={
             Object {
-              "width": undefined,
+              "width": 50,
             }
           }
         />
@@ -153,13 +153,32 @@ exports[`Table[Border&striped] should render border & striped 1`] = `
             3
           </td>
         </tr>
+        <tr
+          className="so-table-normal so-table-even"
+          onClick={[Function]}
+        >
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            4
+          </td>
+          <td
+            className="so-table-ignore-right-border"
+            colSpan={1}
+            style={Object {}}
+          >
+            4
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>
 </div>
 `;
 
-exports[`Table[small] should render compact table 1`] = `
+exports[`Table[cellSelectable] should set cellSelectable 1`] = `
 <div
   className="so-table so-table-small so-table-hover so-table-vertical-top"
   style={Object {}}
@@ -191,7 +210,7 @@ exports[`Table[small] should render compact table 1`] = `
         <col
           style={
             Object {
-              "width": undefined,
+              "width": 50,
             }
           }
         />
@@ -249,7 +268,7 @@ exports[`Table[small] should render compact table 1`] = `
         <col
           style={
             Object {
-              "width": undefined,
+              "width": 50,
             }
           }
         />
@@ -310,6 +329,203 @@ exports[`Table[small] should render compact table 1`] = `
             style={Object {}}
           >
             3
+          </td>
+        </tr>
+        <tr
+          className="so-table-normal"
+          onClick={[Function]}
+        >
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            4
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            4
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+`;
+
+exports[`Table[small] should render compact table 1`] = `
+<div
+  className="so-table so-table-small so-table-hover so-table-vertical-top"
+  style={Object {}}
+>
+  <div
+    className="so-table-head so-table-simple-head"
+    style={
+      Object {
+        "overflowY": "hidden",
+      }
+    }
+  >
+    <table
+      className=""
+      style={
+        Object {
+          "width": undefined,
+        }
+      }
+    >
+      <colgroup>
+        <col
+          style={
+            Object {
+              "width": 50,
+            }
+          }
+        />
+        <col
+          style={
+            Object {
+              "width": 50,
+            }
+          }
+        />
+      </colgroup>
+      <thead>
+        <tr>
+          <th
+            className=""
+            rowSpan={1}
+          >
+            <div
+              className=""
+            >
+              <span>
+                id
+              </span>
+            </div>
+          </th>
+          <th
+            className=""
+            rowSpan={1}
+          >
+            <div
+              className=""
+            >
+              <span>
+                Name
+              </span>
+            </div>
+          </th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <div
+    className="so-table-simple-body"
+    onScroll={[Function]}
+  >
+    <table
+      className=""
+      style={
+        Object {
+          "width": undefined,
+        }
+      }
+    >
+      <colgroup>
+        <col
+          style={
+            Object {
+              "width": 50,
+            }
+          }
+        />
+        <col
+          style={
+            Object {
+              "width": 50,
+            }
+          }
+        />
+      </colgroup>
+      <tbody>
+        <tr
+          className="so-table-normal"
+          onClick={[Function]}
+        >
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            1
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            1
+          </td>
+        </tr>
+        <tr
+          className="so-table-normal"
+          onClick={[Function]}
+        >
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            2
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            2
+          </td>
+        </tr>
+        <tr
+          className="so-table-normal"
+          onClick={[Function]}
+        >
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            3
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            3
+          </td>
+        </tr>
+        <tr
+          className="so-table-normal"
+          onClick={[Function]}
+        >
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            4
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            4
           </td>
         </tr>
       </tbody>
