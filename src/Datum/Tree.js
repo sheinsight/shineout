@@ -131,18 +131,15 @@ export default class {
 
     const data = this.getDataById(id)
 
-    if (CheckedMode.Freedom === this.mode) {
-      // Free mode will return zero
-      if (this.isUnMatch(data)) {
-        this.unmatchedValueMap.set(id, checked)
-      }
-      return 0
-    }
-
     if (data && data[IS_NOT_MATCHED_VALUE]) {
       if (checked) this.unmatchedValueMap.set(id, true)
       else this.unmatchedValueMap.delete(id)
       return null
+    }
+
+    if (CheckedMode.Freedom === this.mode) {
+      // Free mode will return zero
+      return 0
     }
 
     const { path, children } = this.pathMap.get(id)
