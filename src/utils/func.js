@@ -47,3 +47,23 @@ export function createFunc(func) {
   if (typeof func === 'function') return func
   return data => (func ? data[func] : data)
 }
+
+export const throttle = function(func, timer) {
+  const that = {}
+  const cleanTimer = () => {
+    if (that.timer) {
+      clearTimeout(that.timer)
+      that.timer = ''
+    }
+  }
+  if (!timer) return [func, cleanTimer]
+  return [
+    (...args) => {
+      cleanTimer()
+      that.timer = setTimeout(() => {
+        func(...args)
+      }, timer)
+    },
+    cleanTimer,
+  ]
+}

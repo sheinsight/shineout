@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import immer from 'immer'
+import { addResizeObserver } from 'shineout/utils/dom/element'
 import { PureComponent } from '../component'
 import Button from '../Button'
 import icons from '../icons'
@@ -28,17 +29,26 @@ class Header extends PureComponent {
     this.handleNextClick = this.handleMove.bind(this, false)
     this.moveToCenter = this.moveToCenter.bind(this)
     this.handleCollapse = this.handleCollapse.bind(this)
+    this.handleResize = this.handleResize.bind(this)
   }
 
   componentDidMount() {
     super.componentDidMount()
     const { isVertical } = this.props
     this.setPosition(isVertical)
+    this.removeObserver = addResizeObserver(this.innerElement, this.handleResize, { direction: true, timer: 100 })
   }
 
   componentDidUpdate() {
     const { isVertical } = this.props
     this.setPosition(isVertical)
+  }
+
+  componentWillUnmount() {
+    super.componentWillUnmount()
+    if (this.removeObserver) {
+      this.removeObserver()
+    }
   }
 
   setPosition(isVertical) {
@@ -48,6 +58,12 @@ class Header extends PureComponent {
     const scrollAttribute = this.scrollElement[`client${attributeString}`]
     const { attribute: domAttribute } = this.state
     this.setState({ overflow: scrollAttribute > domAttribute + innerAttribute, attributeString })
+  }
+
+  handleResize(entry, { x, y }) {
+    const { isVertical } = this.props
+    const isResize = isVertical ? y : x
+    if (isResize) this.setPosition(isVertical)
   }
 
   bindElement(name, el) {
@@ -61,6 +77,7 @@ class Header extends PureComponent {
     let attribute = a + (lt ? -innerAttribute : innerAttribute)
     if (attribute < 0) attribute = 0
     if (attribute + innerAttribute > scrollAttribute) attribute = scrollAttribute - innerAttribute
+    if (scrollAttribute <= innerAttribute) attribute = 0
     this.setState({ attribute })
   }
 
