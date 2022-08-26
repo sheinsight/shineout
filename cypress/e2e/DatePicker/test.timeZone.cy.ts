@@ -17,7 +17,7 @@ function transDateWithZone(dd: string | number | Date, options = { timeZone: '8'
 }
 
 describe('DatePicker[timeZone]', () => {
-  it('should set time zone', async () => {
+  it('should set time zone', () => {
     cy.visit('/cn/components/DatePicker?example=16-timezone')
     cy.get('.so-select').as('Select')
     cy.get('@Select').click()

@@ -61,13 +61,19 @@ export default class {
   }
 
   setUnmatedValue() {
+    this.unmatchedValueMap = new Map()
     if (!this.value || !this.data) return
     this.value.forEach(v => {
       const data = this.getDataById(v)
-      const unmatched = data && data[IS_NOT_MATCHED_VALUE]
+      const unmatched = this.isUnMatch(data)
       if (unmatched) this.unmatchedValueMap.set(v, true)
       else this.unmatchedValueMap.delete(v)
     })
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  isUnMatch(data) {
+    return data && data[IS_NOT_MATCHED_VALUE]
   }
 
   setValue(value) {
