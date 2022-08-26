@@ -1,4 +1,5 @@
 import React from 'react'
+import { throttle } from '../func'
 
 if (Element && !Element.prototype.matches) {
   const proto = Element.prototype
@@ -154,8 +155,9 @@ export const preventPasteFile = (e, beforeHandler, noLineBreak = true) => {
 export const parsePxToNumber = str => Number(str.replace(/\s+|px/gi, ''))
 
 export const addResizeObserver = (el, handler, options = {}) => {
-  const { direction } = options
-  let h = handler
+  const { direction, timer } = options
+  const [throttleHandler, cleanTimer] = throttle(handler, timer)
+  let h = throttleHandler
   let lastWidth
   let lastHeight
   if (window.ResizeObserver) {
@@ -166,14 +168,14 @@ export const addResizeObserver = (el, handler, options = {}) => {
         const { width, height } = entry[0].contentRect
         if (width && direction === 'x') {
           if (lastWidth !== width) {
-            handler(entry)
+            throttleHandler(entry)
           }
         } else if (direction === 'y') {
           if (height && lastHeight !== height) {
-            handler(entry)
+            throttleHandler(entry)
           }
         } else if (width && height) {
-          handler(entry, { x: lastWidth !== width, y: lastHeight !== height })
+          throttleHandler(entry, { x: lastWidth !== width, y: lastHeight !== height })
         }
         lastWidth = width
         lastHeight = height
@@ -183,9 +185,13 @@ export const addResizeObserver = (el, handler, options = {}) => {
     observer.observe(el)
     return () => {
       observer.disconnect()
+      cleanTimer()
       observer = null
     }
   }
-  window.addEventListener('resize', handler)
-  return () => window.removeEventListener('resize', handler)
+  window.addEventListener('resize', throttleHandler)
+  return () => {
+    window.removeEventListener('resize', handler)
+    cleanTimer()
+  }
 }
