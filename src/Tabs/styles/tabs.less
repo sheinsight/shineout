@@ -328,25 +328,29 @@
   }
 
   &-dash {
-    .@{tabs-prefix}-tab {
-      border-color: transparent;
-      background: transparent;
-      color: inherit;
-    }
-    .@{tabs-prefix}-active {
-      color: @tabs-line-active-color;
-      border-color: transparent;
-      background: transparent;
-      &:after {
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        position: absolute;
-        width: 24px;
-        height: 3px;
-        border-radius: 3px;
-        background: @tabs-line-active-color;
-        content: ' ';
+    > .@{tabs-prefix}-header {
+      .@{tabs-prefix}-tab {
+        border-color: transparent;
+        background: transparent;
+        color: inherit;
+      }
+
+      .@{tabs-prefix}-active {
+        color: @tabs-line-active-color;
+        border-color: transparent;
+        background: transparent;
+
+        &:after {
+          bottom: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          position: absolute;
+          width: 24px;
+          height: 3px;
+          border-radius: 3px;
+          background: @tabs-line-active-color;
+          content: ' ';
+        }
       }
     }
   }
