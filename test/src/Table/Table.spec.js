@@ -1,12 +1,11 @@
 import React from 'react'
-import { mount, render, shallow } from 'enzyme'
-import { Table, Button, Checkbox } from 'shineout'
+import { mount, shallow } from 'enzyme'
+import { Table, Button } from 'shineout'
 import Render from 'react-test-renderer'
 import { baseTest } from '../../utils'
 import TableBase from '../../../site/pages/components/Table/example-01-base'
 import SortRenderTable from '../../../site/pages/components/Table/example-10-sort-render'
 import ControlTable from '../../../site/pages/components/Table/test-002-value'
-
 /* global SO_PREFIX */
 
 const columns = [{ title: 'id', render: 'id', width: 50 }, { title: 'Name', render: 'name', width: 50 }]
@@ -114,12 +113,12 @@ describe('Table[small]', () => {
   })
 })
 
-describe('Table[cellSelectable]', () => {
-  test('should set cellSelectable', () => {
-    const wrapper = Render.create(<Table keygen="id" size="small" columns={columns} data={data} />).toJSON()
-    expect(wrapper).toMatchSnapshot()
-  })
-})
+// describe('Table[cellSelectable]', () => {
+//   test('should set cellSelectable', () => {
+//     const wrapper = Render.create(<Table keygen="id" size="small" columns={columns} data={data} />).toJSON()
+//     expect(wrapper).toMatchSnapshot()
+//   })
+// })
 
 // describe('Table[changedByExpand]', () => {
 //   test('should set changedByExpand', () => {
@@ -223,18 +222,35 @@ describe('Table[empty]', () => {
 
 describe('Table[fixed]', () => {
   test('should set fixed', () => {
-    const fixed = ['x', 'y', 'both']
+    jest.useFakeTimers()
+    const fixed = ['x', 'y', 'both', 'auto']
     fixed.forEach(i => {
       const wrapper = mount(
-        <Table fixed={i} keygen="id" style={{ height: 600 }} columns={columns} data={data} rowsInView={10} />
+        <Table fixed={i} keygen="id" height={74} width={100} columns={columns} data={data} rowsInView={1} />
       )
+      jest.runAllTimers()
       if (i === 'both') {
         expect(wrapper.find(`.${SO_PREFIX}-scroll-bar`).length).toBe(2)
         expect(wrapper.find(`.${SO_PREFIX}-scroll-y`).length).toBe(1)
         expect(wrapper.find(`.${SO_PREFIX}-scroll-x`).length).toBe(1)
-      } else {
+
+        wrapper.find('SeperateTable').instance().realTbody = { clientHeight: 148 }
+
+        wrapper.find(`.${SO_PREFIX}-scroll-inner`).getDOMNode().scrollTop = 74
+        wrapper.find(`.${SO_PREFIX}-scroll-inner`).getDOMNode().scrollLeft = 50
+        const innerScroll = new UIEvent('scroll')
+        innerScroll.initUIEvent('scroll')
+        wrapper
+          .find(`.${SO_PREFIX}-scroll-inner`)
+          .getDOMNode()
+          .dispatchEvent(innerScroll)
+      } else if (i === 'x' || i === 'y') {
         expect(wrapper.find(`.${SO_PREFIX}-scroll-bar`).length).toBe(1)
         expect(wrapper.find(`.${SO_PREFIX}-scroll-${i}`).length).toBe(1)
+      } else if (i === 'auto') {
+        expect(wrapper.find(`.${SO_PREFIX}-scroll-bar`).length).toBe(2)
+        expect(wrapper.find(`.${SO_PREFIX}-scroll-y`).length).toBe(1)
+        expect(wrapper.find(`.${SO_PREFIX}-scroll-x`).length).toBe(1)
       }
     })
   })
@@ -440,7 +456,14 @@ describe('Table[onSortCancel]', () => {
     const handleSort = jest.fn()
     const onSortCancel = jest.fn()
     const wrapper = mount(
-      <Table keygen="id" sorter={handleSort} onSortCancel={onSortCancel} data={data} columns={columnsSorter} />
+      <Table
+        keygen="id"
+        fixed="both"
+        sorter={handleSort}
+        onSortCancel={onSortCancel}
+        data={data}
+        columns={columnsSorter}
+      />
     )
     expect(wrapper.find(`.${SO_PREFIX}-table-sorter-asc`).length).toBe(1)
     wrapper.find(`.${SO_PREFIX}-table-sorter-asc`).simulate('click')
@@ -1140,11 +1163,84 @@ describe('Table.Column[width]', () => {
   })
 })
 
+describe('Table.Column[type]', () => {
+  test('should set Table.Column type expand', () => {
+    const columnsExpand = [
+      {
+        type: 'row-expand',
+        render: d => () => <div>{JSON.stringify(d)}</div>,
+      },
+      { title: 'id', render: 'id', width: 50 },
+      { title: 'Name', render: 'name', width: 50 },
+    ]
+    const wrapper = mount(<Table fixed="both" height={100} keygen="id" data={data} columns={columnsExpand} />)
+    wrapper.find('ShineoutTr').forEach(tr => {
+      tr.instance().element.getBoundingClientRect = () => ({
+        height: 37,
+      })
+    })
+    wrapper
+      .find(`.${SO_PREFIX}-table-icon-expand-plus`)
+      .first()
+      .simulate('click')
+
+    expect(wrapper.find(`.${SO_PREFIX}-table-icon-expand-sub`).length).toBe(1)
+  })
+})
+
 describe('Table[unmount]', () => {
   test('should unmount', () => {
     const wrapper = mount(<Table keygen="id" columns={columns} data={data} />)
     expect(wrapper.find(Table).length).toBe(1)
     wrapper.unmount()
     expect(wrapper.find(Table).length).toBe(0)
+  })
+})
+
+// this attribute will be test by e2e
+// describe('Table[ctrl/cmd+click]', () => {
+//   test('should click when ctrl/cmd is simulated', () => {})
+// })
+
+describe('Table[cellSelectable]', () => {
+  test('should set cellSelectable', () => {
+    const wrapper = mount(<Table keygen="id" cellSelectable columns={columns} data={data} />)
+    const ctrlDown = new UIEvent('keydown')
+    ctrlDown.initUIEvent('keydown')
+    ctrlDown.keyCode = 67
+    ctrlDown.ctrlKey = 67
+    document.dispatchEvent(ctrlDown)
+
+    const firstItem = wrapper.find('tbody td').first()
+    firstItem.simulate('mousedown', { ctrlKey: 67 })
+    firstItem.simulate('mouseup', { ctrlKey: 67 })
+    expect(document.body.className).toBe(`${SO_PREFIX}-table-no-selection`)
+  })
+
+  test('should set cellSelectable move', () => {
+    const wrapper = mount(<Table keygen="id" cellSelectable columns={columns} data={data} />)
+    const ctrlDown = new UIEvent('keydown')
+    ctrlDown.initUIEvent('keydown')
+    ctrlDown.keyCode = 67
+    ctrlDown.ctrlKey = 67
+    document.dispatchEvent(ctrlDown)
+
+    // move to last
+    const firstItem = wrapper.find('tbody td').first()
+    const lastItem = wrapper.find('tbody td').last()
+
+    firstItem.simulate('mousedown', { ctrlKey: 67, target: firstItem.getDOMNode() })
+
+    firstItem.simulate('mousemove', { ctrlKey: 67, target: lastItem.getDOMNode() })
+
+    firstItem.simulate('mouseup', { ctrlKey: 67, target: lastItem.getDOMNode() })
+
+    expect(wrapper.html().match(/so-table-select/g).length).toBe(wrapper.find('tbody td').length)
+
+    // cancel select
+    firstItem.simulate('mousedown', { ctrlKey: 67, target: firstItem.getDOMNode() })
+    firstItem.simulate('mouseup', { ctrlKey: 67, target: firstItem.getDOMNode() })
+    expect(wrapper.html().match(/so-table-select/g).length).toBe(wrapper.find('tbody td').length - 1)
+    document.body.click()
   })
 })
