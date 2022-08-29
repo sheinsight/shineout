@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import immer from 'immer'
-import { addResizeObserver } from 'shineout/utils/dom/element'
+import { addResizeObserver } from '../utils/dom/element'
 import { PureComponent } from '../component'
 import Button from '../Button'
 import icons from '../icons'
