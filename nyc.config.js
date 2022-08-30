@@ -7,7 +7,7 @@ const ignoreFiles = [
   'src/Checkbox/Checkbox.js',
   'src/Rule/convert.js',
 ]
-const target = '**'
+const target = 'Tooltip/**'
 module.exports = {
   all: true,
   include: [`src/${target}`],
