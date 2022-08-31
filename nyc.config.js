@@ -6,6 +6,7 @@ const ignoreFiles = [
   'src/Button/Once.js',
   'src/Checkbox/Checkbox.js',
   'src/Rule/convert.js',
+  'src/Tree/toggle.js',
 ]
 const target = '**'
 module.exports = {

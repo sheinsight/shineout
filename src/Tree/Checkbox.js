@@ -5,7 +5,7 @@ import Checkbox from '../Checkbox/Checkbox'
 import { treeClass } from './styles'
 import { getDirectionClass } from '../utils/classname'
 
-export default class extends PureComponent {
+export default class TreeCheckbox extends PureComponent {
   static propTypes = {
     datum: PropTypes.object.isRequired,
     disabled: PropTypes.bool,
