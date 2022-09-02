@@ -171,7 +171,7 @@ class Tr extends Component {
       ...reset
     } = this.props
     const other = Object.keys(reset)
-      .filter(key => !['format', 'prediction', 'value', 'onChange'].includes(key))
+      .filter(key => !['format', 'prediction', 'onChange'].includes(key))
       .reduce((r, key) => ({ ...r, [key]: reset[key] }), {})
     const tds = []
     let skip = 0
