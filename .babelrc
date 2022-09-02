@@ -1,7 +1,8 @@
 {
   "env": {
     "development": {
-      "presets": [["react-app", { "flow": false, "typescript": true }]]
+      "presets": [["react-app", { "flow": false, "typescript": true }]],
+      "plugins": ["istanbul"]
     },
     "production": {
       "presets": ["react-app"]

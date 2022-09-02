@@ -50,7 +50,7 @@
 | resultClassName | ((value: any) => string) \| string | none | The className of the selected result content container |
 | columnsTitle | ReactNode | none | title of columns multiple select |
 | reFocus | boolean | false | There are onFilter and onCreate, select Option, automatically focus Input |
-| header | () => ReactNode \| ReactNode | null | Custom render option list header |
+| header | ReactElement | null | Custom render option list header |
 | lineHeight | number | 34 | Option height. List items are rendered using virtual lists, and when the option height changes, the correct height should be specified via lineHeight |
 | hideCreateOption | boolean | false | hide the creat option while set onCreate |
 | underline | boolean | false | only display border bottom  |
@@ -62,4 +62,4 @@
 | trim | boolean | false | When trim is true, blank characters are automatically deleted when lose focus |
 | onAdvancedFilter | (text: string) => ((data: Item) => boolean) \| void | - | Use the onAdvancedFilter property to enable filtering to switch between filtering results and raw data for the current hierarchy. |
 | convertBr | string | ((text: string) => string) | "," | Used to convert line breaks in pasted text |
-
+| renderOptionList | (list: ReactElement)=>  ReactElement | - | Custom render dropdown |

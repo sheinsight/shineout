@@ -2,6 +2,7 @@ import * as React from 'react'
 import { StandardProps, RegularAttributes, StructDataStandardProps, FormItemStandardProps, ListItemStandardProps, CommonProps } from '../@types/common'
 
 type ReactNode = React.ReactNode;
+type ReactElement = React.ReactElement;
 
 export interface SelectProps<Item, Value> extends
   StandardProps,
@@ -367,7 +368,7 @@ export interface SelectProps<Item, Value> extends
    *
    * default: null
    */
-  header?: ReactNode;
+  header?: ReactElement;
 
   /**
    * hide the creat option while set onCreate
@@ -413,6 +414,15 @@ export interface SelectProps<Item, Value> extends
    * default: ","
    */
   convertBr?: string | ((text: string) => string);
+
+  /**
+   * 自定义渲染下拉列表
+   *
+   * Custom render dropdown
+   *
+   * default: -
+   */
+  renderOptionList?: (list: ReactElement, info: {loading: boolean})=> ReactElement;
 }
 
 declare class Select<Item = any, Value = any> extends React.Component<SelectProps<Item, Value>, {}> {

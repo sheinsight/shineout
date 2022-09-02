@@ -18,12 +18,12 @@
 | children | ReactNode | required | Pop-up content. |
 | onClose | () => void | - | Callback event when close. |
 | onOpen | () => void | - | Callback event when open. |
-| position | 'top-left' \| 'top' \| 'top-right' \| 'left-top' \| 'left' \| 'left-bottom' \| 'right-top' \| 'right' \| 'right-bottom' \| 'bottom-left' \| 'bottom' \| 'bottom-right' | 'top' | The position of pop-up layer |
+| position | 'top-left' \| 'top' \| 'top-right' \| 'left-top' \| 'left' \| 'left-bottom' \| 'right-top' \| 'right' \| 'right-bottom' \| 'bottom-left' \| 'bottom' \| 'bottom-right' | none | The position of pop-up layer. Default auto. |
 | style | object | - | The pop-up container style |
 | trigger | 'click' \| 'hover' | 'hover' | type of show |
 | type | 'success' \| 'info' \| 'warning' \| 'danger' | none | type of popover |
 | content | (close: () => void) => void \| ReactNode | - | Old API, out of date. |
-| priorityDirection | string | 'vertical' | Popup location priority, default is left and right priority, only valid when position is not set, Options: \['vertical', 'horizontal', 'auto'] |
+| priorityDirection | string | 'vertical' | Popup location priority, default is top and bottom priority, only valid when position is not set, Options: \['vertical', 'horizontal', 'auto'] |
 | getPopupContainer | () => HTMLElement | none | Custom Popover container, override the default behavior which is rendering under the body, () => DOMElement |
 | scrollDismiss |  () => HTMLElement \| boolean| false | scroll to dismiss, return el to order scroller |
 | showArrow | boolean | true | show arrow |

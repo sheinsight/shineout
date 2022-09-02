@@ -50,7 +50,7 @@
 | resultClassName | ((value: any) => string) \| string | 无 | 选中结果内容容器的className |
 | columnsTitle | ReactNode | 无 | 多列选项多选时的标题文字 |
 | reFocus | boolean | 无 | 存在onFilter和onCreate，选中 Option，自动focus Input |
-| header | () => ReactNode \| ReactNode | 无 | 自定义渲染 Option List Header |
+| header | ReactElement | 无 | 自定义渲染 Option List Header |
 | lineHeight | number | 34 | 选项高度。列表项使用虚拟列表渲染，当选项高度改变时，应该通过 lineHeight 来指定正确高度 |
 | hideCreateOption | boolean | false | 在使用创建选项时，在选项列表中隐藏该选项，回车后直接选中该值 |
 | underline | boolean | false | 是否只展示下边框 |
@@ -62,3 +62,4 @@
 | trim | boolean | false | 失去焦点时会自动删除空白字符 |
 | onAdvancedFilter | (text: string) => ((data: Item) => boolean) \| void | 无 | 使用 onAdvancedFilter 属性开启高级筛选，可针对当前层级在筛选结果和原始数据间切换 |
 | convertBr | string \| ((text: string) => string) | "," | 用来转化粘贴文本中的换行 |
+| renderOptionList | (list: ReactElement)=>  ReactElement | - | 自定义渲染下拉列表 |

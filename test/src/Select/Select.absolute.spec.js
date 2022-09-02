@@ -10,3 +10,4 @@ describe('Select[Absolute]', () => {
     vAbsolute({ wrapper, data })
   })
 })
+

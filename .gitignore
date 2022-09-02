@@ -19,3 +19,6 @@ gh-pages
 coverage
 cypress/videos
 cypress/screenshots
+jest-coverage
+cypress-coverage
+reports

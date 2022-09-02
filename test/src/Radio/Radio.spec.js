@@ -76,6 +76,12 @@ describe('Radio[Raw]', () => {
       expect(call[0]).toBe(data[index])
     })
   })
+
+  test('should unmount', () => {
+    expect(wrapper.find(`.${SO_PREFIX}-checkinput-group`).length).toBe(1)
+    wrapper.unmount()
+    expect(wrapper.find(`.${SO_PREFIX}-checkinput-group`).length).toBe(0)
+  })
 })
 
 describe('Radio[Format]', () => {
@@ -120,6 +126,57 @@ describe('Radio[Disabled]', () => {
     const wrapper = mount(<Radio.Group keygen data={data} disabled={d => d === 'yellow'} />)
     wrapper.find('CheckItem').forEach(input => {
       expect(input.find('input').prop('disabled')).toBe(input.find('span').text() === 'yellow')
+    })
+  })
+})
+
+describe('Radio[checked]', () => {
+  test('should checked', () => {
+    const wrapper = mount(<Radio checked />)
+    expect(wrapper.find('input').length).toBe(1)
+    expect(wrapper.find('input').props().checked).toBe(true)
+  })
+
+  test('should not checked', () => {
+    const wrapper = mount(<Radio checked={false} />)
+    expect(wrapper.find('input').length).toBe(1)
+    expect(wrapper.find('input').props().checked).toBe(false)
+  })
+})
+
+describe('Radio[htmlValue]', () => {
+  test('should set htmlValue', () => {
+    const handleChange = jest.fn()
+    const htmlValue = 'Hello'
+    const wrapper = mount(<Radio htmlValue={htmlValue} checked onChange={handleChange} />)
+    expect(wrapper.find('input').length).toBe(1)
+    wrapper.find('input[type="radio"]').simulate('change', () => ({
+      target: {
+        checked: true,
+      },
+    }))
+
+    expect(handleChange).toBeCalled()
+    expect(handleChange.mock.calls[0][0]).toBe(htmlValue)
+  })
+})
+
+describe('Radio[renderItem]', () => {
+  test('should set renderItem', () => {
+    const data = [{ id: 1, name: 'a' }, { id: 2, name: 'b' }]
+    const handleChange = jest.fn()
+    const wrapper = mount(<Radio.Group keygen={d => d.id} data={data} renderItem={d => d.name} />)
+    wrapper.find(`.${SO_PREFIX}-checkinput`).forEach((radio, index) => {
+      const text = radio.find(`.${SO_PREFIX}-checkinput-desc`).text()
+      expect(text).toBe(data[index].name)
+      radio.simulate('change', () => ({
+        target: {
+          checked: true,
+        },
+      }))
+    })
+    handleChange.mock.calls.forEach((call, index) => {
+      expect(call[0]).toBe(data[index].id)
     })
   })
 })

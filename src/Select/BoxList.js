@@ -10,6 +10,7 @@ import Checkbox from '../Checkbox/Checkbox'
 import { selectClass } from './styles'
 import BoxOption from './BoxOption'
 import LazyList from '../AnimationList/LazyList'
+import { getCustomList } from './utils'
 
 const ScaleList = List(['fade', 'scale-y'], 'fast', 'flex')
 const emptyFunc = () => {}
@@ -163,11 +164,19 @@ class BoxList extends Component {
   }
 
   render() {
-    const { data, datum, style, loading, focus, selectId, getRef, customHeader } = this.props
+    const { data, datum, style, loading, focus, selectId, getRef, customHeader, renderOptionList } = this.props
 
     const checkedCount = data.filter(d => datum.check(d)).length
 
     const newStyle = Object.assign({}, style, { width: this.getWidth() })
+    const results = (
+      <>
+        {customHeader}
+        {loading && typeof loading === 'boolean' ? <Spin size={30} /> : loading}
+        {this.renderHeader(checkedCount)}
+        {this.renderOptions()}
+      </>
+    )
 
     return (
       <ScaleList
@@ -178,10 +187,7 @@ class BoxList extends Component {
         className={selectClass('box-list')}
         getRef={getRef}
       >
-        {customHeader}
-        {loading && typeof loading === 'boolean' ? <Spin size={30} /> : loading}
-        {this.renderHeader(checkedCount)}
-        {this.renderOptions()}
+        {getCustomList(results, renderOptionList, loading)}
       </ScaleList>
     )
   }
@@ -212,6 +218,7 @@ BoxList.propTypes = {
   customHeader: PropTypes.node,
   renderPending: PropTypes.bool,
   emptyText: PropTypes.node,
+  renderOptionList: PropTypes.func,
 }
 
 BoxList.defaultProps = {

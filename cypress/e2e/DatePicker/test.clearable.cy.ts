@@ -16,8 +16,7 @@ describe('DatePicker[clearWithUndefined]', () => {
 
     cy.get('.so-datepicker-txt').should('have.html', 'Select date')
 
-    cy.get('@DataPicker')
-      .next()
-      .should('have.html', 'undefined')
+    cy.get('.so-input.so-input-disabled input')
+      .should('have.value', 'undefined')
   })
 })

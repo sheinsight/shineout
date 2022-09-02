@@ -325,6 +325,58 @@ const examples = [
     parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Select/example-19-loading.tsx'),
 
   },
+  {
+    name: '20-renderOptionList',
+    isTs: true,
+    isTest: false,
+    title: locate(
+      '自定义渲染下拉列表 \n 使用 renderOptionList 来自定义渲染下拉列表',
+      'custom render dropdown \n Use the renderOptionList property to customize the render dropdown list'
+    ),
+    component: require('doc/pages/components/Select/example-20-renderOptionList.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/example-20-renderOptionList.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Select/example-20-renderOptionList.tsx'),
+
+  },
+  {
+    name: 'test-001-maxlength',
+    isTs: true,
+    isTest: true,
+    title: locate(
+      '筛选限制字符长度 \n maxLength',
+      '筛选限制字符长度 \n maxLength'
+    ),
+    component: require('doc/pages/components/Select/test-001-maxlength.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/test-001-maxlength.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Select/test-001-maxlength.tsx'),
+
+  },
+  {
+    name: 'test-002-header',
+    isTs: true,
+    isTest: true,
+    title: locate(
+      '自定义 header \n header',
+      '自定义 header \n header'
+    ),
+    component: require('doc/pages/components/Select/test-002-header.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/test-002-header.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Select/test-002-header.tsx'),
+
+  },
+  {
+    name: 'test-003-hideCreateOption',
+    isTs: true,
+    isTest: true,
+    title: locate(
+      'hideCreateOption \n 创建选项不展示option',
+      'hideCreateOption \n 创建选项不展示option'
+    ),
+    component: require('doc/pages/components/Select/test-003-hideCreateOption.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/test-003-hideCreateOption.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Select/test-003-hideCreateOption.tsx'),
+
+  },
 ]
 
 const codes = undefined
