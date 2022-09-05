@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot test: Sticky[site/pages/components/Sticky/example-1-top.tsx] 1`] = `
+<div>
+  <div>
+    <div>
+      <a>
+        <svg>
+          <path />
+        </svg>
+      </a>
+      <div>
+        <h3>
+          Some content.
+        </h3>
+        Sticky 20px to top.
+      </div>
+    </div>
+  </div>
+  <div />
+  <div />
+</div>
+`;
+
+exports[`Snapshot test: Sticky[site/pages/components/Sticky/example-2-element.tsx] 1`] = `
+<div>
+  <div>
+    <div>
+      Some text.
+    </div>
+    <div>
+      <div>
+        <div>
+          <div>
+            Sticky to element
+          </div>
+        </div>
+      </div>
+      <div />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Snapshot test: Sticky[site/pages/components/Sticky/example-3-bottom.tsx] 1`] = `
+<div>
+  <div>
+    <div>
+      <a>
+        <svg>
+          <path />
+        </svg>
+      </a>
+      <div>
+        Sticky at bottom.
+      </div>
+    </div>
+  </div>
+  <div />
+</div>
+`;
