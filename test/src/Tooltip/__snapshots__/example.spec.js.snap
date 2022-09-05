@@ -1,44 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Snapshot test: Tooltip[site/pages/components/Tooltip/example-1-base.tsx] 1`] = `
-<div>
-  <noscript />
-  <i />
-  <noscript />
-  <i />
-  <noscript />
-  <i />
-  <noscript />
-  <i />
-</div>
-`;
-
-exports[`Snapshot test: Tooltip[site/pages/components/Tooltip/example-2-click.tsx] 1`] = `
-<div>
-  <noscript />
-  <i />
-  <noscript />
-  <i />
-  <noscript />
-  <i />
-  <noscript />
-  <i />
-</div>
-`;
-
-exports[`Snapshot test: Tooltip[site/pages/components/Tooltip/example-3-disabled-inner.tsx] 1`] = `
-<div>
-  <noscript />
-  <span>
-    <button>
-      <span>
-        Disabled
-      </span>
-    </button>
-  </span>
-</div>
-`;
-
 exports[`Tooltip[snapshot] Snapshot test: Tooltip[site/pages/components/Tooltip/example-1-base.tsx] 1`] = `
 <div>
   <noscript />
