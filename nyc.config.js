@@ -8,6 +8,7 @@ const ignoreFiles = [
   'src/Rule/convert.js',
   'src/Upload/Dragger.js',
   'src/Upload/context.js',
+  'src/Tree/toggle.js',
 ]
 const target = '**'
 module.exports = {
