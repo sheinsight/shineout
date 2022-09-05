@@ -9,7 +9,7 @@ const ignoreFiles = [
   'src/Upload/Dragger.js',
   'src/Upload/context.js',
 ]
-const target = 'Upload/**'
+const target = '**'
 module.exports = {
   all: true,
   include: [`src/${target}`],
