@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Snapshot test: Grid[site/pages/components/Grid/example-01-base.tsx] 1`] = `
+exports[`Grid[snapshot] Snapshot test: Grid[site/pages/components/Grid/example-01-base.tsx] 1`] = `
 <div>
   <div>
     <div />
@@ -87,7 +87,7 @@ exports[`Snapshot test: Grid[site/pages/components/Grid/example-01-base.tsx] 1`]
 </div>
 `;
 
-exports[`Snapshot test: Grid[site/pages/components/Grid/example-02-offset.tsx] 1`] = `
+exports[`Grid[snapshot] Snapshot test: Grid[site/pages/components/Grid/example-02-offset.tsx] 1`] = `
 <div>
   <div>
     With 1/3, Offset 1/3
@@ -95,7 +95,7 @@ exports[`Snapshot test: Grid[site/pages/components/Grid/example-02-offset.tsx] 1
 </div>
 `;
 
-exports[`Snapshot test: Grid[site/pages/components/Grid/example-03-nested.tsx] 1`] = `
+exports[`Grid[snapshot] Snapshot test: Grid[site/pages/components/Grid/example-03-nested.tsx] 1`] = `
 <div>
   <div>
     1/2
@@ -119,7 +119,7 @@ exports[`Snapshot test: Grid[site/pages/components/Grid/example-03-nested.tsx] 1
 </div>
 `;
 
-exports[`Snapshot test: Grid[site/pages/components/Grid/example-04-gutter.tsx] 1`] = `
+exports[`Grid[snapshot] Snapshot test: Grid[site/pages/components/Grid/example-04-gutter.tsx] 1`] = `
 <div>
   <div>
     <div>

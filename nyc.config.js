@@ -6,9 +6,11 @@ const ignoreFiles = [
   'src/Button/Once.js',
   'src/Checkbox/Checkbox.js',
   'src/Rule/convert.js',
+  'src/Upload/Dragger.js',
+  'src/Upload/context.js',
   'src/Tree/toggle.js',
 ]
-const target = 'Tooltip/**'
+const target = '**'
 module.exports = {
   all: true,
   include: [`src/${target}`],

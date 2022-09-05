@@ -734,8 +734,8 @@ describe('TreeSelect[onChangeAddition]', () => {
       })
 
     expect(handleChange).toBeCalled()
-    expect(handleChange.mock.calls[0][0].data[0]).toBe(modeData.at(-1))
-    expect(handleChange.mock.calls[0][0].current).toBe(modeData.at(-1))
+    expect(handleChange.mock.calls[0][0].data[0]).toBe(modeData[modeData.length - 1])
+    expect(handleChange.mock.calls[0][0].current).toBe(modeData[modeData.length - 1])
     expect(handleChange.mock.calls[0][0].checked).toBe(1)
   })
 
@@ -752,8 +752,8 @@ describe('TreeSelect[onChangeAddition]', () => {
       .simulate('click')
 
     expect(handleChange).toBeCalled()
-    expect(handleChange.mock.calls[0][0].data).toBe(modeData.at(-1))
-    expect(handleChange.mock.calls[0][0].current).toBe(modeData.at(-1))
+    expect(handleChange.mock.calls[0][0].data).toBe(modeData[modeData.length - 1])
+    expect(handleChange.mock.calls[0][0].current).toBe(modeData[modeData.length - 1])
   })
 })
 

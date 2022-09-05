@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Snapshot test: CardGroup[site/pages/components/CardGroup/example-1-base.tsx] 1`] = `
+exports[`CardGroup[snapshot] Snapshot test: CardGroup[site/pages/components/CardGroup/example-1-base.tsx] 1`] = `
 <div>
   <div>
     <div>
@@ -199,7 +199,7 @@ exports[`Snapshot test: CardGroup[site/pages/components/CardGroup/example-1-base
 </div>
 `;
 
-exports[`Snapshot test: CardGroup[site/pages/components/CardGroup/example-2-width.tsx] 1`] = `
+exports[`CardGroup[snapshot] Snapshot test: CardGroup[site/pages/components/CardGroup/example-2-width.tsx] 1`] = `
 <div>
   <div>
     <div>
@@ -398,7 +398,7 @@ exports[`Snapshot test: CardGroup[site/pages/components/CardGroup/example-2-widt
 </div>
 `;
 
-exports[`Snapshot test: CardGroup[site/pages/components/CardGroup/example-3-lazyload.tsx] 1`] = `
+exports[`CardGroup[snapshot] Snapshot test: CardGroup[site/pages/components/CardGroup/example-3-lazyload.tsx] 1`] = `
 <div>
   <div>
     <div>
@@ -597,7 +597,7 @@ exports[`Snapshot test: CardGroup[site/pages/components/CardGroup/example-3-lazy
 </div>
 `;
 
-exports[`Snapshot test: CardGroup[site/pages/components/CardGroup/example-4-checkbox.tsx] 1`] = `
+exports[`CardGroup[snapshot] Snapshot test: CardGroup[site/pages/components/CardGroup/example-4-checkbox.tsx] 1`] = `
 <div>
   <p>
     <label>
@@ -847,7 +847,7 @@ exports[`Snapshot test: CardGroup[site/pages/components/CardGroup/example-4-chec
 </div>
 `;
 
-exports[`Snapshot test: CardGroup[site/pages/components/CardGroup/example-5-disabled.tsx] 1`] = `
+exports[`CardGroup[snapshot] Snapshot test: CardGroup[site/pages/components/CardGroup/example-5-disabled.tsx] 1`] = `
 <div>
   <div>
     <div>

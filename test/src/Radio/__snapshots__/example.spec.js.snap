@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Snapshot test: Radio[site/pages/components/Radio/example-1-base.tsx] 1`] = `
+exports[`Radio[snapshot] Snapshot test: Radio[site/pages/components/Radio/example-1-base.tsx] 1`] = `
 <div>
   <label>
     <input />
@@ -68,7 +68,7 @@ exports[`Snapshot test: Radio[site/pages/components/Radio/example-1-base.tsx] 1`
 </div>
 `;
 
-exports[`Snapshot test: Radio[site/pages/components/Radio/example-2-group.tsx] 1`] = `
+exports[`Radio[snapshot] Snapshot test: Radio[site/pages/components/Radio/example-2-group.tsx] 1`] = `
 <div>
   <label>
     <input />
@@ -122,7 +122,7 @@ exports[`Snapshot test: Radio[site/pages/components/Radio/example-2-group.tsx] 1
 </div>
 `;
 
-exports[`Snapshot test: Radio[site/pages/components/Radio/example-3-format.tsx] 1`] = `
+exports[`Radio[snapshot] Snapshot test: Radio[site/pages/components/Radio/example-3-format.tsx] 1`] = `
 <div>
   <label>
     <input />
@@ -176,7 +176,7 @@ exports[`Snapshot test: Radio[site/pages/components/Radio/example-3-format.tsx] 
 </div>
 `;
 
-exports[`Snapshot test: Radio[site/pages/components/Radio/example-5-block.tsx] 1`] = `
+exports[`Radio[snapshot] Snapshot test: Radio[site/pages/components/Radio/example-5-block.tsx] 1`] = `
 <div>
   <label>
     <input />
@@ -230,7 +230,7 @@ exports[`Snapshot test: Radio[site/pages/components/Radio/example-5-block.tsx] 1
 </div>
 `;
 
-exports[`Snapshot test: Radio[site/pages/components/Radio/example-6-button-1.tsx] 1`] = `
+exports[`Radio[snapshot] Snapshot test: Radio[site/pages/components/Radio/example-6-button-1.tsx] 1`] = `
 <div>
   <label>
     <input />
@@ -256,7 +256,7 @@ exports[`Snapshot test: Radio[site/pages/components/Radio/example-6-button-1.tsx
 </div>
 `;
 
-exports[`Snapshot test: Radio[site/pages/components/Radio/example-6-button-2.tsx] 1`] = `
+exports[`Radio[snapshot] Snapshot test: Radio[site/pages/components/Radio/example-6-button-2.tsx] 1`] = `
 <div>
   <label>
     <input />
@@ -282,7 +282,7 @@ exports[`Snapshot test: Radio[site/pages/components/Radio/example-6-button-2.tsx
 </div>
 `;
 
-exports[`Snapshot test: Radio[site/pages/components/Radio/example-6-button-3.tsx] 1`] = `
+exports[`Radio[snapshot] Snapshot test: Radio[site/pages/components/Radio/example-6-button-3.tsx] 1`] = `
 <div>
   <div>
     <label>
@@ -356,7 +356,7 @@ exports[`Snapshot test: Radio[site/pages/components/Radio/example-6-button-3.tsx
 </div>
 `;
 
-exports[`Snapshot test: Radio[site/pages/components/Radio/example-7-disabled.tsx] 1`] = `
+exports[`Radio[snapshot] Snapshot test: Radio[site/pages/components/Radio/example-7-disabled.tsx] 1`] = `
 <div>
   <label>
     <input />
@@ -410,7 +410,7 @@ exports[`Snapshot test: Radio[site/pages/components/Radio/example-7-disabled.tsx
 </div>
 `;
 
-exports[`Snapshot test: Radio[site/pages/components/Radio/example-8-disabled.tsx] 1`] = `
+exports[`Radio[snapshot] Snapshot test: Radio[site/pages/components/Radio/example-8-disabled.tsx] 1`] = `
 <div>
   <label>
     <input />
@@ -464,7 +464,7 @@ exports[`Snapshot test: Radio[site/pages/components/Radio/example-8-disabled.tsx
 </div>
 `;
 
-exports[`Snapshot test: Radio[site/pages/components/Radio/example-9-toggle.tsx] 1`] = `
+exports[`Radio[snapshot] Snapshot test: Radio[site/pages/components/Radio/example-9-toggle.tsx] 1`] = `
 <div>
   <span>
     <label>

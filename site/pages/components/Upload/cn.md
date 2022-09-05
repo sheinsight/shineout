@@ -34,7 +34,6 @@
 | value | any[] | \[] | defaultValue 和 value 可以同时设置，defaultValue 会被value覆盖<br />在Form中，value会被表单接管，value无效 |
 | withCredentials | boolean | false | 是否携带 cookie |
 | multiple | boolean | false | 是否支持多选文件 |
-| renderContent | (res: any, value: any, index: number, values: any[]) => ReactNode | - | 自定义结果的内容 |
 | validatorHandle | ((error: any, file: File) => boolean) \| boolean | true | 是否处理校验失败的情况, 如果提供一个函数, 则以函数的返回值判断是否处理此 error |
 | drop | boolean | false | 是否开启拖拽上传文件 |
 | filesFilter | (fileList: any[]) => fileList: any[] | 无 | 文件选中后的筛选，用户可自定义最终需要上传的文件列表<br />需返回一个新的文件列表 |
@@ -59,6 +58,7 @@
 | onPreview | (url, value, index, values, fun: {preview: ()=>void } ) => void | none | 预览图片操作，默认为画廊展示 |
 | ignorePreview | boolean | false | 是否忽略上传图片预览 |
 | gapProps | object | {column: 12, row: 12} | 间距同Gap组件props |
+| renderContent | (res: any, value: any, index: number, values: any[]) => ReactNode | - | 自定义结果的内容 |
 
 ### Upload.Button
 

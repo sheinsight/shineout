@@ -1,3 +1,5 @@
 import exampleTest from '../../example'
 
-exampleTest('Carousel')
+describe('Carousel[snapshot]', () => {
+  exampleTest('Carousel')
+})

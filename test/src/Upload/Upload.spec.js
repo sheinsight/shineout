@@ -1,8 +1,7 @@
 import React from 'react'
 import { mount } from 'enzyme'
 import { Upload } from 'shineout'
-import UploadImage from '../../../site/pages/components/Upload/example-02-image.tsx'
-import UploadButton from '../../../site/pages/components/Upload/example-03-button.tsx'
+import { delay } from '../../utils'
 
 /* global SO_PREFIX */
 describe('Upload[Base]', () => {
@@ -13,32 +12,24 @@ describe('Upload[Base]', () => {
   test('should render file-input', () => {
     expect(wrapper.find('input[type="file"]').length).toBe(1)
   })
-  // test('should upload file success', done => {
-  //   const successFn = () => {
-  //     done()
-  //   }
-  //   const uploadWrapper = mount(<Upload action="//jsonplaceholder.typicode.com/posts" onSuccess={successFn} />)
-  //   uploadWrapper.find('input').prop('onChange')({
-  //     target: {
-  //       files: [new Blob(['content'], { type: 'text/plain' })],
-  //     },
-  //   })
-  // })
-})
-
-describe('Upload[Image]', () => {
-  test('should render image input', () => {
-    const wrapper = mount(<UploadImage />)
-    expect(wrapper.find(`.${SO_PREFIX}-upload-image-plus`).length).toBe(1)
-  })
-})
-
-describe('Upload[Button]', () => {
-  test('should render button and progress', () => {
-    const wrapper = mount(<UploadButton />)
-    const type = wrapper.find('Progress').prop('type')
-    expect(wrapper.find('ShineoutButton').length).toBe(1)
-    expect(wrapper.find(`.${SO_PREFIX}-button-${type}`).length).toBe(1)
+  test('should input lock 1000', async () => {
+    const inputClick = jest.fn()
+    wrapper.find('input').instance().click = inputClick
+    wrapper
+      .find('Upload')
+      .instance()
+      .input.click()
+    wrapper
+      .find('Upload')
+      .instance()
+      .input.click()
+    expect(inputClick.mock.calls.length).toBe(1)
+    await delay(1000)
+    wrapper
+      .find('Upload')
+      .instance()
+      .input.click()
+    expect(inputClick.mock.calls.length).toBe(2)
   })
 })
 
@@ -98,26 +89,3 @@ describe('Upload[validateHandle false]', () => {
     expect(wrapper.find(`.${SO_PREFIX}-upload-error`).length).toBe(0)
   })
 })
-// describe('Upload[onError]', () => {
-//   test('should call onError while server error', () => {
-//     XMLHttpRequest.prototype.send = function() {
-//       this.onerror()
-//     }
-//     const wrapper = mount(
-//       <Upload
-//         action="/path-no-exist"
-//         name="file"
-//         onError={xhr => {
-//           console.log(xhr)
-//         }}
-//       />
-//     )
-//     const blob = new Blob(['content'], { type: 'text/plain' })
-//     wrapper.find('input').prop('onChange')({
-//       target: {
-//         files: [blob],
-//       },
-//     })
-//     wrapper.update()
-//   })
-// })

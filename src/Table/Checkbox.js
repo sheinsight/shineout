@@ -5,7 +5,7 @@ import { CHANGE_TOPIC } from '../Datum/types'
 import Checkbox from '../Checkbox/Checkbox'
 import Radio from '../Radio/Radio'
 
-export default class extends PureComponent {
+export default class TableCheckbox extends PureComponent {
   static propTypes = {
     data: PropTypes.object.isRequired,
     datum: PropTypes.object.isRequired,

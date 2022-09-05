@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Snapshot test: Icon[site/pages/components/Icon/example-1-awesome.tsx] 1`] = `
+exports[`Icon[snapshot] Snapshot test: Icon[site/pages/components/Icon/example-1-awesome.tsx] 1`] = `
 <div>
   <i />
   <i />
@@ -9,7 +9,7 @@ exports[`Snapshot test: Icon[site/pages/components/Icon/example-1-awesome.tsx] 1
 </div>
 `;
 
-exports[`Snapshot test: Icon[site/pages/components/Icon/example-2-iconfont.tsx] 1`] = `
+exports[`Icon[snapshot] Snapshot test: Icon[site/pages/components/Icon/example-2-iconfont.tsx] 1`] = `
 <div>
   <i>
     <svg>
@@ -28,7 +28,7 @@ exports[`Snapshot test: Icon[site/pages/components/Icon/example-2-iconfont.tsx] 
 </div>
 `;
 
-exports[`Snapshot test: Icon[site/pages/components/Icon/example-3-size.tsx] 1`] = `
+exports[`Icon[snapshot] Snapshot test: Icon[site/pages/components/Icon/example-3-size.tsx] 1`] = `
 <div>
   <i />
   <i />

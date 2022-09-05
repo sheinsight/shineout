@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Snapshot test: Switch[site/pages/components/Switch/example-1-base.tsx] 1`] = `
+exports[`Switch[snapshot] Snapshot test: Switch[site/pages/components/Switch/example-1-base.tsx] 1`] = `
 <label>
   <span />
   <input />
@@ -9,7 +9,7 @@ exports[`Snapshot test: Switch[site/pages/components/Switch/example-1-base.tsx] 
 </label>
 `;
 
-exports[`Snapshot test: Switch[site/pages/components/Switch/example-2-disabled.tsx] 1`] = `
+exports[`Switch[snapshot] Snapshot test: Switch[site/pages/components/Switch/example-2-disabled.tsx] 1`] = `
 <div>
   <label>
     <span />
@@ -25,7 +25,7 @@ exports[`Snapshot test: Switch[site/pages/components/Switch/example-2-disabled.t
 </div>
 `;
 
-exports[`Snapshot test: Switch[site/pages/components/Switch/example-3-content.tsx] 1`] = `
+exports[`Switch[snapshot] Snapshot test: Switch[site/pages/components/Switch/example-3-content.tsx] 1`] = `
 <div>
   <label>
     <span>
@@ -47,7 +47,7 @@ exports[`Snapshot test: Switch[site/pages/components/Switch/example-3-content.ts
 </div>
 `;
 
-exports[`Snapshot test: Switch[site/pages/components/Switch/example-4-size.tsx] 1`] = `
+exports[`Switch[snapshot] Snapshot test: Switch[site/pages/components/Switch/example-4-size.tsx] 1`] = `
 <div>
   <label>
     <input />

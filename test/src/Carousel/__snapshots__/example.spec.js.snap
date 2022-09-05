@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Snapshot test: Carousel[site/pages/components/Carousel/example-1-base.tsx] 1`] = `
+exports[`Carousel[snapshot] Snapshot test: Carousel[site/pages/components/Carousel/example-1-base.tsx] 1`] = `
 <div>
   <div>
     animation:
@@ -103,7 +103,7 @@ exports[`Snapshot test: Carousel[site/pages/components/Carousel/example-1-base.t
 </div>
 `;
 
-exports[`Snapshot test: Carousel[site/pages/components/Carousel/example-2-custom-indicator.tsx] 1`] = `
+exports[`Carousel[snapshot] Snapshot test: Carousel[site/pages/components/Carousel/example-2-custom-indicator.tsx] 1`] = `
 <div>
   <div>
     <div>

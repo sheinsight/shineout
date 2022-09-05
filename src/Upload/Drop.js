@@ -4,7 +4,7 @@ import classnames from 'classnames'
 import { uploadClass } from './styles'
 import { accept as fileAccept } from '../utils'
 
-export default class extends React.Component {
+export default class Drop extends React.Component {
   static propTypes = {
     disabled: PropType.bool,
     accept: PropType.string,
