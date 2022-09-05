@@ -1,5 +1,705 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Slider[snapshot] Snapshot test: Slider[site/pages/components/Slider/example-01-base.tsx] 1`] = `
+<div>
+  <div />
+  <div>
+    <div>
+      <div>
+        50
+      </div>
+      <div />
+      <div />
+    </div>
+  </div>
+  <div>
+    <div>
+      <span>
+        0
+      </span>
+    </div>
+    <div>
+      <span>
+        100
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Slider[snapshot] Snapshot test: Slider[site/pages/components/Slider/example-01-input.tsx] 1`] = `
+<div>
+  <div>
+    <div />
+    <div>
+      <div>
+        <div>
+          50
+        </div>
+        <div />
+        <div />
+      </div>
+    </div>
+    <div>
+      <div>
+        <span>
+          0
+        </span>
+      </div>
+      <div>
+        <span>
+          100
+        </span>
+      </div>
+    </div>
+  </div>
+  <label>
+    <input />
+    <a>
+      <svg>
+        <path />
+        <path />
+      </svg>
+    </a>
+    <a>
+      <svg>
+        <path />
+        <path />
+      </svg>
+    </a>
+  </label>
+</div>
+`;
+
+exports[`Slider[snapshot] Snapshot test: Slider[site/pages/components/Slider/example-02-range.tsx] 1`] = `
+<div>
+  <div />
+  <div>
+    <div>
+      <div>
+        25
+      </div>
+      <div />
+      <div />
+    </div>
+    <div>
+      <div>
+        75
+      </div>
+      <div />
+      <div />
+    </div>
+  </div>
+  <div>
+    <div>
+      <span>
+        0
+      </span>
+    </div>
+    <div>
+      <span>
+        100
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Slider[snapshot] Snapshot test: Slider[site/pages/components/Slider/example-03-scale.tsx] 1`] = `
+<div>
+  <div />
+  <div>
+    <div>
+      <div>
+        0
+      </div>
+      <div />
+      <div />
+    </div>
+  </div>
+  <div>
+    <div>
+      <span>
+        0
+      </span>
+    </div>
+    <div>
+      <span>
+        50
+      </span>
+    </div>
+    <div>
+      <span>
+        100
+      </span>
+    </div>
+    <div>
+      <span>
+        250
+      </span>
+    </div>
+    <div>
+      <span>
+        500
+      </span>
+    </div>
+    <div>
+      <span>
+        1000
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Slider[snapshot] Snapshot test: Slider[site/pages/components/Slider/example-04-format.tsx] 1`] = `
+<div>
+  <div />
+  <div>
+    <div>
+      <div>
+        09:33
+      </div>
+      <div />
+      <div />
+    </div>
+    <div>
+      <div>
+        12:36
+      </div>
+      <div />
+      <div />
+    </div>
+  </div>
+  <div>
+    <div>
+      <span>
+        09:00
+      </span>
+    </div>
+    <div>
+      <span>
+        10:00
+      </span>
+    </div>
+    <div>
+      <span>
+        11:00
+      </span>
+    </div>
+    <div>
+      <span>
+        12:00
+      </span>
+    </div>
+    <div>
+      <span>
+        13:00
+      </span>
+    </div>
+    <div>
+      <span>
+        14:00
+      </span>
+    </div>
+    <div>
+      <span>
+        15:00
+      </span>
+    </div>
+    <div>
+      <span>
+        16:00
+      </span>
+    </div>
+    <div>
+      <span>
+        17:00
+      </span>
+    </div>
+    <div>
+      <span>
+        18:00
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Slider[snapshot] Snapshot test: Slider[site/pages/components/Slider/example-05-step.tsx] 1`] = `
+<div>
+  <div />
+  <div>
+    <div>
+      <div>
+        0.05
+      </div>
+      <div />
+      <div />
+    </div>
+    <div>
+      <div>
+        0.25
+      </div>
+      <div />
+      <div />
+    </div>
+  </div>
+  <div>
+    <div>
+      <span>
+        0
+      </span>
+    </div>
+    <div>
+      <span>
+        1
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Slider[snapshot] Snapshot test: Slider[site/pages/components/Slider/example-06-step.tsx] 1`] = `
+<div>
+  <div />
+  <div>
+    <div>
+      <div />
+      <div />
+    </div>
+  </div>
+  <div>
+    <div>
+      <span>
+        0.8
+      </span>
+    </div>
+    <div>
+      <span>
+        1
+      </span>
+    </div>
+    <div>
+      <span>
+        1.2
+      </span>
+    </div>
+    <div>
+      <span>
+        1.4
+      </span>
+    </div>
+    <div>
+      <span>
+        1.7
+      </span>
+    </div>
+    <div>
+      <span>
+        2
+      </span>
+    </div>
+    <div>
+      <span>
+        2.4
+      </span>
+    </div>
+    <div>
+      <span>
+        2.8
+      </span>
+    </div>
+    <div>
+      <span>
+        3.3
+      </span>
+    </div>
+    <div>
+      <span>
+        4
+      </span>
+    </div>
+    <div>
+      <span>
+        4.8
+      </span>
+    </div>
+    <div>
+      <span>
+        5.6
+      </span>
+    </div>
+    <div>
+      <span>
+        6.7
+      </span>
+    </div>
+    <div>
+      <span>
+        8
+      </span>
+    </div>
+    <div>
+      <span>
+        9.5
+      </span>
+    </div>
+    <div>
+      <span>
+        11
+      </span>
+    </div>
+    <div>
+      <span>
+        13
+      </span>
+    </div>
+    <div>
+      <span>
+        16
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Slider[snapshot] Snapshot test: Slider[site/pages/components/Slider/example-07-hide.tsx] 1`] = `
+<div>
+  <div />
+  <div>
+    <div>
+      <div>
+        4
+      </div>
+      <div />
+      <div />
+    </div>
+  </div>
+  <div>
+    <div>
+      <span>
+        1
+      </span>
+    </div>
+    <div>
+      <span>
+        2
+      </span>
+    </div>
+    <div>
+      <span>
+        3
+      </span>
+    </div>
+    <div>
+      <span>
+        5
+      </span>
+    </div>
+    <div>
+      <span>
+        8
+      </span>
+    </div>
+    <div>
+      <span>
+        13
+      </span>
+    </div>
+    <div>
+      <span>
+        21
+      </span>
+    </div>
+    <div>
+      <span>
+        34
+      </span>
+    </div>
+    <div>
+      <span>
+        55
+      </span>
+    </div>
+    <div>
+      <span>
+        89
+      </span>
+    </div>
+    <div>
+      <span>
+        144
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Slider[snapshot] Snapshot test: Slider[site/pages/components/Slider/example-08-hide.tsx] 1`] = `
+<div>
+  <div />
+  <div>
+    <div>
+      <div />
+      <div />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Slider[snapshot] Snapshot test: Slider[site/pages/components/Slider/example-09-disabled.tsx] 1`] = `
+<div>
+  <div />
+  <div>
+    <div>
+      <div>
+        25
+      </div>
+      <div />
+      <div />
+    </div>
+    <div>
+      <div>
+        75
+      </div>
+      <div />
+      <div />
+    </div>
+  </div>
+  <div>
+    <div>
+      <span>
+        0
+      </span>
+    </div>
+    <div>
+      <span>
+        100
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Slider[snapshot] Snapshot test: Slider[site/pages/components/Slider/example-10-vertical.tsx] 1`] = `
+<div>
+  <div>
+    <div />
+    <div>
+      <div>
+        <div>
+          50
+        </div>
+        <div />
+        <div />
+      </div>
+    </div>
+    <div>
+      <div>
+        <span>
+          0
+        </span>
+      </div>
+      <div>
+        <span>
+          100
+        </span>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div />
+    <div>
+      <div>
+        <div>
+          12
+        </div>
+        <div />
+        <div />
+      </div>
+      <div>
+        <div>
+          70
+        </div>
+        <div />
+        <div />
+      </div>
+    </div>
+    <div>
+      <div>
+        <span>
+          0
+        </span>
+      </div>
+      <div>
+        <span>
+          100
+        </span>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div />
+    <div>
+      <div>
+        <div />
+        <div />
+      </div>
+    </div>
+    <div>
+      <div>
+        <span>
+          0℃
+        </span>
+      </div>
+      <div>
+        <span>
+          20℃
+        </span>
+      </div>
+      <div>
+        <span>
+          40℃
+        </span>
+      </div>
+      <div>
+        <span>
+          60℃
+        </span>
+      </div>
+      <div>
+        <span>
+          100℃
+        </span>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div />
+    <div>
+      <div>
+        <div>
+          12
+        </div>
+        <div />
+        <div />
+      </div>
+      <div>
+        <div>
+          70
+        </div>
+        <div />
+        <div />
+      </div>
+    </div>
+    <div>
+      <div>
+        <span>
+          0
+        </span>
+      </div>
+      <div>
+        <span>
+          100
+        </span>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div />
+    <div>
+      <div>
+        <div>
+          12
+        </div>
+        <div />
+        <div />
+      </div>
+      <div>
+        <div>
+          70
+        </div>
+        <div />
+        <div />
+      </div>
+    </div>
+    <div>
+      <div>
+        <span>
+          0
+        </span>
+      </div>
+      <div>
+        <span>
+          100
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Slider[snapshot] Snapshot test: Slider[site/pages/components/Slider/example-11-increase.tsx] 1`] = `
+<div>
+  <div>
+    <div />
+    <div>
+      <div>
+        <div>
+          50
+        </div>
+        <div />
+        <div />
+      </div>
+    </div>
+    <div>
+      <div>
+        <span>
+          0
+        </span>
+      </div>
+      <div>
+        <span>
+          100
+        </span>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div />
+    <div>
+      <div>
+        <div>
+          20
+        </div>
+        <div />
+        <div />
+      </div>
+      <div>
+        <div>
+          50
+        </div>
+        <div />
+        <div />
+      </div>
+    </div>
+    <div>
+      <div>
+        <span>
+          0
+        </span>
+      </div>
+      <div>
+        <span>
+          100
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Snapshot test: Slider[site/pages/components/Slider/example-01-base.tsx] 1`] = `
 <div>
   <div />

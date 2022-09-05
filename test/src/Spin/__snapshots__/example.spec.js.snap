@@ -914,3 +914,918 @@ exports[`Snapshot test: Spin[site/pages/components/Spin/example-13-chasing-ring.
   </div>
 </div>
 `;
+
+exports[`Spin[snapshot] Snapshot test: Spin[site/pages/components/Spin/example-01-01-default.tsx] 1`] = `
+<div>
+  <div>
+    <div>
+      <div />
+    </div>
+    <div>
+      <div />
+    </div>
+    <div>
+      <div />
+    </div>
+    <div>
+      <div />
+    </div>
+    <div>
+      <div />
+    </div>
+    <div>
+      <div />
+    </div>
+    <div>
+      <div />
+    </div>
+    <div>
+      <div />
+    </div>
+    <div>
+      <div />
+    </div>
+    <div>
+      <div />
+    </div>
+    <div>
+      <div />
+    </div>
+    <div>
+      <div />
+    </div>
+  </div>
+  <div>
+    <div>
+      <div />
+    </div>
+    <div>
+      <div />
+    </div>
+    <div>
+      <div />
+    </div>
+    <div>
+      <div />
+    </div>
+    <div>
+      <div />
+    </div>
+    <div>
+      <div />
+    </div>
+    <div>
+      <div />
+    </div>
+    <div>
+      <div />
+    </div>
+    <div>
+      <div />
+    </div>
+    <div>
+      <div />
+    </div>
+    <div>
+      <div />
+    </div>
+    <div>
+      <div />
+    </div>
+  </div>
+  <div>
+    <div>
+      <div />
+    </div>
+    <div>
+      <div />
+    </div>
+    <div>
+      <div />
+    </div>
+    <div>
+      <div />
+    </div>
+    <div>
+      <div />
+    </div>
+    <div>
+      <div />
+    </div>
+    <div>
+      <div />
+    </div>
+    <div>
+      <div />
+    </div>
+    <div>
+      <div />
+    </div>
+    <div>
+      <div />
+    </div>
+    <div>
+      <div />
+    </div>
+    <div>
+      <div />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Spin[snapshot] Snapshot test: Spin[site/pages/components/Spin/example-01-02-tip.tsx] 1`] = `
+<div>
+  <div>
+    <div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+    </div>
+    <div>
+      <span>
+        Loading...
+      </span>
+    </div>
+  </div>
+  <div>
+    <div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+      <div>
+        <div />
+      </div>
+    </div>
+    <div>
+      <span>
+        Loading...
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Spin[snapshot] Snapshot test: Spin[site/pages/components/Spin/example-01-wrapper.tsx] 1`] = `
+<div>
+  <label>
+    <span />
+    <input />
+    <i />
+    <span />
+  </label>
+  <div>
+    <div>
+      <div>
+        <div>
+          <h3>
+            This is Title
+          </h3>
+          Some Content Here...
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Spin[snapshot] Snapshot test: Spin[site/pages/components/Spin/example-02-chasing-dots.tsx] 1`] = `
+<div>
+  <div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+  </div>
+  <div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+  </div>
+  <div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Spin[snapshot] Snapshot test: Spin[site/pages/components/Spin/example-03-cube-grid.tsx] 1`] = `
+<div>
+  <div>
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+  </div>
+  <div>
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+  </div>
+  <div>
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+  </div>
+</div>
+`;
+
+exports[`Spin[snapshot] Snapshot test: Spin[site/pages/components/Spin/example-04-double-bounce.tsx] 1`] = `
+<div>
+  <div>
+    <div />
+    <div />
+  </div>
+  <div>
+    <div />
+    <div />
+  </div>
+  <div>
+    <div />
+    <div />
+  </div>
+</div>
+`;
+
+exports[`Spin[snapshot] Snapshot test: Spin[site/pages/components/Spin/example-05-fading-circle.tsx] 1`] = `
+<div>
+  <div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+  </div>
+  <div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+  </div>
+  <div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Spin[snapshot] Snapshot test: Spin[site/pages/components/Spin/example-06-four-dots.tsx] 1`] = `
+<div>
+  <div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+  </div>
+  <div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+  </div>
+  <div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Spin[snapshot] Snapshot test: Spin[site/pages/components/Spin/example-07-plane.tsx] 1`] = `
+<div>
+  <div />
+  <div />
+  <div />
+</div>
+`;
+
+exports[`Spin[snapshot] Snapshot test: Spin[site/pages/components/Spin/example-08-pulse.tsx] 1`] = `
+<div>
+  <div />
+  <div />
+  <div />
+</div>
+`;
+
+exports[`Spin[snapshot] Snapshot test: Spin[site/pages/components/Spin/example-09-ring.tsx] 1`] = `
+<div>
+  <div />
+  <div />
+  <div />
+</div>
+`;
+
+exports[`Spin[snapshot] Snapshot test: Spin[site/pages/components/Spin/example-10-scale-circle.tsx] 1`] = `
+<div>
+  <div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+  </div>
+  <div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+  </div>
+  <div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Spin[snapshot] Snapshot test: Spin[site/pages/components/Spin/example-11-three-bounce.tsx] 1`] = `
+<div>
+  <div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+  </div>
+  <div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+  </div>
+  <div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Spin[snapshot] Snapshot test: Spin[site/pages/components/Spin/example-12-wave.tsx] 1`] = `
+<div>
+  <div>
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+  </div>
+  <div>
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+  </div>
+  <div>
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+  </div>
+</div>
+`;
+
+exports[`Spin[snapshot] Snapshot test: Spin[site/pages/components/Spin/example-13-chasing-ring.tsx] 1`] = `
+<div>
+  <div>
+    <div />
+    <div />
+    <div />
+    <div />
+  </div>
+  <div>
+    <div />
+    <div />
+    <div />
+    <div />
+  </div>
+  <div>
+    <div />
+    <div />
+    <div />
+    <div />
+  </div>
+</div>
+`;

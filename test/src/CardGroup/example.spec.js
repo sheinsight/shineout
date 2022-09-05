@@ -1,3 +1,5 @@
 import exampleTest from '../../example'
 
-exampleTest('CardGroup')
+describe('CardGroup[snapshot]', () => {
+  exampleTest('CardGroup')
+})

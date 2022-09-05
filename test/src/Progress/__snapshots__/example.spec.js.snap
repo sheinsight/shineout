@@ -1,5 +1,228 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Progress[snapshot] Snapshot test: Progress[site/pages/components/Progress/example-1-base.tsx] 1`] = `
+<div>
+  <div>
+    <div>
+      <div />
+    </div>
+  </div>
+  <br />
+  <div>
+    <div>
+      <div />
+    </div>
+    <div>
+      50%
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Progress[snapshot] Snapshot test: Progress[site/pages/components/Progress/example-1-popup.tsx] 1`] = `
+<div>
+  <div>
+    <div>
+      <div />
+    </div>
+    <div>
+      <span>
+        0%
+      </span>
+      <span />
+    </div>
+  </div>
+  <br />
+  <button>
+    <span>
+      Start
+    </span>
+  </button>
+</div>
+`;
+
+exports[`Progress[snapshot] Snapshot test: Progress[site/pages/components/Progress/example-2-type.tsx] 1`] = `
+<div>
+  <div>
+    <div>
+      <div />
+    </div>
+  </div>
+  <br />
+  <div>
+    <div>
+      <div />
+    </div>
+  </div>
+  <br />
+  <div>
+    <div>
+      <div />
+    </div>
+  </div>
+  <br />
+  <div>
+    <div>
+      <div />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Progress[snapshot] Snapshot test: Progress[site/pages/components/Progress/example-3-color.tsx] 1`] = `
+<div>
+  <div>
+    <div>
+      <div />
+    </div>
+  </div>
+  <br />
+  <div>
+    <div>
+      <div />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Progress[snapshot] Snapshot test: Progress[site/pages/components/Progress/example-3-linear.tsx] 1`] = `
+<div>
+  <div>
+    <div>
+      <div />
+    </div>
+    <div>
+      99%
+    </div>
+  </div>
+  <br />
+  <div>
+    <div>
+      <div />
+    </div>
+    <div>
+      99%
+    </div>
+  </div>
+  <br />
+  <div>
+    <svg>
+      <defs>
+        <linearGradient>
+          <stop />
+          <stop />
+        </linearGradient>
+      </defs>
+      <circle />
+      <circle />
+    </svg>
+    <div>
+      99%
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Progress[snapshot] Snapshot test: Progress[site/pages/components/Progress/example-4-circle.tsx] 1`] = `
+<div>
+  <div>
+    <svg>
+      <circle />
+      <circle />
+    </svg>
+  </div>
+  <div>
+    <svg>
+      <circle />
+      <circle />
+    </svg>
+    <div>
+      70%
+    </div>
+  </div>
+  <div>
+    <svg>
+      <circle />
+      <circle />
+    </svg>
+    <div>
+      Success
+    </div>
+  </div>
+  <div>
+    <svg>
+      <circle />
+      <circle />
+    </svg>
+  </div>
+</div>
+`;
+
+exports[`Progress[snapshot] Snapshot test: Progress[site/pages/components/Progress/example-5-size.tsx] 1`] = `
+<div>
+  <div>
+    <div>
+      <div />
+    </div>
+  </div>
+  <br />
+  <div>
+    <svg>
+      <circle />
+      <circle />
+    </svg>
+  </div>
+  <div>
+    <svg>
+      <circle />
+      <circle />
+    </svg>
+    <div>
+      70%
+    </div>
+  </div>
+  <div>
+    <svg>
+      <circle />
+      <circle />
+    </svg>
+    <div>
+      Success
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Progress[snapshot] Snapshot test: Progress[site/pages/components/Progress/example-6-animation.tsx] 1`] = `
+<div>
+  <div>
+    <div>
+      <div />
+    </div>
+    <div>
+      <div>
+        0
+      </div>
+    </div>
+  </div>
+  <br />
+  <div>
+    <svg>
+      <circle />
+      <circle />
+    </svg>
+    <div>
+      0%
+    </div>
+  </div>
+  <button>
+    <span>
+      Start
+    </span>
+  </button>
+</div>
+`;
+
 exports[`Snapshot test: Progress[site/pages/components/Progress/example-1-base.tsx] 1`] = `
 <div>
   <div>

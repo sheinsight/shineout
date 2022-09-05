@@ -1,5 +1,7 @@
 import exampleTest from '../../example'
 
-exampleTest('Upload', {
-  ignore: 'example-03-confirm',
+describe('Upload[snapshot]', () => {
+  exampleTest('Upload', {
+    ignore: 'example-03-confirm',
+  })
 })

@@ -1,5 +1,390 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Input[snapshot] Snapshot test: Input[site/pages/components/Input/example-01-base.tsx] 1`] = `
+<label>
+  <input />
+</label>
+`;
+
+exports[`Input[snapshot] Snapshot test: Input[site/pages/components/Input/example-02-size.tsx] 1`] = `
+<div>
+  <label>
+    <input />
+  </label>
+  <label>
+    <input />
+  </label>
+  <label>
+    <input />
+  </label>
+</div>
+`;
+
+exports[`Input[snapshot] Snapshot test: Input[site/pages/components/Input/example-03-number.tsx] 1`] = `
+<div>
+  <label>
+    <input />
+  </label>
+  <label>
+    <input />
+  </label>
+  <label>
+    <input />
+  </label>
+  <label>
+    <input />
+  </label>
+  <label>
+    <input />
+  </label>
+  <label>
+    <input />
+  </label>
+  <label>
+    <input />
+  </label>
+  <label>
+    <input />
+  </label>
+</div>
+`;
+
+exports[`Input[snapshot] Snapshot test: Input[site/pages/components/Input/example-04-number.tsx] 1`] = `
+<label>
+  <input />
+  <a>
+    <svg>
+      <path />
+      <path />
+    </svg>
+  </a>
+  <a>
+    <svg>
+      <path />
+      <path />
+    </svg>
+  </a>
+</label>
+`;
+
+exports[`Input[snapshot] Snapshot test: Input[site/pages/components/Input/example-05-group.tsx] 1`] = `
+<div>
+  <div>
+    <i />
+    <label>
+      <input />
+    </label>
+    <span>
+      -
+    </span>
+    <label>
+      <input />
+    </label>
+  </div>
+  <div>
+    <label>
+      <input />
+    </label>
+    <button>
+      <i />
+    </button>
+  </div>
+  <div>
+    <label>
+      <input />
+    </label>
+    <label>
+      <input />
+    </label>
+  </div>
+  <div>
+    <label>
+      <input />
+    </label>
+    <button>
+      <span>
+        Search
+      </span>
+    </button>
+  </div>
+  <div>
+    <b>
+      <i />
+    </b>
+    <label>
+      <input />
+    </label>
+    <b>
+      .com
+    </b>
+  </div>
+</div>
+`;
+
+exports[`Input[snapshot] Snapshot test: Input[site/pages/components/Input/example-06-tip.tsx] 1`] = `
+<div>
+  <label>
+    <input />
+  </label>
+  <div>
+    <i />
+    <label>
+      <input />
+    </label>
+  </div>
+  <div>
+    <i />
+    <label>
+      <input />
+    </label>
+  </div>
+</div>
+`;
+
+exports[`Input[snapshot] Snapshot test: Input[site/pages/components/Input/example-07-validate.tsx] 1`] = `
+<label>
+  <input />
+</label>
+`;
+
+exports[`Input[snapshot] Snapshot test: Input[site/pages/components/Input/example-08-disabled.tsx] 1`] = `
+<div>
+  <div>
+    <label>
+      <input />
+    </label>
+    <span>
+      -
+    </span>
+    <label>
+      <input />
+    </label>
+  </div>
+  <label>
+    <input />
+  </label>
+</div>
+`;
+
+exports[`Input[snapshot] Snapshot test: Input[site/pages/components/Input/example-09-password.tsx] 1`] = `
+<label>
+  <input />
+</label>
+`;
+
+exports[`Input[snapshot] Snapshot test: Input[site/pages/components/Input/example-1-clearable.tsx] 1`] = `
+<label>
+  <input />
+</label>
+`;
+
+exports[`Input[snapshot] Snapshot test: Input[site/pages/components/Input/example-1-underline.tsx] 1`] = `
+<label>
+  <input />
+</label>
+`;
+
+exports[`Input[snapshot] Snapshot test: Input[site/pages/components/Input/example-10-innertitle.tsx] 1`] = `
+Array [
+  <label
+    className="so-input"
+    style={
+      Object {
+        "width": undefined,
+      }
+    }
+  >
+    <div
+      className="so-input-title-box"
+    >
+      <div
+        className="so-input-title-box-title so-input-title-box-top"
+        onAnimationEnd={[Function]}
+      >
+        input something
+      </div>
+      <div
+        className="so-input-title-box-content"
+      >
+        <input
+          className="so-input-title-box-hidable so-input-title-box-item"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          type="text"
+          value=""
+        />
+      </div>
+      <div
+        className="so-input-title-box-place"
+        onAnimationEnd={[Function]}
+      >
+        <div
+          className="so-input-title-box-title"
+        >
+          input something
+        </div>
+      </div>
+    </div>
+  </label>,
+  <div
+    className="so-input so-input-group so-button-group so-button-from-input-group"
+    style={
+      Object {
+        "marginTop": 12,
+        "width": undefined,
+      }
+    }
+  >
+    <label
+      className="so-input"
+      style={
+        Object {
+          "width": undefined,
+        }
+      }
+    >
+      <div
+        className="so-input-title-box"
+      >
+        <div
+          className="so-input-title-box-title so-input-title-box-top"
+          onAnimationEnd={[Function]}
+        >
+          please input your email
+        </div>
+        <div
+          className="so-input-title-box-content"
+        >
+          <input
+            className="so-input-title-box-hidable so-input-title-box-item"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            type="text"
+            value=""
+          />
+        </div>
+        <div
+          className="so-input-title-box-place"
+          onAnimationEnd={[Function]}
+        >
+          <div
+            className="so-input-title-box-title"
+          >
+            please input your email
+          </div>
+        </div>
+      </div>
+    </label>
+    <b
+      onBlur={[Function]}
+      onFocus={[Function]}
+    >
+      .com
+    </b>
+  </div>,
+]
+`;
+
+exports[`Input[snapshot] Snapshot test: Input[site/pages/components/Input/example-11-autoSelect.tsx] 1`] = `
+<label>
+  <input />
+</label>
+`;
+
+exports[`Input[snapshot] Snapshot test: Input[site/pages/components/Input/example-12-trim.js] 1`] = `
+<label>
+  <input />
+</label>
+`;
+
+exports[`Input[snapshot] Snapshot test: Input[site/pages/components/Input/example-13-keypress.tsx] 1`] = `
+<div>
+  <div>
+    <label>
+      <input />
+    </label>
+    <b>
+      onKeyUp: 0 times
+    </b>
+  </div>
+  <div>
+    <label>
+      <input />
+    </label>
+    <b>
+      onKeyDown: 0 times
+    </b>
+  </div>
+  <div>
+    <label>
+      <input />
+    </label>
+    <b>
+      onEnterPress: 0 times
+    </b>
+  </div>
+</div>
+`;
+
+exports[`Input[snapshot] Snapshot test: Input[site/pages/components/Input/example-14-limit.tsx] 1`] = `
+<div>
+  <div>
+    <b>
+      min
+    </b>
+    <label>
+      <input />
+      <a>
+        <svg>
+          <path />
+          <path />
+        </svg>
+      </a>
+      <a>
+        <svg>
+          <path />
+          <path />
+        </svg>
+      </a>
+    </label>
+  </div>
+  <div>
+    <b>
+      max
+    </b>
+    <label>
+      <input />
+      <a>
+        <svg>
+          <path />
+          <path />
+        </svg>
+      </a>
+      <a>
+        <svg>
+          <path />
+          <path />
+        </svg>
+      </a>
+    </label>
+  </div>
+  <div>
+    <b>
+      maxLength
+    </b>
+    <label>
+      <input />
+    </label>
+  </div>
+</div>
+`;
+
 exports[`Snapshot test: Input[site/pages/components/Input/example-01-base.tsx] 1`] = `
 <label>
   <input />

@@ -1,3 +1,5 @@
 import exampleTest from '../../example'
 
-exampleTest('Textarea')
+describe('Textarea[snapshot]', () => {
+  exampleTest('Textarea')
+})

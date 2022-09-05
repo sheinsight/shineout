@@ -4,7 +4,7 @@ import classnames from 'classnames'
 import { cardClass } from './styles'
 import { isRTL } from '../config'
 
-export default class extends PureComponent {
+export default class Footer extends PureComponent {
   static propTypes = {
     align: PropTypes.string,
     className: PropTypes.string,

@@ -1,5 +1,997 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Dropdown[snapshot] Snapshot test: Dropdown[site/pages/components/Dropdown/example-1-base.tsx] 1`] = `
+<div>
+  <div>
+    <div>
+      <div>
+        <a>
+          Link to Google
+        </a>
+        <a>
+          Disabled
+        </a>
+      </div>
+      <a>
+        <span>
+          Submenu
+        </span>
+        <span>
+          <svg>
+            <path />
+          </svg>
+        </span>
+      </a>
+    </div>
+    <a>
+      Home
+    </a>
+    <a>
+      Message
+    </a>
+  </div>
+  <button>
+    <span>
+      Dropdown
+    </span>
+    <span>
+      <svg>
+        <path />
+      </svg>
+    </span>
+  </button>
+</div>
+`;
+
+exports[`Dropdown[snapshot] Snapshot test: Dropdown[site/pages/components/Dropdown/example-2-hover.tsx] 1`] = `
+<div>
+  <div>
+    <div>
+      <div>
+        <a>
+          optic 1
+        </a>
+      </div>
+      <a>
+        <span>
+          First
+        </span>
+        <span>
+          <svg>
+            <path />
+          </svg>
+        </span>
+      </a>
+    </div>
+    <div>
+      <div>
+        <div>
+          <div>
+            <a>
+              topic 3
+            </a>
+          </div>
+          <a>
+            <span>
+              topic 2
+            </span>
+            <span>
+              <svg>
+                <path />
+              </svg>
+            </span>
+          </a>
+        </div>
+      </div>
+      <a>
+        <span>
+          Second
+        </span>
+        <span>
+          <svg>
+            <path />
+          </svg>
+        </span>
+      </a>
+    </div>
+  </div>
+  <button>
+    <span>
+      Hover
+    </span>
+    <span>
+      <svg>
+        <path />
+      </svg>
+    </span>
+  </button>
+</div>
+`;
+
+exports[`Dropdown[snapshot] Snapshot test: Dropdown[site/pages/components/Dropdown/example-3-position.tsx] 1`] = `
+<div>
+  <div>
+    <div>
+      <div>
+        <div>
+          <a>
+            link1
+          </a>
+          <a>
+            link2
+          </a>
+        </div>
+        <a>
+          <span>
+            First
+          </span>
+          <span>
+            <svg>
+              <path />
+            </svg>
+          </span>
+        </a>
+      </div>
+      <div>
+        <div>
+          <a>
+            link3
+          </a>
+          <div>
+            <div>
+              <a>
+                link5
+              </a>
+              <a>
+                link6
+              </a>
+            </div>
+            <a>
+              <span>
+                link4
+              </span>
+              <span>
+                <svg>
+                  <path />
+                </svg>
+              </span>
+            </a>
+          </div>
+        </div>
+        <a>
+          <span>
+            Second
+          </span>
+          <span>
+            <svg>
+              <path />
+            </svg>
+          </span>
+        </a>
+      </div>
+    </div>
+    <button>
+      <span>
+        Right Top
+      </span>
+      <span>
+        <svg>
+          <path />
+        </svg>
+      </span>
+    </button>
+  </div>
+  <div>
+    <div>
+      <div>
+        <div>
+          <a>
+            link1
+          </a>
+          <a>
+            link2
+          </a>
+        </div>
+        <a>
+          <span>
+            First
+          </span>
+          <span>
+            <svg>
+              <path />
+            </svg>
+          </span>
+        </a>
+      </div>
+      <div>
+        <div>
+          <a>
+            link3
+          </a>
+          <div>
+            <div>
+              <a>
+                link5
+              </a>
+              <a>
+                link6
+              </a>
+            </div>
+            <a>
+              <span>
+                link4
+              </span>
+              <span>
+                <svg>
+                  <path />
+                </svg>
+              </span>
+            </a>
+          </div>
+        </div>
+        <a>
+          <span>
+            Second
+          </span>
+          <span>
+            <svg>
+              <path />
+            </svg>
+          </span>
+        </a>
+      </div>
+    </div>
+    <button>
+      <span>
+        Bottom Left
+      </span>
+      <span>
+        <svg>
+          <path />
+        </svg>
+      </span>
+    </button>
+  </div>
+  <div>
+    <div>
+      <div>
+        <div>
+          <a>
+            link1
+          </a>
+          <a>
+            link2
+          </a>
+        </div>
+        <a>
+          <span>
+            <svg>
+              <path />
+            </svg>
+          </span>
+          <span>
+            First
+          </span>
+        </a>
+      </div>
+      <div>
+        <div>
+          <a>
+            link3
+          </a>
+          <div>
+            <div>
+              <a>
+                link5
+              </a>
+              <a>
+                link6
+              </a>
+            </div>
+            <a>
+              <span>
+                <svg>
+                  <path />
+                </svg>
+              </span>
+              <span>
+                link4
+              </span>
+            </a>
+          </div>
+        </div>
+        <a>
+          <span>
+            <svg>
+              <path />
+            </svg>
+          </span>
+          <span>
+            Second
+          </span>
+        </a>
+      </div>
+    </div>
+    <button>
+      <span>
+        Bottom Right
+      </span>
+      <span>
+        <svg>
+          <path />
+        </svg>
+      </span>
+    </button>
+  </div>
+  <div>
+    <div>
+      <div>
+        <div>
+          <a>
+            link1
+          </a>
+          <a>
+            link2
+          </a>
+        </div>
+        <a>
+          <span>
+            <svg>
+              <path />
+            </svg>
+          </span>
+          <span>
+            First
+          </span>
+        </a>
+      </div>
+      <div>
+        <div>
+          <a>
+            link3
+          </a>
+          <div>
+            <div>
+              <a>
+                link5
+              </a>
+              <a>
+                link6
+              </a>
+            </div>
+            <a>
+              <span>
+                <svg>
+                  <path />
+                </svg>
+              </span>
+              <span>
+                link4
+              </span>
+            </a>
+          </div>
+        </div>
+        <a>
+          <span>
+            <svg>
+              <path />
+            </svg>
+          </span>
+          <span>
+            Second
+          </span>
+        </a>
+      </div>
+    </div>
+    <button>
+      <span>
+        <svg>
+          <path />
+        </svg>
+      </span>
+      <span>
+        Left Top
+      </span>
+    </button>
+  </div>
+  <br />
+  <div>
+    <div>
+      <div>
+        <div>
+          <a>
+            link1
+          </a>
+          <a>
+            link2
+          </a>
+        </div>
+        <a>
+          <span>
+            First
+          </span>
+          <span>
+            <svg>
+              <path />
+            </svg>
+          </span>
+        </a>
+      </div>
+      <div>
+        <div>
+          <a>
+            link3
+          </a>
+          <div>
+            <div>
+              <a>
+                link5
+              </a>
+              <a>
+                link6
+              </a>
+            </div>
+            <a>
+              <span>
+                link4
+              </span>
+              <span>
+                <svg>
+                  <path />
+                </svg>
+              </span>
+            </a>
+          </div>
+        </div>
+        <a>
+          <span>
+            Second
+          </span>
+          <span>
+            <svg>
+              <path />
+            </svg>
+          </span>
+        </a>
+      </div>
+    </div>
+    <button>
+      <span>
+        Right Bottom
+      </span>
+      <span>
+        <svg>
+          <path />
+        </svg>
+      </span>
+    </button>
+  </div>
+  <div>
+    <div>
+      <div>
+        <div>
+          <a>
+            link1
+          </a>
+          <a>
+            link2
+          </a>
+        </div>
+        <a>
+          <span>
+            First
+          </span>
+          <span>
+            <svg>
+              <path />
+            </svg>
+          </span>
+        </a>
+      </div>
+      <div>
+        <div>
+          <a>
+            link3
+          </a>
+          <div>
+            <div>
+              <a>
+                link5
+              </a>
+              <a>
+                link6
+              </a>
+            </div>
+            <a>
+              <span>
+                link4
+              </span>
+              <span>
+                <svg>
+                  <path />
+                </svg>
+              </span>
+            </a>
+          </div>
+        </div>
+        <a>
+          <span>
+            Second
+          </span>
+          <span>
+            <svg>
+              <path />
+            </svg>
+          </span>
+        </a>
+      </div>
+    </div>
+    <button>
+      <span>
+        Top Left
+      </span>
+      <span>
+        <svg>
+          <path />
+        </svg>
+      </span>
+    </button>
+  </div>
+  <div>
+    <div>
+      <div>
+        <div>
+          <a>
+            link1
+          </a>
+          <a>
+            link2
+          </a>
+        </div>
+        <a>
+          <span>
+            <svg>
+              <path />
+            </svg>
+          </span>
+          <span>
+            First
+          </span>
+        </a>
+      </div>
+      <div>
+        <div>
+          <a>
+            link3
+          </a>
+          <div>
+            <div>
+              <a>
+                link5
+              </a>
+              <a>
+                link6
+              </a>
+            </div>
+            <a>
+              <span>
+                <svg>
+                  <path />
+                </svg>
+              </span>
+              <span>
+                link4
+              </span>
+            </a>
+          </div>
+        </div>
+        <a>
+          <span>
+            <svg>
+              <path />
+            </svg>
+          </span>
+          <span>
+            Second
+          </span>
+        </a>
+      </div>
+    </div>
+    <button>
+      <span>
+        Top Right
+      </span>
+      <span>
+        <svg>
+          <path />
+        </svg>
+      </span>
+    </button>
+  </div>
+  <div>
+    <div>
+      <div>
+        <div>
+          <a>
+            link1
+          </a>
+          <a>
+            link2
+          </a>
+        </div>
+        <a>
+          <span>
+            <svg>
+              <path />
+            </svg>
+          </span>
+          <span>
+            First
+          </span>
+        </a>
+      </div>
+      <div>
+        <div>
+          <a>
+            link3
+          </a>
+          <div>
+            <div>
+              <a>
+                link5
+              </a>
+              <a>
+                link6
+              </a>
+            </div>
+            <a>
+              <span>
+                <svg>
+                  <path />
+                </svg>
+              </span>
+              <span>
+                link4
+              </span>
+            </a>
+          </div>
+        </div>
+        <a>
+          <span>
+            <svg>
+              <path />
+            </svg>
+          </span>
+          <span>
+            Second
+          </span>
+        </a>
+      </div>
+    </div>
+    <button>
+      <span>
+        <svg>
+          <path />
+        </svg>
+      </span>
+      <span>
+        Left Bottom
+      </span>
+    </button>
+  </div>
+  <br />
+  <div>
+    <div>
+      <div>
+        <div>
+          <a>
+            link1
+          </a>
+          <a>
+            link2
+          </a>
+        </div>
+        <a>
+          <span>
+            First
+          </span>
+          <span>
+            <svg>
+              <path />
+            </svg>
+          </span>
+        </a>
+      </div>
+      <div>
+        <div>
+          <a>
+            link3
+          </a>
+          <div>
+            <div>
+              <a>
+                link5
+              </a>
+              <a>
+                link6
+              </a>
+            </div>
+            <a>
+              <span>
+                link4
+              </span>
+              <span>
+                <svg>
+                  <path />
+                </svg>
+              </span>
+            </a>
+          </div>
+        </div>
+        <a>
+          <span>
+            Second
+          </span>
+          <span>
+            <svg>
+              <path />
+            </svg>
+          </span>
+        </a>
+      </div>
+    </div>
+    <button>
+      <span>
+        Auto Position
+      </span>
+      <span>
+        <svg>
+          <path />
+        </svg>
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Dropdown[snapshot] Snapshot test: Dropdown[site/pages/components/Dropdown/example-4-items.tsx] 1`] = `
+<div>
+  <div>
+    <a>
+      item1
+    </a>
+    <a>
+      item2
+    </a>
+    <a>
+      item3
+    </a>
+    <a>
+      item4
+    </a>
+    <a>
+      item5
+    </a>
+    <a>
+      item6
+    </a>
+    <a>
+      item7
+    </a>
+    <a>
+      item8
+    </a>
+    <a>
+      item9
+    </a>
+    <a>
+      item10
+    </a>
+    <a>
+      item11
+    </a>
+    <a>
+      item12
+    </a>
+    <a>
+      item13
+    </a>
+    <a>
+      item14
+    </a>
+    <a>
+      item15
+    </a>
+    <a>
+      item16
+    </a>
+    <a>
+      item17
+    </a>
+    <a>
+      item18
+    </a>
+    <a>
+      item19
+    </a>
+    <a>
+      item20
+    </a>
+    <a>
+      item21
+    </a>
+    <a>
+      item22
+    </a>
+    <a>
+      item23
+    </a>
+    <a>
+      item24
+    </a>
+    <a>
+      item25
+    </a>
+    <a>
+      item26
+    </a>
+    <a>
+      item27
+    </a>
+    <a>
+      item28
+    </a>
+    <a>
+      item29
+    </a>
+    <a>
+      item30
+    </a>
+  </div>
+  <button>
+    <span>
+      Dropdown
+    </span>
+    <span>
+      <svg>
+        <path />
+      </svg>
+    </span>
+  </button>
+</div>
+`;
+
+exports[`Dropdown[snapshot] Snapshot test: Dropdown[site/pages/components/Dropdown/example-5-split.tsx] 1`] = `
+<div>
+  <button>
+    <span>
+      Left
+    </span>
+  </button>
+  <button>
+    <span>
+      Center
+    </span>
+  </button>
+  <div>
+    <div>
+      <a>
+        First
+      </a>
+      <a>
+        Second
+      </a>
+    </div>
+    <button>
+      <span />
+      <span>
+        <svg>
+          <path />
+        </svg>
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Dropdown[snapshot] Snapshot test: Dropdown[site/pages/components/Dropdown/example-6-type.tsx] 1`] = `
+<div>
+  <div>
+    <span>
+      type: 
+    </span>
+    <div>
+      <div>
+        <div>
+          <span />
+          <a>
+            <svg>
+              <path />
+            </svg>
+          </a>
+        </div>
+        <div>
+          <span>
+            Data not found
+          </span>
+        </div>
+      </div>
+    </div>
+    <span>
+      size: 
+    </span>
+    <div>
+      <div>
+        <div>
+          <span />
+          <a>
+            <svg>
+              <path />
+            </svg>
+          </a>
+        </div>
+        <div>
+          <span>
+            Data not found
+          </span>
+        </div>
+      </div>
+    </div>
+    <label>
+      <input />
+      <i />
+      <span>
+        outline
+      </span>
+    </label>
+    <label>
+      <input />
+      <i />
+      <span>
+        disabled
+      </span>
+    </label>
+  </div>
+  <div>
+    <div>
+      <div>
+        <div>
+          <a>
+            Link
+          </a>
+          <a>
+            Disabled
+          </a>
+        </div>
+        <a>
+          <span>
+            Submenu
+          </span>
+          <span>
+            <svg>
+              <path />
+            </svg>
+          </span>
+        </a>
+      </div>
+      <a>
+        Message
+      </a>
+    </div>
+    <button>
+      <span>
+        Dropdown
+      </span>
+      <span>
+        <svg>
+          <path />
+        </svg>
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
 exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-1-base.tsx] 1`] = `
 <div>
   <div>

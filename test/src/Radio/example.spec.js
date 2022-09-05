@@ -1,3 +1,5 @@
 import exampleTest from '../../example'
 
-exampleTest('Radio')
+describe('Radio[snapshot]', () => {
+  exampleTest('Radio')
+})

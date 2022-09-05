@@ -6,7 +6,7 @@ import { CHANGE_TOPIC } from '../Datum/types'
 import Checkbox from '../Checkbox/Checkbox'
 import { isFunc } from '../utils/is'
 
-export default class extends Component {
+export default class TableCheckboxAll extends Component {
   static propTypes = {
     data: PropTypes.array,
     col: PropTypes.object,
