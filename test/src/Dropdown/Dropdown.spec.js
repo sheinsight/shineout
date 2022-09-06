@@ -1,7 +1,7 @@
 import { Dropdown, Button } from 'shineout'
 import { mount } from 'enzyme'
 import React from 'react'
-import { appendToDOM } from '../../utils'
+import { appendToDOM, delay } from '../../utils'
 import DropdownPosition from '../../../site/pages/components/Dropdown/example-3-position.tsx'
 import DropdownSplit from '../../../site/pages/components/Dropdown/example-5-split.tsx'
 import DropdownType from '../../../site/pages/components/Dropdown/example-6-type.tsx'
@@ -85,47 +85,6 @@ describe('Dropdown[Position]', () => {
       expect(dropdown.childAt(0).hasClass(`${SO_PREFIX}-dropdown-${position}`)).toBeTruthy()
     })
   })
-
-  //   test('should auto set position while position is auto', () => {
-  //     window.innerWidth = 1024
-  //     window.innerHeight = 768
-  //     const windowHeight = docSize.height
-  //     const windowWidth = docSize.width
-  //     const rectMap = {
-  //       'top-left': {
-  //         bottom: windowHeight / 2 + 100,
-  //         right: windowWidth / 2 - 100,
-  //       },
-  //       'top-right': {
-  //         bottom: windowHeight / 2 + 100,
-  //         right: windowWidth / 2 + 100,
-  //       },
-  //       'bottom-left': {
-  //         bottom: windowHeight / 2 - 100,
-  //         right: windowWidth / 2 - 100,
-  //       },
-  //       'bottom-right': {
-  //         bottom: windowHeight / 2 - 100,
-  //         right: windowWidth / 2 + 100,
-  //       },
-  //     }
-  //     const cur = { value: null }
-  //     Element.prototype.getBoundingClientRect = jest.fn(() => cur.value)
-  //     Object.keys(rectMap).forEach(k => {
-  //       cur.value = rectMap[k]
-  //       const wrapper = mount(<Dropdown data={data} position="auto" />)
-  //       document.write(wrapper.html())
-  //       wrapper.find('button').simulate('click')
-  //       expect(
-  //         wrapper
-  //           .find('ShineoutDropdown')
-  //           .first()
-  //           .childAt(0)
-  //           .prop('className')
-  //           .indexOf(k) >= 0
-  //       ).toBeTruthy()
-  //     })
-  //   })
 })
 
 describe('Dropdown[Split]', () => {
@@ -304,5 +263,137 @@ describe('Dropdown[DropdownType]', () => {
         expect(button.hasClass(`${SO_PREFIX}-button-disabled`)).toBe(d)
       })
     })
+  })
+})
+
+describe('Dropdown[absolute]', () => {
+  test('should set absolute', async () => {
+    jest.useRealTimers()
+    const wrapper = mount(<Dropdown absolute data={data} placeholder="Dropdown" />)
+    wrapper.find('button').simulate('click')
+    await delay(200)
+    expect(wrapper.find(`.${SO_PREFIX}-list-absolute-wrapper`).length).toBe(0)
+    expect(document.getElementsByClassName(`${SO_PREFIX}-list-absolute-wrapper`).length).toBe(1)
+    wrapper.unmount()
+  })
+})
+
+describe('Dropdown[animation]', () => {
+  test('should set animation', () => {
+    const wrapper = mount(<Dropdown animation={false} data={data} placeholder="Dropdown" />)
+    expect(wrapper.find(`.${SO_PREFIX}-hidable-fade-animation-0`).length).not.toBe(0)
+  })
+})
+
+describe('Dropdown[columns]', () => {
+  test('should set columns', () => {
+    const menu = []
+    const width = 500
+    const columns = 5
+    for (let i = 1; i <= 30; i++) {
+      menu.push({
+        id: `${i}`,
+        content: `item${i}`,
+      })
+    }
+    const wrapper = mount(<Dropdown absolute data={menu} width={width} columns={columns} placeholder="Dropdown" />)
+    wrapper.find('button').simulate('click')
+    wrapper.find(`.${SO_PREFIX}-dropdown-item`).forEach(item => {
+      expect(item.getDOMNode().style.width).toBe(`${(width - 2) / columns}px`)
+    })
+  })
+})
+
+describe('Dropdown[onClick]', () => {
+  test('should set onClick', () => {
+    const handleClick = jest.fn()
+    const wrapper = mount(<Dropdown absolute onClick={handleClick} data={data} placeholder="Dropdown" />)
+    wrapper.find('button').simulate('click')
+    wrapper
+      .find(`.${SO_PREFIX}-dropdown-item`)
+      .first()
+      .simulate('click')
+    expect(handleClick).toBeCalled()
+  })
+})
+
+describe('Dropdown[renderItem]', () => {
+  test('should set renderItem', () => {
+    const dropData = [
+      {
+        id: 0,
+        content: 'a',
+      },
+      {
+        id: 1,
+        content: 'b',
+      },
+      {
+        id: 2,
+        content: 'c',
+      },
+      {
+        id: 3,
+        content: 'd',
+      },
+    ]
+    const wrapper = mount(<Dropdown absolute renderItem={d => `id ${d.id}`} data={dropData} placeholder="Dropdown" />)
+    wrapper.find(`.${SO_PREFIX}-dropdown-item`).forEach((item, index) => {
+      expect(item.text()).toBe(`id ${dropData[index].id}`)
+    })
+  })
+})
+
+describe('Dropdown[close]', () => {
+  test('should close', () => {
+    jest.useFakeTimers()
+    const wrapper = mount(<Dropdown absolute data={data} placeholder="Dropdown" />)
+    wrapper.find('button').simulate('click')
+    expect(
+      wrapper
+        .find('ShineoutDropdown')
+        .first()
+        .instance().state.show
+    ).toBe(true)
+    const click = new UIEvent('click')
+    click.initUIEvent('click')
+    document.dispatchEvent(click)
+    jest.runAllTimers()
+    expect(
+      wrapper
+        .find('ShineoutDropdown')
+        .first()
+        .instance().state.show
+    ).toBe(false)
+  })
+})
+
+describe('Dropdown[trigger]', () => {
+  test('should set trigger hover', () => {
+    jest.useFakeTimers()
+    const wrapper = mount(<Dropdown absolute trigger="hover" data={data} placeholder="Dropdown" />)
+    wrapper
+      .find(`.${SO_PREFIX}-dropdown`)
+      .first()
+      .simulate('mouseenter')
+    expect(
+      wrapper
+        .find('ShineoutDropdown')
+        .first()
+        .instance().state.show
+    ).toBe(true)
+
+    wrapper
+      .find(`.${SO_PREFIX}-dropdown`)
+      .first()
+      .simulate('mouseleave')
+    jest.runAllTimers()
+
+    expect(
+      wrapper
+        .find('ShineoutDropdown')
+        .first()
+        .instance().state.show
+    ).toBe(false)
   })
 })
