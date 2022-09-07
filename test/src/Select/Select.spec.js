@@ -103,3 +103,17 @@ describe('Select[Header]', () => {
   const header = wrapper.find('.so-select-custom-header')
   expect(header.length).toBe(1)
 })
+
+describe('Select[absolute]', () => {
+  test('should set absolute when typeof absolute is Function', () => {
+    const data = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
+    const container = document.createElement('div')
+    container.setAttribute('id', 'container')
+    document.body.appendChild(container)
+    const absolute = jest.fn(() => document.getElementById('container'))
+    const wrapper = mount(<Select data={data} keygen absolute={absolute} />)
+    appendToDOM(wrapper.html())
+    wrapper.find(`.${SO_PREFIX}-select-inner`).simulate('click')
+    expect(document.getElementById('container').childNodes.length).toBe(1)
+  })
+})
