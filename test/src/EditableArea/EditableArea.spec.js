@@ -152,7 +152,6 @@ describe('editableArea[maxHeight, onBlur, onFocus, getPopoverContainer]', () => 
     expect(focusFn.mock.calls.length).toBe(1)
   })
   it('should render popover in container', () => {
-    console.log(container.innerHTML)
     expect(container.innerHTML.indexOf('so-popover') > -1).toBeTruthy()
   })
   it('should render maxHeight style', () => {

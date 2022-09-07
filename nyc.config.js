@@ -6,6 +6,7 @@ const ignoreFiles = [
   'src/Form/Block.js',
   'src/Form/BlockField.js',
   'src/Form/Loop.js',
+  'src/hoc/fetch.js',
   'src/Rule/convert.js',
   'src/Radio/styles/index.js',
   'src/Rule/styles/index.js',
@@ -13,6 +14,7 @@ const ignoreFiles = [
   'src/Tree/toggle.js',
   'src/Upload/Dragger.js',
   'src/Upload/context.js',
+  'src/utils/vars-inject.js',
 ]
 const target = '**'
 module.exports = {

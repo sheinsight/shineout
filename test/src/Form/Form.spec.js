@@ -505,7 +505,6 @@ describe('Form[FieldSet]', () => {
       .at(3)
       .simulate('change', { target: { value: '20' } })
     jest.runAllTimers()
-    console.log(wrapper.html())
     // 提交
     wrapper.find('button').simulate('click')
     jest.runAllTimers()

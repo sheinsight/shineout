@@ -12,5 +12,6 @@ describe('lazyload.js[addStack-removeStack]', () => {
   })
   test('should not render if dom not in window', () => {
     // #todo: use enzyme to test
+    // use cypress
   })
 })

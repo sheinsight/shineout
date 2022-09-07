@@ -1,5 +1,46 @@
-import { range, split, toPrecision } from '../../src/utils/numbers'
-import { isInstance, beEqual } from '../utils'
+import { range, split, toPrecision, sub, getNumberPrecision, validateNumber } from '../../src/utils/numbers'
+import { isInstance, beEqual, beTruthy, beFalsy } from '../utils'
+
+describe('number.js[sub]', () => {
+  it('should add two number', () => {
+    const inputs = [
+      [0.1, 0.2],
+      [1.25, 2.05],
+      [1e-100, 1e-99],
+      [Number.MAX_SAFE_INTEGER, 100],
+      [Number.MIN_SAFE_INTEGER, -100],
+      [NaN, 1],
+    ]
+    const expects = [0.3, 3.3, 1.1e-99, Number.MAX_SAFE_INTEGER, Number.MIN_SAFE_INTEGER, NaN]
+    inputs.forEach((input, index) => {
+      beEqual(sub)(input, expects[index])
+    })
+  })
+})
+
+describe('getNumberPrecision', () => {
+  test.each([[1, 0], [0.1, 1], [0.0001, 4], [1.22e-10, 12], [1.2345e-20, 24], [1.321e-99, 102]])(
+    'getNumberPrecision(%s)',
+    (num, result) => {
+      expect(getNumberPrecision(num)).toBe(result)
+    }
+  )
+})
+
+describe('validateNumber', () => {
+  it('should valid', () => {
+    const inputs = [12, '11.2', '1.', '.1']
+    inputs.forEach(input => {
+      beTruthy(validateNumber)(input)
+    })
+  })
+  it('should inValid', () => {
+    const inputs = [NaN, '', undefined, null, 'aa']
+    inputs.forEach(input => {
+      beFalsy(validateNumber)(input)
+    })
+  })
+})
 
 describe('numbers.js[range]', () => {
   test('should return a normal arr when end > start', () => {

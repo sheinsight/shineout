@@ -561,7 +561,7 @@ describe('Input[onChange]', () => {
   })
 })
 
-describe('Input[onEnterPress]', async () => {
+describe('Input[onEnterPress]', () => {
   test('should onEnterPress', () => {
     const onEnterPress = jest.fn()
     const wrapper = mount(<Input delay={0} onEnterPress={onEnterPress} />)
@@ -866,5 +866,34 @@ describe('Input.Number[unMount]', () => {
     expect(wrapper.find(`.${SO_PREFIX}-input`).length).toBe(1)
     wrapper.setState({ show: false })
     expect(wrapper.find(`.${SO_PREFIX}-input`).length).toBe(0)
+  })
+})
+
+describe('Input.Number[coin]', () => {
+  it('should render coin', () => {
+    const wrapper = mount(<Input.Number defaultValue="1234567.89" coin />)
+    expect(wrapper.find('input').instance().value).toBe('1,234,567.89')
+
+    // focus
+    wrapper.find('input').simulate('focus')
+    expect(wrapper.find('input').instance().value).toBe('1234567.89')
+
+    // blur
+    wrapper.find('input').simulate('blur')
+    expect(wrapper.find('input').instance().value).toBe('1,234,567.89')
+
+    // mousedown
+    wrapper.find('input').simulate('mousedown')
+    expect(wrapper.find('input').instance().value).toBe('1234567.89')
+
+    // mouseup
+    wrapper.find('input').simulate('mouseup')
+    expect(wrapper.find('input').instance().value).toBe('1,234,567.89')
+
+    // focus + mouseup
+    wrapper.find('input').simulate('focus')
+    expect(wrapper.find('input').instance().value).toBe('1234567.89')
+    wrapper.find('input').simulate('mouseup')
+    expect(wrapper.find('input').instance().value).toBe('1234567.89')
   })
 })

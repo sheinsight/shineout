@@ -160,7 +160,6 @@ describe('Checkbox[inputable]', () => {
         checked: true,
       },
     })
-    console.log(wrapper.find('input[type="text"]').html())
     wrapper.find('input[type="text"]').simulate('focus')
     wrapper.find('input[type="text"]').simulate('change', {
       target: {

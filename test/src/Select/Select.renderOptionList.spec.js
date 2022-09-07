@@ -11,7 +11,6 @@ describe('Select[renderOptionList]', () => {
   })
   it('should render custom header and footer', () => {
     ;[0, 1, 2].forEach(index => {
-      console.log(index)
       wrapper
         .find('.so-select')
         .at(index)
