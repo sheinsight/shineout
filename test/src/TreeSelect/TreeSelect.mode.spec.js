@@ -649,24 +649,79 @@ describe('TreeSelect[multiple]', () => {
 })
 
 describe('TreeSelect[onAdvancedFilter]', () => {
+  const data = [
+    {
+      value: 'jiangsu',
+      children: [
+        {
+          value: 'nanjing',
+          children: [
+            {
+              value: 'jiangning',
+            },
+            {
+              value: 'gulou',
+            },
+          ],
+        },
+        {
+          value: 'suzhou',
+        },
+      ],
+    },
+    {
+      value: 'anhui',
+      children: [
+        {
+          value: 'hefei',
+          children: [
+            {
+              value: 'feidong',
+            },
+            {
+              value: 'feixi',
+            },
+          ],
+        },
+        {
+          value: 'maanshan',
+        },
+      ],
+    },
+  ]
   test('should set onAdvancedFilter', () => {
     jest.useFakeTimers()
-    const onAdvancedFilter = jest.fn()
+    const onAdvancedFilter = jest.fn(text => d => d.value.indexOf(text) > -1)
     const filterDelay = 500
     const wrapper = mount(
       <TreeSelect
-        keygen="id"
-        data={modeData}
-        filterDelay={filterDelay}
+        keygen="value"
         renderItem="value"
+        data={data}
+        filterDelay={filterDelay}
         onAdvancedFilter={onAdvancedFilter}
       />
     )
     appendToDOM(wrapper.html())
     wrapper.find(`.${SO_PREFIX}-treeSelect-inner`).simulate('click')
-    wrapper.find(`.${SO_PREFIX}-treeSelect-input`).simulate('input', { target: { innerText: 'hello' } })
-    jest.advanceTimersByTime(filterDelay)
+    wrapper.find(`.${SO_PREFIX}-treeSelect-input`).simulate('input', { target: { innerText: 'j' } })
+    jest.runAllTimers()
     expect(onAdvancedFilter).toBeCalled()
+    wrapper.update()
+    expect(wrapper.find('.so-treeSelect-match').length).toBe(2)
+    expect(wrapper.find('.so-tree-text').length).toBe(3)
+    wrapper
+      .find('.so-treeSelect-match')
+      .at(0)
+      .simulate('click')
+    wrapper.update()
+    expect(wrapper.find('.so-tree-text').length).toBe(4)
+    expect(
+      wrapper
+        .find('.so-tree-text')
+        .at(3)
+        .text()
+    ).toBe('suzhou')
     jest.clearAllTimers()
   })
 })
