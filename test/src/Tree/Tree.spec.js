@@ -535,7 +535,6 @@ describe('Tree[loader]', () => {
       <Tree data={loaderData} keygen="id" loader={loader} renderItem={node => <div>{`node ${node.id}`}</div>} />
     )
     jest.runAllTimers()
-    console.log(wrapper.find(`.${SO_PREFIX}-tree-icon-plus`).length)
     wrapper
       .find(`.${SO_PREFIX}-tree-icon-plus`)
       .last()

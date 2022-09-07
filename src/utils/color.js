@@ -88,10 +88,12 @@ const toRGB = input => {
 const isString = string => {
   if (!string) {
     console.error(new Error('the color is empty'))
+    return false
   }
 
   if (typeof string !== 'string') {
     console.error(new Error(`the color is get a ${typeof string}, expect string`))
+    return false
   }
   return true
 }

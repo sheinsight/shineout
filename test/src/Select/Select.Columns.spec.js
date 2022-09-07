@@ -25,12 +25,6 @@ describe('Select[Columns]', () => {
     jest.runAllTimers()
     wrapper.update()
     expect(wrapper.find(`.${SO_PREFIX}-select-box-options`).length).toBe(1)
-    console.log(
-      wrapper
-        .find(`.${SO_PREFIX}-select-box-options .${SO_PREFIX}-select-option`)
-        .first()
-        .html()
-    )
     expect(
       wrapper
         .find(`.${SO_PREFIX}-select-box-options .${SO_PREFIX}-select-option`)

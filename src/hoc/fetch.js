@@ -1,7 +1,8 @@
+// obsolete code
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
-export default (Component) => {
+export default Component => {
   class Fetch extends PureComponent {
     constructor(props) {
       super(props)
@@ -17,7 +18,7 @@ export default (Component) => {
     }
 
     fetchData(fetch) {
-      fetch.then((data) => {
+      fetch.then(data => {
         this.setState({ data, loading: false })
       })
     }
