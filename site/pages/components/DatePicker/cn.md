@@ -14,13 +14,13 @@
 | clearable | boolean | true | 是否可清空 |
 | defaultValue | string \| number \| Date \| \[any, any] | 无 | 默认值。如果 defaultValue 和 format 类型不一致，会执行一次 format，并触发 onChange 事件返回 format 后的值 |
 | disabled | (date: Date, type: string, value: \[any, any]) => boolean \| boolean  | false | 如果 disabled 为 true，禁用全部选项，如果 disabled 为函数，根据函数反回结果禁用选项。（注意：如果只想单独禁用时间，可使用 disabledTime 属性。） |
-| format | string | | 不同type对应的默认值<br />'date': 'yyyy-MM-dd'<br />'time': 'HH:mm:ss'<br />'week': 'RRRR II'<br />'month': 'yyyy-MM'<br />'datetime': 'yyyy-MM-dd HH:mm:ss' |
+| format | string | | 不同type对应的默认值<br />'date': 'yyyy-MM-dd'<br />'time': 'HH:mm:ss'<br />'week': 'RRRR II'<br />'month': 'yyyy-MM'<br />'quarter': 'yyyy-\[Q]Q'<br />'year': 'yyyy'<br />'datetime': 'yyyy-MM-dd HH:mm:ss' |
 | formatResult | string \| (date: Date) => string | props.format | 对选中时间进行格式化 |
 | onChange | (value: string \| \[string \| undefined, string \| undefined\]) => void | 无 | 值改变回调函数 |
 | placeholder | string \| string[] | 无 | 占位文字<br />range 属性不为空时，为长度为2的数组 |
 | range | boolean \| number | 无 | 范围跨度，单位 **秒**，<br />为 true 时表示不限制选择范围。 |
 | style | object | 无 | 最外层扩展样式 |
-| type | 'date' \| 'time' \| 'datetime' \| 'month' \| 'week' | 'date' | 时间类型|
+| type | 'date' \| 'time' \| 'datetime' \| 'month' \| 'quarter' \| 'week' \| 'year' | 'date' | 时间类型|
 | value | string \| number \| Date \| \[any, any] | 无 | 值。为 string 时，需要和 format 属性匹配。<br />range 属性为 true 时，值为长度为2的数组 |
 | defaultTime | string \| \[any, any] | 无 | 选择日期时默认的时间, 格式为: 'HH:mm:ss' |
 | absolute | boolean \| (() => element) | false | 为 true 时，选项弹出层在 BODY 下独立 render， 为函数时 选项弹出层在函数返回的 DOM 下render  |
@@ -29,8 +29,8 @@
 | quickSelect | object[] | false | 快速选择, name: 文字提示, value: 时间范围或时间 |
 | min | string \| number \| Date | 无 | 可选最小值 |
 | max | string \| number \| Date | 无 | 可选最大值 |
-| defaultRangeMonth | number[] \| Date[] | 无 | 范围选择的初始月份, 值为时间对象 或者时间戳, 仅在 range 模式下生效, 优先级低于 value 和 defaultValue |
-| defaultPickerValue | number \| Date \| number[] \| Date[] | 无 | 面板默认时间，在未选择日期时生效 |
+| defaultRangeMonth | string[] \| number[] \| Date[] | 无 | 范围选择的初始月份, 值为时间对象 或者时间戳, 仅在 range 模式下生效, 优先级低于 value 和 defaultValue |
+| defaultPickerValue | string \| number \| Date \| string[] \| number[] \| Date[] | 无 | 面板默认时间，在未选择日期时生效 |
 | hourStep | number | 无 | 小时选项步长 |
 | minuteStep | number | 无 | 分钟选项步长 |
 | secondStep | number | 无 | 秒选项步长 |
@@ -40,7 +40,10 @@
 | underline | boolean | false | 是否只展示下边框 |
 | clearWithUndefined | boolean | false | 在清空值时抛出是否抛出 undefined |
 | innerTitle | string | - | 内嵌标题 |
-
+| inputable | boolean | false | 可输入 |
+| position | 'left-top' \| 'left-bottom' \| 'right-top' \| 'right-bottom' | - | 弹出框位置 |
+| size | 'small' \| 'default' \| 'large' | 'default' | 尺寸大小 |
+| timeZone | string | 无 | 设置默认时区,格式为/^(\[+-\]\d{2})$/ 支持 '-12' 到 '+13' |
 
 ### DatePickerFormat
 

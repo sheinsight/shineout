@@ -60,6 +60,7 @@ export default curry(Origin =>
         readOnly: PropTypes.bool,
         disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
         filterSameChange: PropTypes.bool,
+        reserveAble: PropTypes.bool,
       }
 
       static defaultProps = {
@@ -133,10 +134,10 @@ export default curry(Origin =>
       componentWillUnmount() {
         super.componentWillUnmount()
 
-        const { formDatum, name, loopContext, unbindInputFromItem } = this.props
+        const { formDatum, name, loopContext, unbindInputFromItem, reserveAble } = this.props
         clearTimeout(this.updateTimer)
         if (formDatum && name) {
-          formDatum.unbind(name, this.handleUpdate)
+          formDatum.unbind(name, this.handleUpdate, reserveAble)
           if (Array.isArray(name)) {
             formDatum.unsubscribe(errorSubscribe(this.errorName), this.handleUpdate)
             formDatum.setError(this.errorName)
@@ -325,6 +326,7 @@ export default curry(Origin =>
           unbindInputFromItem,
           scuSkip,
           defaultValue,
+          reserveAble,
           ...other
         } = this.props
         return (

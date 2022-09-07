@@ -20,9 +20,14 @@ class Month extends PureComponent {
     props.disabledRegister(this.handleDisabled, 'month', props.index)
   }
 
+  getOptions() {
+    const { timeZone } = this.props
+    return { timeZone, weekStartsOn: getLocale('startOfWeek') }
+  }
+
   handleYearChange(year) {
     const { current, onChange } = this.props
-    onChange(...paramUtils.yearHandleChangeParams(utils.addYears(current, year)))
+    onChange(...paramUtils.yearHandleChangeParams(utils.addYears(current, year, this.getOptions())))
   }
 
   handleYearClick() {
@@ -31,10 +36,10 @@ class Month extends PureComponent {
 
   handleMonthClick(month) {
     const { current, onChange, onModeChange } = this.props
-    const date = new Date(current.getTime())
+    let date = new Date(current.getTime())
     const isMonthType = this.props.type === 'month'
-
-    date.setMonth(month, 1)
+    date = utils.changeDate(date, 'month', month, this.getOptions())
+    date = utils.changeDate(date, 'date', 1, this.getOptions())
     onChange(...paramUtils.monthHandleChangeParams(date, isMonthType, isMonthType))
     if (!isMonthType) onModeChange('day')
   }
@@ -42,9 +47,9 @@ class Month extends PureComponent {
   handleDisabled(date) {
     const { min, disabled, range, type, index, rangeDate, max } = this.props
 
-    let isDisabled = min && utils.compareMonth(min, date, 1) >= 0
+    let isDisabled = min && utils.compareMonth(min, date, 1, this.getOptions()) >= 0
     if (!isDisabled) {
-      isDisabled = max && utils.compareMonth(date, max, 1) >= 0
+      isDisabled = max && utils.compareMonth(date, max, 1, this.getOptions()) >= 0
     }
 
     if (!isDisabled && type === 'month' && typeof disabled === 'function') {
@@ -52,13 +57,13 @@ class Month extends PureComponent {
     }
 
     if (!isDisabled && index === 0) {
-      if (rangeDate[1] && utils.compareAsc(date, utils.addSeconds(rangeDate[1], -range)) < 0) {
+      if (rangeDate[1] && utils.compareAsc(date, utils.addSeconds(rangeDate[1], -range, this.getOptions())) < 0) {
         isDisabled = true
       }
     }
 
     if (!isDisabled && index === 1) {
-      if (rangeDate[0] && utils.compareAsc(date, utils.addSeconds(rangeDate[0], range)) > 0) {
+      if (rangeDate[0] && utils.compareAsc(date, utils.addSeconds(rangeDate[0], range, this.getOptions())) > 0) {
         isDisabled = true
       }
     }
@@ -67,12 +72,15 @@ class Month extends PureComponent {
 
   renderMonth(m, i) {
     const { value, current } = this.props
-    const date = utils.toDate(MONTHBASE)
-    date.setMonth(i)
-    date.setFullYear(current.getFullYear())
+    let date = utils.toDate(MONTHBASE, this.getOptions())
+    date = utils.changeDate(date, 'year', utils.getDateInfo(current, 'year', this.getOptions()), this.getOptions())
+    date = utils.changeDate(date, 'month', i, this.getOptions())
     const isDisabled = this.handleDisabled(date)
 
-    const className = datepickerClass(utils.isSameMonth(value, date) && 'active', isDisabled && 'disabled')
+    const className = datepickerClass(
+      utils.isSameMonth(value, date, this.getOptions()) && 'active',
+      isDisabled && 'disabled'
+    )
 
     return (
       <span key={i} className={className} onClick={isDisabled ? undefined : this.handleMonthClick.bind(this, i)}>
@@ -90,7 +98,7 @@ class Month extends PureComponent {
           <Icon name="AngleLeft" className="left" onClick={this.handlePrevYear} />
 
           <span onClick={this.handleYearClick.bind(this)} className={datepickerClass('ym')}>
-            {current.getFullYear()}
+            {utils.getDateInfo(current, 'year', this.getOptions())}
           </span>
 
           <Icon name="AngleRight" className="right" onClick={this.handleNextYear} />
@@ -115,6 +123,7 @@ Month.propTypes = {
   value: PropTypes.object,
   index: PropTypes.number,
   rangeDate: PropTypes.array,
+  timeZone: PropTypes.string,
   disabledRegister: PropTypes.func,
 }
 

@@ -1,6 +1,7 @@
 import { Input } from 'shineout'
 import React from 'react'
 import { mount } from 'enzyme'
+import { baseTest } from '../../utils'
 import InputSize from '../../../site/pages/components/Input/example-02-size'
 
 /* global SO_PREFIX */
@@ -76,26 +77,20 @@ describe('Input[Base]', () => {
     })
   })
   test('should number of integer restricted by integerLimit', () => {
-    const inputValue = '123.4'
-    const valueMap = ['123.4', '123.4', '1.4', '12.4']
-    const inputs = [
-      <Input type="number" placeholder="integerLimit undefined" />,
-      <Input integerLimit={0} type="number" placeholder="integerLimit 0" />,
-      <Input integerLimit={1} type="number" placeholder="integerLimit 1" />,
-      <Input integerLimit={2} type="number" placeholder="integerLimit 2" />,
-    ]
-
-    inputs.forEach((input, index) => {
-      const wrapper = mount(input)
-      for (let i = 0; i < inputValue.length; i++) {
-        const originalVal = wrapper.find('input').prop('value')
-        wrapper.find('input').simulate('change', {
-          target: {
-            value: originalVal + inputValue[i],
-          },
-        })
-      }
-      expect(wrapper.find('input').prop('value')).toBe(valueMap[index])
+    const valueMap = ['12.34', '123.4', '1234']
+    valueMap.forEach((v, i) => {
+      const integerLimit = i + 1
+      const wrapper = mount(<Input delay={0} type="number" integerLimit={integerLimit} />)
+      wrapper.find('input').simulate('change', {
+        target: {
+          value: v,
+        },
+      })
+      wrapper.find('input').simulate('blur')
+      wrapper.update()
+      const result =
+        v.indexOf('.') >= 0 ? `${v.split('.')[0].substring(0, integerLimit)}` : v.substring(0, integerLimit)
+      expect(wrapper.find('input').getDOMNode().value).toBe(result)
     })
   })
   test('should render correct with numType props', () => {
@@ -298,6 +293,7 @@ describe('Input[Tip]', () => {
 })
 
 describe('Input[Rule]', () => {
+  jest.useRealTimers()
   test('should render error when get error & set popover', done => {
     const rules = [
       { required: true, message: 'Please enter your email.' },
@@ -423,5 +419,481 @@ describe('Input[innerTitle]', () => {
     wrapper.find('input').simulate('blur')
     wrapper.update()
     expect(wrapper.find(`.${SO_PREFIX}-input-title-box-open`).length).toBe(1)
+  })
+})
+
+// this attribute will be test by e2e
+// describe('Input[autoSelect]', () => {
+//   const defaultValue = 'Hello'
+//   const wrapper = mount(<Input delay={0} defaultValue={defaultValue} autoSelect />)
+//   wrapper.find('input').simulate('focus')
+//   wrapper.find('input').simulate('keypress', { keyCode: 8 })
+//   expect(wrapper.find('input').getDOMNode().value).toBe('')
+// })
+
+describe('Input[clearToUndefined]', () => {
+  test('should clear value and set as undefined', () => {
+    const onChange = jest.fn()
+    const wrapper = mount(
+      <Input
+        delay={0}
+        clearable
+        clearToUndefined
+        onChange={onChange}
+        defaultValue="Hello"
+        placeholder="input something"
+      />
+    )
+    expect(wrapper.find('input').getDOMNode().value).toBe('Hello')
+    wrapper.find(`.${SO_PREFIX}-input-clear-wrapper`).simulate('mousedown')
+    wrapper.update()
+    expect(onChange).toBeCalled()
+    expect(onChange.mock.calls[0][0]).toBe(undefined)
+  })
+})
+
+describe('Input[coin]', () => {
+  test('should set coin when type is number', () => {
+    const wrapper = mount(<Input coin type="number" />)
+    wrapper.find('input').simulate('change', {
+      target: {
+        value: '1000',
+      },
+    })
+    wrapper.update()
+    expect(wrapper.find('input').getDOMNode().value).toBe('1,000')
+  })
+})
+
+describe('Input[defaultValue]', () => {
+  test('should set defaultValue', () => {
+    const wrapper = mount(<Input defaultValue="Hello" />)
+    expect(wrapper.find('input').getDOMNode().value).toBe('Hello')
+  })
+})
+
+describe('Input[delay]', () => {
+  test('should set delay when onChange', () => {
+    jest.useFakeTimers()
+    const delay = 2000
+    const onChange = jest.fn()
+    const wrapper = mount(<Input delay={delay} onChange={onChange} />)
+    wrapper.find('input').simulate('change', {
+      target: {
+        value: '1000',
+      },
+    })
+    jest.advanceTimersByTime(500)
+    expect(onChange).not.toHaveBeenCalled()
+    jest.advanceTimersByTime(delay - 500)
+    expect(onChange).toHaveBeenCalled()
+    jest.runAllTimers()
+  })
+})
+
+// describe('Input[forwardedRef]', () => {
+//   test('should get input element', () => {
+//     const wrapper = mount(<Input />)
+//   })
+// })
+
+describe('Input[htmlName]', () => {
+  test('should set htmlName', () => {
+    const htmlName = 'shineout'
+    const wrapper = mount(<Input htmlName={htmlName} />)
+    expect(wrapper.find('input').getDOMNode().name).toBe(htmlName)
+  })
+})
+
+describe('Input[info]', () => {
+  test('should set default info', () => {
+    const infoText = '1234567890'
+    const info = infoText.length
+    const wrapper = mount(<Input info={info} defaultValue={infoText} />)
+    expect(wrapper.find(`.${SO_PREFIX}-input-tip`).length).toBe(1)
+    expect(wrapper.find(`.${SO_PREFIX}-input-tip`).text()).toBe(`${infoText.length} / ${info}`)
+  })
+
+  test('should set default info error', () => {
+    const infoText = '1234567890'
+    const info = infoText.length - 1
+    const wrapper = mount(<Input info={info} defaultValue={infoText} />)
+    expect(wrapper.find(`.${SO_PREFIX}-input-error`).length).toBe(1)
+    expect(wrapper.find(`.${SO_PREFIX}-input-error`).text()).toBe(`${infoText.length} / ${info}`)
+  })
+
+  test('should set custom info', () => {
+    const infoText = 'shineout'
+    const info = () => <div>{infoText}</div>
+    const wrapper = mount(<Input info={info} />)
+    expect(wrapper.find(`.${SO_PREFIX}-input-tip`).length).toBe(1)
+    expect(wrapper.find(`.${SO_PREFIX}-input-tip > div`).text()).toBe(infoText)
+  })
+})
+
+// this attribute will be test by e2e
+// describe('Input[maxLength]', () => {})
+
+describe('Input[onBlur]', () => {
+  test('should trigger onBlur', () => {
+    const onBlur = jest.fn()
+    const wrapper = mount(<Input onBlur={onBlur} />)
+    wrapper.find('input').simulate('focus')
+    wrapper.find('input').simulate('blur')
+    wrapper.update()
+    expect(onBlur).toBeCalled()
+  })
+})
+
+describe('Input[onChange]', () => {
+  test('should trigger onChange', () => {
+    const value = 'shineout'
+    const onChange = jest.fn()
+    const wrapper = mount(<Input delay={0} onChange={onChange} />)
+    wrapper.find('input').simulate('change', {
+      target: {
+        value,
+      },
+    })
+    wrapper.update()
+    expect(onChange).toBeCalled()
+    expect(onChange.mock.calls[0][0]).toBe(value)
+  })
+})
+
+describe('Input[onEnterPress]', () => {
+  test('should onEnterPress', () => {
+    const onEnterPress = jest.fn()
+    const wrapper = mount(<Input delay={0} onEnterPress={onEnterPress} />)
+    wrapper.find('input').simulate('keydown', { keyCode: 13, target: { value: '1' } })
+    wrapper.find('input').simulate('keyup', { keyCode: 13, target: { value: '1' } })
+    expect(onEnterPress).toBeCalled()
+  })
+})
+
+describe('Input[onKeyDown]', () => {
+  test('should onKeyDown', () => {
+    const onKeyDown = jest.fn()
+    const wrapper = mount(<Input delay={0} onKeyDown={onKeyDown} />)
+    wrapper.find('input').simulate('keydown')
+    expect(onKeyDown).toBeCalled()
+  })
+})
+
+// this attribute will be test by e2e
+describe('Input[onKeyUp]', () => {
+  test('should onKeyUp', () => {
+    const onKeyUp = jest.fn()
+    const wrapper = mount(<Input delay={0} onKeyUp={onKeyUp} />)
+    wrapper.find('input').simulate('keyup')
+    expect(onKeyUp).toBeCalled()
+  })
+})
+
+describe('Input[popover]', () => {
+  test('should set the position of popover', () => {
+    const popover = ['top-left', 'top', 'top-right', 'bottom-left', 'bottom', 'bottom-right']
+    popover.forEach(i => {
+      const wrapper = mount(<Input delay={0} placeholder="email" tip="popover" popover={i} />)
+      expect(wrapper.find(`.${SO_PREFIX}-input-tip`).length).toBe(0)
+      wrapper.find('input').simulate('focus')
+      wrapper.find('input').simulate('blur')
+      setTimeout(() => {
+        wrapper.update()
+        expect(wrapper.find(`.${SO_PREFIX}-popover-${i}`).length).toBe(1)
+      })
+    })
+  })
+})
+
+describe('Input[base]', () => {
+  test('should custom style and className', () => {
+    baseTest(Input, `.${SO_PREFIX}-input`)
+  })
+})
+
+describe('Input[trim]', () => {
+  test('should set trim', () => {
+    const wrapper = mount(<Input trim />)
+    wrapper.find('input').simulate('change', {
+      target: {
+        value: 'shineout  ',
+      },
+    })
+    wrapper.find('input').simulate('blur')
+    wrapper.update()
+    expect(wrapper.find('input').getDOMNode().value).toBe('shineout')
+  })
+})
+
+describe('Input[type]', () => {
+  test('should set type', () => {
+    const type = ['text', 'number', 'password']
+    type.forEach(i => {
+      const wrapper = mount(<Input delay={0} type={i} />)
+
+      if (i === 'number') {
+        wrapper.find('input').simulate('change', {
+          target: {
+            value: 'abc',
+          },
+        })
+        wrapper.update()
+        expect(wrapper.find('input').getDOMNode().value).toBe('')
+        wrapper.find('input').simulate('change', {
+          target: {
+            value: '123',
+          },
+        })
+        wrapper.update()
+        expect(wrapper.find('input').getDOMNode().value).toBe('123')
+      } else {
+        expect(wrapper.find('input').getDOMNode().type).toBe(i)
+      }
+    })
+  })
+})
+
+describe('Input[underline]', () => {
+  test('should set underline', () => {
+    const wrapper = mount(<Input underline />)
+    expect(wrapper.find(`.${SO_PREFIX}-input`).hasClass(`${SO_PREFIX}-input-underline`)).toBeTruthy()
+  })
+})
+
+describe('Input.Number[allowNull]', () => {
+  test('should set allowNull', () => {
+    const wrapper = mount(<Input.Number allowNull />)
+    wrapper.find('input').simulate('focus')
+    wrapper.update()
+    wrapper.find('input').simulate('blur')
+    wrapper.update()
+    expect(wrapper.find('input').getDOMNode().value).toBe('')
+  })
+})
+
+describe('Input.Number[coin]', () => {
+  test('should set coin', () => {
+    const wrapper = mount(<Input.Number coin />)
+    wrapper.find('input').simulate('change', {
+      target: {
+        value: '1000',
+      },
+    })
+    wrapper.update()
+    expect(wrapper.find('input').getDOMNode().value).toBe('1,000')
+  })
+})
+
+describe('Input.Number[hideArrow]', () => {
+  test('should set hideArrow', () => {
+    const wrapper = mount(<Input.Number hideArrow />)
+    expect(wrapper.find(`.${SO_PREFIX}-input-number-up`).length).toBe(0)
+    expect(wrapper.find(`.${SO_PREFIX}-input-number-down`).length).toBe(0)
+  })
+})
+
+describe('Input.Number[max/min]', () => {
+  test('should set max/min', () => {
+    const min = 100
+    const max = 200
+    const wrapper = mount(<Input.Number delay={0} min={min} max={max} />)
+    wrapper.find('input').simulate('change', {
+      target: {
+        value: String(min - 1),
+      },
+    })
+    wrapper.find('input').simulate('blur')
+    wrapper.update()
+    expect(wrapper.find('input').getDOMNode().value).toBe(String(min))
+
+    wrapper.find('input').simulate('change', {
+      target: {
+        value: String(max + 1),
+      },
+    })
+    wrapper.find('input').simulate('blur')
+    wrapper.update()
+    expect(wrapper.find('input').getDOMNode().value).toBe(String(max))
+  })
+})
+
+describe('Input.Number[step]', () => {
+  test('should set step', () => {
+    const step = 10
+    const wrapper = mount(<Input.Number delay={0} step={step} />)
+    wrapper.find(`.${SO_PREFIX}-input-number-up`).simulate('click')
+    wrapper.update()
+    setTimeout(() => {
+      expect(wrapper.find('input').getDOMNode().value).toBe(String(step))
+    })
+  })
+})
+
+describe('Input.Password[point]', () => {
+  test('should set step', () => {
+    const point = '*'
+    const password = '123456'
+    const result = Array.from({ length: password.length })
+      .map(() => point)
+      .reduce((a, b) => a + b)
+
+    const wrapper = mount(<Input.Password delay={0} point={point} />)
+    wrapper.find('input').simulate('change', {
+      target: {
+        value: password,
+      },
+    })
+    wrapper.update()
+    expect(wrapper.find('input').getDOMNode().value).toBe(result)
+  })
+})
+
+describe('Input.Number[digits]', () => {
+  test('should set Input.Number digits', () => {
+    const digits = 2
+    const value = '1.234'
+    const wrapper = mount(<Input.Number delay={0} digits={digits} />)
+    wrapper.find('input').simulate('change', {
+      target: {
+        value,
+      },
+    })
+    wrapper.update()
+    expect(wrapper.find('input').getDOMNode().value).toBe(Number(value).toFixed(digits))
+  })
+
+  test('should set Input.Number digits when numType is non-negative', () => {
+    const digits = 2
+    const value = '1.234'
+    const wrapper = mount(<Input.Number delay={0} digits={digits} defaultValue="1" numType="non-negative" />)
+    wrapper.find('input').simulate('change', {
+      target: {
+        value,
+      },
+    })
+    wrapper.find('input').simulate('blur')
+    wrapper.update()
+    expect(wrapper.find('input').getDOMNode().value).toBe(Number(value).toFixed(digits))
+  })
+})
+
+describe('Input.Number[onKeyDown]', () => {
+  test('onKeyDown should be simulated when keyCode equal 38 or 40', () => {
+    const onKeyDown = jest.fn()
+    const defaultValue = 2
+    const wrapper = mount(<Input.Number delay={0} defaultValue={defaultValue} onKeyDown={onKeyDown} />)
+    wrapper.find('input').simulate('keydown', { keyCode: 38 })
+    wrapper.find('input').simulate('keyup', { keyCode: 38 })
+    wrapper.update()
+    expect(wrapper.find('input').getDOMNode().value).toBe(String(defaultValue + 1))
+  })
+
+  test('onKeyDown should be simulated when keyCode equal 40', () => {
+    const defaultValue = 2
+    const wrapper = mount(<Input.Number delay={0} defaultValue={defaultValue} />)
+    wrapper.find('input').simulate('keydown', { keyCode: 40 })
+    wrapper.find('input').simulate('keyup', { keyCode: 40 })
+    wrapper.update()
+    expect(wrapper.find('input').getDOMNode().value).toBe(String(defaultValue - 1))
+  })
+})
+
+describe('Input.Number[onMouseUp]', () => {
+  test('mouseDown should be simulated', () => {
+    const mouseDown = jest.fn()
+    const wrapper = mount(<Input.Number onMouseDown={mouseDown} />)
+    const label = wrapper.find(`label.${SO_PREFIX}-input`)
+    expect(label.find(`.${SO_PREFIX}-input-number-up`).length).toBe(1)
+    expect(label.find(`.${SO_PREFIX}-input-number-down`).length).toBe(1)
+
+    label.find(`.${SO_PREFIX}-input-number-down`).simulate('mousedown')
+
+    expect(mouseDown).toBeCalled()
+  })
+
+  test('mouseUp should be simulated', () => {
+    const mouseUp = jest.fn()
+    const wrapper = mount(<Input.Number onMouseUp={mouseUp} />)
+    const label = wrapper.find(`label.${SO_PREFIX}-input`)
+    expect(label.find(`.${SO_PREFIX}-input-number-up`).length).toBe(1)
+    expect(label.find(`.${SO_PREFIX}-input-number-down`).length).toBe(1)
+
+    label.find(`.${SO_PREFIX}-input-number-up`).simulate('mouseup')
+
+    expect(mouseUp).toBeCalled()
+  })
+})
+
+describe('Input.Number[clearToUndefined]', () => {
+  test('should clear value and set as undefined', () => {
+    const onChange = jest.fn()
+    const wrapper = mount(
+      <Input.Number
+        delay={0}
+        clearable
+        clearToUndefined
+        onChange={onChange}
+        defaultValue={NaN}
+        placeholder="input something"
+      />
+    )
+
+    wrapper.find(`.${SO_PREFIX}-input-clear-wrapper`).simulate('mousedown')
+    wrapper.find(`input`).simulate('blur')
+    wrapper.update()
+    expect(onChange).toBeCalled()
+    expect(onChange.mock.calls[0][0]).toBe(undefined)
+  })
+})
+
+describe('Input.Number[unMount]', () => {
+  test('should unMount', () => {
+    // eslint-disable-next-line react/prefer-stateless-function
+    class Component extends React.Component {
+      constructor(props) {
+        super(props)
+        this.state = {
+          show: true,
+        }
+      }
+
+      render() {
+        return this.state.show && <Input.Number />
+      }
+    }
+    const wrapper = mount(<Component />)
+    expect(wrapper.find(`.${SO_PREFIX}-input`).length).toBe(1)
+    wrapper.setState({ show: false })
+    expect(wrapper.find(`.${SO_PREFIX}-input`).length).toBe(0)
+  })
+})
+
+describe('Input.Number[coin]', () => {
+  it('should render coin', () => {
+    const wrapper = mount(<Input.Number defaultValue="1234567.89" coin />)
+    expect(wrapper.find('input').instance().value).toBe('1,234,567.89')
+
+    // focus
+    wrapper.find('input').simulate('focus')
+    expect(wrapper.find('input').instance().value).toBe('1234567.89')
+
+    // blur
+    wrapper.find('input').simulate('blur')
+    expect(wrapper.find('input').instance().value).toBe('1,234,567.89')
+
+    // mousedown
+    wrapper.find('input').simulate('mousedown')
+    expect(wrapper.find('input').instance().value).toBe('1234567.89')
+
+    // mouseup
+    wrapper.find('input').simulate('mouseup')
+    expect(wrapper.find('input').instance().value).toBe('1,234,567.89')
+
+    // focus + mouseup
+    wrapper.find('input').simulate('focus')
+    expect(wrapper.find('input').instance().value).toBe('1234567.89')
+    wrapper.find('input').simulate('mouseup')
+    expect(wrapper.find('input').instance().value).toBe('1234567.89')
   })
 })

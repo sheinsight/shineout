@@ -3,21 +3,27 @@ import * as React from 'react'
 import { StickyProps } from '../Sticky'
 import { PaginationProps } from '../Pagination'
 import { ListItemStandardProps, StandardProps,  RegularAttributes, keyType } from '../@types/common'
+import { ReactComponentElement } from "react"
 
 
 type ReactNode = React.ReactNode;
 
 type TableRowData = string | {}
 
+interface Sorter {
+  rule: string
+  weight: number
+}
+
 export type ColumnOrder = 'asc' | 'desc'
 
 export type ColumnFix = 'left' | 'right'
 
-export type ColumnType = 'expand' | 'row-expand' | 'checkbox'
+export type ColumnType = 'expand' | 'row-expand'
 
 export interface renderSorterParam  {status?: 'asc' | 'desc', triggerAsc: () => void, triggerDesc: () => void}
 
-export interface ColumnItem<T> {
+interface CommonColumn<T> {
   /**
    * cell align \['left', 'center', 'right'\]
    *
@@ -61,7 +67,7 @@ export interface ColumnItem<T> {
    *
    * default: none
    */
-  group?: string | Array<string>;
+  group?: string | ReactNode | Array<string | ReactNode>;
 
   /**
    * hide the column, only work on row-expand column
@@ -115,7 +121,7 @@ export interface ColumnItem<T> {
    *
    * default: none
    */
-  rowSpan?: (prevRowData: T, nextRowData: T) => boolean;
+  rowSpan?: ((prevRowData: T, nextRowData: T) => boolean) | boolean;
 
   /**
    * When the sorter is not empty, the sort icon appears in this column. the value of order: \['asc', 'desc']. Indicate the sort key string, will pass to table sorter method. Front-end sorting returns a sort function, refer to Array.sort. Server-side sorting, do not return values and handle it itself.
@@ -124,7 +130,7 @@ export interface ColumnItem<T> {
    *
    * default: none
    */
-  sorter?: ((order: ColumnOrder) => (prevRowData: T, nextRowData: T) => number) | string;
+  sorter?: ((order: ColumnOrder) => ((prevRowData: T, nextRowData: T) => number) | void ) | string | Sorter;
 
   /**
    * The content of the header
@@ -179,7 +185,27 @@ export interface ColumnItem<T> {
    * default: -
    */
   className?: string;
+
+  /**
+   * 列点击事件
+   *
+   * Click event of column
+   *
+   * default: -
+   */
+  onClick?: (d: T, isExpand: boolean) => void;
 }
+
+type SomeColumn<T> =  Omit<CommonColumn<T>, 'render' | 'type'>
+
+export interface CheckColumn<T> extends SomeColumn<T>{
+  type: 'checkbox',
+  render?: (rowData: T, index: number,  checkInstance: ReactComponentElement<any>) => any,
+  filterAll?: (data: T[]) => T[],
+}
+
+export type ColumnItem<T> = CommonColumn<T> | CheckColumn<T>
+
 
 export interface RowEvents {
   [propName: string]: any
@@ -191,7 +217,7 @@ export interface TableRef {
   [key: string]: any;
 }
 
-export interface TableProps<Value, TRD> extends StandardProps, ListItemStandardProps<TRD, Value> {
+export interface TableProps<TRD, Value> extends StandardProps, ListItemStandardProps<TRD, Value> {
 
   /**
    * Whether to display the border
@@ -209,7 +235,7 @@ export interface TableProps<Value, TRD> extends StandardProps, ListItemStandardP
    *
    * default: -
    */
-  columns: ColumnItem<TRD>[];
+  columns?: ColumnItem<TRD>[];
 
   /**
    * data
@@ -263,7 +289,7 @@ export interface TableProps<Value, TRD> extends StandardProps, ListItemStandardP
    *
    * default: none
    */
-  onRowSelect?: (rows: TRD[]) => void;
+  onRowSelect?: (rows: Value) => void;
 
 
   /**
@@ -273,7 +299,7 @@ export interface TableProps<Value, TRD> extends StandardProps, ListItemStandardP
    *
    * default: -
    */
-  rowClassName?: (record: TRD, index: number) => string;
+  rowClassName?: (record: TRD, index: number) => (string | undefined);
 
   /**
    * height of table
@@ -283,6 +309,15 @@ export interface TableProps<Value, TRD> extends StandardProps, ListItemStandardP
    * default: -
    */
   height?: number | string;
+
+  /**
+   * Total table width
+   *
+   * 表格总宽度
+   *
+   * default: -
+   */
+  width?: number;
 
   /**
    * The expected height of a one-line table is just a rough estimate to show the scroll bar.
@@ -327,7 +362,7 @@ export interface TableProps<Value, TRD> extends StandardProps, ListItemStandardP
    *
    * default: none
    */
-  value?: Value[];
+  value?: Value;
 
   /**
    * empty text
@@ -363,7 +398,7 @@ export interface TableProps<Value, TRD> extends StandardProps, ListItemStandardP
    *
    * default: alphaSort(Column.sorter, sorter)
    */
-  sorter?: (sortKey: keyType, sorter: 'asc' | 'desc', sortedList: any[]) => (a: TRD, b: TRD) => boolean;
+  sorter?: (sortKey: string, sorter: 'asc' | 'desc', sortedList: any[]) => (a: TRD, b: TRD) => number;
 
   /**
    * Tree Table expanded row keys
@@ -381,7 +416,7 @@ export interface TableProps<Value, TRD> extends StandardProps, ListItemStandardP
    *
    * default: none
    */
-  onTreeExpand?: (openKeys: string[], data: TRD, expand: boolean) => void;
+  onTreeExpand?: (openKeys: keyType[], data: TRD, expand: boolean) => void;
 
   /**
    * row hover highlight
@@ -572,9 +607,19 @@ export interface TableProps<Value, TRD> extends StandardProps, ListItemStandardP
    */
   children?: ReactNode
 
+
+  /**
+   * whether to enable ctrl/cmd + click check
+   *
+   * 是否启用 ctrl/cmd + click 选中单元格
+   *
+   * default: false
+   */
+  cellSelectable?: boolean
+
 }
 
-declare class Table<Value = any, TRD = TableRowData> extends React.Component<TableProps<Value, TRD>, {}> {
+declare class Table<TRD = TableRowData, Value = any> extends React.Component<TableProps<TRD, Value>, {}> {
   render(): JSX.Element;
 }
 

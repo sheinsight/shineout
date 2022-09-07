@@ -18,4 +18,4 @@
 | autoHide | boolean | false | 是否自动隐藏当前值和刻度 |
 | disabled | boolean | false | 是否禁用组件 |
 | range | boolean | false | 是否显示双滑块 |
-| onIncrease | (v: number) => boolean | 无 | 拖动超过最大值事件 |
+| onIncrease | (v: number) => void | 无 | 拖动超过最大值事件 |

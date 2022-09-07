@@ -24,6 +24,9 @@
 | shape | 'rounded' \| 'circle' \| 'thumbnail' | 'rounded' | shape of image | |
 | alt | string | none | Alternate address, applied when src is invalid | |
 | onError | (err: Event) => void | none | callback of image src or alt request fail | |
+| onClick | (e: MouseEvent) => void | - | The callback of click | |
+| title | string | - | The original property of html | |
+
 
 ### Image.Group
 

@@ -57,16 +57,23 @@ class FilterInput extends Component {
   }
 
   handlePaste(e) {
-    preventPasteFile(e, text => {
-      if (window.getSelection) {
-        const selection = window.getSelection()
-        this.lastSelect = {
-          anchorOffset: selection.anchorOffset,
-          focusOffset: selection.focusOffset,
-          text,
+    const { convertBr } = this.props
+    preventPasteFile(
+      e,
+      text => {
+        if (window.getSelection) {
+          const selection = window.getSelection()
+          this.lastSelect = {
+            anchorOffset: selection.anchorOffset,
+            focusOffset: selection.focusOffset,
+            text,
+          }
         }
+      },
+      {
+        convertBr,
       }
-    })
+    )
   }
 
   geHandleMax(e) {
@@ -78,11 +85,13 @@ class FilterInput extends Component {
     const text = e.target.innerText
     if (text.length >= maxLength) {
       let lastPos
+      // 输入的位置 需要考虑选中文本的情况
       if (window.getSelection) {
         lastPos = Math.min(window.getSelection().anchorOffset - (text.length > maxLength ? 1 : 0), maxLength)
       }
       if (!this.lastMaxValue) {
         this.lastMaxValue = text.slice(0, maxLength)
+        // 粘贴文本的情况
       } else if (this.lastSelect) {
         const { anchorOffset, focusOffset, text: str } = this.lastSelect
         const start = anchorOffset < focusOffset ? anchorOffset : focusOffset
@@ -101,6 +110,7 @@ class FilterInput extends Component {
       this.lastSelect = false
 
       e.target.innerText = this.lastMaxValue
+      // 修改e.target.innerText后光标会变到最前面，这儿改变光标位置到上次光标的位置
       if (lastPos) {
         const selection = window.getSelection()
         const range = selection.getRangeAt(0)
@@ -181,7 +191,6 @@ class FilterInput extends Component {
   render() {
     const { text, focus, multiple } = this.props
     const value = typeof text === 'string' ? text.replace(/<\/?[^>]*>/g, '') : text
-
     const props = {
       className: selectClass('input', !focus && 'ellipsis', !multiple && 'full'),
       ref: this.bindElement,
@@ -218,8 +227,9 @@ FilterInput.propTypes = {
   trim: PropTypes.bool,
   focusSelected: PropTypes.bool,
   bindFocusInputFunc: PropTypes.func,
-  collapse: PropTypes.func,
+  // collapse: PropTypes.func,
   maxLength: PropTypes.number,
+  convertBr: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 }
 
 FilterInput.defaultProps = {

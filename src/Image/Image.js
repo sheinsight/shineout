@@ -118,7 +118,6 @@ class Image extends PureComponent {
       onClick(e)
       return
     }
-
     if (href && target === '_modal') {
       e.preventDefault()
       showGallery({ thumb: src, src: href || src, key: 'key' })

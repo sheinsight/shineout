@@ -3,7 +3,7 @@ import { StandardProps } from '../@types/common'
 
 
 type ReactNode = React.ReactNode;
-export interface ImageProps extends StandardProps{
+export interface ImageProps extends StandardProps {
 
   /**
    * the height of the image(When the value is percentage, the ratio is the width of the image)
@@ -130,6 +130,24 @@ export interface ImageProps extends StandardProps{
    * default: 'rounded'
    */
   shape?: 'rounded' | 'circle' | 'thumbnail';
+
+  /**
+   * The callback of click
+   * 
+   * 点击图片的回调
+   * 
+   * default: -
+   */
+  onClick?: (e: MouseEvent) => void;
+
+  /**
+   * The original property of html
+   * 
+   * 原生 title 属性
+   * 
+   * default: -
+   */
+  title?: string;
 }
 
 export interface ImageGroupProps {

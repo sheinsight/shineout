@@ -5,6 +5,7 @@ import TimeScroll from './TimeScroll'
 import utils from './utils'
 import { isRTL } from '../config'
 import paramUtils from './paramUtils'
+import { getLocale } from '../locale'
 
 class Time extends PureComponent {
   constructor(props) {
@@ -20,13 +21,18 @@ class Time extends PureComponent {
     props.disabledRegister(this.handleDisabled, 'time', props.index)
   }
 
+  getOptions() {
+    const { timeZone } = this.props
+    return { timeZone, weekStartsOn: getLocale('startOfWeek') }
+  }
+
   getDefaultTime() {
     let idx = 0
     const current = utils.newDate()
     const { index, defaultTime, format } = this.props
     if (typeof index === 'number') idx = index
     if (!defaultTime[idx]) return current
-    return utils.cloneTime(current, defaultTime[idx], format)
+    return utils.cloneTime(current, defaultTime[idx], format, this.getOptions())
   }
 
   getValue() {
@@ -35,7 +41,17 @@ class Time extends PureComponent {
 
   handleDisabled(value, val, mode, onlyVaild) {
     const { disabled, min, max, range, disabledTime } = this.props
-    const [isDisabled, date] = paramUtils.judgeTimeByRange(val, value, mode, min, max, range, disabled, disabledTime)
+    const [isDisabled, date] = paramUtils.judgeTimeByRange(
+      val,
+      value,
+      mode,
+      min,
+      max,
+      range,
+      disabled,
+      disabledTime,
+      this.getOptions()
+    )
     return onlyVaild ? isDisabled : [isDisabled, date]
   }
 
@@ -67,7 +83,7 @@ class Time extends PureComponent {
         <TimeScroll
           key="HH"
           current={value}
-          value={value.getHours()}
+          value={utils.getDateInfo(value, 'hour', this.getOptions())}
           mode="H"
           range={range}
           min={min}
@@ -104,7 +120,7 @@ class Time extends PureComponent {
           min={min}
           max={max}
           disabled={disabled}
-          value={value.getMinutes()}
+          value={utils.getDateInfo(value, 'minute', this.getOptions())}
           step={minuteStep}
           onChange={this.handleMinuteChange}
           disabledTime={disabledTime}
@@ -119,7 +135,7 @@ class Time extends PureComponent {
           min={min}
           max={max}
           disabled={disabled}
-          value={value.getSeconds()}
+          value={utils.getDateInfo(value, 'second', this.getOptions())}
           step={secondStep}
           onChange={this.handleSecondChange}
           disabledTime={disabledTime}
@@ -134,7 +150,7 @@ class Time extends PureComponent {
           min={min}
           max={max}
           disabled={disabled}
-          value={value.getHours() >= 12 ? 1 : 0}
+          value={utils.getDateInfo(value, 'hour', this.getOptions()) >= 12 ? 1 : 0}
           total={2}
           ampm
           onChange={this.handleAMPMChange}
@@ -161,8 +177,8 @@ class Time extends PureComponent {
     }
 
     // reset
-    const min = utils.resetTimeByFormat(mi, format)
-    const max = utils.resetTimeByFormat(ma, format)
+    const min = utils.resetTimeByFormat(mi, format, this.getOptions())
+    const max = utils.resetTimeByFormat(ma, format, this.getOptions())
 
     return <div className={className}>{this.renderTimeScroller(value, min, max, hours)}</div>
   }
@@ -183,6 +199,7 @@ Time.propTypes = {
   secondStep: PropTypes.number,
   disabledTime: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   disabledRegister: PropTypes.func,
+  timeZone: PropTypes.string,
 }
 
 export default Time

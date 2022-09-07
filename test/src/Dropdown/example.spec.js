@@ -1,5 +1,7 @@
 import exampleTest from '../../example'
 
-exampleTest('Dropdown', {
-  ignore: 'example-7-base.js',
+describe('Dropdown[snapshot]', () => {
+  exampleTest('Dropdown', {
+    ignore: 'example-7-base',
+  })
 })

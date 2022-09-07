@@ -1,6 +1,7 @@
 import React from 'react'
 import { DatePicker } from 'shineout'
 import { mount } from 'enzyme'
+import dayjs from 'dayjs'
 import DateFns from '../../../src/DatePicker/utils'
 import utils from '../../../src/DatePicker/utils'
 import DatePickerSize from '../../../site/pages/components/DatePicker/example-03-size'
@@ -76,7 +77,6 @@ describe('DatePicker[WeekPicker]', () => {
       const last = days.childAt(i * 7 + 6)
       if (first.find(`.${SO_PREFIX}-datepicker-active`).length > 0) continue
       first.simulate('mouseEnter')
-      console.log(first.html())
       expect(first.html().indexOf(`${SO_PREFIX}-datepicker-hover-start`) > 0).toBeTruthy()
       expect(last.html().indexOf(`${SO_PREFIX}-datepicker-hover-end`) > 0).toBeTruthy()
       for (let j = 0; j < 5; j++) {
@@ -102,6 +102,31 @@ describe('DatePicker[MonthPick]', () => {
     const months = wrapper.find(`.${SO_PREFIX}-datepicker-list`)
     const monthIndex = new Date().getMonth()
     expect(months.childAt(monthIndex).hasClass(`${SO_PREFIX}-datepicker-active`)).toBeTruthy()
+  })
+})
+
+describe('DatePicker[QuarterPick]', () => {
+  let wrapper
+  let now
+  beforeAll(() => {
+    now = new Date()
+    wrapper = mount(<DatePicker type="quarter" defaultValue={now} />)
+    document.write(wrapper.html())
+    wrapper.find(`.${SO_PREFIX}-datepicker-inner`).simulate('click')
+  })
+  test('should render all month', () => {
+    const quarter = wrapper.find(`.${SO_PREFIX}-datepicker-list`)
+    expect(quarter.children().length).toBe(4)
+  })
+  test('should active current month', () => {
+    const quarters = wrapper.find(`.${SO_PREFIX}-datepicker-list`)
+    const quarterIndex = dayjs(now).quarter() - 1
+    expect(
+      quarters
+        .childAt(quarterIndex)
+        .childAt(0)
+        .hasClass(`${SO_PREFIX}-datepicker-active`)
+    ).toBeTruthy()
   })
 })
 
@@ -375,4 +400,97 @@ describe('DataPicker[quick]', () => {
   })
 })
 
-describe('DataPicker[inputable]', () => {})
+// this attribute will be test by e2e
+// describe('DataPicker[inputable]', () => {})
+
+// this attribute will be test by e2e
+// describe('DataPicker[absolute]', () => {})
+
+describe('DataPicker[align]', () => {
+  const align = ['left', 'center', 'right']
+  align.forEach(i => {
+    const wrapper = mount(<DatePicker align={i} />)
+    jest.useFakeTimers()
+    document.write(wrapper.html())
+    jest.runAllTimers()
+    expect(wrapper.find(`.${SO_PREFIX}-datepicker-align-${i}`).length).toBe(1)
+  })
+})
+
+// this attribute will be test by e2e
+// describe('DataPicker[allowSingle]', () => {})
+
+// this attribute will be test by e2e
+// describe('DataPicker[clearable]', () => {})
+
+// this attribute will be test by e2e
+// describe('DataPicker[clearWithUndefined]', () => {})
+
+// this attribute will be test by e2e
+// describe('DataPicker[defaultPickerValue]', () => {})
+
+// this attribute will be test by e2e
+// describe('DataPicker[defaultRangeMonth]', () => {})
+
+// this attribute will be test by e2e
+// describe('DataPicker[disabledTime]', () => {})
+
+// this attribute will be test by e2e
+// describe('DataPicker[formatResult]', () => {})
+
+// this attribute will be test by e2e
+// describe('DataPicker[secondStep]', () => {})
+
+// this attribute will be test by e2e
+// describe('DataPicker[minuteStep]', () => {})
+
+// this attribute will be test by e2e
+// describe('DataPicker[hourStep]', () => {})
+
+describe('DataPicker[onPickerChange]', () => {
+  const onPickerChange = jest.fn()
+  const wrapper = mount(<DatePicker onPickerChange={onPickerChange} />)
+  document.write(wrapper.html())
+  // show picker
+  wrapper.find(`.${SO_PREFIX}-datepicker-inner`).simulate('click')
+  // select first day
+  wrapper
+    .find(`.${SO_PREFIX}-datepicker-list`)
+    .childAt(0)
+    .find('span')
+    .simulate('click')
+
+  // select second day
+  wrapper
+    .find(`.${SO_PREFIX}-datepicker-list`)
+    .childAt(1)
+    .find('span')
+    .simulate('click')
+
+  expect(onPickerChange).toBeCalledTimes(2)
+})
+
+describe('DataPicker[position]', () => {
+  const position = ['left-top', 'left-bottom', 'right-top', 'right-bottom']
+  position.forEach(i => {
+    const wrapper = mount(<DatePicker position={i} />)
+    document.write(wrapper.html())
+    // show picker
+    wrapper.find(`.${SO_PREFIX}-datepicker-inner`).simulate('click')
+    expect(wrapper.find(`.${SO_PREFIX}-datepicker-inner`).hasClass(`${SO_PREFIX}-datepicker-${i}`)).toBe(true)
+  })
+})
+
+// this attribute will be test by e2e
+// describe('DataPicker[timeZone]', () => {})
+
+describe('DataPicker[type]', () => {
+  const type = ['date', 'time', 'datetime', 'month', 'quarter', 'week', 'year']
+  type.forEach(i => {
+    const wrapper = mount(<DatePicker type={i} />)
+    document.write(wrapper.html())
+    // show picker
+    wrapper.find(`.${SO_PREFIX}-datepicker-inner`).simulate('click')
+    expect(wrapper.find(`.${SO_PREFIX}-datepicker`).hasClass(`${SO_PREFIX}-datepicker-c-${i}`)).toBe(true)
+  })
+})

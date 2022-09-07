@@ -1,0 +1,15 @@
+describe('DatePicker[inputable]', () => {
+  it('should DataPicker input', () => {
+    cy.visit('/cn/components/DatePicker?example=02-format')
+    cy.get('.so-datepicker')
+      .last()
+      .as('DataPicker')
+    cy.get('[placeholder="展示格式化"]').as('formatResult')
+    cy.get('@formatResult')
+      .clear()
+      .type('yyyy~MM~dd{enter}')
+    cy.get('@DataPicker')
+      .find('.so-datepicker-txt')
+      .should('contain', '~')
+  })
+})

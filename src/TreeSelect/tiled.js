@@ -72,10 +72,10 @@ export default curry((options, Origin) => {
       )
     }
 
-    handleFilter(text) {
+    handleFilter(text, from) {
       const { onFilter } = this.props
       if (!text) this.setState({ tileds: [] })
-      if (onFilter) onFilter(text)
+      if (onFilter) onFilter(text, from)
     }
 
     handleToggle(key, e) {

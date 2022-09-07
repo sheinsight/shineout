@@ -22,6 +22,7 @@
 | onChange | (values: any[]) => void | none | The callback function when the value is changing(Upload successfully, delete)<br />values: Array, the value is the onSuccess returns |
 | onSuccess |  (res: string, file: File, data: any, xhr: any) => any | none | The callback function when to upload successfully. The returned result is as the new value. <br />res: the result that the upload interface returns<br />file: selected file<br /> data: the request data<br /> xhr: reponse |
 | onHttpError | (xhr: any) => string | none | The callback function when to upload unsuccessfully. The returned result is as the error message. |
+| beforeCancel | (xhr: any) => void | none | The callback function before cancel upload file. |
 | params | object | none | Additional parameters submitted to the server |
 | recoverAble | boolean | true | Whether to recover deleted values. |
 | renderResult | (data: any) => ReactNode | a => a | Display results |
@@ -60,7 +61,9 @@
 
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
-| type | string | primary | options: \['primary', success', 'default', 'warning', 'danger'\] |
+| type | string | primary | As same as Button type |
+| size | string | default | As same as Button size |
+| outline | boolean | false | As same as Button outline |
 | placeholder | ReactNode | none | button default content |
 | loading | ReactNode | none | content of uploading, will have spin if a string |
 

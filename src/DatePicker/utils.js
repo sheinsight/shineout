@@ -1,5 +1,8 @@
 import dayjs from 'dayjs'
+import zonedTimeToUtc from 'date-fns-tz/zonedTimeToUtc'
+import utcToZonedTime from 'date-fns-tz/utcToZonedTime'
 import advancedFormat from 'dayjs/plugin/advancedFormat'
+import quarterOfYear from 'dayjs/plugin/quarterOfYear'
 import isoWeek from 'dayjs/plugin/isoWeek'
 import weekday from 'dayjs/plugin/weekday'
 import weekYear from 'dayjs/plugin/weekYear'
@@ -7,7 +10,6 @@ import weekOfYear from 'dayjs/plugin/weekOfYear'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import enLocale from 'dayjs/locale/en'
-import { getLocale } from '../locale'
 
 const en2Locate = {
   ...enLocale,
@@ -23,6 +25,7 @@ dayjs.extend(weekday)
 dayjs.extend(weekOfYear)
 dayjs.extend(weekYear)
 dayjs.extend(customParseFormat)
+dayjs.extend(quarterOfYear)
 
 const TIME_FORMAT = 'HH:mm:ss'
 
@@ -49,28 +52,70 @@ function getDayJsLocate(options) {
   return 'en'
 }
 
-function addDays(date, offset) {
-  return dayjs(date)
+function transDateWithZone(dd, options = {}, back = false) {
+  if (options.timeZone) {
+    const timezoneHH = /^([+-]\d{2})$/
+    // 只放开两位时区
+    if (timezoneHH.test(options.timeZone)) {
+      const num = +options.timeZone
+      if (num <= 13 && num >= -12) {
+        return back ? zonedTimeToUtc(dd, options.timeZone) : utcToZonedTime(dd, options.timeZone)
+      }
+    }
+    console.error(`不支持传入的时区格式：${options.timeZone}`)
+  }
+  return dd
+}
+
+function addDays(date, offset, options) {
+  const zd = transDateWithZone(date, options)
+  const d = dayjs(zd)
     .add(offset, 'day')
     .toDate()
+  const ud = transDateWithZone(d, options, true)
+  return ud
 }
 
-function addMonths(date, offset) {
-  return dayjs(date)
+function addMonths(date, offset, options) {
+  const zd = transDateWithZone(date, options)
+  const d = dayjs(zd)
     .add(offset, 'month')
     .toDate()
+  const ud = transDateWithZone(d, options, true)
+  return ud
 }
 
-function addSeconds(date, offset) {
-  return dayjs(date)
-    .add(offset, 'second')
+function addSeconds(date, offset, options) {
+  const zd = transDateWithZone(date, options)
+  const d = dayjs(zd)
+    .add(offset, 'seconds')
     .toDate()
+  const ud = transDateWithZone(d, options, true)
+  return ud
 }
 
-function addYears(date, offset) {
-  return dayjs(date)
+function addYears(date, offset, options) {
+  const zd = transDateWithZone(date, options)
+  const d = dayjs(zd)
     .add(offset, 'year')
     .toDate()
+  const ud = transDateWithZone(d, options, true)
+  return ud
+}
+
+function changeDate(date, type, num, options) {
+  const zd = transDateWithZone(date, options)
+  // type is year month ...
+  const d = dayjs(zd)
+    [type](num)
+    .toDate()
+  const ud = transDateWithZone(d, options, true)
+  return ud
+}
+
+function getDateInfo(date, type, options) {
+  const zd = transDateWithZone(date, options)
+  return dayjs(zd)[type]()
 }
 
 function compareAsc(dateA, dateB) {
@@ -82,34 +127,33 @@ function compareAsc(dateA, dateB) {
   return a > b ? 1 : -1
 }
 
-function format(date, fmt, options) {
+function format(date, fmt, options = {}) {
   if (!date) return 'Invalid Date'
   const fmt2 = compatibleFmt(fmt)
-  return dayjs(date)
-    .locale(getDayJsLocate(options))
-    .format(fmt2)
+  let zd = date
+  if (fmt2 !== 'X' && fmt2 !== 'x') {
+    zd = transDateWithZone(date, options)
+  }
+  const dd = dayjs(zd).locale(getDayJsLocate(options))
+  const result = dd.format(fmt2)
+  return result
 }
 
-function isSameMonth(date1, date2) {
-  return (
-    date1 &&
-    date2 &&
-    date1.getFullYear() &&
-    date2.getFullYear &&
-    date1.getFullYear() === date2.getFullYear() &&
-    date1.getMonth() === date2.getMonth()
-  )
+function isSameMonth(date1, date2, options = {}) {
+  return date1 && date2 && format(date1, 'YYYY-MM', options) === format(date2, 'YYYY-MM', options)
 }
 
-function isSameDay(date1, date2) {
-  return isSameMonth(date1, date2) && date1.getDate() === date2.getDate()
+function isSameDay(date1, date2, options) {
+  return date1 && date2 && format(date1, 'YYYY-MM-dd', options) === format(date2, 'YYYY-MM-dd', options)
 }
 
 function isSameWeek(date1, date2, options) {
   if (!date1 || !date2) return false
-  const dateA = dayjs(date1).locale(getDayJsLocate(options))
-  const dateB = dayjs(date2).locale(getDayJsLocate(options))
-  return dateA.weekYear() === dateB.weekYear() && dateA.week() === dateB.week()
+  return date1 && date2 && format(date1, 'gggg-ww', options) === format(date2, 'gggg-ww', options)
+}
+function isSameQuarter(date1, date2, options) {
+  if (!date1 || !date2) return false
+  return date1 && date2 && format(date1, 'YYYY Q', options) === format(date2, 'YYYY Q', options)
 }
 
 function isValid(date) {
@@ -118,9 +162,12 @@ function isValid(date) {
   return dayjs(date).isValid()
 }
 
-function parse(date, fmt, options) {
-  if (!date) return new Date('')
-  const fmt2 = compatibleFmt(fmt)
+function parse(d, fmt, options) {
+  if (!d) return new Date('')
+  // should clear[xxx]
+  const reg = /[[]([^[^\]]+?)[\]]/g
+  const date = d && d.replace ? d.replace(reg, ' ') : d
+  const fmt2 = compatibleFmt(fmt).replace(reg, ' ')
 
   // handle IOS Year Week
   const index = fmt2.indexOf('GGGG')
@@ -132,41 +179,55 @@ function parse(date, fmt, options) {
       .locale(getDayJsLocate(options))
       .isoWeek(Number(week))
       .toDate()
-    return result
+    return transDateWithZone(result, options, true)
   }
-  return dayjs(date, fmt2, getDayJsLocate(options)).toDate()
+  // handle Quarter
+  const quarterIndex = fmt2.indexOf('Q')
+  if (quarterIndex >= 0) {
+    const quarter = date.slice(quarterIndex, quarterIndex + 2)
+    const result = dayjs(date, fmt2)
+      .locale(getDayJsLocate(options))
+      .quarter(quarter)
+      .toDate()
+    return transDateWithZone(result, options, true)
+  }
+
+  // dayjs parse stamp with  timeZone have bug
+  if (fmt2 === 'x' || fmt2 === 'X') {
+    let stamp = +date
+    if (fmt2 === 'X') stamp *= 1000
+    return new Date(stamp)
+  }
+  const result = dayjs(date, fmt2, getDayJsLocate(options)).toDate()
+  return transDateWithZone(result, options, true)
 }
 
-function startOfMonth(day) {
-  return new Date(day.getFullYear(), day.getMonth(), 1)
-}
-
-function startOfWeek(day, options) {
-  const day1 = dayjs(day).locale(getDayJsLocate(options))
-  return day1.startOf('week').toDate()
-}
-
-function toDate(day) {
+function toDate(day, options) {
   if (!day) return new Date('')
   if (day instanceof Date) return dayjs(day).toDate()
+  if (typeof day === 'number') return new Date(day)
+  if (typeof day === 'string') return transDateWithZone(dayjs(day).toDate(), options, true)
   return dayjs(day).toDate()
 }
 
-function getDaysOfMonth(dirtyDate) {
-  const date = toDate(dirtyDate)
-  let current = startOfWeek(startOfMonth(date), {
-    weekStartsOn: getLocale('startOfWeek'),
-  })
-  current.setHours(dirtyDate.getHours())
-  current.setMinutes(dirtyDate.getMinutes())
-  current.setSeconds(dirtyDate.getSeconds())
+function getDaysOfMonth(dirtyDate, options) {
+  const date = toDate(dirtyDate, options)
+  const temp = dayjs(transDateWithZone(date, options))
+  let current = dayjs(transDateWithZone(date, options))
+    .locale(getDayJsLocate(options))
+    .startOf('month')
+    .startOf('week')
+    .hour(temp.hour())
+    .minute(temp.minute())
+    .second(temp.second())
+    .millisecond(temp.millisecond())
 
   const days = []
   let index = 0
 
   while (index < 42) {
-    days.push(current)
-    current = addDays(current, 1)
+    days.push(transDateWithZone(current.toDate(), options, true))
+    current = current.add(1, 'day')
     index += 1
   }
 
@@ -178,79 +239,120 @@ function isInvalid(date) {
   return isNaN(date)
 }
 
-function toDateWithFormat(dirtyDate, fmt, def) {
+function toDateWithFormat(dirtyDate, fmt, def, options) {
   let date
   if (typeof dirtyDate === 'string') {
-    date = parse(dirtyDate, fmt, new Date(), {
-      weekStartsOn: getLocale('startOfWeek'),
-    })
-    const str = format(date, fmt, {
-      weekStartsOn: getLocale('startOfWeek'),
-    })
+    date = parse(dirtyDate, fmt, options)
+    const str = format(date, fmt, options)
     if (str !== dirtyDate) {
-      date = toDate(dirtyDate)
+      date = toDate(dirtyDate, options)
     }
-  } else date = toDate(dirtyDate)
+  } else date = toDate(dirtyDate, options)
   if (isInvalid(date)) date = def
   return date
 }
 
-function compareDay(dateLeft, dateRight) {
+function compareDay(dateLeft, dateRight, pad = 0, options) {
   if (!dateLeft || !dateRight) return NaN
-  const left = new Date(dateLeft.getFullYear(), dateLeft.getMonth(), dateLeft.getDate())
-  const right = new Date(dateRight.getFullYear(), dateRight.getMonth(), dateRight.getDate())
+  const left = dayjs(transDateWithZone(dateLeft, options))
+    .startOf('date')
+    .toDate()
+  const right = dayjs(transDateWithZone(dateRight, options))
+    .startOf('date')
+    .add(pad, 'day')
+    .toDate()
   return compareAsc(left, right)
 }
 
-function compareMonth(dateLeft, dateRight, pad = 0) {
+function compareMonth(dateLeft, dateRight, pad = 0, options) {
   if (!dateLeft || !dateRight) return 0
-  const left = new Date(dateLeft.getFullYear(), dateLeft.getMonth(), 1)
-  const right = new Date(dateRight.getFullYear(), dateRight.getMonth() + pad, 1)
+  const left = dayjs(transDateWithZone(dateLeft, options))
+    .startOf('month')
+    .toDate()
+  const right = dayjs(transDateWithZone(dateRight, options))
+    .startOf('month')
+    .add(pad, 'month')
+    .toDate()
   return compareAsc(left, right)
 }
 
-function newDate(defaultDate) {
-  const date = defaultDate ? toDate(defaultDate) : new Date()
-  return new Date(date.getFullYear(), date.getMonth(), date.getDate())
+function compareYear(dateLeft, dateRight, pad = 0, options) {
+  if (!dateLeft || !dateRight) return 0
+  const left = dayjs(transDateWithZone(dateLeft, options))
+    .startOf('year')
+    .toDate()
+  const right = dayjs(transDateWithZone(dateRight, options))
+    .startOf('year')
+    .add(pad, 'year')
+    .toDate()
+  return compareAsc(left, right)
+}
+
+function compareQuarter(dateLeft, dateRight, pad = 0, options) {
+  if (!dateLeft || !dateRight) return 0
+  const left = dayjs(transDateWithZone(dateLeft, options))
+    .startOf('quarter')
+    .toDate()
+  const right = dayjs(transDateWithZone(dateRight, options))
+    .startOf('quarter')
+    .add(pad, 'quarter')
+    .toDate()
+  return compareAsc(left, right)
+}
+
+function newDate(defaultDate, options) {
+  const date = defaultDate ? toDate(defaultDate, options) : new Date()
+  const zd = transDateWithZone(date, options)
+  const dd = dayjs(zd)
+    .startOf('date')
+    .toDate()
+  const ud = transDateWithZone(dd, options, true)
+  return ud
 }
 
 function setTime(date, old) {
   date.setHours(old.getHours())
   date.setMinutes(old.getMinutes())
   date.setSeconds(old.getSeconds())
+  date.setMilliseconds(old.getMilliseconds())
 
   return date
 }
 
-function cloneTime(date, old, fmt) {
+function cloneTime(date, old, fmt, options) {
   if (!date) return date
-  old = toDateWithFormat(old, fmt)
-  if (isInvalid(old)) return date
-  return setTime(date, old)
+  const oldDate = toDateWithFormat(old, fmt, undefined, options)
+  if (isInvalid(oldDate)) return date
+  return setTime(date, oldDate)
 }
 
-function formatDateWithDefaultTime(date, value, defaultTime, fmt) {
+function formatDateWithDefaultTime(date, value, defaultTime, fmt, options) {
   if (!date) return date
   if (value) return setTime(date, value)
   if (!defaultTime) return date
 
-  const dateHMS = toDateWithFormat(defaultTime, TIME_FORMAT)
+  const dateHMS = toDateWithFormat(defaultTime, TIME_FORMAT, undefined, options)
   if (isInvalid(dateHMS)) return date
 
-  const nDate = cloneTime(date, defaultTime, TIME_FORMAT)
-  return format(nDate, fmt)
+  const nDate = cloneTime(date, defaultTime, TIME_FORMAT, options)
+  return format(nDate, fmt, options)
 }
 
-function clearHMS(date) {
+function clearHMS(date, options) {
   if (!isValid(date)) return date
-  return new Date(new Date(date.toDateString()).getTime())
+  const zd = transDateWithZone(date, options)
+  const dd = dayjs(zd)
+    .startOf('date')
+    .toDate()
+  const ud = transDateWithZone(dd, options, true)
+  return ud
 }
 
-function compareDateArray(arr1, arr2, type = 'date') {
+function compareDateArray(arr1, arr2, type = 'date', options) {
   if (!arr1 || !arr2 || arr1.length !== arr2.length) return false
   return arr1.every((v, i) => {
     if (!v || !arr2[i]) return false
-    if (type === 'week') return format(v, 'RRRR II') === format(arr2[i], 'RRRR II')
+    if (type === 'week') return format(v, 'RRRR II', options) === format(arr2[i], 'RRRR II', options)
     return v.getTime() === arr2[i].getTime()
   })
 }
@@ -267,19 +369,15 @@ function getFormat(fo) {
   return defaultFormat
 }
 
-function resetTimeByFormat(value, fo) {
+function resetTimeByFormat(value, fo, options) {
   if (!value) return null
-  const date = toDate(value)
-  return toDate(
-    format(date, getFormat(fo), {
-      weekStartsOn: getLocale('startOfWeek'),
-    })
-  )
+  const date = toDate(value, options)
+  return toDate(format(date, getFormat(fo), options), options)
 }
 
-function formatted(date, fmt, ...options) {
+function formatted(date, fmt, options) {
   if (typeof fmt === 'function') return fmt(date)
-  return format(date, fmt, ...options)
+  return format(date, fmt, options)
 }
 
 export default {
@@ -292,12 +390,14 @@ export default {
   compareAsc,
   compareMonth,
   compareDay,
+  compareQuarter,
   getDaysOfMonth,
   format: formatted,
   isInvalid,
   isSameDay,
   isSameMonth,
   isSameWeek,
+  isSameQuarter,
   isValid,
   newDate,
   setTime,
@@ -306,6 +406,9 @@ export default {
   toDateWithFormat,
   formatDateWithDefaultTime,
   compareDateArray,
+  compareYear,
   TIME_FORMAT,
   resetTimeByFormat,
+  changeDate,
+  getDateInfo,
 }

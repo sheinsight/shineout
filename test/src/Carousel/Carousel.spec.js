@@ -1,22 +1,21 @@
 import React from 'react'
 import { Carousel } from 'shineout'
 import { mount, shallow } from 'enzyme'
-import CarouselBase from '../../../site/pages/components/Carousel/example-1-base'
+import { baseTest } from '../../utils'
+import CarouselBase from '../../../site/pages/components/Carousel/example-1-base.tsx'
 
 /* global SO_PREFIX */
 describe('Carousel[Base]', () => {
-  let wrapper
-  beforeAll(() => {
-    wrapper = shallow(<CarouselBase />)
-      .find(Carousel)
-      .shallow()
-  })
+  const Base = mount(<CarouselBase />)
+  const wrapper = Base.find(Carousel)
   test('should render number of items', () => {
-    expect(wrapper.children().length).toBe(5)
+    expect(wrapper.find(`.${SO_PREFIX}-carousel-item`).length).toBe(4)
+    expect(wrapper.find(`.${SO_PREFIX}-carousel-indicator`).length).toBe(1)
+    expect(wrapper.children().children().length).toBe(5)
   })
   test('should render item class', () => {
     wrapper.find('Item').forEach(item => {
-      expect(item.shallow().hasClass(`${SO_PREFIX}-carousel-item`)).toBeTruthy()
+      expect(item.find(`.${SO_PREFIX}-carousel-item`).length).toBe(1)
     })
   })
   test('should have indicator', () => {
@@ -160,5 +159,35 @@ describe('Carousel[custom-indicator]', () => {
       </Carousel>
     )
     expect(wrapper.find('ShineoutCarousel').state('current')).toBe(moveToIndex)
+  })
+})
+
+describe('Carousel[baseTest]', () => {
+  test('should have custom class name and style', () => {
+    baseTest(Carousel, `.${SO_PREFIX}-carousel`)
+  })
+})
+
+describe('Carousel[baseTest]', () => {
+  test('should onMove', () => {
+    const index = 2
+    const onMove = jest.fn()
+    const wrapper = mount(
+      <Carousel interval={0} onMove={onMove}>
+        <div />
+        <div />
+        <div />
+        <div />
+      </Carousel>
+    )
+    wrapper
+      .find(`a`)
+      .at(index)
+      .simulate('click')
+
+    expect(onMove).toBeCalledTimes(1)
+    expect(onMove.mock.calls[0][0]).toBe(index)
+    expect(onMove.mock.calls[0][1].prev).toBe(0)
+    expect(onMove.mock.calls[0][1].direction).toBe('forward')
   })
 })

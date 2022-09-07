@@ -25,3 +25,4 @@
 | theme | 'dark' | 无 | 主题 |
 | looseChildren | boolean | false | 如果 children 有设置则菜单项可展开 |
 | parentSelectable | boolean | false | 父级菜单是否可选中(在点击后是否触发onClick) |
+| toggleDuration | number | 200 | 菜单项状态改变后持续时间 |

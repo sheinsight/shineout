@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Snapshot test: Spin[site/pages/components/Spin/example-01-01-default.js] 1`] = `
+exports[`Spin[snapshot] Snapshot test: Spin[site/pages/components/Spin/example-01-01-default.tsx] 1`] = `
 <div>
   <div>
     <div>
@@ -119,7 +119,7 @@ exports[`Snapshot test: Spin[site/pages/components/Spin/example-01-01-default.js
 </div>
 `;
 
-exports[`Snapshot test: Spin[site/pages/components/Spin/example-01-02-tip.js] 1`] = `
+exports[`Spin[snapshot] Snapshot test: Spin[site/pages/components/Spin/example-01-02-tip.tsx] 1`] = `
 <div>
   <div>
     <div>
@@ -214,7 +214,7 @@ exports[`Snapshot test: Spin[site/pages/components/Spin/example-01-02-tip.js] 1`
 </div>
 `;
 
-exports[`Snapshot test: Spin[site/pages/components/Spin/example-01-wrapper.js] 1`] = `
+exports[`Spin[snapshot] Snapshot test: Spin[site/pages/components/Spin/example-01-wrapper.tsx] 1`] = `
 <div>
   <label>
     <span />
@@ -233,51 +233,11 @@ exports[`Snapshot test: Spin[site/pages/components/Spin/example-01-wrapper.js] 1
         </div>
       </div>
     </div>
-    <div>
-      <div>
-        <div>
-          <div />
-        </div>
-        <div>
-          <div />
-        </div>
-        <div>
-          <div />
-        </div>
-        <div>
-          <div />
-        </div>
-        <div>
-          <div />
-        </div>
-        <div>
-          <div />
-        </div>
-        <div>
-          <div />
-        </div>
-        <div>
-          <div />
-        </div>
-        <div>
-          <div />
-        </div>
-        <div>
-          <div />
-        </div>
-        <div>
-          <div />
-        </div>
-        <div>
-          <div />
-        </div>
-      </div>
-    </div>
   </div>
 </div>
 `;
 
-exports[`Snapshot test: Spin[site/pages/components/Spin/example-02-chasing-dots.js] 1`] = `
+exports[`Spin[snapshot] Snapshot test: Spin[site/pages/components/Spin/example-02-chasing-dots.tsx] 1`] = `
 <div>
   <div>
     <div>
@@ -318,7 +278,7 @@ exports[`Snapshot test: Spin[site/pages/components/Spin/example-02-chasing-dots.
 </div>
 `;
 
-exports[`Snapshot test: Spin[site/pages/components/Spin/example-03-cube-grid.js] 1`] = `
+exports[`Spin[snapshot] Snapshot test: Spin[site/pages/components/Spin/example-03-cube-grid.tsx] 1`] = `
 <div>
   <div>
     <div />
@@ -356,7 +316,7 @@ exports[`Snapshot test: Spin[site/pages/components/Spin/example-03-cube-grid.js]
 </div>
 `;
 
-exports[`Snapshot test: Spin[site/pages/components/Spin/example-04-double-bounce.js] 1`] = `
+exports[`Spin[snapshot] Snapshot test: Spin[site/pages/components/Spin/example-04-double-bounce.tsx] 1`] = `
 <div>
   <div>
     <div />
@@ -373,7 +333,7 @@ exports[`Snapshot test: Spin[site/pages/components/Spin/example-04-double-bounce
 </div>
 `;
 
-exports[`Snapshot test: Spin[site/pages/components/Spin/example-05-fading-circle.js] 1`] = `
+exports[`Spin[snapshot] Snapshot test: Spin[site/pages/components/Spin/example-05-fading-circle.tsx] 1`] = `
 <div>
   <div>
     <div>
@@ -564,7 +524,7 @@ exports[`Snapshot test: Spin[site/pages/components/Spin/example-05-fading-circle
 </div>
 `;
 
-exports[`Snapshot test: Spin[site/pages/components/Spin/example-06-four-dots.js] 1`] = `
+exports[`Spin[snapshot] Snapshot test: Spin[site/pages/components/Spin/example-06-four-dots.tsx] 1`] = `
 <div>
   <div>
     <div>
@@ -635,7 +595,7 @@ exports[`Snapshot test: Spin[site/pages/components/Spin/example-06-four-dots.js]
 </div>
 `;
 
-exports[`Snapshot test: Spin[site/pages/components/Spin/example-07-plane.js] 1`] = `
+exports[`Spin[snapshot] Snapshot test: Spin[site/pages/components/Spin/example-07-plane.tsx] 1`] = `
 <div>
   <div />
   <div />
@@ -643,7 +603,7 @@ exports[`Snapshot test: Spin[site/pages/components/Spin/example-07-plane.js] 1`]
 </div>
 `;
 
-exports[`Snapshot test: Spin[site/pages/components/Spin/example-08-pulse.js] 1`] = `
+exports[`Spin[snapshot] Snapshot test: Spin[site/pages/components/Spin/example-08-pulse.tsx] 1`] = `
 <div>
   <div />
   <div />
@@ -651,7 +611,7 @@ exports[`Snapshot test: Spin[site/pages/components/Spin/example-08-pulse.js] 1`]
 </div>
 `;
 
-exports[`Snapshot test: Spin[site/pages/components/Spin/example-09-ring.js] 1`] = `
+exports[`Spin[snapshot] Snapshot test: Spin[site/pages/components/Spin/example-09-ring.tsx] 1`] = `
 <div>
   <div />
   <div />
@@ -659,7 +619,7 @@ exports[`Snapshot test: Spin[site/pages/components/Spin/example-09-ring.js] 1`] 
 </div>
 `;
 
-exports[`Snapshot test: Spin[site/pages/components/Spin/example-10-scale-circle.js] 1`] = `
+exports[`Spin[snapshot] Snapshot test: Spin[site/pages/components/Spin/example-10-scale-circle.tsx] 1`] = `
 <div>
   <div>
     <div>
@@ -831,62 +791,6 @@ exports[`Snapshot test: Spin[site/pages/components/Spin/example-10-scale-circle.
         <circle />
       </svg>
     </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Snapshot test: Spin[site/pages/components/Spin/example-11-three-bounce.js] 1`] = `
-<div>
-  <div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-  </div>
-  <div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-    <div>
-      <svg>
-        <circle />
-      </svg>
-    </div>
-  </div>
-  <div>
     <div>
       <svg>
         <circle />
@@ -906,7 +810,63 @@ exports[`Snapshot test: Spin[site/pages/components/Spin/example-11-three-bounce.
 </div>
 `;
 
-exports[`Snapshot test: Spin[site/pages/components/Spin/example-12-wave.js] 1`] = `
+exports[`Spin[snapshot] Snapshot test: Spin[site/pages/components/Spin/example-11-three-bounce.tsx] 1`] = `
+<div>
+  <div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+  </div>
+  <div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+  </div>
+  <div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+    <div>
+      <svg>
+        <circle />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Spin[snapshot] Snapshot test: Spin[site/pages/components/Spin/example-12-wave.tsx] 1`] = `
 <div>
   <div>
     <div />
@@ -924,6 +884,29 @@ exports[`Snapshot test: Spin[site/pages/components/Spin/example-12-wave.js] 1`] 
   </div>
   <div>
     <div />
+    <div />
+    <div />
+    <div />
+    <div />
+  </div>
+</div>
+`;
+
+exports[`Spin[snapshot] Snapshot test: Spin[site/pages/components/Spin/example-13-chasing-ring.tsx] 1`] = `
+<div>
+  <div>
+    <div />
+    <div />
+    <div />
+    <div />
+  </div>
+  <div>
+    <div />
+    <div />
+    <div />
+    <div />
+  </div>
+  <div>
     <div />
     <div />
     <div />

@@ -23,16 +23,26 @@ export interface GapProps extends StandardProps{
   row?: number | string;
 
   /**
+   * the styles of child elements
+   *
+   * 子元素自定义样式
+   *
+   * default: -
+   */
+   itemStyle?: React.CSSProperties;
+
+   /**
    * children
    *
    * 子元素
    *
    * default: -
    */
-  children?: ReactNode;
-
+   children?: ReactNode;
 }
 
-declare class Gap extends React.Component<GapProps, any> {}
+declare class Gap extends React.Component<GapProps, any> {
+  render(): JSX.Element
+}
 
 export default Gap

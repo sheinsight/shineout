@@ -2,14 +2,14 @@ import * as React from 'react'
 import { StandardProps, RegularAttributes, StructDataStandardProps, FormItemStandardProps, ListItemStandardProps, CommonProps } from '../@types/common'
 
 type ReactNode = React.ReactNode;
+type ReactElement = React.ReactElement;
 
 export interface SelectProps<Item, Value> extends
-StandardProps,
-FormItemStandardProps<Value>,
-StructDataStandardProps<Item>,
-ListItemStandardProps<Item, Value>,
-Pick<CommonProps, 'absolute' | 'clearable' | 'zIndex'>
-  {
+  StandardProps,
+  FormItemStandardProps<Value>,
+  StructDataStandardProps<Item>,
+  ListItemStandardProps<Item, Value>,
+  Pick<CommonProps, 'absolute' | 'clearable' | 'zIndex'> {
   /**
    * The maximum length of the input string in the Select input box
    *
@@ -195,7 +195,18 @@ Pick<CommonProps, 'absolute' | 'clearable' | 'zIndex'>
    *
    * default: -
    */
-  onFilter?: (text: string) => (((data: Item) => boolean) | void);
+  onFilter?: (text: string, from: string) => (((data: Item) => boolean) | void);
+
+
+  /**
+   * Use the onAdvancedFilter property to enable filtering to switch between filtering results and raw data for the current hierarchy.
+   *
+   * 使用 onAdvancedFilter 属性开启高级筛选，可针对当前层级在筛选结果和原始数据间切换
+   *
+   * default: -
+   */
+  onAdvancedFilter?: (text: string) => ((data: Item) => boolean) | void;
+
 
   /**
    * Merges selected values, valid only in multiselect mode
@@ -357,7 +368,7 @@ Pick<CommonProps, 'absolute' | 'clearable' | 'zIndex'>
    *
    * default: null
    */
-  header?: ReactNode;
+  header?: ReactElement;
 
   /**
    * hide the creat option while set onCreate
@@ -376,8 +387,46 @@ Pick<CommonProps, 'absolute' | 'clearable' | 'zIndex'>
    * default: -
    */
   innerTitle?: ReactNode;
+
+  /**
+   * when compressed is True,the comptessedBound can limit the numbers of multiple selected item's label
+   *
+   * 开启多选后，指定允许展示标签数量，超过后将折叠
+   *
+   * default: -
+   */
+   compressedBound?: number;
+
+  /**
+   * The maximum number of rows for a single render. Select uses lazy render to optimize performance under large amounts of data. If your table displays more than 10 rows, you can change the value of itemsInView.
+   *
+   * 单次render的最大行数。Select 采用了lazy render的方式来优化在大量数据下的性能，如果你的表格显示的高度超出了10条，可以调整itemsInView
+   *
+   * default: 10
+   */
+   itemsInView?: number;
+
+  /**
+   * 用来转化粘贴文本中的换行
+   *
+   * Used to convert line breaks in pasted text
+   *
+   * default: ","
+   */
+  convertBr?: string | ((text: string) => string);
+
+  /**
+   * 自定义渲染下拉列表
+   *
+   * Custom render dropdown
+   *
+   * default: -
+   */
+  renderOptionList?: (list: ReactElement, info: {loading: boolean})=> ReactElement;
 }
 
-declare class Select<Item = any, Value = any> extends React.Component<SelectProps<Item, Value>, {}> {}
+declare class Select<Item = any, Value = any> extends React.Component<SelectProps<Item, Value>, {}> {
+  render(): JSX.Element
+}
 
 export default Select

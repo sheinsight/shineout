@@ -16,6 +16,8 @@ Checkbox 可以单独使用。一组Checkbox使用时，使用一个Array类型�
 | name | string | 无 | Form 存取数据的名称 |
 | onChange | (value: any, checked: boolean) => void | 无 | 选中时，value 为 htmlValue，checked 为 true<br />未选中时，value 为 undefined，checked 为 false |
 | value | any | 无 | 如果 checked 未设置，checked 状态为 value === htmlValue |
+| inputable | boolean | false | 开启后出现输入框 |
+| onClick | (e: MouseEvent) => void | 无 | 点击后的回调 |
 
 ### Checkbox.Group
 
@@ -31,3 +33,4 @@ Checkbox 可以单独使用。一组Checkbox使用时，使用一个Array类型�
 | prediction | (value: any, data: any) => boolean |  (val, d) => val===format(d) | 默认使用 format 函数执行的结果来比较是否匹配，在某些情况下（例如返回原始数据的对象，更新数据时，生成了一个值相同，非同一个对象的选项），需要借助 prediction 函数来判断是否匹配 |
 | renderItem | (data: any) => ReactNode \| string | 必填 | 为 string 时，返回 d\[string]<br />为 function 时，返回函数结果 |
 | value | any[] | | 在Form中，value会被表单接管，value无效 |
+| block | boolean | false | 垂直布局 |

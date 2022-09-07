@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Snapshot test: Tooltip[site/pages/components/Tooltip/example-1-base.js] 1`] = `
+exports[`Tooltip[snapshot] Snapshot test: Tooltip[site/pages/components/Tooltip/example-1-base.tsx] 1`] = `
 <div>
   <noscript />
   <i />
@@ -13,7 +13,7 @@ exports[`Snapshot test: Tooltip[site/pages/components/Tooltip/example-1-base.js]
 </div>
 `;
 
-exports[`Snapshot test: Tooltip[site/pages/components/Tooltip/example-2-click.js] 1`] = `
+exports[`Tooltip[snapshot] Snapshot test: Tooltip[site/pages/components/Tooltip/example-2-click.tsx] 1`] = `
 <div>
   <noscript />
   <i />
@@ -26,7 +26,7 @@ exports[`Snapshot test: Tooltip[site/pages/components/Tooltip/example-2-click.js
 </div>
 `;
 
-exports[`Snapshot test: Tooltip[site/pages/components/Tooltip/example-3-disabled-inner.js] 1`] = `
+exports[`Tooltip[snapshot] Snapshot test: Tooltip[site/pages/components/Tooltip/example-3-disabled-inner.tsx] 1`] = `
 <div>
   <noscript />
   <span>

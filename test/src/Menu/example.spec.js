@@ -1,5 +1,7 @@
 import exampleTest from '../../example'
 
-exampleTest('Menu', {
-  ignore: 'Menu/example-3-vertical.js',
+describe('Menu[snapshot]', () => {
+  exampleTest('Menu', {
+    ignore: 'example-3-vertical',
+  })
 })

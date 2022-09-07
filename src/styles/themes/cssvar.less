@@ -13,6 +13,11 @@
 @font-size-large-medium: var(--font-size-large-medium, @font-size-base-value + 2);
 @font-size-small: var(--font-size-small, @font-size-small-value);
 
+@button-default-border-color-fade-0-value: fade(@btn-default-border-color-value, 0);
+@button-default-border-color-fade-60-value: fade(@btn-default-border-color-value, 60%);
+@button-default-border-fade-0: var(--button-default-border-fade-0, @button-default-border-color-fade-0-value);
+@button-default-border-fade-60: var(--button-default-border-fade-60, @button-default-border-color-fade-60-value);
+
 @primary-color-dark-5-value: darken(@colors-primary-value, 5%);
 @primary-color-dark-15-value: darken(@colors-primary-value, 15%);
 @primary-color-dark-btn-hover-value: darken(@colors-primary-value, @btn-hover-darken);
@@ -110,6 +115,7 @@
 @checkbox-indicator-border-radius: var(--checkbox-indicator-border-radius, @checkbox-border-radius);
 
 @checkbox-disabled-bgc: var(--checkbox-disabled-bgc, #E8EBF0);
+@checkbox-checked-disabled-bgc: var(--checkbox-checked-disabled-bgc, @checkbox-border-color);
 
 @radio-width-value: @checkbox-size + 2;
 @radio-width: var(--radio-width, @radio-width-value);
@@ -286,6 +292,13 @@
 
 @select-tree-icon-hover-bg-color-value: @gray-100;
 @select-tree-icon-hover-bg-color: var(--select-tree-icon-hover-bg-color, @select-tree-icon-hover-bg-color-value);
+
+@select-tree-node-hover-bg: var(--select-tree-node-hover-bg, @primary-color-fade-10);
+@select-tree-node-hover-color: var(--select-tree-node-hover-color, @select-tree-content-color-value);
+@select-tree-node-selected-bg: var(--select-tree-node-selected-bg, @primary-color-fade-10);
+@select-tree-node-selected-color: var(--select-tree-node-selected-color, @colors-primary);
+
+
 
 @datepicker-rect-active-border-radius-value: 2px;
 @datepicker-rect-active-border-radius: var(

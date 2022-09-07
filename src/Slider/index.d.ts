@@ -31,7 +31,7 @@ FormItemStandardProps<Value>
    *
    * default: v => v
    */
-  formatScale?: ((value: Value) => string) | boolean;
+  formatScale?: ((value: number) => string) | boolean;
 
   /**
    * Format displayed current value. When it is false, the current value is not displayed.
@@ -40,7 +40,7 @@ FormItemStandardProps<Value>
    *
    * default:
    */
-  formatValue?: ((value: Value) => string) | boolean;
+  formatValue?: ((value: number) => string) | boolean;
 
   /**
    * height. Only effect when vertical is true
@@ -58,7 +58,7 @@ FormItemStandardProps<Value>
    *
    * default: -
    */
-  onIncrease?: (value: Value) => boolean;
+  onIncrease?: (value: Value) => void;
 
   /**
    * Whether to display double slider
@@ -97,6 +97,8 @@ FormItemStandardProps<Value>
   vertical?: boolean;
 }
 
-declare class Slider<Value = any> extends React.Component<SliderProps<Value>, {}> {}
+declare class Slider<Value = any> extends React.Component<SliderProps<Value>, {}> {
+  render(): JSX.Element
+}
 
 export default Slider;

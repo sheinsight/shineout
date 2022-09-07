@@ -28,7 +28,7 @@ class BoxOption extends PureComponent {
     const { data, index, isActive, renderItem, columns, multiple, disabled } = this.props
 
     const className = selectClass(getDirectionClass('option'))
-    const width = `${(1 / columns) * 100}%`
+    const width = columns < 0 ? undefined : `${(1 / columns) * 100}%`
     const Input = multiple ? Checkbox : Radio
 
     const result = renderItem(data, index)

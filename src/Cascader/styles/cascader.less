@@ -6,6 +6,9 @@
 @checkinput-prefix: ~'@{so-prefix}-checkinput';
 @input-prefix: ~'@{so-prefix}-input';
 @select-prefix: ~'@{so-prefix}-select';
+@input-title-prefix: ~'@{so-prefix}-input-title-box';
+@baseOffset: 12;
+@multiOffset: 22;
 
 .@{cascader-prefix} {
   position: relative;
@@ -22,11 +25,13 @@
     display: flex;
     max-height: 105px;
     flex-flow: wrap;
-    padding: @padding-base-vertical @padding-base-horizontal+12 0 @padding-base-horizontal;
     overflow-y: auto;
     flex-grow: 1;
-    .@{input-prefix}-rtl & {
-      padding: @padding-base-vertical   @padding-base-horizontal 0  @padding-base-horizontal+12;
+    &-ltr {
+      padding: @padding-base-vertical @padding-base-horizontal+@baseOffset 0 @padding-base-horizontal;
+    }
+    &-rtl {
+      padding: @padding-base-vertical   @padding-base-horizontal 0  @padding-base-horizontal+@baseOffset;
     }
 
     .@{so-prefix}-input-placeholder {
@@ -155,12 +160,16 @@
 
   &:not(&-disabled) {
     &.@{cascader-prefix}-focus .@{cascader-prefix}-close,
-    .@{cascader-prefix}-result:hover .@{cascader-prefix}-close {
+    .@{cascader-prefix}-result:hover .@{cascader-prefix}-close,
+    .@{cascader-prefix}-title-box:hover .@{cascader-prefix}-close
+    {
       display: block;
     }
 
     &.@{cascader-prefix}-focus .@{cascader-prefix}-result-clearable .@{select-prefix}-multi,
-    .@{cascader-prefix}-result-clearable:hover .@{select-prefix}-multi {
+    .@{cascader-prefix}-result-clearable:hover .@{select-prefix}-multi,
+    .@{cascader-prefix}-title-box:hover .@{cascader-prefix}-result-clearable .@{select-prefix}-multi
+    {
       visibility: hidden;
     }
   }
@@ -187,16 +196,18 @@
     display: inline-flex;
   }
 
-  &-result&-compressed {
+  &-compressed&-result {
     flex-grow: 1;
     width: 0;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     align-items: flex-start;
-    padding: @padding-base-vertical @padding-base-horizontal+22 0 @padding-base-horizontal;
-    .@{input-prefix}-rtl & {
-      padding: @padding-base-vertical @padding-base-horizontal 0 @padding-base-horizontal + 22;
+    &-ltr {
+      padding: @padding-base-vertical @padding-base-horizontal+@multiOffset 0 @padding-base-horizontal;
+    }
+    &-rtl {
+      padding: @padding-base-vertical @padding-base-horizontal 0 @padding-base-horizontal+@multiOffset;
     }
     .@{cascader-prefix}-item {
       text-overflow: ellipsis;
@@ -416,5 +427,26 @@
 .@{cascader-prefix}-result.@{cascader-prefix}-small {
   .@{cascader-prefix}-item {
     font-size: @font-size-small;
+  }
+}
+
+.@{cascader-prefix} {
+  &-title-box &-title-box-title, .@{input-title-prefix}&-title-box &-result {
+    .inner-title-responsive-offset(@cascader-prefix,0, @baseOffset)
+  }
+  &-title-box &-title-box-title-compressed&-title-box-title, &-title-box &-compressed&-result {
+    .inner-title-responsive-offset(@cascader-prefix, 0, @multiOffset)
+  }
+  &-title-box {
+    > .@{input-title-prefix}-content {
+      display: flex;
+    }
+  }
+  &-title-box &-result {
+    .@{input-prefix}-placeholder,
+    .@{cascader-prefix}-item,
+    .@{cascader-prefix}-input {
+      .inner-title-responsive-scroll-item-bottom(@cascader-prefix)
+    }
   }
 }

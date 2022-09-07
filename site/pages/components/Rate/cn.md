@@ -24,3 +24,4 @@
 | value | number | 0 | 作为可输入组件时，为整数。只读展示时，可以带小数 |
 | clearable | bool | false | 是否允许再次点击后清除 |
 | allowHalf | bool | false | 是否允许半选 |
+| text | ReactNode[] | - | 为每个选项附加文字 |

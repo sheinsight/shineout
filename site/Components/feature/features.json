@@ -1,11 +1,1 @@
-[
-  {
-    "title": "【新增交互】Select/TreeSelect高级筛选模式",
-    "image": "/images/feature/1.6.5-rc.23-tree-filter.gif",
-    "description": [
-      "<b>优化前：</b>在检索树形数据时，有时受限于联想能力，仅能定位到关键节点的同级节点。此时想要选中目标数据会有所难度，组件侧也没有现有的解决方案。",
-      "<b>设计理念：</b>在高级筛选模式下，它可以针对搜索结果的任意层级在筛选结果和原始数据间切换，便于用户通过同级节点来定位目标数据。"
-    ],
-    "url": "/components/TreeSelect#heading-03-h-advanced-filter"
-  }
-]
+[]

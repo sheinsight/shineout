@@ -1,3 +1,4 @@
+// obsolete code
 import React from 'react'
 import PropTypes from 'prop-types'
 import { PureComponent } from '../component'

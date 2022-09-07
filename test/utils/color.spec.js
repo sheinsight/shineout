@@ -8,9 +8,16 @@ describe('color.js[rgbToHex]', () => {
       expect(color.rgbToHex(rgb)).toBe(hexs[index])
     })
   })
-  // it('input wrong rgb data', () => {
-  //   expect(() => color.rgbToHex('rgb(255, 255, 300)')).toThrow()
-  // })
+  it('input wrong rgb data', () => {
+    const fn = jest.fn()
+    window.console.error = fn
+    expect(color.rgbToHex(0)).toBe('')
+    expect(fn.mock.calls.length).toBe(1)
+    expect(fn.mock.calls[0][0].message).toBe('the color is empty')
+    expect(color.rgbToHex('rgb("ggg")')).toBe('')
+    expect(fn.mock.calls.length).toBe(2)
+    expect(fn.mock.calls[1][0].message).toBe('the string \'rgb("ggg")\' is not a rgb color')
+  })
 })
 describe('color.js[hexToHsl]', () => {
   it('should transform hex to hsl', () => {
@@ -32,8 +39,16 @@ describe('color.js[hexToRgb]', () => {
       expect(color.hexToRgb(hex)).toBe(rgbs[index])
     })
   })
-  // it('input wrong hex data', () => {
-  //   expect(() => color.hexToRgb('#fgqrrq')).toThrow()
+  it('should transform hex3 to rgb', () => {
+    const rgbs = ['rgb(255, 255, 255)', 'rgb(204, 204, 204)', 'rgb(255, 0, 255)']
+    const hexs = ['#fff', '#ccc', '#f0f']
+    hexs.forEach((hex, index) => {
+      expect(color.hexToRgb(hex)).toBe(rgbs[index])
+    })
+  })
+
+  // it('should return empty', () => {
+  //   expect(color.hexToRgb(0)).toBe('')
   // })
 })
 describe('color.js[hslToHex]', () => {
@@ -113,5 +128,27 @@ describe('color.js[other]', () => {
       expect(color.isDark(value)).toBeFalsy()
       expect(color.isLight(value)).toBeFalsy()
     })
+  })
+})
+
+describe('color.js[fade]', () => {
+  it('should fade color', () => {
+    expect(color.fade('#ccc', 0.5)).toBe('rgba(204, 204, 204, 0.5)')
+    expect(color.fade('#efefef', 0.5)).toBe('rgba(237, 237, 237, 0.5)')
+  })
+
+  it('input wrong color', () => {
+    expect(color.fade(false, 0.5)).toBe('')
+  })
+})
+
+describe('color.js[darken]', () => {
+  it('should darken color', () => {
+    expect(color.darken('#ccc', 50)).toBe('rgba(76, 76, 76, 1)')
+    expect(color.darken('#FFCC00', 23)).toBe('rgba(137, 110, 0, 1)')
+    expect(color.darken('#00000055')).toBe('rgba(0, 0, 0, 1)')
+    expect(color.darken('rgb(123,234, 255)', 10)).toBe('rgba(71, 227, 255, 1)')
+    expect(color.darken('rgba(123,234, 255, 0.5)', 10)).toBe('rgba(255, 255, 255, 1)')
+    expect(color.darken(false, 23)).toBe('')
   })
 })

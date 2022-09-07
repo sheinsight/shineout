@@ -1,3 +1,5 @@
+const nycConfig = require('./nyc.config')
+
 module.exports = {
   setupFiles: ['<rootDir>/test/jest.init.js'],
   moduleNameMapper: {
@@ -10,4 +12,9 @@ module.exports = {
     SO_PREFIX: 'so',
   },
   modulePathIgnorePatterns: ['publish'],
+  testMatch: [`**/test/src/${nycConfig.target}/*.spec.js`, '**/test/utils/**/*.spec.js'],
+  // testMatch: ['**/test/utils/**/*.spec.js'],
+  collectCoverageFrom: [...nycConfig.include, ...nycConfig.exclude.map(item => `!${item}`)],
+  coverageDirectory: 'jest-coverage',
+  // coverageReporters: ['json'],
 }

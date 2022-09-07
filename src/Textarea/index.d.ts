@@ -2,7 +2,9 @@ import * as React from 'react'
 import { StandardProps, RegularAttributes, FormItemStandardProps } from '../@types/common'
 import { ReactNode } from "react"
 
-export interface TextareaProps<Value> extends
+type Value = string
+
+export interface TextareaProps extends
 StandardProps,
 FormItemStandardProps<Value>
   {
@@ -42,7 +44,7 @@ FormItemStandardProps<Value>
    *
    * default: -
    */
-  info?: ((value: string) => string) | number;
+  info?: ((value: string) => (string | Error | null)) | number;
 
   /**
    * The callback function for enter key
@@ -114,7 +116,8 @@ FormItemStandardProps<Value>
    *
    * default: -
    */
-  innerTitle?: ReactNode,
+  // 暂时屏蔽该属性
+  // innerTitle?: ReactNode,
   /**
    * Placeholder title, which needs to be used together with innerTitle
    *
@@ -131,7 +134,7 @@ FormItemStandardProps<Value>
    *
    * default: -
    */
-  renderFooter?: (value: string)=> ReactNode,
+  renderFooter?: (value: Value) => ReactNode,
 
   /**
    * Customize display results
@@ -140,10 +143,21 @@ FormItemStandardProps<Value>
    *
    * default: -
    */
-  renderResult?: (value: string)=> ReactNode,
+  renderResult?: ()=> ReactNode,
+
+  /**
+   * The callback when Textarea blur
+   *
+   * 失去焦点后的回调
+   *
+   * default: -
+   */
+  onBlur?: (e: Event)=> void,
 
 }
 
-declare class Textarea<Value = any> extends React.Component<TextareaProps<Value>, {}> {}
+declare class Textarea<Value = any> extends React.Component<TextareaProps, {}> {
+  render(): JSX.Element
+}
 
 export default Textarea

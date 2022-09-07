@@ -3,6 +3,8 @@ import { mount } from 'enzyme'
 import TableSelectBase from '../../../site/pages/components/Table/example-15-select-base'
 import TableSelectFormat from '../../../site/pages/components/Table/example-15-select-format'
 import TableSelectDisabled from '../../../site/pages/components/Table/example-17-select-disabled'
+import TableSelectRender from '../../../site/pages/components/Table/example-15-select-render'
+import { dispatchEvent } from '../../../src/utils/dom/element'
 // import TableSelectPagination from '../../../site/pages/components/Table/example-18-select'
 
 /* global SO_PREFIX */
@@ -38,6 +40,16 @@ describe('Table[rowSection]', () => {
     wrapper.find(`.${SO_PREFIX}-scroll table tbody tr input[type="checkbox"]`).forEach((checkbox, index) => {
       expect(!!checkbox.prop('disabled')).toBe(disabled(data[index]))
     })
+  })
+
+  test('should render disabled popover', () => {
+    jest.useFakeTimers()
+    const wrapper = mount(<TableSelectRender />).find('ShineoutTable')
+    const disabledCheck = wrapper.find(`.${SO_PREFIX}-scroll table tbody tr .${SO_PREFIX}-checkinput-disabled`).first()
+    expect(document.querySelectorAll(`.${SO_PREFIX}-popover`).length).toBe(0)
+    dispatchEvent(disabledCheck.instance().parentNode, 'mouseenter')
+    jest.runAllTimers()
+    expect(document.querySelectorAll(`.${SO_PREFIX}-popover`).length).toBe(1)
   })
 
   // test('should hold selected while paging', () => {

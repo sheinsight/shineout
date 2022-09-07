@@ -15,13 +15,19 @@ const source = locate(cn, en)
 const examples = [
 <% examples.forEach(function (exam, i) { -%>
   {
-    name: '<%= exam.path.replace("example-", "").replace(".js", "") %>',
+    name: '<%= exam.path.replace("example-", "").replace(/\.[jt]sx?$/, "") %>',
+    isTs: <%= exam.path.endsWith(".tsx") %>,
+    isTest: <%= exam.path.startsWith("test-") %>,
     title: locate(
       '<%- exam.cn.replace(/'/g, '\\\'') %>',
       '<%- exam.en.replace(/'/g, '\\\'') %>'
     ),
     component: require('doc/pages/components/<%= name %>/<%= exam.path %>').default,
     rawText: require('!raw-loader!doc/pages/components/<%= name %>/<%= exam.path %>'),
+<% if (exam.path.endsWith(".tsx")) { -%>
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/<%= name %>/<%= exam.path %>'),
+<% } -%>
+
   },
 <% }) -%>
 ]

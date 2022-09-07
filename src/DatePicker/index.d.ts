@@ -4,7 +4,7 @@ import { ReactNode } from "react"
 
 export type DateTimeType = Date | number | string | undefined
 
-export type AreaType = 'year' | 'month' | 'week' | 'day' | 'time' | 'quick'
+export type AreaType = 'year' | 'month' | 'week' | 'day' | 'time' | 'quick' | 'quarter'
 
 export type DisabledType = 'start' | 'end'
 
@@ -19,9 +19,9 @@ export interface QuickSelect extends Base {
   value?: Array<DateTimeType> | DateTimeType;
 }
 
-export type FormItemProps<T> = Omit<FormItemStandardProps<T>, 'name'>
+type FormItemProps<T> = Omit<FormItemStandardProps<T>, 'name'>
 
-export interface DatePickerProps<T =DatePickerValue > extends StandardProps,
+export interface DatePickerProps<T = DatePickerValue> extends StandardProps,
   FormItemProps<T>,
   Pick<CommonProps, 'absolute'> {
 
@@ -41,7 +41,7 @@ export interface DatePickerProps<T =DatePickerValue > extends StandardProps,
    *
    * default: false
    */
-   underline?: boolean;
+  underline?: boolean;
 
   /**
    * width
@@ -71,10 +71,10 @@ export interface DatePickerProps<T =DatePickerValue > extends StandardProps,
   disabled?: ((date: Date, type: DisabledType, value: DatePickerValue,) => boolean) | boolean;
 
   /**
-   * default values for different types: 'date': 'yyyy-MM-dd'. 'time': 'HH:mm:ss'. 'week': 'RRRR II'. 'month': 'yyyy-MM'. 'datetime': 'yyyy-MM-dd HH:mm:ss'
+   * default values for different types: 'date': 'yyyy-MM-dd'. 'time': 'HH:mm:ss'. 'week': 'RRRR II'. 'month': 'yyyy-MM'. 'week': 'RRRR II'. 'quarter': 'yyyy-[Q]Q'. 'year': 'yyyy'. 'datetime': 'yyyy-MM-dd HH:mm:ss'
    *
    *
-   * 不同type对应的默认值。'date': 'yyyy-MM-dd'。'time': 'HH:mm:ss'。'week': 'RRRR II'。'month': 'yyyy-MM'。'datetime': 'yyyy-MM-dd HH:mm:ss'
+   * 不同type对应的默认值。'date': 'yyyy-MM-dd'。'time': 'HH:mm:ss'。'week': 'RRRR II'。'month': 'yyyy-MM'。'quarter': 'yyyy-[Q]Q'。 'year': 'yyyy' 。 'datetime': 'yyyy-MM-dd HH:mm:ss'
    *
    *
    * default:
@@ -124,7 +124,7 @@ export interface DatePickerProps<T =DatePickerValue > extends StandardProps,
    *
    * default: 'date'
    */
-  type?: 'date' | 'time' | 'datetime' | 'month' | 'week';
+  type?: 'date' | 'time' | 'datetime' | 'month' | 'week' | 'quarter' | 'year';
 
   /**
    * Default time when selecting a date, the format is: 'HH:mm:ss'
@@ -262,6 +262,7 @@ export interface DatePickerProps<T =DatePickerValue > extends StandardProps,
    *
    * default: -
    */
+
   innerTitle?: ReactNode;
   /**
    * The name of a Form that accesses data
@@ -271,6 +272,42 @@ export interface DatePickerProps<T =DatePickerValue > extends StandardProps,
    * default: -
    */
   name?: string | string[]
+
+  /**
+   * Allow enter something into DatePicker
+   *
+   * 可输入
+   *
+   * default: -
+   */
+  inputable?: boolean
+
+  /**
+   * Set Position can control the different position of DatePicker
+   *
+   * 弹出框位置
+   *
+   * default: -
+   */
+  position?: 'left-top' | 'left-bottom' | 'right-top' | 'right-bottom' | string
+
+  /**
+   * There are three built-in size: small、default、large.
+   *
+   * 不同尺寸
+   *
+   * default: 'default'
+   */
+  size?: 'small' | 'default' | 'large'
+
+  /**
+   * set timeZone
+   *
+   * 设置时区
+   *
+   * default: -
+   */
+  timeZone?: string
 }
 
 declare class DatePicker extends React.Component<DatePickerProps, {}> {

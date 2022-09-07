@@ -14,16 +14,20 @@
     width: 150px;
   }
 
-  label&-c-datetime {
+  label&-c-datetime
+  {
     width: 240px;
   }
 
-  label&-c-time {
+  label&-c-time,
+  label&-c-year
+  {
     width: 120px;
   }
 
   label&-r-date,
   label&-r-week,
+  label&-r-quarter,
   label&-r-month {
     width: 300px;
   }
@@ -34,6 +38,9 @@
 
   label&-r-time {
     width: 250px;
+  }
+  label&-r-year {
+    width: 240px;
   }
 
   &-title {
@@ -306,6 +313,7 @@
 
   &-day-picker,
   &-month-picker,
+  &-quarter-picker,
   &-year-picker {
     width: 252px;
 
@@ -510,6 +518,34 @@
     }
   }
 
+  &-quarter-picker {
+    .@{datepicker-prefix}-list {
+      padding-top: 12px;
+      text-align: center;
+      white-space: nowrap;
+      > div {
+        display: inline-block;
+        width: 25%;
+        padding: 0 5px;
+        margin: 5px 0;
+        position: relative;
+        > span {
+          display: inline-block;
+          width: 100%;
+          text-align: center;
+          padding: 4px 0;
+
+          border-radius: @datepicker-rect-active-border-radius;
+          cursor: pointer;
+        }
+      }
+      .@{datepicker-prefix}-disabled {
+        color: @gray-400;
+        cursor: not-allowed;
+      }
+    }
+  }
+
   &-year-picker {
     .@{datepicker-prefix}-list {
       padding-top: 12px;
@@ -522,6 +558,10 @@
         margin: 4px 15px;
         border-radius: @datepicker-rect-active-border-radius;
         cursor: pointer;
+      }
+      .@{datepicker-prefix}-disabled {
+        color: @gray-400;
+        cursor: not-allowed;
       }
     }
   }
@@ -664,6 +704,10 @@
     }
     &-right .@{datepicker-prefix}-result {
       text-align: right;
+    }
+    
+    &-center .@{datepicker-prefix}-result {
+      text-align: center;
     }
   }
 

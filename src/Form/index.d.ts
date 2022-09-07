@@ -5,11 +5,11 @@ import { RuleParamsType } from '../Rule'
 
 type ReactNode = React.ReactNode;
 
-export interface Base {
+interface Base {
   [formItemName: string]: any;
 }
 
-export interface RuleParams<Value = {}> {
+interface RuleParams<Value = {}> {
   [propName: string]: RuleParamsType<Value>
 }
 
@@ -27,11 +27,11 @@ export interface FieldSetChildrenFunc<Value = any> {
 export interface FormRef<Value> {
   getValue: () => Value;
   validate: () => Promise<any>;
-  validateFields: () => Promise<any>;
-  validateFieldsWithError: () => Promise<any>;
+  validateFields: (fields:string|string[]) => Promise<any>;
+  validateFieldsWithError: (fields:string|string[]) => Promise<any>;
   clearValidate: () => void;
   submit: (withValidate?: boolean) => void;
-  reset: ()=> void
+  reset: () => void
 }
 
 export interface FieldChildrenFunc<Value = any> {
@@ -211,7 +211,7 @@ export interface FormProps<Value> extends StandardProps {
    *
    * default: -
    */
-  formRef?: ((form: FormRef<Value>) => void) | {current?: FormRef<Value>};
+  formRef?: ((form: FormRef<Value>) => void) | { current?: FormRef<Value> };
 
 }
 
@@ -281,7 +281,7 @@ export interface FormFieldProps<Value> {
    *
    * default: none
    */
-  name: string;
+  name: string | string[];
 
   /**
    * bind name, render while the name change
@@ -318,6 +318,15 @@ export interface FormFieldProps<Value> {
    * default: none
    */
   rules?: RuleParamsType<Value>;
+
+  /**
+   * Validation rules
+   *
+   * 校验规则
+   *
+   * default: none
+   */
+  onReset?: () => void
 
 }
 
@@ -470,6 +479,8 @@ declare class Form<Value> extends React.Component<FormProps<Value>, {}> {
   static Submit: typeof FormSubmit;
 
   static Reset: typeof FormReset;
+  
+  static useMode: any;
 
   render(): JSX.Element;
 }

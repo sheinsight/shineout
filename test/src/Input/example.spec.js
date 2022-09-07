@@ -1,3 +1,5 @@
 import exampleTest from '../../example'
 
-exampleTest('Input')
+describe('Input[snapshot]', () => {
+  exampleTest('Input')
+})

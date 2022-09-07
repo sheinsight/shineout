@@ -1,8 +1,10 @@
 import * as React from 'react'
-import {StandardProps} from '../@types/common'
+import { StandardProps } from '../@types/common'
 import { ReactNode } from "react"
 
-export interface GridProps extends StandardProps{
+export type responsiveType = 'sm' | 'md' | 'lg' | 'xl'
+
+export interface GridProps extends StandardProps {
 
   /**
    * Spacing between grids
@@ -32,6 +34,26 @@ export interface GridProps extends StandardProps{
    */
   width?: number;
 
+
+  /**
+   * The min size of responsive: sm: 568px; md: 768px; lg: 992px; xl: 1200px
+   *
+   * 激活响应式的最小尺寸。sm: 568px; md: 768px; lg: 992px; xl: 1200px
+   *
+   * default: 'md'
+   */
+  responsive?: responsiveType;
+
+
+  /**
+   * Stretch full height of content
+   *
+   * 是否撑满容器高度
+   *
+   * default: 1
+   */
+  stretch?: boolean;
+
   /**
    * children
    *
@@ -43,6 +65,8 @@ export interface GridProps extends StandardProps{
 
 }
 
-declare class Grid extends React.Component<GridProps, any> {}
+declare class Grid extends React.Component<GridProps, any> {
+  render(): JSX.Element
+}
 
 export default Grid

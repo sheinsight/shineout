@@ -25,7 +25,6 @@ describe('Select[innerTitle]', () => {
     wrapper.find(`.${SO_PREFIX}-select-inner`).simulate('click', {
       target: wrapper.find(`.${SO_PREFIX}-select-inner`).getDOMNode(),
     })
-    console.log(wrapper.html())
     expect(wrapper.find(`.${SO_PREFIX}-input-title-box-open`).length).toBe(1)
   })
 })

@@ -5,7 +5,7 @@ import icons from '../icons'
 import { cardClass } from './styles'
 import { isRTL } from '../config'
 
-export default class extends PureComponent {
+export default class Header extends PureComponent {
   static propTypes = {
     align: PropTypes.string,
     children: PropTypes.any,

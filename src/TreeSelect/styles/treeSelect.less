@@ -7,6 +7,8 @@
 @input-title-prefix:  ~'@{so-prefix}-input-title-box';
 @tree-node-max-width: 300px;
 @indicator-start: 7px;
+@baseOffset: 12;
+@multiOffset: 22;
 
 .@{treeSelect-prefix} {
   position: relative;
@@ -39,24 +41,17 @@
     }
 
     .@{treeSelect-prefix}-single .@{tree-prefix}-content {
-      cursor: default;
       transition: all .2s;
       cursor: pointer;
       padding-left: 0;
       &:hover {
-        .@{treeSelect-prefix}-content-wrapper:not(.@{treeSelect-prefix}-selected) {
-          background: @gray-100;
+        .@{treeSelect-prefix}-content-wrapper:not(.@{treeSelect-prefix}-selected):not(.@{treeSelect-prefix}-disabled) {
+          background: @select-tree-node-hover-bg;
+          color: @select-tree-node-hover-color;
         }
       }
     }
 
-  }
-
-  &-title-box-title, &-title-box &-result {
-    padding: @title-padding-base-vertical @title-padding-base-horizontal+12 0 @title-padding-base-horizontal;
-    .@{input-prefix}-rtl &,  @{treeSelect-prefix}-rtl &{
-      padding: @title-padding-base-vertical @title-padding-base-horizontal 0 @title-padding-base-horizontal + 12;
-    }
   }
 
   &-result {
@@ -66,9 +61,9 @@
     max-height: 80px;
     flex-flow: wrap;
     flex-grow: 1;
-    padding: @padding-base-vertical @padding-base-horizontal+12 0 @padding-base-horizontal;
+    padding: @padding-base-vertical @padding-base-horizontal+@baseOffset 0 @padding-base-horizontal;
     .@{input-prefix}-rtl &,  @{treeSelect-prefix}-rtl &{
-      padding: @padding-base-vertical @padding-base-horizontal 0 @padding-base-horizontal + 12;
+      padding: @padding-base-vertical @padding-base-horizontal 0 @padding-base-horizontal+@baseOffset;
     }
 
     span {
@@ -173,14 +168,6 @@
           }
         }
       }
-    }
-  }
-
-  &-title-box {
-    .@{treeSelect-prefix}-item,
-    .@{treeSelect-prefix}-ellipsis,
-    .@{treeSelect-prefix}-input {
-      margin-bottom: @title-padding-base-vertical;
     }
   }
 
@@ -306,8 +293,8 @@
     text-overflow: ellipsis;
   }
   &-options span.@{treeSelect-prefix}-selected {
-    background-color: @primary-color-fade-10;
-    color: @colors-primary;
+    background-color: @select-tree-node-selected-bg;
+    color: @select-tree-node-selected-color;;
   }
 
   &-box-list {
@@ -453,7 +440,7 @@
   }
 
   &-small &-result {
-    padding: @padding-small-vertical @padding-small-horizontal+12 0 @padding-small-horizontal;
+    padding: @padding-small-vertical @padding-small-horizontal+@baseOffset 0 @padding-small-horizontal;
 
     .@{treeSelect-prefix}-item,
     .@{treeSelect-prefix}-ellipsis,
@@ -462,54 +449,13 @@
     }
   }
 
-  &-small {
-    .@{treeSelect-prefix}-title-box .@{treeSelect-prefix}-result {
-      padding: @title-padding-small-vertical @title-padding-small-horizontal+12 0 @title-padding-small-horizontal;
-      .@{input-prefix}-rtl & ,@{treeSelect-prefix}-rtl & {
-        padding: @title-padding-small-vertical @title-padding-small-horizontal 0 @title-padding-small-horizontal + 12;
-      }
-    }
-  }
-
-  &-small &-title-box-title {
-    padding: @title-padding-small-vertical @title-padding-small-horizontal+12 0 @title-padding-small-horizontal;
-    .@{input-prefix}-rtl & ,@{treeSelect-prefix}-rtl & {
-      padding: @title-padding-small-vertical @title-padding-small-horizontal 0 @title-padding-small-horizontal + 12;
-    }
-  }
-
-  &-small &-title-box &-result {
-    .@{treeSelect-prefix}-item,
-    .@{treeSelect-prefix}-ellipsis,
-    .@{treeSelect-prefix}-input {
-      margin-bottom: @title-padding-small-vertical;
-    }
-  }
-
   &-large &-result {
-    padding: @padding-large-vertical @padding-large-horizontal+12 0 @padding-large-horizontal;
+    padding: @padding-large-vertical @padding-large-horizontal+@baseOffset 0 @padding-large-horizontal;
 
     .@{treeSelect-prefix}-item,
     .@{treeSelect-prefix}-ellipsis,
     .@{treeSelect-prefix}-input {
       margin-bottom: @padding-large-vertical;
-    }
-  }
-
-  &-large {
-    .@{treeSelect-prefix}-title-box-title, .@{treeSelect-prefix}-title-box .@{treeSelect-prefix}-result{
-      padding: @title-padding-large-vertical @title-padding-large-horizontal+12 0 @title-padding-large-horizontal;
-      .@{input-prefix}-rtl & ,@{treeSelect-prefix}-rtl & {
-        padding: @title-padding-large-vertical @title-padding-large-horizontal 0 @title-padding-large-horizontal + 12;
-      }
-    }
-  }
-
-  &-large &-title-box &-result {
-    .@{treeSelect-prefix}-item,
-    .@{treeSelect-prefix}-ellipsis,
-    .@{treeSelect-prefix}-input {
-      margin-bottom: @title-padding-large-vertical;
     }
   }
 
@@ -531,10 +477,10 @@
 
   &-multiple &-compressed:not(&-empty) {
     padding-left: (@padding-base-horizontal / 2);
-    padding-right: @padding-base-horizontal + 12;
+    padding-right: @padding-base-horizontal+@baseOffset;
     .@{input-prefix}-rtl & ,@{treeSelect-prefix}-rtl & {
       padding-right: (@padding-base-horizontal / 2);
-      padding-left: @padding-base-horizontal + 12;
+      padding-left: @padding-base-horizontal+@baseOffset;
     }
     .@{treeSelect-prefix}-close-warpper {
       right: 7px;
@@ -543,20 +489,6 @@
         right: auto;
       }
     }
-  }
-
-  &-multiple &-title-box &-result {
-    &-ltr {
-      &:not(.@{treeSelect-prefix}-empty) {
-        padding-left: @title-padding-base-horizontal;
-      }
-    }
-    &-rtl {
-      &:not(.@{treeSelect-prefix}-empty) {
-        padding-right: @title-padding-base-horizontal;
-      }
-    }
-
   }
 
   &-large&-multiple &-result {
@@ -572,19 +504,6 @@
     }
   }
 
-  &-large&-multiple &-title-box &-result {
-    &-ltr {
-      &:not(.@{treeSelect-prefix}-empty) {
-        padding-left: @title-padding-large-horizontal;
-      }
-    }
-    &-rtl {
-      &:not(.@{treeSelect-prefix}-empty) {
-        padding-right: @title-padding-large-horizontal;
-      }
-    }
-  }
-
   &-small&-multiple &-result {
     &-ltr {
       &:not(.@{treeSelect-prefix}-empty) {
@@ -594,19 +513,6 @@
     &-rtl {
       &:not(.@{treeSelect-prefix}-empty) {
         padding-right: (@padding-small-horizontal / 2);
-      }
-    }
-  }
-
-  &-small&-multiple &-title-box  &-result {
-    &-ltr {
-      &:not(.@{treeSelect-prefix}-empty) {
-        padding-left: @title-padding-small-horizontal;
-      }
-    }
-    &-rtl {
-      &:not(.@{treeSelect-prefix}-empty) {
-        padding-right: @title-padding-small-horizontal;
       }
     }
   }
@@ -644,9 +550,23 @@
   }
 }
 
-.@{treeSelect-prefix}-title-box {
-  > .@{input-prefix}-title-box-content {
+.@{treeSelect-prefix}{
+  &-title-box > .@{input-prefix}-title-box-content {
     display: flex;
+  }
+  &-title-box &-title-box-title, &-title-box &-result {
+    .inner-title-responsive-offset(@treeSelect-prefix, 0, @baseOffset)
+  }
+  &-title-box &-result {
+    .@{treeSelect-prefix}-item,
+    .@{treeSelect-prefix}-ellipsis,
+    .@{treeSelect-prefix}-input {
+      .inner-title-responsive-scroll-item-bottom(@treeSelect-prefix)
+    }
+  }
+
+  &-multiple &-title-box &-title-box-title, &-multiple &-title-box &-result {
+    .inner-title-responsive-offset(@treeSelect-prefix, 0, @multiOffset, ~'1' )
   }
 }
 

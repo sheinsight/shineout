@@ -17,3 +17,8 @@ publish
 gh-pages
 .nyc_output
 coverage
+cypress/videos
+cypress/screenshots
+jest-coverage
+cypress-coverage
+reports

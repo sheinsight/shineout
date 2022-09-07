@@ -26,3 +26,4 @@
 | looseChildren | boolean | false | menu item expandable if has children |
 | parentSelectable | boolean | false | Whether the parent menu is selectable (whether onClick is triggered after clicking)
  |
+| toggleDuration | number | 200 | The duration time of MenuItem |

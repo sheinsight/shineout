@@ -497,6 +497,20 @@
     &.@{button-prefix}-default .@{upload-prefix}-bg {
       background: @colors-primary;
     }
+    &.@{button-prefix}-small {
+      .@{upload-prefix}-bg {
+        > span {
+          margin: @btn-padding-small-y @btn-padding-small-x;
+        }
+      }
+    }
+    &.@{button-prefix}-large {
+      .@{upload-prefix}-bg {
+        > span {
+          margin: @btn-padding-large-y @btn-padding-large-x;
+        }
+      }
+    }
   }
 
 

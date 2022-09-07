@@ -5,7 +5,6 @@ import { getProps } from '../utils/proptypes'
 import { getUidStr } from '../utils/uid'
 import { selectClass } from './styles'
 import Result from './Result'
-import { getLocale } from '../locale'
 import OptionList from './OptionList'
 import OptionTree from './OptionTree'
 import BoxList from './BoxList'
@@ -50,7 +49,8 @@ class Select extends PureComponent {
     this.handleClickAway = this.handleClickAway.bind(this)
     this.handleInputBlur = this.handleInputBlur.bind(this)
     this.bindFocusInputFunc = this.bindFocusInputFunc.bind(this)
-    this.toInputTriggerCollapse = this.toInputTriggerCollapse.bind(this)
+    this.handleFilter = this.handleFilter.bind(this)
+    // this.toInputTriggerCollapse = this.toInputTriggerCollapse.bind(this)
 
     this.renderItem = this.renderItem.bind(this)
     this.renderResult = this.renderResult.bind(this)
@@ -76,7 +76,7 @@ class Select extends PureComponent {
     // clear filter
     if (prevState.focus !== this.state.focus && !this.state.focus && onFilter) {
       setTimeout(() => {
-        onFilter('')
+        onFilter('', 'blur')
       }, 400)
     }
   }
@@ -228,16 +228,16 @@ class Select extends PureComponent {
       }, 10)
     }
 
-    if (emptyAfterSelect && onFilter && filterText) onFilter('')
+    if (emptyAfterSelect && onFilter && filterText) onFilter('', 'select')
   }
 
-  toInputTriggerCollapse(text) {
-    const { onCreate, datum } = this.props
-    if (onCreate) {
-      datum.set(onCreate(text))
-    }
-    this.handleState(true)
-  }
+  // toInputTriggerCollapse(text) {
+  //   const { onCreate, datum } = this.props
+  //   if (onCreate) {
+  //     datum.set(onCreate(text))
+  //   }
+  //   this.handleState(true)
+  // }
 
   shouldFocus(el) {
     if (el.getAttribute('data-id') === this.selectId) return true
@@ -399,6 +399,17 @@ class Select extends PureComponent {
     datum.handleChange(values, datum.getDataByValue(data, last), false)
   }
 
+  handleFilter(...args) {
+    const { onFilter, onCreate, hideCreateOption } = this.props
+    const hideCreate = onCreate && hideCreateOption
+    if (hideCreate) {
+      this.optionList.handleHover(-1, true)
+    }
+    if (onFilter) {
+      onFilter(...args)
+    }
+  }
+
   renderItem(data, index) {
     const { renderItem } = this.props
     return typeof renderItem === 'function' ? renderItem(data, index) : data[renderItem]
@@ -443,6 +454,7 @@ class Select extends PureComponent {
       'childrenKey',
       'expandIcons',
       'emptyText',
+      'renderOptionList',
     ].forEach(k => {
       props[k] = this.props[k]
     })
@@ -489,6 +501,7 @@ class Select extends PureComponent {
       'groupKey',
       'hideCreateOption',
       'emptyText',
+      'renderOptionList',
     ].forEach(k => {
       props[k] = this.props[k]
     })
@@ -531,12 +544,12 @@ class Select extends PureComponent {
       multiple,
       clearable,
       size,
-      onFilter,
       datum,
       filterText,
       onCreate,
       result,
       compressed,
+      compressedBound,
       trim,
       renderUnmatched,
       showArrow,
@@ -545,6 +558,7 @@ class Select extends PureComponent {
       maxLength,
       innerTitle,
       keygen,
+      convertBr,
       data,
     } = this.props
     const disabled = this.getDisabledStatus()
@@ -577,7 +591,7 @@ class Select extends PureComponent {
           onClear={clearable ? this.handleClear : undefined}
           onCreate={onCreate}
           onRemove={this.handleRemove}
-          onFilter={onFilter}
+          onFilter={this.handleFilter}
           datum={datum}
           disabled={disabled}
           focus={this.state.focus}
@@ -590,8 +604,9 @@ class Select extends PureComponent {
           onInputFocus={this.handleInputFocus}
           setInputReset={this.setInputReset}
           bindFocusInputFunc={this.bindFocusInputFunc}
-          collapse={this.toInputTriggerCollapse}
+          // collapse={this.toInputTriggerCollapse}
           compressed={compressed}
+          compressedBound={compressedBound}
           showArrow={showArrow}
           focusSelected={this.getFocusSelected()}
           compressedClassName={compressedClassName}
@@ -599,6 +614,7 @@ class Select extends PureComponent {
           innerTitle={innerTitle}
           keygen={keygen}
           data={data}
+          convertBr={convertBr}
         />
         {this.renderOptions()}
       </div>
@@ -631,6 +647,7 @@ Select.propTypes = {
   size: PropTypes.string,
   text: PropTypes.object,
   compressed: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  compressedBound: PropTypes.number,
   trim: PropTypes.bool,
   autoAdapt: PropTypes.bool,
   filterSingleSelect: PropTypes.bool,
@@ -645,7 +662,9 @@ Select.propTypes = {
   header: PropTypes.node,
   maxLength: PropTypes.number,
   innerTitle: PropTypes.node,
+  convertBr: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   inputText: PropTypes.string,
+  renderOptionList: PropTypes.func,
 }
 
 Select.defaultProps = {

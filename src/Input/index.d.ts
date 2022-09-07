@@ -6,8 +6,8 @@ type ReactNode = React.ReactNode;
 export type numType = "positive" | "non-negative";
 
 export interface InputProps<Value> extends
-StandardProps,
-FormItemStandardProps<Value> {
+  StandardProps,
+  FormItemStandardProps<Value> {
 
   /**
    * width
@@ -62,6 +62,24 @@ FormItemStandardProps<Value> {
    * default: none
    */
   onKeyUp?: (e: KeyboardEvent) => void;
+
+  /**
+   * The callback function for mouse down
+   *
+   * 鼠标按下后的回调
+   *
+   * default: none
+   */
+  onMouseDown?: () => void;
+
+  /**
+   * The callback function for mouse up
+   *
+   * 鼠标按下后抬起的回调
+   *
+   * default: none
+   */
+  onMouseUp?: () => void;
 
   /**
    * The position where the text pop up
@@ -124,7 +142,7 @@ FormItemStandardProps<Value> {
    *
    * default: -
    */
-  info?: (msg: string) => string;
+  info?: ((msg: string) => string) | number;
 
   /**
    * Vilidate popup properties, specific properties refer to Popover component description
@@ -182,9 +200,9 @@ FormItemStandardProps<Value> {
   placeTitle?: ReactNode,
 
   /**
-   *  点击清除按钮后数据变为 undefined
-   *
    *  After clicking the clear button, the data becomes undefined
+   *
+   *  点击清除按钮后数据变为 undefined
    *
    *  default: -
    *
@@ -192,18 +210,18 @@ FormItemStandardProps<Value> {
   clearToUndefined?: boolean,
 
   /**
-   * the digits of number 仅在type = number 下生效
-   *
    * Decimal place limit (valid when type is number)
+   *
+   * the digits of number 仅在type = number 下生效
    *
    * default: -
    */
   digits?: number;
 
   /**
-   *  整数位数限制, 仅在type = number 下生效
-   *
    *  Integer bit limit (valid when type is number)
+   *
+   *  整数位数限制, 仅在type = number 下生效
    *
    *  default: -
    *
@@ -211,29 +229,29 @@ FormItemStandardProps<Value> {
   integerLimit?: number,
 
   /**
-   *  设置数字类型 支持 'positive' 和 'non-negative', 仅在type = number 下生效
-   *
    *  Number type supports 'positive' and 'non-negative', only works when type = number
    *
+   *  设置数字类型 支持 'positive' 和 'non-negative', 仅在type = number 下生效
+   *
    *  default: -
    *
    */
-   numType?: numType,
+  numType?: numType,
 
   /**
-   *  非负数，仅在type = number 下生效
-   *
    *  nonnegative number (valid when type is number)
    *
+   *  非负数，仅在type = number 下生效
+   *
    *  default: -
    *
    */
-   nonnegative?: boolean,
+  nonnegative?: boolean,
 
   /**
-   *  鼠标点击后自动全选数据
-   *
    *  Automatically select all data after mouse click
+   *
+   *  鼠标点击后自动全选数据
    *
    *  default: false
    *
@@ -241,18 +259,38 @@ FormItemStandardProps<Value> {
   autoSelect?: boolean,
 
   /**
-   *  失焦后自动按照 digits 精度限制补足 (type 为 number 时生效)
-   *
    *  Automatically fill up according to the precision limit of digits after out of focus
+   *
+   *  失焦后自动按照 digits 精度限制补足 (type 为 number 时生效)
    *
    *  default: false
    *
    */
   autoFix?: boolean,
 
+  /**
+   *  The original property of html
+   *
+   *  原生html属性
+   *
+   *  default: -
+   *
+   */
+  htmlName?: string,
+
+  /**
+   *  The callback of blur
+   *
+   *  失去焦点后的回调
+   *
+   *  default: -
+   *
+   */
+  onBlur?: (e: Event) => void,
+
 }
 
-export interface InputNumberProps <Value> extends InputProps<Value> {
+export interface InputNumberProps<Value> extends InputProps<Value> {
 
   /**
    * The maximum value
@@ -301,17 +339,6 @@ export interface InputNumberProps <Value> extends InputProps<Value> {
 
 }
 
-export interface InputPasswordProps<Value = any> extends InputProps<Value> {
-  /**
-   * password symbol
-   *
-   * 密码符号
-   *
-   * default: '.'
-   */
-  point?: 'string';
-}
-
 export interface InputGroupProps<Value = any> extends InputProps<Value> {
   /**
    * children
@@ -323,17 +350,36 @@ export interface InputGroupProps<Value = any> extends InputProps<Value> {
   children?: ReactNode;
 }
 
-declare class InputGroup<Value = any> extends React.Component<InputGroupProps<Value>, {}> {}
+export interface InputPasswordProps<Value = any> extends InputProps<Value> {
+  /**
+   * password symbol
+   *
+   * 密码符号
+   *
+   * default: '.'
+   */
+  point?: 'string';
+}
 
-declare class InputNumber<Value = number> extends React.Component<InputNumberProps<Value>, {}> {}
+declare class InputGroup<Value = any> extends React.Component<InputGroupProps<Value>, {}> {
+  render(): JSX.Element
+}
 
-declare class InputPassword <Value = string> extends React.Component<InputPasswordProps<Value>, {}> {}
+
+declare class InputNumber<Value = number> extends React.Component<InputNumberProps<Value>, {}> {
+  render(): JSX.Element
+}
+
+declare class InputPassword<Value = string> extends React.Component<InputPasswordProps<Value>, {}> {
+  render(): JSX.Element
+}
 declare class Input<Value = any> extends React.Component<InputProps<Value>, {}> {
-    static Number: typeof InputNumber;
+  static Number: typeof InputNumber;
 
-    static Group: typeof InputGroup;
+  static Group: typeof InputGroup;
 
-    static Password: typeof InputPassword;
+  static Password: typeof InputPassword;
+  render(): JSX.Element
 }
 
 export default Input

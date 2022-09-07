@@ -10,6 +10,7 @@ import { getLocale } from '../locale'
 import { selectClass } from './styles'
 import Option from './Option'
 import { getDirectionClass } from '../utils/classname'
+import { getCustomList } from './utils'
 
 const ScaleList = List(['fade', 'scale-y'], 'fast')
 
@@ -217,7 +218,13 @@ class OptionList extends Component {
   }
 
   render() {
-    const { control, focus, style, selectId, autoClass, getRef, customHeader } = this.props
+    const { control, focus, style, selectId, autoClass, getRef, customHeader, renderOptionList, loading } = this.props
+    const result = (
+      <>
+        {customHeader}
+        {this.renderList()}
+      </>
+    )
 
     return (
       <ScaleList
@@ -228,8 +235,7 @@ class OptionList extends Component {
         className={classnames(selectClass('options', `control-${control}`), autoClass)}
         getRef={getRef}
       >
-        {customHeader}
-        {this.renderList()}
+        {getCustomList(result, renderOptionList, loading)}
       </ScaleList>
     )
   }
@@ -261,6 +267,7 @@ OptionList.propTypes = {
   filterText: PropTypes.string,
   hideCreateOption: PropTypes.bool,
   emptyText: PropTypes.node,
+  renderOptionList: PropTypes.func,
 }
 
 export default OptionList

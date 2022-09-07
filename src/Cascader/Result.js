@@ -8,10 +8,12 @@ import Input from './Input'
 import icons from '../icons'
 import More, { getResetMore } from '../Select/More'
 import { addResizeObserver } from '../utils/dom/element'
-import { isEmpty } from '../utils/is'
+import { isEmpty, isNumber } from '../utils/is'
 import { CHANGE_TOPIC } from '../Datum/types'
 import Caret from '../icons/Caret'
 import { getDirectionClass } from '../utils/classname'
+import InputTitle from '../InputTitle'
+import { inputTitleClass } from '../InputTitle/styles'
 
 // eslint-disable-next-line react/prop-types
 function Item({ children, close, className, data, isPopover, singleRemove, click, only }) {
@@ -60,7 +62,7 @@ class Result extends PureComponent {
     const { datum } = this.props
     datum.subscribe(CHANGE_TOPIC, this.handleUpdate)
     const { compressed } = this.props
-    if (compressed) {
+    if (compressed && !this.isCompressedBound()) {
       this.cancelResizeObserver = addResizeObserver(this.resultEl, this.resetMore, { direction: 'x' })
     }
   }
@@ -75,6 +77,14 @@ class Result extends PureComponent {
     if (this.cancelResizeObserver) this.cancelResizeObserver()
   }
 
+  getCompressedBound() {
+    const { compressedBound } = this.props
+    if (this.isCompressedBound()) {
+      return compressedBound
+    }
+    return this.state.more
+  }
+
   handleUpdate() {
     this.forceUpdate()
   }
@@ -83,9 +93,15 @@ class Result extends PureComponent {
     this.resultEl = el
   }
 
+  isCompressedBound() {
+    const { compressedBound } = this.props
+    return compressedBound && isNumber(compressedBound) && compressedBound >= 1
+  }
+
   updateMore(preProps) {
     const { compressed, value = [], onFilter, data } = this.props
     if (compressed) {
+      if (this.isCompressedBound()) return
       if ((preProps.value || []).join('') !== (value || []).join('')) {
         this.resetMore()
       } else if ((preProps.data || []).length !== (data || []).length) {
@@ -169,7 +185,7 @@ class Result extends PureComponent {
     const { singleRemove } = this.props
     const res = data && render(data, raw)
     if (!res) return null
-    const { more } = this.state
+    const more = this.getCompressedBound()
     return (
       <Item
         key={index}
@@ -189,7 +205,7 @@ class Result extends PureComponent {
 
   renderMore(list) {
     const { selectId, size, compressed } = this.props
-    const { more } = this.state
+    const more = this.getCompressedBound()
     return [
       <More
         key="more"
@@ -220,12 +236,19 @@ class Result extends PureComponent {
   }
 
   renderPlaceholder() {
-    const { focus, onFilter } = this.props
+    const { focus, onFilter, innerTitle } = this.props
     if (focus && onFilter) {
       return this.renderInput()
     }
     return (
-      <span key="placeholder" className={classnames(inputClass('placeholder'), selectClass('ellipsis'))}>
+      <span
+        key="placeholder"
+        className={classnames(
+          inputClass('placeholder'),
+          selectClass('ellipsis'),
+          innerTitle && inputTitleClass('hidable')
+        )}
+      >
         {this.props.placeholder}
         &nbsp;
       </span>
@@ -269,19 +292,34 @@ class Result extends PureComponent {
   }
 
   render() {
-    const { style, value, compressed, multiple } = this.props
-    const result = value.length === 0 ? this.renderPlaceholder() : this.renderResult()
+    const { style, value, compressed, multiple, innerTitle, onFilter, focus } = this.props
+    const empty = value.length === 0
+    const result = empty ? this.renderPlaceholder() : this.renderResult()
     const clearEl = this.renderClear()
+    const shouldCompressed = multiple && compressed
     return (
-      <div
-        ref={this.bindResult}
-        className={cascaderClass('result', multiple && compressed && 'compressed', clearEl && 'result-clearable')}
-        style={style}
+      <InputTitle
+        className={cascaderClass('title-box')}
+        titleClass={cascaderClass(
+          getDirectionClass('title-box-title'),
+          shouldCompressed && 'title-box-title-compressed'
+        )}
+        innerTitle={innerTitle}
+        open={!empty || (onFilter && focus)}
       >
-        {result}
-        {this.renderIndicator()}
-        {clearEl}
-      </div>
+        <div
+          ref={this.bindResult}
+          className={classnames(
+            cascaderClass(getDirectionClass('result'), shouldCompressed && 'compressed', clearEl && 'result-clearable'),
+            innerTitle && inputTitleClass('item-scroll')
+          )}
+          style={style}
+        >
+          {result}
+          {this.renderIndicator()}
+          {clearEl}
+        </div>
+      </InputTitle>
     )
   }
 }
@@ -299,6 +337,7 @@ Result.propTypes = {
   style: PropTypes.object,
   value: PropTypes.array,
   compressed: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  compressedBound: PropTypes.number,
   focus: PropTypes.bool,
   onFilter: PropTypes.func,
   trim: PropTypes.bool,
@@ -312,6 +351,7 @@ Result.propTypes = {
   size: PropTypes.string,
   showArrow: PropTypes.bool,
   data: PropTypes.array,
+  innerTitle: PropTypes.string,
 }
 
 Result.defaultProps = {

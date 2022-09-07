@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, Fragment, createElement } from 'react'
 import PropTypes from 'prop-types'
-import { Lazyload, Spin } from 'shineout'
+import { Lazyload, Spin, Tabs } from 'shineout'
 import Icon from 'doc/icons/Icon'
 import { exampleClass } from 'doc/styles'
 import Codesandbox from './Codesandbox'
@@ -13,14 +13,18 @@ const placeholder = (
   </div>
 )
 
-export default function Example({ component, id, name, rawText, title: propsTitle }) {
+export default function Example({ component, id, name, rawText, title: propsTitle, ...rest }) {
+  const { isTs, parseTsText } = rest
   const codeblock = useRef(null)
   const [showcode, setShowCode] = useState(false)
   const [com] = useState(createElement(component))
   const [codeHeight, setCodeHeight] = useState()
+  const [codeType, setCodeType] = useState('js')
   let [bottom] = useState()
 
-  const text = rawText.replace(/(^|\n|\r)\s*\/\*[\s\S]*?\*\/\s*(?:\r|\n|$)/, '').trim()
+  const commendReg = /(^|\n|\r)\s*\/\*[\s\S]*?\*\/\s*(?:\r|\n|$)/
+  const text = rawText.replace(commendReg, '').trim()
+  const parseText = (parseTsText || '').replace(commendReg, '').trim()
 
   const collapse = (height, remain, isBottom) => {
     codeblock.current.style.height = `${height * (remain - 1)}px`
@@ -34,11 +38,13 @@ export default function Example({ component, id, name, rawText, title: propsTitl
     }
   }
 
+  const getHeight = () => `${codeHeight + (isTs ? 41 : 0)}px`
+
   useEffect(
     () => {
       if (!codeblock.current) return
       if (showcode) {
-        codeblock.current.style.height = `${codeHeight}px`
+        codeblock.current.style.height = getHeight()
       } else {
         const y = codeHeight % 15
         if (y > 0) collapse(y, 1, bottom)
@@ -46,6 +52,15 @@ export default function Example({ component, id, name, rawText, title: propsTitl
       }
     },
     [showcode]
+  )
+
+  useEffect(
+    () => {
+      if (!showcode) return
+      if (!codeblock.current) return
+      codeblock.current.style.height = getHeight()
+    },
+    [codeHeight]
   )
 
   const setCodeBlockHeight = height => {
@@ -90,13 +105,32 @@ export default function Example({ component, id, name, rawText, title: propsTitl
               {sub.map((s, i) => (
                 <div key={i} dangerouslySetInnerHTML={{ __html: s }} />
               ))}
-              <Codesandbox id={id} text={text} />
+              <Codesandbox id={id} text={parseText || text} />
               {renderCodeHandle(false)}
             </div>
           )}
 
           <div ref={codeblock} className={exampleClass('code')}>
-            <CodeBlock onHighLight={setCodeBlockHeight} onClose={toggleCode} value={text} />
+            {isTs ? (
+              <div className={exampleClass('code-type')}>
+                <Tabs
+                  shape="line"
+                  active={codeType}
+                  onChange={d => {
+                    setCodeType(d)
+                  }}
+                >
+                  <Tabs.Panel tab="TypeScript" id="ts" />
+                  <Tabs.Panel tab="Javascript" id="js" />
+                </Tabs>
+              </div>
+            ) : null}
+            <CodeBlock
+              onHighLight={setCodeBlockHeight}
+              onClose={toggleCode}
+              key={codeType}
+              value={isTs && codeType === 'js' ? parseText : text}
+            />
             {renderCodeHandle(true)}
           </div>
         </div>

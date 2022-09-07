@@ -26,6 +26,8 @@
 | fixed | boolean | false | false | virtualized list |
 | rowsInView | number | 10 | false | Number of list items displayed at the same time |
 | lineHeight | number | 32 | false | height of item |
+| colNum | number | 1 | false | Multi-column display |
+| size | small \| default \| large | default | false | Size of list |
 
 ### List.BaseItem
 

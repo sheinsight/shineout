@@ -144,6 +144,14 @@
       &-icon-hover {
         background: @select-tree-icon-hover-bg-color
       }
+      &-node-selected {
+        background: @select-tree-node-selected-bg;
+        color: @select-tree-node-selected-color;
+      }
+      &-node-hover {
+        background: @select-tree-node-hover-bg;
+        color: @select-tree-node-hover-color;
+      }
       &-disabled {
         background: @select-tree-disabled-bg-color;
         color: @select-tree-disabled-content-color;
@@ -346,6 +354,7 @@
       border-radius: @modal-border-radius;
       border: @modal-border-width solid @modal-border-color;
       box-shadow: @modal-box-shadow;
+      color: @modal-color;
       &-header {
         padding-top: @modal-header-padding-top;
         padding-right: @modal-header-padding-right;
@@ -395,6 +404,9 @@
     &-default-icon{
       border-left-color: @tree-indicator-color;
     }
+    &-line {
+      color: @tree-line-color
+    }
   }
   &-checkbox {
     &-indicator {
@@ -405,6 +417,12 @@
 
     &-text {
       padding: 0 @checkbox-text-padding-x;
+    }
+    &-disabled {
+      background-color: @checkbox-disabled-bgc;
+    }
+    &-checked-disabled {
+      background-color: @checkbox-checked-disabled-bgc;
     }
   }
   &-switch {
@@ -433,6 +451,9 @@
       color: @tabs-tab-active-color;
       border-color: @tabs-tab-active-border-color;
       background: @tabs-tab-active-background;
+    }
+    &-line-active {
+      color: @tabs-line-active-color;
     }
   }
   &-cascader-active {

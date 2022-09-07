@@ -122,8 +122,19 @@ export interface PaginationProps extends StandardProps {
    */
   sizeListProps?: SizeListProps;
 
+  /**
+   * The number of pagination buttons
+   *
+   * 分页器页码按钮数量
+   *
+   * default: 5
+   */
+   span?: number;
+
 }
 
-declare class Pagination extends React.Component<PaginationProps, any> {}
+declare class Pagination extends React.Component<PaginationProps, any> {
+  render(): JSX.Element
+}
 
 export default Pagination

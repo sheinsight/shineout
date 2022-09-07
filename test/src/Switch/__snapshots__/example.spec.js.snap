@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Switch[snapshot] Snapshot test: Switch[site/pages/components/Switch/example-1-base.tsx] 1`] = `
+<label>
+  <span />
+  <input />
+  <i />
+  <span />
+</label>
+`;
+
+exports[`Switch[snapshot] Snapshot test: Switch[site/pages/components/Switch/example-2-disabled.tsx] 1`] = `
+<div>
+  <label>
+    <span />
+    <input />
+    <i />
+    <span />
+  </label>
+  <button>
+    <span>
+      Toggle
+    </span>
+  </button>
+</div>
+`;
+
+exports[`Switch[snapshot] Snapshot test: Switch[site/pages/components/Switch/example-3-content.tsx] 1`] = `
+<div>
+  <label>
+    <span>
+      开
+    </span>
+    <input />
+    <i />
+    <span />
+  </label>
+  <br />
+  <label>
+    <span>
+      <i />
+    </span>
+    <input />
+    <i />
+    <span />
+  </label>
+</div>
+`;
+
+exports[`Switch[snapshot] Snapshot test: Switch[site/pages/components/Switch/example-4-size.tsx] 1`] = `
+<div>
+  <label>
+    <input />
+    <i />
+    <span />
+  </label>
+  <br />
+  <label>
+    <span />
+    <input />
+    <i />
+    <span />
+  </label>
+  <br />
+  <label>
+    <span />
+    <input />
+    <i />
+    <span />
+  </label>
+</div>
+`;

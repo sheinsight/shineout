@@ -4,7 +4,7 @@ import classnames from 'classnames'
 import { selectClass } from './styles'
 import { inputClass } from '../Input/styles'
 import { inputTitleClass } from '../InputTitle/styles'
-import { isObject, isFunc, isString, isEmpty } from '../utils/is'
+import { isObject, isFunc, isString, isEmpty, isNumber } from '../utils/is'
 import { addResizeObserver } from '../utils/dom/element'
 import Input from './Input'
 import Caret from '../icons/Caret'
@@ -80,7 +80,7 @@ class Result extends PureComponent {
 
   componentDidMount() {
     const { compressed } = this.props
-    if (compressed) {
+    if (compressed && !this.isCompressedBound()) {
       this.cancelResizeObserver = addResizeObserver(this.resultEl, this.resetMore, { direction: 'x' })
     }
   }
@@ -93,13 +93,29 @@ class Result extends PureComponent {
     if (this.cancelResizeObserver) this.cancelResizeObserver()
   }
 
+  getCompressedBound() {
+    const { compressedBound } = this.props
+    if (this.isCompressedBound()) {
+      return compressedBound
+    }
+    return this.state.more
+  }
+
+  isCompressedBound() {
+    const { compressedBound } = this.props
+    return compressedBound && isNumber(compressedBound) && compressedBound >= 1
+  }
+
   bindResult(el) {
     this.resultEl = el
   }
 
   updateMore(preProps) {
     const { result, compressed, onFilter, keygen, data } = this.props
+
     if (compressed) {
+      if (this.isCompressedBound()) return
+
       let shouldRest = false
       if (preProps.result.length !== result.length || (data || []).length !== (preProps.data || []).length) {
         shouldRest = true
@@ -164,7 +180,7 @@ class Result extends PureComponent {
     const { renderResult, renderUnmatched, datum, resultClassName } = this.props
     const content = getResultContent(data, renderResult, renderUnmatched)
     if (content === null) return null
-    const { more } = this.state
+    const more = this.getCompressedBound()
     return (
       <Item
         key={index}
@@ -181,7 +197,7 @@ class Result extends PureComponent {
 
   renderMore(items) {
     const { compressedClassName, compressed } = this.props
-    const { more } = this.state
+    const more = this.getCompressedBound()
     const className = classnames(selectClass('popover'), compressedClassName)
 
     return [
@@ -207,10 +223,10 @@ class Result extends PureComponent {
       return (
         <div key="clear" onClick={onClear} className={selectClass('close-warpper')}>
           <a
-          tabIndex={-1}
-          data-role="close"
-          className={selectClass('indicator', 'close')}
-        />
+            tabIndex={-1}
+            data-role="close"
+            className={selectClass('indicator', 'close')}
+          />
         </div>
       )
       /* eslint-enable */
@@ -230,8 +246,9 @@ class Result extends PureComponent {
       setInputReset,
       focusSelected,
       bindFocusInputFunc,
-      collapse,
+      // collapse,
       maxLength,
+      convertBr,
     } = this.props
     return (
       <Input
@@ -247,8 +264,9 @@ class Result extends PureComponent {
         setInputReset={setInputReset}
         focusSelected={focusSelected}
         bindFocusInputFunc={bindFocusInputFunc}
-        collapse={collapse}
+        // collapse={collapse}
         maxLength={maxLength}
+        convertBr={convertBr}
       />
     )
   }
@@ -287,7 +305,6 @@ class Result extends PureComponent {
       filterText,
       resultClassName,
     } = this.props
-
     if (multiple) {
       let items = result.map((n, i) => this.renderItem(n, i)).filter(n => !isEmpty(n))
 
@@ -298,7 +315,6 @@ class Result extends PureComponent {
       if (focus && onFilter) {
         items.push(this.renderInput(filterText, result.length))
       }
-
       return items
     }
 
@@ -348,11 +364,7 @@ class Result extends PureComponent {
         innerTitle={innerTitle}
         open={open}
         className={selectClass('title-box')}
-        titleClass={selectClass(
-          'title-box-title',
-          showPlaceholder && 'title-box-title-empty',
-          compressed && getDirectionClass('title-box-title-compressed')
-        )}
+        titleClass={selectClass(getDirectionClass('title-box-title'))}
       >
         <div
           ref={this.bindResult}
@@ -363,7 +375,7 @@ class Result extends PureComponent {
               showPlaceholder && 'empty',
               clearEl && 'result-clearable'
             ),
-            innerTitle && inputTitleClass(getDirectionClass('item'))
+            innerTitle && inputTitleClass(getDirectionClass('item'), 'item-scroll')
           )}
         >
           {rtl ? inner.reverse() : inner}
@@ -389,8 +401,9 @@ Result.propTypes = {
   placeholder: PropTypes.string,
   setInputReset: PropTypes.func,
   bindFocusInputFunc: PropTypes.func,
-  collapse: PropTypes.func,
+  // collapse: PropTypes.func,
   compressed: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  compressedBound: PropTypes.number,
   trim: PropTypes.bool,
   renderUnmatched: PropTypes.func,
   showArrow: PropTypes.bool,
@@ -401,6 +414,7 @@ Result.propTypes = {
   innerTitle: PropTypes.node,
   keygen: PropTypes.any,
   data: PropTypes.array,
+  convertBr: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 }
 
 export default Result

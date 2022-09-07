@@ -14,7 +14,7 @@ You can use Modal to display secondary content or actions without jumping to the
 | footer | ReactNode | - | The content at the bottom | |
 | maskCloseAble | boolean | true | Whether to close the mask when the mask is clicked | |
 | maskOpacity | number | 0.25 | The opacity of the mask | |
-| padding | number\|string | 16 | Padding style of the content | |
+| padding | number\|string | none | Padding style of the content | |
 | position | string | - | Pop-up position, one of \['top', 'right', 'bottom', 'left'] | |
 | style | object | - | Extend style | |
 | title | ReactNode | - | the title of the pop-up layer | |
@@ -37,6 +37,8 @@ You can use Modal to display secondary content or actions without jumping to the
 | fullScreen | boolean | false | display modal with full screen | |
 | top | number \| string | 10vh | distance from top | |
 | forceMask | boolean | false | Whether to force the mask transparency (in multi-layer Modal, the transparency of other Modal masks except the first layer will be adjusted to 0.01) | |
+| noPadding | boolean | - |When the theme is antd, Set the content style padding to 0 | |
+
 
 ### ModalMethods
 

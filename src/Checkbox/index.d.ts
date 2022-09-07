@@ -32,11 +32,29 @@ export interface CheckboxProps<T> extends StandardProps, FormItemStandardProps<T
    */
   htmlValue?: any;
 
+  /**
+   * Show input
+   *
+   * 开启后出现输入框
+   *
+   * default: false
+   */
+  inputable?: boolean;
+
+  /**
+   * Checkbox click callback
+   *
+   * 勾选框点击回调
+   *
+   * default: false
+   */
+  onClick?: (e: MouseEvent) => void;
+
 }
 
 // attention: checkbox group value is array
 
-export interface CheckboxGroupProps<Data, T> extends ListItemStandardProps<Data, T>, Omit<FormItemStandardProps<T[]>, 'placeholder'>, StandardProps {
+export interface CheckboxGroupProps<Data, T> extends ListItemStandardProps<Data, T[]>, Omit<FormItemStandardProps<T[]>, 'placeholder'>, StandardProps {
 
   /**
    * The data item
@@ -91,6 +109,15 @@ export interface CheckboxGroupProps<Data, T> extends ListItemStandardProps<Data,
    * default: -
    */
   value?: T[];
+
+  /**
+   * The default is horizontal layout, and setting the block property can change it to be vertical layout.
+   *
+   * 垂直布局
+   *
+   * default: false
+   */
+   block?: boolean;
 
 }
 

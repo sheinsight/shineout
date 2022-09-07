@@ -155,7 +155,7 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
    * default: -
    */
    unmatch?: boolean;
-  
+
   /**
    * show dropdown arrow, only single select
    *
@@ -184,6 +184,24 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
    *
    */
   loading?: boolean | ReactNode;
+
+  /**
+   * when compressed is True,the comptessedBound can limit the numbers of multiple selected item's label
+   *
+   * 开启多选后，指定允许展示标签数量，超过后将折叠
+   *
+   * default: -
+   */
+   compressedBound?: number;
+
+  /**
+   * When the onFilter is not empty, you can filter data by input.If the onFilter returns a function, use this function as a front-end filter.If return undefined, you can do your own backend filtering.support in single selection state.
+   *
+   * onFilter 不为空时，可以输入过滤数据;onFilter 如果返回一个函数，使用这个函数做前端过滤;如果不返回，可以自行做后端过滤;单选状态下支持
+   *
+   * default: -
+   */
+   onFilter?: (text: string) => (data: any) => boolean;
 }
 
 interface componentRef  {
@@ -191,6 +209,8 @@ interface componentRef  {
   [propName: string]: any;
 }
 
-declare class Cascader<Item = any, Value = string[]> extends React.Component<CascaderProps<Item, Value>, {}> {}
+declare class Cascader<Item = any, Value = string[]> extends React.Component<CascaderProps<Item, Value>, {}> {
+  render(): JSX.Element
+}
 
 export default Cascader

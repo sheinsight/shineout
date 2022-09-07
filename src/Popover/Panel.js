@@ -103,6 +103,15 @@ class Panel extends Component {
         this.setState({ show })
         if (show && this.props.onOpen) this.props.onOpen()
         if (!show && this.props.onClose) this.props.onClose()
+
+        if(show){
+          this.bindScrollDismiss(true)
+          document.addEventListener('mousedown', this.clickAway)
+        }else{
+          this.bindScrollDismiss(false)
+          document.removeEventListener('mousedown', this.clickAway)
+        }
+
       },
       trigger === 'hover' ? delay : 0
     )
@@ -118,8 +127,14 @@ class Panel extends Component {
     const verticalPoint = rect.top + rect.height / 2
     const windowHeight = docSize.height
     const windowWidth = docSize.width
+    let tempPriorityDirection = priorityDirection
+    if (priorityDirection === 'auto') {
+      const maxX = Math.max(rect.left, windowWidth - rect.left - rect.width)
+      const maxY = Math.max(rect.top, windowHeight - rect.top - rect.height)
+      tempPriorityDirection = maxX > maxY ? 'horizontal' : 'vertical'
+    }
 
-    if (priorityDirection === 'horizontal') {
+    if (tempPriorityDirection === 'horizontal') {
       if (horizontalPoint > windowWidth / 2) position = 'left'
       else position = 'right'
 
@@ -209,8 +224,6 @@ class Panel extends Component {
   handleShow() {
     if (this.delayTimeout) clearTimeout(this.delayTimeout)
     if (this.state.show) return
-    this.bindScrollDismiss(true)
-    document.addEventListener('mousedown', this.clickAway)
     this.setShow(true)
   }
 
@@ -226,8 +239,6 @@ class Panel extends Component {
   handleHide(e) {
     if (e && this.isChildren(e.relatedTarget)) return
     if (this.delayTimeout) clearTimeout(this.delayTimeout)
-    document.removeEventListener('mousedown', this.clickAway)
-    this.bindScrollDismiss(false)
     this.setShow(false)
   }
 

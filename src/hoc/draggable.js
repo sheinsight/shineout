@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { curry } from '../utils/func'
 
-export default curry((OriginComponent) => {
+export default curry(OriginComponent => {
   class Drag extends PureComponent {
     constructor(props) {
       super(props)

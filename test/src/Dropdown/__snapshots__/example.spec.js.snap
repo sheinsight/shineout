@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-1-base.js] 1`] = `
+exports[`Dropdown[snapshot] Snapshot test: Dropdown[site/pages/components/Dropdown/example-1-base.tsx] 1`] = `
 <div>
   <div>
     <div>
@@ -43,7 +43,7 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-1-base.j
 </div>
 `;
 
-exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-2-hover.js] 1`] = `
+exports[`Dropdown[snapshot] Snapshot test: Dropdown[site/pages/components/Dropdown/example-2-hover.tsx] 1`] = `
 <div>
   <div>
     <div>
@@ -108,7 +108,7 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-2-hover.
 </div>
 `;
 
-exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-3-position.js] 1`] = `
+exports[`Dropdown[snapshot] Snapshot test: Dropdown[site/pages/components/Dropdown/example-3-position.tsx] 1`] = `
 <div>
   <div>
     <div>
@@ -754,7 +754,7 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-3-positi
 </div>
 `;
 
-exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-4-items.js] 1`] = `
+exports[`Dropdown[snapshot] Snapshot test: Dropdown[site/pages/components/Dropdown/example-4-items.tsx] 1`] = `
 <div>
   <div>
     <a>
@@ -861,7 +861,7 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-4-items.
 </div>
 `;
 
-exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-5-split.js] 1`] = `
+exports[`Dropdown[snapshot] Snapshot test: Dropdown[site/pages/components/Dropdown/example-5-split.tsx] 1`] = `
 <div>
   <button>
     <span>
@@ -894,7 +894,7 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-5-split.
 </div>
 `;
 
-exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-6-type.js] 1`] = `
+exports[`Dropdown[snapshot] Snapshot test: Dropdown[site/pages/components/Dropdown/example-6-type.tsx] 1`] = `
 <div>
   <div>
     <span>
@@ -903,9 +903,7 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-6-type.j
     <div>
       <div>
         <div>
-          <span>
-            primary
-          </span>
+          <span />
           <a>
             <svg>
               <path />
@@ -925,9 +923,7 @@ exports[`Snapshot test: Dropdown[site/pages/components/Dropdown/example-6-type.j
     <div>
       <div>
         <div>
-          <span>
-            default
-          </span>
+          <span />
           <a>
             <svg>
               <path />

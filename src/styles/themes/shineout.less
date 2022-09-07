@@ -63,7 +63,8 @@
 @btn-circle-width: 32px;
 @btn-circle-small-width: 24px;
 @btn-circle-large-width: 40px;
-@btn-default-border: #d9d9d9;
+@btn-default-border-color-value: #d9d9d9;
+@btn-default-border: var(--button-default-border, @btn-default-border-color-value);
 @btn-primary-border: @colors-primary;
 @btn-warning-border: @colors-warning;
 @btn-success-border: @colors-success;
@@ -137,7 +138,9 @@
 
 // dropdown
 // dropdown border width
-@dropdown-border-width-value: 0px;
+@dropdown-border-width-value: 1px;
+@dropdown-default-border-width-color: transparent;
+@dropdown-default-border-width-hover-color: transparent;
 
 // columns padding
 @dropdown-columns-padding: var(--dropdown-columns-padding, 8px);

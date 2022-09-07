@@ -72,7 +72,7 @@ class Progress extends PureComponent {
   }
 
   render() {
-    const { placeholder, type, ...others } = this.props
+    const { placeholder, type, size, outline, ...others } = this.props
     const uploading = this.state.progress >= 0
     const style = {
       [isRTL() ? 'left' : 'right']: uploading ? `${100 - this.state.progress}%` : '100%',
@@ -92,6 +92,8 @@ class Progress extends PureComponent {
           disabled={others.disabled}
           className={uploadClass('button', uploading && 'uploading')}
           type={type}
+          size={size}
+          outline={outline}
           onClick={this.handleUpload}
           onKeyDown={handleKeyDown}
         >
@@ -109,15 +111,19 @@ class Progress extends PureComponent {
 }
 
 Progress.propTypes = {
-  type: PropTypes.oneOf(['primary', 'success', 'info', 'warning', 'error', 'danger']),
+  type: PropTypes.oneOf(['default', 'primary', 'success', 'link', 'warning', 'error', 'danger']),
   placeholder: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   loading: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   onSuccess: PropTypes.func,
   onError: PropTypes.func,
+  outline: PropTypes.bool,
+  size: PropTypes.oneOf(['small', 'default', 'large']),
 }
 
 Progress.defaultProps = {
   type: 'primary',
+  size: 'default',
+  outline: false,
 }
 
 export default Progress

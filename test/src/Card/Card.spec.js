@@ -2,6 +2,7 @@ import { mount } from 'enzyme'
 import React from 'react'
 import { Card, Form, Input } from 'shineout'
 import Render from 'react-test-renderer'
+import { baseTest, childrenTest } from '../../utils'
 import CardBase from '../../../site/pages/components/Card/example-1-base'
 import CardShallow from '../../../site/pages/components/Card/example-2-boxshadow'
 
@@ -134,4 +135,108 @@ describe('Card[Accordion]', () => {
         .prop('collapsed')
     ).toBeTruthy()
   })
+})
+
+describe('Card[style]', () => {
+  test('should custom style and className', () => {
+    baseTest(Card, `.${SO_PREFIX}-card`)
+  })
+})
+
+describe('Card[defaultCollapsed]', () => {
+  test('should set defaultCollapsed', () => {
+    const wrapper = mount(
+      <Card defaultCollapsed={false} collapsible>
+        <Card.Header>Header</Card.Header>
+        <Card.Body>Body</Card.Body>
+        <Card.Footer>Footer</Card.Footer>
+      </Card>
+    )
+    expect(wrapper.find(`.${SO_PREFIX}-card`).hasClass(`${SO_PREFIX}-card-collapsible`)).toBeTruthy()
+    expect(wrapper.find(`.${SO_PREFIX}-card`).hasClass(`${SO_PREFIX}-card-collapsed`)).toBeFalsy()
+  })
+})
+
+describe('Card[id] CardAccordion[defaultActive]', () => {
+  test('should set defaultActive', () => {
+    const wrapper = mount(
+      <Card.Accordion defaultActive="card_2">
+        <Card id="card_1">
+          <Card.Header>Header 1</Card.Header>
+          <Card.Body>Body</Card.Body>
+        </Card>
+        <Card id="card_2">
+          <Card.Header>Header 2</Card.Header>
+          <Card.Body>Body</Card.Body>
+        </Card>
+        <Card id="card_3">
+          <Card.Header>Header 3</Card.Header>
+          <Card.Body>Body</Card.Body>
+        </Card>
+      </Card.Accordion>
+    )
+
+    expect(
+      wrapper
+        .find(`.${SO_PREFIX}-card`)
+        .not(`.${SO_PREFIX}-card-collapsed`)
+        .find(`.${SO_PREFIX}-card-header`)
+        .text()
+    ).toBe('Header 2')
+  })
+})
+
+describe('Card[onCollapse]', () => {
+  test('should onCollapse', () => {
+    const onCollapse = jest.fn()
+    const wrapper = mount(
+      <Card collapsible onCollapse={onCollapse}>
+        <Card.Header>Header</Card.Header>
+        <Card.Body>Body</Card.Body>
+        <Card.Footer>Footer</Card.Footer>
+      </Card>
+    )
+    wrapper.find(`.${SO_PREFIX}-card-header`).simulate('click')
+    expect(onCollapse).toHaveBeenCalled()
+  })
+})
+
+describe('CardAccordion[onChange]', () => {
+  test('should onChange', () => {
+    const onChange = jest.fn()
+    const wrapper = mount(
+      <Card.Accordion active={0} onChange={onChange}>
+        <Card>
+          <Card.Header>Header 1</Card.Header>
+          <Card.Body>Body</Card.Body>
+        </Card>
+        <Card>
+          <Card.Header>Header 2</Card.Header>
+          <Card.Body>Body</Card.Body>
+        </Card>
+        <Card>
+          <Card.Header>Header 3</Card.Header>
+          <Card.Body>Body</Card.Body>
+        </Card>
+      </Card.Accordion>
+    )
+    wrapper
+      .find(`.${SO_PREFIX}-card-header`)
+      .at(1)
+      .simulate('click')
+    expect(onChange).toHaveBeenCalled()
+  })
+})
+
+describe('CardHeader CardBody CardFooter[baseTest]', () => {
+  test('should custom style and className', () => {
+    baseTest(Card.Header, `.${SO_PREFIX}-card-header`)
+    baseTest(Card.Body, `.${SO_PREFIX}-card-body`)
+    baseTest(Card.Footer, `.${SO_PREFIX}-card-footer`)
+  })
+})
+describe('Card[children]', () => {
+  childrenTest(Card.Header, `.${SO_PREFIX}-card-header`)
+  childrenTest(Card.Body, `.${SO_PREFIX}-card-body`)
+  childrenTest(Card.Footer, `.${SO_PREFIX}-card-footer`)
 })

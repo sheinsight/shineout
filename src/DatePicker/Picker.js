@@ -4,10 +4,12 @@ import { PureComponent } from '../component'
 import { datepickerClass } from './styles'
 import utils from './utils'
 import Year from './Year'
+import { getLocale } from '../locale'
 import Month from './Month'
 import Day from './Day'
 import Time from './Time'
 import Quick from './Quick'
+import Quarter from './Quarter'
 import paramUtils from './paramUtils'
 
 class Picker extends PureComponent {
@@ -16,8 +18,14 @@ class Picker extends PureComponent {
 
     let mode
     switch (props.type) {
+      case 'year':
+        mode = 'year'
+        break
       case 'month':
         mode = 'month'
+        break
+      case 'quarter':
+        mode = 'quarter'
         break
       case 'time':
         mode = 'time'
@@ -29,13 +37,26 @@ class Picker extends PureComponent {
     this.state = { mode }
     const format = 'yyyy-MM-dd HH:mm:ss'
     this.defaultCurrent = utils.toDateWithFormat(
-      utils.formatDateWithDefaultTime(utils.newDate(), undefined, props.defaultTime[0], format),
-      format
+      utils.formatDateWithDefaultTime(
+        utils.newDate(undefined, this.getOptions()),
+        undefined,
+        props.defaultTime[0],
+        format,
+        this.getOptions()
+      ),
+      format,
+      undefined,
+      this.getOptions()
     )
     this.handleModeChange = this.handleModeChange.bind(this)
     this.handleEnter = this.handleMouse.bind(this, true)
     this.handleLeave = this.handleMouse.bind(this, false)
     this.handleQuick = this.handleQuick.bind(this)
+  }
+
+  getOptions() {
+    const { timeZone } = this.props
+    return { timeZone, weekStartsOn: getLocale('startOfWeek') }
   }
 
   handleQuick(quick) {
@@ -72,6 +93,9 @@ class Picker extends PureComponent {
         break
       case 'time':
         Render = Time
+        break
+      case 'quarter':
+        Render = Quarter
         break
       default:
         Render = Day
@@ -112,6 +136,7 @@ Picker.propTypes = {
   children: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   handleHover: PropTypes.func,
   defaultTime: PropTypes.array,
+  timeZone: PropTypes.string,
 }
 
 export default Picker

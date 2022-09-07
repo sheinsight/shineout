@@ -14,7 +14,7 @@
 | footer | ReactNode | 无 | 底部内容 | |
 | maskCloseAble | boolean | true | 点击遮罩层是否关闭对话框 | |
 | maskOpacity | number | 0.25 | 遮罩层透明度 | |
-| padding | number \| string | 16 | 内容内边距 | |
+| padding | number \| string | none | 内容内边距 | |
 | position | string | 无 | 弹出位置，可选值为 \['top', 'right', 'bottom', 'left'] | |
 | style | object | 无 | 最外层扩展样式 | |
 | title | ReactNode | 无 | 弹出层的标题 | |
@@ -37,6 +37,8 @@
 | fullScreen | boolean | false | 是否全屏展示 | |
 | top | number \| string | 10vh | 距离顶部距离 | |
 | forceMask | boolean | false | 是否强制设置遮罩透明度（多层Modal中，除第一层外的其他Modal遮罩透明度会被调整为0.01） | |
+| noPadding | boolean | - | 当Sheinout采用 antd 主题时，取消内容区域的padding | |
+
 
 ### ModalMethods
 

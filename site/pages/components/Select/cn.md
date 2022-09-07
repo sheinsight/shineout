@@ -50,9 +50,16 @@
 | resultClassName | ((value: any) => string) \| string | 无 | 选中结果内容容器的className |
 | columnsTitle | ReactNode | 无 | 多列选项多选时的标题文字 |
 | reFocus | boolean | 无 | 存在onFilter和onCreate，选中 Option，自动focus Input |
-| header | () => ReactNode \| ReactNode | 无 | 自定义渲染 Option List Header |
+| header | ReactElement | 无 | 自定义渲染 Option List Header |
 | lineHeight | number | 34 | 选项高度。列表项使用虚拟列表渲染，当选项高度改变时，应该通过 lineHeight 来指定正确高度 |
 | hideCreateOption | boolean | false | 在使用创建选项时，在选项列表中隐藏该选项，回车后直接选中该值 |
 | underline | boolean | false | 是否只展示下边框 |
 | innerTitle | string | - | 内嵌标题 |
 | filterSameChange | boolean | false | 过滤掉具有相同值的onChange回调 |
+| itemsInView | number | 10 | 单次render的最大行数。Select 采用了lazy render的方式来优化在大量数据下的性能，如果你的表格显示的高度超出了10条，可以调整itemsInView |
+| loading |  boolean | ReactNode \| false | 数据加载中，为true时会展示一个默认的[Spin](/components/Spin)组件，可以传入一个自定义的Spin代替 |
+| size |  'large' \| 'default' \| 'small'| 'default' | 尺寸 |
+| trim | boolean | false | 失去焦点时会自动删除空白字符 |
+| onAdvancedFilter | (text: string) => ((data: Item) => boolean) \| void | 无 | 使用 onAdvancedFilter 属性开启高级筛选，可针对当前层级在筛选结果和原始数据间切换 |
+| convertBr | string \| ((text: string) => string) | "," | 用来转化粘贴文本中的换行 |
+| renderOptionList | (list: ReactElement)=>  ReactElement | - | 自定义渲染下拉列表 |

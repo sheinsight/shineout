@@ -15,30 +15,42 @@ const source = locate(cn, en)
 const examples = [
   {
     name: '1-base',
+    isTs: true,
+    isTest: false,
     title: locate(
       '基本用法 \n 默认为水平分割线',
       'Base \n Divider is horizontal by default. You can add text within Divider.'
     ),
-    component: require('doc/pages/components/Divider/example-1-base.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Divider/example-1-base.js'),
+    component: require('doc/pages/components/Divider/example-1-base.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Divider/example-1-base.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Divider/example-1-base.tsx'),
+
   },
   {
     name: '2-base',
+    isTs: true,
+    isTest: false,
     title: locate(
       '带文字的分割线 \n 分割线中带有文字，可以用 orientation 指定文字位置。',
       'Divider with title \n Divider with inner title, set orientation="left/right" to align it.'
     ),
-    component: require('doc/pages/components/Divider/example-2-base.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Divider/example-2-base.js'),
+    component: require('doc/pages/components/Divider/example-2-base.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Divider/example-2-base.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Divider/example-2-base.tsx'),
+
   },
   {
     name: '3-base',
+    isTs: true,
+    isTest: false,
     title: locate(
       '垂直分割线 \n 使用 mode="vertical" 设置为行内的垂直分割线。',
       'Vertical \n Use type="vertical" make it vertical.'
     ),
-    component: require('doc/pages/components/Divider/example-3-base.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Divider/example-3-base.js'),
+    component: require('doc/pages/components/Divider/example-3-base.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Divider/example-3-base.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Divider/example-3-base.tsx'),
+
   },
 ]
 

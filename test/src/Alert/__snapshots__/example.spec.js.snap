@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Snapshot test: Alert[site/pages/components/Alert/example-1-base.js] 1`] = `
+exports[`Alert[snapshot] Snapshot test: Alert[site/pages/components/Alert/example-1-base.tsx] 1`] = `
 <div>
   <div>
     <h3>
@@ -11,7 +11,7 @@ exports[`Snapshot test: Alert[site/pages/components/Alert/example-1-base.js] 1`]
 </div>
 `;
 
-exports[`Snapshot test: Alert[site/pages/components/Alert/example-2-type.js] 1`] = `
+exports[`Alert[snapshot] Snapshot test: Alert[site/pages/components/Alert/example-2-type.tsx] 1`] = `
 <div>
   <div>
     <div>
@@ -36,7 +36,7 @@ exports[`Snapshot test: Alert[site/pages/components/Alert/example-2-type.js] 1`]
 </div>
 `;
 
-exports[`Snapshot test: Alert[site/pages/components/Alert/example-3-close.js] 1`] = `
+exports[`Alert[snapshot] Snapshot test: Alert[site/pages/components/Alert/example-3-close.tsx] 1`] = `
 <div>
   <div>
     <a>
@@ -62,7 +62,7 @@ exports[`Snapshot test: Alert[site/pages/components/Alert/example-3-close.js] 1`
 </div>
 `;
 
-exports[`Snapshot test: Alert[site/pages/components/Alert/example-4-icon.js] 1`] = `
+exports[`Alert[snapshot] Snapshot test: Alert[site/pages/components/Alert/example-4-icon.tsx] 1`] = `
 <div>
   <div>
     <div>

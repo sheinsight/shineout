@@ -1,0 +1,125 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Card[snapshot] Snapshot test: Card[site/pages/components/Card/example-1-base.tsx] 1`] = `
+<div>
+  <div>
+    <div>
+      Header
+    </div>
+    <div>
+      Body
+    </div>
+    <div>
+      Footer
+    </div>
+  </div>
+  <div>
+    <div>
+      Header
+    </div>
+    <div>
+      Body
+    </div>
+    <div>
+      Footer
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Card[snapshot] Snapshot test: Card[site/pages/components/Card/example-2-boxshadow.tsx] 1`] = `
+<div>
+  <div>
+    <div>
+      Never
+    </div>
+  </div>
+  <div>
+    <div>
+      Hover
+    </div>
+  </div>
+  <div>
+    <div>
+      Always
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Card[snapshot] Snapshot test: Card[site/pages/components/Card/example-3-form.tsx] 1`] = `
+<div>
+  <div>
+    Header
+  </div>
+  <div>
+    <br />
+    <form>
+      <div>
+        <div>
+          User name
+        </div>
+        <div>
+          <label>
+            <input />
+          </label>
+        </div>
+      </div>
+      <div>
+        <div>
+          Email
+        </div>
+        <div>
+          <label>
+            <input />
+          </label>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div>
+    <button>
+      <span>
+        Submit
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Card[snapshot] Snapshot test: Card[site/pages/components/Card/example-4-collapse.tsx] 1`] = `
+<div>
+  <div>
+    <span>
+      <svg>
+        <path />
+        <path />
+      </svg>
+    </span>
+    Header
+  </div>
+  <div>
+    <div>
+      <div>
+        <label>
+          <div>
+            <div>
+              <span>
+                <span>
+                   
+                </span>
+              </span>
+              <span>
+                <svg>
+                  <path />
+                </svg>
+              </span>
+            </div>
+            <div />
+          </div>
+        </label>
+      </div>
+    </div>
+  </div>
+</div>
+`;

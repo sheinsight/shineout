@@ -1,7 +1,7 @@
 // Created by scripts/src-index.js.
 import * as utils from './utils'
 
-export default { utils, version: '1.9.6' }
+export default { utils, version: '1.11.0-rc.23' }
 export { utils }
 export { setLocale } from './locale'
 export { color, style } from './utils/expose'

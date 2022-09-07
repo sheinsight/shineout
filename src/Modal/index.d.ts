@@ -58,7 +58,7 @@ export interface ModalProps extends StandardProps {
    *
    * default: true
    */
-  maskCloseAble?: boolean | null ;
+  maskCloseAble?: boolean | null;
 
   /**
    * The opacity of the mask
@@ -85,7 +85,7 @@ export interface ModalProps extends StandardProps {
    *
    * default: -
    */
-  position?: string;
+  position?: 'top'| 'right'| 'bottom'| 'left';
 
   /**
    * the title of the pop-up layer
@@ -302,16 +302,16 @@ export interface ModalFunctionOptions extends ModalProps {
    *
    * default: null
    */
-  autoFocusButton?: string;
+  autoFocusButton?: string
 
   /**
-   * content
+   * When the theme is antd, Set the content style padding to 0
    *
-   * 弹窗内容
+   * 当Sheinout采用 antd 主题时，取消内容区域的padding
    *
    * default: -
    */
-  children?: ReactNode
+  noPadding?: boolean
 }
 
 type Close = () => void;
@@ -322,6 +322,8 @@ declare class ModalSubmit extends React.Component<CardSubmitProps> {
 
 declare class Modal extends React.Component<ModalProps, {}> {
   static info(options: ModalFunctionOptions): Close;
+
+  static warn(options: ModalFunctionOptions): Close;
 
   static success(options: ModalFunctionOptions): Close;
 
@@ -334,6 +336,7 @@ declare class Modal extends React.Component<ModalProps, {}> {
   static Submit: typeof ModalSubmit;
 
   static closeAll: () => void;
+  render(): JSX.Element
 }
 
 export default Modal

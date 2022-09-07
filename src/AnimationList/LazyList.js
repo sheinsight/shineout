@@ -24,8 +24,9 @@ class LazyList extends PureComponent {
   }
 
   getScrollHeight() {
-    const { lineHeight, data } = this.props
-    return data.length * lineHeight
+    const { lineHeight, data, colNum } = this.props
+    const rows = Math.ceil(data.length / colNum)
+    return rows * lineHeight
   }
 
   resetScrollTop() {
@@ -70,13 +71,17 @@ class LazyList extends PureComponent {
   }
 
   render() {
-    const { className, style, height, lineHeight, data, itemsInView, renderItem, keygen } = this.props
+    const { className, style, height, lineHeight, data, itemsInView, renderItem, keygen, colNum } = this.props
     const { currentIndex, fixed } = this.state
     const scrollHeight = this.getScrollHeight()
     const ms = Object.assign({}, style, height && { height })
     const items = data
-      .slice(currentIndex, currentIndex + itemsInView)
+      .slice(currentIndex * colNum, (currentIndex + itemsInView) * colNum)
       .map((d, i) => <Fragment key={getKey(d, keygen, i)}>{renderItem(d, i)}</Fragment>)
+    const fr = Array(colNum)
+      .fill('1fr')
+      .join(' ')
+    const gridStyle = colNum > 1 ? { display: 'grid', gridTemplateColumns: fr } : {}
     return (
       <Scroll
         stable
@@ -91,8 +96,9 @@ class LazyList extends PureComponent {
           ref={el => {
             this.optionInner = el
           }}
+          style={gridStyle}
         >
-          <div style={{ height: currentIndex * lineHeight }} />
+          <div style={{ height: currentIndex * lineHeight, gridColumnEnd: '-1' }} />
           {items}
         </div>
       </Scroll>
@@ -104,10 +110,12 @@ LazyList.defaultProps = {
   itemsInView: 10,
   lineHeight: 32,
   data: [],
+  colNum: 1,
 }
 
 LazyList.propTypes = {
   data: PropType.array,
+  colNum: PropType.number,
   itemsInView: PropType.number,
   lineHeight: PropType.number,
   height: PropType.oneOfType([PropType.number, PropType.string]),

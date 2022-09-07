@@ -1,5 +1,7 @@
 import { shallow, mount } from 'enzyme'
 import React from 'react'
+import { Image } from 'shineout'
+import { baseTest } from '../../utils'
 import ImageBase from '../../../site/pages/components/Image/example-01-base'
 import ImageShape from '../../../site/pages/components/Image/example-02-shape'
 import ImageFit from '../../../site/pages/components/Image/example-03-fit'
@@ -157,5 +159,135 @@ describe('Image[Lazyload]', () => {
       expect(mockFn.mock.calls.length).toBe(4)
       done()
     }, 1000)
+  })
+})
+
+describe('Image[Base]', () => {
+  test('should custom style and className', () => {
+    baseTest(Image, `.${SO_PREFIX}-image`)
+  })
+})
+
+describe('Image[container]', () => {
+  test('should set container', () => {
+    const src = '../../../images/1_b.jpg'
+    const wrapper = mount(
+      <div id="container">
+        <Image lazy src={src} container="#container" />
+      </div>
+    )
+    expect(wrapper.find(`.${SO_PREFIX}-image-inner`).length).toBe(1)
+  })
+})
+
+describe('Image[href]', () => {
+  test('should set href', () => {
+    const fakeHref = '/href/fake'
+    const wrapper = mount(<Image href={fakeHref} />)
+    wrapper.update()
+    expect(wrapper.find('a').length).toBe(1)
+  })
+})
+
+describe('Image[onClick]', () => {
+  test('should be click', () => {
+    const onClick = jest.fn()
+    const fakeHref = '/href/fake'
+    const wrapper = mount(<Image onClick={onClick} href={fakeHref} />)
+    wrapper.find(`.${SO_PREFIX}-image`).simulate('click')
+    expect(onClick).toBeCalled()
+  })
+
+  test('gallery should be open by click', () => {
+    const fakeHref = '/href/fake'
+    const wrapper = mount(<Image href={fakeHref} target="_modal" alt={fakeHref} />)
+    wrapper.find(`.${SO_PREFIX}-image`).simulate('click')
+    expect(document.getElementsByClassName(`${SO_PREFIX}-image-gallery`).length).toBe(1)
+  })
+
+  test('should be click when in group', () => {
+    const wrapper = mount(
+      <Image.Group>
+        {[1].map(i => (
+          <Image
+            key={i}
+            fit="fill"
+            width={80}
+            height={80}
+            shape="thumbnail"
+            src={`../../../images/${i}_s.jpg`}
+            href={`../../../images/${i}_b.jpg`}
+          />
+        ))}
+      </Image.Group>
+    )
+    wrapper.find(`.${SO_PREFIX}-image`).forEach(i => {
+      i.simulate('click')
+    })
+    wrapper.update()
+    expect(document.getElementsByClassName(`${SO_PREFIX}-image-gallery`).length).toBe(1)
+  })
+})
+
+describe('Image[onError]', () => {
+  test('onError should be called ', () => {
+    jest.useFakeTimers()
+    const onError = jest.fn()
+    const fakeSrc = 'href/fake'
+    const wrapper = mount(<Image onError={onError} src={fakeSrc} />)
+    const instance = wrapper.instance()
+    instance.handleError()
+    expect(onError).toBeCalled()
+  })
+})
+
+describe('Image[placeholder]', () => {
+  test('should set placeholder', () => {
+    const placeholder = <div>Hello</div>
+    const wrapper = mount(<Image lazy placeholder={placeholder} src="/" />)
+    expect(
+      wrapper
+        .find(`.${SO_PREFIX}-image-inner`)
+        .children()
+        .html()
+    ).toBe('<div>Hello</div>')
+  })
+})
+
+describe('Image[src]', () => {
+  test('should set src', () => {
+    const fakeSrc = 'href/fake'
+    const wrapper = mount(<Image src={fakeSrc} />)
+    wrapper.update()
+    expect(wrapper.find(Image).props().src).toBe(fakeSrc)
+  })
+})
+
+describe('Image[title]', () => {
+  test('should set title', () => {
+    const title = 'Hello'
+    const wrapper = mount(<Image title={title} src="../../../images/1_b.jpg" />)
+    expect(wrapper.find(Image).props().title).toBe(title)
+  })
+})
+
+// this event should be trigger manually
+describe('Image[preview]', () => {
+  test('should trigger preview', () => {
+    const wrapper = mount(<Image src="../../../images/1_b.jpg" />)
+    wrapper
+      .find(Image)
+      .instance()
+      .preview()
+    expect(document.getElementsByClassName(`${SO_PREFIX}-image-gallery`).length).toBe(1)
+  })
+})
+
+describe('Image[unmount]', () => {
+  test('should unmount', () => {
+    const wrapper = mount(<Image />)
+    expect(wrapper.find(`.${SO_PREFIX}-image`).length).toBe(1)
+    wrapper.unmount()
+    expect(wrapper.find(`.${SO_PREFIX}-image`).length).toBe(0)
   })
 })

@@ -23,18 +23,19 @@
 | onChange | (value: string[]) => void | - | When the onChange property is set, the selection box is displayed. The parameter is the current selected value, which is related to the mode property. |
 | onExpand |  (value: string[]) => void | - | The callback function for expanding the node. The parameter is the key array of the currently expanded nodes. |
 | renderItem | (data: object) => ReactNode | required | When it is a string, return d\[string].<br /> When it is a function, return the result of this function. |
-| defaultValue | string[] | - | Default selected key (not controlled) | 
+| defaultValue | string[] | - | Default selected key (not controlled) |
 | value | string[] | - | Selected key (controlled) |
-| onDrop | (data: object, key: string, targetKey: string, position: number) => void | - | It is draggable when setting the onDrop property. <br />data: Full data after dragging.<br />key: the key of dragged node<br />targetKey: the key of target node<br />position: The position of the target node. start at 0. | 
-| defaultExpandAll | boolean | false | default expand all nodes | 
-| childrenKey | string | 'children' | the key of the children data name | 
+| onDrop | (data: object, key: string, targetKey: string, position: number) => void | - | It is draggable when setting the onDrop property. <br />data: Full data after dragging.<br />key: the key of dragged node<br />targetKey: the key of target node<br />position: The position of the target node. start at 0. |
+| defaultExpandAll | boolean | false | default expand all nodes |
+| childrenKey | string | 'children' | the key of the children data name |
 | expandIcons | \[ReactNode, ReactNode] | none | custom expand/collapse button |
 | dragImageSelector | (data: object) => string \| string | - | the selector of drag image |
 | dragImageStyle | object | - | the style of drag Image |
 | leafClass | (data: object) => string \| string | - | the class of lead, the params of function is data |
 | dragHoverExpand | boolean | false | auto expand the node when drag over |
 | doubleClickExpand | boolean | false | expand node while double click |
-| onClick | (data: object) => void | none | node click |
+| onClick | (data: object, key:string\|number) => void | none | node click |
 | iconClass | string | - | expand/collapse button's class |
 | nodeClass | string \| ((data: any) => string) | - | The class of the node, if it is a function, the parameter is the node data. |
 | dragSibling | boolean  | - | whether drag can only be level |
+| parentClickExpand | boolean  | false | Expand by click parent node |

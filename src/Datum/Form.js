@@ -253,7 +253,7 @@ export default class {
     this.subscribe(errorSubscribe(name), fn)
   }
 
-  unbind(name) {
+  unbind(name, cb, reserveAble) {
     if (Array.isArray(name)) {
       name.forEach(n => this.unbind(n))
       return
@@ -268,6 +268,7 @@ export default class {
     // when  setData due to unmount not delete value
     if (this.updateLock) return
     if (!deepHas(this.$values, name)) return
+    if (reserveAble) return
     deepRemove(this.$values, name)
 
     if (!this.formUnmount) {

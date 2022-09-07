@@ -150,6 +150,15 @@ export interface TabsProps extends StandardProps {
    * default: -
    */
   children: ReactNode;
+
+  /**
+   * the color of tab's text
+   *
+   * 标签页文字颜色，仅当 shape 为 'card' 时生效
+   *
+   * default: -
+   */
+   color?: string;
 }
 
 export interface TabsPanelProps extends StandardProps {
@@ -207,6 +216,24 @@ export interface TabsPanelProps extends StandardProps {
    * default: -
    */
   children: ReactNode;
+
+  /**
+   * default collapse state, effective when collapsible is set to true
+   *
+   * 默认折叠状态,当 collapsible 设置为 true 时生效
+   *
+   * default: -
+   */
+  defaultCollapsed?: boolean;
+
+  /**
+   * auto fill the panel
+   *
+   * 自动填充内容区域
+   *
+   * default: false
+   */
+   autoFill?: boolean;
 
 }
 

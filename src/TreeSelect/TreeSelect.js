@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { isFunc, isArray } from 'shineout/utils/is'
 import Tree from '../Tree'
 import { PureComponent } from '../component'
 import { getProps } from '../utils/proptypes'
@@ -47,6 +48,17 @@ export default class TreeSelect extends PureComponent {
     this.handleRemove = this.handleRemove.bind(this)
     this.handleClickAway = this.handleClickAway.bind(this)
     this.shouldFocus = this.shouldFocus.bind(this)
+    this.getDataByValues = this.getDataByValues.bind(this)
+    const componentRef = {
+      getDataByValues: this.getDataByValues,
+    }
+    if (props.getComponentRef) {
+      if (isFunc(props.getComponentRef)) {
+        props.getComponentRef(componentRef)
+      } else {
+        props.getComponentRef.current = componentRef
+      }
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -57,7 +69,7 @@ export default class TreeSelect extends PureComponent {
     // clear filter
     if (prevState.focus !== this.state.focus && !this.state.focus && onFilter) {
       setTimeout(() => {
-        onFilter('')
+        onFilter('', 'blur')
       }, 400)
     }
   }
@@ -100,6 +112,14 @@ export default class TreeSelect extends PureComponent {
       return value.map(id => datum.getDataById(id))
     }
     return datum.getDataById(value)
+  }
+
+  getDataByValues(values) {
+    const { datum } = this.props
+    if (isArray(values)) {
+      return values.map(id => datum.getDataById(id))
+    }
+    return datum.getDataById(values)
   }
 
   getResetPosition(update) {
@@ -316,6 +336,7 @@ export default class TreeSelect extends PureComponent {
       placeholder,
       onFilter,
       compressed,
+      compressedBound,
       multiple,
       datum,
       clearable,
@@ -363,6 +384,7 @@ export default class TreeSelect extends PureComponent {
           renderResult={renderResult}
           setInputReset={this.setInputReset}
           compressed={compressed}
+          compressedBound={compressedBound}
           renderUnmatched={renderUnmatched}
           innerTitle={innerTitle}
           keygen={keygen}
@@ -377,6 +399,7 @@ export default class TreeSelect extends PureComponent {
 TreeSelect.propTypes = {
   ...getProps(PropTypes, 'placehodler', 'keygen'),
   value: PropTypes.oneOfType([PropTypes.array, PropTypes.any]),
+  getComponentRef: PropTypes.func,
   clearable: PropTypes.bool,
   data: PropTypes.array,
   datum: PropTypes.object,
@@ -402,6 +425,7 @@ TreeSelect.propTypes = {
   onFocus: PropTypes.func,
   empty: PropTypes.string,
   compressed: PropTypes.bool,
+  compressedBound: PropTypes.number,
   absolute: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   parentClickExpand: PropTypes.bool,
   zIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
