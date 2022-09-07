@@ -50,7 +50,7 @@ export default Origin =>
         let res = noCache ? undefined : this.resultCache.get(v)
         if (!res) {
           res = datum.getDataById(v)
-          if (res && !noCache) this.resultCache.set(v, res)
+          if (res && !noCache && !res[IS_NOT_MATCHED_VALUE]) this.resultCache.set(v, res)
           else if (!res) res = { [IS_NOT_MATCHED_VALUE]: true, value: v }
         }
         if (res) {
