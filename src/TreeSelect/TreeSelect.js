@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { isFunc, isArray } from 'shineout/utils/is'
+import { isFunc, isArray } from '../utils/is'
 import Tree from '../Tree'
 import { PureComponent } from '../component'
 import { getProps } from '../utils/proptypes'
