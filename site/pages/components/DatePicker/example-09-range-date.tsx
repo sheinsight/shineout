@@ -57,6 +57,7 @@ const App: React.FC = () => (
     <br />
 
     <DatePicker
+      range
       type="quarter"
       style={style}
       onChange={v => console.log(v)}
