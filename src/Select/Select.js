@@ -560,6 +560,7 @@ class Select extends PureComponent {
       keygen,
       convertBr,
       data,
+      treeData,
     } = this.props
     const disabled = this.getDisabledStatus()
     const className = selectClass(
@@ -613,7 +614,7 @@ class Select extends PureComponent {
           resultClassName={resultClassName}
           innerTitle={innerTitle}
           keygen={keygen}
-          data={data}
+          data={treeData || data}
           convertBr={convertBr}
         />
         {this.renderOptions()}
