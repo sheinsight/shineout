@@ -54,7 +54,7 @@
 | changedByExpand | boolean | false | 在特定场景（树形数据展开受控)下开启 用来改变滚动条重置的默认行为 |
 | renderSorter | (params: {status?: 'asc' \| 'desc', triggerAsc: () => void, triggerDesc: ()=> void})=> ReactNode | false | 自定义排序图标 |
 | width | number | 无 | 表格总宽度 |
-| foots | { render: ()=> ReactNode, colSpan?: number, rowSpan?: number }\[]\[] | 无 | 渲染底部信息 |
+| summary | { render: ()=> ReactNode, colSpan?: number, rowSpan?: number }\[]\[] | 无 | 渲染底部信息 |
 
 ### TableColumn
 

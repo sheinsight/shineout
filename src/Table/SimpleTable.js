@@ -139,10 +139,10 @@ class SimpleTable extends PureComponent {
   }
 
   renderFooter() {
-    const { columns, width, data, columnResizable, bordered, foots } = this.props
+    const { columns, width, data, columnResizable, bordered, summary } = this.props
     const { colgroup, overHeight, overWidth } = this.state
     if (!(data && data.length)) return null
-    if (!(foots && foots.length)) return null
+    if (!(summary && summary.length)) return null
 
     const inner = (
       <table style={{ width }} className={tableClass(bordered && 'table-bordered')}>
@@ -218,7 +218,7 @@ SimpleTable.propTypes = {
   sticky: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   hideHeader: PropTypes.bool,
   bordered: PropTypes.bool,
-  foots: PropTypes.array,
+  summary: PropTypes.array,
 }
 
 SimpleTable.defaultProps = {

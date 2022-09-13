@@ -1,8 +1,8 @@
 /**
  * cn - 底部总结栏
- *    -- 通过 foots 属性来渲染底部信息
+ *    -- 通过 summary 属性来渲染底部信息
  * en - footer summary
- *    -- Render bottom information through the foots property
+ *    -- Render bottom information through the summary property
  */
 import React from 'react'
 import { Table, TYPE } from 'shineout'
@@ -60,7 +60,7 @@ const columns: TableColumnItem[] = [
   },
 ]
 
-const foots: TableProps['foots'] = [
+const summary: TableProps['summary'] = [
   [
     {
       render: () => <span>Total</span>,
@@ -83,6 +83,8 @@ const foots: TableProps['foots'] = [
   ],
 ]
 
-const App: React.FC = () => <Table bordered data={data} keygen="id" cellSelectable columns={columns} foots={foots} />
+const App: React.FC = () => (
+  <Table bordered data={data} keygen="id" cellSelectable columns={columns} summary={summary} />
+)
 
 export default App

@@ -580,10 +580,10 @@ class SeperateTable extends PureComponent {
   }
 
   renderFooter(floatClass) {
-    const { columns, width, columnResizable, bordered, foots, data, fixed } = this.props
+    const { columns, width, columnResizable, bordered, summary, data, fixed } = this.props
     const { colgroup } = this.state
     if (!(data && data.length)) return null
-    if (!(foots && foots.length)) return null
+    if (!(summary && summary.length)) return null
     const scrollX = fixed === 'x' || fixed === 'both'
     const footer = (
       <div key="foot" className={tableClass('foot', ...floatClass, scrollX && 'foot-scroll-x')}>
@@ -640,7 +640,7 @@ SeperateTable.propTypes = {
   innerScrollAttr: PropTypes.arrayOf(PropTypes.string),
   sticky: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   hideHeader: PropTypes.bool,
-  foots: PropTypes.array,
+  summary: PropTypes.array,
 }
 
 SeperateTable.defaultProps = {

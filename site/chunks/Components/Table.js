@@ -508,29 +508,29 @@ const examples = [
 
   },
   {
-    name: '34-foots-01',
+    name: '34-summary-01',
     isTs: true,
     isTest: false,
     title: locate(
-      '底部总结栏 \n 通过 foots 属性来渲染底部信息',
-      'footer summary \n Render bottom information through the foots property'
+      '底部总结栏 \n 通过 summary 属性来渲染底部信息',
+      'footer summary \n Render bottom information through the summary property'
     ),
-    component: require('doc/pages/components/Table/example-34-foots-01.tsx').default,
-    rawText: require('!raw-loader!doc/pages/components/Table/example-34-foots-01.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Table/example-34-foots-01.tsx'),
+    component: require('doc/pages/components/Table/example-34-summary-01.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/example-34-summary-01.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Table/example-34-summary-01.tsx'),
 
   },
   {
-    name: '34-foots-02-fixed',
+    name: '34-summary-02-fixed',
     isTs: true,
     isTest: false,
     title: locate(
       ' \n 固定列用法',
       ' \n Fixed column usage'
     ),
-    component: require('doc/pages/components/Table/example-34-foots-02-fixed.tsx').default,
-    rawText: require('!raw-loader!doc/pages/components/Table/example-34-foots-02-fixed.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Table/example-34-foots-02-fixed.tsx'),
+    component: require('doc/pages/components/Table/example-34-summary-02-fixed.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/example-34-summary-02-fixed.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Table/example-34-summary-02-fixed.tsx'),
 
   },
   {

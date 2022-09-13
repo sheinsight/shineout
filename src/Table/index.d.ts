@@ -206,7 +206,7 @@ export interface CheckColumn<T> extends SomeColumn<T>{
 
 export type ColumnItem<T> = CommonColumn<T> | CheckColumn<T>
 
-export interface footItem {render: ()=> ReactNode, colSpan?: number, rowSpan?: number}
+export interface summaryItem {render: ()=> ReactNode, colSpan?: number, rowSpan?: number}
 
 
 export interface RowEvents {
@@ -626,7 +626,7 @@ export interface TableProps<TRD, Value> extends StandardProps, ListItemStandardP
    *
    *  default: -
    */
-  foots?: footItem[][] | footItem[]
+  summary?: summaryItem[][] | summaryItem[]
 
 }
 

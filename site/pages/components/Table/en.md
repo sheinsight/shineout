@@ -54,7 +54,7 @@
 | changedByExpand | boolean | false | Enable in specific scenarios (tree data expansion is controlled) Used to change the default behavior of scroll reset |
 | renderSorter | (params: {status?: 'asc' \| 'desc', triggerAsc: () => void, triggerDesc: ()=> void})=> ReactNode | false | customize sort icons |
 | width | number | - | Total table width |
-| foots | {render: ()=> ReactNode, colSpan?: number, rowSpan?: number }\[]\[] | - | render footer |
+| summary | {render: ()=> ReactNode, colSpan?: number, rowSpan?: number }\[]\[] | - | render footer |
 
 
 ### TableColumn

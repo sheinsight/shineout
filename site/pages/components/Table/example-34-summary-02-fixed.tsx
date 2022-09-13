@@ -54,7 +54,7 @@ const columns: TableColumnItem[] = [
   },
 ]
 
-const foots: TableProps['foots'] = [
+const summary: TableProps['summary'] = [
   [
     { render: () => <span>Summary</span>, colSpan: 3 },
     { render: () => <span>summary content</span>, colSpan: 4 },
@@ -71,7 +71,7 @@ const App: React.FC = () => (
     style={{ height: 300 }}
     columns={columns}
     data={data}
-    foots={foots}
+    summary={summary}
   />
 )
 

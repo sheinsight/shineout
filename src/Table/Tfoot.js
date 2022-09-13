@@ -5,13 +5,13 @@ import { isArray } from '../utils/is'
 
 class Tfoot extends React.PureComponent {
   getTrs() {
-    let { foots = [] } = this.props
-    if (!isArray(foots[0])) {
-      foots = [foots]
+    let { summary = [] } = this.props
+    if (!isArray(summary[0])) {
+      summary = [summary]
     }
     const trs = []
-    for (let i = 0; i < foots.length; i++) {
-      const row = foots[i]
+    for (let i = 0; i < summary.length; i++) {
+      const row = summary[i]
       trs[i] = []
       let index = 0
       for (let j = 0; j < row.length; j++) {
@@ -65,7 +65,7 @@ class Tfoot extends React.PureComponent {
 }
 
 Tfoot.propTypes = {
-  foots: PropTypes.array,
+  summary: PropTypes.array,
   columns: PropTypes.array,
 }
 

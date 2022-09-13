@@ -1,7 +1,7 @@
 import React from 'react'
 import { mount } from 'enzyme'
-import TFooterSimple from '../../../site/pages/components/Table/example-34-foots-01'
-import TFooterFixed from '../../../site/pages/components/Table/example-34-foots-02-fixed'
+import TFooterSimple from '../../../site/pages/components/Table/example-34-summary-01'
+import TFooterFixed from '../../../site/pages/components/Table/example-34-summary-02-fixed'
 
 describe('Table[foots]', () => {
   it('should simpletable render foots', () => {
