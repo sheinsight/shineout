@@ -206,6 +206,8 @@ export interface CheckColumn<T> extends SomeColumn<T>{
 
 export type ColumnItem<T> = CommonColumn<T> | CheckColumn<T>
 
+export interface footItem {render: ()=> ReactNode, colSpan?: number, rowSpan?: number}
+
 
 export interface RowEvents {
   [propName: string]: any
@@ -616,6 +618,15 @@ export interface TableProps<TRD, Value> extends StandardProps, ListItemStandardP
    * default: false
    */
   cellSelectable?: boolean
+
+  /**
+   *  Footer information can be used to summarize
+   *
+   *  底部信息可用于总结
+   *
+   *  default: -
+   */
+  foots?: footItem[][] | footItem[]
 
 }
 
