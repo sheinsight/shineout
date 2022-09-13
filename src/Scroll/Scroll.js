@@ -32,6 +32,7 @@ class Scroll extends PureComponent {
 
     this.bindInner = this.bindInner.bind(this)
     this.bindWheel = this.bindWheel.bind(this)
+    this.bindFooter = this.bindFooter.bind(this)
     this.setRect = this.setRect.bind(this)
     this.handleScrollX = this.handleScrollX.bind(this)
     this.handleScrollY = this.handleScrollY.bind(this)
@@ -66,6 +67,12 @@ class Scroll extends PureComponent {
     this.wheelElement.removeEventListener('touchmove', this.handleTouchMove)
     this.inner.removeEventListener('scroll', this.handleInnerScroll)
     this.wheelElement.removeEventListener('scroll', this.handleInnerScroll)
+
+    if (this.footerElement) {
+      this.footerElement.removeEventListener('wheel', this.handleWheel)
+      this.footerElement.removeEventListener('touchstart', this.handleTouchStart)
+      this.footerElement.removeEventListener('touchmove', this.handleTouchMove)
+    }
   }
 
   getWheelRect() {
@@ -121,6 +128,20 @@ class Scroll extends PureComponent {
     this.wheelElement = el
   }
 
+  bindFooter(el) {
+    if (this.footerElement) {
+      this.footerElement.removeEventListener('wheel', this.handleWheel)
+      this.footerElement.removeEventListener('touchstart', this.handleTouchStart)
+      this.footerElement.removeEventListener('touchmove', this.handleTouchMove)
+    }
+    if (el) {
+      el.addEventListener('wheel', this.handleWheel, { passive: false })
+      el.addEventListener('touchstart', this.handleTouchStart, { passive: true })
+      el.addEventListener('touchmove', this.handleTouchMove, { passive: false })
+    }
+    this.footerElement = el
+  }
+
   boundleScroll() {
     /*
     this.locked = true
@@ -167,12 +188,17 @@ class Scroll extends PureComponent {
     }
 
     const target = getParent(event.target, `.${scrollClass('_')}`)
-    if (target !== this.wheelElement) return
+    let inFooter = false
+    if (this.footerElement) {
+      inFooter = this.footerElement === event.target || this.footerElement.contains(event.target)
+    }
+
+    if (target !== this.wheelElement && !inFooter) return
 
     const wheel = normalizeWheel(event)
     this.setBaseScrollHeightRatio(wheel.pixelY)
     if (scrollX) this.pixelX = isRTL() ? this.pixelX - wheel.pixelX : this.pixelX + wheel.pixelX
-    if (scrollY) this.pixelY += wheel.pixelY * this.baseScrollRatio
+    if (scrollY && !inFooter) this.pixelY += wheel.pixelY * this.baseScrollRatio
 
     if (Math.abs(wheel.pixelX) > Math.abs(wheel.pixelY)) {
       event.preventDefault()
@@ -254,26 +280,35 @@ class Scroll extends PureComponent {
     this.wheelX = scrollX && Math.ceil(scrollWidth) > Math.ceil(width)
 
     return (
-      <div style={style} ref={this.bindWheel} className={className}>
-        <iframe tabIndex={-1} title="scroll" ref={this.bindIframe} className={scrollClass('iframe')} />
-        <div className={scrollClass('iframe')} />
-        <div ref={this.bindInner} className={scrollClass('inner')}>
-          <Provider value={{ left: left * width, top: top * height, element: this.wheelElement }}>{children}</Provider>
+      <>
+        <div style={style} ref={this.bindWheel} className={className}>
+          <iframe tabIndex={-1} title="scroll" ref={this.bindIframe} className={scrollClass('iframe')} />
+          <div className={scrollClass('iframe')} />
+          <div ref={this.bindInner} className={scrollClass('inner')}>
+            <Provider value={{ left: left * width, top: top * height, element: this.wheelElement }}>
+              {children}
+            </Provider>
+          </div>
+          {scrollY && (
+            <Bar
+              direction="y"
+              length={yLength}
+              forceHeight={scrollHeight < height ? scrollHeight : undefined}
+              scrollLength={scrollHeight}
+              offset={top}
+              onScroll={this.handleScrollY}
+            />
+          )}
+          {scrollX && (
+            <Bar direction="x" length={width} scrollLength={scrollWidth} offset={left} onScroll={this.handleScrollX} />
+          )}
         </div>
-        {scrollY && (
-          <Bar
-            direction="y"
-            length={yLength}
-            forceHeight={scrollHeight < height ? scrollHeight : undefined}
-            scrollLength={scrollHeight}
-            offset={top}
-            onScroll={this.handleScrollY}
-          />
+        {this.props.footer && (
+          <div ref={this.bindFooter} className={scrollClass('footer')}>
+            {this.props.footer}
+          </div>
         )}
-        {scrollX && (
-          <Bar direction="x" length={width} scrollLength={scrollWidth} offset={left} onScroll={this.handleScrollX} />
-        )}
-      </div>
+      </>
     )
   }
 }
@@ -289,6 +324,7 @@ Scroll.propTypes = {
   scrollX: PropTypes.bool.isRequired,
   scrollY: PropTypes.bool.isRequired,
   stable: PropTypes.bool,
+  footer: PropTypes.node,
   innerScrollAttr: PropTypes.arrayOf(PropTypes.string),
 }
 

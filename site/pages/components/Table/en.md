@@ -7,7 +7,7 @@
 ### Table
 
 | Property | Type | Default | Description |
-| --- | --- | --- | --- |
+| --- | --- | -- | --- |
 | bordered | boolean | false | Whether to display the border |
 | className | string | - | extend className |
 | columns | object[] | - | array，见 TableColumn |
@@ -32,7 +32,7 @@
 | verticalAlign | 'top' \| 'middle' | 'top' | vertical align with content |
 | rowClickAttr | true \| string \| string[] | \['*'\] | Sets the attribute of inner element to trigger onRowClick as needed, and '*' to accept the row click |
 | sorter | (sortKey: any, sorter: 'asc' \| 'desc', sortedList: any[]) => (a: object, b: object) => number | alphaSort(Column.sorter, sorter) | the method of table sort，args are Column.sorter and order<br /> Multi-column sorting is supported. The sorter passes in the object {rule: string \| function, weight: number}, where rule is a sorting rule, which refers to the use of single-column sorting when it is a string, weight is the weight, indicating the priority of the order<br /> When sorting on multiple columns, sortedList returns information about all fields involved in sorting|
-| treeExpandKeys | any[] | none  | Tree Table expanded row keys |
+| treeExpandKeys | any[] | none | Tree Table expanded row keys |
 | onTreeExpand | (openKeys: (string\|number)[], data: object, expand: boolean) => void | none | When treeExpandKeys is set, the callback is triggered when the row is expanded. Keys is expanded row keys |
 | hover | boolean | true | row hover highlight |
 | treeEmptyExpand | boolean | false | show expand button while children data is empty |
@@ -54,6 +54,8 @@
 | changedByExpand | boolean | false | Enable in specific scenarios (tree data expansion is controlled) Used to change the default behavior of scroll reset |
 | renderSorter | (params: {status?: 'asc' \| 'desc', triggerAsc: () => void, triggerDesc: ()=> void})=> ReactNode | false | customize sort icons |
 | width | number | - | Total table width |
+| summary | {render: ()=> ReactNode, colSpan?: number, rowSpan?: number }\[]\[] | - | render footer |
+
 
 ### TableColumn
 
