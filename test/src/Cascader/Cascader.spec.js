@@ -298,6 +298,31 @@ describe('Cascader[onFilter]', () => {
       .reduce((result, item) => result && item.text().indexOf('1') > -1, true)
     expect(right).toBe(true)
   })
+  it('wideMatch', () => {
+    const wrapper = mount(
+      <Cascader
+        wideMatch
+        onFilter={text => d => d.text.indexOf(text) >= 0}
+        data={userData}
+        keygen="id"
+        renderItem={n => `node ${n.text}`}
+      />
+    )
+    jest.useFakeTimers()
+    // 点击展开
+    wrapper.find(`.so-cascader`).simulate('click')
+    // 聚焦输入框
+    wrapper.find(`.so-cascader-input`).simulate('focus')
+    wrapper.find('.so-cascader-input').simulate('input', { target: { innerText: '0' } })
+    jest.runAllTimers()
+    wrapper.update()
+    expect(wrapper.find('.so-cascader-filter-list').length).toBe(1)
+    expect(wrapper.find('.so-cascader-filter-list .so-cascader-node').length).toBe(5)
+    const right = wrapper
+      .find('.so-cascader-list .so-cascader-node')
+      .reduce((result, item) => result && item.text().indexOf('0') > -1, true)
+    expect(right).toBe(true)
+  })
 })
 
 describe('Cascader[renderItem, renderResult]', () => {
