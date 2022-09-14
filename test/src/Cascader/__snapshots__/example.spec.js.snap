@@ -105,6 +105,32 @@ exports[`Cascader[snapshot] Snapshot test: Cascader[site/pages/components/Cascad
 </div>
 `;
 
+exports[`Cascader[snapshot] Snapshot test: Cascader[site/pages/components/Cascader/example-07-filter-widematch.tsx] 1`] = `
+<div>
+  <div>
+    <div>
+      Single
+    </div>
+    <div>
+      <span>
+        <div>
+          <div>
+            <span>
+               
+            </span>
+            <a>
+              <svg>
+                <path />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Cascader[snapshot] Snapshot test: Cascader[site/pages/components/Cascader/example-07-innertitle.tsx] 1`] = `
 <span>
   <div>
