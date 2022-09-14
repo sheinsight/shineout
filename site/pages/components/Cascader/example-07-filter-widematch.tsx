@@ -3,7 +3,7 @@
  *    -- 开启 wideMatch 后，将筛选出所有可能的匹配项目
  *    --
  * en - wideMatch
- *    -- All possible matching items will be screened out
+ *    -- Allows all possible matching options to be choosed
  *    --
  */
 import React, { useState } from 'react'

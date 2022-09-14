@@ -206,7 +206,7 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
   /**
    * Allows all possible matching options to be choosed
    *
-   * onFilter 不为空时，可以输入过滤数据;onFilter 如果返回一个函数，使用这个函数做前端过滤;如果不返回，可以自行做后端过滤;单选状态下支持
+   * 开启 wideMatch 后，将筛选出所有可能的匹配项目
    *
    * default: -
    */
