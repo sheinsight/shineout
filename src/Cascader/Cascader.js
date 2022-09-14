@@ -269,17 +269,7 @@ class Cascader extends PureComponent {
   }
 
   renderList() {
-    const {
-      data,
-      keygen,
-      renderItem,
-      mode,
-      loader,
-      onItemClick,
-      expandTrigger,
-      childrenKey,
-      height,
-    } = this.props
+    const { data, keygen, renderItem, mode, loader, onItemClick, expandTrigger, childrenKey, height } = this.props
     const { path } = this.state
 
     const props = {
@@ -463,7 +453,7 @@ Cascader.propTypes = {
   height: PropTypes.number,
   keygen: PropTypes.any,
   loader: PropTypes.func,
-  mode: PropTypes.oneOf([0, 1, 2, 3]),
+  mode: PropTypes.oneOf([0, 1, 2, 3, 4]),
   onBlur: PropTypes.func,
   onChange: PropTypes.func,
   onFocus: PropTypes.func,

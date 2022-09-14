@@ -70,8 +70,8 @@ const examples = [
     isTs: true,
     isTest: false,
     title: locate(
-      '动态加载 \n 数据过大，需要动态加载时，可以设置 loader 函数，当展开未定义 children（undefined）的节点时，触发此函数',
-      'Lazy load \n Set the loader function to dynamic fetch data. This function is triggered when the undefined child node is expanded.'
+      '动态加载 \n 数据过大，需要动态加载时，可以设置 loader 函数，当展开未定义 children（undefined）的节点时，触发此函数 \n 注意，在开启动态加载功能后，mode 属性仅支持 3 或 4 模式。',
+      'Lazy load \n Set the loader function to dynamic fetch data. This function is triggered when the undefined child node is expanded. \n In addition, with lazyload enabled, the mode attribute only supports mode 3 or 4.'
     ),
     component: require('doc/pages/components/Cascader/example-05-lazyload.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Cascader/example-05-lazyload.tsx'),
