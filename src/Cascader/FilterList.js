@@ -114,50 +114,13 @@ class FilterList extends Component {
 
   getWideMatch(list) {
     const { filterDataChange } = this.props
-    const intersectes = []
-    const intersectesMap = {}
-
-    // [1,2,3] => [[1],[1,2],[1,2,3]]
-    const getIntersects = data => {
-      const result = []
-      data.reduce((pre, cur) => {
-        result.push([...pre, cur])
-        return [...pre, cur]
-      }, [])
-      return result
-    }
-
-    const getIntersect = data =>
-      data.reduce((pre, cur) => {
-        const intersectSet = new Set(cur)
-        const intersect = pre.filter(x => intersectSet.has(x))
-        const hasIntersect = intersect && intersect.length > 0
-
-        if (hasIntersect) {
-          const idx = intersect.findIndex(i => filterDataChange(i))
-
-          if (idx >= 0) {
-            intersectes.unshift(intersect)
-            intersectes.unshift(intersect.slice(0, idx + 1))
-          }
-        } else {
-          getIntersect(getIntersects(cur))
-        }
-
-        return cur
-      })
-
-    getIntersect(list)
-    intersectes.forEach(i => {
-      intersectesMap[this.getKey(i)] = i
-    })
-
-    return intersectes && intersectes.length > 0 ? [...Object.values(intersectesMap), ...list] : list
+    return list.filter(arr => arr.some(item => filterDataChange(item)))
   }
 
   renderList() {
     const { data, childrenKey, height, loading, wideMatch, ...others } = this.props
     let list = getFlattenTree(data, childrenKey, wideMatch)
+
     if (wideMatch) {
       list = this.getWideMatch(list)
     }

@@ -17,66 +17,49 @@ type CascaderRenderItem = CascaderProps['renderItem']
 
 const data = [
   {
-    id: '0',
-    value: '0',
+    value: '江苏',
     children: [
       {
-        id: '0-0',
-        value: '0-0',
-      },
-      {
-        id: '0-1',
-        value: '0-1',
-      },
-    ],
-  },
-  {
-    id: '1',
-    value: '1',
-    children: [
-      {
-        id: '1-0',
-        value: '1-0',
+        value: '南京',
         children: [
           {
-            id: '1-0-0',
-            value: '1-0-0',
-            children: [],
+            value: '江宁',
+            children: [
+              {
+                value: '东山',
+              },
+            ],
           },
           {
-            id: '1-0-1',
-            value: '1-0-1',
-            children: [],
-          },
-          {
-            id: '1-0-2',
-            value: '1-0-2',
-            children: [],
+            value: '鼓楼',
           },
         ],
       },
       {
-        id: '1-1',
-        value: '1-1',
+        value: '镇江',
         children: [
           {
-            id: '1-1-0',
-            value: '1-1-0',
-            children: [],
+            value: '丹阳',
           },
           {
-            id: '1-1-1',
-            value: '1-1-1',
-            children: [],
+            value: '句容',
           },
         ],
       },
     ],
   },
   {
-    id: '2',
-    value: '2',
-    children: [],
+    value: '安徽',
+    children: [
+      {
+        value: '合肥',
+        children: [
+          {
+            value: '肥东',
+          },
+        ],
+      },
+    ],
   },
 ]
 
