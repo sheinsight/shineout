@@ -50,9 +50,7 @@ class Node extends PureComponent {
       onChange([...path, id], datum.getDataById(id))
     }
 
-    if (getParent(e.target, `.${checkinputClass('_')}`)) return
-
-    if (loader && !this.state.loading) {
+    if (loader && !this.state.loading && !getParent(e.target, `.${checkinputClass('_')}`)) {
       this.setState({ loading: true })
       loader(id, data)
     }
