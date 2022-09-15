@@ -13,6 +13,7 @@ import { BAR_WIDTH } from '../Scroll/Scroll'
 import Colgroup from './Colgroup'
 import Thead from './Thead'
 import Tbody from './Tbody'
+import Tfoot from './Tfoot'
 import { isNumber } from '../utils/is'
 import { Provider as AbsoluteProvider } from './context'
 import { CLASS_FIXED_LEFT, CLASS_FIXED_RIGHT } from './Td'
@@ -33,6 +34,7 @@ class SeperateTable extends PureComponent {
     this.bindRealTbody = this.bindElement.bind(this, 'realTbody')
     this.bindThead = this.bindElement.bind(this, 'thead')
     this.bindHeadWrapper = this.bindElement.bind(this, 'headWrapper')
+    this.bindFoot = this.bindElement.bind(this, 'tfoot')
     this.setRowHeight = this.setRowHeight.bind(this)
     this.handleColgroup = this.handleColgroup.bind(this)
     this.handleScroll = this.handleScroll.bind(this)
@@ -304,8 +306,11 @@ class SeperateTable extends PureComponent {
     if (this.thead) {
       setTranslate(this.thead, `-${left}px`, '0')
     }
+    if (this.tfoot) {
+      setTranslate(this.tfoot, `-${left}px`, '0')
+    }
 
-    ;[this.thead, this.tbody].forEach(el => {
+    ;[this.thead, this.tbody, this.tfoot].forEach(el => {
       if (!el) return
       ;[].forEach.call(el.parentNode.querySelectorAll('td, th'), cell => {
         if (cell.classList.contains(tableClass(CLASS_FIXED_LEFT))) {
@@ -516,6 +521,7 @@ class SeperateTable extends PureComponent {
         onScroll={this.handleScroll}
         className={tableClass('body', ...floatClass)}
         innerScrollAttr={innerScrollAttr}
+        footer={this.renderFooter(floatClass)}
       >
         <div ref={this.bindTbody} className={tableClass('scroll-inner')} style={{ width }}>
           <div style={{ height: prevHeight }} />
@@ -573,6 +579,24 @@ class SeperateTable extends PureComponent {
     return header
   }
 
+  renderFooter(floatClass) {
+    const { columns, width, columnResizable, bordered, summary, data, fixed } = this.props
+    const { colgroup } = this.state
+    if (!(data && data.length)) return null
+    if (!(summary && summary.length)) return null
+    const scrollX = fixed === 'x' || fixed === 'both'
+    const footer = (
+      <div key="foot" className={tableClass('foot', ...floatClass, scrollX && 'foot-scroll-x')}>
+        <table ref={this.bindFoot} style={{ width }} className={tableClass(bordered && 'table-bordered')}>
+          <Colgroup colgroup={colgroup} columns={columns} resizable={columnResizable && this.lastScrollArgs[4]} />
+          <Tfoot {...this.props} />
+        </table>
+      </div>
+    )
+
+    return footer
+  }
+
   render() {
     const { fixed, hideHeader } = this.props
     const { scrollLeft, floatFixed } = this.state
@@ -616,6 +640,7 @@ SeperateTable.propTypes = {
   innerScrollAttr: PropTypes.arrayOf(PropTypes.string),
   sticky: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   hideHeader: PropTypes.bool,
+  summary: PropTypes.array,
 }
 
 SeperateTable.defaultProps = {
