@@ -109,7 +109,7 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
    *
    * default: -
    */
-  mode?: 0 | 1 | 2 | 3;
+  mode?: 0 | 1 | 2 | 3 | 4;
 
   /**
    * When the onChange property is set, the selection box is displayed. The parameter is the current selected value, which is related to the mode property.
