@@ -76,6 +76,11 @@ class Cascader extends PureComponent {
   componentDidMount() {
     super.componentDidMount()
     this.updatePathByValue()
+    if (this.props.loader && [0, 1, 2].includes(this.props.mode)) {
+      console.error(
+        new Error(`The mode ${this.props.mode} is not supported when loader setted. Only 3 or 4 can be set.`)
+      )
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {

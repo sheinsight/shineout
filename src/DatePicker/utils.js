@@ -62,7 +62,7 @@ function transDateWithZone(dd, options = {}, back = false) {
         return back ? zonedTimeToUtc(dd, options.timeZone) : utcToZonedTime(dd, options.timeZone)
       }
     }
-    console.error(`不支持传入的时区格式：${options.timeZone}`)
+    console.error(new Error(`timeZone is not supported: ${options.timeZone}`))
   }
   return dd
 }
