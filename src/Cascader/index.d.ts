@@ -202,6 +202,15 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
    * default: -
    */
    onFilter?: (text: string) => (data: any) => boolean;
+
+  /**
+   * Allows all possible matching options to be choosed
+   *
+   * 开启 wideMatch 后，将筛选出所有可能的匹配项目
+   *
+   * default: -
+   */
+   wideMatch?: boolean;
 }
 
 interface componentRef  {

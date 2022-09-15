@@ -36,7 +36,7 @@ export const getFilterTree = (
   return treeNodes.map(mapFilteredNodeToData).filter(node => node)
 }
 
-export const getFlattenTree = (data, childrenKey = 'children') => {
+export const getFlattenTree = (data, childrenKey = 'children', wide) => {
   const arr = []
   const flatten = (list, path) => {
     list.forEach(item => {
@@ -44,6 +44,7 @@ export const getFlattenTree = (data, childrenKey = 'children') => {
       if (children && children.length > 0) {
         const clonedPath = [...path]
         clonedPath.push(item)
+        if (wide) arr.push(clonedPath)
         flatten(children, clonedPath)
       } else {
         arr.push([...path, item])

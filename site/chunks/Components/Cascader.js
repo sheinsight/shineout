@@ -92,6 +92,19 @@ const examples = [
 
   },
   {
+    name: '07-filter-widematch',
+    isTs: true,
+    isTest: false,
+    title: locate(
+      '宽泛筛选 \n 开启 wideMatch 后，将筛选出所有可能的匹配项目 \n ',
+      'wideMatch \n Allows all possible matching options to be choosed \n '
+    ),
+    component: require('doc/pages/components/Cascader/example-07-filter-widematch.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Cascader/example-07-filter-widematch.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Cascader/example-07-filter-widematch.tsx'),
+
+  },
+  {
     name: '07-innertitle',
     isTs: true,
     isTest: false,

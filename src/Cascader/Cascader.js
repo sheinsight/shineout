@@ -356,12 +356,14 @@ class Cascader extends PureComponent {
     const {
       absolute,
       onFilter,
+      wideMatch,
       filterText,
       zIndex,
       data,
       childrenKey,
       renderItem,
       expandTrigger,
+      filterDataChange,
       height,
       loading,
     } = this.props
@@ -382,9 +384,11 @@ class Cascader extends PureComponent {
         childrenKey={childrenKey}
         renderItem={renderItem}
         expandTrigger={expandTrigger}
+        filterDataChange={filterDataChange}
         datum={this.datum}
         onChange={this.handleChange}
         onPathChange={this.handlePathChange}
+        wideMatch={wideMatch}
         onFilter={onFilter}
         filterText={filterText}
         height={height}
@@ -483,6 +487,7 @@ Cascader.propTypes = {
   getComponentRef: PropTypes.func,
   showArrow: PropTypes.bool,
   loading: PropTypes.oneOfType([PropTypes.bool, PropTypes.node]),
+  wideMatch: PropTypes.bool,
 }
 
 Cascader.defaultProps = {

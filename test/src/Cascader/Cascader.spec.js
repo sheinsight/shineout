@@ -39,6 +39,55 @@ const userData = [
     ],
   },
 ]
+
+const cityData = [
+  {
+    value: '江苏',
+    children: [
+      {
+        value: '南京',
+        children: [
+          {
+            value: '江宁',
+            children: [
+              {
+                value: '东山',
+              },
+            ],
+          },
+          {
+            value: '鼓楼',
+          },
+        ],
+      },
+      {
+        value: '镇江',
+        children: [
+          {
+            value: '丹阳',
+          },
+          {
+            value: '句容',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    value: '安徽',
+    children: [
+      {
+        value: '合肥',
+        children: [
+          {
+            value: '肥东',
+          },
+        ],
+      },
+    ],
+  },
+]
+
 describe('Cascader[Base]', () => {
   test('should show/hide list while click the Cascader/document', () => {
     const wrapper = mount(<Cascader data={data} keygen="id" renderItem={n => `node ${n.text}`} />)
@@ -296,6 +345,31 @@ describe('Cascader[onFilter]', () => {
     const right = wrapper
       .find('.so-cascader-list .so-cascader-node')
       .reduce((result, item) => result && item.text().indexOf('1') > -1, true)
+    expect(right).toBe(true)
+  })
+  it('wideMatch', () => {
+    const wrapper = mount(
+      <Cascader
+        wideMatch
+        onFilter={text => d => d.value.indexOf(text) >= 0}
+        data={cityData}
+        keygen="id"
+        renderItem={n => `${n.value}`}
+      />
+    )
+    jest.useFakeTimers()
+    // 点击展开
+    wrapper.find(`.so-cascader`).simulate('click')
+    // 聚焦输入框
+    wrapper.find(`.so-cascader-input`).simulate('focus')
+    wrapper.find('.so-cascader-input').simulate('input', { target: { innerText: '江' } })
+    jest.runAllTimers()
+    wrapper.update()
+    expect(wrapper.find('.so-cascader-filter-list').length).toBe(1)
+    expect(wrapper.find('.so-cascader-filter-list .so-cascader-node').length).toBe(8)
+    const right = wrapper
+      .find('.so-cascader-list .so-cascader-node')
+      .reduce((result, item) => result && item.text().indexOf('江') > -1, true)
     expect(right).toBe(true)
   })
 })
