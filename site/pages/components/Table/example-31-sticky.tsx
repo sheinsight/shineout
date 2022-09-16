@@ -4,8 +4,8 @@
  * en - Sticky Header
  *    -- Use the sticky attribute to sticky the header.
  */
-import React from 'react'
-import { Table, TYPE } from 'shineout'
+import React, { useState } from 'react'
+import { Table, TYPE, Button } from 'shineout'
 import { fetchSync } from 'doc/data/user'
 
 interface TableRowData {
@@ -39,6 +39,18 @@ const columns: TableColumnItem[] = [
   },
 ]
 
-const App: React.FC = () => <Table sticky data={data} columns={columns} keygen="id" />
+const App: React.FC = () => {
+  const [width, setWidth] = useState(0)
+
+  return (
+    <div>
+      <div style={{ display: 'flex' }}>
+        <div style={{ width }} />
+        <Table key={width} sticky data={data} columns={columns} keygen="id" />
+      </div>
+      <Button onClick={() => (width === 0 ? setWidth(200) : setWidth(0))}>change</Button>
+    </div>
+  )
+}
 
 export default App
