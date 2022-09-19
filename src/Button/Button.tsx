@@ -1,21 +1,29 @@
-import React, { PureComponent, isValidElement } from 'react'
-import PropTypes from 'prop-types'
+import React, { PureComponent, isValidElement, ReactNode } from 'react'
 import classnames from 'classnames'
-import { getProps, defaultProps } from '../utils/proptypes'
+import { defaultProps } from '../utils/proptypes'
 import Spin from '../Spin'
 import { wrapSpan } from '../utils/dom/element'
 import { buttonClass } from './styles'
 import { isRTL } from '../config'
 import { getDirectionClass } from '../utils/classname'
 
-class Button extends PureComponent {
+import { ButtonProps } from './interface'
+
+class Button extends PureComponent<ButtonProps> {
+  static defaultProps = {
+    ...defaultProps,
+    htmlType: 'button',
+    outline: false,
+    type: 'default',
+  }
+
   getChildren() {
     const { children, loading, space } = this.props
     if (!children) return children
     const parsed = React.Children.map(wrapSpan(children, space), item => {
-      if (loading && isValidElement(item) && item.type.isShineoutIcon) return null
+      if (loading && isValidElement(item) && (item.type as any).isShineoutIcon) return null
       return item
-    }).filter(v => v !== null)
+    }).filter((v: ReactNode) => v !== null)
     return parsed
   }
 
@@ -32,6 +40,7 @@ class Button extends PureComponent {
       shape,
       text,
       space,
+      target,
       ...others
     } = this.props
     const isSecondary = typeProp === 'secondary' && !outlineProp && !text
@@ -40,7 +49,7 @@ class Button extends PureComponent {
     let color = outline || type === 'default' ? undefined : '#fff'
     if (text) color = 'currentColor'
     const className = classnames(
-      buttonClass('_', shape, type, outline && 'outline', {
+      buttonClass('_', shape !== 'default' && shape, type, outline && 'outline', {
         large: size === 'large',
         small: size === 'small',
         text: text && 'text',
@@ -52,7 +61,7 @@ class Button extends PureComponent {
 
     if (href && !disabled) {
       return (
-        <a href={href} {...others} className={className}>
+        <a href={href} {...others} className={className} ref={onRef}>
           {this.props.children}
         </a>
       )
@@ -71,26 +80,6 @@ class Button extends PureComponent {
       </button>
     )
   }
-}
-
-Button.propTypes = {
-  ...getProps(PropTypes, 'disabled', 'size', 'type'),
-  children: PropTypes.any,
-  href: PropTypes.string,
-  htmlType: PropTypes.oneOf(['button', 'reset', 'submit']),
-  loading: PropTypes.bool,
-  onRef: PropTypes.func,
-  shape: PropTypes.oneOf(['round', 'circle']),
-  outline: PropTypes.bool,
-  text: PropTypes.bool,
-  space: PropTypes.bool,
-}
-
-Button.defaultProps = {
-  ...defaultProps,
-  htmlType: 'button',
-  outline: false,
-  type: 'default',
 }
 
 export default Button

@@ -1,11 +1,11 @@
 import * as React from 'react'
 import {StandardProps} from '../@types/common'
 
-export interface SizeListProps {
+interface SizeListProps {
   [propName: string]: any
 }
 
-export interface TextParams {
+interface TextParams {
   prev?: string,
   next?: string,
   page?: string,

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { ButtonProps } from '../Button/index'
+import { ButtonProps } from '../Button/interface'
 import { RegularAttributes, StandardProps } from '../@types/common'
 import { ReactNode } from "react"
 
