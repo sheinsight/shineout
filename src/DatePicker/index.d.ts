@@ -6,7 +6,7 @@ export type DateTimeType = Date | number | string | undefined
 
 export type AreaType = 'year' | 'month' | 'week' | 'day' | 'time' | 'quick' | 'quarter'
 
-export type DisabledType = 'start' | 'end'
+type DisabledType = 'start' | 'end'
 
 export type DatePickerValue = DateTimeType | [DateTimeType, DateTimeType];
 

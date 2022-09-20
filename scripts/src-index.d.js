@@ -4,7 +4,7 @@ const ejs = require('ejs')
 const pack = require('../package')
 
 const NAMESPACE = 'TYPE'
-
+const prefix = '__'
 const rootPath = path.resolve(__dirname, '../src')
 
 const components = {}
@@ -15,13 +15,9 @@ const sortProps = props => {
 }
 
 const getProps = (file, name, mainProps = true) => {
-  const expExtends = /(?<=export( declare)? interface ).*(?= extends)/g
-  const expDefault = /(?<=export interface ).*(?= {)/g
-  const extendProps = file.match(expExtends)
-  const defaultProps = (file.match(expDefault) || []).filter(f => f.indexOf('extends') === -1)
-  const props = []
-  if (extendProps) props.push(...extendProps)
-  if (defaultProps) props.push(...defaultProps)
+  const expDefault = /(?<=export[ ]+?(declare[ ]+?)?interface[ ]+?).*?(?=[ ]+?(extends)|{)/g
+  const exportProps = file.match(expDefault)
+  const props = (exportProps || []).map(i => i.trim())
   if (mainProps) {
     return [...new Set(props)].filter(p => p.indexOf(`${name}Props`) > -1)
   }
@@ -29,14 +25,32 @@ const getProps = (file, name, mainProps = true) => {
 }
 
 const getTypes = file => {
-  const exp = /(?<=export type ).*(?= =)/g
+  const exp = /(?<=export[ ]+?type[ ]+?)[a-zA-Z]+?(<.*?>)?(?=[ ]+?=)/g
   return file.match(exp) || []
 }
 
-const getArgs = types => {
+const getArgs = (types, withDefault) => {
   const exp = /(?<=<).*(?=>)/
-  const result = types.toString().match(exp)
-  return result ? `<${result[0].split('=')[0].trim()}>` : ''
+  const matches = types.toString().match(exp)
+  if (!matches) return ''
+  if (withDefault) {
+    const result = matches[0]
+      .split(',')
+      .map(item => {
+        const r = item.split('=')
+        if (r[1] && r[1].indexOf(withDefault) !== -1) {
+          r[1] = ` ${prefix}${r[1].trim()}`
+        }
+        return r.join('=')
+      })
+      .join(',')
+    return `<${result}>`
+  }
+  const result = matches[0]
+    .split(',')
+    .map(item => item.split('=')[0].trim())
+    .join(', ')
+  return `<${result}>`
 }
 
 const getTypeName = types => types.toString().split('<')[0]
@@ -45,10 +59,10 @@ const getOtherTypeName = (types, name) => types.split(name)[1] || types
 
 const getAsName = types => {
   if (Array.isArray(types) && types.length > 0) {
-    return types.map(i => `${getTypeName(i)} as __${getTypeName(i)}`)
+    return types.map(i => `${getTypeName(i)} as ${prefix}${getTypeName(i)}`).join(', ')
   }
   if (typeof types === 'string' && types) {
-    return `${types} as __${types}`
+    return `${types} as ${prefix}${types}`
   }
   return ''
 }
@@ -62,8 +76,12 @@ const files = fs
   .filter(n => fs.lstatSync(path.resolve(rootPath, n)).isDirectory() && /^[A-Z]/.test(n))
   .filter(v => !whiteList.includes(v))
 files.forEach(f => {
-  if (fs.readdirSync(path.resolve(rootPath, f)).includes('index.d.ts')) {
-    const tsPath = path.resolve(rootPath, `${f}/index.d.ts`)
+  const dirFiles = fs.readdirSync(path.resolve(rootPath, f))
+  const formInterface = dirFiles.includes('interface.ts')
+  if (dirFiles.includes('index.d.ts') || formInterface) {
+    const tsPath = formInterface
+      ? path.resolve(rootPath, `${f}/interface.ts`)
+      : path.resolve(rootPath, `${f}/index.d.ts`)
     const tsFile = fs.readFileSync(tsPath).toString()
     const props = getProps(tsFile, f, true)
     const other = getProps(tsFile, f, false)
@@ -72,6 +90,7 @@ files.forEach(f => {
       props: sortProps(props),
       other: sortProps(other),
       types: sortProps(types),
+      formInterface,
     }
   } else {
     components[f] = {
@@ -82,15 +101,16 @@ files.forEach(f => {
     }
   }
 })
+
 const line = `// Created by scripts/src-index.d.js.
 import * as utils from './utils'
 
-declare const __default: {
+declare const ${prefix}default: {
   utils: typeof utils,
   version: '<%= version %>'
 }
 
-export default __default
+export default ${prefix}default
 export { utils }
 export { setLocale } from './locale'
 export { color, style } from './utils/expose'
@@ -99,12 +119,12 @@ export { default as config, setConfig, isRTL } from './config'
 export { default as LazyList } from './AnimationList/LazyList'
 
 export { default as List } from './DataList'
-import { ListProps as __ListProps , ListBaseItemProps as __ListBaseItemProps } from './DataList'
+import { ListProps as ${prefix}ListProps , ListBaseItemProps as ${prefix}ListBaseItemProps } from './DataList'
 
 <% for(let key in components){ -%>
 export { default as <%= key %> } from './<%= key %>'
 <% if(!components[key].hideProps){ -%>
-import { <%- getAsName(getTypeName(components[key].props)) -%><%- components[key].props.length>0 ? ' , ' :'' -%><%- getAsName(components[key].other) -%><%- components[key].other.length>0 ? ' , ' :'' -%><%- getAsName(components[key].types) -%> } from './<%= key %>'
+import { <%- getAsName(getTypeName(components[key].props)) -%><%- components[key].props.length>0 ? ', ' :'' -%><%- getAsName(components[key].other) -%><%- components[key].other.length>0 ? ', ' :'' -%><%- getAsName(components[key].types) -%> } from './<%=  components[key].formInterface ? key+'/interface': key %>'
 <% } -%>
 
 <% } -%>
@@ -112,26 +132,26 @@ import { <%- getAsName(getTypeName(components[key].props)) -%><%- components[key
 export namespace <%= NAMESPACE -%> {
 
   export namespace List {
-    export type Props<Item,Value> = __ListProps<Item , Value>
-    export type BaseItemProps = __ListBaseItemProps
+    export type Props<Item,Value> = ${prefix}ListProps<Item , Value>
+    export type BaseItemProps = ${prefix}ListBaseItemProps
   }
 
 <% for(let key in components){ -%>
 <% if(!components[key].hideProps) { -%>
   export namespace <%= key -%> {
 <% if(components[key].props.length>0){ -%>
-    export type Props<%- getArgs(components[key].props) -%> = __<%= key -%>Props<%- getArgs(components[key].props) -%>
+    export type Props<%- getArgs(components[key].props, key) -%> = ${prefix}<%= key -%>Props<%- getArgs(components[key].props) -%>
 <% } -%>
 <% if(components[key].other.length>0){ -%>
 <% components[key].other.forEach( name =>{ -%>
 
-    export type <%- getOtherTypeName(getTypeName(name),key) -%><%- getArgs(name) -%> = __<%- getTypeName(name)+getArgs(name) -%>
+    export type <%- getOtherTypeName(getTypeName(name),key) -%><%- getArgs(name, key) -%> = ${prefix}<%- getTypeName(name)+getArgs(name) -%>
 <% }) -%>
 <% } -%>
 <% if(components[key].types.length>0){ -%>
   <% components[key].types.forEach( name =>{ -%>
 
-    export type <%- getOtherTypeName(getTypeName(name),key) -%><%- getArgs(name) -%> = __<%- getTypeName(name)+getArgs(name) -%>
+    export type <%- getOtherTypeName(getTypeName(name),key) -%><%- getArgs(name, key) -%> = ${prefix}<%- getTypeName(name)+getArgs(name) -%>
 <% }) -%>
 <% } -%>
 

@@ -3,13 +3,13 @@ import { StandardProps, FormItemStandardProps } from "../@types/common"
 import { PopoverConfirmProps } from '../Popover'
 import {GapProps} from '../Gap/index.d.js'
 
-import { ButtonType } from '../Button'
+import { ButtonType } from '../Button/interface'
 
 type ReactNode = React.ReactNode;
 
-export type OmitFormProps<value> = Omit<FormItemStandardProps<value>, 'placeholder'>;
+type OmitFormProps<value> = Omit<FormItemStandardProps<value>, 'placeholder'>;
 
-export interface BaseParams {
+interface BaseParams {
   [propName: string]: any
 }
 

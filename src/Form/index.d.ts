@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { StandardProps } from '../@types/common'
-import { ButtonProps } from '../Button'
+import { ButtonProps } from '../Button/interface'
 import { RuleParamsType } from '../Rule'
 
 type ReactNode = React.ReactNode;
@@ -479,7 +479,7 @@ declare class Form<Value> extends React.Component<FormProps<Value>, {}> {
   static Submit: typeof FormSubmit;
 
   static Reset: typeof FormReset;
-  
+
   static useMode: any;
 
   render(): JSX.Element;

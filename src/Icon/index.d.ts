@@ -52,7 +52,7 @@ export interface IconComProps extends StandardProps {
 
 }
 
-export type IconCom = React.FC<IconComProps>
+type IconCom = React.FC<IconComProps>
 
 export interface IconProps extends IconComProps { }
 /**
