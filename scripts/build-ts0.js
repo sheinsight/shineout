@@ -12,9 +12,7 @@ function transTs() {
     if (fs.existsSync(tempDir)) {
       rimraf.sync(tempDir)
     }
-    console.log('0000000')
     execSync(`cp -R ${srcDir} ${tempDir}`)
-    console.log('111111')
     execSync(`tsc --outDir ${tempDir} --decoration`)
   } catch (e) {
     console.error('err', e)

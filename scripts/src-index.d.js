@@ -102,7 +102,6 @@ files.forEach(f => {
   }
 })
 
-console.log(components)
 const line = `// Created by scripts/src-index.d.js.
 import * as utils from './utils'
 
