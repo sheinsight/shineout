@@ -1,10 +1,11 @@
 {
     "compilerOptions": {
         "allowJs": true,
+        "checkJs": false,
         "baseUrl": "./",
         "paths": {
             "shineout": ["src/index"],
-            "doc/*": ["site/*"],
+            "doc/*": ["site/*"]
         },
         "strictNullChecks": true,
         "moduleResolution": "node",
@@ -14,9 +15,9 @@
         "noUnusedParameters": true,
         "noUnusedLocals": true,
         "noImplicitAny": true,
-        "target": "es6",
+        "target": "ESNext",
         "lib": ["dom", "es2017"],
         "skipLibCheck": false
     },
-    "include": ["site"]
+    "include": ["src", "externals.d.ts"] ,
 }

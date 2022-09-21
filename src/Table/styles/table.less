@@ -423,6 +423,28 @@
     overflow: visible;
   }
 
+  &-foot {
+    position: relative;
+    scrollbar-width: none;
+    -ms-overflow-style: none; /* IE 11 */
+    overflow: hidden;
+    flex: 0 0 auto;
+    min-width: 0;
+    background: var(--table-head-bg, #e8ebf0);
+    &::-webkit-scrollbar{
+      display: none;
+    }
+    > table td {
+      background: var(--table-head-bg, #e8ebf0);
+    }
+    &-scroll-x {
+      border-top: @table-head-border solid @table-border-color;
+    }
+  }
+  &-simple-foot {
+    overflow: auto;
+  }
+
   .@{table-prefix}-icon-tree-expand {
     margin-right: @table-tree-expand-icon-margin-right;
     .@{table-prefix}-rtl& {
@@ -504,7 +526,7 @@
     }
   }
 
-  &-scroll-y.@{table-prefix}-head {
+  &-scroll-y.@{table-prefix}-head, &-scroll-y.@{table-prefix}-foot {
     padding-right: @scrollbar-width;
     .@{table-prefix}-rtl & {
       padding-left: @scrollbar-width;

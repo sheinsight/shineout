@@ -109,7 +109,7 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
    *
    * default: -
    */
-  mode?: 0 | 1 | 2 | 3;
+  mode?: 0 | 1 | 2 | 3 | 4;
 
   /**
    * When the onChange property is set, the selection box is displayed. The parameter is the current selected value, which is related to the mode property.
@@ -202,6 +202,15 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
    * default: -
    */
    onFilter?: (text: string) => (data: any) => boolean;
+
+  /**
+   * Allows all possible matching options to be choosed
+   *
+   * 开启 wideMatch 后，将筛选出所有可能的匹配项目
+   *
+   * default: -
+   */
+   wideMatch?: boolean;
 }
 
 interface componentRef  {

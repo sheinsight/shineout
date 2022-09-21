@@ -1,14 +1,18 @@
 import React, { Children, PureComponent, cloneElement } from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import { getProps } from '../utils/proptypes'
 
 import { buttonClass } from './styles'
 import { isRTL } from '../config'
+import { ButtonGroupProps } from './interface'
 
-class ButtonGroup extends PureComponent {
+class ButtonGroup extends PureComponent<ButtonGroupProps> {
+  static defaultProps = {
+    outline: false,
+    type: 'default',
+  }
+
   render() {
-    const { children, outline, size, type } = this.props
+    const { children, outline, size, type, style } = this.props
 
     const typeSetted = type !== 'default'
     const className = classnames(
@@ -17,25 +21,13 @@ class ButtonGroup extends PureComponent {
     )
 
     return (
-      <div className={className}>
-        {Children.toArray(children).map(child =>
+      <div className={className} style={style}>
+        {Children.toArray(children).map((child: React.ReactElement) =>
           cloneElement(child, { size, outline, type: typeSetted ? type : child.props.type })
         )}
       </div>
     )
   }
-}
-
-ButtonGroup.propTypes = {
-  ...getProps(PropTypes, 'size'),
-  children: PropTypes.any.isRequired,
-  outline: PropTypes.bool,
-  type: PropTypes.string,
-}
-
-ButtonGroup.defaultProps = {
-  outline: false,
-  type: 'default',
 }
 
 export default ButtonGroup

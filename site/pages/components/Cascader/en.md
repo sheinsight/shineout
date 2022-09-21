@@ -13,7 +13,7 @@
 | expandTrigger | 'click' \| 'hover' \| 'hover-only'  | 'click' | Expand mode |
 | keygen | ((data: any, parentKey: any) => string) \| string | required | Auxiliary method for generating key. <br />When it is a function, use the return value of this function. <br /> When it is a string, use the data value corresponding to this string. For example, 'id' is the same thing as (d) => d.id. |
 | loader | (key: any, data: any) => void | - | If the loader attribute is a function, the node with no children is regarded as dynamically loaded node. Click expanded button to trigger the loader event. The children property is null or its length is 0 will be regarded as a leaf node. |
-| mode | 0 \| 1 \| 2 \| 3 | none | mode <br />0: Returns only the fully selected node including the parent node. <br />1: Returns all selected nodes and semi-selected nodes. <br />2: Return only the selected child nodes. <br />3: If the parent node is full selected, only return the parent node. |
+| mode | 0 \| 1 \| 2 \| 3 \| 4 | none | mode <br />0: Returns only the fully selected node including the parent node. <br />1: Returns all selected nodes and semi-selected nodes. <br />2: Return only the selected child nodes. <br />3: If the parent node is full selected, only return the parent node.<br />4: What you choose is what you get. |
 | onChange | (value: any[], selected: boolean) => void | - | When the onChange property is set, the selection box is displayed. The parameter is the current selected value, which is related to the mode property. |
 | renderItem | (data: any) => ReactNode \| string | required | When it is a string, return d\[string].<br /> When it is a function, return the result of this function. |
 | renderResult | (data: any, result: any[]) => ReactNode \| string | renderItem | The content displayed in the result after selecting, if not set, use renderItem. not show while return null, result is current selected |
@@ -36,3 +36,4 @@
 | filterSameChange | boolean | false | filter out value change callbacks with the same value |
 | loading | boolean \| ReactNode | none | Dropdown list loading state |
 | compressedBound | number | - | when compressed is True,the comptessedBound can limit the numbers of multiple selected item's label |
+| wideMatch | boolean | - | Allows all possible matching options to be choosed |

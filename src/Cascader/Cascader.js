@@ -76,6 +76,11 @@ class Cascader extends PureComponent {
   componentDidMount() {
     super.componentDidMount()
     this.updatePathByValue()
+    if (this.props.loader && [0, 1, 2].includes(this.props.mode)) {
+      console.error(
+        new Error(`The mode ${this.props.mode} is not supported when loader setted. Only 3 or 4 can be set.`)
+      )
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -269,17 +274,7 @@ class Cascader extends PureComponent {
   }
 
   renderList() {
-    const {
-      data,
-      keygen,
-      renderItem,
-      mode,
-      loader,
-      onItemClick,
-      expandTrigger,
-      childrenKey,
-      height,
-    } = this.props
+    const { data, keygen, renderItem, mode, loader, onItemClick, expandTrigger, childrenKey, height } = this.props
     const { path } = this.state
 
     const props = {
@@ -361,12 +356,14 @@ class Cascader extends PureComponent {
     const {
       absolute,
       onFilter,
+      wideMatch,
       filterText,
       zIndex,
       data,
       childrenKey,
       renderItem,
       expandTrigger,
+      filterDataChange,
       height,
       loading,
     } = this.props
@@ -387,9 +384,11 @@ class Cascader extends PureComponent {
         childrenKey={childrenKey}
         renderItem={renderItem}
         expandTrigger={expandTrigger}
+        filterDataChange={filterDataChange}
         datum={this.datum}
         onChange={this.handleChange}
         onPathChange={this.handlePathChange}
+        wideMatch={wideMatch}
         onFilter={onFilter}
         filterText={filterText}
         height={height}
@@ -463,7 +462,7 @@ Cascader.propTypes = {
   height: PropTypes.number,
   keygen: PropTypes.any,
   loader: PropTypes.func,
-  mode: PropTypes.oneOf([0, 1, 2, 3]),
+  mode: PropTypes.oneOf([0, 1, 2, 3, 4]),
   onBlur: PropTypes.func,
   onChange: PropTypes.func,
   onFocus: PropTypes.func,
@@ -488,6 +487,7 @@ Cascader.propTypes = {
   getComponentRef: PropTypes.func,
   showArrow: PropTypes.bool,
   loading: PropTypes.oneOfType([PropTypes.bool, PropTypes.node]),
+  wideMatch: PropTypes.bool,
 }
 
 Cascader.defaultProps = {

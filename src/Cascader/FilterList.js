@@ -101,7 +101,9 @@ class FilterList extends Component {
     onPathChange: PropTypes.func,
     filterText: PropTypes.string,
     onFilter: PropTypes.func,
+    wideMatch: PropTypes.bool,
     height: PropTypes.number,
+    filterDataChange: PropTypes.func,
     loading: PropTypes.oneOfType([PropTypes.bool, PropTypes.node]),
   }
 
@@ -110,9 +112,18 @@ class FilterList extends Component {
     return path.map(d => datum.getKey(d)).join('-')
   }
 
+  getWideMatch(list) {
+    const { filterDataChange } = this.props
+    return list.filter(arr => arr.some(item => filterDataChange(item)))
+  }
+
   renderList() {
-    const { data, childrenKey, height, loading, ...others } = this.props
-    const list = getFlattenTree(data, childrenKey)
+    const { data, childrenKey, height, loading, wideMatch, ...others } = this.props
+    let list = getFlattenTree(data, childrenKey, wideMatch)
+
+    if (wideMatch) {
+      list = this.getWideMatch(list)
+    }
     return (
       <div className={cascaderClass('filter-list')} style={{ maxHeight: height }}>
         {loading ? (
@@ -140,7 +151,9 @@ class FilterList extends Component {
       onPathChange,
       filterText,
       onFilter,
+      wideMatch,
       height,
+      filterDataChange,
       ...others
     } = this.props
     if (!focus) return null

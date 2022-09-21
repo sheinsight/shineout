@@ -73,7 +73,7 @@ module.exports = function getCommon(config) {
 
     resolve: {
       alias: config.alias,
-      extensions: ['.tsx', '.ts', '.js', '.json', '.jsx'],
+      extensions: ['.js', '.ts', '.json', '.jsx', '.tsx'],
     },
 
     resolveLoader: {

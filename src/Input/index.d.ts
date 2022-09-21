@@ -339,7 +339,7 @@ export interface InputNumberProps<Value> extends InputProps<Value> {
 
 }
 
-export interface InputGroupProps<Value = any> extends InputProps<Value> {
+export interface InputGroupProps<Value = string> extends InputProps<Value> {
   /**
    * children
    *
@@ -350,7 +350,7 @@ export interface InputGroupProps<Value = any> extends InputProps<Value> {
   children?: ReactNode;
 }
 
-export interface InputPasswordProps<Value = any> extends InputProps<Value> {
+export interface InputPasswordProps<Value = string> extends InputProps<Value> {
   /**
    * password symbol
    *

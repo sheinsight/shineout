@@ -198,7 +198,7 @@ interface CommonColumn<T> {
 
 type SomeColumn<T> =  Omit<CommonColumn<T>, 'render' | 'type'>
 
-export interface CheckColumn<T> extends SomeColumn<T>{
+interface CheckColumn<T> extends SomeColumn<T>{
   type: 'checkbox',
   render?: (rowData: T, index: number,  checkInstance: ReactComponentElement<any>) => any,
   filterAll?: (data: T[]) => T[],
@@ -206,8 +206,10 @@ export interface CheckColumn<T> extends SomeColumn<T>{
 
 export type ColumnItem<T> = CommonColumn<T> | CheckColumn<T>
 
+export interface summaryItem {render: ()=> ReactNode, colSpan?: number, rowSpan?: number}
 
-export interface RowEvents {
+
+interface RowEvents {
   [propName: string]: any
 }
 
@@ -616,6 +618,15 @@ export interface TableProps<TRD, Value> extends StandardProps, ListItemStandardP
    * default: false
    */
   cellSelectable?: boolean
+
+  /**
+   *  Footer information can be used to summarize
+   *
+   *  底部信息可用于总结
+   *
+   *  default: -
+   */
+  summary?: summaryItem[][] | summaryItem[]
 
 }
 

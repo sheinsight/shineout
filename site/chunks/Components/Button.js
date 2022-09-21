@@ -130,6 +130,19 @@ const examples = [
     parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Button/example-8-group.tsx'),
 
   },
+  {
+    name: '9-shape',
+    isTs: true,
+    isTest: false,
+    title: locate(
+      '形状 \n Button 内置了几种常用的类型，分为默认(default), 主要(primary), 次要(secondary), 成功(success), 警告(warning), 危险(danger)和链接(link)',
+      'Base \n Button has several built-in type, default, primary, secondary, success, warning, dange, and link.'
+    ),
+    component: require('doc/pages/components/Button/example-9-shape.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Button/example-9-shape.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Button/example-9-shape.tsx'),
+
+  },
 ]
 
 const codes = undefined

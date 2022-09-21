@@ -70,8 +70,8 @@ const examples = [
     isTs: true,
     isTest: false,
     title: locate(
-      '动态加载 \n 数据过大，需要动态加载时，可以设置 loader 函数，当展开未定义 children（undefined）的节点时，触发此函数',
-      'Lazy load \n Set the loader function to dynamic fetch data. This function is triggered when the undefined child node is expanded.'
+      '动态加载 \n 数据过大，需要动态加载时，可以设置 loader 函数，当展开未定义 children（undefined）的节点时，触发此函数 \n 注意，在开启动态加载功能后，mode 属性仅支持 3 或 4 模式。',
+      'Lazy load \n Set the loader function to dynamic fetch data. This function is triggered when the undefined child node is expanded. \n In addition, with lazyload enabled, the mode attribute only supports mode 3 or 4.'
     ),
     component: require('doc/pages/components/Cascader/example-05-lazyload.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Cascader/example-05-lazyload.tsx'),
@@ -89,6 +89,19 @@ const examples = [
     component: require('doc/pages/components/Cascader/example-06-filter.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Cascader/example-06-filter.tsx'),
     parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Cascader/example-06-filter.tsx'),
+
+  },
+  {
+    name: '07-filter-widematch',
+    isTs: true,
+    isTest: false,
+    title: locate(
+      '宽泛筛选 \n 开启 wideMatch 后，将筛选出所有可能的匹配项目 \n ',
+      'wideMatch \n Allows all possible matching options to be choosed \n '
+    ),
+    component: require('doc/pages/components/Cascader/example-07-filter-widematch.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Cascader/example-07-filter-widematch.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Cascader/example-07-filter-widematch.tsx'),
 
   },
   {
