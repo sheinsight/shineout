@@ -1,35 +1,17 @@
-import React, { ReactNode, PureComponent, CSSProperties } from 'react'
+import React, { PureComponent, CSSProperties, Attributes } from 'react'
 import icons from '../icons'
 import { isRTL } from '../config'
 import { alertClass } from './styles'
 import { capitalize } from '../utils/strings'
-import { defaultProps, defaultProptypes } from '../utils/proptypes'
+import { defaultProps } from '../utils/proptypes'
 
-export interface AlertProps {
-  children?: any
-  duration: number
-  dismiss?: boolean
-  iconSize?: number
-  hideClose?: boolean
-  outAnimation?: boolean
-  icon?: boolean | ReactNode
-  onClose?: Function | boolean
-  closeItem?: ReactNode
-  type?: 'success' | 'info' | 'warning' | 'danger' | 'error' | 'confirm'
-}
-
-interface AlertDefaultProps extends defaultProptypes {
-  type: string
-  duration: number
-  iconSize: number
-}
+import { AlertProps } from './interface'
 
 interface AlertState {
   dismiss: number
 }
-
-class Alert extends PureComponent<AlertProps & Required<AlertDefaultProps>, AlertState> {
-  static defaultProps = {
+class Alert extends PureComponent<AlertProps, AlertState> {
+  static defaultProps: Partial<AlertProps> = {
     ...defaultProps,
 
     iconSize: 16,
@@ -39,9 +21,8 @@ class Alert extends PureComponent<AlertProps & Required<AlertDefaultProps>, Aler
 
   static displayName: string
 
-  constructor(props: AlertProps & Required<AlertDefaultProps>) {
+  constructor(props: AlertProps) {
     super(props)
-
     this.state = {
       dismiss: 0,
     }
@@ -95,7 +76,8 @@ class Alert extends PureComponent<AlertProps & Required<AlertDefaultProps>, Aler
 
   renderIcon() {
     let { icon } = this.props
-    const { type, iconSize } = this.props
+    const { type = 'warning', iconSize = 16 } = this.props
+
     if (typeof icon === 'boolean' && icon) {
       icon = icons[capitalize(type)]
     }
@@ -116,7 +98,8 @@ class Alert extends PureComponent<AlertProps & Required<AlertDefaultProps>, Aler
 
   renderClose() {
     const { closeItem } = this.props
-    if (React.isValidElement(closeItem)) return React.cloneElement(closeItem, { onClick: this.handleClose })
+    if (React.isValidElement(closeItem))
+      return React.cloneElement(closeItem, { onClick: this.handleClose } as Attributes)
     return (
       <a className={alertClass('close')} onClick={this.handleClose}>
         {closeItem || icons.Close}

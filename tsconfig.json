@@ -19,5 +19,5 @@
         "lib": ["dom", "es2017"],
         "skipLibCheck": false
     },
-    "include": ["src", "externals.d.ts"] ,
+    "include": ["src", "externals.d.ts", "site"] ,
 }

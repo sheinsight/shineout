@@ -1,6 +1,9 @@
 import cssInject from './vars-inject'
 import { capitalize } from './strings'
 import { entries } from './objects'
+import { isValidKey } from './is'
+
+type ObjectProps = { [x: string]: any }
 
 function setOptions(options: any, setter: any) {
   if (!options) return
@@ -25,7 +28,7 @@ function getStyleAttr(className: string, key = 'color') {
   return (getDOMStyle as any)(div)[key]
 }
 
-let cache: { [x: string]: any } = {}
+let cache: ObjectProps = {}
 
 interface conf {
   name: string
@@ -34,10 +37,8 @@ interface conf {
   parser?: Function
   className: string
 }
-interface info {
-  name: string
-}
-function genAccessors(obj: object, data: { [x: string]: any; conf: conf[]; info: info }) {
+
+function genAccessors(obj: object, data: ObjectProps) {
   data.conf.forEach((item: conf) => {
     const { name, className, attr, parser = (v: any) => v } = item
     const { info } = data
@@ -55,13 +56,21 @@ function genAccessors(obj: object, data: { [x: string]: any; conf: conf[]; info:
       set: v => {
         delete cache[cacheKey]
         if (item.value) item.value = v
-        data[name] = v
+        if (isValidKey(name, data)) {
+          data[name] = v
+        }
       },
     })
   })
 }
 
-const accessors = {
+interface Accessors {
+  [module: string]: {
+    [x: string]: any
+  }
+}
+
+const accessors: Accessors = {
   table: {},
   tag: {},
   pagination: {},
@@ -94,7 +103,9 @@ const accessors = {
 for (const [key, value] of entries(accessors)) {
   const setterName = `set${capitalize(key)}`
   value[setterName] = (options: any) => setOptions.call(value, options, setterName)
-  genAccessors(value, cssInject(cssInject as any)[key])
+  if (isValidKey(key, cssInject)) {
+    genAccessors(value, cssInject[key])
+  }
 }
 
 export function cleanCache() {

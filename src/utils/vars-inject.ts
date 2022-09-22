@@ -21,9 +21,9 @@ import { sliderClass } from '../Slider/styles'
 import { tagClass } from '../Tag/styles'
 import { exposeClass } from '../styles/expose'
 
-const computedCache = {}
+const computedCache: { [x: string]: any } = {}
 let injectType = 'body'
-let styleObj = {}
+let styleObj: { [x: string]: any } = {}
 
 export function getInjectType() {
   return injectType
@@ -79,20 +79,6 @@ function setBodyProperty(colors: { [x: string]: any }, value?: string) {
       }
     }
   }
-}
-interface Conf {
-  name?: string
-  attr?: string
-  type?: string
-  parser?: (string: string, radix?: number | undefined) => number
-  className?: string
-  desc?: string
-}
-interface Inject {
-  info: {
-    [x: string]: string
-  }
-  conf: Conf[]
 }
 const injects = {
   color: {
@@ -203,7 +189,7 @@ const injects = {
         className: exposeClass('gray-900'),
       },
     ],
-    set primary(v: string | undefined) {
+    set primary(v: string) {
       setBodyProperty(
         {
           '--primary-color': v,
@@ -1192,7 +1178,7 @@ const injects = {
         attr: 'boxShadow',
         type: 'number',
         max: 20,
-        parser: v => parseInt(v.split(' ').pop(), 10),
+        parser: (v: string) => parseInt(v.split(' ').pop()!, 10),
         desc: '聚焦发散光宽度',
       },
       {
