@@ -57,7 +57,9 @@ function genAccessors(obj: object, data: Accessors) {
       set: v => {
         delete cache[cacheKey]
         if (item.value) item.value = v
-        data[name] = v
+        if (isValidKey(name, data)) {
+          data[name] = v
+        }
       },
     })
   })
