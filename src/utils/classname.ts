@@ -10,14 +10,14 @@ export const getDirectionClass = (c: string) => `${c} ${c}-${isRTL() ? 'rtl' : '
  * @param module - string
  * @param prefix - string, default value is 'shineout'
  * * */
-export default (style: CSSProperties, module: string, prefix: string = config.prefix) => (...args) => {
+export default (style: CSSProperties, module: string, prefix: string = config.prefix) => (...args: any) => {
   const className = classnames(...args)
   if (!className) return ''
 
   const ns = `${prefix}${module ? `-${module}` : '-'}`
-  let list = className.split(' ').map(c => (c === '_' ? ns : `${ns}-${c}`))
+  let list: (string | number)[] = className.split(' ').map(c => (c === '_' ? ns : `${ns}-${c}`))
   if (config.cssModule) {
-    list = list.map(c => style[c] || c)
+    list = list.map((c: keyof CSSProperties) => style[c] || c)
   }
   return list.join(' ')
 }

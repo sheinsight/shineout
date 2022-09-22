@@ -3,7 +3,7 @@ import * as utils from './utils'
 
 declare const __default: {
   utils: typeof utils,
-  version: '1.12.0-rc.1'
+  version: '1.12.0-rc.2'
 }
 
 export default __default
@@ -18,7 +18,7 @@ export { default as List } from './DataList'
 import { ListProps as __ListProps , ListBaseItemProps as __ListBaseItemProps } from './DataList'
 
 export { default as Alert } from './Alert'
-import { AlertProps as __AlertProps,  } from './Alert'
+import { AlertProps as __AlertProps, DefaultProps as __DefaultProps,  } from './Alert/interface'
 
 export { default as AnimationList } from './AnimationList'
 
@@ -161,6 +161,7 @@ export namespace TYPE {
 
   export namespace Alert {
     export type Props = __AlertProps
+    export type DefaultProps = __DefaultProps
   }
   export namespace Breadcrumb {
     export type Props<Item = __BreadcrumbData> = __BreadcrumbProps<Item>
