@@ -11,8 +11,6 @@ const PATH_MODE = {
 
 type ObjectProps<V> = { [key in keyof V]: V }
 
-type StringNumber = string | number
-
 type deepOptions = {
   clone?: boolean
   forceSet?: boolean
@@ -79,7 +77,7 @@ export function pathGenerator(raw: string) {
   const pathModeValues = objectValues(PATH_MODE)
   let index = 0
   let last = 0
-  let prop: StringNumber = ''
+  let prop: string = ''
   const results: Array<any[]> = []
   while (index >= 0) {
     index = path.indexOf('.', last)
@@ -95,7 +93,7 @@ export function pathGenerator(raw: string) {
     // array index
     const match = reg.exec(prop)
     // eslint-disable-next-line
-    if (match) prop = parseInt(match[1], 10)
+    if (match) prop = String(parseInt(match[1], 10))
 
     last = index + 1
     results.push([prop, index === -1 ? undefined : path.substring(last), mode])

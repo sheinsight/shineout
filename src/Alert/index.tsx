@@ -79,7 +79,7 @@ class Alert extends PureComponent<AlertProps, AlertState> {
     const { type = 'warning', iconSize = 16 } = this.props
 
     if (typeof icon === 'boolean' && icon) {
-      icon = icons[capitalize(type)]
+      icon = icons[capitalize(type) as keyof typeof icons]
     }
 
     if (!icon) return null

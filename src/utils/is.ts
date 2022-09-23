@@ -48,12 +48,9 @@ export const isEmpty = (val: unknown): boolean => {
 }
 
 export const isBuffer = (val: unknown): boolean => {
-  if (val instanceof Buffer) {
-    if (val.constructor && typeof val.constructor.isBuffer === 'function') {
-      return val.constructor.isBuffer(val)
-    }
+  if (val && typeof val === 'object' && val.constructor && typeof (val.constructor as any).isBuffer === 'function') {
+    return (val.constructor as any).isBuffer(val)
   }
-
   return false
 }
 

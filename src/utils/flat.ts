@@ -1,6 +1,6 @@
 // https://stackoverflow.com/questions/19098797/fastest-way-to-flatten-un-flatten-nested-json-objects
 
-import { isEmpty, isObject, isValidKey } from './is'
+import { isEmpty, isObject } from './is'
 import { deepClone } from './clone'
 
 export function insertPoint(name: string) {
@@ -39,7 +39,7 @@ export function flatten(data: Result, skipArray?: []) {
       if (typeof cur === 'object') {
         for (const p in cur) {
           empty = false
-          if (isValidKey(p, cur)) recurse(cur[p], prop ? `${prop}.${p}` : p)
+          recurse(cur[p as keyof typeof cur], prop ? `${prop}.${p}` : p)
         }
 
         if (empty) {
@@ -58,11 +58,11 @@ export function unflatten(rawdata: RawData) {
     return rawdata
   }
 
-  const data = { ...rawdata }
+  const data: Result = { ...rawdata }
 
   const result: Result = {}
   // let { cur, prop, idx, last, temp, match } = {}
-  let cur: Result | RawData, prop: keyof Result, idx: number, last: number, temp: string, match: RegExpExecArray | null
+  let cur: any, prop: keyof typeof cur, idx: number, last: number, temp: string, match: RegExpExecArray | null
 
   // eslint-disable-next-line
   Object.keys(data)
@@ -76,21 +76,15 @@ export function unflatten(rawdata: RawData) {
         idx = pathWithPoint.indexOf('.', last)
         temp = pathWithPoint.substring(last, idx !== -1 ? idx : undefined)
         match = /^\[(\d+)\]$/.exec(temp)
-        if (isValidKey(prop, cur)) {
-          if (cur[prop]) {
-            cur = cur[prop]
-          } else {
-            ;(cur as Result)[prop] = match ? [] : {}
-          }
-          // cur = cur[prop] || (cur[prop] = match ? [] : {})
-        }
+        cur = cur[prop] || (cur[prop] = match ? [] : {})
+        prop = match ? match[1] : temp
+        last = idx + 1
+        cur = cur[prop] || (cur[prop] = match ? [] : {})
 
         prop = match ? match[1] : temp
         last = idx + 1
       } while (idx >= 0)
-      if (isValidKey(p, data)) {
-        ;(cur as Result)[prop] = deepClone(data[p])
-      }
+      cur[prop] = deepClone(data[p])
     })
   return result['']
 }
@@ -162,14 +156,14 @@ type Source = {
 export const getSthByName = (name: keyof Source & string, source: Source) => {
   if (source[name]) return source[name]
 
-  let result = unflatten(source)
+  let result: any = unflatten(source)
   name = insertPoint(name)
 
-  name.split('.').forEach(n => {
-    const match = /^\[(\d+)\]$/.exec(n)
+  name.split('.').forEach((n: keyof typeof result) => {
+    const match = /^\[(\d+)\]$/.exec(n as string)
     // eslint-disable-next-line
-    if (match) n = match[1]
-    if (result && typeof result === 'object' && isValidKey(n, result)) result = result[n]
+    if (match) n = match[1] as keyof typeof result
+    if (result) result = result[n]
     else result = undefined
   })
 

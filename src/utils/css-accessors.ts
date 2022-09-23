@@ -1,4 +1,4 @@
-import cssInject, { Injects } from './vars-inject'
+import cssInject from './vars-inject'
 import { capitalize } from './strings'
 import { entries } from './objects'
 
@@ -39,7 +39,7 @@ interface conf {
   className: string
 }
 
-function genAccessors(obj: object, data: Accessors) {
+function genAccessors(obj: object, data: ObjectProps) {
   data.conf.forEach((item: conf) => {
     const { name, className, attr, parser = (v: any) => v } = item
     const { info } = data
@@ -57,50 +57,18 @@ function genAccessors(obj: object, data: Accessors) {
       set: v => {
         delete cache[cacheKey]
         if (item.value) item.value = v
-        if (isValidKey(name, data)) {
-          data[name] = v
-        }
+        data[name] = v
       },
     })
   })
 }
 
-// const accessors = {
-//   table: {},
-//   tag: {},
-//   pagination: {},
-//   button: {},
-//   color: {},
-//   tooltip: {},
-//   input: {},
-//   select: {},
-//   datepicker: {},
-//   slider: {},
-//   menu: {},
-//   form: {},
-//   checkbox: {},
-//   radio: {},
-//   alert: {},
-//   message: {},
-//   card: {},
-//   modal: {},
-//   popover: {},
-//   tree: {},
-//   dropdown: {},
-//   common: {},
-//   switch: {},
-//   tabs: {},
-//   cascader: {},
-//   list: {},
-//   progress: {},
-// }
-
-const accessors = Object.keys(cssInject).reduce((obj, key) => ({ ...obj, [key]: {} }), {})
+const accessors = Object.keys(cssInject).reduce((obj, key) => ({ ...obj, [key]: {} }), {}) as Accessors
 
 for (const [key, value] of entries(accessors)) {
   const setterName = `set${capitalize(key)}`
   value[setterName] = (options: any) => setOptions.call(value, options, setterName)
-  genAccessors(value, cssInject[key])
+  genAccessors(value, cssInject[key as keyof typeof accessors])
 }
 
 export function cleanCache() {

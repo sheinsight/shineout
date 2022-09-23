@@ -12,7 +12,13 @@ export function flatten(data, skipArray) {
   if (isEmpty(data)) return data
   const result = {}
   function recurse(cur, prop) {
-    if (Object(cur) !== cur || typeof cur === 'function' || cur instanceof Date || cur instanceof Error || (skipArray && Array.isArray(cur))) {
+    if (
+      Object(cur) !== cur ||
+      typeof cur === 'function' ||
+      cur instanceof Date ||
+      cur instanceof Error ||
+      (skipArray && Array.isArray(cur))
+    ) {
       if (!(cur === undefined && /\[\d+\]$/.test(prop))) {
         result[prop] = cur
       }
@@ -31,7 +37,9 @@ export function flatten(data, skipArray) {
         empty = false
         recurse(cur[p], prop ? `${prop}.${p}` : p)
       }
-      if (empty) { result[prop] = {} }
+      if (empty) {
+        result[prop] = {}
+      }
     }
   }
   recurse(data, '')
@@ -46,32 +54,35 @@ export function unflatten(rawdata) {
   const data = { ...rawdata }
 
   const result = {}
-  let {
-    cur, prop, idx, last, temp, match,
-  } = {}
+  let { cur, prop, idx, last, temp, match } = {}
 
   // eslint-disable-next-line
-  Object.keys(data).sort().forEach((p) => {
-    const pathWithPoint = insertPoint(p)
-    cur = result
-    prop = ''
-    last = 0
-    do {
-      idx = pathWithPoint.indexOf('.', last)
-      temp = pathWithPoint.substring(last, idx !== -1 ? idx : undefined)
-      match = /^\[(\d+)\]$/.exec(temp)
-      cur = cur[prop] || (cur[prop] = match ? [] : {})
-      prop = match ? match[1] : temp
-      last = idx + 1
-    } while (idx >= 0)
-    cur[prop] = deepClone(data[p])
-  })
+  Object.keys(data)
+    .sort()
+    .forEach(p => {
+      const pathWithPoint = insertPoint(p)
+      cur = result
+      prop = ''
+      last = 0
+      do {
+        idx = pathWithPoint.indexOf('.', last)
+        temp = pathWithPoint.substring(last, idx !== -1 ? idx : undefined)
+        match = /^\[(\d+)\]$/.exec(temp)
+        cur = cur[prop] || (cur[prop] = match ? [] : {})
+        prop = match ? match[1] : temp
+        last = idx + 1
+      } while (idx >= 0)
+      cur[prop] = deepClone(data[p])
+    })
   return result['']
 }
 
 export function insertValue(obj, name, index, value) {
-  Object.keys(obj).filter(n => n.indexOf(`${name}[`) === 0).sort().reverse()
-    .forEach((n) => {
+  Object.keys(obj)
+    .filter(n => n.indexOf(`${name}[`) === 0)
+    .sort()
+    .reverse()
+    .forEach(n => {
       // const reg = new RegExp(`${name}\\[(\\d+)\\]`)
       const reg = new RegExp(`${name.replace(/\[/g, '\\[').replace(/\]/g, '\\]')}\\[(\\d+)\\]`)
       const match = reg.exec(n)
@@ -82,14 +93,16 @@ export function insertValue(obj, name, index, value) {
       delete obj[n]
     })
   const newValue = flatten({ [`${name}[${index}]`]: value })
-  Object.keys(newValue).forEach((k) => {
+  Object.keys(newValue).forEach(k => {
     if (newValue[k] !== undefined) obj[k] = newValue[k]
   })
 }
 
 export function spliceValue(obj, name, index) {
-  const names = Object.keys(obj).filter(n => n === name || n.indexOf(`${name}[`) === 0).sort()
-  names.forEach((n) => {
+  const names = Object.keys(obj)
+    .filter(n => n === name || n.indexOf(`${name}[`) === 0)
+    .sort()
+  names.forEach(n => {
     if (n === name && !Array.isArray(obj[name])) return
 
     if (n === name) {
@@ -123,7 +136,7 @@ export const getSthByName = (name, source = {}) => {
   let result = unflatten(source)
   name = insertPoint(name)
 
-  name.split('.').forEach((n) => {
+  name.split('.').forEach(n => {
     const match = /^\[(\d+)\]$/.exec(n)
     // eslint-disable-next-line
     if (match) n = match[1]
@@ -142,11 +155,11 @@ export const removeSthByName = (name, source) => {
   if (match) {
     spliceValue(source, match[1], parseInt(match[2], 10))
   } else {
-    Object.keys(source).forEach((n) => {
+    Object.keys(source).forEach(n => {
       if (isNameWithPath(n, name)) delete source[n]
     })
   }
 }
 
-export const flattenArray = arr1 => arr1.reduce((acc, val) =>
-  (Array.isArray(val) ? acc.concat(flattenArray(val)) : acc.concat(val)), [])
+export const flattenArray = arr1 =>
+  arr1.reduce((acc, val) => (Array.isArray(val) ? acc.concat(flattenArray(val)) : acc.concat(val)), [])
