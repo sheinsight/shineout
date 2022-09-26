@@ -1,17 +1,15 @@
-import Datum from "../../Datum"
-import { wrapFormError } from "../errors"
-import { substitute } from "../strings"
-import { flattenArray } from "../flat"
-import range from "./range"
-import rangeLength from "./rangeLength"
-import required from "./required"
-import typeOf, { regs } from "./type"
-import regTest from "./regExp"
+import Datum from '../../Datum'
+import { wrapFormError } from '../errors'
+import { substitute } from '../strings'
+import { flattenArray } from '../flat'
+import range from './range'
+import rangeLength from './rangeLength'
+import required from './required'
+import typeOf, { RegsKeys } from './type'
+import regTest from './regExp'
 
-type RegsKeys = keyof typeof regs
-
-export declare interface RuleProps {
-  type?: keyof typeof regs
+export interface RuleProps {
+  type?: RegsKeys
   regExp?: RegExp
   func?: Function
   min?: number
@@ -20,8 +18,8 @@ export declare interface RuleProps {
   message?: string | Function
 }
 
-interface Rules {
-  type: keyof typeof regs
+export interface Rules {
+  type: RegsKeys
   regExp: RegExp
   func: Function
   min: number
@@ -30,14 +28,14 @@ interface Rules {
   message: string | Function
 }
 
-interface RulesFnOption {
+export interface RulesFnOption {
   isInnerValidator: boolean
 }
 
-type RulesFn = (() => Rules) & RulesFnOption
+export type RulesFn = (() => Rules) & RulesFnOption
 
 function getRule(rules: Rules | RulesFn, props: RuleProps | RegsKeys = {}) {
-  if (typeof rules === "function") {
+  if (typeof rules === 'function') {
     if ((rules as RulesFn).isInnerValidator) {
       rules = (rules as RulesFn)()
     } else {
@@ -45,12 +43,12 @@ function getRule(rules: Rules | RulesFn, props: RuleProps | RegsKeys = {}) {
     }
   }
 
-  if (typeof props === "string") props = { type: props }
+  if (typeof props === 'string') props = { type: props }
 
   const { type = props.type, message, regExp, func, ...other } = rules as Rules
 
   props = Object.assign({}, props, other)
-  props.message = typeof message === "function" ? message(props) : substitute(message, props)
+  props.message = typeof message === 'function' ? message(props) : substitute(message, props)
 
   if (func) return (...args: unknown[]) => func(...args, props)
 
@@ -59,7 +57,7 @@ function getRule(rules: Rules | RulesFn, props: RuleProps | RegsKeys = {}) {
   if (regExp) return regTest(regExp, props)
 
   if (other.min !== undefined || other.max !== undefined) {
-    if (type === "number" || type === "integer") {
+    if (type === 'number' || type === 'integer') {
       return range({ ...props, min: other.min, max: other.max })
     }
     return rangeLength(props)

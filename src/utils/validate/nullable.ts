@@ -1,10 +1,12 @@
-interface UnknownValue {
+export interface UnknownValue {
   length?: number
 }
 
-type Nullable = (fn: Function) => (value: UnknownValue | null, formdata: any, callback: (is: boolean) => void) => void
-
-const nullable: Nullable = fn => (value, formdata, callback) => {
+export default (fn: (...args: unknown[]) => void) => (
+  value: UnknownValue,
+  formdata: any,
+  callback: (...args: any) => void
+) => {
   if (value == null || value.length === 0) {
     callback(true)
     return
@@ -12,5 +14,3 @@ const nullable: Nullable = fn => (value, formdata, callback) => {
 
   fn(value, formdata, callback)
 }
-
-export default nullable

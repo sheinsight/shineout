@@ -2,7 +2,7 @@ import nullable from './nullable'
 import { RuleProps } from './index'
 
 export default (regExp: string | RegExp, options: RuleProps) =>
-  nullable((value: unknown, formdata: any, callback: (is: boolean | Error) => void) => {
+  nullable((value: unknown, _formdata: any, callback: (is: boolean | Error) => void) => {
     const { message } = options
 
     const reg = typeof regExp === 'string' ? new RegExp(regExp) : regExp

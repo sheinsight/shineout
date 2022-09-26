@@ -5,7 +5,7 @@ interface UnknownValue {
   length?: number
 }
 
-export default (options: RuleProps) => (value: UnknownValue, formdata: any, callback: Function) => {
+export default (options: RuleProps) => (value: UnknownValue, _formdata: any, callback: Function) => {
   const { min, max, message } = options
   let error
 
