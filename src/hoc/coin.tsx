@@ -83,7 +83,7 @@ export default <T extends CoinProps>(coinType: CoinTypeType) => (Origin: React.C
       const { coin, value, onFocus, onBlur, ...others } = this.props
 
       if (!coin) return <Origin {...this.props} coin={undefined} />
-      if (coinType === 'input' && this.props.type !== 'number') return <Origin {...this.props} coin={123} />
+      if (coinType === 'input' && this.props.type !== 'number') return <Origin {...this.props} coin={undefined} />
       return (
         <Origin
           {...others as T}
