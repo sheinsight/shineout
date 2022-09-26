@@ -73,7 +73,7 @@ export default curry(
 
       handleMouseDown(e: MouseEvent) {
         if (e.button !== 0 || !this.el) return
-        if (handler && (e.target as HTMLElement).matches(handler)) return
+        if (handler && !(e.target as HTMLElement).matches(handler)) return
         document.addEventListener('mousemove', this.handleMouseMove)
         document.addEventListener('mouseup', this.handleMouseUp)
         document.addEventListener('mouseleave', this.handleMouseUp)
