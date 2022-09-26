@@ -1,0 +1,36 @@
+import { isEmpty } from '../is'
+import { RuleProps } from './index'
+
+interface UnknownValue {
+  length?: number
+}
+
+export default (options: RuleProps) => (value: UnknownValue, formdata: any, callback: Function) => {
+  const { min, max, message } = options
+  let error
+
+  if (typeof message === 'string') {
+    error = new Error(message)
+  }
+
+  if (typeof message === 'function') {
+    error = new Error(message())
+  }
+
+  if (isEmpty(value)) {
+    if (min) callback(error)
+    else callback(true)
+    return
+  }
+
+  const len = typeof value === 'number' ? String(value).length : value.length
+
+  if (
+    (len !== undefined && typeof min === 'number' && len < min) ||
+    (len !== undefined && typeof max === 'number' && len > max)
+  ) {
+    callback(error)
+  } else {
+    callback(true)
+  }
+}
