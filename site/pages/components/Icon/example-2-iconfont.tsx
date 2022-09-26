@@ -5,12 +5,10 @@
  *    -- You can customize an icon in <a target="_blank" href="http://iconfont.cn">iconfont.cn</a> or <a target="_blank" href="http://fontastic.me/">fontastic.me</a>, support font and svg.
  */
 import React from 'react'
-import { Icon, TYPE } from 'shineout'
+import { Icon } from 'shineout'
 
-type IconComponent = TYPE.Icon.Com
-
-const FontIconfont: IconComponent = Icon('//at.alicdn.com/t/font_550076_uyvw3e8ul8w4gqfr.css')
-const SVGIconfont: IconComponent = Icon('//at.alicdn.com/t/font_1725436_8gldxw9bjlu.js')
+const FontIconfont = Icon('//at.alicdn.com/t/font_550076_uyvw3e8ul8w4gqfr.css')
+const SVGIconfont= Icon('//at.alicdn.com/t/font_1725436_8gldxw9bjlu.js')
 const margin: React.CSSProperties = { marginInlineEnd: 20 }
 
 const App: React.FC = () => (

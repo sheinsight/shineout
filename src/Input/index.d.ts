@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { PopoverProps } from '../Popover'
+import { PopoverProps } from '../Popover/interface'
 import { StandardProps, RegularAttributes, FormItemStandardProps, CommonProps } from '../@types/common'
 
 type ReactNode = React.ReactNode;

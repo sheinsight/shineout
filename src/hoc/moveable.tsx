@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { docSize } from '../utils/dom/document'
 import { moveableClass } from './styles'
@@ -8,22 +7,39 @@ import { curry } from '../utils/func'
 
 const DIS_LIMIT = 50
 
-export default curry(
-  (handler, Origin) =>
-    class Moveable extends React.Component {
-      static propTypes = {
-        style: PropTypes.object,
-        className: PropTypes.string,
-        moveable: PropTypes.bool,
-      }
+interface MovableProps {
+  style: React.CSSProperties
+  className: string
+  moveable: boolean
+}
+type filterProps = 'moveable'
 
-      constructor(props) {
+interface MovableState {
+  x: number
+  y: number
+  draging: boolean
+}
+export default curry(
+  <U extends MovableProps>(handler: string, Origin: React.ComponentType<Omit<U, filterProps>>) =>
+    class Moveable extends React.Component<U, MovableState> {
+      moveabledId: string
+
+      el: HTMLElement
+
+      handlerEl: HTMLElement
+
+      hasDragged?: boolean
+
+      handlerPos?: DOMRect
+
+      constructor(props: U) {
         super(props)
         this.state = {
           x: 0,
           y: 0,
           draging: false,
         }
+
         this.moveabledId = getUidStr()
         this.handleMouseDown = this.handleMouseDown.bind(this)
         this.handleMouseMove = this.handleMouseMove.bind(this)
@@ -49,15 +65,15 @@ export default curry(
       }
 
       bindEvent() {
-        this.el = document.querySelector(`.${moveableClass(this.moveabledId)}`)
+        this.el = document.querySelector(`.${moveableClass(this.moveabledId)}`) as HTMLElement
         if (!this.el) return
         this.el.addEventListener('mousedown', this.handleMouseDown)
         this.handlerEl = handler ? this.el.querySelector(handler) || this.el : this.el
       }
 
-      handleMouseDown(e) {
+      handleMouseDown(e: MouseEvent) {
         if (e.button !== 0 || !this.el) return
-        if (handler && !e.target.matches(handler)) return
+        if (handler && (e.target as HTMLElement).matches(handler)) return
         document.addEventListener('mousemove', this.handleMouseMove)
         document.addEventListener('mouseup', this.handleMouseUp)
         document.addEventListener('mouseleave', this.handleMouseUp)
@@ -70,15 +86,15 @@ export default curry(
         })
       }
 
-      handleMouseMove(e) {
+      handleMouseMove(e: MouseEvent) {
         this.setState(prev => {
           let x = prev.x + e.movementX
           let y = prev.y + e.movementY
-          if (this.handlerPos.right + x < DIS_LIMIT || this.handlerPos.left + x > docSize.width - DIS_LIMIT) {
+          if (this.handlerPos!.right + x < DIS_LIMIT || this.handlerPos!.left + x > docSize.width - DIS_LIMIT) {
             // eslint-disable-next-line prefer-destructuring
             x = prev.x
           }
-          if (this.handlerPos.bottom + y < DIS_LIMIT || this.handlerPos.top + y > docSize.height - DIS_LIMIT) {
+          if (this.handlerPos!.bottom + y < DIS_LIMIT || this.handlerPos!.top + y > docSize.height - DIS_LIMIT) {
             // eslint-disable-next-line prefer-destructuring
             y = prev.y
           }
