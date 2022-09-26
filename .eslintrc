@@ -1,8 +1,7 @@
 {
     "extends": [
         "airbnb",
-        "plugin:@typescript-eslint/eslint-recommended",
-        "prettier"
+       "prettier"
     ],
     "plugins": [
         "prettier",
@@ -30,14 +29,23 @@
             }
         }
     },
+    "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "rules": {
+        "@typescript-eslint/no-unused-vars": [2, { "args": "none", "ignoreRestSiblings": true }  ]
+      }
+    }
+  ],
     "rules": {
-        "prettier/prettier": "error",
+        "prettier/prettier": 0,
         "react/jsx-filename-extension": [
             1,
             {
                 "extensions": [".js", ".jsx", ".ts", ".tsx"]
             }
         ],
+        "react/sort-comp": 0,
         "react/forbid-prop-types": 0,
         "react/jsx-no-bind": 0,
         "jsx-a11y/label-has-for": 0,
@@ -56,6 +64,8 @@
         "import/no-extraneous-dependencies": 0,
         "import/no-webpack-loader-syntax": 0,
         "import/prefer-default-export": 0,
+        "no-empty-function": 0,
+        "@typescript-eslint/no-empty-function": 0,
         "max-len": 0,
         "no-console": 0,
         "no-continue": 0,
@@ -77,6 +87,11 @@
         "react/destructuring-assignment": 0,
         "import/no-named-as-default": 0,
         "import/named": 0,
-        "import/no-named-as-default-member": 0
+        "import/no-named-as-default-member": 0,
+        "no-use-before-define": 0,
+        "@typescript-eslint/no-use-before-define": 2,
+        "no-shadow": 0,
+        "@typescript-eslint/no-shadow": [2, { "ignoreTypeValueShadow": true }],
+        "no-undef": 0
     }
 }

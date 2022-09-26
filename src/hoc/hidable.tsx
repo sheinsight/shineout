@@ -1,28 +1,50 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { ComponentType } from "react"
 import classnames from 'classnames'
 import createReactContext from '../context'
 import { PureComponent } from '../component'
 import { getUidStr } from '../utils/uid'
 import { hidableClass } from './styles'
 
-const context = createReactContext()
+const context = createReactContext<any>(undefined)
 
-export const consumer = Origin => props => (
-  <context.Consumer>{value => <Origin {...value} {...props} />}</context.Consumer>
+export const consumer = <U, >(Origin: React.ComponentType<U> ) => (props: U) => (
+  <context.Consumer>{(value: unknown) => <Origin {...value} {...props} />}</context.Consumer>
 )
+
+
+interface HideableProps {
+  show?: boolean
+  className?: string
+
+}
+
+interface HidableConfig {
+  type: ('fade' | 'collapse' | 'scale-y')[],
+  duration: number,
+  display: string
+}
 
 /**
  * @param {*} Component
  * @param {*} duration
  * @param {*} type - fade, collapse, tranlate
  */
-export default function(Component, { type = ['fade'], duration = 360, display = 'block' }) {
+
+export default function<U extends HideableProps>(Component: React.ComponentType<U>, { type = ['fade'], duration = 360, display = 'block' }: HidableConfig) {
   const hasCollapse = type.indexOf('collapse') >= 0
   const needTransform = type.indexOf('scale-y') >= 0
 
-  class Hidable extends PureComponent {
-    constructor(props) {
+  class Hidable extends PureComponent<U, {show?: boolean}> {
+    static defaultProps = {
+      className: '',
+      show: false,
+    }
+
+    height: number
+
+    id: string
+
+    constructor(props: U) {
       super(props)
 
       this.state = {
@@ -43,11 +65,11 @@ export default function(Component, { type = ['fade'], duration = 360, display = 
       el.style.display = 'none'
       if (hasCollapse) {
         el.style.overflow = 'hidden'
-        el.style.height = 0
+        el.style.height = '0px'
       }
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps: U) {
       if (this.props.show === prevProps.show) return
 
       if (this.props.show) this.show()
@@ -55,7 +77,7 @@ export default function(Component, { type = ['fade'], duration = 360, display = 
     }
 
     getElement() {
-      return document.querySelector(`.${this.id}`)
+      return document.querySelector(`.${this.id}`) as HTMLElement
     }
 
     show() {
@@ -88,7 +110,7 @@ export default function(Component, { type = ['fade'], duration = 360, display = 
         element.style.overflow = 'hidden'
 
         setTimeout(() => {
-          element.style.height = 0
+          element.style.height = '0px'
         }, 10)
       }
 
@@ -118,16 +140,5 @@ export default function(Component, { type = ['fade'], duration = 360, display = 
     }
   }
 
-  Hidable.propTypes = {
-    className: PropTypes.string,
-    show: PropTypes.bool,
-    height: PropTypes.number,
-  }
-
-  Hidable.defaultProps = {
-    className: '',
-    show: false,
-  }
-
-  return Hidable
+  return Hidable as unknown as ComponentType<U>
 }

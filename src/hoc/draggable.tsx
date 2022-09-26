@@ -1,10 +1,34 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import { curry } from '../utils/func'
 
-export default curry(OriginComponent => {
-  class Drag extends PureComponent {
-    constructor(props) {
+
+interface DragProps {
+  client?: {x: number, y: number, [name: string]: any}
+  onDragStart?: ()=> void
+  onDrag?: (mx: number, my: number, clientX: number, clientY: number)=> void
+  onDragEnd?: ()=> void
+}
+
+const defaultProps: DragProps = {
+  client: undefined,
+  onDragStart(){},
+  onDrag() {},
+  onDragEnd() {},
+}
+
+export default curry(<U extends DragProps>(OriginComponent: React.ComponentType<U>) => {
+
+  class Drag extends PureComponent<U> {
+
+    static defaultProps = defaultProps
+
+    clientX?: number
+
+    clientY?: number
+
+    dragging?: boolean
+
+    constructor(props:  U) {
       super(props)
 
       this.handleDragStart = this.handleDragStart.bind(this)
@@ -19,7 +43,7 @@ export default curry(OriginComponent => {
         this.clientY = client.y
         this.dragging = true
         this.addEvents()
-        this.props.onDragStart(true)
+        if(this.props.onDragStart) this.props.onDragStart()
       }
     }
 
@@ -39,34 +63,34 @@ export default curry(OriginComponent => {
       document.removeEventListener('mouseleave', this.handleDragEnd)
     }
 
-    handleDragStart(e) {
+    handleDragStart(e: React.DragEvent<HTMLElement>) {
       if (e.button !== 0) return
       this.clientX = e.clientX
       this.clientY = e.clientY
       this.dragging = true
       this.addEvents()
-      this.props.onDragStart(true)
+      if(this.props.onDragStart) this.props.onDragStart()
     }
 
-    handleDrag(e) {
+    handleDrag(e: MouseEvent) {
       if (!this.dragging) return
       if (e.clientX === 0 && e.clientY === 0) return
 
-      const mx = e.clientX - this.clientX
-      const my = e.clientY - this.clientY
+      const mx = e.clientX - this.clientX!
+      const my = e.clientY - this.clientY!
       if (mx === 0 && my === 0) return
 
       this.clientX = e.clientX
       this.clientY = e.clientY
 
-      this.props.onDrag(mx, my, e.clientX, e.clientY)
+      if (this.props.onDrag) this.props.onDrag(mx, my, e.clientX, e.clientY)
     }
 
     handleDragEnd() {
       if (!this.dragging) return
       this.dragging = false
       this.removeEvents()
-      this.props.onDragEnd(false)
+      if(this.props.onDragEnd) this.props.onDragEnd()
     }
 
     render() {
@@ -74,19 +98,7 @@ export default curry(OriginComponent => {
     }
   }
 
-  Drag.propTypes = {
-    client: PropTypes.object,
-    onDragStart: PropTypes.func,
-    onDrag: PropTypes.func,
-    onDragEnd: PropTypes.func,
-  }
 
-  Drag.defaultProps = {
-    client: undefined,
-    onDragStart() {},
-    onDrag() {},
-    onDragEnd() {},
-  }
 
   return Drag
 })

@@ -1,8 +1,12 @@
 import React from 'react'
 
-function create(name) {
-  const Base = React[name]
-  return class extends Base {
+function create(name: 'Component' | 'PureComponent') {
+  const Base: typeof React.Component = React[name]
+  return class<P, V> extends Base<P, V> {
+    $isMounted: boolean
+
+    forceUpdateTimer: NodeJS.Timeout
+
     componentDidMount() {
       this.$isMounted = true
     }
@@ -11,8 +15,8 @@ function create(name) {
       this.$isMounted = false
     }
 
-    setState(...args) {
-      if (this.$isMounted !== false) super.setState(...args)
+    setState(...args: any[]) {
+      if (this.$isMounted !== false) super.setState.apply(this, args)
     }
 
     forceUpdate() {

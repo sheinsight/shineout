@@ -1,21 +1,45 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import immer from 'immer'
 import { resizableClass } from './styles'
 import { getUidStr } from '../utils/uid'
 import { curry } from '../utils/func'
 
+interface ResizeableProps {
+  style: React.CSSProperties
+  className: string
+  resizable: boolean | string
+}
+
+interface ResizeableState {
+  x: number
+  y: number
+}
+
+type Direction = 'x' | 'y' | 'xy'
+
+type filterProps = 'resizable'
+
 export default curry(
-  Origin =>
-    class Resizable extends React.Component {
-      static propTypes = {
-        style: PropTypes.object,
-        className: PropTypes.string,
-        resizable: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  <U extends ResizeableProps >(Origin: React.ComponentType<Omit<U, filterProps>>) =>
+    class Resizable extends React.Component<U, ResizeableState> {
+
+      resizableId: string
+
+      handlers: Map<HTMLElement, EventListener>
+
+      active?: Direction
+
+      appended?: boolean
+
+      size?: {
+        width: number
+        height: number
       }
 
-      constructor(props) {
+      el: HTMLElement
+
+      constructor(props: U) {
         super(props)
         this.state = {
           x: 0,
@@ -51,7 +75,7 @@ export default curry(
         }
       }
 
-      handleMouseMove(e) {
+      handleMouseMove(e: MouseEvent) {
         let x = e.movementX
         let y = e.movementY
         if (!this.active) return
@@ -59,13 +83,13 @@ export default curry(
           immer(draft => {
             x += draft.x
             y += draft.y
-            if (this.active.indexOf('x') >= 0) draft.x = x
-            if (this.active.indexOf('y') >= 0) draft.y = y
+            if (this.active!.indexOf('x') >= 0) draft.x = x
+            if (this.active!.indexOf('y') >= 0) draft.y = y
           })
         )
       }
 
-      handleMouseDown(dir) {
+      handleMouseDown(dir: Direction) {
         this.active = dir
         document.addEventListener('mousemove', this.handleMouseMove)
         document.addEventListener('mouseup', this.handleMouseUp)
@@ -83,7 +107,7 @@ export default curry(
         const { resizable } = this.props
         if (!resizable || this.appended) return
         this.appended = true
-        this.el = document.querySelector(`.${resizableClass(this.resizableId)}`)
+        this.el = document.querySelector(`.${resizableClass(this.resizableId)}`) as HTMLElement
         if (!this.el) return
         this.size = {
           width: this.el.clientWidth,
@@ -106,7 +130,7 @@ export default curry(
         if (!resizable) return <Origin {...this.props} />
         const ms = Object.assign({}, style, this.getStyle())
         const mc = classnames(className, resizableClass('_', this.resizableId))
-        return <Origin {...others} style={ms} className={mc} />
+        return <Origin {...others as U} style={ms} className={mc} />
       }
     }
 )
