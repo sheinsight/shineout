@@ -8,7 +8,7 @@ import React from 'react'
 import { Pagination, TYPE } from 'shineout'
 
 type PaginationProps = TYPE.Pagination.Props
-type PaginationText = TYPE.Pagination.TextParams
+type PaginationText = PaginationProps['text']
 type PaginationLayout = PaginationProps['layout']
 
 const info = ({ current, pageSize, total }: { current: number; pageSize: number; total: number }) => {

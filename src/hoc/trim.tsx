@@ -1,17 +1,15 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import config from '../config'
 
-export default Origin =>
-  class extends PureComponent {
-    static propTypes = {
-      onBlur: PropTypes.func,
-      onChange: PropTypes.func,
-      trim: PropTypes.bool,
-      value: PropTypes.any,
-    }
-
-    constructor(props) {
+interface TrimProps {
+  onBlur: (e: React.MouseEvent<HTMLElement>) => void
+  onChange: (v: string) => void
+  trim: boolean
+  value: string
+}
+export default <T extends TrimProps>(Origin: React.ComponentType<T>) =>
+  class extends PureComponent<T> {
+    constructor(props: T) {
       super(props)
       this.handleBlur = this.handleBlur.bind(this)
     }
@@ -23,11 +21,11 @@ export default Origin =>
       return false
     }
 
-    handleBlur(e) {
+    handleBlur(e: React.MouseEvent<HTMLInputElement>) {
       const { value, onBlur, onChange } = this.props
       const trim = this.getTrim()
       if (trim) {
-        const tv = e.target.value.trim()
+        const tv = (e.target as HTMLInputElement).value.trim()
         if (value !== tv) onChange(tv)
       }
       if (onBlur) onBlur(e)
