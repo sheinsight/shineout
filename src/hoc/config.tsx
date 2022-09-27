@@ -1,10 +1,11 @@
 import React from 'react'
-import { Component } from '../component'
 import { noti } from '../config'
 
-export default (Com, name) =>
-  class extends Component {
-    constructor(props) {
+export default <U, >(Com: React.ComponentType<U>, name: string) =>
+  class extends React.Component<U, any> {
+    handleUpdate: () => void
+
+    constructor(props: U) {
       super(props)
       this.handleUpdate = this.forceUpdate.bind(this)
       noti.subscribe(name, this.handleUpdate)

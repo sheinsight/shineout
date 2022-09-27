@@ -3,6 +3,7 @@
         "allowJs": true,
         "checkJs": false,
         "baseUrl": "./",
+       "declaration": true,
         "paths": {
             "shineout": ["src/index"],
             "doc/*": ["site/*"]

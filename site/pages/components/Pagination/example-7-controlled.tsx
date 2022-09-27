@@ -8,7 +8,7 @@ import React, { useState } from 'react'
 import { Input, Pagination, TYPE } from 'shineout'
 
 type PaginationProps = TYPE.Pagination.Props
-type PaginationText = TYPE.Pagination.TextParams
+type PaginationText = PaginationProps['TextParams']
 type PaginationOnChange = PaginationProps['onChange']
 
 const info = ({ current }: { current: number }) => `Current page ${current}`

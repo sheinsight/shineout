@@ -93,7 +93,7 @@ export { default as Pagination } from './Pagination'
 import { PaginationProps as __PaginationProps,  } from './Pagination'
 
 export { default as Popover } from './Popover'
-import { PopoverProps as __PopoverProps, PopoverConfirmProps as __PopoverConfirmProps, ContentProps as __ContentProps } from './Popover'
+import { PopoverProps as __PopoverProps, PopoverConfirmProps as __PopoverConfirmProps, ContentProps as __ContentProps } from './Popover/interface'
 
 export { default as Progress } from './Progress'
 import { ProgressProps as __ProgressProps,  } from './Progress'

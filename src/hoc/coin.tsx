@@ -1,24 +1,33 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 
-export default coinType => Origin =>
-  class extends PureComponent {
-    static propTypes = {
-      value: PropTypes.any,
-      type: PropTypes.string,
-      coin: PropTypes.bool,
-      onFocus: PropTypes.func,
-      onBlur: PropTypes.func,
-      onMouseDown: PropTypes.func,
-      onMouseUp: PropTypes.func,
-      onChange: PropTypes.func.isRequired,
-    }
+type CoinTypeType = 'input' | undefined
+interface CoinProps {
+  value?: string | number
+  type?: string
+  onFocus?: React.FocusEventHandler<HTMLElement>
+  onBlur?: React.FocusEventHandler<HTMLElement>
+  onMouseDown?: React.MouseEventHandler<HTMLElement>
+  onMouseUp?: React.MouseEventHandler<HTMLElement>
+  onChange: (value: string) => void
+  coin?: boolean
+}
 
+type filterProps = 'coin'
+
+interface CoinState {
+  showCoin?: boolean
+}
+export default <T extends CoinProps>(coinType: CoinTypeType) => (Origin: React.ComponentType<Omit<T, filterProps>>) =>
+  class extends PureComponent<T, CoinState> {
     static defaultProps = {
       coin: false,
     }
 
-    constructor(props) {
+    isFocus: boolean
+
+    mouseDown: boolean
+
+    constructor(props: T) {
       super(props)
       this.state = {
         showCoin: props.coin,
@@ -40,28 +49,28 @@ export default coinType => Origin =>
       return `${value || ''}`.replace(/,/g, '')
     }
 
-    handleFocus(e) {
+    handleFocus(e: React.FocusEvent<HTMLElement>) {
       const { onFocus } = this.props
       this.isFocus = true
       this.setState({ showCoin: false })
       if (onFocus) onFocus(e)
     }
 
-    handleBlur(e) {
+    handleBlur(e: React.FocusEvent<HTMLElement>) {
       const { onBlur } = this.props
       this.isFocus = false
       this.setState({ showCoin: true })
       if (onBlur) onBlur(e)
     }
 
-    handleMouseDown(e) {
+    handleMouseDown(e: React.MouseEvent<HTMLElement>) {
       const { onMouseDown } = this.props
       this.mouseDown = true
       this.setState({ showCoin: false })
       if (onMouseDown) onMouseDown(e)
     }
 
-    handleMouseUp(e) {
+    handleMouseUp(e: React.MouseEvent<HTMLElement>) {
       const { onMouseUp } = this.props
       if (this.mouseDown && !this.isFocus) {
         this.setState({ showCoin: true })
@@ -77,7 +86,7 @@ export default coinType => Origin =>
       if (coinType === 'input' && this.props.type !== 'number') return <Origin {...this.props} coin={undefined} />
       return (
         <Origin
-          {...others}
+          {...others as T}
           onMouseDown={this.handleMouseDown}
           onMouseUp={this.handleMouseUp}
           value={this.getValue()}

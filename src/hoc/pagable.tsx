@@ -1,9 +1,20 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { PureComponent } from '../component'
 import Pagination from '../Pagination'
+import {PaginationProps} from '../Pagination'
 
-function getData(data, pager) {
+interface PagableProps{
+  data?: unknown
+  loading?: boolean
+  pagination: PaginationProps
+}
+
+interface PagableState {
+  current: number
+  pageSize: number
+}
+
+function getData(data: unknown, pager: {pageSize: number, current: number, [name: string]: any} ) {
   if (!Array.isArray(data)) return data
   if (data.length <= pager.pageSize) return data
 
@@ -11,15 +22,12 @@ function getData(data, pager) {
   return data.slice(start, start + pager.pageSize)
 }
 
-export default function (Component) {
-  return class extends PureComponent {
-    static propTypes = {
-      data: PropTypes.any,
-      loading: PropTypes.bool,
-      pagination: PropTypes.object.isRequired,
-    }
+type filterProps = 'pagination'
 
-    constructor(props) {
+export default function<U extends PagableProps>(Component: React.ComponentType<Omit<PagableProps, filterProps>>) {
+  return class extends PureComponent<U, PagableState> {
+
+    constructor(props: U) {
       super(props)
 
       const pp = props.pagination
@@ -31,11 +39,12 @@ export default function (Component) {
       this.handleChange = this.handleChange.bind(this)
     }
 
-    getProp(key) {
+    getProp(key: 'current' | 'pageSize') {
       return this.props.pagination[key] || this.state[key]
     }
 
-    getPager(data, pagination) {
+    getPager(data: any, pagination: PaginationProps)
+      : PaginationProps & Required<Pick<PaginationProps, 'current' | 'pageSize' | 'total'>> {
       const { loading } = this.props
       const total = Array.isArray(data) ? data.length : 0
       return Object.assign(
@@ -50,7 +59,7 @@ export default function (Component) {
       )
     }
 
-    handleChange(current, pageSize) {
+    handleChange(current: number, pageSize: number) {
       const { onChange } = this.props.pagination
       this.setState({ current, pageSize })
       if (onChange) onChange(current, pageSize)
