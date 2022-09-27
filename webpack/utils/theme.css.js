@@ -67,7 +67,7 @@ module.exports = function({
         },
         {
           test: /\.(ts|tsx)$/,
-          use: 'ts-loader'
+          use: 'babel-loader'
         }
       ],
     },

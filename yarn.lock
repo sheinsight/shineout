@@ -2511,7 +2511,7 @@
 
 "@types/deep-eql@^4.0.0":
   version "4.0.0"
-  resolved "https://npmjs.sheincorp.cn/@types/deep-eql/-/deep-eql-4.0.0.tgz#168e28540d077f443090fce6926ff3b5bbaec757"
+  resolved "https://registry.npmjs.org/@types/deep-eql/-/deep-eql-4.0.0.tgz#168e28540d077f443090fce6926ff3b5bbaec757"
   integrity sha512-UkfTYLA64vGUyR4ez8ybIC01wtilS/ydOqKL1fSHOvnX1sVm1sI5btr7Q+bqpdaPGD+QNhOgBXq1HGjO+99e1A==
 
 "@types/history@^4.7.11":
