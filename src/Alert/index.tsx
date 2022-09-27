@@ -7,21 +7,25 @@ import { defaultProps } from '../utils/proptypes'
 
 import { AlertProps } from './interface'
 
-interface AlertState {
+const DefaultProps = {
+  ...defaultProps,
+  iconSize: 16,
+  duration: 200,
+  type: 'warning',
+}
+
+type Props = AlertProps & Required<Pick<AlertProps, keyof typeof DefaultProps>>
+
+interface State {
   dismiss: number
 }
-class Alert extends PureComponent<AlertProps, AlertState> {
-  static defaultProps: Partial<AlertProps> = {
-    ...defaultProps,
 
-    iconSize: 16,
-    duration: 200,
-    type: 'warning',
-  }
+class Alert extends PureComponent<Props, State> {
+  static defaultProps = DefaultProps
 
   static displayName: string
 
-  constructor(props: AlertProps) {
+  constructor(props: Props) {
     super(props)
     this.state = {
       dismiss: 0,
@@ -76,7 +80,7 @@ class Alert extends PureComponent<AlertProps, AlertState> {
 
   renderIcon() {
     let { icon } = this.props
-    const { type = 'warning', iconSize = 16 } = this.props
+    const { type, iconSize } = this.props
 
     if (typeof icon === 'boolean' && icon) {
       icon = icons[capitalize(type) as keyof typeof icons]
@@ -135,6 +139,7 @@ class Alert extends PureComponent<AlertProps, AlertState> {
     )
   }
 }
+
 Alert.displayName = 'ShineoutAlert'
 
-export default Alert
+export default Alert as React.ComponentClass<AlertProps>
