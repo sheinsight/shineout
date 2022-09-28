@@ -4,7 +4,9 @@ interface UnknownValue {
   length?: number
 }
 
-export default (options: RuleProps) => (value: UnknownValue, _formdata: any, callback: Function) => {
+type Message = Error | string | boolean
+
+export default (options: RuleProps) => (value: UnknownValue, _formdata: any, callback: (msg: Message) => void) => {
   const { message, required } = options
   if (required === false) {
     callback(true)

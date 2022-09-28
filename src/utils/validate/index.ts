@@ -8,24 +8,25 @@ import required from './required'
 import typeOf, { RegsKeys } from './type'
 import regTest from './regExp'
 
+type Message = Error | string | boolean
 export interface RuleProps {
   type?: RegsKeys
   regExp?: RegExp
-  func?: Function
+  func?: (value: unknown, formData: any, callback: (msg: Message) => void, rule: RuleProps) => boolean
   min?: number
   max?: number
   required?: boolean
-  message?: string | Function
+  message?: string | ((props: RuleProps) => string)
 }
 
 export interface Rules {
-  type: RegsKeys
-  regExp: RegExp
-  func: Function
-  min: number
-  max: number
-  required: boolean
-  message: string | Function
+  type?: RegsKeys
+  regExp?: RegExp
+  func?: (args: unknown[], rule: RuleProps) => boolean
+  min?: number
+  max?: number
+  required?: boolean
+  message: string | ((props: RuleProps) => string)
 }
 
 export interface RulesFnOption {
