@@ -1,7 +1,7 @@
 import nullable from './nullable'
-import { RuleProps } from './index'
+import { Range } from '../../Rule'
 
-export default (options: RuleProps) =>
+export default (options: Range) =>
   nullable((value: unknown, _formdata: any, callback: (x: boolean | Error) => void) => {
     const { min, max, message } = options
 
@@ -14,24 +14,12 @@ export default (options: RuleProps) =>
 
     if (Number.isNaN(val)) {
       // console.error(new Error(`Can not convert value '${value}' to Number, validate failed.`))
-      if (typeof message === 'string') {
-        callback(new Error(message))
-      }
-
-      if (typeof message === 'function') {
-        callback(new Error(message()))
-      }
+      callback(new Error(message))
       return
     }
 
     if ((min !== undefined && val < min) || (max !== undefined && val > max)) {
-      if (typeof message === 'string') {
-        callback(new Error(message))
-      }
-
-      if (typeof message === 'function') {
-        callback(new Error(message()))
-      }
+      callback(new Error(message))
 
       return
     } else {

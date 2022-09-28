@@ -1,23 +1,20 @@
 import nullable from './nullable'
-import { RuleProps } from './index'
+import { RegExpParams } from '../../Rule'
 
-export default (regExp: string | RegExp, options: RuleProps) =>
+export default (regExp: string | RegExp | undefined, options: RegExpParams) =>
   nullable((value: unknown, _formdata: any, callback: (is: boolean | Error) => void) => {
     const { message } = options
 
     const reg = typeof regExp === 'string' ? new RegExp(regExp) : regExp
+    if (!reg) {
+      callback(new Error(message))
+      return
+    }
     if (reg.global) reg.lastIndex = 0
     if (typeof value === 'string' && reg.test(value)) {
       callback(true)
     } else {
-      if (typeof message === 'string') {
-        callback(new Error(message))
-      }
-
-      if (typeof message === 'function') {
-        callback(new Error(message()))
-      }
-
+      callback(new Error(message))
       return
     }
   })

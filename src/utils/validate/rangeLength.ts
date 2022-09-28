@@ -1,21 +1,12 @@
 import { isEmpty } from '../is'
-import { RuleProps } from './index'
-
+import { Range } from '../../Rule'
 interface UnknownValue {
   length?: number
 }
 
-export default (options: RuleProps) => (value: UnknownValue, _formdata: any, callback: Function) => {
+export default (options: Range) => (value: UnknownValue, _formdata: any, callback: Function) => {
   const { min, max, message } = options
-  let error
-
-  if (typeof message === 'string') {
-    error = new Error(message)
-  }
-
-  if (typeof message === 'function') {
-    error = new Error(message())
-  }
+  const error =  new Error(message)
 
   if (isEmpty(value)) {
     if (min) callback(error)

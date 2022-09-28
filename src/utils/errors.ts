@@ -8,7 +8,7 @@ export class FormError extends Error {
   }
 }
 
-export const wrapFormError = (error: Error | Error[]): any => {
+export const wrapFormError = (error: Error | Error[] | boolean): any => {
   if (error instanceof Error) {
     return new FormError(error.message)
   }

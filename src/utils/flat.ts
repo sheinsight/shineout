@@ -188,5 +188,5 @@ export const removeSthByName = (name: string, source: { [x: string]: any }) => {
   }
 }
 
-export const flattenArray = (arr1: any[]): any =>
-  arr1.reduce((acc, val) => (Array.isArray(val) ? acc.concat(flattenArray(val)) : acc.concat(val)), [])
+export const flattenArray = <T>(arr1: T[]): T[] =>
+  arr1.reduce((acc: T[], val: T) => (Array.isArray(val) ? acc.concat(flattenArray(val)) : acc.concat(val)), [])

@@ -5,63 +5,56 @@ import { flattenArray } from '../flat'
 import range from './range'
 import rangeLength from './rangeLength'
 import required from './required'
-import typeOf, { RegsKeys } from './type'
+import typeOf from './type'
+import { regs } from './type'
 import regTest from './regExp'
+import { RuleParams, validFunc, RegExpParams, Required, Max, Min, Range, RuleResult } from '../../Rule'
 
-type Message = Error | string | boolean
-export interface RuleProps {
-  type?: RegsKeys
-  regExp?: RegExp
-  func?: (value: unknown, formData: any, callback: (msg: Message) => void, rule: RuleProps) => boolean
-  min?: number
-  max?: number
-  required?: boolean
-  message?: string | ((props: RuleProps) => string)
-}
+type Regs = keyof typeof regs
 
-export interface Rules {
-  type?: RegsKeys
-  regExp?: RegExp
-  func?: (args: unknown[], rule: RuleProps) => boolean
-  min?: number
-  max?: number
-  required?: boolean
-  message: string | ((props: RuleProps) => string)
-}
-
-export interface RulesFnOption {
+type RulesInnerValidator = Rule & {
   isInnerValidator: boolean
 }
 
-export type RulesFn = (() => Rules) & RulesFnOption
+type RulePropsFn = (() => Rule) & RulesInnerValidator
 
-function getRule(rules: Rules | RulesFn, props: RuleProps | RegsKeys = {}) {
+type Props = (Required | Max | Min | Range | RuleResult) & {
+  type?: Regs
+  message?: string | ((props?: Props) => string)
+}
+
+export interface Rule extends RuleParams {
+  type: Regs
+  func: validFunc
+  regExp: RegExpParams
+  message: string | ((props?: Props) => string)
+}
+
+function getRule(rules: Rule, props: Props = {}) {
   if (typeof rules === 'function') {
-    if ((rules as RulesFn).isInnerValidator) {
-      rules = (rules as RulesFn)()
-    } else {
-      return rules
-    }
+    if ((rules as RulePropsFn).isInnerValidator) rules = (rules as RulePropsFn)()
+    else return rules
   }
-
   if (typeof props === 'string') props = { type: props }
-
-  const { type = props.type, message, regExp, func, ...other } = rules as Rules
+  const { type = props.type, message, regExp, func, ...other } = rules
 
   props = Object.assign({}, props, other)
+
   props.message = typeof message === 'function' ? message(props) : substitute(message, props)
 
-  if (func) return (...args: unknown[]) => func(...args, props)
+  if (func)
+    return (value: unknown, formData: any, callback: ((cbArgs: true | Error) => void), props?: Props) =>
+      func(value, formData, callback, props)
 
-  if (other.required !== undefined) return required(props)
+  if (other.required !== undefined) return required(props as Required)
 
-  if (regExp) return regTest(regExp, props)
+  if (regExp) return regTest(regExp as RegExpParams['regExp'], props as RegExpParams)
 
   if (other.min !== undefined || other.max !== undefined) {
     if (type === 'number' || type === 'integer') {
-      return range({ ...props, min: other.min, max: other.max })
+      return range({ ...props, min: other.min, max: other.max } as Range)
     }
-    return rangeLength(props)
+    return rangeLength(props as Range)
   }
 
   if (type) return typeOf(type, props.message)
@@ -71,7 +64,7 @@ function getRule(rules: Rules | RulesFn, props: RuleProps | RegsKeys = {}) {
   throw err
 }
 
-const validate = (value: unknown, formdata: any, rules: Rules, props: RuleProps) =>
+const validate = <T, U extends RuleParams>(value: keyof T, formdata: T, rules: U[keyof U][], props: Props) =>
   new Promise((resolve, reject) => {
     const $rules = flattenArray(rules)
     const rule = $rules.shift()
@@ -84,7 +77,7 @@ const validate = (value: unknown, formdata: any, rules: Rules, props: RuleProps)
       return
     }
 
-    const callback = (result: boolean) => {
+    const callback = (result: boolean | Error | Error[]) => {
       if (result !== true) {
         reject(wrapFormError(result))
         return
@@ -98,7 +91,7 @@ const validate = (value: unknown, formdata: any, rules: Rules, props: RuleProps)
     if (fn === rule && (value instanceof Datum.List || value instanceof Datum.Form)) {
       val = value.getValue()
     }
-    const cb = fn(val, formdata, callback)
+    const cb = fn(val as string, formdata, callback)
     if (cb && cb.then) {
       cb.then(callback.bind(null, true)).catch((e: Error) => {
         reject(wrapFormError(e))
