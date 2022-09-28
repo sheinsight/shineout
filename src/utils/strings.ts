@@ -1,13 +1,13 @@
 import { isRTL } from '../config'
 
-export function capitalize(str) {
+export function capitalize(str: string) {
   if (typeof str !== 'string') {
     console.error(new Error('str should be a string'))
   }
   return str && str[0].toUpperCase() + str.slice(1)
 }
 
-export function substitute(str, obj) {
+export function substitute(str: string | Function, obj: { [x: string]: any }) {
   if (typeof str === 'string') {
     if (str.indexOf('{') < 0) {
       return str
@@ -31,7 +31,7 @@ export function substitute(str, obj) {
   return ''
 }
 
-export function removeProtocol(url) {
+export function removeProtocol(url: string) {
   if (url.indexOf('http') !== 0) return url
   try {
     const { href, protocol } = new URL(url)
@@ -41,7 +41,7 @@ export function removeProtocol(url) {
   }
 }
 
-export function getRTLPosition(position) {
+export function getRTLPosition(position: string) {
   if (!position) return position
   // position.replace('left', 'right').replace('right', 'left')
   if (position.indexOf('left') !== -1) {

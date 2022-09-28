@@ -1,12 +1,12 @@
-export function range(end, start = 0) {
+export function range(end: number, start = 0) {
   const delta = end - start
   if (typeof delta !== 'number' || Number.isNaN(delta)) {
     console.error(new Error('end can not computed with start'))
   }
-  return Array.from({ length: end - start }, (v, k) => k + start)
+  return Array.from({ length: end - start }, (_v, k) => k + start)
 }
 
-export function split(total, nums) {
+export function split(total: number, nums: number[]) {
   if (typeof total !== 'number' || total === 0) {
     console.error(new Error('total mast be a number(not equal 0)'))
   }
@@ -28,11 +28,11 @@ export function split(total, nums) {
   })
 }
 
-export function toPrecision(num, precision = 12) {
+export function toPrecision(num: number, precision = 12) {
   return +parseFloat(num.toPrecision(precision))
 }
 
-export function validateNumber(num) {
+export function validateNumber(num: unknown) {
   if (typeof num === 'number') {
     return !Number.isNaN(num)
   }
@@ -44,19 +44,17 @@ export function validateNumber(num) {
 
   return (
     // Normal type: 11.28
-    /^\s*-?\d+(\.\d+)?\s*$/.test(num) ||
-    // Pre-number: 1.
-    /^\s*-?\d+\.\s*$/.test(num) ||
-    // Post-number: .1
-    /^\s*-?\.\d+\s*$/.test(num)
+    /^\s*-?\d+(\.\d+)?\s*$/.test(String(num)) || // Pre-number: 1.
+    /^\s*-?\d+\.\s*$/.test(String(num)) || // Post-number: .1
+    /^\s*-?\.\d+\s*$/.test(String(num))
   )
 }
-export function isE(number) {
+export function isE(number: unknown) {
   const str = String(number)
 
   return !Number.isNaN(Number(str)) && str.includes('e')
 }
-export function getNumberPrecision(number) {
+export function getNumberPrecision(number: unknown) {
   const numStr = String(number)
 
   if (isE(number)) {
@@ -72,7 +70,7 @@ export function getNumberPrecision(number) {
   return numStr.includes('.') && validateNumber(numStr) ? numStr.length - numStr.indexOf('.') - 1 : 0
 }
 
-export function sub(num1, num2) {
+export function sub(num1: number, num2: number) {
   const number = Number(num1) + Number(num2)
   if (Number.isNaN(number)) return NaN
   if (number > Number.MAX_SAFE_INTEGER) {

@@ -2,7 +2,11 @@ import cssInject from './vars-inject'
 import { capitalize } from './strings'
 import { entries } from './objects'
 
-function setOptions(options, setter) {
+type ObjectProps = { [x: string]: any }
+
+type Accessors = { [U in keyof typeof cssInject]: {} }
+
+function setOptions(options: any, setter: any) {
   if (!options) return
   for (const [key, value] of entries(options)) {
     if (key === setter) continue
@@ -10,25 +14,34 @@ function setOptions(options, setter) {
   }
 }
 
-function getDOMStyle(dom) {
+function getDOMStyle(dom: HTMLElement) {
   document.body.appendChild(dom)
   const style = window.getComputedStyle(dom)
   Promise.resolve().then(() => {
-    dom.parentElement.removeChild(dom)
+    if (dom.parentElement) dom.parentElement.removeChild(dom)
   })
   return style
 }
 
-function getStyleAttr(className, key = 'color') {
+function getStyleAttr(className: string, key = 'color') {
   const div = document.createElement('div')
   div.className = className
-  return getDOMStyle(div)[key]
+  return (getDOMStyle as any)(div)[key]
 }
 
-let cache = {}
-function genAccessors(obj, data) {
-  data.conf.forEach(item => {
-    const { name, className, attr, parser = v => v } = item
+let cache: ObjectProps = {}
+
+interface conf {
+  name: string
+  attr?: string
+  value?: string
+  parser?: Function
+  className: string
+}
+
+function genAccessors(obj: object, data: ObjectProps) {
+  data.conf.forEach((item: conf) => {
+    const { name, className, attr, parser = (v: any) => v } = item
     const { info } = data
     const cacheKey = `${info.name}-${name}`
     Object.defineProperty(obj, name, {
@@ -50,44 +63,16 @@ function genAccessors(obj, data) {
   })
 }
 
-const accessors = {
-  table: {},
-  tag: {},
-  pagination: {},
-  button: {},
-  color: {},
-  tooltip: {},
-  input: {},
-  select: {},
-  datepicker: {},
-  slider: {},
-  menu: {},
-  form: {},
-  checkbox: {},
-  radio: {},
-  alert: {},
-  message: {},
-  card: {},
-  modal: {},
-  popover: {},
-  tree: {},
-  dropdown: {},
-  common: {},
-  switch: {},
-  tabs: {},
-  cascader: {},
-  list: {},
-  progress: {},
-}
+const accessors = Object.keys(cssInject).reduce((obj, key) => ({ ...obj, [key]: {} }), {}) as Accessors
 
 for (const [key, value] of entries(accessors)) {
   const setterName = `set${capitalize(key)}`
-  value[setterName] = options => setOptions.call(value, options, setterName)
-  genAccessors(value, cssInject[key])
+  value[setterName] = (options: any) => setOptions.call(value, options, setterName)
+  genAccessors(value, cssInject[key as keyof typeof accessors])
 }
 
 export function cleanCache() {
   cache = {}
 }
 
-export default accessors
+export default accessors as Accessors

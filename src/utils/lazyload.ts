@@ -2,14 +2,25 @@ import { eventPassive } from './dom/detect'
 import { getUidStr } from './uid'
 import { docSize } from './dom/document'
 
+type Timer = NodeJS.Timeout | null
+type Component = {
+  container: HTMLElement
+  element: HTMLElement
+  render: Function
+  offset: number
+  noRemove: boolean
+  observer: IntersectionObserver
+}
+
 const throttle = 80
-const components = {}
-let timeout = null
+const components: { [x: string]: Component } = {}
+
+let timeout: Timer = null
 let isLock = false
 
 const winHeight = docSize.height
 
-const getRect = el => {
+const getRect = (el: HTMLElement) => {
   // document or invalid element
   if (!el || !el.getBoundingClientRect) {
     if (el) console.error(`the ${el} is not a element`)
@@ -19,12 +30,12 @@ const getRect = el => {
   return el.getBoundingClientRect()
 }
 
-export function dispatch() {
+export function dispatch<K extends keyof Component>() {
   if (isLock) return
   isLock = true
 
   // handle
-  Object.keys(components).forEach(k => {
+  Object.keys(components).forEach((k: K) => {
     const { element, render, container, offset, noRemove } = components[k]
     const rect = element.getBoundingClientRect()
     const containerRect = getRect(container)
@@ -45,7 +56,7 @@ const handleScroll = () => {
   }, throttle)
 }
 
-export function removeStack(id, removeListener) {
+export function removeStack(id: string, removeListener?: boolean) {
   if (!id || !components[id]) return
   const { observer, container } = components[id]
   const scrollEl = container || document
@@ -57,7 +68,7 @@ export function removeStack(id, removeListener) {
   delete components[id]
 }
 
-function getObserver(obj, id) {
+function getObserver(obj: Component, id: string) {
   const { container = null, offset, render, noRemove } = obj
   const observer = new IntersectionObserver(
     entries => {
@@ -77,7 +88,7 @@ function getObserver(obj, id) {
   return observer
 }
 
-export function addStack(obj) {
+export function addStack(obj: Component) {
   const id = getUidStr()
   const scrollEl = obj.container || document
   obj.offset = obj.offset || 0
@@ -104,9 +115,9 @@ export function addStack(obj) {
   return null
 }
 
-export function throttleWrapper(cb) {
-  let timer = null
-  return (...args) => {
+export function throttleWrapper(cb: Function) {
+  let timer: Timer = null
+  return (...args: Function[]) => {
     const ctx = this
     if (!timer) {
       timer = setTimeout(() => {

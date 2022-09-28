@@ -1,4 +1,6 @@
-export default function attrAccept(file, acceptedFiles) {
+type AcceptedFiles = string | string[]
+
+export default function attrAccept(file: File, acceptedFiles: AcceptedFiles) {
   if (file && acceptedFiles) {
     const acceptedFilesArray = Array.isArray(acceptedFiles) ? acceptedFiles : acceptedFiles.split(',')
     const fileName = file.name || ''

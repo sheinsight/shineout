@@ -8,8 +8,9 @@ export function getUid() {
 export function getUidStr() {
   return getUid().toString(36)
 }
+type Gen = boolean | keyof object | Function
 
-function $getKey(d, gen, index) {
+function $getKey(d: object, gen: Gen, index?: number) {
   if (gen === true) return d
   if (typeof gen === 'string') return d[gen]
   if (typeof gen === 'function') return gen(d, index)
@@ -17,7 +18,7 @@ function $getKey(d, gen, index) {
   return index
 }
 
-export function getKey(...args) {
+export function getKey(...args: [object, Gen, number?]) {
   const key = $getKey(...args)
   if (typeof key !== 'string' && typeof key !== 'number') {
     console.error(new Error(`keygen result expect a string or a number, get '${typeof key}'`))

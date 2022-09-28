@@ -1,19 +1,19 @@
-const listeners = new Set()
+const listeners: Set<Function> = new Set()
 
-export const addZoomListener = function(cb) {
+export const addZoomListener = function(cb: Function) {
   listeners.add(cb)
 }
-export const removeZoomListener = function(cb) {
+export const removeZoomListener = function(cb: Function) {
   listeners.delete(cb)
 }
 
-const dispatch = function(data) {
+const dispatch = function(data: any) {
   listeners.forEach(cb => {
     cb(data)
   })
 }
 
-const updatePixelRatio = e => {
+const updatePixelRatio = (e?: Event) => {
   const pr = window.devicePixelRatio
   if (e) {
     dispatch(pr)
