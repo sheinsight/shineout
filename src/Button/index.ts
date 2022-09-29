@@ -2,10 +2,9 @@ import Button  from './Button'
 import Once from './Once'
 import Group from './Group'
 
-class SuperButton extends Button {
-  static Group = Group
-  static Once = Once
-  static displayName = 'ShineoutButton'
-}
+Button.Group = Group
+Button.Once = Once
 
-export default SuperButton
+Button.displayName = 'ShineoutButton'
+
+export default Button

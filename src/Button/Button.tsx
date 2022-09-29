@@ -10,6 +10,12 @@ import { getDirectionClass } from '../utils/classname'
 import { ButtonProps } from './interface'
 
 class Button extends PureComponent<ButtonProps> {
+  static displayName: string
+
+  static Group: unknown
+
+  static Once: unknown
+
   static defaultProps = {
     ...defaultProps,
     htmlType: 'button',

@@ -1,22 +1,16 @@
-import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
+import React, {  PureComponent } from "react"
 import classnames from 'classnames'
 import List from '../AnimationList'
 import { cardClass } from './styles'
 import { isRTL } from '../config'
+import { CardBodyProps } from './interface'
+import { CardContextValueType } from "./context"
 
 const CollapseList = List(['collapse'], 'fast')
 
-class Body extends PureComponent {
-  static propTypes = {
-    children: PropTypes.any,
-    className: PropTypes.string,
-    collapsed: PropTypes.bool,
-    collapsible: PropTypes.bool,
-    style: PropTypes.object,
-    onCollapse: PropTypes.func,
-  }
+type CardBodyPropsWithProvider = CardBodyProps & Pick<CardContextValueType, 'collapsed' | 'collapsible' | 'onCollapse'>
 
+class Body extends PureComponent<CardBodyPropsWithProvider> {
   render() {
     const { className, collapsed, collapsible, onCollapse, ...other } = this.props
     const newClassName = classnames(cardClass('body', isRTL() && 'body-rtl'), className)
@@ -38,7 +32,5 @@ class Body extends PureComponent {
     )
   }
 }
-
-Body.propTypes = {}
 
 export default Body

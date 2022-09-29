@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { ButtonProps } from '../Button/interface'
 import { RegularAttributes, StandardProps } from '../@types/common'
 import { ReactNode } from "react"
@@ -39,7 +38,7 @@ export interface CardProps extends StandardProps {
    *
    * default: -
    */
-  onCollapse?: () => void;
+  onCollapse?: (collapsed: boolean) => void;
 
   /**
    * Whether to show the shadow.'hover' - Display it when the mouse is over the element.true - Always show, false - Never show
@@ -68,6 +67,8 @@ export interface CardProps extends StandardProps {
    */
   children?: ReactNode;
 
+  forwardedRef?: (el: HTMLDivElement) => void
+
 
 }
 
@@ -90,6 +91,11 @@ export interface CardHeaderProps extends StandardProps {
    * default: -
    */
   children?: ReactNode;
+
+  /**
+   * 内部属性由 Card 透传
+   */
+  collapsed?: boolean
 
 }
 
@@ -135,7 +141,7 @@ export interface CardAccordionProps<T> {
    *
    * default: none
    */
-  active?: T;
+  active?: T | null;
 
   /**
    * The default active value for uncontrolled state, be id while Card.id setted
@@ -144,7 +150,7 @@ export interface CardAccordionProps<T> {
    *
    * default: 0
    */
-  defaultActive?: T;
+  defaultActive?: T | null;
 
   /**
    * The callback function when the panel is opened
@@ -153,7 +159,7 @@ export interface CardAccordionProps<T> {
    *
    * default: none
    */
-  onChange?: () => void;
+  onChange?: (active: T | null) => void;
 
   /**
    * children
@@ -169,39 +175,3 @@ export interface CardSubmitProps extends ButtonProps {
 
 }
 
-declare class CardSubmit extends React.Component<CardSubmitProps, {}> {
-  render(): JSX.Element;
-}
-
-declare class CardAccordion<T> extends React.Component<CardAccordionProps<T>, {}> {
-  render(): JSX.Element;
-}
-
-declare class CardFooter extends React.Component<CardFooterProps, {}> {
-  render(): JSX.Element;
-}
-
-declare class CardBody extends React.Component<CardBodyProps, {}> {
-  render(): JSX.Element;
-}
-
-declare class CardHeader extends React.Component<CardHeaderProps, {}> {
-  render(): JSX.Element;
-}
-
-
-declare class Card extends React.Component<CardProps, {}> {
-  static Header: typeof CardHeader;
-
-  static Body: typeof CardBody;
-
-  static Footer: typeof CardFooter;
-
-  static Accordion: typeof CardAccordion;
-
-  static Submit: typeof CardSubmit;
-
-  render(): JSX.Element;
-}
-
-export default Card

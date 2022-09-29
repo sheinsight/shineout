@@ -1,14 +1,10 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { cardClass } from './styles'
 import { isRTL } from '../config'
+import { CardFooterProps } from './interface'
 
-export default class Footer extends PureComponent {
-  static propTypes = {
-    align: PropTypes.string,
-    className: PropTypes.string,
-  }
+export default class Footer extends PureComponent<CardFooterProps> {
 
   render() {
     const { align, className, ...props } = this.props
