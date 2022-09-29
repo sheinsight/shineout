@@ -189,7 +189,7 @@ interface ResizeOption {
   direction?: 'x' | 'y'
   timer?: number
 }
-// eslint-disable-next-line no-unused-vars
+
 type Handler = (this: Window, ev: UIEvent) => any
 
 export const addResizeObserver = (el: HTMLElement, handler: Handler, options: ResizeOption = {}) => {

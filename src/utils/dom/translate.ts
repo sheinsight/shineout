@@ -1,7 +1,7 @@
 import { has3d, getTransformName, TRANSFORMS } from './detect'
 import { isRTL } from '../../config'
 
-interface Styles extends CSSStyleDeclaration {
+interface TranslateStyleType extends CSSStyleDeclaration {
   transform: string
   OTransform?: string
   msTransform?: string
@@ -22,7 +22,7 @@ const getDirectionX = (x: number) => {
 }
 export function setTranslate(el: HTMLElement, x: number, y: number) {
   const tn: keyof typeof TRANSFORMS = getTransformName()
-  ;(el.style as Styles)[tn] = `translate(${getDirectionX(x)},${y})`
+  ;(el.style as TranslateStyleType)[tn] = `translate(${getDirectionX(x)},${y})`
 }
 
 export function setTranslate3D(el: HTMLElement, x: number, y: number) {
@@ -30,8 +30,8 @@ export function setTranslate3D(el: HTMLElement, x: number, y: number) {
   const tn = getTransformName()
   const xd = getDirectionX(x)
   if (use3d) {
-    ;(el.style as Styles)[tn] = `translate3d(${xd},${y},0)`
+    ;(el.style as TranslateStyleType)[tn] = `translate3d(${xd},${y},0)`
   } else {
-    ;(el.style as Styles)[tn] = `translate(${xd},${y})`
+    ;(el.style as TranslateStyleType)[tn] = `translate(${xd},${y})`
   }
 }
