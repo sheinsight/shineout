@@ -3,7 +3,17 @@ const LINE_HEIGHT = 40
 const PAGE_HEIGHT = 800
 const DELTA_LENGTH = 120
 
-export default function (event) {
+// wheelDeltaX, wheelDelta, and wheelDeltaZ have all been removed as they is a deprecated properties on WheelEvents
+// https://github.com/Microsoft/TypeScript-wiki/blob/main/Breaking-Changes.md#typescript-32
+
+interface OldWheelEvent extends WheelEvent {
+  axis: number
+  wheelDelta: number
+  wheelDeltaY: number
+  wheelDeltaX: number
+  HORIZONTAL_AXIS: number
+}
+export default function(event: OldWheelEvent) {
   let sX = 0
   let sY = 0
   let pX = 0
@@ -48,10 +58,10 @@ export default function (event) {
   }
 
   if (pX && !sX) {
-    sX = (pX < 1) ? -1 : 1
+    sX = pX < 1 ? -1 : 1
   }
   if (pY && !sY) {
-    sY = (pY < 1) ? -1 : 1
+    sY = pY < 1 ? -1 : 1
   }
 
   return {

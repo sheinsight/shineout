@@ -1,4 +1,4 @@
-export default function(callback) {
+export default function(callback: (...args: any)=> void) {
   if (!callback) return
   if (document.readyState !== 'loading') callback()
   else {

@@ -24,7 +24,12 @@ export const docSize = {
   },
 }
 
-export function addEventListener(target, eventType, cb, option) {
+export function addEventListener<K extends keyof HTMLElementEventMap>(
+  target: HTMLElement,
+  eventType: keyof HTMLElementEventMap,
+  cb: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
+  option?: boolean | AddEventListenerOptions
+) {
   if (target.addEventListener) {
     target.addEventListener(eventType, cb, option)
   }
