@@ -25,7 +25,7 @@ export interface StandardProps {
 
 export type keyType = string | number
 
-export type keygenType<Item> = LiteralUnion<Item> | ((data: Item) => keyType) | true;
+export type keygenType<Item> = LiteralUnion<Item> | ((data: Item ,index?: number ) => keyType) | true;
 
 export interface FormItemStandardProps<Value = any> {
     /**

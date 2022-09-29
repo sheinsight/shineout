@@ -10,12 +10,12 @@ interface Conf {
 }
 export const getFilterTree = (
   treeNodes: Node[],
-  filterFunc: Function,
+  filterFunc: (data: Node) => boolean,
   filterExpandKeys: ExpandKeys,
-  keyFunc: Function,
+  keyFunc: (node: Node) => string | number,
   childrenKey = 'children',
   showHitDescendants: boolean,
-  firstMatchNode: Function,
+  firstMatchNode: (node: Node) => void,
   { advanced }: Conf = {}
 ) => {
   const mapFilteredNodeToData = (node: Node) => {
@@ -39,7 +39,7 @@ export const getFilterTree = (
   return treeNodes.map(mapFilteredNodeToData).filter(node => node)
 }
 
-export const getFlattenTree = (data: Node[], childrenKey = 'children') => {
+export const getFlattenTree = (data: Node[], childrenKey = 'children', wide: boolean) => {
   const arr: Node[][] = []
   const flatten = (list: Node[], path: Node[]) => {
     list.forEach(item => {
@@ -47,6 +47,7 @@ export const getFlattenTree = (data: Node[], childrenKey = 'children') => {
       if (children && children.length > 0) {
         const clonedPath = [...path]
         clonedPath.push(item)
+        if (wide) arr.push(clonedPath)
         flatten(children, clonedPath)
       } else {
         arr.push([...path, item])

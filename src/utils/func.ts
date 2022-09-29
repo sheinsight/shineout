@@ -32,7 +32,13 @@ export function empty(e: Event) {
   e.preventDefault()
 }
 
-export function memoize(fn: any) {
+export function memoize<T extends Function>(
+  fn: T & {
+    cache: {
+      [name: string]: any
+    }
+  }
+) {
   return (key: string) => {
     fn.cache = fn.cache || {}
 

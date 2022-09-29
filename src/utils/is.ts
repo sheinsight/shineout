@@ -3,9 +3,7 @@ import { curry } from './func'
 
 const nameIs = curry((name: unknown, val: unknown) => {
   if (typeof val === 'object') {
-    if (val) {
-      return val && val.constructor && val.constructor.name === name
-    }
+    return val && val.constructor && val.constructor.name === name
   }
   return false
 })

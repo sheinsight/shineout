@@ -9,9 +9,11 @@ const PATH_MODE = {
   append: '$',
 }
 
-type ObjectProps<V> = { [key in keyof V]: V }
+interface ObjectProps {
+  [prop: string]: any
+}
 
-type deepOptions = {
+interface deepOptions {
   clone?: boolean
   forceSet?: boolean
   strictMode?: boolean
@@ -20,18 +22,19 @@ type deepOptions = {
   removeUndefined?: boolean
 }
 
-export function filterProps(obj: ObjectProps<any>, props: [] | Function = []) {
+export function filterProps<T extends ObjectProps>(obj: T, props: (keyof T)[] | ((prop: any) => boolean) = []) {
   if (!isObject(obj)) return obj
 
   if (typeof props === 'function') {
     const prediction = props
     props = []
+
     Object.keys(obj).forEach(k => {
-      if (prediction(obj[k])) (props as string[]).push(k)
+      if (prediction(obj[k as keyof T])) (props as (keyof T)[]).push(k as keyof T)
     })
   }
+  const newObj: Partial<T> = {}
 
-  const newObj: { [x: string]: any } = {}
   props.forEach(k => {
     newObj[k] = obj[k]
   })
@@ -40,17 +43,17 @@ export function filterProps(obj: ObjectProps<any>, props: [] | Function = []) {
 }
 
 // Object.values()
-export const objectValues = (obj: ObjectProps<any>) => {
+export const objectValues = (obj: ObjectProps) => {
   if (!obj) return []
   return Object.keys(obj).map(k => obj[k])
 }
 
 // object only, not handle array.
-export const deepMerge = (target: ObjectProps<any> = {}, source: ObjectProps<any>, options: deepOptions = {}) => {
+export const deepMerge = (target: ObjectProps = {}, source: ObjectProps, options: deepOptions = {}) => {
   const { clone, removeUndefined, skipUndefined } = options
   if (!isMergeable(source)) return source
 
-  const dest: ObjectProps<any> = {}
+  const dest: ObjectProps = {}
   if (isMergeable(target)) {
     Object.keys(target).forEach(k => {
       dest[k] = clone ? deepMerge({}, target[k], options) : target[k]
@@ -101,7 +104,7 @@ export function pathGenerator(raw: string) {
   return results
 }
 
-export const deepSet = (target: ObjectProps<any>, path: string, value: any, options: deepOptions = {}) => {
+export const deepSet = (target: ObjectProps, path: string, value: any, options: deepOptions = {}) => {
   if (!isObject(target)) throw new Error('Target must be an object.')
   if (typeof path !== 'string') throw new Error('Path must be a string.')
 
@@ -149,7 +152,7 @@ export const deepSet = (target: ObjectProps<any>, path: string, value: any, opti
   return target
 }
 
-export const deepGet = (target: ObjectProps<any>, path: string, options: deepOptions = {}) => {
+export const deepGet = (target: ObjectProps, path: string, options: deepOptions = {}) => {
   if (!isObject(target)) throw new Error('Target must be an object.')
   if (typeof path !== 'string') throw new Error('Path must be a string.')
 
@@ -173,7 +176,7 @@ export const deepGet = (target: ObjectProps<any>, path: string, options: deepOpt
   return current
 }
 
-export const deepRemove = (target: ObjectProps<any>, path: string) => {
+export const deepRemove = (target: ObjectProps, path: string) => {
   if (!isObject(target)) throw new Error('Target must be an object.')
   if (typeof path !== 'string' || !path) throw new Error('Path must be a string.')
 
@@ -198,7 +201,7 @@ export const deepRemove = (target: ObjectProps<any>, path: string) => {
   return target
 }
 
-export const deepHas = (target: ObjectProps<any>, path: string) => {
+export const deepHas = (target: ObjectProps, path: string) => {
   if (!isObject(target)) throw new Error('Target must be an object.')
   if (typeof path !== 'string') throw new Error('Path must be a string.')
 
@@ -213,7 +216,7 @@ export const deepHas = (target: ObjectProps<any>, path: string) => {
   return true
 }
 
-export const entries = (obj: ObjectProps<any>) => {
+export const entries = (obj: ObjectProps) => {
   if (!obj) return []
   const keys = Object.keys(obj)
   return keys.map(key => [key, obj[key]])

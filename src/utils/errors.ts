@@ -8,7 +8,9 @@ export class FormError extends Error {
   }
 }
 
-export const wrapFormError = (error: Error | Error[]): any => {
+export function wrapFormError(error: Error): FormError
+export function wrapFormError(error: Error[]): FormError[]
+export function wrapFormError(error: Error | Error[]) {
   if (error instanceof Error) {
     return new FormError(error.message)
   }

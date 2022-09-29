@@ -3,21 +3,6 @@ import { isOne, isPercent } from './is'
 type RGB = string | number
 type HSL = string | number
 
-function getRGB(r: string, g: string, b: string): string[]
-function getRGB(r: string, g: string, b: string, transfer: boolean): number[]
-
-function getRGB(r: number, g: number, b: number): number[]
-function getRGB(r: number, g: number, b: number, transfer: boolean): string[]
-
-
-function getRGB(r: RGB, g: RGB, b: RGB, transfer?: boolean) {
-  if (typeof r === 'number' && typeof g === 'number' && typeof b === 'number') {
-    return transfer ? [String(r), String(g), String(b)] : [r, g, b]
-  } else if (typeof r === 'string' && typeof g === 'string' && typeof b === 'string') {
-    return transfer ? [Number(r), Number(g), Number(b)] : [r, g, b]
-  }
-}
-
 const CSS_INTEGER = '[-\\+]?\\d+%?'
 
 // <http://www.w3.org/TR/css3-values/#number-value>
@@ -184,11 +169,7 @@ const hueToRgb = (p: number, q: number, t: number) => {
 }
 
 const translateHsl = (matchs: RegExpExecArray, a?: string | number) => {
-  //   let [, h, s, l] = matchs
-  let h: HSL
-  let s: HSL
-  let l: HSL
-  ;[, h, s, l] = matchs
+  let [, h, s, l]: HSL[] = matchs
 
   let r: RGB
   let g: RGB
@@ -220,15 +201,8 @@ const translateHsl = (matchs: RegExpExecArray, a?: string | number) => {
 const isDarkRgb = (color: string) => {
   const matchs = MATCH.rgb.exec(color) || MATCH.rgba.exec(color)
   if (matchs) {
-    // const [, r, g, b] = matchs
-    let r: RGB
-    let g: RGB
-    let b: RGB
-    ;[, r, g, b] = matchs
-
-
-    ;[r, g, b] = getRGB(r, g, b, true)
-    return r * 0.299 + g * 0.578 + b * 0.114 < 192
+    const [, r, g, b]: RGB[] = matchs
+    return Number(r) * 0.299 + Number(g) * 0.578 + Number(b) * 0.114 < 192
   }
 
   console.error(new Error(`the string '${color}' is not a legal color`))
@@ -236,10 +210,7 @@ const isDarkRgb = (color: string) => {
 }
 
 const toHex = (rgb: number[], noAlpha: boolean, a: number) => {
-  //   let [, r, g, b] = rgb
-  let r: RGB
-  let g: RGB
-  let b: RGB
+  let [, r, g, b]: RGB[] = rgb
   ;[, r, g, b] = rgb
 
   let o
@@ -301,8 +272,10 @@ const toHsl = (rgb: number[], _: any, a: string) => {
 
   return a ? `hsla(${h}, ${s}, ${l}, ${a})` : `hsl(${h}, ${s}, ${l})`
 }
-
-const rgbTranlate = (target: Function) => (rgb: string, noAlpha?: boolean) => {
+const rgbTranlate = (target: (rgb: (string | number)[], noAlpha?: boolean, a?: number | string) => string) => (
+  rgb: string,
+  noAlpha?: boolean
+) => {
   if (!isString(rgb)) return ''
   let matchs
 
@@ -313,7 +286,7 @@ const rgbTranlate = (target: Function) => (rgb: string, noAlpha?: boolean) => {
 
   matchs = MATCH.rgba.exec(rgb)
   if (matchs) {
-    return target(matchs, noAlpha, matchs[4])
+    return target(matchs, noAlpha, Number(matchs[4]))
   }
 
   console.error(new Error(`the string '${rgb}' is not a rgb color`))

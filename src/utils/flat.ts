@@ -11,7 +11,7 @@ export function insertPoint(name: string) {
 type Result = {
   [x: string]: unknown
 }
-export function flatten(data: Result, skipArray?: []) {
+export function flatten(data: Result, skipArray?: boolean) {
   if (isEmpty(data)) return data
   const result: Result = {}
   function recurse(cur: unknown, prop: keyof Result) {
@@ -52,8 +52,7 @@ export function flatten(data: Result, skipArray?: []) {
   return result
 }
 
-type RawData = [] | {}
-export function unflatten(rawdata: RawData) {
+export function unflatten<T extends {}>(rawdata: T) {
   if (Object(rawdata) !== rawdata || isEmpty(rawdata) || Array.isArray(rawdata)) {
     return rawdata
   }
@@ -77,10 +76,6 @@ export function unflatten(rawdata: RawData) {
         temp = pathWithPoint.substring(last, idx !== -1 ? idx : undefined)
         match = /^\[(\d+)\]$/.exec(temp)
         cur = cur[prop] || (cur[prop] = match ? [] : {})
-        prop = match ? match[1] : temp
-        last = idx + 1
-        cur = cur[prop] || (cur[prop] = match ? [] : {})
-
         prop = match ? match[1] : temp
         last = idx + 1
       } while (idx >= 0)
@@ -168,11 +163,7 @@ export const getSthByName = (name: keyof Source & string, source: Source) => {
   })
 
   // get from form-error
-  if (!result && isObject(source[''])) {
-    if (typeof source[''] === 'object') {
-      result = source[''][name]
-    }
-  }
+  if (!result && isObject(source[''])) result = source[''][name]
 
   return result
 }
@@ -188,5 +179,5 @@ export const removeSthByName = (name: string, source: { [x: string]: any }) => {
   }
 }
 
-export const flattenArray = (arr1: any[]): any =>
+export const flattenArray = <T>(arr1: []): T[] =>
   arr1.reduce((acc, val) => (Array.isArray(val) ? acc.concat(flattenArray(val)) : acc.concat(val)), [])

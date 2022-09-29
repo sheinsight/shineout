@@ -1,5 +1,9 @@
+interface Listener extends Function {
+  (...args: any[]): void
+  fn?: Listener
+}
 interface Events {
-  [events: string]: Function[]
+  [event: string]: Listener[]
 }
 
 export default class Notification {
@@ -9,20 +13,20 @@ export default class Notification {
     this.$events = {}
   }
 
-  dispatch(name: string, ...args: Function[]) {
+  dispatch(name: keyof Events, ...args: any[]) {
     const event = this.$events[name]
     if (!event) return
-    event.forEach((fn: Function) => fn(...args))
+    event.forEach(fn => fn(...args))
   }
 
-  subscribe(name: string, fn: Function) {
+  subscribe(name: keyof Events, fn: Listener) {
     if (!this.$events[name]) this.$events[name] = []
     const events = this.$events[name]
     if (events.includes(fn)) return
     events.push(fn)
   }
 
-  unsubscribe(name: string, fn: Function) {
+  unsubscribe(name: keyof Events, fn: Listener) {
     if (!this.$events[name]) return
 
     if (fn) this.$events[name] = this.$events[name].filter(e => e !== fn)
