@@ -1,8 +1,12 @@
 import deepEqual from 'deep-eql'
 
+type Options = {
+  [x: string]: any
+}
+
 const { hasOwnProperty } = Object.prototype
 
-function is(x, y) {
+function is(x: unknown, y: unknown) {
   if (x === y) {
     return x !== 0 || y !== 0 || 1 / x === 1 / y
   }
@@ -10,13 +14,16 @@ function is(x, y) {
   return x !== x && y !== y
 }
 
-function getOption(options, key) {
+function getOption(options: Options, key: keyof Options) {
   if (!options[key]) return []
   const val = options[key]
   return Array.isArray(val) ? val : [val]
 }
-
-export function compareColumns(columns1, columns2) {
+interface Column {
+  group?: any
+  width?: number | string
+}
+export function compareColumns(columns1: Column[], columns2: Column[]) {
   if (!columns1 || !columns2) return true
   if (columns1.length !== columns2.length) return false
   const simpleCompare = columns1.every(
@@ -31,7 +38,7 @@ export function compareColumns(columns1, columns2) {
   return complexCompare
 }
 
-export default function(objA, objB, options = {}) {
+export default function(objA: Options, objB: Options, options = {}) {
   if (is(objA, objB)) {
     return true
   }

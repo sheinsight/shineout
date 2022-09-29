@@ -9,30 +9,37 @@
  * from right to left. For example, compose(f, g, h) is identical to doing
  * (...args) => f(g(h(...args))).
  */
+type Funcs = Function[]
 
-export function compose(...funcs) {
+export function compose(...funcs: Funcs) {
   if (funcs.length === 0) {
-    return arg => arg
+    return (arg: any) => arg
   }
   const last = funcs[funcs.length - 1]
   const rest = funcs.slice(0, -1)
-  return (...args) => rest.reduceRight((composed, f) => f(composed), last(...args))
+  return (...args: Funcs) => rest.reduceRight((composed, f) => f(composed), last(...args))
 }
 
-export function curry(f, ...args) {
+export function curry(f: Function, ...args: any[]) {
   if (args.length >= f.length) {
     return f(...args)
   }
 
-  return (...next) => curry(f.bind(f, ...args), ...next)
+  return (...next: any) => curry(f.bind(f, ...args), ...next)
 }
 
-export function empty(e) {
+export function empty(e: Event) {
   e.preventDefault()
 }
 
-export function memoize(fn) {
-  return key => {
+export function memoize<T extends Function>(
+  fn: T & {
+    cache: {
+      [name: string]: any
+    }
+  }
+) {
+  return (key: string) => {
     fn.cache = fn.cache || {}
 
     if (!(key in fn.cache)) {
@@ -43,22 +50,24 @@ export function memoize(fn) {
   }
 }
 
-export function createFunc(func) {
+export function createFunc(func: Function) {
   if (typeof func === 'function') return func
-  return data => (func ? data[func] : data)
+  return (data: { [x: string]: any }) => (func ? data[func] : data)
 }
 
-export const throttle = function(func, timer) {
-  const that = {}
+export const throttle = function(func: Function, timer: number) {
+  const that: {
+    timer?: NodeJS.Timeout | null
+  } = {}
   const cleanTimer = () => {
     if (that.timer) {
       clearTimeout(that.timer)
-      that.timer = ''
+      that.timer = null
     }
   }
   if (!timer) return [func, cleanTimer]
   return [
-    (...args) => {
+    (...args: any) => {
       cleanTimer()
       that.timer = setTimeout(() => {
         func(...args)

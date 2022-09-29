@@ -21,15 +21,15 @@ import { sliderClass } from '../Slider/styles'
 import { tagClass } from '../Tag/styles'
 import { exposeClass } from '../styles/expose'
 
-const computedCache = {}
+const computedCache: { [x: string]: any } = {}
 let injectType = 'body'
-let styleObj = {}
+let styleObj: { [x: string]: any } = {}
 
 export function getInjectType() {
   return injectType
 }
 
-export function setInjectType(type) {
+export function setInjectType(type: string) {
   injectType = type
 }
 
@@ -62,7 +62,7 @@ function getProperty(name = '--btn-hover-darken', cache = true) {
   return computedCache[name]
 }
 
-function setBodyProperty(colors, value) {
+function setBodyProperty(colors: { [x: string]: any }, value?: string) {
   for (const [cssVar, cssValue] of entries(colors)) {
     if (injectType === 'body') {
       if (value === undefined) {
@@ -80,7 +80,6 @@ function setBodyProperty(colors, value) {
     }
   }
 }
-
 const injects = {
   color: {
     info: {
@@ -190,7 +189,7 @@ const injects = {
         className: exposeClass('gray-900'),
       },
     ],
-    set primary(v) {
+    set primary(v: string) {
       setBodyProperty(
         {
           '--primary-color': v,
@@ -209,7 +208,7 @@ const injects = {
         v
       )
     },
-    set infoColor(v) {
+    set infoColor(v: string) {
       setBodyProperty(
         {
           '--info-color': v,
@@ -223,7 +222,7 @@ const injects = {
         v
       )
     },
-    set warning(v) {
+    set warning(v: string) {
       setBodyProperty(
         {
           '--warning-color': v,
@@ -237,7 +236,7 @@ const injects = {
         v
       )
     },
-    set danger(v) {
+    set danger(v: string) {
       setBodyProperty(
         {
           '--danger-color': v,
@@ -252,7 +251,7 @@ const injects = {
         v
       )
     },
-    set success(v) {
+    set success(v: string) {
       setBodyProperty(
         {
           '--success-color': v,
@@ -266,7 +265,7 @@ const injects = {
         v
       )
     },
-    set secondary(v) {
+    set secondary(v: string) {
       setBodyProperty(
         {
           '--secondary-color': v,
@@ -278,7 +277,7 @@ const injects = {
         v
       )
     },
-    set gray100(v) {
+    set gray100(v: string) {
       setBodyProperty(
         {
           '--gray-100': v,
@@ -286,7 +285,7 @@ const injects = {
         v
       )
     },
-    set gray200(v) {
+    set gray200(v: string) {
       setBodyProperty(
         {
           '--gray-200': v,
@@ -295,7 +294,7 @@ const injects = {
         v
       )
     },
-    set gray300(v) {
+    set gray300(v: string) {
       setBodyProperty(
         {
           '--gray-300': v,
@@ -306,7 +305,7 @@ const injects = {
         v
       )
     },
-    set gray400(v) {
+    set gray400(v: string) {
       setBodyProperty(
         {
           '--gray-400': v,
@@ -315,7 +314,7 @@ const injects = {
         v
       )
     },
-    set gray500(v) {
+    set gray500(v: string) {
       setBodyProperty(
         {
           '--gray-500': v,
@@ -323,7 +322,7 @@ const injects = {
         v
       )
     },
-    set gray600(v) {
+    set gray600(v: string) {
       setBodyProperty(
         {
           '--gray-600': v,
@@ -332,7 +331,7 @@ const injects = {
         v
       )
     },
-    set gray700(v) {
+    set gray700(v: string) {
       setBodyProperty(
         {
           '--gray-700': v,
@@ -340,7 +339,7 @@ const injects = {
         v
       )
     },
-    set gray800(v) {
+    set gray800(v: string) {
       setBodyProperty(
         {
           '--gray-800': v,
@@ -349,7 +348,7 @@ const injects = {
         v
       )
     },
-    set gray900(v) {
+    set gray900(v: string) {
       setBodyProperty(
         {
           '--gray-900': v,
@@ -521,7 +520,7 @@ const injects = {
         desc: '默认样式下边框颜色',
       },
     ],
-    set fontSizeBase(v) {
+    set fontSizeBase(v: string) {
       setBodyProperty(
         {
           '--button-font-size-base': `${parseInt(v, 10)}px`,
@@ -529,7 +528,7 @@ const injects = {
         v
       )
     },
-    set fontSizeLarge(v) {
+    set fontSizeLarge(v: string) {
       setBodyProperty(
         {
           '--button-font-size-large': `${parseInt(v, 10)}px`,
@@ -537,7 +536,7 @@ const injects = {
         v
       )
     },
-    set fontSizeSmall(v) {
+    set fontSizeSmall(v: string) {
       setBodyProperty(
         {
           '--button-font-size-small': `${parseInt(v, 10)}px`,
@@ -545,7 +544,7 @@ const injects = {
         v
       )
     },
-    set spinMargin(v) {
+    set spinMargin(v: string) {
       setBodyProperty(
         {
           '--button-spin-margin': `${parseInt(v, 10)}px`,
@@ -553,7 +552,7 @@ const injects = {
         v
       )
     },
-    set marginLeft(v) {
+    set marginLeft(v: string) {
       setBodyProperty(
         {
           '--button-margin-left': `${parseInt(v, 10)}px`,
@@ -561,7 +560,7 @@ const injects = {
         v
       )
     },
-    set borderRadius(v) {
+    set borderRadius(v: string) {
       setBodyProperty(
         {
           '--button-border-radius': `${parseInt(v, 10)}px`,
@@ -569,7 +568,7 @@ const injects = {
         v
       )
     },
-    set smallBorderRadius(v) {
+    set smallBorderRadius(v: string) {
       setBodyProperty(
         {
           '--button-small-border-radius': `${parseInt(v, 10)}px`,
@@ -577,7 +576,7 @@ const injects = {
         v
       )
     },
-    set largeBorderRadius(v) {
+    set largeBorderRadius(v: string) {
       setBodyProperty(
         {
           '--button-large-border-radius': `${parseInt(v, 10)}px`,
@@ -585,7 +584,7 @@ const injects = {
         v
       )
     },
-    set paddingBaseHorizontal(v) {
+    set paddingBaseHorizontal(v: string) {
       setBodyProperty(
         {
           '--button-padding-base-horizontal': `${parseInt(v, 10)}px`,
@@ -594,7 +593,7 @@ const injects = {
         v
       )
     },
-    set paddingLargeHorizontal(v) {
+    set paddingLargeHorizontal(v: string) {
       setBodyProperty(
         {
           '--button-padding-large-horizontal': `${parseInt(v, 10)}px`,
@@ -602,7 +601,7 @@ const injects = {
         v
       )
     },
-    set paddingSmallHorizontal(v) {
+    set paddingSmallHorizontal(v: string) {
       setBodyProperty(
         {
           '--button-padding-small-horizontal': `${parseInt(v, 10)}px`,
@@ -610,7 +609,7 @@ const injects = {
         v
       )
     },
-    set paddingBaseVertical(v) {
+    set paddingBaseVertical(v: string) {
       setBodyProperty(
         {
           '--button-padding-base-vertical': `${parseInt(v, 10)}px`,
@@ -618,7 +617,7 @@ const injects = {
         v
       )
     },
-    set paddingLargeVertical(v) {
+    set paddingLargeVertical(v: string) {
       setBodyProperty(
         {
           '--button-padding-large-vertical': `${parseInt(v, 10)}px`,
@@ -626,7 +625,7 @@ const injects = {
         v
       )
     },
-    set paddingSmallVertical(v) {
+    set paddingSmallVertical(v: string) {
       setBodyProperty(
         {
           '--button-padding-small-vertical': `${parseInt(v, 10)}px`,
@@ -634,7 +633,7 @@ const injects = {
         v
       )
     },
-    set disabledBg(v) {
+    set disabledBg(v: string) {
       setBodyProperty(
         {
           '--button-disabled-bg': v,
@@ -642,7 +641,7 @@ const injects = {
         v
       )
     },
-    set disabledColor(v) {
+    set disabledColor(v: string) {
       setBodyProperty(
         {
           '--button-disabled-color': v,
@@ -650,7 +649,7 @@ const injects = {
         v
       )
     },
-    set disabledBorderColor(v) {
+    set disabledBorderColor(v: string) {
       setBodyProperty(
         {
           '--button-disabled-border-color': v,
@@ -658,7 +657,7 @@ const injects = {
         v
       )
     },
-    set disabledDelimiter(v) {
+    set disabledDelimiter(v: string) {
       setBodyProperty(
         {
           '--button-disabled-delimiter': v,
@@ -666,7 +665,7 @@ const injects = {
         v
       )
     },
-    set buttonDefaultTextColor(v) {
+    set buttonDefaultTextColor(v: string) {
       setBodyProperty(
         {
           '--button-default-text-color': v,
@@ -674,7 +673,7 @@ const injects = {
         v
       )
     },
-    set buttonDefaultBorderColor(v) {
+    set buttonDefaultBorderColor(v: string) {
       setBodyProperty(
         {
           '--button-default-border': v,
@@ -722,7 +721,7 @@ const injects = {
         desc: 'options hover时字体颜色',
       },
     ],
-    set borderWidth(v) {
+    set borderWidth(v: string) {
       setBodyProperty(
         {
           '--dropdown-border-width': `${parseInt(v, 10)}px`,
@@ -730,7 +729,7 @@ const injects = {
         v
       )
     },
-    set columnsPadding(v) {
+    set columnsPadding(v: string) {
       setBodyProperty(
         {
           '--dropdown-columns-padding': v,
@@ -738,7 +737,7 @@ const injects = {
         v
       )
     },
-    set optionsHoverBgc(v) {
+    set optionsHoverBgc(v: string) {
       setBodyProperty(
         {
           '--dropdown-options-hover-bgc': v,
@@ -746,7 +745,7 @@ const injects = {
         v
       )
     },
-    set optionsHoverColor(v) {
+    set optionsHoverColor(v: string) {
       setBodyProperty(
         {
           '--dropdown-options-hover-color': v,
@@ -833,7 +832,7 @@ const injects = {
         desc: '错误提示不撑开表单高度时的最小间距',
       },
     ],
-    set itemMarginBottom(v) {
+    set itemMarginBottom(v: string) {
       setBodyProperty(
         {
           '--form-item-margin-bottom': `${parseInt(v, 10)}px`,
@@ -841,7 +840,7 @@ const injects = {
         v
       )
     },
-    set itemMarginRight(v) {
+    set itemMarginRight(v: string) {
       setBodyProperty(
         {
           '--form-item-margin-right': `${parseInt(v, 10)}px`,
@@ -849,7 +848,7 @@ const injects = {
         v
       )
     },
-    set tipColor(v) {
+    set tipColor(v: string) {
       setBodyProperty(
         {
           '--form-tip-color': v,
@@ -857,7 +856,7 @@ const injects = {
         v
       )
     },
-    set labelHorizontalAlign(v) {
+    set labelHorizontalAlign(v: string) {
       setBodyProperty(
         {
           '--form-item-label-align': v,
@@ -865,7 +864,7 @@ const injects = {
         v
       )
     },
-    set formTipFontSize(v) {
+    set formTipFontSize(v: string) {
       setBodyProperty(
         {
           '--form-tip-font-size': `${parseInt(v, 10)}px`,
@@ -873,7 +872,7 @@ const injects = {
         v
       )
     },
-    set formErrorLineHeight(v) {
+    set formErrorLineHeight(v: string) {
       setBodyProperty(
         {
           '--form-item-error-line-height': `${parseInt(v, 10)}px`,
@@ -881,7 +880,7 @@ const injects = {
         v
       )
     },
-    set formErrorMarginTop(v) {
+    set formErrorMarginTop(v: string) {
       setBodyProperty(
         {
           '--form-item-error-margin-top': `${parseInt(v, 10)}px`,
@@ -889,7 +888,7 @@ const injects = {
         v
       )
     },
-    set formErrorMarginBottom(v) {
+    set formErrorMarginBottom(v: string) {
       setBodyProperty(
         {
           '--form-item-error-margin-bottom': `${parseInt(v, 10)}px`,
@@ -897,7 +896,7 @@ const injects = {
         v
       )
     },
-    set formKeepErrorHeight(v) {
+    set formKeepErrorHeight(v: string) {
       setBodyProperty(
         {
           '--form-Item-min-keep-height': `${parseInt(v, 10)}px`,
@@ -975,7 +974,7 @@ const injects = {
         desc: 'Checkbox 和 Radio 选中状态下禁用后的背景色',
       },
     ],
-    set marginRight(v) {
+    set marginRight(v: string) {
       setBodyProperty(
         {
           '--checkbox-margin-right': `${parseInt(v, 10)}px`,
@@ -983,7 +982,7 @@ const injects = {
         v
       )
     },
-    set color(v) {
+    set color(v: string) {
       setBodyProperty(
         {
           '--checkinput-color': v,
@@ -991,7 +990,7 @@ const injects = {
         v
       )
     },
-    set borderColor(v) {
+    set borderColor(v: string) {
       setBodyProperty(
         {
           '--checkbox-border-color': v,
@@ -999,7 +998,7 @@ const injects = {
         v
       )
     },
-    set borderWidth(v) {
+    set borderWidth(v: string) {
       setBodyProperty(
         {
           '--checkbox-border-width': `${parseInt(v, 10)}px`,
@@ -1007,7 +1006,7 @@ const injects = {
         v
       )
     },
-    set textPaddingX(v) {
+    set textPaddingX(v: string) {
       setBodyProperty(
         {
           '--checkbox-text-padding-x': `${parseInt(v, 10)}px`,
@@ -1015,7 +1014,7 @@ const injects = {
         v
       )
     },
-    set indicatorBorderRadius(v) {
+    set indicatorBorderRadius(v: string) {
       setBodyProperty(
         {
           '--checkbox-indicator-border-radius': `${parseInt(v, 10)}px`,
@@ -1023,7 +1022,7 @@ const injects = {
         v
       )
     },
-    set checkboxDisabledBgc(v) {
+    set checkboxDisabledBgc(v: string) {
       setBodyProperty(
         {
           '--checkbox-disabled-bgc': v,
@@ -1031,7 +1030,7 @@ const injects = {
         v
       )
     },
-    set checkboxCheckedDisabledBgc(v) {
+    set checkboxCheckedDisabledBgc(v: string) {
       setBodyProperty(
         {
           '--checkbox-checked-disabled-bgc': v,
@@ -1094,7 +1093,7 @@ const injects = {
         desc: '文字颜色',
       },
     ],
-    set size(v) {
+    set size(v: string) {
       setBodyProperty(
         {
           '--radio-width': `${parseInt(v, 10)}px`,
@@ -1102,7 +1101,7 @@ const injects = {
         v
       )
     },
-    set borderWidth(v) {
+    set borderWidth(v: string) {
       setBodyProperty(
         {
           '--radio-border-width': `${parseInt(v, 10)}px`,
@@ -1110,7 +1109,7 @@ const injects = {
         v
       )
     },
-    set innerWidth(v) {
+    set innerWidth(v: string) {
       setBodyProperty(
         {
           '--radio-inner-width': `${parseInt(v, 10)}px`,
@@ -1118,7 +1117,7 @@ const injects = {
         v
       )
     },
-    set uncheckBorderWidth(v) {
+    set uncheckBorderWidth(v: string) {
       setBodyProperty(
         {
           '--radio-border-uncheck-width': `${parseInt(v, 10)}px`,
@@ -1126,7 +1125,7 @@ const injects = {
         v
       )
     },
-    set color(v) {
+    set color(v: string) {
       setBodyProperty(
         {
           '--radio-text-color': v,
@@ -1179,7 +1178,7 @@ const injects = {
         attr: 'boxShadow',
         type: 'number',
         max: 20,
-        parser: v => parseInt(v.split(' ').pop(), 10),
+        parser: (v: string) => parseInt(v.split(' ').pop()!, 10),
         desc: '聚焦发散光宽度',
       },
       {
@@ -1240,7 +1239,7 @@ const injects = {
         desc: '清空图标鼠标悬浮背景色',
       },
     ],
-    set color(v) {
+    set color(v: string) {
       setBodyProperty(
         {
           '--input-text-color': v,
@@ -1248,7 +1247,7 @@ const injects = {
         v
       )
     },
-    set borderRadius(v) {
+    set borderRadius(v: string) {
       setBodyProperty(
         {
           '--input-border-radius': `${parseInt(v, 10)}px`,
@@ -1256,7 +1255,7 @@ const injects = {
         v
       )
     },
-    set underlineHeight(v) {
+    set underlineHeight(v: string) {
       setBodyProperty(
         {
           '--input-underline-height': `${parseInt(v, 10)}px`,
@@ -1264,7 +1263,7 @@ const injects = {
         v
       )
     },
-    set dropdownBorderRadius(v) {
+    set dropdownBorderRadius(v: string) {
       setBodyProperty(
         {
           '--input-dropdown-border-radius': `${parseInt(v, 10)}px`,
@@ -1272,7 +1271,7 @@ const injects = {
         v
       )
     },
-    set disabledBg(v) {
+    set disabledBg(v: string) {
       setBodyProperty(
         {
           '--input-bg-disabled': v,
@@ -1280,7 +1279,7 @@ const injects = {
         v
       )
     },
-    set disabledColor(v) {
+    set disabledColor(v: string) {
       setBodyProperty(
         {
           '--input-disabled-color': v,
@@ -1288,7 +1287,7 @@ const injects = {
         v
       )
     },
-    set borderColor(v) {
+    set borderColor(v: string) {
       setBodyProperty(
         {
           '--input-border-color': v,
@@ -1296,7 +1295,7 @@ const injects = {
         v
       )
     },
-    set borderHoverColor(v) {
+    set borderHoverColor(v: string) {
       setBodyProperty(
         {
           '--input-border-focus-color': v,
@@ -1305,7 +1304,7 @@ const injects = {
         v
       )
     },
-    set focusWidth(v) {
+    set focusWidth(v: string) {
       setBodyProperty(
         {
           '--input-focus-width': `${parseInt(v, 10)}px`,
@@ -1313,7 +1312,7 @@ const injects = {
         v
       )
     },
-    set placeholderColor(v) {
+    set placeholderColor(v: string) {
       setBodyProperty(
         {
           '--input-placeholder-color': v,
@@ -1321,7 +1320,7 @@ const injects = {
         v
       )
     },
-    set placeholderSize(v) {
+    set placeholderSize(v: string) {
       setBodyProperty(
         {
           '--input-placeholder-size': `${parseInt(v, 10)}px`,
@@ -1329,7 +1328,7 @@ const injects = {
         v
       )
     },
-    set clearBg(v) {
+    set clearBg(v: string) {
       setBodyProperty(
         {
           '--input-clear-bg-color': v,
@@ -1337,7 +1336,7 @@ const injects = {
         v
       )
     },
-    set clearHoverBg(v) {
+    set clearHoverBg(v: string) {
       setBodyProperty(
         {
           '--input-clear-bg-hover-color': v,
@@ -1496,7 +1495,7 @@ const injects = {
         desc: '树形选择节点选中状态文字颜色',
       },
     ],
-    set resultPaddingVertical(v) {
+    set resultPaddingVertical(v: string) {
       setBodyProperty(
         {
           '--select-result-padding-vertical': `${parseInt(v, 10)}px`,
@@ -1504,7 +1503,7 @@ const injects = {
         v
       )
     },
-    set resultPaddingHorizontal(v) {
+    set resultPaddingHorizontal(v: string) {
       setBodyProperty(
         {
           '--select-result-padding-horizontal': `${parseInt(v, 10)}px`,
@@ -1513,7 +1512,7 @@ const injects = {
         v
       )
     },
-    set itemColor(v) {
+    set itemColor(v: string) {
       setBodyProperty(
         {
           '--select-option-color': v,
@@ -1521,7 +1520,7 @@ const injects = {
         v
       )
     },
-    set itemBgColor(v) {
+    set itemBgColor(v: string) {
       setBodyProperty(
         {
           '--select-option-bg-color': v,
@@ -1529,7 +1528,7 @@ const injects = {
         v
       )
     },
-    set disabledBg(v) {
+    set disabledBg(v: string) {
       setBodyProperty(
         {
           '--select-disabled-bg-color': v,
@@ -1537,7 +1536,7 @@ const injects = {
         v
       )
     },
-    set disabledColor(v) {
+    set disabledColor(v: string) {
       setBodyProperty(
         {
           '--select-disabled-color': v,
@@ -1545,7 +1544,7 @@ const injects = {
         v
       )
     },
-    set itemActiveBg(v) {
+    set itemActiveBg(v: string) {
       setBodyProperty(
         {
           '--select-item-active-bg': v,
@@ -1553,7 +1552,7 @@ const injects = {
         v
       )
     },
-    set itemActiveColor(v) {
+    set itemActiveColor(v: string) {
       setBodyProperty(
         {
           '--select-item-active-color': v,
@@ -1561,7 +1560,7 @@ const injects = {
         v
       )
     },
-    set itemHoverBg(v) {
+    set itemHoverBg(v: string) {
       setBodyProperty(
         {
           '--select-option-hover-bg': v,
@@ -1569,7 +1568,7 @@ const injects = {
         v
       )
     },
-    set itemHoverColor(v) {
+    set itemHoverColor(v: string) {
       setBodyProperty(
         {
           '--select-option-hover-color': v,
@@ -1577,7 +1576,7 @@ const injects = {
         v
       )
     },
-    set compressedMoreHoverBg(v) {
+    set compressedMoreHoverBg(v: string) {
       setBodyProperty(
         {
           '--select-compressed-hover-bg': v,
@@ -1585,7 +1584,7 @@ const injects = {
         v
       )
     },
-    set clearIconBg(v) {
+    set clearIconBg(v: string) {
       setBodyProperty(
         {
           '--select-clear-bg-color': v,
@@ -1593,7 +1592,7 @@ const injects = {
         v
       )
     },
-    set treeDisabledBg(v) {
+    set treeDisabledBg(v: string) {
       setBodyProperty(
         {
           '--select-tree-disabled-bg-color': v,
@@ -1602,7 +1601,7 @@ const injects = {
       )
     },
 
-    set treeContentColor(v) {
+    set treeContentColor(v: string) {
       setBodyProperty(
         {
           '--select-tree-content-color': v,
@@ -1611,7 +1610,7 @@ const injects = {
       )
     },
 
-    set treeDisableContentColor(v) {
+    set treeDisableContentColor(v: string) {
       setBodyProperty(
         {
           '--select-tree-disabled-content-color': v,
@@ -1620,7 +1619,7 @@ const injects = {
       )
     },
 
-    set treeIconHoverBg(v) {
+    set treeIconHoverBg(v: string) {
       setBodyProperty(
         {
           '--select-tree-icon-hover-bg-color': v,
@@ -1628,7 +1627,7 @@ const injects = {
         v
       )
     },
-    set treeNodeHoverBg(v) {
+    set treeNodeHoverBg(v: string) {
       setBodyProperty(
         {
           '--select-tree-node-hover-bg': v,
@@ -1636,7 +1635,7 @@ const injects = {
         v
       )
     },
-    set treeNodeHoverColor(v) {
+    set treeNodeHoverColor(v: string) {
       setBodyProperty(
         {
           '--select-tree-node-hover-color': v,
@@ -1644,7 +1643,7 @@ const injects = {
         v
       )
     },
-    set treeNodeSelectedBg(v) {
+    set treeNodeSelectedBg(v: string) {
       setBodyProperty(
         {
           '--select-tree-node-selected-bg': v,
@@ -1652,7 +1651,7 @@ const injects = {
         v
       )
     },
-    set treeNodeSelectedColor(v) {
+    set treeNodeSelectedColor(v: string) {
       setBodyProperty(
         {
           '--select-tree-node-selected-color': v,
@@ -1684,7 +1683,7 @@ const injects = {
         desc: 'day hover时背景颜色',
       },
     ],
-    set rectBorderRadius(v) {
+    set rectBorderRadius(v: string) {
       setBodyProperty(
         {
           '--datepicker-rect-active-border-radius': `${parseInt(v, 10)}px`,
@@ -1692,7 +1691,7 @@ const injects = {
         v
       )
     },
-    set dayHoverBgc(v) {
+    set dayHoverBgc(v: string) {
       setBodyProperty(
         {
           '--datepicker-day-hover-bgc': v,
@@ -1785,7 +1784,7 @@ const injects = {
         desc: '当前值距离滑块距离',
       },
     ],
-    set indicatorBg(v) {
+    set indicatorBg(v: string) {
       setBodyProperty(
         {
           '--slider-indicator-bg': v,
@@ -1793,7 +1792,7 @@ const injects = {
         v
       )
     },
-    set indicatorSize(v) {
+    set indicatorSize(v: string) {
       setBodyProperty(
         {
           '--slider-indicator-size': `${parseInt(v, 10)}px`,
@@ -1802,7 +1801,7 @@ const injects = {
         v
       )
     },
-    set indicatorBoxShadow(v) {
+    set indicatorBoxShadow(v: string) {
       setBodyProperty(
         {
           '--slider-indicator-box-shadow': v,
@@ -1810,7 +1809,7 @@ const injects = {
         v
       )
     },
-    set barBg(v) {
+    set barBg(v: string) {
       setBodyProperty(
         {
           '--slider-bar-color': v,
@@ -1818,7 +1817,7 @@ const injects = {
         v
       )
     },
-    set disabledBarBg(v) {
+    set disabledBarBg(v: string) {
       setBodyProperty(
         {
           '--slider-disabled-bar-bg': v,
@@ -1826,7 +1825,7 @@ const injects = {
         v
       )
     },
-    set disabledIndicatorBorder(v) {
+    set disabledIndicatorBorder(v: string) {
       setBodyProperty(
         {
           '--slider-disbaled-indicator-border-color': v,
@@ -1834,7 +1833,7 @@ const injects = {
         v
       )
     },
-    set disabledIndicatorBg(v) {
+    set disabledIndicatorBg(v: string) {
       setBodyProperty(
         {
           '--slider-disbaled-indicator-bg': v,
@@ -1842,7 +1841,7 @@ const injects = {
         v
       )
     },
-    set height(v) {
+    set height(v: string) {
       setBodyProperty(
         {
           '--slider-bar-height': `${parseInt(v, 10)}px`,
@@ -1850,7 +1849,7 @@ const injects = {
         v
       )
     },
-    set borderRadius(v) {
+    set borderRadius(v: string) {
       setBodyProperty(
         {
           '--slider-border-radius': `${parseInt(v, 10)}px`,
@@ -1858,7 +1857,7 @@ const injects = {
         v
       )
     },
-    set valueBottom(v) {
+    set valueBottom(v: string) {
       setBodyProperty(
         {
           '--slider-value-bottom': `${parseInt(v, 10)}px`,
@@ -2050,7 +2049,7 @@ const injects = {
         desc: '无边框表格头部边框线',
       },
     ],
-    set scrollRatio(v) {
+    set scrollRatio(v: string) {
       configSet('scrollRatio', v)
       setBodyProperty(
         {
@@ -2059,7 +2058,7 @@ const injects = {
         v
       )
     },
-    set headBg(v) {
+    set headBg(v: string) {
       setBodyProperty(
         {
           '--table-head-bg': v,
@@ -2067,7 +2066,7 @@ const injects = {
         v
       )
     },
-    set hoverBg(v) {
+    set hoverBg(v: string) {
       setBodyProperty(
         {
           '--table-hover-bg': v,
@@ -2075,7 +2074,7 @@ const injects = {
         v
       )
     },
-    set selectedBg(v) {
+    set selectedBg(v: string) {
       setBodyProperty(
         {
           '--table-selected-row-bg': v,
@@ -2083,7 +2082,7 @@ const injects = {
         v
       )
     },
-    set headColor(v) {
+    set headColor(v: string) {
       setBodyProperty(
         {
           '--table-head-color': v,
@@ -2091,7 +2090,7 @@ const injects = {
         v
       )
     },
-    set bodyBg(v) {
+    set bodyBg(v: string) {
       setBodyProperty(
         {
           '--table-body-bg': v,
@@ -2099,7 +2098,7 @@ const injects = {
         v
       )
     },
-    set rowSpacing(v) {
+    set rowSpacing(v: string) {
       setBodyProperty(
         {
           '--table-row-spacing': `${parseInt(v, 10)}px`,
@@ -2107,7 +2106,7 @@ const injects = {
         v
       )
     },
-    set rowBorderRadius(v) {
+    set rowBorderRadius(v: string) {
       setBodyProperty(
         {
           '--table-row-border-radius': `${parseInt(v, 10)}px`,
@@ -2115,7 +2114,7 @@ const injects = {
         v
       )
     },
-    set headFontWeight(v) {
+    set headFontWeight(v: string) {
       setBodyProperty(
         {
           '--table-head-font-weight': `${parseInt(v, 10)}`,
@@ -2123,7 +2122,7 @@ const injects = {
         v
       )
     },
-    set borderColor(v) {
+    set borderColor(v: string) {
       setBodyProperty(
         {
           '--table-border-color': v,
@@ -2131,7 +2130,7 @@ const injects = {
         v
       )
     },
-    set textColor(v) {
+    set textColor(v: string) {
       setBodyProperty(
         {
           '--table-color': v,
@@ -2139,7 +2138,7 @@ const injects = {
         v
       )
     },
-    set borderRadiusTop(v) {
+    set borderRadiusTop(v: string) {
       setBodyProperty(
         {
           '--table-border-radius-top': `${parseInt(v, 10)}px`,
@@ -2147,7 +2146,7 @@ const injects = {
         v
       )
     },
-    set headerCellPadding(v) {
+    set headerCellPadding(v: string) {
       setBodyProperty(
         {
           '--table-header-cell-padding': v,
@@ -2155,7 +2154,7 @@ const injects = {
         v
       )
     },
-    set smallCellPadding(v) {
+    set smallCellPadding(v: string) {
       setBodyProperty(
         {
           '--table-small-cell-padding': v,
@@ -2163,7 +2162,7 @@ const injects = {
         v
       )
     },
-    set cellPaddingHorizontal(v) {
+    set cellPaddingHorizontal(v: string) {
       setBodyProperty(
         {
           '--table-cell-padding-horizontal': `${parseInt(v, 10)}px`,
@@ -2171,7 +2170,7 @@ const injects = {
         v
       )
     },
-    set cellPaddingVertical(v) {
+    set cellPaddingVertical(v: string) {
       setBodyProperty(
         {
           '--table-cell-padding-vertical': `${parseInt(v, 10)}px`,
@@ -2179,7 +2178,7 @@ const injects = {
         v
       )
     },
-    set treeExpandIconMarginRight(v) {
+    set treeExpandIconMarginRight(v: string) {
       setBodyProperty(
         {
           '--table-tree-expand-icon-margin-right': `${parseInt(v, 10)}px`,
@@ -2187,7 +2186,7 @@ const injects = {
         v
       )
     },
-    set fixedStart(v) {
+    set fixedStart(v: string) {
       setBodyProperty(
         {
           '--table-fixed-start-color': v,
@@ -2195,7 +2194,7 @@ const injects = {
         v
       )
     },
-    set fixedEnd(v) {
+    set fixedEnd(v: string) {
       setBodyProperty(
         {
           '--table-fixed-end-color': v,
@@ -2203,7 +2202,7 @@ const injects = {
         v
       )
     },
-    set tableEvenBgc(v) {
+    set tableEvenBgc(v: string) {
       setBodyProperty(
         {
           '--table-even-td-bgc': v,
@@ -2211,7 +2210,7 @@ const injects = {
         v
       )
     },
-    set tableOddBgc(v) {
+    set tableOddBgc(v: string) {
       setBodyProperty(
         {
           '--table-odd-td-bgc': v,
@@ -2219,7 +2218,7 @@ const injects = {
         v
       )
     },
-    set marginBottom(v) {
+    set marginBottom(v: string) {
       setBodyProperty(
         {
           '--table-margin-bottom': `${parseInt(v, 10)}px`,
@@ -2227,7 +2226,7 @@ const injects = {
         v
       )
     },
-    set headerTopDivider(v) {
+    set headerTopDivider(v: string) {
       setBodyProperty(
         {
           '--table-header-top-divider-width': `${parseInt(v, 10)}px`,
@@ -2313,7 +2312,7 @@ const injects = {
         desc: '大号尺寸宽高',
       },
     ],
-    set borderRadius(v) {
+    set borderRadius(v: string) {
       setBodyProperty(
         {
           '--pagination-border-radius': `${parseInt(v, 10)}px`,
@@ -2321,7 +2320,7 @@ const injects = {
         v
       )
     },
-    set borderWidth(v) {
+    set borderWidth(v: string) {
       setBodyProperty(
         {
           '--pagination-border-width': `${parseInt(v, 10)}px`,
@@ -2329,7 +2328,7 @@ const injects = {
         v
       )
     },
-    set hoverBorderColor(v) {
+    set hoverBorderColor(v: string) {
       setBodyProperty(
         {
           '--pagination-hover-border': v,
@@ -2337,7 +2336,7 @@ const injects = {
         v
       )
     },
-    set hoverColor(v) {
+    set hoverColor(v: string) {
       setBodyProperty(
         {
           '--pagination-hover-color': v,
@@ -2345,7 +2344,7 @@ const injects = {
         v
       )
     },
-    set hoverBg(v) {
+    set hoverBg(v: string) {
       setBodyProperty(
         {
           '--pagination-hover-bg': v,
@@ -2353,7 +2352,7 @@ const injects = {
         v
       )
     },
-    set fontSize(v) {
+    set fontSize(v: string) {
       setBodyProperty(
         {
           '--pagination-font-size': `${parseInt(v, 10)}px`,
@@ -2361,7 +2360,7 @@ const injects = {
         v
       )
     },
-    set defaultSize(v) {
+    set defaultSize(v: string) {
       setBodyProperty(
         {
           '--pagination-size': `${parseInt(v, 10)}px`,
@@ -2369,7 +2368,7 @@ const injects = {
         v
       )
     },
-    set smallSize(v) {
+    set smallSize(v: string) {
       setBodyProperty(
         {
           '--pagination-size-small': `${parseInt(v, 10)}px`,
@@ -2377,7 +2376,7 @@ const injects = {
         v
       )
     },
-    set largeSize(v) {
+    set largeSize(v: string) {
       setBodyProperty(
         {
           '--pagination-size-large': `${parseInt(v, 10)}px`,
@@ -2519,7 +2518,7 @@ const injects = {
         desc: '字重',
       },
     ],
-    set bg(v) {
+    set bg(v: string) {
       setBodyProperty(
         {
           '--tag-bg': v,
@@ -2527,19 +2526,19 @@ const injects = {
         v
       )
     },
-    set successBg(v) {
+    set successBg(v: string) {
       setBodyProperty({ '--tag-success-bg': v }, v)
     },
-    set infoBg(v) {
+    set infoBg(v: string) {
       setBodyProperty({ '--tag-info-bg': v }, v)
     },
-    set warningBg(v) {
+    set warningBg(v: string) {
       setBodyProperty({ '--tag-warning-bg': v }, v)
     },
-    set dangerBg(v) {
+    set dangerBg(v: string) {
       setBodyProperty({ '--tag-danger-bg': v }, v)
     },
-    set color(v) {
+    set color(v: string) {
       setBodyProperty(
         {
           '--tag-color': v,
@@ -2547,19 +2546,19 @@ const injects = {
         v
       )
     },
-    set successColor(v) {
+    set successColor(v: string) {
       setBodyProperty({ '--tag-success-color': v }, v)
     },
-    set infoColor(v) {
+    set infoColor(v: string) {
       setBodyProperty({ '--tag-info-color': v }, v)
     },
-    set warningColor(v) {
+    set warningColor(v: string) {
       setBodyProperty({ '--tag-warning-color': v }, v)
     },
-    set dangerColor(v) {
+    set dangerColor(v: string) {
       setBodyProperty({ '--tag-danger-color': v }, v)
     },
-    set closeColor(v) {
+    set closeColor(v: string) {
       setBodyProperty(
         {
           '--tag-close-color': v,
@@ -2567,7 +2566,7 @@ const injects = {
         v
       )
     },
-    set closeHoverColor(v) {
+    set closeHoverColor(v: string) {
       setBodyProperty(
         {
           '--tag-close-hover-color': v,
@@ -2575,7 +2574,7 @@ const injects = {
         v
       )
     },
-    set borderColor(v) {
+    set borderColor(v: string) {
       setBodyProperty(
         {
           '--tag-border-color': v,
@@ -2583,7 +2582,7 @@ const injects = {
         v
       )
     },
-    set borderRadius(v) {
+    set borderRadius(v: string) {
       setBodyProperty(
         {
           '--tag-border-radius': `${parseInt(v, 10)}px`,
@@ -2591,7 +2590,7 @@ const injects = {
         v
       )
     },
-    set paddingHorizontal(v) {
+    set paddingHorizontal(v: string) {
       setBodyProperty(
         {
           '--tag-padding-horizontal': `${parseInt(v, 10)}px`,
@@ -2599,7 +2598,7 @@ const injects = {
         v
       )
     },
-    set paddingVertical(v) {
+    set paddingVertical(v: string) {
       setBodyProperty(
         {
           '--tag-padding-vertical': `${parseInt(v, 10)}px`,
@@ -2607,7 +2606,7 @@ const injects = {
         v
       )
     },
-    set fontWeight(v) {
+    set fontWeight(v: string) {
       setBodyProperty(
         {
           '--tag-font-weight': v,
@@ -2647,7 +2646,7 @@ const injects = {
         desc: '垂直内边距',
       },
     ],
-    set bg(v) {
+    set bg(v: string) {
       setBodyProperty(
         {
           '--tooltip-bg': v,
@@ -2655,7 +2654,7 @@ const injects = {
         v
       )
     },
-    set paddingHorizontal(v) {
+    set paddingHorizontal(v: string) {
       setBodyProperty(
         {
           '--tooltip-padding-horizontal': `${parseInt(v, 10)}px`,
@@ -2663,7 +2662,7 @@ const injects = {
         v
       )
     },
-    set paddingVertical(v) {
+    set paddingVertical(v: string) {
       setBodyProperty(
         {
           '--tooltip-padding-vertical': `${parseInt(v, 10)}px`,
@@ -2855,7 +2854,7 @@ const injects = {
         desc: '垂直样式：子节点选中下，parent 节点 bar 的宽度',
       },
     ],
-    set verticalDarkRootActiveBgc(v) {
+    set verticalDarkRootActiveBgc(v: string) {
       setBodyProperty(
         {
           '--menu-vertical-dark-parent-active-bgc': v,
@@ -2863,7 +2862,7 @@ const injects = {
         v
       )
     },
-    set hasChildrenActiveBgc(v) {
+    set hasChildrenActiveBgc(v: string) {
       setBodyProperty(
         {
           '--menu-item-has-children-active-bgc': v,
@@ -2871,7 +2870,7 @@ const injects = {
         v
       )
     },
-    set hasChildrenActiveColor(v) {
+    set hasChildrenActiveColor(v: string) {
       setBodyProperty(
         {
           '--menu-item-has-children-active-color': v,
@@ -2879,7 +2878,7 @@ const injects = {
         v
       )
     },
-    set verticalInpathBarWidth(v) {
+    set verticalInpathBarWidth(v: string) {
       setBodyProperty(
         {
           '--menu-vertical-in-path-bar-width': `${parseInt(v, 10)}px`,
@@ -2887,7 +2886,7 @@ const injects = {
         v
       )
     },
-    set height(v) {
+    set height(v: string) {
       const height = parseInt(v, 10)
       setBodyProperty(
         {
@@ -2896,7 +2895,7 @@ const injects = {
         v
       )
     },
-    set fontSize(v) {
+    set fontSize(v: string) {
       setBodyProperty(
         {
           '--menu-item-font-size': `${parseInt(v, 10)}px`,
@@ -2904,7 +2903,7 @@ const injects = {
         v
       )
     },
-    set darkBg(v) {
+    set darkBg(v: string) {
       setBodyProperty(
         {
           '--menu-dark-bg': v,
@@ -2912,7 +2911,7 @@ const injects = {
         v
       )
     },
-    set darkActiveBg(v) {
+    set darkActiveBg(v: string) {
       setBodyProperty(
         {
           '--menu-dark-acitve-bg': v,
@@ -2920,7 +2919,7 @@ const injects = {
         v
       )
     },
-    set activeBg(v) {
+    set activeBg(v: string) {
       setBodyProperty(
         {
           '--menu-item-active-bg': v,
@@ -2928,7 +2927,7 @@ const injects = {
         v
       )
     },
-    set activeColor(v) {
+    set activeColor(v: string) {
       setBodyProperty(
         {
           '--menu-item-active-color': v,
@@ -2936,7 +2935,7 @@ const injects = {
         v
       )
     },
-    set color(v) {
+    set color(v: string) {
       setBodyProperty(
         {
           '--menu-item-color': v,
@@ -2944,7 +2943,7 @@ const injects = {
         v
       )
     },
-    set darkColor(v) {
+    set darkColor(v: string) {
       setBodyProperty(
         {
           '--menu-dark-color': v,
@@ -2952,7 +2951,7 @@ const injects = {
         v
       )
     },
-    set darkRootNodeBg(v) {
+    set darkRootNodeBg(v: string) {
       setBodyProperty(
         {
           '--menu-root-node-bgc': v,
@@ -2960,7 +2959,7 @@ const injects = {
         v
       )
     },
-    set darkChildrenSegmentation(v) {
+    set darkChildrenSegmentation(v: string) {
       setBodyProperty(
         {
           '--menu-children-segmentation': v,
@@ -2968,7 +2967,7 @@ const injects = {
         v
       )
     },
-    set activePaddingHorizontal(v) {
+    set activePaddingHorizontal(v: string) {
       setBodyProperty(
         {
           '--menu-active-padding-horizontal': `${parseInt(v, 10)}px`,
@@ -2977,7 +2976,7 @@ const injects = {
         v
       )
     },
-    set activePaddingVertical(v) {
+    set activePaddingVertical(v: string) {
       setBodyProperty(
         {
           '--menu-active-padding-vertical': `${parseInt(v, 10)}px`,
@@ -2985,7 +2984,7 @@ const injects = {
         v
       )
     },
-    set activeBorderRadius(v) {
+    set activeBorderRadius(v: string) {
       setBodyProperty(
         {
           '--menu-active-border-radius': `${parseInt(v, 10)}px`,
@@ -2993,7 +2992,7 @@ const injects = {
         v
       )
     },
-    set itemHoverColor(v) {
+    set itemHoverColor(v: string) {
       setBodyProperty(
         {
           '--menu-item-light-hover-color': v,
@@ -3001,7 +3000,7 @@ const injects = {
         v
       )
     },
-    set itemHoverDarkColor(v) {
+    set itemHoverDarkColor(v: string) {
       setBodyProperty(
         {
           '--menu-item-dark-hover-color': v,
@@ -3009,7 +3008,7 @@ const injects = {
         v
       )
     },
-    set itemHoverBgc(v) {
+    set itemHoverBgc(v: string) {
       setBodyProperty(
         {
           '--menu-item-light-hover-bgc': v,
@@ -3017,7 +3016,7 @@ const injects = {
         v
       )
     },
-    set itemHoverDarkBgc(v) {
+    set itemHoverDarkBgc(v: string) {
       setBodyProperty(
         {
           '--menu-item-dark-hover-bgc': v,
@@ -3025,7 +3024,7 @@ const injects = {
         v
       )
     },
-    set activeBar(v) {
+    set activeBar(v: string) {
       setBodyProperty(
         {
           '--menu-active-bar': `${parseInt(v, 10)}px`,
@@ -3033,7 +3032,7 @@ const injects = {
         v
       )
     },
-    set activeBarColor(v) {
+    set activeBarColor(v: string) {
       setBodyProperty(
         {
           '--menu-item-active-indicator': v,
@@ -3041,7 +3040,7 @@ const injects = {
         v
       )
     },
-    set darkActiveBarColor(v) {
+    set darkActiveBarColor(v: string) {
       setBodyProperty(
         {
           '--menu-dark-item-active-indicator': v,
@@ -3232,7 +3231,7 @@ const injects = {
         desc: 'danger 类型边框色',
       },
     ],
-    set fontSize(v) {
+    set fontSize(v: string) {
       setBodyProperty(
         {
           '--alert-font-size': `${parseInt(v, 10)}px`,
@@ -3241,7 +3240,7 @@ const injects = {
       )
     },
 
-    set paddingX(v) {
+    set paddingX(v: string) {
       setBodyProperty(
         {
           '--alert-padding-x': `${parseInt(v, 10)}px`,
@@ -3249,7 +3248,7 @@ const injects = {
         v
       )
     },
-    set paddingY(v) {
+    set paddingY(v: string) {
       setBodyProperty(
         {
           '--alert-padding-y': `${parseInt(v, 10)}px`,
@@ -3257,7 +3256,7 @@ const injects = {
         v
       )
     },
-    set iconMarginTop(v) {
+    set iconMarginTop(v: string) {
       setBodyProperty(
         {
           '--alert-icon-margin-top': `${parseInt(v, 10)}px`,
@@ -3266,7 +3265,7 @@ const injects = {
       )
     },
 
-    set closeIconColor(v) {
+    set closeIconColor(v: string) {
       setBodyProperty(
         {
           '--alert-close-color': v,
@@ -3274,7 +3273,7 @@ const injects = {
         v
       )
     },
-    set closeIconHoverColor(v) {
+    set closeIconHoverColor(v: string) {
       setBodyProperty(
         {
           '--alert-close-hover-color': v,
@@ -3282,7 +3281,7 @@ const injects = {
         v
       )
     },
-    set borderRadius(v) {
+    set borderRadius(v: string) {
       setBodyProperty(
         {
           '--alert-border-radius': `${parseInt(v, 10)}px`,
@@ -3290,7 +3289,7 @@ const injects = {
         v
       )
     },
-    set boxShadow(v) {
+    set boxShadow(v: string) {
       setBodyProperty(
         {
           '--alert-box-shadow': v,
@@ -3298,7 +3297,7 @@ const injects = {
         v
       )
     },
-    set successBoxShadow(v) {
+    set successBoxShadow(v: string) {
       setBodyProperty(
         {
           '--alert-success-box-shadow': v,
@@ -3306,7 +3305,7 @@ const injects = {
         v
       )
     },
-    set infoBoxShadow(v) {
+    set infoBoxShadow(v: string) {
       setBodyProperty(
         {
           '--alert-info-box-shadow': v,
@@ -3314,7 +3313,7 @@ const injects = {
         v
       )
     },
-    set dangerBoxShadow(v) {
+    set dangerBoxShadow(v: string) {
       setBodyProperty(
         {
           '--alert-danger-box-shadow': v,
@@ -3322,7 +3321,7 @@ const injects = {
         v
       )
     },
-    set warningBoxShadow(v) {
+    set warningBoxShadow(v: string) {
       setBodyProperty(
         {
           '--alert-warning-box-shadow': v,
@@ -3330,7 +3329,7 @@ const injects = {
         v
       )
     },
-    set borderWidth(v) {
+    set borderWidth(v: string) {
       setBodyProperty(
         {
           '--alert-border-width': `${parseInt(v, 10)}px`,
@@ -3338,7 +3337,7 @@ const injects = {
         v
       )
     },
-    set successTextColor(v) {
+    set successTextColor(v: string) {
       setBodyProperty(
         {
           '--alert-success-text-color': v,
@@ -3347,7 +3346,7 @@ const injects = {
         v
       )
     },
-    set successBg(v) {
+    set successBg(v: string) {
       setBodyProperty(
         {
           '--alert-success-bg': v,
@@ -3355,7 +3354,7 @@ const injects = {
         v
       )
     },
-    set successBorderColor(v) {
+    set successBorderColor(v: string) {
       setBodyProperty(
         {
           '--alert-success-border-color': v,
@@ -3364,7 +3363,7 @@ const injects = {
         v
       )
     },
-    set infoTextColor(v) {
+    set infoTextColor(v: string) {
       setBodyProperty(
         {
           '--alert-info-text-color': v,
@@ -3373,7 +3372,7 @@ const injects = {
         v
       )
     },
-    set infoBg(v) {
+    set infoBg(v: string) {
       setBodyProperty(
         {
           '--alert-info-bg': v,
@@ -3381,7 +3380,7 @@ const injects = {
         v
       )
     },
-    set infoBorderColor(v) {
+    set infoBorderColor(v: string) {
       setBodyProperty(
         {
           '--alert-info-border-color': v,
@@ -3390,7 +3389,7 @@ const injects = {
         v
       )
     },
-    set warningTextColor(v) {
+    set warningTextColor(v: string) {
       setBodyProperty(
         {
           '--alert-warning-text-color': v,
@@ -3399,7 +3398,7 @@ const injects = {
         v
       )
     },
-    set warningBg(v) {
+    set warningBg(v: string) {
       setBodyProperty(
         {
           '--alert-warning-bg': v,
@@ -3407,7 +3406,7 @@ const injects = {
         v
       )
     },
-    set warningBorderColor(v) {
+    set warningBorderColor(v: string) {
       setBodyProperty(
         {
           '--alert-warning-border-color': v,
@@ -3416,7 +3415,7 @@ const injects = {
         v
       )
     },
-    set dangerTextColor(v) {
+    set dangerTextColor(v: string) {
       setBodyProperty(
         {
           '--alert-danger-text-color': v,
@@ -3425,7 +3424,7 @@ const injects = {
         v
       )
     },
-    set dangerBg(v) {
+    set dangerBg(v: string) {
       setBodyProperty(
         {
           '--alert-danger-bg': v,
@@ -3433,7 +3432,7 @@ const injects = {
         v
       )
     },
-    set dangerBorderColor(v) {
+    set dangerBorderColor(v: string) {
       setBodyProperty(
         {
           '--alert-danger-border-color': v,
@@ -3497,7 +3496,7 @@ const injects = {
         desc: '类型图标距离顶部距离',
       },
     ],
-    set boxShadow(v) {
+    set boxShadow(v: string) {
       setBodyProperty(
         {
           '--message-box-shadow': v,
@@ -3505,7 +3504,7 @@ const injects = {
         v
       )
     },
-    set color(v) {
+    set color(v: string) {
       setBodyProperty(
         {
           '--message-text-color': v,
@@ -3513,7 +3512,7 @@ const injects = {
         v
       )
     },
-    set closeColor(v) {
+    set closeColor(v: string) {
       setBodyProperty(
         {
           '--message-close-color': v,
@@ -3521,7 +3520,7 @@ const injects = {
         v
       )
     },
-    set fontWeight(v) {
+    set fontWeight(v: string) {
       setBodyProperty(
         {
           '--message-font-weight': v,
@@ -3529,10 +3528,10 @@ const injects = {
         v
       )
     },
-    set borderColor(v) {
+    set borderColor(v: string) {
       setBodyProperty({ '--message-border-color': v }, v)
     },
-    set iconMarginTop(v) {
+    set iconMarginTop(v: string) {
       setBodyProperty(
         {
           '--message-icon-margin-top': `${parseInt(v, 10)}px`,
@@ -3692,7 +3691,7 @@ const injects = {
         desc: '底部文字颜色',
       },
     ],
-    set fontSize(v) {
+    set fontSize(v: string) {
       setBodyProperty(
         {
           '--card-font-size': `${parseInt(v, 10)}px`,
@@ -3700,7 +3699,7 @@ const injects = {
         v
       )
     },
-    set paddingHeaderHorizontal(v) {
+    set paddingHeaderHorizontal(v: string) {
       setBodyProperty(
         {
           '--panel-header-padding-horizontal': `${parseInt(v, 10)}px`,
@@ -3708,7 +3707,7 @@ const injects = {
         v
       )
     },
-    set paddingHeaderVertical(v) {
+    set paddingHeaderVertical(v: string) {
       setBodyProperty(
         {
           '--panel-header-padding-vertical': `${parseInt(v, 10)}px`,
@@ -3716,7 +3715,7 @@ const injects = {
         v
       )
     },
-    set paddingBodyHorizontal(v) {
+    set paddingBodyHorizontal(v: string) {
       setBodyProperty(
         {
           '--panel-body-padding-horizontal': `${parseInt(v, 10)}px`,
@@ -3724,7 +3723,7 @@ const injects = {
         v
       )
     },
-    set paddingBodyVertical(v) {
+    set paddingBodyVertical(v: string) {
       setBodyProperty(
         {
           '--panel-body-padding-vertical': `${parseInt(v, 10)}px`,
@@ -3732,7 +3731,7 @@ const injects = {
         v
       )
     },
-    set paddingFooterHorizontal(v) {
+    set paddingFooterHorizontal(v: string) {
       setBodyProperty(
         {
           '--panel-footer-padding-horizontal': `${parseInt(v, 10)}px`,
@@ -3740,7 +3739,7 @@ const injects = {
         v
       )
     },
-    set paddingFooterVertical(v) {
+    set paddingFooterVertical(v: string) {
       setBodyProperty(
         {
           '--panel-footer-padding-vertical': `${parseInt(v, 10)}px`,
@@ -3748,7 +3747,7 @@ const injects = {
         v
       )
     },
-    set borderRadius(v) {
+    set borderRadius(v: string) {
       setBodyProperty(
         {
           '--panel-border-radius': `${parseInt(v, 10)}px`,
@@ -3756,7 +3755,7 @@ const injects = {
         v
       )
     },
-    set borderWidth(v) {
+    set borderWidth(v: string) {
       setBodyProperty(
         {
           '--card-border-width': `${parseInt(v, 10)}px`,
@@ -3764,7 +3763,7 @@ const injects = {
         v
       )
     },
-    set dividerHeight(v) {
+    set dividerHeight(v: string) {
       setBodyProperty(
         {
           '--card-divider-height': `${parseInt(v, 10)}px`,
@@ -3772,7 +3771,7 @@ const injects = {
         v
       )
     },
-    set dividerWidth(v) {
+    set dividerWidth(v: string) {
       setBodyProperty(
         {
           '--card-divider-width': v,
@@ -3780,7 +3779,7 @@ const injects = {
         v
       )
     },
-    set borderColor(v) {
+    set borderColor(v: string) {
       setBodyProperty(
         {
           '--card-border-color': v,
@@ -3788,7 +3787,7 @@ const injects = {
         v
       )
     },
-    set dividerColor(v) {
+    set dividerColor(v: string) {
       setBodyProperty(
         {
           '--card-divider-color': v,
@@ -3796,7 +3795,7 @@ const injects = {
         v
       )
     },
-    set color(v) {
+    set color(v: string) {
       setBodyProperty(
         {
           '--card-color': v,
@@ -3804,7 +3803,7 @@ const injects = {
         v
       )
     },
-    set boxShadow(v) {
+    set boxShadow(v: string) {
       setBodyProperty(
         {
           '--card-box-shadow': v,
@@ -3812,7 +3811,7 @@ const injects = {
         v
       )
     },
-    set headerBg(v) {
+    set headerBg(v: string) {
       setBodyProperty(
         {
           '--card-header-bg': v,
@@ -3820,7 +3819,7 @@ const injects = {
         v
       )
     },
-    set footerBg(v) {
+    set footerBg(v: string) {
       setBodyProperty(
         {
           '--card-footer-bg': v,
@@ -3828,7 +3827,7 @@ const injects = {
         v
       )
     },
-    set headerColor(v) {
+    set headerColor(v: string) {
       setBodyProperty(
         {
           '--card-header-color': v,
@@ -3836,7 +3835,7 @@ const injects = {
         v
       )
     },
-    set footerColor(v) {
+    set footerColor(v: string) {
       setBodyProperty(
         {
           '--card-footer-color': v,
@@ -4135,10 +4134,10 @@ const injects = {
         desc: '阴影',
       },
     ],
-    set titleFontFamily(v) {
+    set titleFontFamily(v: string) {
       setBodyProperty({ '--modal-title-font': v }, v)
     },
-    set fontSize(v) {
+    set fontSize(v: string) {
       setBodyProperty(
         {
           '--modal-font-size': `${parseInt(v, 10)}px`,
@@ -4146,7 +4145,7 @@ const injects = {
         v
       )
     },
-    set iconSize(v) {
+    set iconSize(v: string) {
       setBodyProperty(
         {
           '--modal-icon-size': `${parseInt(v, 10)}px`,
@@ -4154,7 +4153,7 @@ const injects = {
         v
       )
     },
-    set iconLeft(v) {
+    set iconLeft(v: string) {
       setBodyProperty(
         {
           '--modal-icon-left': `${parseInt(v, 10)}px`,
@@ -4162,7 +4161,7 @@ const injects = {
         v
       )
     },
-    set iconTop(v) {
+    set iconTop(v: string) {
       setBodyProperty(
         {
           '--modal-icon-top': `${parseInt(v, 10)}px`,
@@ -4170,7 +4169,7 @@ const injects = {
         v
       )
     },
-    set closeIconColor(v) {
+    set closeIconColor(v: string) {
       setBodyProperty(
         {
           '--modal-close-icon-color': v,
@@ -4178,7 +4177,7 @@ const injects = {
         v
       )
     },
-    set closeIconHoverColor(v) {
+    set closeIconHoverColor(v: string) {
       setBodyProperty(
         {
           '--modal-close-icon-hover-color': v,
@@ -4186,7 +4185,7 @@ const injects = {
         v
       )
     },
-    set closeIconTopMargin(v) {
+    set closeIconTopMargin(v: string) {
       setBodyProperty(
         {
           '--modal-close-top-margin': `${parseInt(v, 10)}px`,
@@ -4194,7 +4193,7 @@ const injects = {
         v
       )
     },
-    set closeIconRightMargin(v) {
+    set closeIconRightMargin(v: string) {
       setBodyProperty(
         {
           '--modal-close-right-margin': `${parseInt(v, 10)}px`,
@@ -4202,7 +4201,7 @@ const injects = {
         v
       )
     },
-    set titleFontSize(v) {
+    set titleFontSize(v: string) {
       setBodyProperty(
         {
           '--modal-title-font-size': `${parseInt(v, 10)}px`,
@@ -4210,7 +4209,7 @@ const injects = {
         v
       )
     },
-    set titleColor(v) {
+    set titleColor(v: string) {
       setBodyProperty(
         {
           '--modal-title-color': v,
@@ -4218,7 +4217,7 @@ const injects = {
         v
       )
     },
-    set padding(v) {
+    set padding(v: string) {
       setBodyProperty(
         {
           '--modal-panel-padding': v,
@@ -4226,7 +4225,7 @@ const injects = {
         v
       )
     },
-    set headerPaddingTop(v) {
+    set headerPaddingTop(v: string) {
       setBodyProperty(
         {
           '--modal-header-padding-top': `${parseInt(v, 10)}px`,
@@ -4234,7 +4233,7 @@ const injects = {
         v
       )
     },
-    set headerPaddingRight(v) {
+    set headerPaddingRight(v: string) {
       setBodyProperty(
         {
           '--modal-header-padding-right': `${parseInt(v, 10)}px`,
@@ -4242,7 +4241,7 @@ const injects = {
         v
       )
     },
-    set iconHeaderPaddingRight(v) {
+    set iconHeaderPaddingRight(v: string) {
       setBodyProperty(
         {
           '--modal-method-header-padding-right': `${parseInt(v, 10)}px`,
@@ -4250,7 +4249,7 @@ const injects = {
         v
       )
     },
-    set headerPaddingBottom(v) {
+    set headerPaddingBottom(v: string) {
       setBodyProperty(
         {
           '--modal-header-padding-bottom': `${parseInt(v, 10)}px`,
@@ -4258,7 +4257,7 @@ const injects = {
         v
       )
     },
-    set headerPaddingLeft(v) {
+    set headerPaddingLeft(v: string) {
       setBodyProperty(
         {
           '--modal-header-padding-left': `${parseInt(v, 10)}px`,
@@ -4266,7 +4265,7 @@ const injects = {
         v
       )
     },
-    set bodyPaddingTop(v) {
+    set bodyPaddingTop(v: string) {
       setBodyProperty(
         {
           '--modal-body-padding-top': `${parseInt(v, 10)}px`,
@@ -4274,7 +4273,7 @@ const injects = {
         v
       )
     },
-    set bodyPaddingRight(v) {
+    set bodyPaddingRight(v: string) {
       setBodyProperty(
         {
           '--modal-body-padding-right': `${parseInt(v, 10)}px`,
@@ -4282,7 +4281,7 @@ const injects = {
         v
       )
     },
-    set bodyPaddingBottom(v) {
+    set bodyPaddingBottom(v: string) {
       setBodyProperty(
         {
           '--modal-body-padding-bottom': `${parseInt(v, 10)}px`,
@@ -4290,7 +4289,7 @@ const injects = {
         v
       )
     },
-    set bodyPaddingLeft(v) {
+    set bodyPaddingLeft(v: string) {
       setBodyProperty(
         {
           '--modal-body-padding-left': `${parseInt(v, 10)}px`,
@@ -4298,7 +4297,7 @@ const injects = {
         v
       )
     },
-    set iconBodyPaddingTop(v) {
+    set iconBodyPaddingTop(v: string) {
       setBodyProperty(
         {
           '--modal-icon-body-padding-top': `${parseInt(v, 10)}px`,
@@ -4306,7 +4305,7 @@ const injects = {
         v
       )
     },
-    set iconBodyPaddingRight(v) {
+    set iconBodyPaddingRight(v: string) {
       setBodyProperty(
         {
           '--modal-icon-body-padding-right': `${parseInt(v, 10)}px`,
@@ -4314,7 +4313,7 @@ const injects = {
         v
       )
     },
-    set iconBodyPaddingBottom(v) {
+    set iconBodyPaddingBottom(v: string) {
       setBodyProperty(
         {
           '--modal-icon-body-padding-bottom': `${parseInt(v, 10)}px`,
@@ -4322,7 +4321,7 @@ const injects = {
         v
       )
     },
-    set iconBodyPaddingLeft(v) {
+    set iconBodyPaddingLeft(v: string) {
       setBodyProperty(
         {
           '--modal-icon-body-padding-left': `${parseInt(v, 10)}px`,
@@ -4330,7 +4329,7 @@ const injects = {
         v
       )
     },
-    set footerPadding(v) {
+    set footerPadding(v: string) {
       setBodyProperty(
         {
           '--modal-footer-padding': v,
@@ -4338,7 +4337,7 @@ const injects = {
         v
       )
     },
-    set borderRadius(v) {
+    set borderRadius(v: string) {
       setBodyProperty(
         {
           '--modal-border-radius': `${parseInt(v, 10)}px`,
@@ -4346,7 +4345,7 @@ const injects = {
         v
       )
     },
-    set borderWidth(v) {
+    set borderWidth(v: string) {
       setBodyProperty(
         {
           '--modal-border-width': `${parseInt(v, 10)}px`,
@@ -4354,7 +4353,7 @@ const injects = {
         v
       )
     },
-    set dividerHeight(v) {
+    set dividerHeight(v: string) {
       setBodyProperty(
         {
           '--modal-divider-height': `${parseInt(v, 10)}px`,
@@ -4362,7 +4361,7 @@ const injects = {
         v
       )
     },
-    set dividerWidth(v) {
+    set dividerWidth(v: string) {
       setBodyProperty(
         {
           '--modal-divider-width': v,
@@ -4370,7 +4369,7 @@ const injects = {
         v
       )
     },
-    set borderColor(v) {
+    set borderColor(v: string) {
       setBodyProperty(
         {
           '--modal-border-color': v,
@@ -4378,7 +4377,7 @@ const injects = {
         v
       )
     },
-    set dividerColor(v) {
+    set dividerColor(v: string) {
       setBodyProperty(
         {
           '--modal-divider-color': v,
@@ -4386,7 +4385,7 @@ const injects = {
         v
       )
     },
-    set color(v) {
+    set color(v: string) {
       setBodyProperty(
         {
           '--modal-color': v,
@@ -4394,7 +4393,7 @@ const injects = {
         v
       )
     },
-    set headerBg(v) {
+    set headerBg(v: string) {
       setBodyProperty(
         {
           '--modal-header-bg': v,
@@ -4402,7 +4401,7 @@ const injects = {
         v
       )
     },
-    set footerBg(v) {
+    set footerBg(v: string) {
       setBodyProperty(
         {
           '--modal-footer-bg': v,
@@ -4410,7 +4409,7 @@ const injects = {
         v
       )
     },
-    set boxShadow(v) {
+    set boxShadow(v: string) {
       setBodyProperty(
         {
           '--modal-box-shadow': v,
@@ -4472,7 +4471,7 @@ const injects = {
         desc: '字体大小',
       },
     ],
-    set borderColor(v) {
+    set borderColor(v: string) {
       setBodyProperty(
         {
           '--popover-border-color': v,
@@ -4480,7 +4479,7 @@ const injects = {
         v
       )
     },
-    set borderWidth(v) {
+    set borderWidth(v: string) {
       setBodyProperty(
         {
           '--popover-border-width': `${parseInt(v, 10)}px`,
@@ -4488,7 +4487,7 @@ const injects = {
         v
       )
     },
-    set boxShadow(v) {
+    set boxShadow(v: string) {
       setBodyProperty(
         {
           '--popover-box-shadow': v,
@@ -4496,7 +4495,7 @@ const injects = {
         v
       )
     },
-    set borderRadius(v) {
+    set borderRadius(v: string) {
       setBodyProperty(
         {
           '--popover-border-radius': `${parseInt(v, 10)}px`,
@@ -4504,7 +4503,7 @@ const injects = {
         v
       )
     },
-    set textMaxWidth(v) {
+    set textMaxWidth(v: string) {
       setBodyProperty(
         {
           '--popover-text-max-width': v,
@@ -4512,7 +4511,7 @@ const injects = {
         v
       )
     },
-    set fontSize(v) {
+    set fontSize(v: string) {
       setBodyProperty(
         {
           '--popover-text-font-size': `${parseInt(v, 10)}px`,
@@ -4560,7 +4559,7 @@ const injects = {
         desc: '连线颜色',
       },
     ],
-    set levelIndent(v) {
+    set levelIndent(v: string) {
       setBodyProperty(
         {
           '--tree-level-indent': `${parseInt(v, 10)}px`,
@@ -4568,7 +4567,7 @@ const injects = {
         v
       )
     },
-    set nodeMarginBottom(v) {
+    set nodeMarginBottom(v: string) {
       setBodyProperty(
         {
           '--tree-node-margin-bottom': `${parseInt(v, 10)}px`,
@@ -4576,7 +4575,7 @@ const injects = {
         v
       )
     },
-    set treeIndicatorColor(v) {
+    set treeIndicatorColor(v: string) {
       setBodyProperty(
         {
           '--tree-indicator-color': v,
@@ -4584,7 +4583,7 @@ const injects = {
         v
       )
     },
-    set lineColor(v) {
+    set lineColor(v: string) {
       setBodyProperty(
         {
           '--tree-line-color': v,
@@ -4615,8 +4614,8 @@ const injects = {
         desc: '类型',
       },
     ],
-    set type(v) {
-      const o = {}
+    set type(v: string) {
+      const o: { [x: string]: string } = {}
       if (v === 'outter') {
         o['--switch-indicator-padding-horizontal'] = `0px`
         o['--switch-indicator-padding-horizontal-negative'] = `0px`
@@ -4645,7 +4644,7 @@ const injects = {
       }
       setBodyProperty(o, v)
     },
-    set uncheckBg(v) {
+    set uncheckBg(v: string) {
       setBodyProperty(
         {
           '--switch-unchecked-bg': v,
@@ -4747,7 +4746,7 @@ const injects = {
         desc: 'tab线条样式选中文字颜色',
       },
     ],
-    set tabSpacing(v) {
+    set tabSpacing(v: string) {
       setBodyProperty(
         {
           '--tabs-tab-spacing': `${parseInt(v, 10)}px`,
@@ -4755,7 +4754,7 @@ const injects = {
         v
       )
     },
-    set tabPaddingX(v) {
+    set tabPaddingX(v: string) {
       setBodyProperty(
         {
           '--tabs-tab-padding-x': `${parseInt(v, 10)}px`,
@@ -4763,7 +4762,7 @@ const injects = {
         v
       )
     },
-    set tabPaddingY(v) {
+    set tabPaddingY(v: string) {
       setBodyProperty(
         {
           '--tabs-tab-padding-y': `${parseInt(v, 10)}px`,
@@ -4771,7 +4770,7 @@ const injects = {
         v
       )
     },
-    set tabFontSize(v) {
+    set tabFontSize(v: string) {
       setBodyProperty(
         {
           '--tabs-tab-font-size': `${parseInt(v, 10)}px`,
@@ -4779,7 +4778,7 @@ const injects = {
         v
       )
     },
-    set tabBackground(v) {
+    set tabBackground(v: string) {
       setBodyProperty(
         {
           '--tabs-tab-background': v,
@@ -4787,7 +4786,7 @@ const injects = {
         v
       )
     },
-    set tabActiveBackground(v) {
+    set tabActiveBackground(v: string) {
       setBodyProperty(
         {
           '--tabs-tab-active-background': v,
@@ -4795,7 +4794,7 @@ const injects = {
         v
       )
     },
-    set tabBorderColor(v) {
+    set tabBorderColor(v: string) {
       setBodyProperty(
         {
           '--tabs-tab-border-color': v,
@@ -4803,7 +4802,7 @@ const injects = {
         v
       )
     },
-    set tabActiveBorderColor(v) {
+    set tabActiveBorderColor(v: string) {
       setBodyProperty(
         {
           '--tabs-tab-active-border-color': v,
@@ -4811,7 +4810,7 @@ const injects = {
         v
       )
     },
-    set tabColor(v) {
+    set tabColor(v: string) {
       setBodyProperty(
         {
           '--tabs-tab-color': v,
@@ -4819,7 +4818,7 @@ const injects = {
         v
       )
     },
-    set tabActiveColor(v) {
+    set tabActiveColor(v: string) {
       setBodyProperty(
         {
           '--tabs-tab-active-color': v,
@@ -4827,7 +4826,7 @@ const injects = {
         v
       )
     },
-    set tabLineActiveColor(v) {
+    set tabLineActiveColor(v: string) {
       setBodyProperty(
         {
           '--tabs-line-active-color': v,
@@ -4858,7 +4857,7 @@ const injects = {
         desc: '选中字体颜色',
       },
     ],
-    set activeBgc(v) {
+    set activeBgc(v: string) {
       setBodyProperty(
         {
           '--cascader-active-background-color': v,
@@ -4866,7 +4865,7 @@ const injects = {
         v
       )
     },
-    set activeColor(v) {
+    set activeColor(v: string) {
       setBodyProperty(
         {
           '--cascader-active-color': v,
@@ -4898,7 +4897,7 @@ const injects = {
         desc: '行hover时背景颜色',
       },
     ],
-    set itemBottomBorderWidth(v) {
+    set itemBottomBorderWidth(v: string) {
       setBodyProperty(
         {
           '--list-item-bottom-border-width': `${parseInt(v, 10)}px`,
@@ -4906,7 +4905,7 @@ const injects = {
         v
       )
     },
-    set itemHoverBgc(v) {
+    set itemHoverBgc(v: string) {
       setBodyProperty(
         {
           '--list-item-hover-bgc': v,
@@ -4930,7 +4929,7 @@ const injects = {
         desc: 'Progress默认背景颜色',
       },
     ],
-    set progressBgc(v) {
+    set progressBgc(v: string) {
       setBodyProperty(
         {
           '--progress-bgc': v,
@@ -5029,7 +5028,7 @@ const injects = {
         desc: '输入过滤两侧空格，Input, Textarea, EditableArea work. 0 or 1',
       },
     ],
-    set fontSize(v) {
+    set fontSize(v: string) {
       const base = parseInt(v, 10)
       setBodyProperty(
         {
@@ -5048,7 +5047,7 @@ const injects = {
         v
       )
     },
-    set fontFamily(v) {
+    set fontFamily(v: string) {
       setBodyProperty(
         {
           '--common-body-font-family': v,
@@ -5056,7 +5055,7 @@ const injects = {
         v
       )
     },
-    set lineHeight(v) {
+    set lineHeight(v: string) {
       setBodyProperty(
         {
           '--common-line-height': v,
@@ -5064,7 +5063,7 @@ const injects = {
         v
       )
     },
-    set contentBlockPadding(v) {
+    set contentBlockPadding(v: string) {
       setBodyProperty(
         {
           '--common-content-block-padding': v,
@@ -5072,7 +5071,7 @@ const injects = {
         v
       )
     },
-    set contentTextPadding(v) {
+    set contentTextPadding(v: string) {
       setBodyProperty(
         {
           '--common-content-text-padding': v,
@@ -5080,7 +5079,7 @@ const injects = {
         v
       )
     },
-    set caret(v) {
+    set caret(v: string) {
       configSet('caret', v)
       setBodyProperty(
         {
@@ -5089,7 +5088,7 @@ const injects = {
         v
       )
     },
-    set inputDelay(v) {
+    set inputDelay(v: string) {
       configSet('delay', v)
       setBodyProperty(
         {
@@ -5098,7 +5097,7 @@ const injects = {
         v
       )
     },
-    set inputTrim(v) {
+    set inputTrim(v: string) {
       configSet('trim', !!v)
       setBodyProperty(
         {
@@ -5107,7 +5106,7 @@ const injects = {
         v
       )
     },
-    set spinDefaultName(v) {
+    set spinDefaultName(v: string) {
       configSet('spin', v)
       setBodyProperty(
         {
@@ -5118,5 +5117,7 @@ const injects = {
     },
   },
 }
+
+export type Injects = typeof injects
 
 export default injects

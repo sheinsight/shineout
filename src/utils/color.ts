@@ -1,5 +1,8 @@
 import { isOne, isPercent } from './is'
 
+type RGB = string | number
+type HSL = string | number
+
 const CSS_INTEGER = '[-\\+]?\\d+%?'
 
 // <http://www.w3.org/TR/css3-values/#number-value>
@@ -27,16 +30,16 @@ const MATCH = {
   hex8: /^#?([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})$/,
 }
 
-function parseIntFromHex(val) {
+function parseIntFromHex(val: string) {
   return parseInt(val, 16)
 }
 
-function convertHexToDecimal(h) {
+function convertHexToDecimal(h: string) {
   return parseIntFromHex(h) / 255
 }
 
 // string to rgba {}
-const parse = color => {
+const parse = (color: string) => {
   color = color.toLowerCase()
   let match
   if ((match = MATCH.rgb.exec(color))) {
@@ -78,14 +81,14 @@ const parse = color => {
   return false
 }
 
-const toRGB = input => {
+const toRGB = (input: string) => {
   if (!input || typeof input !== 'string') return ''
   const color = parse(input)
   if (!color) return ''
   return color.a ? `rgba(${color.r},${color.g},${color.b},${color.a})` : `rgb(${color.r},${color.g},${color.b})`
 }
 
-const isString = string => {
+const isString = (string: string) => {
   if (!string) {
     console.error(new Error('the color is empty'))
     return false
@@ -98,10 +101,10 @@ const isString = string => {
   return true
 }
 
-const dealPointZero = string => {
+const dealPointZero = (string: number) => {
   const num = string.toFixed(1)
   const reg = /\.0*$/
-  if (reg.test(num)) return floor(num)
+  if (reg.test(num)) return floor(Number(num))
   return num
 }
 
@@ -109,42 +112,42 @@ const dealPointZero = string => {
  * parse Hex to int
  * @param {*} value Hex number
  */
-const parseHex = value => parseInt(value, 16)
+const parseHex = (value: string) => parseInt(value, 16)
 
 /**
  * format the hex array
  * @param {Array} array hex array
  */
-const formatHexArray = (array, length) => {
+const formatHexArray = (array: string[], length: number) => {
   if (length === 6) return [`${array[1]}`, `${array[2]}`, `${array[3]}`]
   if (length === 3) return [`${array[1]}${array[1]}`, `${array[2]}${array[2]}`, `${array[3]}${array[3]}`]
   if (length === 8) return [`${array[1]}`, `${array[2]}`, `${array[3]}`, `${array[4]}`]
   return [`${array[1]}${array[1]}`, `${array[2]}${array[2]}`, `${array[3]}${array[3]}`, `${array[4]}${array[4]}`]
 }
 
-const getRgb = (arr, length) => {
+const getRgb = (arr: string[], length: number) => {
   const array = formatHexArray(arr, length)
   return `rgb(${parseHex(array[0])}, ${parseHex(array[1])}, ${parseHex(array[2])})`
 }
 
-const getRgba = (arr, length) => {
+const getRgba = (arr: string[], length: number) => {
   const array = formatHexArray(arr, length)
   return `rgba(${parseHex(array[0])}, ${parseHex(array[1])}, ${parseHex(array[2])}, ${dealPointZero(
     parseHex(array[3]) / 255
   )})`
 }
 
-const toBound01 = (val, max) => {
+const toBound01 = (val: number | string, max: number) => {
   if (isOne(val)) {
     val = '100%'
   }
 
   const processPercent = isPercent(val)
-  val = Math.min(max, Math.max(0, parseInt(val, 10)))
+  val = Math.min(max, Math.max(0, parseInt(String(val), 10)))
 
   // Automatically convert percentage into number
   if (processPercent) {
-    val = parseInt(val * max, 10) / 100
+    val = parseInt(String(val * max), 10) / 100
   }
 
   // Handle floating point rounding errors
@@ -153,10 +156,10 @@ const toBound01 = (val, max) => {
   }
 
   // Convert into [0, 1] range if it isn't already
-  return (val % max) / parseInt(max, 10)
+  return (val % max) / parseInt(String(max), 10)
 }
 
-const hueToRgb = (p, q, t) => {
+const hueToRgb = (p: number, q: number, t: number) => {
   if (t < 0) t += 1
   if (t > 1) t -= 1
   if (t < 1 / 6) return p + (q - p) * 6 * t
@@ -165,11 +168,12 @@ const hueToRgb = (p, q, t) => {
   return p
 }
 
-const translateHsl = (matchs, a) => {
-  let [, h, s, l] = matchs
-  let r
-  let g
-  let b
+const translateHsl = (matchs: RegExpExecArray, a?: string | number) => {
+  let [, h, s, l]: HSL[] = matchs
+
+  let r: RGB
+  let g: RGB
+  let b: RGB
 
   h = toBound01(h, 360)
   s = toBound01(s, 100)
@@ -194,19 +198,21 @@ const translateHsl = (matchs, a) => {
   return a ? `rgba(${r}, ${g}, ${b}, ${a})` : `rgb(${r}, ${g}, ${b})`
 }
 
-const isDarkRgb = color => {
+const isDarkRgb = (color: string) => {
   const matchs = MATCH.rgb.exec(color) || MATCH.rgba.exec(color)
   if (matchs) {
-    const [, r, g, b] = matchs
-    return r * 0.299 + g * 0.578 + b * 0.114 < 192
+    const [, r, g, b]: RGB[] = matchs
+    return Number(r) * 0.299 + Number(g) * 0.578 + Number(b) * 0.114 < 192
   }
 
   console.error(new Error(`the string '${color}' is not a legal color`))
   return undefined
 }
 
-const toHex = (rgb, noAlpha, a) => {
-  let [, r, g, b] = rgb
+const toHex = (rgb: number[], noAlpha: boolean, a: number) => {
+  let [, r, g, b]: RGB[] = rgb
+  ;[, r, g, b] = rgb
+
   let o
   const calAlhpa = !noAlpha && a
   r = floor(r).toString(16)
@@ -223,7 +229,7 @@ const toHex = (rgb, noAlpha, a) => {
 }
 
 // third parameter, to keep same with toHex
-const toHsl = (rgb, _, a) => {
+const toHsl = (rgb: number[], _: any, a: string) => {
   let [, r, g, b] = rgb
 
   r = toBound01(r, 255)
@@ -232,8 +238,8 @@ const toHsl = (rgb, _, a) => {
 
   const max = Math.max(r, g, b)
   const min = Math.min(r, g, b)
-  let h
-  let s
+  let h: number
+  let s: number
   let l = (max + min) / 2
 
   if (max === min) {
@@ -253,6 +259,7 @@ const toHsl = (rgb, _, a) => {
         h = (r - g) / d + 4
         break
       default:
+        h = 0
         break
     }
 
@@ -265,8 +272,10 @@ const toHsl = (rgb, _, a) => {
 
   return a ? `hsla(${h}, ${s}, ${l}, ${a})` : `hsl(${h}, ${s}, ${l})`
 }
-
-const rgbTranlate = target => (rgb, noAlpha) => {
+const rgbTranlate = (target: (rgb: (string | number)[], noAlpha?: boolean, a?: number | string) => string) => (
+  rgb: string,
+  noAlpha?: boolean
+) => {
   if (!isString(rgb)) return ''
   let matchs
 
@@ -277,17 +286,17 @@ const rgbTranlate = target => (rgb, noAlpha) => {
 
   matchs = MATCH.rgba.exec(rgb)
   if (matchs) {
-    return target(matchs, noAlpha, matchs[4])
+    return target(matchs, noAlpha, Number(matchs[4]))
   }
 
   console.error(new Error(`the string '${rgb}' is not a rgb color`))
   return ''
 }
 
-export function hexToRgb(hex) {
+export function hexToRgb(hex: string) {
   if (!isString(hex)) return ''
 
-  let matchs
+  let matchs: RegExpExecArray | null
 
   matchs = MATCH.hex3.exec(hex)
   if (matchs) {
@@ -313,10 +322,10 @@ export function hexToRgb(hex) {
   return ''
 }
 
-export function hslToRgb(hsl) {
+export function hslToRgb(hsl: string) {
   if (!isString(hsl)) return ''
 
-  let matchs
+  let matchs: RegExpExecArray | null
 
   matchs = MATCH.hsl.exec(hsl)
   if (matchs) {
@@ -335,13 +344,13 @@ export function hslToRgb(hsl) {
 export const rgbToHex = rgbTranlate(toHex)
 export const rgbTohsl = rgbTranlate(toHsl)
 
-export function hexToHsl(hex) {
+export function hexToHsl(hex: string) {
   const temp = hexToRgb(hex)
   if (!temp) return ''
   return rgbTohsl(temp)
 }
 
-export function hslToHex(hsl, noAlpha) {
+export function hslToHex(hsl: string, noAlpha?: boolean) {
   const temp = hslToRgb(hsl)
   if (!temp) return ''
   return rgbToHex(temp, noAlpha)
@@ -349,7 +358,7 @@ export function hslToHex(hsl, noAlpha) {
 
 // dark or light
 
-export function judgeDark(color) {
+export function judgeDark(color: string) {
   if (!isString(color)) return undefined
 
   let rgbString = color
@@ -365,13 +374,13 @@ export function judgeDark(color) {
   return isDarkRgb(rgbString)
 }
 
-export function isDark(color) {
+export function isDark(color: string) {
   const result = judgeDark(color)
   if (result === undefined) return false
   return result
 }
 
-export function isLight(color) {
+export function isLight(color: string) {
   const result = judgeDark(color)
   if (result === undefined) return false
   return !result
@@ -381,7 +390,7 @@ export function isLight(color) {
  * get hsla h s l a
  * @param color hsl
  */
-function getHSLA(color) {
+function getHSLA(color: string) {
   const hslReg = new RegExp(/hsla?\((\d{1,3}), (\d{1,3}), (\d{1,3})(, (\d{1,3}))?\)$/)
   hslReg.test(color)
   const h = RegExp.$1
@@ -396,10 +405,10 @@ function getHSLA(color) {
  * @param color format rgb | rgba
  * @param value -100 ~ 100
  */
-export function darken(color, value) {
+export function darken(color: string, value: string | number) {
   if (!color) return ''
   if (!value) value = 0
-  value = parseInt(value, 10)
+  value = parseInt(String(value), 10)
   color = toRGB(color)
   const hsl = rgbTohsl(color)
   const { h, s, l, a } = getHSLA(hsl)
@@ -411,7 +420,7 @@ export function darken(color, value) {
  * @param color format rgb
  * @param alpha 0-1
  */
-export function fade(color, alpha = 1) {
+export function fade(color: string, alpha = 1) {
   if (!color) return ''
   color = toRGB(color)
   const hsl = rgbTohsl(color)

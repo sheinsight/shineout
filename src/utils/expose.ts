@@ -8,7 +8,15 @@ import { setInjectType, injectTag, getInjectType, cleanStyleObj } from './vars-i
 const types = ['primary', 'warning', 'danger', 'success', 'secondary']
 const attrs = ['background', 'color', 'border']
 
-function validateFormat(data) {
+type ObjectProps = { [x: string]: any }
+
+type Module = {
+  [x: string]: any
+}
+
+type CssAccessorsKey = keyof typeof cssAccessors
+
+function validateFormat(data: object) {
   if (!isObject(data)) {
     console.error(new Error('Should enter a json data with attrs(key) and types(types)'))
     return false
@@ -26,18 +34,21 @@ function validateFormat(data) {
   return true
 }
 
-function getClassname(data) {
+function getClassname(data: ObjectProps) {
   if (!validateFormat(data)) return ''
   return Object.keys(data)
-    .map(attr => exposeClass(`${data[attr]}-${attr}`))
+    .map((attr: keyof ObjectProps) => {
+      exposeClass(`${data[attr]}-${attr}`)
+    })
     .join(' ')
 }
 
 function resetTheme() {
-  Object.keys(cssAccessors).forEach(module => {
-    const setter = `set${capitalize(module)}`
-    cssAccessors[module][setter](
-      Object.keys(cssAccessors[module]).reduce((obj, key) => {
+  Object.keys(cssAccessors).forEach((module: CssAccessorsKey) => {
+    const setterName = `set${capitalize(module)}`
+    const setter = (cssAccessors[module] as Module)[setterName] as Function
+    setter(
+      Object.keys(cssAccessors[module]).reduce((obj: Module, key: CssAccessorsKey) => {
         obj[key] = undefined
         return obj
       }, {})
@@ -45,14 +56,15 @@ function resetTheme() {
   })
 }
 
-function setStyleWithTag(options, custom) {
+function setStyleWithTag(options: ObjectProps, custom?: ObjectProps) {
   cleanStyleObj()
   if (!options) {
     resetTheme()
   } else {
     for (const [key, values] of entries(options)) {
       const setterName = `set${capitalize(key)}`
-      if (cssAccessors[key] && cssAccessors[key][setterName]) cssAccessors[key][setterName](values)
+      const module: Module = cssAccessors[key as CssAccessorsKey]
+      if (module && module[setterName]) module[setterName](values)
     }
   }
   injectTag(custom)
@@ -60,7 +72,7 @@ function setStyleWithTag(options, custom) {
 
 const style = {
   getClassname,
-  setStyle(options, custom = {}) {
+  setStyle(options: ObjectProps, custom: ObjectProps = {}) {
     if (getInjectType() === 'tag') {
       setStyleWithTag(options, custom)
       return
@@ -71,7 +83,8 @@ const style = {
     }
     for (const [key, values] of entries(options)) {
       const setterName = `set${capitalize(key)}`
-      if (cssAccessors[key] && cssAccessors[key][setterName]) cssAccessors[key][setterName](values)
+      const module: Module = cssAccessors[key as CssAccessorsKey]
+      if (module && module[setterName]) (module[setterName] as Function)(values)
     }
   },
   cleanCache,

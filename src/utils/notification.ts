@@ -1,22 +1,32 @@
+interface Listener extends Function {
+  (...args: any[]): void
+  fn?: Listener
+}
+interface Events {
+  [event: string]: Listener[]
+}
+
 export default class Notification {
+  $events: Events
+
   constructor() {
     this.$events = {}
   }
 
-  dispatch(name, ...args) {
+  dispatch(name: keyof Events, ...args: any[]) {
     const event = this.$events[name]
     if (!event) return
     event.forEach(fn => fn(...args))
   }
 
-  subscribe(name, fn) {
+  subscribe(name: keyof Events, fn: Listener) {
     if (!this.$events[name]) this.$events[name] = []
     const events = this.$events[name]
-    if (fn in events) return
+    if (events.includes(fn)) return
     events.push(fn)
   }
 
-  unsubscribe(name, fn) {
+  unsubscribe(name: keyof Events, fn: Listener) {
     if (!this.$events[name]) return
 
     if (fn) this.$events[name] = this.$events[name].filter(e => e !== fn)

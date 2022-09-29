@@ -1,6 +1,6 @@
 import immer from 'immer'
 
-const names = [
+const names: string[] = [
   'delay',
   'onDatumBind',
   'rules',
@@ -28,7 +28,7 @@ const names = [
  * @param props
  * @returns {Produced<*, *>}
  */
-export default function cleanProps(props) {
+export default function cleanProps(props: { [x: string]: any }) {
   return immer(props, draft => {
     names.forEach(p => delete draft[p])
   })

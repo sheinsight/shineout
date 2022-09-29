@@ -1,3 +1,5 @@
+import { keygenType } from '../@types/common'
+
 let uid = Date.now()
 
 export function getUid() {
@@ -9,7 +11,7 @@ export function getUidStr() {
   return getUid().toString(36)
 }
 
-function $getKey(d, gen, index) {
+function $getKey<T>(d: T, gen: keygenType<T>, index?: number) {
   if (gen === true) return d
   if (typeof gen === 'string') return d[gen]
   if (typeof gen === 'function') return gen(d, index)
@@ -17,7 +19,7 @@ function $getKey(d, gen, index) {
   return index
 }
 
-export function getKey(...args) {
+export function getKey<T>(...args: [T, keygenType<T>, number?]) {
   const key = $getKey(...args)
   if (typeof key !== 'string' && typeof key !== 'number') {
     console.error(new Error(`keygen result expect a string or a number, get '${typeof key}'`))

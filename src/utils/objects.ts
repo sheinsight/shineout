@@ -9,18 +9,32 @@ const PATH_MODE = {
   append: '$',
 }
 
-export function filterProps(obj, props = []) {
+interface ObjectProps {
+  [prop: string]: any
+}
+
+interface deepOptions {
+  clone?: boolean
+  forceSet?: boolean
+  strictMode?: boolean
+  defaultValue?: any
+  skipUndefined?: boolean
+  removeUndefined?: boolean
+}
+
+export function filterProps<T extends ObjectProps>(obj: T, props: (keyof T)[] | ((prop: any) => boolean) = []) {
   if (!isObject(obj)) return obj
 
   if (typeof props === 'function') {
     const prediction = props
     props = []
+
     Object.keys(obj).forEach(k => {
-      if (prediction(obj[k])) props.push(k)
+      if (prediction(obj[k as keyof T])) (props as (keyof T)[]).push(k as keyof T)
     })
   }
+  const newObj: Partial<T> = {}
 
-  const newObj = {}
   props.forEach(k => {
     newObj[k] = obj[k]
   })
@@ -29,17 +43,17 @@ export function filterProps(obj, props = []) {
 }
 
 // Object.values()
-export const objectValues = obj => {
+export const objectValues = (obj: ObjectProps) => {
   if (!obj) return []
   return Object.keys(obj).map(k => obj[k])
 }
 
 // object only, not handle array.
-export const deepMerge = (target = {}, source, options = {}) => {
+export const deepMerge = (target: ObjectProps = {}, source: ObjectProps, options: deepOptions = {}) => {
   const { clone, removeUndefined, skipUndefined } = options
   if (!isMergeable(source)) return source
 
-  const dest = {}
+  const dest: ObjectProps = {}
   if (isMergeable(target)) {
     Object.keys(target).forEach(k => {
       dest[k] = clone ? deepMerge({}, target[k], options) : target[k]
@@ -60,14 +74,14 @@ export const deepMerge = (target = {}, source, options = {}) => {
   return dest
 }
 
-export function pathGenerator(raw) {
+export function pathGenerator(raw: string) {
   const path = insertPoint(raw)
   const reg = /^\[(\d+)\]$/
   const pathModeValues = objectValues(PATH_MODE)
   let index = 0
   let last = 0
-  let prop = ''
-  const results = []
+  let prop: string = ''
+  const results: Array<any[]> = []
   while (index >= 0) {
     index = path.indexOf('.', last)
     prop = path.substring(last, index === -1 ? undefined : index)
@@ -82,7 +96,7 @@ export function pathGenerator(raw) {
     // array index
     const match = reg.exec(prop)
     // eslint-disable-next-line
-    if (match) prop = parseInt(match[1], 10)
+    if (match) prop = String(parseInt(match[1], 10))
 
     last = index + 1
     results.push([prop, index === -1 ? undefined : path.substring(last), mode])
@@ -90,7 +104,7 @@ export function pathGenerator(raw) {
   return results
 }
 
-export const deepSet = (target, path, value, options = {}) => {
+export const deepSet = (target: ObjectProps, path: string, value: any, options: deepOptions = {}) => {
   if (!isObject(target)) throw new Error('Target must be an object.')
   if (typeof path !== 'string') throw new Error('Path must be a string.')
 
@@ -138,7 +152,7 @@ export const deepSet = (target, path, value, options = {}) => {
   return target
 }
 
-export const deepGet = (target, path, options = {}) => {
+export const deepGet = (target: ObjectProps, path: string, options: deepOptions = {}) => {
   if (!isObject(target)) throw new Error('Target must be an object.')
   if (typeof path !== 'string') throw new Error('Path must be a string.')
 
@@ -162,7 +176,7 @@ export const deepGet = (target, path, options = {}) => {
   return current
 }
 
-export const deepRemove = (target, path) => {
+export const deepRemove = (target: ObjectProps, path: string) => {
   if (!isObject(target)) throw new Error('Target must be an object.')
   if (typeof path !== 'string' || !path) throw new Error('Path must be a string.')
 
@@ -187,7 +201,7 @@ export const deepRemove = (target, path) => {
   return target
 }
 
-export const deepHas = (target, path) => {
+export const deepHas = (target: ObjectProps, path: string) => {
   if (!isObject(target)) throw new Error('Target must be an object.')
   if (typeof path !== 'string') throw new Error('Path must be a string.')
 
@@ -202,7 +216,7 @@ export const deepHas = (target, path) => {
   return true
 }
 
-export const entries = obj => {
+export const entries = (obj: ObjectProps) => {
   if (!obj) return []
   const keys = Object.keys(obj)
   return keys.map(key => [key, obj[key]])
