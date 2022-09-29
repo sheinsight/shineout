@@ -1,10 +1,13 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import { getProps } from '../utils/proptypes'
 import { dividerClass } from './styles'
+import { DividerProps } from './interface'
 
-class Divider extends PureComponent {
+class Divider extends PureComponent<DividerProps> {
+  static defaultProps = {
+    mode: 'horizontal',
+  }
+
   showText() {
     const { children, mode } = this.props
     return children && mode === 'horizontal'
@@ -24,14 +27,5 @@ class Divider extends PureComponent {
   }
 }
 
-Divider.propTypes = {
-  ...getProps(PropTypes),
-  mode: PropTypes.oneOf(['horizontal', 'vertical']),
-  orientation: PropTypes.oneOf(['left', 'center', 'right']),
-}
-
-Divider.defaultProps = {
-  mode: 'horizontal',
-}
 
 export default Divider
