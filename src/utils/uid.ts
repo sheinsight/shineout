@@ -10,7 +10,6 @@ export function getUid() {
 export function getUidStr() {
   return getUid().toString(36)
 }
-type Gen = boolean | keyof object | Function
 
 function $getKey<T>(d: T, gen: keygenType<T>, index?: number) {
   if (gen === true) return d

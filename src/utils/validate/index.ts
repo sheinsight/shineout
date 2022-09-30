@@ -62,7 +62,7 @@ function getRule(rules: Rule, props: Props = {}) {
   throw err
 }
 
-const validate = <T, U extends RuleParams>(value: keyof T, formdata: T, rules: U[keyof U][], props: Props) =>
+const validate = <T, U extends Rule>(value: keyof T, formdata: T, rules: U[keyof U][], props: Props) =>
   new Promise((resolve, reject) => {
     const $rules = flattenArray(rules)
     const rule = $rules.shift()
@@ -84,7 +84,7 @@ const validate = <T, U extends RuleParams>(value: keyof T, formdata: T, rules: U
       validate(value, formdata, $rules, props).then(resolve, reject)
     }
 
-    const fn = getRule(rule, props)
+    const fn = getRule(rule as U, props)
     let val = value
     if (fn === rule && (value instanceof Datum.List || value instanceof Datum.Form)) {
       val = value.getValue()

@@ -55,7 +55,7 @@ export function createFunc(func: Function) {
   return (data: { [x: string]: any }) => (func ? data[func] : data)
 }
 
-export const throttle = function(func: Function, timer: number) {
+export const throttle = function(func: Function, timer?: number) {
   const that: {
     timer?: NodeJS.Timeout | null
   } = {}

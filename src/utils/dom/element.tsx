@@ -41,7 +41,7 @@ export function getParent(el: HTMLElement, target: string | HTMLElement) {
 const isTwoCNChar = (str: string) => /^[\u4e00-\u9fa5]{2}$/.test(str)
 const SPACE = ' '
 
-export function wrapSpan(children: ReactNode, insertSpace = false) {
+export function wrapSpan(children: ReactNode, insertSpace = false): any {
   if (!children) return children
   return React.Children.map(children, item => {
     if (typeof item === 'string') {
@@ -219,17 +219,17 @@ export const addResizeObserver = (el: HTMLElement, handler: Handler, options: Re
         lastHeight = height
       }
     }
-    let observer: ResizeObserver | null = new ResizeObserver(h)
+    let observer: ResizeObserver | null = new ResizeObserver(h as ResizeObserverCallback)
     observer.observe(el)
     return () => {
       if (observer) {
         observer.disconnect()
       }
-      cleanTimer()
+      cleanTimer(this)
       observer = null
     }
   }
-  window.addEventListener('resize', throttleHandler)
+  window.addEventListener('resize', throttleHandler as Handler)
   return () => {
     window.removeEventListener('resize', handler)
     cleanTimer()
