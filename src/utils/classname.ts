@@ -2,6 +2,10 @@ import classnames from 'classnames'
 import { CSSProperties } from 'react'
 import config, { isRTL } from '../config'
 
+interface CSSModule {
+  [key: string]: string
+}
+
 export const getDirectionClass = (c: string) => `${c} ${c}-${isRTL() ? 'rtl' : 'ltr'}`
 
 /**
@@ -10,7 +14,7 @@ export const getDirectionClass = (c: string) => `${c} ${c}-${isRTL() ? 'rtl' : '
  * @param module - string
  * @param prefix - string, default value is 'shineout'
  * * */
-export default (style: CSSProperties, module: string, prefix: string = config.prefix) => (...args: any) => {
+export default (style: CSSModule, module: string, prefix: string = config.prefix) => (...args: any) => {
   const className = classnames(...args)
   if (!className) return ''
 

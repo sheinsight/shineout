@@ -1,7 +1,18 @@
 import { docScroll, docSize } from './document'
 
+interface Position {
+  top?: number
+  left?: number
+  right?: number
+  bottom?: number
+}
+
 const posKeys = ['left', 'top', 'bottom', 'right']
-export const getPosition = (position, el, container = document.body) => {
+export const getPosition = (
+  position: Position,
+  el: HTMLElement,
+  container: HTMLElement | undefined = document.body
+) => {
   const rect = el.getBoundingClientRect()
   let containerRect = { top: 0, left: 0, bottom: 0, right: 0 }
   if (container.tagName === 'BODY') container = undefined
@@ -9,7 +20,7 @@ export const getPosition = (position, el, container = document.body) => {
   const scrollTop = container ? 0 : docScroll.top
   const scrollLeft = container ? 0 : docScroll.left
 
-  const pos = {}
+  const pos: Position = {}
   switch (position) {
     case 'top-left':
       pos.left = scrollLeft + rect.left - containerRect.left
@@ -67,9 +78,9 @@ export const getPosition = (position, el, container = document.body) => {
   }
 
   return posKeys.reduce(
-    (data, key) => ({
+    (data, key: keyof typeof pos) => ({
       ...data,
-      [key]: typeof pos[key] === 'number' ? `${Math.round(pos[key])}px` : 'auto',
+      [key]: typeof pos[key] === 'number' ? `${Math.round(pos[key]!)}px` : 'auto',
     }),
     {}
   )

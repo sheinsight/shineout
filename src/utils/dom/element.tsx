@@ -1,8 +1,14 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { throttle } from '../func'
 
 if (Element && !Element.prototype.matches) {
-  const proto = Element.prototype
+  const proto: Element & {
+    matchesSelector?: (() => boolean)
+    mozMatchesSelector?: (() => boolean)
+    msMatchesSelector?: (() => boolean)
+    oMatchesSelector?: (() => boolean)
+  } = Element.prototype
+
   proto.matches =
     proto.matchesSelector ||
     proto.mozMatchesSelector ||
@@ -11,12 +17,12 @@ if (Element && !Element.prototype.matches) {
     proto.webkitMatchesSelector
 }
 
-export function getParent(el, target) {
+export function getParent(el: HTMLElement, target: string | HTMLElement) {
   if (!target) {
     return null
   }
 
-  let temp = el
+  let temp: HTMLElement | null = el
   while (temp) {
     if (typeof target === 'string') {
       if (temp.matches && temp.matches(target)) {
@@ -32,10 +38,10 @@ export function getParent(el, target) {
   return null
 }
 
-const isTwoCNChar = str => /^[\u4e00-\u9fa5]{2}$/.test(str)
+const isTwoCNChar = (str: string) => /^[\u4e00-\u9fa5]{2}$/.test(str)
 const SPACE = ' '
 
-export function wrapSpan(children, insertSpace = false) {
+export function wrapSpan(children: ReactNode, insertSpace = false) {
   if (!children) return children
   return React.Children.map(children, item => {
     if (typeof item === 'string') {
@@ -46,7 +52,7 @@ export function wrapSpan(children, insertSpace = false) {
   })
 }
 
-export function dispatchEvent(form, name, detail) {
+export function dispatchEvent(form: HTMLFormElement, name: string, detail: any) {
   if (!form) return
   let event
   if (CustomEvent) {
@@ -58,16 +64,19 @@ export function dispatchEvent(form, name, detail) {
   form.dispatchEvent(event)
 }
 
-export function cssSupport(attr, value) {
+export function cssSupport(attr: keyof CSSStyleDeclaration, value: string) {
   const element = document.createElement('div')
   if (attr in element.style) {
-    element.style[attr] = value
+    if (attr !== 'length' && attr !== 'parentRule') {
+      const attrs = element.style[attr]
+      element.style[attr] = value as keyof typeof attrs
+    }
     return element.style[attr] === value
   }
   return false
 }
 
-export function copyBoundingClientRect(el) {
+export function copyBoundingClientRect(el: HTMLElement) {
   if (!el) return null
   const rect = el.getBoundingClientRect()
   return {
@@ -82,19 +91,25 @@ export function copyBoundingClientRect(el) {
   }
 }
 
-export function getCursorOffset(length) {
-  if (window.getSelection) {
-    return window.getSelection().anchorOffset
+interface IEDocument extends Document {
+  selection: {
+    createRange: Function
   }
-  if (document.selection) {
-    const range = document.selection.createRange()
+}
+
+export function getCursorOffset(length: number) {
+  if (window.getSelection) {
+    return window.getSelection()!.anchorOffset
+  }
+  if ((document as IEDocument).selection) {
+    const range = (document as IEDocument).selection.createRange()
     range.moveStart('character', -length)
     return range.text.length
   }
   return null
 }
 
-function end(element) {
+function end(element: HTMLTextAreaElement) {
   if (!element) return
   element.focus()
   if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
@@ -103,17 +118,19 @@ function end(element) {
   }
   if (window.getSelection) {
     const range = window.getSelection()
-    range.selectAllChildren(element)
-    range.collapseToEnd()
-  } else if (document.selection) {
-    const range = document.selection.createRange()
+    if (range) {
+      range.selectAllChildren(element)
+      range.collapseToEnd()
+    }
+  } else if ((document as IEDocument).selection) {
+    const range = (document as IEDocument).selection.createRange()
     range.moveToElementText(element)
     range.collapse(false)
     range.select()
   }
 }
 
-function select(element) {
+function select(element: HTMLElement) {
   if (element && element.innerText && element.innerText.length === 0) {
     element.focus()
     return
@@ -123,10 +140,12 @@ function select(element) {
     const range = document.createRange()
     if (element) range.selectNodeContents(element)
     const sel = window.getSelection()
-    sel.removeAllRanges()
-    sel.addRange(range)
-  } else if (document.selection) {
-    const range = document.selection.createRange()
+    if (sel) {
+      sel.removeAllRanges()
+      sel.addRange(range)
+    }
+  } else if ((document as IEDocument).selection) {
+    const range = (document as IEDocument).selection.createRange()
     range.moveToElementText(element)
     range.select()
   }
@@ -138,9 +157,17 @@ export const focusElement = {
   wrapSpan,
   copyBoundingClientRect,
 }
-
-export const preventPasteFile = (e, beforeHandler, { noLineBreak = true, convertBr = ' ' } = {}) => {
-  let text = (e.clipboardData || window.clipboardData).getData('text/plain')
+interface IEWindow extends Window {
+  clipboardData: {
+    getData: Function
+  }
+}
+export const preventPasteFile = (
+  e: React.ClipboardEvent<HTMLInputElement>,
+  beforeHandler?: Function,
+  { noLineBreak = true, convertBr = ' ' }: { noLineBreak?: boolean; convertBr?: string | Function } = {}
+) => {
+  let text = (e.clipboardData || ((window as unknown) as IEWindow).clipboardData).getData('text/plain')
   // 删除复制的换行符号
   if (noLineBreak && text) {
     if (typeof convertBr === 'function') {
@@ -156,19 +183,26 @@ export const preventPasteFile = (e, beforeHandler, { noLineBreak = true, convert
   document.execCommand('insertText', false, text)
 }
 
-export const parsePxToNumber = str => Number(str.replace(/\s+|px/gi, ''))
+export const parsePxToNumber = (str: string) => Number(str.replace(/\s+|px/gi, ''))
 
-export const addResizeObserver = (el, handler, options = {}) => {
+interface ResizeOption {
+  direction?: 'x' | 'y'
+  timer?: number
+}
+
+type Handler = (this: Window, ev: UIEvent) => any
+
+export const addResizeObserver = (el: HTMLElement, handler: Handler, options: ResizeOption = {}) => {
   const { direction, timer } = options
   const [throttleHandler, cleanTimer] = throttle(handler, timer)
   let h = throttleHandler
-  let lastWidth
-  let lastHeight
+  let lastWidth: number
+  let lastHeight: number
   if (window.ResizeObserver) {
     if (direction) {
       lastWidth = el.clientWidth
       lastHeight = el.clientHeight
-      h = function(entry) {
+      h = (entry: { contentRect: { width: number; height: number } }[]) => {
         const { width, height } = entry[0].contentRect
         if (width && direction === 'x') {
           if (lastWidth !== width) {
@@ -185,10 +219,12 @@ export const addResizeObserver = (el, handler, options = {}) => {
         lastHeight = height
       }
     }
-    let observer = new ResizeObserver(h)
+    let observer: ResizeObserver | null = new ResizeObserver(h)
     observer.observe(el)
     return () => {
-      observer.disconnect()
+      if (observer) {
+        observer.disconnect()
+      }
       cleanTimer()
       observer = null
     }

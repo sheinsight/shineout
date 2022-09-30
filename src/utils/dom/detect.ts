@@ -6,7 +6,7 @@ export const TRANSFORMS = {
   transform: 'transform',
 }
 
-let transform = 'transform'
+let transform:keyof typeof TRANSFORMS = 'transform'
 export function getTransformName() {
   return transform
 }
@@ -17,14 +17,14 @@ export function has3d() {
   }
 
   const el = document.createElement('p')
-  let result
+  let result: string = ''
 
   // Add it to the body to get the computed style.
   document.body.insertBefore(el, null)
 
-  Object.keys(TRANSFORMS).forEach(t => {
-    if (el.style[t] !== undefined) {
-      el.style[t] = 'translate3d(1px,1px,1px)'
+  Object.keys(TRANSFORMS).forEach((t: keyof typeof TRANSFORMS) => {
+    if ((el.style as any)[t] !== undefined) {
+      ;(el.style as any)[t] = 'translate3d(1px,1px,1px)'
       transform = t
       result = window.getComputedStyle(el).getPropertyValue(TRANSFORMS[t])
     }
@@ -34,15 +34,16 @@ export function has3d() {
 
   return result !== undefined && result.length > 0 && result !== 'none'
 }
-
 /* eslint-disable */
 // check support passive
 let supportsPassive = false
 try {
   const opts = Object.defineProperty({}, 'passive', {
-    get() { supportsPassive = true },
+    get() {
+      supportsPassive = true
+    },
   })
-  window.addEventListener('test', null, opts)
+  window.addEventListener('test' as keyof WindowEventMap, null as any, opts)
 } catch (e) {}
 /* eslint-enable */
 

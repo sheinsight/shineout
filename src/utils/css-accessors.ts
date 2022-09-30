@@ -23,7 +23,7 @@ function getDOMStyle(dom: HTMLElement) {
   return style
 }
 
-function getStyleAttr(className: string, key = 'color') {
+function getStyleAttr(className: string, key: keyof CSSStyleDeclaration = 'color') {
   const div = document.createElement('div')
   div.className = className
   return (getDOMStyle as any)(div)[key]
@@ -33,7 +33,7 @@ let cache: ObjectProps = {}
 
 interface conf {
   name: string
-  attr?: string
+  attr?: keyof CSSStyleDeclaration
   value?: string
   parser?: Function
   className: string
