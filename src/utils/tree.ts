@@ -47,6 +47,7 @@ export const getFlattenTree = (data: Node[], childrenKey = 'children', wide: boo
       if (children && children.length > 0) {
         const clonedPath = [...path]
         clonedPath.push(item)
+        if (wide) arr.push(clonedPath)
         flatten(children, clonedPath)
       } else {
         arr.push([...path, item])
