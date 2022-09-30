@@ -1,11 +1,7 @@
-export interface UnknownValue {
-  length?: number
-}
-
 export default (fn: (...args: unknown[]) => void) => (
-  value: UnknownValue,
-  formdata: any,
-  callback: (...args: any) => void
+  value: any,
+  formdata: object,
+  callback: (...args: (boolean | Error)[]) => void
 ) => {
   if (value == null || value.length === 0) {
     callback(true)

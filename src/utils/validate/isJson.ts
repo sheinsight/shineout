@@ -34,5 +34,7 @@ export default function(value: unknown) {
     } else {
       return false
     }
+  } else {
+    return false
   }
 }

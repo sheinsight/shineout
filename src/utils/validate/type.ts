@@ -1,7 +1,7 @@
 import nullable from './nullable'
 import isJson from './isJson'
 
-export type RegsKeys = keyof typeof regs
+export type RuleType = keyof typeof regs | 'json'
 /* eslint-disable */
 export const regs = {
   get email() {
@@ -72,8 +72,8 @@ export const regs = {
 
 /* eslint-enable */
 
-export default (type: string, message?: string | Function) =>
-  nullable((value: unknown, _formdata: any, callback: Function) => {
+export default (type: RuleType, message?: string | Function) =>
+  nullable((value: unknown, _formdata: any, callback: (message?: boolean | Error) => void) => {
     let error
 
     if (typeof message === 'string') {
@@ -91,7 +91,7 @@ export default (type: string, message?: string | Function) =>
       return
     }
 
-    const reg = regs[type as RegsKeys]
+    const reg = regs[type]
     if (!reg) {
       console.error(new Error(`Type '${type}' not existed.`))
       callback(new Error(`Validate failured. Type '${type}' not existed.`))

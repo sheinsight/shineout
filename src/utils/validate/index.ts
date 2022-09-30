@@ -6,11 +6,9 @@ import range from './range'
 import rangeLength from './rangeLength'
 import required from './required'
 import typeOf from './type'
-import { regs } from './type'
+import { RuleType } from './type'
 import regTest from './regExp'
 import { RuleParams, validFunc, RegExpParams, Required, Max, Min, Range, RuleResult } from '../../Rule'
-
-type Regs = keyof typeof regs
 
 type RulesInnerValidator = Rule & {
   isInnerValidator: boolean
@@ -19,12 +17,12 @@ type RulesInnerValidator = Rule & {
 type RulePropsFn = (() => Rule) & RulesInnerValidator
 
 type Props = (Required | Max | Min | Range | RuleResult) & {
-  type?: Regs
+  type?: RuleType
   message?: string | ((props?: Props) => string)
 }
 
 export interface Rule extends RuleParams {
-  type: Regs
+  type: RuleType
   func: validFunc
   regExp: RegExpParams
   message: string | ((props?: Props) => string)

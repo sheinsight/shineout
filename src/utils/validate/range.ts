@@ -18,7 +18,7 @@ export default (options: Range) =>
       return
     }
 
-    if ((min !== undefined && val < min) || (max !== undefined && val > max)) {
+    if ((typeof min === 'number' && val < min) || (typeof max === 'number' && val > max)) {
       callback(new Error(message))
 
       return
