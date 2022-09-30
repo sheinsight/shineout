@@ -8,9 +8,10 @@ export class FormError extends Error {
   }
 }
 
+export function wrapFormError<T>(error: T): T
 export function wrapFormError(error: Error): FormError
 export function wrapFormError(error: Error[]): FormError[]
-export function wrapFormError(error: Error | Error[]) {
+export function wrapFormError(error: Error | Error[] | boolean) {
   if (error instanceof Error) {
     return new FormError(error.message)
   }

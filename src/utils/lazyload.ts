@@ -30,12 +30,12 @@ const getRect = (el: HTMLElement) => {
   return el.getBoundingClientRect()
 }
 
-export function dispatch() {
+export function dispatch<K extends keyof Component>() {
   if (isLock) return
   isLock = true
 
   // handle
-  Object.keys(components).forEach(k => {
+  Object.keys(components).forEach((k: K) => {
     const { element, render, container, offset, noRemove } = components[k]
     const rect = element.getBoundingClientRect()
     const containerRect = getRect(container)

@@ -26,7 +26,7 @@ function getDOMStyle(dom: HTMLElement) {
 function getStyleAttr(className: string, key: keyof CSSStyleDeclaration = 'color') {
   const div = document.createElement('div')
   div.className = className
-  return getDOMStyle(div)[key]
+  return (getDOMStyle as any)(div)[key]
 }
 
 let cache: ObjectProps = {}

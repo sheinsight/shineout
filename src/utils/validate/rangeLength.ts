@@ -1,6 +1,7 @@
 import { isEmpty } from '../is'
+import { Range } from '../../Rule'
 
-export default options => (value, formdata, callback) => {
+export default (options: Range) => (value: any, _formdata: object, callback: (x: boolean | Error) => void) => {
   const { min, max, message } = options
   const error = new Error(message)
 
@@ -11,7 +12,11 @@ export default options => (value, formdata, callback) => {
   }
 
   const len = typeof value === 'number' ? value.toString().length : value.length
-  if ((typeof min === 'number' && len < min) || (typeof max === 'number' && len > max)) {
+
+  if (
+    (len !== undefined && typeof min === 'number' && len < min) ||
+    (len !== undefined && typeof max === 'number' && len > max)
+  ) {
     callback(error)
   } else {
     callback(true)

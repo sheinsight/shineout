@@ -16,7 +16,7 @@ export default class Notification {
   dispatch(name: keyof Events, ...args: any[]) {
     const event = this.$events[name]
     if (!event) return
-    event.forEach(fn => fn(...args))
+    event.forEach((fn: Function) => fn(...args))
   }
 
   subscribe(name: keyof Events, fn: Listener) {

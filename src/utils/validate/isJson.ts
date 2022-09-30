@@ -1,4 +1,4 @@
-export default function (value) {
+export default function(value: unknown) {
   if (typeof value === 'object') return true
 
   // In the second stage, we run the text against
@@ -16,11 +16,22 @@ export default function (value) {
   // ',' or ':' or '{' or '}'. If that is so, then the text is safe for eval.
 
   // eslint-disable-next-line
-  if (/^[\],:{}\s]*$/.test(value.replace(/\\["\\\/bfnrtu]/g, '@').replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
-    try {
-      JSON.parse(value)
-      return true
-    } catch (e) {
+  if (typeof value === 'string') {
+    if (
+      /^[\],:{}\s]*$/.test(
+        value
+          .replace(/\\["\\\/bfnrtu]/g, '@')
+          .replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']')
+          .replace(/(?:^|:|,)(?:\s*\[)+/g, '')
+      )
+    ) {
+      try {
+        JSON.parse(value)
+        return true
+      } catch (e) {
+        return false
+      }
+    } else {
       return false
     }
   } else {
