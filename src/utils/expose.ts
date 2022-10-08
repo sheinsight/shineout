@@ -37,9 +37,7 @@ function validateFormat(data: object) {
 function getClassname(data: ObjectProps) {
   if (!validateFormat(data)) return ''
   return Object.keys(data)
-    .map((attr: keyof ObjectProps) => {
-      exposeClass(`${data[attr]}-${attr}`)
-    })
+    .map((attr: keyof ObjectProps) => exposeClass(`${data[attr]}-${attr}`))
     .join(' ')
 }
 
