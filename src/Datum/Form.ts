@@ -203,7 +203,7 @@ export default class<V extends ObjectType> {
     this.setFormError(name, undefined)
   }
 
-  setFormError(name: string, error: Error | undefined) {
+  setFormError(name: string, error?: Error) {
     if (!this.$errors['']) return
     if (error === undefined) delete this.$errors[''][name]
     else this.$errors[''][name] = error

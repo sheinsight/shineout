@@ -3,7 +3,7 @@ import shallowEqual from '../utils/shallowEqual'
 import { CHANGE_TOPIC, ChangeType, WITH_OUT_DISPATCH } from "./types"
 import {ListItemStandardProps, FormItemStandardProps, ObjectType} from '../@types/common'
 
-interface ListDatumOptions<Item extends ObjectType, Value>
+interface ListDatumOptions<Item, Value>
   extends Pick<ListItemStandardProps<Item, Value>, 'format' | 'disabled'>,
   Pick<FormItemStandardProps<Value>, 'value' | 'onChange'> {
   separator?: string
@@ -132,7 +132,7 @@ export default class<Item, Value> {
     if (data === undefined || data === null) return
 
     // clear value
-    if (this.limit === 1) this.$values = [] as any
+    if (this.limit === 1) this.$values = []
     this.resetValueMap()
 
     let raws = Array.isArray(data) ? data : [data]
