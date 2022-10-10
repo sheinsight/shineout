@@ -134,7 +134,7 @@ export interface ListItemStandardProps<Item = any, Value = any> {
      *
      * default: false
      */
-    disabled?: ((data: Item) => boolean) | boolean;
+    disabled?: ((data: Item, ...rest: any) => boolean) | boolean;
 
     /**
      * Format value. The defaule value is return the original data. When it is a string, the value is fetched from the original data as a key equivalent to (d) => d[format] When it is a function, use its return value.
@@ -221,3 +221,5 @@ export declare namespace RegularAttributes {
     type Position = 'top-left' | 'top' | 'top-right' | 'bottom-left' | 'bottom' | 'bottom-right';
     type Align = 'left' | 'center' | 'right';
 }
+
+export type ObjectType<V = any> = {[name: string]: V}

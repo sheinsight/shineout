@@ -1,4 +1,5 @@
 import { CHANGE_TOPIC } from './types'
+import { keyType, LiteralUnion, ObjectType } from "../@types/common"
 
 const IS_NOT_MATCHED_VALUE = 'IS_NOT_MATCHED_VALUE'
 
@@ -19,8 +20,12 @@ export const CheckedMode = {
   Freedom: 4,
 }
 
+
+type IdType = string | number
+type CheckedStatus = 0 | 1 | 2
+
 // check status stack
-const checkStatusStack = (stack, defaultStatus) => {
+const checkStatusStack = (stack: CheckedStatus[], defaultStatus: CheckedStatus) => {
   if (!stack || stack.length <= 0) return defaultStatus
   if (stack.filter(d => d === 0).length === stack.length) return 0
 
@@ -30,8 +35,40 @@ const checkStatusStack = (stack, defaultStatus) => {
   return 2
 }
 
-export default class {
-  constructor(options = {}) {
+export interface TreeDatumOptions<Item, Value> {
+  data: Item[],
+  keygen?: LiteralUnion<Item> | ((data: Item ,parentId?:string | number  ) => keyType);
+  value?: Value,
+  mode?: 0 | 1 | 2 | 3 | 4
+  disabled?: ((data: Item, ...rest: any) => boolean) | boolean;
+  childrenKey: string
+  unmatch?: boolean
+}
+
+export default class<Item, Value extends any[]> {
+  keygen?: TreeDatumOptions<Item, Value>['keygen']
+  mode: TreeDatumOptions<Item, Value>['mode']
+  unmatch: TreeDatumOptions<Item, Value>['unmatch']
+  disabled: TreeDatumOptions<Item, Value>['disabled']
+  childrenKey: TreeDatumOptions<Item, Value>['childrenKey']
+  valueMap: Map<IdType, CheckedStatus>
+  unmatchedValueMap: Map<any, any>
+  events: Map<IdType, Function>
+  $events: ObjectType<Function[]>
+  value?: Value
+  data?: Item[]
+  cachedValue?: unknown[]
+  pathMap: Map<IdType, {
+    children: IdType[],
+    path: (number | string)[],
+    isDisabled: boolean,
+    indexPath: number[],
+    index: number,
+  }>
+  dataMap: Map<IdType, Item>
+
+  constructor(options: TreeDatumOptions<Item, Value> = {data:[], childrenKey: ''}) {
+
     const { data, value, keygen, mode, disabled, childrenKey = 'children', unmatch } = options
 
     this.keygen = keygen
@@ -39,25 +76,25 @@ export default class {
     this.valueMap = new Map()
     this.unmatchedValueMap = new Map()
     this.unmatch = unmatch
-    this.events = {}
+    this.events = new Map()
     this.$events = {}
-    this.disabled = disabled || (() => false)
     this.childrenKey = childrenKey
 
+    this.updateDisabled(disabled)
     this.setValue(value)
     this.setData(data)
   }
 
-  updateDisabled(dis) {
+  updateDisabled(dis: TreeDatumOptions<Item, Value>['disabled']) {
     this.disabled = dis || (() => false)
   }
 
-  bind(id, update) {
-    this.events[id] = update
+  bind(id: number | string, update: Function) {
+    this.events.set(id, update)
   }
 
-  unbind(id) {
-    delete this.events[id]
+  unbind(id: IdType) {
+    this.events.delete(id)
   }
 
   setUnmatedValue() {
@@ -72,11 +109,11 @@ export default class {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  isUnMatch(data) {
+  isUnMatch(data: ObjectType | null) {
     return data && data[IS_NOT_MATCHED_VALUE]
   }
 
-  setValue(value) {
+  setValue(value?: Value) {
     this.value = value
     if (value && value !== this.cachedValue) {
       this.initValue()
@@ -85,7 +122,7 @@ export default class {
   }
 
   getValue() {
-    const value = []
+    const value: IdType[] = []
     this.valueMap.forEach((checked, id) => {
       switch (this.mode) {
         case CheckedMode.Full:
@@ -96,15 +133,21 @@ export default class {
           if (checked >= 1) value.push(id)
           break
         case CheckedMode.Child:
-          if (checked === 1 && this.pathMap.get(id).children.length === 0) value.push(id)
+          if (checked === 1 ) {
+            let info = this.pathMap.get(id)
+            if (info && info.children.length === 0)
+            value.push(id)
+          }
           break
         case CheckedMode.Shallow:
           if (checked === 1) {
             const parentChecked = (() => {
-              const { path } = this.pathMap.get(id)
-              const pid = path[path.length - 1]
-              if (!pid && pid !== 0) return false
-              return this.valueMap.get(pid) === 1
+                const info = this.pathMap.get(id)
+                if (!info) return false
+                const { path } = info
+                const pid = path[path.length - 1]
+                if (!pid && pid !== 0) return false
+                return this.valueMap.get(pid) === 1
             })()
             if (!parentChecked) value.push(id)
           }
@@ -119,19 +162,19 @@ export default class {
     return value
   }
 
-  setValueMap(id, checked) {
+  setValueMap(id: IdType, checked : CheckedStatus) {
     this.valueMap.set(id, checked)
-    const update = this.events[id]
+    const update = this.events.get(id)
     if (update) update()
   }
 
-  set(id, checked, direction) {
+  set(id: IdType, checked: CheckedStatus, direction?: 'asc' | 'desc') {
     // self
     if (!this.isDisabled(id)) this.setValueMap(id, checked)
 
     const data = this.getDataById(id)
 
-    if (data && data[IS_NOT_MATCHED_VALUE]) {
+    if (data && (data as ObjectType)[IS_NOT_MATCHED_VALUE]) {
       if (checked) this.unmatchedValueMap.set(id, true)
       else this.unmatchedValueMap.delete(id)
       return null
@@ -142,9 +185,9 @@ export default class {
       return 0
     }
 
-    const { path, children } = this.pathMap.get(id)
+    const { path, children } = this.pathMap.get(id)!
 
-    const childrenStack = []
+    const childrenStack: any = []
     // children
     if (direction !== 'asc') {
       children.forEach(cid => {
@@ -154,7 +197,7 @@ export default class {
     }
 
     // Exclude disabled
-    let current = this.valueMap.get(id)
+    let current = this.valueMap.get(id)!
 
     // check all children status
     const status = checkStatusStack(childrenStack, current)
@@ -168,7 +211,7 @@ export default class {
     if (direction !== 'desc' && path.length > 0) {
       const parentId = path[path.length - 1]
       let parentChecked = current
-      this.pathMap.get(parentId).children.forEach(cid => {
+      this.pathMap.get(parentId)!.children.forEach(cid => {
         if (parentChecked !== this.valueMap.get(cid)) {
           parentChecked = 2
         }
@@ -178,53 +221,53 @@ export default class {
     return current
   }
 
-  isDisabled(id) {
+  isDisabled(id: IdType) {
     const node = this.pathMap.get(id)
     if (node) return node.isDisabled
     return false
   }
 
-  get(id) {
+  get(id: IdType) {
     return this.valueMap.get(id)
   }
 
-  getDataById(id) {
+  getDataById(id: IdType) {
     const oroginData = this.dataMap.get(id)
     if (oroginData) return oroginData
     if (!this.unmatch) return null
     return { [IS_NOT_MATCHED_VALUE]: true, value: id }
   }
 
-  getPath(id) {
+  getPath(id: IdType) {
     return this.pathMap.get(id)
   }
 
-  getChecked(id) {
+  getChecked(id: IdType) {
     const value = this.get(id)
-    let checked = value === 1
+    let checked: (boolean | 'indeterminate')  = value === 1
     if (value === 2) checked = 'indeterminate'
     return checked
   }
 
-  getKey(data, id = '', index) {
+  getKey(data: Item, id: IdType = '', index: number): IdType {
     if (typeof this.keygen === 'function') return this.keygen(data, id)
-    if (this.keygen) return data[this.keygen]
+    if (this.keygen) return (data[this.keygen]) as unknown as IdType
     return id + (id ? ',' : '') + index
   }
 
-  initValue(ids, forceCheck) {
+  initValue(ids?: IdType[], forceCheck?: boolean) {
     if (!this.data || !this.value) return undefined
 
     if (!ids) {
       ids = []
       this.pathMap.forEach((val, id) => {
-        if (val.path.length === 0) ids.push(id)
+        if (val.path.length === 0) ids!.push(id)
       })
     }
 
-    let checked
+    let checked: CheckedStatus = 0
     ids.forEach(id => {
-      const { children } = this.pathMap.get(id)
+      const { children } = this.pathMap.get(id)!
 
       if (forceCheck) {
         this.setValueMap(id, 1)
@@ -232,16 +275,16 @@ export default class {
         return
       }
 
-      let childChecked = this.value.indexOf(id) >= 0 ? 1 : 0
+      let childChecked: CheckedStatus = this.value!.indexOf(id) >= 0 ? 1 : 0
 
       if (childChecked === 1 && this.mode !== CheckedMode.Half && this.mode !== CheckedMode.Freedom) {
-        this.initValue(children, 1)
+        this.initValue(children, true)
       } else if (children.length > 0) {
         // 保持迭代
-        const res = this.initValue(children)
+        const res: CheckedStatus = this.initValue(children)!
         childChecked = this.mode === CheckedMode.Freedom ? childChecked : res
       } else {
-        childChecked = this.value.indexOf(id) >= 0 ? 1 : 0
+        childChecked = this.value!.indexOf(id) >= 0 ? 1 : 0
       }
 
       this.setValueMap(id, childChecked)
@@ -253,8 +296,8 @@ export default class {
     return checked
   }
 
-  initData(data, path, disabled, index = []) {
-    const ids = []
+  initData(data: Item[], path: IdType[], disabled?: boolean, index: number[] = []) {
+    const ids: IdType[] = []
     data.forEach((d, i) => {
       const id = this.getKey(d, path[path.length - 1], i)
       if (this.dataMap.get(id)) {
@@ -263,17 +306,17 @@ export default class {
       }
       this.dataMap.set(id, d)
 
-      let isDisabled = disabled
+      let isDisabled = !!disabled
       if (!isDisabled && typeof this.disabled === 'function') {
         isDisabled = this.disabled(d, i)
       }
 
       const indexPath = [...index, i]
       ids.push(id)
-      let children = []
-      if (Array.isArray(d[this.childrenKey])) {
+      let children: IdType[] = []
+      if (Array.isArray((d as any)[this.childrenKey])) {
         children = this.initData(
-          d[this.childrenKey],
+          (d as any)[this.childrenKey],
           [...path, id],
           // exclude Freedom
           this.mode === CheckedMode.Freedom ? disabled : isDisabled,
@@ -291,8 +334,8 @@ export default class {
     return ids
   }
 
-  setData(data, dispatch) {
-    const prevValue = this.value || []
+  setData(data: Item[], dispatch?: boolean) {
+    const prevValue: any[] = this.value || []
     this.cachedValue = []
     this.pathMap = new Map()
     this.dataMap = new Map()
@@ -304,23 +347,23 @@ export default class {
 
     this.initData(data, [])
     this.initValue()
-    this.setValue(prevValue)
+    this.setValue(prevValue as Value)
     if (dispatch) this.dispatch(CHANGE_TOPIC)
   }
 
-  subscribe(name, fn) {
+  subscribe(name: string, fn: Function) {
     if (!this.$events[name]) this.$events[name] = []
     const events = this.$events[name]
-    if (fn in events) return
+    if (events.includes(fn) ) return
     events.push(fn)
   }
 
-  unsubscribe(name, fn) {
+  unsubscribe(name: string, fn: Function) {
     if (!this.$events[name]) return
     this.$events[name] = this.$events[name].filter(e => e !== fn)
   }
 
-  dispatch(name, ...args) {
+  dispatch(name: string, ...args: any) {
     const event = this.$events[name]
     if (!event) return
     event.forEach(fn => fn(...args))

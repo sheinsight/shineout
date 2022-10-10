@@ -38,7 +38,7 @@ export function compareColumns(columns1: Column[], columns2: Column[]) {
   return complexCompare
 }
 
-export default function(objA: Options, objB: Options, options = {}) {
+export default function(objA: any, objB?: any, options = {}) {
   if (is(objA, objB)) {
     return true
   }

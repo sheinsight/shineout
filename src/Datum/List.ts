@@ -1,9 +1,34 @@
 import deepEqual from 'deep-eql'
 import shallowEqual from '../utils/shallowEqual'
-import { CHANGE_TOPIC, WITH_OUT_DISPATCH } from './types'
+import { CHANGE_TOPIC, ChangeType, WITH_OUT_DISPATCH } from "./types"
+import {ListItemStandardProps, FormItemStandardProps, ObjectType} from '../@types/common'
 
-export default class {
-  constructor(args = {}) {
+interface ListDatumOptions<Item extends ObjectType, Value>
+  extends Pick<ListItemStandardProps<Item, Value>, 'format' | 'disabled'>,
+  Pick<FormItemStandardProps<Value>, 'value' | 'onChange'> {
+  separator?: string
+  limit?: number
+  distinct?: boolean,
+  prediction?: (value: any, data: Item) => boolean
+}
+
+export default class<Item, Value> {
+  distinct: ListDatumOptions<Item, Value>['distinct']
+  prediction: ListDatumOptions<Item, Value>['prediction']
+  onChange: ListDatumOptions<Item, Value>['onChange']
+  limit: ListDatumOptions<Item, Value>['limit']
+  separator?: ListDatumOptions<Item, Value>['separator']
+  $events: ObjectType<Function[]>
+  $cachedDisabled: ListDatumOptions<Item, Value>['disabled']
+  $cachedFlatten: Map<any, any>
+  valueMap: Map<any, boolean>
+  disabled: (...args: any) => boolean
+  format:  (...args: any) => unknown
+  $values: any[]
+  $cachedValue: Value
+  updateLock: boolean
+
+  constructor(args: ListDatumOptions<Item, Value> = {}) {
     const { format, onChange, separator, value, prediction, distinct, disabled, limit } = args
 
     this.distinct = distinct
@@ -12,7 +37,7 @@ export default class {
     this.initFormat(format)
     this.$events = {}
 
-    this.$cachedDisabled = {}
+    this.$cachedDisabled = undefined
     this.$cachedFlatten = new Map()
     this.setDisabled(disabled)
 
@@ -52,23 +77,23 @@ export default class {
     this.valueMap = map
   }
 
-  setDisabled(disabled) {
+  setDisabled(disabled: ListDatumOptions<Item, Value>['disabled']) {
     if (this.$cachedDisabled === disabled) return
     this.$cachedDisabled = disabled
 
-    this.disabled = (...obj) => {
+    this.disabled = (data: Item,...obj) => {
       switch (typeof disabled) {
         case 'boolean':
           return disabled
         case 'function':
-          return disabled(...obj)
+          return disabled(data,...obj)
         default:
           return false
       }
     }
   }
 
-  handleChange(values, ...args) {
+  handleChange(values: any[], ...args: any) {
     this.$values = values
     this.resetValueMap()
     this.dispatch(CHANGE_TOPIC)
@@ -77,21 +102,21 @@ export default class {
     }
   }
 
-  flattenTreeData(data, childrenKey) {
+  flattenTreeData(data: Item[], childrenKey: keyof Item) {
     const keys = data.map(v => this.format(v)).map(v => (typeof v === 'object' ? JSON.stringify(v) : v))
     const key = keys.join()
     if (keys.length !== 0) {
       const cached = this.$cachedFlatten.get(key)
       if (cached) return cached
     }
-    const flatten = []
-    const deepAdd = items => {
+    const flatten: Item[] = []
+    const deepAdd = (items: Item[]) => {
       items.forEach(item => {
         const exist = flatten.find(raw =>
-          this.prediction ? this.prediction(raw, item) : this.format(raw) === this.format(item)
+          this.prediction ? this.prediction(raw as any , item) : this.format(raw) === this.format(item)
         )
         if (!exist) flatten.push(item)
-        if (item[childrenKey]) deepAdd(item[childrenKey])
+        if (item[childrenKey]) deepAdd((item[childrenKey]) as unknown as Item[])
       })
     }
     deepAdd(data)
@@ -99,15 +124,15 @@ export default class {
     return flatten
   }
 
-  setLock(lock) {
+  setLock(lock: boolean) {
     this.updateLock = lock
   }
 
-  add(data, _, childrenKey, unshift) {
+  add(data: Item, _?: any, childrenKey?: keyof Item, unshift?: boolean) {
     if (data === undefined || data === null) return
 
     // clear value
-    if (this.limit === 1) this.$values = []
+    if (this.limit === 1) this.$values = [] as any
     this.resetValueMap()
 
     let raws = Array.isArray(data) ? data : [data]
@@ -130,13 +155,13 @@ export default class {
     this.handleChange(unshift ? values.concat(this.values) : this.values.concat(values), data, true)
   }
 
-  set(value) {
+  set(value: Item) {
     this.$values = []
     this.resetValueMap()
     this.add(value)
   }
 
-  check(raw) {
+  check(raw: Item) {
     if (this.prediction) {
       for (let i = 0, count = this.values.length; i < count; i++) {
         if (this.prediction(this.values[i], raw)) return true
@@ -146,7 +171,7 @@ export default class {
     return !!this.valueMap.get(this.format(raw))
   }
 
-  getDataByValue(data, value) {
+  getDataByValue(data: Item[], value: Value extends (infer U)[] ? U : Value) {
     if (this.prediction) {
       for (let i = 0, count = data.length; i < count; i++) {
         if (this.prediction(value, data[i])) return data[i]
@@ -160,13 +185,13 @@ export default class {
     this.values = []
   }
 
-  dispatch(name, ...args) {
+  dispatch(name: string, ...args: any) {
     const event = this.$events[name]
     if (!event) return
     event.forEach(fn => fn(...args))
   }
 
-  initFormat(f) {
+  initFormat(f: ListDatumOptions<Item, Value>['format']) {
     switch (typeof f) {
       case 'string':
         this.format = value => value[f]
@@ -180,16 +205,16 @@ export default class {
     }
   }
 
-  defaultPrediction(value, data) {
+  defaultPrediction(value: unknown, data: Item) {
     return value === this.format(data)
   }
 
-  remove(value, _, childrenKey) {
+  remove(value: unknown, _: unknown, childrenKey: string) {
     if (value === undefined || value === null) return
 
     let raws = Array.isArray(value) ? value : [value]
     if (childrenKey) {
-      raws = this.flattenTreeData(raws, childrenKey)
+      raws = this.flattenTreeData(raws, childrenKey as any)
     }
     raws = raws.filter(r => !this.disabled(r))
     const values = []
@@ -226,20 +251,20 @@ export default class {
     this.handleChange(values, value, false)
   }
 
-  subscribe(name, fn) {
+  subscribe(name: string, fn: Function) {
     if (!this.$events[name]) this.$events[name] = []
     const events = this.$events[name]
-    if (fn in events) return
+    if (events.includes(fn)) return
     events.push(fn)
   }
 
-  unsubscribe(name, fn) {
+  unsubscribe(name: string, fn: Function) {
     if (!this.$events[name]) return
     this.$events[name] = this.$events[name].filter(e => e !== fn)
   }
 
   getValue() {
-    let value = this.values
+    let value: any = this.values
     // eslint-disable-next-line
     if (this.limit === 1) value = this.values[0]
     else if (this.separator) value = this.values.join(this.separator)
@@ -247,7 +272,7 @@ export default class {
     return value
   }
 
-  resetValue(values, cached) {
+  resetValue(values: any[], cached: boolean) {
     this.$values = values
     this.resetValueMap()
     if (this.onChange && !cached) {
@@ -257,7 +282,7 @@ export default class {
     this.dispatch('set-value')
   }
 
-  formatValue(values = []) {
+  formatValue(values: Value | undefined) {
     if (this.limit === 1 && !Array.isArray(values)) {
       return [values]
     }
@@ -281,13 +306,13 @@ export default class {
     return []
   }
 
-  setValue(values = [], type) {
+  setValue(values?: Value, type?: ChangeType ) {
     if (deepEqual(values, this.$values)) return
     if (type === WITH_OUT_DISPATCH) {
       this.$values = this.formatValue(values)
       this.resetValueMap()
     } else {
-      this.resetValue(this.formatValue(values), shallowEqual(this.$cachedValue, values))
+      this.resetValue(this.formatValue(values), shallowEqual(this.$cachedValue, values, {}))
     }
     this.$cachedValue = this.getValue()
   }

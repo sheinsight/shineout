@@ -160,11 +160,11 @@ export const deepGet = (target: ObjectProps, path: string, options: deepOptions 
   if (path === '') return target
   const { defaultValue, strictMode } = options
 
-  let current = target
+  let current: unknown = target
   for (const [prop, , mode] of pathGenerator(path)) {
     const isStrict = mode === PATH_MODE.strict || (strictMode && defaultValue === undefined && mode !== PATH_MODE.loose)
     if (current != null && hasOwnProperty.call(current, prop)) {
-      current = current[prop]
+      current = (current as ObjectProps)[prop]
     } else if (isStrict) {
       throw new Error(`Path ${path} is not exist.`)
     } else {
