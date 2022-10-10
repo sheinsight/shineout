@@ -76,8 +76,8 @@ export default curry(<U extends DragProps>(OriginComponent: React.ComponentType<
       if (!this.dragging) return
       if (e.clientX === 0 && e.clientY === 0) return
 
-      const mx = e.clientX - this.clientX!
-      const my = e.clientY - this.clientY!
+      const mx = e.clientX - (this.clientX as number)
+      const my = e.clientY - (this.clientY as number)
       if (mx === 0 && my === 0) return
 
       this.clientX = e.clientX
