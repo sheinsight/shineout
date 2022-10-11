@@ -260,7 +260,7 @@ class Cascader<U extends { [children: string]: U[] }, T extends []> extends Pure
     const { mode } = this.props
     this.setState({ path: [] })
     if (mode !== undefined) this.datum.setValue([])
-    this.handleChange([])
+    this.handleChange([] as T)
 
     // force close
     setTimeout(() => this.handleState(false), 10)
@@ -321,7 +321,7 @@ class Cascader<U extends { [children: string]: U[] }, T extends []> extends Pure
     }
   }
 
-  handleChange(...args: any) {
+  handleChange(...args: [T, U?]) {
     const { onChange, onFilter, filterText } = this.props
     if (this.input) {
       this.input.reset()
@@ -330,7 +330,7 @@ class Cascader<U extends { [children: string]: U[] }, T extends []> extends Pure
     const [value] = args
     this.lastValue = value
     if (onChange) {
-      onChange([...args] as any)
+      onChange(...args)
     }
 
     if (onFilter && filterText) onFilter('')
