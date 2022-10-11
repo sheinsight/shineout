@@ -12,7 +12,7 @@ const types = {
 }
 interface DatumHocOptions<Props> {
   type: 'list' | 'form'
-  key: string
+  key:  keyof Props & string
   limit: number,
   bindProps: (keyof Props)[],
   ignoreUndefined: boolean,
@@ -59,7 +59,7 @@ export default curry(<U extends BaseProps>(options: DatumHocOptions<U>, Origin: 
           { limit, initValidate }
         )
         if (key in props) {
-          ops[key] = props[key as keyof U]
+          ops[key] = props[key]
         }
         if (`default${capitalize(key)}` in props) {
           ops[`default${capitalize(key)}`] = props[`default${capitalize(key)}` as keyof  U]
@@ -74,7 +74,7 @@ export default curry(<U extends BaseProps>(options: DatumHocOptions<U>, Origin: 
 
     componentDidMount() {
       this.datum.setLock(false)
-      this.prevValues = this.props[key as keyof  U]
+      this.prevValues = this.props[key]
     }
 
     componentDidUpdate(prevProps: U) {
@@ -86,7 +86,7 @@ export default curry(<U extends BaseProps>(options: DatumHocOptions<U>, Origin: 
     }
 
     setValue(t?: string) {
-      const values = this.props[key as keyof U]
+      const values = this.props[key]
       if (ignoreUndefined && values === undefined) return
       this.datum.setValue(values, t)
     }
@@ -94,10 +94,10 @@ export default curry(<U extends BaseProps>(options: DatumHocOptions<U>, Origin: 
     render() {
       const { onDatumBind, ...props } = this.props
       if (onDatumBind) onDatumBind(this.datum)
-      if ((bindProps as string[]).includes('disabled')) {
+      if ((bindProps).includes('disabled')) {
         this.datum.setDisabled(props.disabled)
       }
-      const values = this.props[key as keyof U]
+      const values = this.props[key]
       if (type === 'form' && values !== this.prevValues) {
         this.setValue(this.props.initValidate ? undefined : IGNORE_VALIDATE)
         this.datum.setLock(true)
