@@ -1,8 +1,18 @@
 import * as React from 'react'
-import { StandardProps, FormItemStandardProps, StructDataStandardProps, keyType, RegularAttributes } from '../@types/common'
-import { ReactNode } from "react"
+import {
+  StandardProps,
+  FormItemStandardProps,
+  StructDataStandardProps,
+  keyType,
+  RegularAttributes,
+  LiteralUnion,
+} from '../@types/common'
+import { ReactNode } from 'react'
 
-export interface CascaderProps<Item, Value> extends StandardProps, FormItemStandardProps<Value>, StructDataStandardProps<Item>  {
+export interface CascaderProps<Item, Value>
+  extends StandardProps,
+    FormItemStandardProps<Value>,
+    Omit<StructDataStandardProps<Item>, 'renderItem'> {
   /**
    * show border bottom
    *
@@ -10,7 +20,7 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
    *
    * default: false
    */
-   underline?: boolean;
+  underline?: boolean
 
   /**
    * When it is true, the pop-up layer of option append into document.body.
@@ -19,7 +29,7 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
    *
    * default: false
    */
-  absolute?: boolean;
+  absolute?: boolean
 
   /**
    * the key of the children data name
@@ -28,7 +38,7 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
    *
    * default: 'children'
    */
-  childrenKey?: string;
+  childrenKey?: keyof Item & string
 
   /**
    * If clearable is true, show clear value icon
@@ -37,7 +47,7 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
    *
    * default: true
    */
-  clearable?: boolean;
+  clearable?: boolean
 
   /**
    * Merges selected values
@@ -46,7 +56,7 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
    *
    * default: false
    */
-  compressed?: boolean | 'no-repeat';
+  compressed?: boolean | 'no-repeat'
 
   /**
    * data. The child node is children. If the children value is null or its length is 0, it is render as a leaf node.
@@ -55,7 +65,7 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
    *
    * default: []
    */
-  data?: Item[];
+  data?: Item[]
 
   /**
    * When it is true, all nodes disable the selection; when it is a function, it determines whether it is disabled according to the return result of the function.
@@ -64,7 +74,7 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
    *
    * default: false
    */
-  disabled?: (data: Item) => boolean | boolean;
+  disabled?: ((data: Item) => boolean) | boolean
 
   /**
    * Expand mode
@@ -73,7 +83,7 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
    *
    * default: 'click'
    */
-  expandTrigger?: 'click' | 'hover' | 'hover-only';
+  expandTrigger?: 'click' | 'hover' | 'hover-only'
 
   /**
    * close options after chose the final node
@@ -82,7 +92,7 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
    *
    * default: false
    */
-  finalDismiss?: boolean;
+  finalDismiss?: boolean
 
   /**
    * Auxiliary method for generating key. When it is a function, use the return value of this function. When it is a string, use the data value corresponding to this string. For example, 'id' is the same thing as (d) => d.id.
@@ -91,7 +101,7 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
    *
    * default: index
    */
-  keygen: ((data: Item, parentKey: keyType) => keyType) | string;
+  keygen: ((data: Item, parentKey?: keyType) => keyType) | keyof Item
 
   /**
    * If the loader attribute is a function, the node with no children is regarded as dynamically loaded node. Click expanded button to trigger the loader event. The children property is null or its length is 0 will be regarded as a leaf node.
@@ -100,7 +110,7 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
    *
    * default:
    */
-  loader?: (key: keyType, data: Item) => void;
+  loader?: (key: keyType, data: Item) => void
 
   /**
    * mode 0: Returns only the fully selected node including the parent node. 1: Returns all selected nodes and semi-selected nodes. 2: Return only the selected child nodes. 3: If the parent node is full selected, only return the parent node.
@@ -109,7 +119,7 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
    *
    * default: -
    */
-  mode?: 0 | 1 | 2 | 3 | 4;
+  mode?: 0 | 1 | 2 | 3 | 4
 
   /**
    * When the onChange property is set, the selection box is displayed. The parameter is the current selected value, which is related to the mode property.
@@ -118,7 +128,7 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
    *
    * default: -
    */
-  onChange?: (value: Value, selected: boolean) => void;
+  onChange?: (value: Value, selected?: Item) => void
 
   /**
    * options collapse callback
@@ -127,7 +137,7 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
    *
    * default: none
    */
-  onCollapse?: (collapse: boolean) => void;
+  onCollapse?: (collapse: boolean) => void
 
   /**
    * size
@@ -136,7 +146,7 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
    *
    * defualt: none
    */
-  size?: RegularAttributes.Size;
+  size?: RegularAttributes.Size
 
   /**
    * Support single node deletion
@@ -145,7 +155,7 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
    *
    * default: none
    */
-  singleRemove?: boolean;
+  singleRemove?: boolean
 
   /**
    * render unmatch value
@@ -154,7 +164,7 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
    *
    * default: -
    */
-   unmatch?: boolean;
+  unmatch?: boolean
 
   /**
    * show dropdown arrow, only single select
@@ -163,7 +173,7 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
    *
    * default: true
    */
-  showArrow?: boolean;
+  showArrow?: boolean
 
   /**
    *  A reference to the binding component, you can call some component methods
@@ -173,7 +183,7 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
    *  default: -
    *
    */
-  getComponentRef?: (comp: componentRef )=> void | {current?: componentRef};
+  getComponentRef?: (comp: componentRef) => void | { current?: componentRef }
 
   /**
    *  dropdown list loading state
@@ -183,7 +193,7 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
    *  default: -
    *
    */
-  loading?: boolean | ReactNode;
+  loading?: boolean | ReactNode
 
   /**
    * when compressed is True,the comptessedBound can limit the numbers of multiple selected item's label
@@ -192,7 +202,7 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
    *
    * default: -
    */
-   compressedBound?: number;
+  compressedBound?: number
 
   /**
    * When the onFilter is not empty, you can filter data by input.If the onFilter returns a function, use this function as a front-end filter.If return undefined, you can do your own backend filtering.support in single selection state.
@@ -201,7 +211,7 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
    *
    * default: -
    */
-   onFilter?: (text: string) => (data: any) => boolean;
+  onFilter?: (text: string) => (data: any) => boolean
 
   /**
    * Allows all possible matching options to be choosed
@@ -210,12 +220,30 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
    *
    * default: -
    */
-   wideMatch?: boolean;
+  wideMatch?: boolean
+
+  /**
+   * Height of dropdown options
+   *
+   * 下拉列表高度
+   *
+   * default: 300
+   */
+  height?: number
+
+  /**
+   * Height of dropdown options
+   *
+   * 自定义渲染方法
+   *
+   * default: 300
+   */
+  renderItem?: LiteralUnion<Item> | ((data: Item, active?: boolean, id?: keyType) => React.ReactNode)
 }
 
-interface componentRef  {
-  close: () => void;
-  [propName: string]: any;
+interface componentRef {
+  close: (e: MouseEvent) => void
+  [propName: string]: any
 }
 
 declare class Cascader<Item = any, Value = string[]> extends React.Component<CascaderProps<Item, Value>, {}> {
