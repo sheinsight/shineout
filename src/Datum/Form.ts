@@ -4,6 +4,7 @@ import { fastClone, deepClone } from '../utils/clone'
 import { deepGet, deepSet, deepRemove, objectValues, deepHas } from '../utils/objects'
 import { isObject, isArray } from '../utils/is'
 import { promiseAll, FormError } from '../utils/errors'
+import { RuleParamsType } from "../Rule"
 import {
   updateSubscribe,
   errorSubscribe,
@@ -14,10 +15,40 @@ import {
   FORCE_PASS,
   ERROR_TYPE,
   IGNORE_VALIDATE,
-} from './types'
+  ValidType, PublishType
+} from "./types"
+import {ObjectType} from '../@types/common'
 
-export default class {
-  constructor(options = {}) {
+interface RuleObject {
+  [name: string]: RuleParamsType<any> | RuleObject
+}
+interface ValidFunc {
+  (v: any, formValue: ObjectType, type: ValidType): Promise<any>
+  (type: ValidType): Promise<any>
+}
+interface FormDatumOptions<V extends {}> {
+  removeUndefined?: boolean
+  rules?: RuleObject
+  onChange?: (value: V) => void
+  value?: V,
+  error?: {[name: string]: string | Error}
+  initValidate?: boolean
+  defaultValue?: V
+}
+export default class<V extends ObjectType> {
+  rules: FormDatumOptions<V>['rules']
+  onChange: FormDatumOptions<V>['onChange']
+  removeUndefined: FormDatumOptions<V>['removeUndefined']
+  $defaultValues: V
+  $inputNames: {[name: string]: boolean}
+  $values: Partial<V>
+  $validator:ObjectType<ValidFunc>
+  $events:ObjectType<((...args: any)=> void)[]>
+  $errors:ObjectType
+  updateLock: boolean
+  deepSetOptions: {removeUndefined: boolean, forceSet: boolean}
+  formUnmount: boolean
+  constructor(options:FormDatumOptions<V> = {}) {
     const { removeUndefined = true, rules, onChange, value, error, initValidate, defaultValue } = options
     this.rules = rules
     this.onChange = onChange
@@ -28,7 +59,7 @@ export default class {
     // store values
     this.$values = {}
     // store default value, for reset
-    this.$defaultValues = { ...defaultValue }
+    this.$defaultValues = { ...defaultValue } as V
     this.$validator = {}
     this.$events = {}
     // handle global errors
@@ -53,18 +84,19 @@ export default class {
     this.dispatch(RESET_TOPIC)
   }
 
-  setLock(lock) {
+  setLock(lock: boolean) {
     this.updateLock = lock
   }
 
-  get(name) {
+  get(name: string): any {
     if (Array.isArray(name)) return name.map(n => this.get(n))
     return deepGet(this.$values, name)
   }
-
-  set(name, value, pub) {
+  set(value: ObjectType): void
+  set(name: string, value: any, pub?: boolean) : void
+  set(name: string | ObjectType, value?: any, pub?: boolean) {
     if (isObject(name)) {
-      value = objectValues(name)
+      value = objectValues(name as ObjectType)
       name = Object.keys(name)
     }
 
@@ -73,21 +105,24 @@ export default class {
       return
     }
 
-    if (value === this.get(name)) return
-    deepSet(this.$values, name, value, this.deepSetOptions)
+    if (typeof name === 'string') {
+      if (value === this.get(name)) return
+      deepSet(this.$values, name, value, this.deepSetOptions)
 
-    if (this.$inputNames[name]) {
-      this.dispatch(updateSubscribe(name), value, name)
-      this.dispatch(changeSubscribe(name))
+      if (this.$inputNames[name]) {
+        this.dispatch(updateSubscribe(name), value, name)
+        this.dispatch(changeSubscribe(name))
+      }
+
+      if ((value !== null && typeof value === 'object') || pub) this.publishValue(name, FORCE_PASS)
+
+      this.dispatch(CHANGE_TOPIC)
+      this.handleChange()
     }
 
-    if ((value !== null && typeof value === 'object') || pub) this.publishValue(name, FORCE_PASS)
-
-    this.dispatch(CHANGE_TOPIC)
-    this.handleChange()
   }
 
-  setArrayValue(names, values) {
+  setArrayValue(names: string[], values: any[]) {
     names.forEach((name, index) => {
       deepSet(this.$values, name, values[index], this.deepSetOptions)
     })
@@ -103,7 +138,7 @@ export default class {
     this.handleChange()
   }
 
-  insert(name, index, value) {
+  insert(name: string, index: number, value: any) {
     this.insertError(name, index, undefined)
     const val = this.get(name)
     if (val) {
@@ -117,7 +152,7 @@ export default class {
     }
   }
 
-  splice(name, index) {
+  splice(name: string, index: number) {
     this.spliceError(name, index)
     const list = this.get(name)
     list.splice(index, 1)
@@ -127,11 +162,11 @@ export default class {
     this.handleChange()
   }
 
-  remove(name) {
+  remove(name: string) {
     deepRemove(this.$values, name)
   }
 
-  publishValue(name, type) {
+  publishValue(name: string, type: PublishType) {
     const na = `${name}[`
     const no = `${name}.`
     Object.keys(this.$inputNames)
@@ -141,34 +176,34 @@ export default class {
       })
   }
 
-  getError(name, firstHand) {
+  getError(name: string, firstHand?: boolean) {
     if (firstHand) return this.$errors[name]
     return getSthByName(name, this.$errors)
   }
 
-  resetFormError(error = {}) {
+  resetFormError(error: ObjectType<string | Error> = {}) {
     if (!this.$errors['']) this.$errors[''] = {}
-    let items
+    let items: ObjectType
     if (Object.keys(error).length) {
       items = Object.keys(error).reduce((data, item) => {
-        data[item] = error[item] instanceof Error ? error[item] : new Error(error[item])
+        data[item] = error[item] instanceof Error ? (error[item] as Error) : new Error(error[item] as string)
         return data
-      }, {})
+      }, {} as ObjectType<Error>)
     } else {
       items = Object.keys(this.$errors['']).reduce((data, name) => {
         data[name] = undefined
         return data
-      }, {})
+      }, {} as ObjectType)
     }
     Object.keys(items).map(n => this.setFormError(n, items[n]))
   }
 
-  removeFormError(name) {
+  removeFormError(name: string) {
     if (!this.$errors[''] || !this.$errors[''][name]) return
-    this.setFormError(name)
+    this.setFormError(name, undefined)
   }
 
-  setFormError(name, error) {
+  setFormError(name: string, error?: Error) {
     if (!this.$errors['']) return
     if (error === undefined) delete this.$errors[''][name]
     else this.$errors[''][name] = error
@@ -176,7 +211,7 @@ export default class {
     this.dispatch(updateSubscribe(name))
   }
 
-  setError(name, error, pub) {
+  setError(name: string, error?: Error, pub?: boolean) {
     if (error === undefined) delete this.$errors[name]
     else this.$errors[name] = error
 
@@ -184,15 +219,15 @@ export default class {
     if (pub) this.publishError(name)
   }
 
-  insertError(name, index, error) {
+  insertError(name: string, index: number, error?: Error) {
     insertValue(this.$errors, name, index, error)
   }
 
-  spliceError(name, index) {
+  spliceError(name: string, index: number) {
     spliceValue(this.$errors, name, index)
   }
 
-  publishError(name) {
+  publishError(name: string) {
     const na = `${name}[`
     const no = `${name}.`
     Object.keys(this.$inputNames)
@@ -202,16 +237,17 @@ export default class {
       })
   }
 
-  getRule(name) {
+  getRule(name: string): RuleParamsType<any> {
     if (!this.rules) return []
-    return deepGet(this.rules, name) || []
+    const a  = deepGet(this.rules, name) as RuleParamsType<any>
+    return a || []
   }
 
   getValue() {
     return deepClone(this.$values)
   }
 
-  setValue(v = {}, type, forceSet) {
+  setValue(v: any = {}, type?: typeof IGNORE_VALIDATE | typeof FORCE_PASS, forceSet?: boolean) {
     const values = isObject(v) ? v : {}
     if (values !== v) {
       console.warn('Form value must be an Object')
@@ -234,7 +270,7 @@ export default class {
     })
   }
 
-  bind(name, fn, value, validate) {
+  bind(name: string, fn: ()=> void, value: any, validate: ValidFunc ) {
     if (this.$inputNames[name]) {
       console.warn(`There is already an item with name "${name}" exists. The name props must be unique.`)
     }
@@ -245,7 +281,7 @@ export default class {
       this.dispatch(CHANGE_TOPIC)
     }
 
-    if (!(name in this.$defaultValues) && value) this.$defaultValues[name] = fastClone(value)
+    if (!(name in this.$defaultValues) && value) this.$defaultValues[name as keyof V] = fastClone(value)
 
     this.$validator[name] = validate
     this.$inputNames[name] = true
@@ -253,7 +289,7 @@ export default class {
     this.subscribe(errorSubscribe(name), fn)
   }
 
-  unbind(name, cb, reserveAble) {
+  unbind(name: string, _cb?: any, reserveAble?: boolean) {
     if (Array.isArray(name)) {
       name.forEach(n => this.unbind(n))
       return
@@ -278,27 +314,27 @@ export default class {
     }
   }
 
-  dispatch(name, ...args) {
+  dispatch(name: string, ...args: any) {
     const event = this.$events[name]
     if (!event) return
     event.forEach(fn => fn(...args))
   }
 
-  subscribe(name, fn) {
+  subscribe(name: string, fn: (...args: any)=> void) {
     if (!this.$events[name]) this.$events[name] = []
     const events = this.$events[name]
-    if (fn in events) return
+    if (events.includes(fn)) return
     events.push(fn)
   }
 
-  unsubscribe(name, fn) {
+  unsubscribe(name: string, fn?:  (...args: any)=> void) {
     if (!this.$events[name]) return
 
     if (fn) this.$events[name] = this.$events[name].filter(e => e !== fn)
     else delete this.$events[name]
   }
 
-  validate(type) {
+  validate(type: ValidType) {
     return new Promise((resolve, reject) => {
       const keys = Object.keys(this.$validator)
       const values = this.getValue()
@@ -320,12 +356,12 @@ export default class {
     })
   }
 
-  validateFieldsByName(name, type) {
+  validateFieldsByName(name: string, type: ValidType) {
     if (!name || typeof name !== 'string') {
       return Promise.reject(new Error(`Name expect a string, get "${name}"`))
     }
 
-    const validations = []
+    const validations: Promise<any>[]  = []
     const values = this.getValue()
     Object.keys(this.$validator).forEach(n => {
       if (n === name || n.indexOf(name) === 0) {
@@ -336,7 +372,7 @@ export default class {
     return promiseAll(validations)
   }
 
-  validateFields(names, type) {
+  validateFields(names: string[], type: ValidType) {
     if (!Array.isArray(names)) names = [names]
     const validates = names.map(n => this.validateFieldsByName(n, type))
     return promiseAll(validates)
