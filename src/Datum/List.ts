@@ -305,8 +305,7 @@ export default class<Item, Value> {
     console.error(new Error('Select values is not valid.'))
     return []
   }
-
-  setValue(values?: Value, type?: ChangeType ) {
+  setValue(values: Value = ([] as unknown as Value), type?: ChangeType ) {
     if (deepEqual(values, this.$values)) return
     if (type === WITH_OUT_DISPATCH) {
       this.$values = this.formatValue(values)
