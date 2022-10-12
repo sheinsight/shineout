@@ -19,7 +19,7 @@ export default class<Item, Value> {
   limit: ListDatumOptions<Item, Value>['limit']
   separator?: ListDatumOptions<Item, Value>['separator']
   $events: ObjectType<Function[]>
-  $cachedDisabled: ListDatumOptions<Item, Value>['disabled']
+  $cachedDisabled: ListDatumOptions<Item, Value>['disabled'] | {}
   $cachedFlatten: Map<any, any>
   valueMap: Map<any, boolean>
   disabled: (...args: any) => boolean
@@ -37,7 +37,7 @@ export default class<Item, Value> {
     this.initFormat(format)
     this.$events = {}
 
-    this.$cachedDisabled = undefined
+    this.$cachedDisabled = {}
     this.$cachedFlatten = new Map()
     this.setDisabled(disabled)
 
