@@ -76,7 +76,6 @@ class RadioGroup extends PureComponent {
         </div>
       )
     }
-
     return (
       <div className={className}>
         {data.map((d, i) => (

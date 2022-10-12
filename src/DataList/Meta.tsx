@@ -1,23 +1,29 @@
-import React, { Component, isValidElement } from 'react'
-import PropTypes from 'prop-types'
+import React, { Component, isValidElement, ReactNode } from 'react'
 import classnames from 'classnames'
-import { isFunc, isString } from '../utils/is'
 import { listClass } from './styles'
 import Image from '../Image'
 
-const metaClass = (...a) => listClass(...a.map(v => `meta-${v}`))
+const metaClass = (...a: (string | boolean)[]) => listClass(...a.map(v => `meta-${v}`))
 
-class Meta extends Component {
+interface MetaProps {
+  avatar: ReactNode | (() => ReactNode)
+  title: string
+  desc: string
+  content: ReactNode | (() => ReactNode)
+  className: string
+}
+
+class Meta extends Component<MetaProps> {
   renderAvatar() {
     const { avatar } = this.props
     if (!avatar) return null
     if (isValidElement(avatar)) {
       return <div className={metaClass('avatar')}>{avatar}</div>
     }
-    if (isFunc(avatar)) {
+    if (typeof avatar === 'function') {
       return <div className={metaClass('avatar')}>{avatar()}</div>
     }
-    if (isString(avatar))
+    if (typeof avatar === 'string')
       return (
         <div className={metaClass('avatar')}>
           <Image lazy src={avatar} />
@@ -44,7 +50,7 @@ class Meta extends Component {
   renderContent() {
     const { content } = this.props
     if (!content) return null
-    if (isFunc(content)) return <div className={metaClass('content')}>{content()}</div>
+    if (typeof content === 'function') return <div className={metaClass('content')}>{content()}</div>
     return <div className={metaClass('content')}>{content}</div>
   }
 
@@ -80,14 +86,6 @@ class Meta extends Component {
       </div>
     )
   }
-}
-
-Meta.propTypes = {
-  avatar: PropTypes.oneOfType([PropTypes.string, PropTypes.node, PropTypes.func]),
-  title: PropTypes.string,
-  desc: PropTypes.string,
-  content: PropTypes.oneOfType([PropTypes.string, PropTypes.node, PropTypes.func]),
-  className: PropTypes.string,
 }
 
 export default Meta

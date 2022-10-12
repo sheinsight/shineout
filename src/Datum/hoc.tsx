@@ -34,7 +34,6 @@ export default curry(<U extends BaseProps>(options: DatumHocOptions<U>, Origin: 
   const { type = 'list', key = 'value', limit = 0, bindProps = [], ignoreUndefined, pure = true } = options || {}
   const Datum = types[type]
   const Component = pure ? React.PureComponent : React.Component
-
   return class extends Component<U> {
     static defaultProps = {
       initValidate: false,
@@ -94,7 +93,7 @@ export default curry(<U extends BaseProps>(options: DatumHocOptions<U>, Origin: 
     render() {
       const { onDatumBind, ...props } = this.props
       if (onDatumBind) onDatumBind(this.datum)
-      if ((bindProps).includes('disabled')) {
+      if (bindProps.includes('disabled')) {
         this.datum.setDisabled(props.disabled)
       }
       const values = this.props[key]
@@ -106,7 +105,6 @@ export default curry(<U extends BaseProps>(options: DatumHocOptions<U>, Origin: 
 
       if (type === 'list') this.setValue(WITH_OUT_DISPATCH)
       // delete props[key]
-
       return (
         <Origin {...props} datum={this.datum} />
       )

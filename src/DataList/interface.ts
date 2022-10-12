@@ -1,14 +1,12 @@
 import * as React from 'react'
-import { StandardProps, StructDataStandardProps, ListItemStandardProps, RegularAttributes} from '../@types/common'
+import { StandardProps, StructDataStandardProps, ListItemStandardProps, RegularAttributes } from '../@types/common'
 
-type ReactNode = React.ReactNode;
+type ReactNode = React.ReactNode
 
-
-export interface ListProps<Item, Value> extends StandardProps,
-  StructDataStandardProps<Item>,
-  ListItemStandardProps<Item, Value> {
-
-
+export interface ListProps<Item, Value>
+  extends StandardProps,
+    StructDataStandardProps<Item>,
+    ListItemStandardProps<Item, Value> {
   /**
    * show border
    *
@@ -16,8 +14,7 @@ export interface ListProps<Item, Value> extends StandardProps,
    *
    * default: null
    */
-  bordered?: boolean;
-
+  bordered?: boolean
 
   /**
    * What to display when no data
@@ -26,8 +23,7 @@ export interface ListProps<Item, Value> extends StandardProps,
    *
    * default:null
    */
-  empty?: string | ReactNode;
-
+  empty?: string | ReactNode
 
   /**
    * virtualized list
@@ -36,8 +32,7 @@ export interface ListProps<Item, Value> extends StandardProps,
    *
    * default: false
    */
-  fixed?: boolean;
-
+  fixed?: boolean
 
   /**
    * The content at the bottom
@@ -46,8 +41,7 @@ export interface ListProps<Item, Value> extends StandardProps,
    *
    * default: null
    */
-  footer?: ReactNode;
-
+  footer?: ReactNode | (() => ReactNode)
 
   /**
    * height of item
@@ -56,8 +50,7 @@ export interface ListProps<Item, Value> extends StandardProps,
    *
    * default: 32
    */
-  lineHeight?: number;
-
+  lineHeight?: number
 
   /**
    * loading
@@ -66,8 +59,7 @@ export interface ListProps<Item, Value> extends StandardProps,
    *
    * default: false
    */
-  loading?: boolean| ReactNode;
-
+  loading?: boolean | ReactNode
 
   /**
    * Select the row ,rowData is the selected data, rowIndex is the selected row number. If the data needs to be formatted, it is recommended to configure format
@@ -76,8 +68,7 @@ export interface ListProps<Item, Value> extends StandardProps,
    *
    * default: null
    */
-  onChange?: (rowData: Value[], index: number) => void;
-
+  onChange?: (rowData: Value[], index: number) => void
 
   /**
    * custom row className
@@ -86,8 +77,7 @@ export interface ListProps<Item, Value> extends StandardProps,
    *
    * default: null
    */
-  rowClassName?: (rowData: Item, index: number) => string;
-
+  rowClassName?: (rowData: Item, index: number) => string
 
   /**
    * 同时展示的列表项数量
@@ -96,8 +86,7 @@ export interface ListProps<Item, Value> extends StandardProps,
    *
    * default: 10
    */
-  rowsInView?: number;
-
+  rowsInView?: number
 
   /**
    * Triggered when scrolling to the bottom
@@ -106,8 +95,7 @@ export interface ListProps<Item, Value> extends StandardProps,
    *
    * default: null
    */
-  scrollLoading?: () => void;
-
+  scrollLoading?: () => void
 
   /**
    * The current selected value.
@@ -116,8 +104,7 @@ export interface ListProps<Item, Value> extends StandardProps,
    *
    * default: none
    */
-  value?: Value[];
-
+  value?: Value[]
 
   /**
    * size of list
@@ -126,12 +113,10 @@ export interface ListProps<Item, Value> extends StandardProps,
    *
    * default: 'default'
    */
-  size?: RegularAttributes.Size;
+  size?: RegularAttributes.Size
 }
 
-export interface ListBaseItemProps{
-
-
+export interface ListBaseItemProps {
   /**
    * List images
    *
@@ -139,8 +124,7 @@ export interface ListBaseItemProps{
    *
    * default: null
    */
-  avatar?: string| ReactNode |(() => ReactNode);
-
+  avatar?: string | ReactNode | (() => ReactNode)
 
   /**
    * Item className
@@ -149,8 +133,7 @@ export interface ListBaseItemProps{
    *
    * default: null
    */
-  className?: string;
-
+  className?: string
 
   /**
    * List content
@@ -159,8 +142,7 @@ export interface ListBaseItemProps{
    *
    * default: null
    */
-  content?: string| ReactNode |(() => ReactNode);
-
+  content?: string | ReactNode | (() => ReactNode)
 
   /**
    * Description
@@ -169,7 +151,7 @@ export interface ListBaseItemProps{
    *
    * default: null
    */
-  desc?: string;
+  desc?: string
 
   /**
    * Content area on the right side of the list
@@ -178,8 +160,7 @@ export interface ListBaseItemProps{
    *
    * default: null
    */
-  extra?: Array<ReactNode>|ReactNode;
-
+  extra?: Array<ReactNode> | ReactNode
 
   /**
    * The title of the list
@@ -188,7 +169,7 @@ export interface ListBaseItemProps{
    *
    * default: null
    */
-  title?: string;
+  title?: string
 
   /**
    * Multi-column display
@@ -197,20 +178,17 @@ export interface ListBaseItemProps{
    *
    * default: 1
    */
-  colNum?: number;
-
-
+  colNum?: number
 }
 
-
 declare class ListBaseItem extends React.Component<ListBaseItemProps, {}> {
-  render(): JSX.Element;
+  render(): JSX.Element
 }
 
 declare class List<Item = any, Value = any> extends React.Component<ListProps<Item, Value>, {}> {
-  static BaseItem: typeof ListBaseItem;
+  static BaseItem: typeof ListBaseItem
 
-  render(): JSX.Element;
+  render(): JSX.Element
 }
 
 export default List

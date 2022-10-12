@@ -3,17 +3,18 @@ import { getUidStr } from './uid'
 import { docSize } from './dom/document'
 
 type Timer = NodeJS.Timeout | null
-type Component = {
-  container: HTMLElement
-  element: HTMLElement
+
+type Component<T extends HTMLElement> = {
+  container: T | null
+  element: T
   render: Function
   offset: number
   noRemove: boolean
-  observer: IntersectionObserver
+  observer?: IntersectionObserver
 }
 
 const throttle = 80
-const components: { [x: string]: Component } = {}
+const components: { [x: string]: Component<HTMLElement> } = {}
 
 let timeout: Timer = null
 let isLock = false
@@ -30,7 +31,7 @@ const getRect = (el: HTMLElement) => {
   return el.getBoundingClientRect()
 }
 
-export function dispatch<K extends keyof Component>() {
+export function dispatch<K extends keyof Component<HTMLElement>>() {
   if (isLock) return
   isLock = true
 
@@ -38,7 +39,7 @@ export function dispatch<K extends keyof Component>() {
   Object.keys(components).forEach((k: K) => {
     const { element, render, container, offset, noRemove } = components[k]
     const rect = element.getBoundingClientRect()
-    const containerRect = getRect(container)
+    const containerRect = getRect(container!)
     if (rect.bottom + offset < containerRect.top || rect.top - offset > containerRect.bottom) return
     if (!noRemove) delete components[k]
     render()
@@ -68,7 +69,7 @@ export function removeStack(id: string, removeListener?: boolean) {
   delete components[id]
 }
 
-function getObserver(obj: Component, id: string) {
+function getObserver<T extends HTMLElement>(obj: Component<T>, id: string) {
   const { container = null, offset, render, noRemove } = obj
   const observer = new IntersectionObserver(
     entries => {
@@ -88,7 +89,7 @@ function getObserver(obj: Component, id: string) {
   return observer
 }
 
-export function addStack(obj: Component) {
+export function addStack<T extends HTMLElement>(obj: Component<T>) {
   const id = getUidStr()
   const scrollEl = obj.container || document
   obj.offset = obj.offset || 0
@@ -100,7 +101,7 @@ export function addStack(obj: Component) {
   }
   scrollEl.addEventListener('scroll', handleScroll, eventPassive)
   const rect = obj.element.getBoundingClientRect()
-  const containerRect = getRect(obj.container)
+  const containerRect = getRect(obj.container!)
 
   if (rect.bottom + obj.offset < containerRect.top || rect.top - obj.offset > containerRect.bottom) {
     components[id] = obj

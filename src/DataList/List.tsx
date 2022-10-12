@@ -1,9 +1,9 @@
 import React, { Component, isValidElement } from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { getLocale } from '../locale'
 import LazyList from '../AnimationList/LazyList'
 import { listClass } from './styles'
+import Datum from '../Datum/List'
 import { isFunc, isArray, isString } from '../utils/is'
 import { getKey } from '../utils/uid'
 import { removeStack, addStack } from '../utils/lazyload'
@@ -12,8 +12,31 @@ import getDataset from '../utils/dom/getDataset'
 import Checkbox from '../Table/Checkbox'
 import { isRTL } from '../config'
 
-class Index extends Component {
-  constructor(props) {
+import { ListProps } from './interface'
+
+interface DataListProps<U, T> extends ListProps<U, T> {
+  datum: Datum<U, T>
+  height: number
+}
+
+const DefaultProps = {
+  colNum: 1,
+  loading: false,
+  size: 'default',
+}
+
+type Props<U, T> = DataListProps<U, T> & Required<Pick<DataListProps<U, T>, keyof typeof DefaultProps>>
+
+class Index<U, T> extends Component<Props<U, T>> {
+  id: string | null
+
+  node: HTMLDivElement | null
+
+  observer: HTMLDivElement | null
+
+  static displayName: string
+
+  constructor(props: Props<U, T>) {
     super(props)
 
     this.bindNode = this.bindNode.bind(this)
@@ -25,24 +48,24 @@ class Index extends Component {
   }
 
   componentWillUnmount() {
-    removeStack(this.id, true)
+    removeStack(this.id!, true)
     this.node = null
     this.observer = null
     this.id = null
   }
 
-  getItemClassName(value, index, flag) {
+  getItemClassName(value: U, index: number, flag?: boolean) {
     const { rowClassName } = this.props
     const base = listClass('item', flag && 'checkbox')
-    if (isFunc(rowClassName)) return classnames(base, rowClassName(value, index))
+    if (isFunc(rowClassName) && rowClassName) return classnames(base, rowClassName(value, index))
     if (isString(rowClassName)) return classnames(base, rowClassName)
     return base
   }
 
-  getContent(value, index) {
+  getContent(value: U, index: number) {
     const { renderItem } = this.props
-    if (isFunc(renderItem)) return renderItem(value, index)
-    if (isString(renderItem)) return value[renderItem]
+    if (renderItem && typeof renderItem === 'function') return renderItem(value, index)
+    if (isString(renderItem)) return value[renderItem as keyof U]
     if (isString(value)) return value
     return null
   }
@@ -50,18 +73,18 @@ class Index extends Component {
   scrollLoading() {
     const { scrollLoading } = this.props
     if (!isFunc(scrollLoading)) return
-    scrollLoading()
+    if (scrollLoading) scrollLoading()
   }
 
-  bindNode(node) {
+  bindNode(node: HTMLDivElement) {
     this.node = node
   }
 
-  bindObserver(node) {
+  bindObserver(node: HTMLDivElement) {
     this.observer = node
     if (!node) return
 
-    removeStack(this.id, true)
+    removeStack(this.id!, true)
     this.id = addStack({
       container: this.node,
       element: node,
@@ -71,30 +94,33 @@ class Index extends Component {
     })
   }
 
-  renderCheckBox(flag, data, index) {
+  renderCheckBox(flag: boolean, data: U, index: number) {
     if (!flag) return null
     const { datum } = this.props
     return <Checkbox data={data} index={index} datum={datum} force={datum.check(data)} />
   }
 
-  renderItem(value, index) {
+  renderItem(value: U, index: number) {
     const { keygen, onChange } = this.props
     const haveRowSelected = isFunc(onChange)
     return (
-      <div className={this.getItemClassName(value, index, haveRowSelected)} key={getKey(value, keygen, index)}>
+      <div
+        className={this.getItemClassName(value, index, haveRowSelected)}
+        key={getKey(value, keygen, index) as React.Key}
+      >
         {this.renderCheckBox(haveRowSelected, value, index)}
         {this.getContent(value, index)}
       </div>
     )
   }
 
-  renderList(isEmpty) {
+  renderList(isEmpty: boolean) {
     const { data, empty, keygen, fixed, rowsInView, lineHeight, value, colNum } = this.props
 
     if (isEmpty) return <div className={listClass('item', 'empty')}>{empty || getLocale('noData')}</div>
 
     if (!fixed) {
-      const items = data.map(this.renderItem)
+      const items = data!.map(this.renderItem)
       if (colNum && colNum > 1) {
         const frs = Array(colNum)
           .fill('1fr')
@@ -118,7 +144,7 @@ class Index extends Component {
 
   renderFooter() {
     const { footer } = this.props
-    if (isFunc(footer)) return <div className={listClass('footer')}>{footer()}</div>
+    if (footer && typeof footer === 'function') return <div className={listClass('footer')}>{footer()}</div>
     if (isValidElement(footer)) return <div className={listClass('footer')}>{footer}</div>
     return null
   }
@@ -135,7 +161,7 @@ class Index extends Component {
         )}
         style={ms}
         ref={this.bindNode}
-        {...getDataset(this.props)}
+        {...getDataset(this.props) as {}}
       >
         {loading && (
           <div className={listClass('loading')}>{typeof loading === 'boolean' ? <Spin size={40} /> : loading}</div>
@@ -146,37 +172,6 @@ class Index extends Component {
       </div>
     )
   }
-}
-
-Index.propTypes = {
-  onChange: PropTypes.func,
-  className: PropTypes.string,
-  data: PropTypes.array,
-  renderItem: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-  footer: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
-  datum: PropTypes.object.isRequired,
-  keygen: PropTypes.oneOfType([PropTypes.func, PropTypes.string, PropTypes.bool]).isRequired,
-  // eslint-disable-next-line react/no-unused-prop-types
-  format: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-  loading: PropTypes.oneOfType([PropTypes.bool, PropTypes.node]),
-  style: PropTypes.object,
-  scrollLoading: PropTypes.func,
-  rowClassName: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-  size: PropTypes.oneOf(['default', 'small', 'large']),
-  bordered: PropTypes.bool,
-  empty: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
-  fixed: PropTypes.bool,
-  rowsInView: PropTypes.number,
-  height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  lineHeight: PropTypes.number,
-  value: PropTypes.array,
-  colNum: PropTypes.number,
-}
-
-Index.defaultProps = {
-  size: 'default',
-  loading: false,
-  colNum: 1,
 }
 
 Index.displayName = 'ShineoutList'
