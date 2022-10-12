@@ -119,7 +119,7 @@ export { default as config, setConfig, isRTL } from './config'
 export { default as LazyList } from './AnimationList/LazyList'
 
 export { default as List } from './DataList'
-import { ListProps as ${prefix}ListProps , ListBaseItemProps as ${prefix}ListBaseItemProps } from './DataList'
+import { ListProps as ${prefix}ListProps , ListBaseItemProps as ${prefix}ListBaseItemProps } from './DataList/interface'
 
 <% for(let key in components){ -%>
 export { default as <%= key %> } from './<%= key %>'

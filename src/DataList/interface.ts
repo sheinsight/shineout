@@ -3,8 +3,7 @@ import { StandardProps, StructDataStandardProps, ListItemStandardProps, RegularA
 
 type ReactNode = React.ReactNode
 
-export interface ListProps<Item, Value>
-  extends StandardProps,
+export interface ListProps<Item, Value> extends StandardProps,
     StructDataStandardProps<Item>,
     ListItemStandardProps<Item, Value> {
   /**

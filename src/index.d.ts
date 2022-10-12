@@ -15,10 +15,10 @@ export { default as config, setConfig, isRTL } from './config'
 export { default as LazyList } from './AnimationList/LazyList'
 
 export { default as List } from './DataList'
-import { ListProps as __ListProps , ListBaseItemProps as __ListBaseItemProps } from './DataList'
+import { ListProps as __ListProps , ListBaseItemProps as __ListBaseItemProps } from './DataList/interface'
 
 export { default as Alert } from './Alert'
-import { AlertProps as __AlertProps, DefaultProps as __DefaultProps,  } from './Alert/interface'
+import { AlertProps as __AlertProps,  } from './Alert/interface'
 
 export { default as AnimationList } from './AnimationList'
 
@@ -161,7 +161,6 @@ export namespace TYPE {
 
   export namespace Alert {
     export type Props = __AlertProps
-    export type DefaultProps = __DefaultProps
   }
   export namespace Breadcrumb {
     export type Props<Item = __BreadcrumbData> = __BreadcrumbProps<Item>

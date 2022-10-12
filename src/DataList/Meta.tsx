@@ -7,10 +7,10 @@ const metaClass = (...a: (string | boolean)[]) => listClass(...a.map(v => `meta-
 
 interface MetaProps {
   avatar: ReactNode | (() => ReactNode)
-  title: string
+  title?: string
   desc: string
-  content: ReactNode | (() => ReactNode)
-  className: string
+  content?: ReactNode | (() => ReactNode)
+  className?: string
 }
 
 class Meta extends Component<MetaProps> {
