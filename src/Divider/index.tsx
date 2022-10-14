@@ -10,6 +10,8 @@ const DefaultProps = {
 type Props = DividerProps & Required<Pick<DividerProps, keyof typeof DefaultProps>>
 
 class Divider extends PureComponent<Props> {
+  static defaultProps = DefaultProps
+  
   showText() {
     const { children, mode } = this.props
     return children && mode === 'horizontal'
@@ -29,4 +31,4 @@ class Divider extends PureComponent<Props> {
   }
 }
 
-export default Divider  as React.ComponentClass<DividerProps>
+export default Divider as React.ComponentClass<DividerProps>
