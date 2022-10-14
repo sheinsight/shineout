@@ -18,7 +18,7 @@ export { default as List } from './DataList'
 import { ListProps as __ListProps , ListBaseItemProps as __ListBaseItemProps } from './DataList'
 
 export { default as Alert } from './Alert'
-import { AlertProps as __AlertProps, DefaultProps as __DefaultProps,  } from './Alert/interface'
+import { AlertProps as __AlertProps,  } from './Alert/interface'
 
 export { default as AnimationList } from './AnimationList'
 
@@ -49,7 +49,7 @@ import { DatePickerProps as __DatePickerProps, QuickSelect as __QuickSelect, Are
 export { default as Datum } from './Datum'
 
 export { default as Divider } from './Divider'
-import { DividerProps as __DividerProps,  } from './Divider'
+import { DividerProps as __DividerProps,  } from './Divider/interface'
 
 export { default as Drawer } from './Drawer'
 import { DrawerProps as __DrawerProps,  } from './Drawer'
@@ -161,7 +161,6 @@ export namespace TYPE {
 
   export namespace Alert {
     export type Props = __AlertProps
-    export type DefaultProps = __DefaultProps
   }
   export namespace Breadcrumb {
     export type Props<Item = __BreadcrumbData> = __BreadcrumbProps<Item>
