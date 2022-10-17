@@ -18,7 +18,7 @@ export { default as List } from './DataList'
 import { ListProps as __ListProps , ListBaseItemProps as __ListBaseItemProps } from './DataList'
 
 export { default as Alert } from './Alert'
-import { AlertProps as __AlertProps, DefaultProps as __DefaultProps,  } from './Alert/interface'
+import { AlertProps as __AlertProps,  } from './Alert/interface'
 
 export { default as AnimationList } from './AnimationList'
 
@@ -55,7 +55,7 @@ export { default as Drawer } from './Drawer'
 import { DrawerProps as __DrawerProps,  } from './Drawer'
 
 export { default as Dropdown } from './Dropdown'
-import { DropdownProps as __DropdownProps, DropdownItem as __DropdownItem } from './Dropdown'
+import { DropdownProps as __DropdownProps, DropdownNode as __DropdownNode, DropdownItem as __DropdownItem } from './Dropdown/interface'
 
 export { default as EditableArea } from './EditableArea'
 import { EditableAreaProps as __EditableAreaProps,  } from './EditableArea'
@@ -161,7 +161,6 @@ export namespace TYPE {
 
   export namespace Alert {
     export type Props = __AlertProps
-    export type DefaultProps = __DefaultProps
   }
   export namespace Breadcrumb {
     export type Props<Item = __BreadcrumbData> = __BreadcrumbProps<Item>
@@ -209,7 +208,8 @@ export namespace TYPE {
     export type Props = __DrawerProps
   }
   export namespace Dropdown {
-    export type Props = __DropdownProps  
+    export type Props = __DropdownProps
+    export type Node = __DropdownNode  
     export type Item = __DropdownItem
   }
   export namespace EditableArea {
