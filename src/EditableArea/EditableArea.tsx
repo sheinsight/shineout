@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import Textarea from '../Textarea'
 import Input from '../Input'
@@ -10,10 +9,21 @@ import { focusElement, getParent } from '../utils/dom/element'
 import { inputClass } from '../Input/styles'
 import InputTitle from '../InputTitle'
 import { inputTitleClass } from '../InputTitle/styles'
+import { EditableAreaProps } from './interface'
+
+interface State {
+  showTextarea: boolean
+}
+
+type Props = EditableAreaProps & Required<Pick<EditableAreaProps, keyof typeof DefaultProps>>
+
+const DefaultProps = {
+  bordered: false,
+}
 
 const noop = () => {}
 
-function formatShowValue(value) {
+function formatShowValue(value: unknown) {
   if (!value && value !== 0) return ''
   const arr = String(value).split('\n')
   const len = arr.length
@@ -21,8 +31,26 @@ function formatShowValue(value) {
   return String(value)
 }
 
-class Editable extends React.PureComponent {
-  constructor(props) {
+class Editable extends React.PureComponent<Props, State> {
+  static defaultProps = DefaultProps
+
+  bindContainer: (type: HTMLDivElement) => void
+
+  bindInput: (type: HTMLDivElement) => void
+
+  container: HTMLElement
+
+  input: HTMLElement
+
+  showPop: React.FocusEventHandler<HTMLDivElement>
+
+  hidePop: (flag?: boolean) => void
+
+  handleClear: React.MouseEventHandler<HTMLDivElement>
+
+  width: number
+
+  constructor(props: Props) {
     super(props)
     this.state = {
       showTextarea: false,
@@ -42,33 +70,33 @@ class Editable extends React.PureComponent {
     this.handleClear = this.onChange.bind(this, '')
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(_prevProps: Props, prevState: State) {
     const { showTextarea } = this.state
     if (prevState.showTextarea !== showTextarea && showTextarea) {
       this.autoFocus()
     }
   }
 
-  onChange(value) {
+  onChange(value: string) {
     const { onChange } = this.props
     if (typeof onChange === 'function') onChange(value)
   }
 
-  onBlur(e) {
+  onBlur(e: MouseEvent) {
     const { onBlur } = this.props
     this.hidePop()
     if (typeof onBlur === 'function') onBlur(e)
   }
 
   getErrorProps() {
-    const p = {}
+    const p: { error?: Error } = {}
     if ('error' in this.props) p.error = this.props.error
     return p
   }
 
-  updateShowTextarea(flag) {
+  updateShowTextarea(flag: boolean) {
     if (flag && this.input) {
-      this.width = getParent(this.input, `.${editableAreaClass('input')}`).offsetWidth
+      this.width = getParent(this.input, `.${editableAreaClass('input')}`)!.offsetWidth
     }
     this.setState({ showTextarea: flag })
     if (this.props.onShowTextareaChange) {
@@ -76,18 +104,20 @@ class Editable extends React.PureComponent {
     }
   }
 
-  handleFocus(e) {
+  handleFocus(e: MouseEvent) {
     const { onFocus } = this.props
     if (typeof onFocus === 'function') onFocus(e)
   }
 
-  bindElement(type, el) {
+  bindElement(type: 'container' | 'input', el: HTMLElement) {
     this[type] = el
   }
 
   autoFocus() {
     if (!this.container) return
-    const target = this.container.querySelector(`.${editableAreaClass('text-area')} textarea.so-input-auto-size`)
+    const target = this.container.querySelector(
+      `.${editableAreaClass('text-area')} textarea.so-input-auto-size`
+    ) as HTMLTextAreaElement
     if (target) focusElement.end(target)
   }
 
@@ -120,7 +150,7 @@ class Editable extends React.PureComponent {
 
   renderResult() {
     const { placeholder, disabled, value, renderResult, placeTitle, innerTitle, error } = this.props
-    const result = renderResult(value)
+    const result = renderResult!(value!)
     return (
       <div
         tabIndex={disabled ? undefined : 0}
@@ -192,32 +222,6 @@ class Editable extends React.PureComponent {
       </div>
     )
   }
-}
-
-Editable.defaultProps = {
-  bordered: false,
-}
-
-Editable.propTypes = {
-  onBlur: PropTypes.func,
-  onChange: PropTypes.func,
-  value: PropTypes.string,
-  style: PropTypes.object,
-  className: PropTypes.string,
-  bordered: PropTypes.bool,
-  placeholder: PropTypes.string,
-  onFocus: PropTypes.func,
-  disabled: PropTypes.bool,
-  clearable: PropTypes.bool,
-  getPopupContainer: PropTypes.func,
-  maxHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  innerTitle: PropTypes.node,
-  placeTitle: PropTypes.node,
-  renderFooter: PropTypes.func,
-  renderResult: PropTypes.func,
-  onShowTextareaChange: PropTypes.func,
-  error: PropTypes.object,
 }
 
 export default Editable

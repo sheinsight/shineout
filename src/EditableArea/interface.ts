@@ -1,8 +1,7 @@
-import React, { ReactNode } from "react"
-import {StandardProps, FormItemStandardProps} from '../@types/common'
+import React, { ReactNode } from 'react'
+import { StandardProps, FormItemStandardProps } from '../@types/common'
 
 export interface EditableAreaProps extends StandardProps, FormItemStandardProps<string> {
-
   /**
    * Whether to show the border
    *
@@ -10,7 +9,7 @@ export interface EditableAreaProps extends StandardProps, FormItemStandardProps<
    *
    * default: false
    */
-  bordered?: boolean;
+  bordered?: boolean
 
   /**
    * Whether to show the clear button
@@ -19,7 +18,7 @@ export interface EditableAreaProps extends StandardProps, FormItemStandardProps<
    *
    * default: true
    */
-  clearable?: boolean;
+  clearable?: boolean
 
   /**
    * User input triggers the onChange and to check interval, unit: ms.
@@ -28,7 +27,7 @@ export interface EditableAreaProps extends StandardProps, FormItemStandardProps<
    *
    * default: 400
    */
-  delay?: number;
+  delay?: number
 
   /**
    * Whether to disable
@@ -37,7 +36,7 @@ export interface EditableAreaProps extends StandardProps, FormItemStandardProps<
    *
    * default: false
    */
-  disabled?: boolean;
+  disabled?: boolean
 
   /**
    * Custom Popover container, override the default behavior which is rendering under the body, () => DOMElement
@@ -46,7 +45,7 @@ export interface EditableAreaProps extends StandardProps, FormItemStandardProps<
    *
    *  default: none
    */
-  getPopupContainer?: () => HTMLElement;
+  getPopupContainer?: () => HTMLElement
 
   /**
    * the maxHeight of the textarea, scroll bars appear after more than
@@ -55,7 +54,7 @@ export interface EditableAreaProps extends StandardProps, FormItemStandardProps<
    *
    * default: none
    */
-  maxHeight?: number | string;
+  maxHeight?: number | string
 
   /**
    * blur event
@@ -64,7 +63,7 @@ export interface EditableAreaProps extends StandardProps, FormItemStandardProps<
    *
    * default: none
    */
-  onBlur?: (e: MouseEvent) => void;
+  onBlur?: (e: MouseEvent) => void
 
   /**
    * focus event
@@ -73,7 +72,7 @@ export interface EditableAreaProps extends StandardProps, FormItemStandardProps<
    *
    * default: none
    */
-  onFocus?: (e: MouseEvent) => void;
+  onFocus?: (e: MouseEvent) => void
 
   /**
    * When trim is true, blank characters are automatically deleted when lose focus
@@ -82,7 +81,7 @@ export interface EditableAreaProps extends StandardProps, FormItemStandardProps<
    *
    * default: false
    */
-  trim?: boolean;
+  trim?: boolean
 
   /**
    * width of the editablearea
@@ -91,7 +90,7 @@ export interface EditableAreaProps extends StandardProps, FormItemStandardProps<
    *
    * default: none
    */
-  width?: number | string;
+  width?: number | string
 
   /**
    * inner title
@@ -119,7 +118,7 @@ export interface EditableAreaProps extends StandardProps, FormItemStandardProps<
    *
    * default: -
    */
-  renderFooter?: (value: string)=> ReactNode,
+  renderFooter?: (value: string) => ReactNode
 
   /**
    * Customize display results
@@ -128,7 +127,7 @@ export interface EditableAreaProps extends StandardProps, FormItemStandardProps<
    *
    * default: -
    */
-  renderResult?: (value: string)=> ReactNode,
+  renderResult?: (value: string) => ReactNode
 
   // 暂时屏蔽该属性
   /**
@@ -139,11 +138,9 @@ export interface EditableAreaProps extends StandardProps, FormItemStandardProps<
    * default: -
    */
   //  onShowTextareaChange?: (value: boolean)=> void,
-
-
 }
 
-declare class EditableArea extends React.PureComponent<EditableAreaProps, any>{
+declare class EditableArea extends React.PureComponent<EditableAreaProps, any> {
   render(): JSX.Element
 }
 
