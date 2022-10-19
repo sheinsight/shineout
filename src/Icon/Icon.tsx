@@ -3,8 +3,17 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { iconClass } from './styles'
+import { IconComProps } from './interface'
 
-function Icon(props) {
+function Icon(
+  props: IconComProps = {
+    ...defaultProps,
+    prefix: 'icon',
+    fontFamily: 'iconfont',
+    name: '',
+    type: 'default',
+  }
+) {
   const { children, prefix, type, name, fontFamily, fontSize, ext, ...otherProps } = props
 
   const className = classnames(iconClass('_', type), props.className, `${prefix}-${name}`)

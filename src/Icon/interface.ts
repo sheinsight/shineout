@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { StandardProps, RegularAttributes } from '../@types/common'
-import { func } from "prop-types"
 
 
 export interface IconComProps extends StandardProps {
