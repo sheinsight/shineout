@@ -1,18 +1,22 @@
 import config from '../config'
 
-const CACHES = {}
+const CACHES: {
+  [className: string]: boolean
+} = {}
 const RESPONSIVE = {
   sm: '568',
   md: '768',
   lg: '992',
   xl: '1200',
 }
+type Responsive = keyof typeof RESPONSIVE
+
 const GridClassName = `${config.prefix}-grid`
 const GridFullClassName = `${config.prefix}-grid-full`
 const defaultResponsive = 'md'
 
-function createStyle(text, id) {
-  let style = document.head.querySelector(`#${id}`)
+function createStyle(text: string, id: string) {
+  let style = document.head.querySelector(`#${id}`) as Element & { type: string }
   if (style) {
     return
   }
@@ -24,19 +28,19 @@ function createStyle(text, id) {
   document.head.appendChild(style)
 }
 
-function generateGrid(width, className, responsive) {
+function generateGrid(width: number | string, className: string, responsive: Responsive) {
   const minWidth = RESPONSIVE[responsive]
   const text = `@media screen and (min-width: ${minWidth}px) { .${className}{width: ${width}%} }`
   createStyle(text, className)
 }
 
-function generateOffset(width, className, responsive) {
+function generateOffset(width: number | string, className: string, responsive: Responsive) {
   const minWidth = RESPONSIVE[responsive]
   const text = `@media screen and (min-width: ${minWidth}px) { .${className}{margin-left: ${width}%} }`
   createStyle(text, className)
 }
 
-function generate(w, type, res) {
+function generate(w: number | string, type: 'grid' | 'offset', res: Responsive) {
   let width = w
   const responsive = res || defaultResponsive
 
@@ -44,8 +48,10 @@ function generate(w, type, res) {
     return ''
   }
 
-  if (width > 1) { width = 1 }
-  width = (width * 100).toFixed(4)
+  if (width > 1) {
+    width = 1
+  }
+  width = ((width as number) * 100).toFixed(4)
   width = width.substr(0, width.length - 1)
 
   const className = `${config.prefix}-${type}-${responsive}-${width.replace('.', '-')}`
@@ -60,7 +66,15 @@ function generate(w, type, res) {
   return className
 }
 
-export function getGrid(opt) {
+export function getGrid(
+  opt:
+    | number
+    | {
+        width?: number
+        offset?: number | string
+        responsive?: Responsive
+      }
+) {
   let options = opt
   if (!options) {
     return ''
@@ -70,8 +84,8 @@ export function getGrid(opt) {
   }
 
   const { width, offset, responsive } = options
-  const gridClass = generate(width, 'grid', responsive)
-  const offsetClass = generate(offset, 'offset', responsive)
+  const gridClass = generate(width!, 'grid', responsive!)
+  const offsetClass = generate(offset!, 'offset', responsive!)
 
   return `${GridClassName} ${GridFullClassName} ${gridClass} ${offsetClass}`
 }
