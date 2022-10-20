@@ -7,11 +7,11 @@ const DELTA_LENGTH = 120
 // https://github.com/Microsoft/TypeScript-wiki/blob/main/Breaking-Changes.md#typescript-32
 
 interface OldWheelEvent extends WheelEvent {
-  axis: number
-  wheelDelta: number
-  wheelDeltaY: number
-  wheelDeltaX: number
-  HORIZONTAL_AXIS: number
+  axis?: number
+  wheelDelta?: number
+  wheelDeltaY?: number
+  wheelDeltaX?: number
+  HORIZONTAL_AXIS?: number
 }
 export default function(event: OldWheelEvent) {
   let sX = 0
@@ -22,13 +22,13 @@ export default function(event: OldWheelEvent) {
   if ('detail' in event) {
     sY = event.detail
   }
-  if ('wheelDelta' in event) {
+  if ('wheelDelta' in event && event.wheelDelta) {
     sY = -event.wheelDelta / DELTA_LENGTH
   }
-  if ('wheelDeltaY' in event) {
+  if ('wheelDeltaY' in event && event.wheelDeltaY) {
     sY = -event.wheelDeltaY / DELTA_LENGTH
   }
-  if ('wheelDeltaX' in event) {
+  if ('wheelDeltaX' in event && event.wheelDeltaX) {
     sX = -event.wheelDeltaX / DELTA_LENGTH
   }
 

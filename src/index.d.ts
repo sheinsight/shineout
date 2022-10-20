@@ -18,7 +18,7 @@ export { default as List } from './DataList'
 import { ListProps as __ListProps , ListBaseItemProps as __ListBaseItemProps } from './DataList'
 
 export { default as Alert } from './Alert'
-import { AlertProps as __AlertProps, DefaultProps as __DefaultProps,  } from './Alert/interface'
+import { AlertProps as __AlertProps,  } from './Alert/interface'
 
 export { default as AnimationList } from './AnimationList'
 
@@ -73,7 +73,7 @@ export { default as Icon } from './Icon'
 import { IconProps as __IconProps, IconComProps as __IconComProps,  } from './Icon'
 
 export { default as Image } from './Image'
-import { ImageProps as __ImageProps, ImageGroupProps as __ImageGroupProps,  } from './Image'
+import { ImageProps as __ImageProps, ImageGroupProps as __ImageGroupProps,  } from './Image/interface'
 
 export { default as Input } from './Input'
 import { InputProps as __InputProps, InputNumberProps as __InputNumberProps, InputGroupProps as __InputGroupProps, InputPasswordProps as __InputPasswordProps, numType as __numType } from './Input'
@@ -161,7 +161,6 @@ export namespace TYPE {
 
   export namespace Alert {
     export type Props = __AlertProps
-    export type DefaultProps = __DefaultProps
   }
   export namespace Breadcrumb {
     export type Props<Item = __BreadcrumbData> = __BreadcrumbProps<Item>
