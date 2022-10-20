@@ -560,6 +560,7 @@ class Select extends PureComponent {
       keygen,
       convertBr,
       data,
+      onFilter,
     } = this.props
     const disabled = this.getDisabledStatus()
     const className = selectClass(
@@ -591,7 +592,7 @@ class Select extends PureComponent {
           onClear={clearable ? this.handleClear : undefined}
           onCreate={onCreate}
           onRemove={this.handleRemove}
-          onFilter={this.handleFilter}
+          onFilter={onFilter && this.handleFilter}
           datum={datum}
           disabled={disabled}
           focus={this.state.focus}

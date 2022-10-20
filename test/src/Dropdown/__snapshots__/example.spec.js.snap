@@ -903,7 +903,9 @@ exports[`Dropdown[snapshot] Snapshot test: Dropdown[site/pages/components/Dropdo
     <div>
       <div>
         <div>
-          <span />
+          <span>
+            primary
+          </span>
           <a>
             <svg>
               <path />
@@ -923,7 +925,9 @@ exports[`Dropdown[snapshot] Snapshot test: Dropdown[site/pages/components/Dropdo
     <div>
       <div>
         <div>
-          <span />
+          <span>
+            default
+          </span>
           <a>
             <svg>
               <path />
