@@ -9,20 +9,14 @@
  * from right to left. For example, compose(f, g, h) is identical to doing
  * (...args) => f(g(h(...args))).
  */
-type Funcs = Function[]
 
-export function compose(...funcs: Funcs) {
-  if (funcs.length === 0) {
-    return (arg: any) => arg
-  }
-  const last = funcs[funcs.length - 1]
-  const rest = funcs.slice(0, -1)
-  return (...args: Funcs) => rest.reduceRight((composed, f) => f(composed), last(...args))
-}
+type AnyFunction = (...args: any) => any
+export { compose } from './compose'
+export * from './curry'
 
-export function curry(f: Function, ...args: any[]) {
+export function curry<U extends AnyFunction>(f: U, ...args: any) {
   if (args.length >= f.length) {
-    return f(...args)
+    return f(...args as any)
   }
 
   return (...next: any) => curry(f.bind(f, ...args), ...next)

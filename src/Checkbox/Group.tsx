@@ -1,16 +1,21 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { PureComponent } from '../component'
-import { getProps } from '../utils/proptypes'
 import { getKey } from '../utils/uid'
 import { CHANGE_TOPIC } from '../Datum/types'
 import Checkbox from './Checkbox'
 import { Provider } from './context'
 import { checkinputClass } from './styles'
+import {CheckboxGroupProps, CheckValueType} from './Props'
 
-class CheckboxGroup extends PureComponent {
-  constructor(props) {
+
+
+class CheckboxGroup<DataItem, Value> extends PureComponent<CheckboxGroupProps<DataItem, Value>, {}> {
+  static defaultProps = {
+    renderItem: (d: any) => d,
+  }
+
+  constructor(props: CheckboxGroupProps<DataItem, Value>) {
     super(props)
 
     this.handleClick = this.handleClick.bind(this)
@@ -28,7 +33,7 @@ class CheckboxGroup extends PureComponent {
     this.props.datum.unsubscribe(CHANGE_TOPIC, this.handleUpdate)
   }
 
-  getContent(d) {
+  getContent(d: DataItem) {
     const { renderItem } = this.props
     if (typeof renderItem === 'string') {
       return d[renderItem]
@@ -44,16 +49,16 @@ class CheckboxGroup extends PureComponent {
     this.forceUpdate()
   }
 
-  handleClick(val, checked, index) {
+  handleClick(_val: unknown, checked: CheckValueType, index: number) {
     const { data, datum } = this.props
     if (checked) {
-      datum.add(data[index])
+      datum.add(data![index])
     } else {
-      datum.remove(data[index])
+      datum.remove(data![index])
     }
   }
 
-  handleRawChange(value, checked) {
+  handleRawChange(value: DataItem, checked: CheckValueType) {
     const { datum } = this.props
     if (checked) {
       datum.add(value)
@@ -94,19 +99,6 @@ class CheckboxGroup extends PureComponent {
       </div>
     )
   }
-}
-
-CheckboxGroup.propTypes = {
-  ...getProps(PropTypes, 'children', 'keygen'),
-  block: PropTypes.bool,
-  data: PropTypes.array,
-  datum: PropTypes.object.isRequired,
-
-  renderItem: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-}
-
-CheckboxGroup.defaultProps = {
-  renderItem: d => d,
 }
 
 export default CheckboxGroup

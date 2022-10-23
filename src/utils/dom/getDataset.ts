@@ -1,3 +1,5 @@
+import { ObjectType } from "../../@types/common"
+
 export default (props: { [x: string]: any }) => {
   type Key = keyof typeof props
   if (!props) return {}
@@ -6,5 +8,5 @@ export default (props: { [x: string]: any }) => {
     if (key.indexOf('data-') !== 0) return acc
     acc[key] = props[key]
     return acc
-  }, {})
+  }, {}) as ObjectType
 }
