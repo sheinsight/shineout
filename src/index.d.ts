@@ -64,7 +64,7 @@ export { default as Form } from './Form'
 import { FormProps as __FormProps, FormItemProps as __FormItemProps, FormFlowProps as __FormFlowProps, FormRef as __FormRef, FormResetProps as __FormResetProps, FormSubmitProps as __FormSubmitProps, FormFieldProps as __FormFieldProps, FormFieldSetProps as __FormFieldSetProps, FieldChildrenFunc as __FieldChildrenFunc, FieldSetChildrenFunc as __FieldSetChildrenFunc,  } from './Form'
 
 export { default as Gap } from './Gap'
-import { GapProps as __GapProps,  } from './Gap'
+import { GapProps as __GapProps,  } from './Gap/interface'
 
 export { default as Grid } from './Grid'
 import { GridProps as __GridProps, responsiveType as __responsiveType } from './Grid'
@@ -73,7 +73,7 @@ export { default as Icon } from './Icon'
 import { IconProps as __IconProps, IconComProps as __IconComProps,  } from './Icon'
 
 export { default as Image } from './Image'
-import { ImageProps as __ImageProps, ImageGroupProps as __ImageGroupProps,  } from './Image'
+import { ImageProps as __ImageProps, ImageGroupProps as __ImageGroupProps,  } from './Image/interface'
 
 export { default as Input } from './Input'
 import { InputProps as __InputProps, InputNumberProps as __InputNumberProps, InputGroupProps as __InputGroupProps, InputPasswordProps as __InputPasswordProps, numType as __numType } from './Input'

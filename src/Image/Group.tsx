@@ -1,15 +1,17 @@
-import React, { PureComponent, Children, cloneElement } from 'react'
-import PropTypes from 'prop-types'
+import React, { PureComponent, Children, cloneElement, ReactElement } from 'react'
 import showGallery from './events'
 import { IMAGE } from './Image'
 import { imageClass } from './styles'
+import { ImageProps, ImageGroupProps } from './interface'
 
-class Group extends PureComponent {
-  handleClick(index) {
+class Group extends PureComponent<ImageGroupProps> {
+  static displayName: string
+
+  handleClick(index: number) {
     const { children } = this.props
-    const images = []
+    const images: {}[] = []
     let current = 0
-    Children.toArray(children).forEach((child, i) => {
+    Children.toArray(children).forEach((child: ReactElement<ImageProps> & { type: { symbolType: {} } }, i) => {
       if (child && child.type && child.type.symbolType === IMAGE) {
         if (index === i) current = images.length
         const { src, href } = child.props
@@ -24,7 +26,7 @@ class Group extends PureComponent {
     const { children, pile, style, ...props } = this.props
     return (
       <div className={imageClass('group', pile && 'pile')} style={style}>
-        {Children.toArray(this.props.children).map((child, i) =>
+        {Children.toArray(this.props.children).map((child: ReactElement<ImageProps>, i) =>
           cloneElement(child, {
             ...props,
             onClick: this.handleClick.bind(this, i),
@@ -33,12 +35,6 @@ class Group extends PureComponent {
       </div>
     )
   }
-}
-
-Group.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]),
-  pile: PropTypes.bool,
-  style: PropTypes.object,
 }
 
 export default Group

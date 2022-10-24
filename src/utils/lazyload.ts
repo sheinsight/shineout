@@ -9,7 +9,7 @@ type Component<T extends HTMLElement> = {
   element: T
   render: Function
   offset: number
-  noRemove: boolean
+  noRemove?: boolean
   observer?: IntersectionObserver
 }
 
@@ -21,7 +21,7 @@ let isLock = false
 
 const winHeight = docSize.height
 
-const getRect = (el: HTMLElement) => {
+const getRect = (el: Element) => {
   // document or invalid element
   if (!el || !el.getBoundingClientRect) {
     if (el) console.error(`the ${el} is not a element`)
@@ -57,7 +57,7 @@ const handleScroll = () => {
   }, throttle)
 }
 
-export function removeStack(id: string, removeListener?: boolean) {
+export function removeStack(id?: string | null, removeListener?: boolean) {
   if (!id || !components[id]) return
   const { observer, container } = components[id]
   const scrollEl = container || document

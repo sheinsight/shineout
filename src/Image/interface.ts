@@ -1,10 +1,8 @@
 import * as React from 'react'
 import { StandardProps } from '../@types/common'
 
-
-type ReactNode = React.ReactNode;
+type ReactNode = React.ReactNode
 export interface ImageProps extends StandardProps {
-
   /**
    * the height of the image(When the value is percentage, the ratio is the width of the image)
    *
@@ -12,7 +10,7 @@ export interface ImageProps extends StandardProps {
    *
    * default: '100%'
    */
-  height?: string | number;
+  height?: string | number
 
   /**
    * original picture address
@@ -21,7 +19,7 @@ export interface ImageProps extends StandardProps {
    *
    * default: none
    */
-  href?: string;
+  href?: string
 
   /**
    * whether to delay loading, number to set lazy offset
@@ -30,7 +28,7 @@ export interface ImageProps extends StandardProps {
    *
    * default: false
    */
-  lazy?: boolean | number;
+  lazy?: boolean | number
 
   /**
    * the picture address
@@ -39,7 +37,7 @@ export interface ImageProps extends StandardProps {
    *
    * default: required
    */
-  src?: string;
+  src?: string
 
   /**
    * Alternate address, applied when src is invalid
@@ -48,7 +46,7 @@ export interface ImageProps extends StandardProps {
    *
    * default: none
    */
-  alt?: string;
+  alt?: string
 
   /**
    * callback of image src or alt request fail
@@ -57,7 +55,7 @@ export interface ImageProps extends StandardProps {
    *
    * default: -
    */
-  onError?: (error: Event) => void;
+  onError?: (error: Event, type?: number) => void
 
   /**
    * target of image
@@ -66,7 +64,7 @@ export interface ImageProps extends StandardProps {
    *
    * default: '_modal'
    */
-  target?: '_modal' | '_blank' | '_self' | '_download';
+  target?: '_modal' | '_blank' | '_self' | '_download'
 
   /**
    * the width of the image
@@ -75,7 +73,7 @@ export interface ImageProps extends StandardProps {
    *
    * default: '100%'
    */
-  width?: string | number;
+  width?: string | number
 
   /**
    * loading image placeholder content
@@ -84,7 +82,7 @@ export interface ImageProps extends StandardProps {
    *
    * default: 'loading'
    */
-  placeholder?: ReactNode;
+  placeholder?: ReactNode
 
   /**
    * the special element selector witch container the lazy image, such as: '#id', '.class'
@@ -93,7 +91,7 @@ export interface ImageProps extends StandardProps {
    *
    * default: -
    */
-  container?: string;
+  container?: string | Element
 
   /**
    * image error placeholder
@@ -102,7 +100,7 @@ export interface ImageProps extends StandardProps {
    *
    * default: none
    */
-  error?: ReactNode;
+  error?: ReactNode
 
   /**
    * auto transform protocol
@@ -111,7 +109,7 @@ export interface ImageProps extends StandardProps {
    *
    * default: false
    */
-  autoSSL?: boolean;
+  autoSSL?: boolean
 
   /**
    * fit the container
@@ -120,7 +118,7 @@ export interface ImageProps extends StandardProps {
    *
    * default: -
    */
-  fit?: 'fill' | 'fit' | 'stretch' | 'center';
+  fit?: 'fill' | 'fit' | 'stretch' | 'center'
 
   /**
    * shape of image
@@ -129,29 +127,28 @@ export interface ImageProps extends StandardProps {
    *
    * default: 'rounded'
    */
-  shape?: 'rounded' | 'circle' | 'thumbnail';
+  shape?: 'rounded' | 'circle' | 'thumbnail'
 
   /**
    * The callback of click
-   * 
+   *
    * 点击图片的回调
-   * 
+   *
    * default: -
    */
-  onClick?: (e: MouseEvent) => void;
+  onClick?: (e: React.MouseEvent) => void
 
   /**
    * The original property of html
-   * 
+   *
    * 原生 title 属性
-   * 
+   *
    * default: -
    */
-  title?: string;
+  title?: string
 }
 
-export interface ImageGroupProps {
-
+export interface ImageGroupProps extends StandardProps {
   /**
    * the height of single image(When the value is percentage, the ratio is the width of the image)
    *
@@ -159,7 +156,7 @@ export interface ImageGroupProps {
    *
    * default: '100%'
    */
-  height?: string | number;
+  height?: string | number
 
   /**
    * whether to delay loading
@@ -168,7 +165,7 @@ export interface ImageGroupProps {
    *
    * default: false
    */
-  lazy?: boolean;
+  lazy?: boolean
 
   /**
    * whether to stack
@@ -177,7 +174,7 @@ export interface ImageGroupProps {
    *
    * default: false
    */
-  pile?: boolean;
+  pile?: boolean
 
   /**
    * target of image
@@ -186,7 +183,7 @@ export interface ImageGroupProps {
    *
    * default: '_modal'
    */
-  target?: '_modal' | '_blank' | '_self' | '_download';
+  target?: '_modal' | '_blank' | '_self' | '_download'
 
   /**
    * the width of single picture
@@ -195,7 +192,7 @@ export interface ImageGroupProps {
    *
    * default: '100%'
    */
-  width?: string | number;
+  width?: string | number
 
   /**
    * children
@@ -204,18 +201,6 @@ export interface ImageGroupProps {
    *
    * default: -
    */
-  children?: ReactNode;
-
+  children?: ReactNode
 }
-declare class ImageGroup extends React.Component<ImageGroupProps, {}> {
-  render(): JSX.Element;
-}
-
-
-declare class Image extends React.Component<ImageProps, {}> {
-  static Group: typeof ImageGroup;
-
-  render(): JSX.Element;
-}
-
 export default Image

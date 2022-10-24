@@ -9,7 +9,7 @@ export default function flexGapSupport() {
 
   document.body.appendChild(flex)
   const isSupported = flex.scrollHeight === 1
-  flex.parentNode.removeChild(flex)
+  if (flex.parentNode) flex.parentNode.removeChild(flex)
 
   return isSupported
 }

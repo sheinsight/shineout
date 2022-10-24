@@ -1,30 +1,19 @@
 import React, { PureComponent, Children, cloneElement } from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { getGrid } from './utils'
+import { GridProps } from './interface'
 
-export default class Grid extends PureComponent {
+export default class Grid extends PureComponent<GridProps> {
   static isGrid = true
 
   static displayName = 'ShineoutGrid'
-
-  static propTypes = {
-    children: PropTypes.any,
-    className: PropTypes.string,
-    gutter: PropTypes.number,
-    offset: PropTypes.number,
-    responsive: PropTypes.oneOf(['sm', 'md', 'lg', 'xl']),
-    stretch: PropTypes.bool,
-    style: PropTypes.object,
-    width: PropTypes.number,
-  }
 
   render() {
     const { width = 1, offset, responsive, stretch, children, gutter, ...other } = this.props
 
     let autoCount = 0
     let settleWidth = 0
-    Children.toArray(children).forEach(child => {
+    Children.toArray(children).forEach((child: React.ReactElement<GridProps, any>) => {
       if (child.type && child.type.isGrid) {
         if (child.props.width) settleWidth += child.props.width
         else autoCount += 1
@@ -45,9 +34,9 @@ export default class Grid extends PureComponent {
 
     return (
       <div {...other} style={style} className={className}>
-        {Children.toArray(children).map(child => {
+        {Children.toArray(children).map((child: React.ReactElement<GridProps, any>) => {
           if (child.type && child.type.isGrid) {
-            const pps = { style: Object.assign({}, child.props.style) }
+            const pps: { style: React.CSSProperties; width?: number } = { style: Object.assign({}, child.props.style) }
             if (!child.props.width) pps.width = autoWidth
             if (stretch) pps.style = { ...pps.style, minHeight: '100%', height: '100%' }
             if (gutter && gutter > 0) {

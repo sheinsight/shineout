@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { PureComponent } from '../component'
 import { addStack, removeStack } from '../utils/lazyload'
@@ -9,14 +8,43 @@ import { getLocale } from '../locale'
 import config from '../config'
 import { removeProtocol } from '../utils/strings'
 import getDataset from '../utils/dom/getDataset'
+import { ImageProps } from './interface'
+import Group from './Group'
+
+interface State {
+  status: number
+}
+
+const DefaultProps = {
+  lazy: false,
+  target: '_modal',
+  width: '100%',
+  height: '100%',
+}
+
+type Props = ImageProps & Required<Pick<ImageProps, keyof typeof DefaultProps>>
 
 const PLACEHOLDER = 0
 const SRC = 1
 const ALT = 2
 const ERROR = 3
 
-class Image extends PureComponent {
-  constructor(props) {
+class Image extends PureComponent<Props, State> {
+  static defaultProps = DefaultProps
+
+  static displayName: string
+
+  static symbolType: {}
+
+  static Group: typeof Group
+
+  lazyId: string | null
+
+  image?: HTMLImageElement
+
+  element: HTMLElement | null
+
+  constructor(props: Props) {
     super(props)
 
     this.state = {
@@ -34,7 +62,7 @@ class Image extends PureComponent {
     this.fetchImage()
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: Props) {
     const { src, alt } = this.props
     if (prevProps.src !== src || prevProps.alt !== alt) {
       this.fetchImage()
@@ -47,7 +75,7 @@ class Image extends PureComponent {
     delete this.image
   }
 
-  getUrl(url) {
+  getUrl(url: string) {
     const autoSSL = 'autoSSL' in this.props ? this.props.autoSSL : config.autoSSL
     if (autoSSL) return removeProtocol(url)
     return url
@@ -58,7 +86,7 @@ class Image extends PureComponent {
     showGallery({ thumb: src, src: href || src, key: 'key' })
   }
 
-  bindElement(el) {
+  bindElement(el: HTMLElement | null) {
     this.element = el
   }
 
@@ -70,7 +98,7 @@ class Image extends PureComponent {
       const { container } = this.props
       this.lazyId = addStack({
         offset: typeof this.props.lazy === 'number' ? this.props.lazy : 0,
-        element: this.element,
+        element: this.element!,
         render: this.markToRender,
         container: typeof container === 'string' ? document.querySelector(container) : container,
       })
@@ -92,7 +120,7 @@ class Image extends PureComponent {
     this.image = image
   }
 
-  handleError(type, e) {
+  handleError(type: number, e: Event) {
     const { onError } = this.props
     if (onError) onError(e, type)
     if (type === SRC) this.handleAlt()
@@ -112,7 +140,7 @@ class Image extends PureComponent {
     image.src = this.getUrl(alt)
   }
 
-  handleClick(e) {
+  handleClick(e: React.MouseEvent) {
     const { onClick, target, src, href } = this.props
     if (onClick) {
       onClick(e)
@@ -124,7 +152,7 @@ class Image extends PureComponent {
     }
   }
 
-  renderType(src) {
+  renderType(src?: string) {
     const { title, fit } = this.props
 
     return fit === 'fill' || fit === 'fit' ? (
@@ -179,6 +207,7 @@ class Image extends PureComponent {
     const className = classnames(imageClass('_', shape, fit), this.props.className)
 
     const Tag = href ? 'a' : 'div'
+
     const props = {
       ref: this.bindElement,
       onClick: this.handleClick,
@@ -188,41 +217,17 @@ class Image extends PureComponent {
       style: Object.assign({}, style, { width, paddingBottom: height }),
       ...getDataset(this.props),
     }
-    if (!href || target !== '_modal') props.href = href
+    if (!href || target !== '_modal') (props as typeof props & { href?: string }).href = href
     return <Tag {...props}>{this.renderImage()}</Tag>
   }
-}
-
-Image.propTypes = {
-  alt: PropTypes.string,
-  className: PropTypes.string,
-  height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  href: PropTypes.string,
-  lazy: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
-  onClick: PropTypes.func,
-  placeholder: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
-  shape: PropTypes.oneOf(['rounded', 'circle', 'thumbnail']),
-  src: PropTypes.string,
-  style: PropTypes.object,
-  target: PropTypes.oneOf(['_blank', '_self', '_modal', '_download']),
-  title: PropTypes.string,
-  fit: PropTypes.oneOf(['fill', 'fit', 'stretch', 'center']),
-  width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  container: PropTypes.string,
-  error: PropTypes.node,
-  autoSSL: PropTypes.bool,
-  onError: PropTypes.func,
-}
-
-Image.defaultProps = {
-  lazy: false,
-  target: '_modal',
-  width: '100%',
-  height: '100%',
 }
 
 export const IMAGE = {}
 
 Image.symbolType = IMAGE
 
-export default Image
+interface Export extends React.ComponentClass<ImageProps> {
+  Group: typeof Group
+}
+
+export default Image as Export

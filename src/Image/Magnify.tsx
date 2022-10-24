@@ -1,12 +1,26 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import immer from 'immer'
 import Spin from '../Spin'
 import { imageClass } from './styles'
 import { PureComponent } from '../component'
 
-class Magnify extends PureComponent {
-  constructor(props) {
+interface MagnifyProps {
+  src?: string
+  position: string
+  maxWidth: number
+  maxHeight: number
+  lockScroll: (isLock: boolean) => void
+}
+interface State {
+  loading: boolean
+  status: number
+  style: React.CSSProperties
+}
+
+class Magnify extends PureComponent<MagnifyProps, State> {
+  element: HTMLDivElement
+
+  constructor(props: MagnifyProps) {
     super(props)
 
     this.state = {
@@ -23,7 +37,7 @@ class Magnify extends PureComponent {
     this.handleLoaded = this.handleLoaded.bind(this)
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: MagnifyProps) {
     if (prevProps.src !== this.props.src && this.state.status === 1) {
       // eslint-disable-next-line
       this.setState({
@@ -38,26 +52,26 @@ class Magnify extends PureComponent {
     }
   }
 
-  move(clientX, clientY) {
+  move(clientX: number, clientY: number) {
     const rect = this.element.getBoundingClientRect()
     const image = this.element.querySelector('img')
     const width = rect.width - 100
     const height = rect.height - 100
     const x = (clientX - rect.left - 50) / width
     const y = (clientY - rect.top - 50) / height
-    this.element.scrollTop = (image.offsetHeight - height) * y
-    this.element.scrollLeft = (image.offsetWidth - width) * x
+    this.element.scrollTop = (image!.offsetHeight - height) * y
+    this.element.scrollLeft = (image!.offsetWidth - width) * x
   }
 
   handleLoaded() {
     this.setState({ loading: false })
   }
 
-  handleMove(e) {
+  handleMove(e: React.MouseEvent) {
     this.move(e.clientX, e.clientY)
   }
 
-  handleResize(e) {
+  handleResize(e: React.MouseEvent) {
     const { maxHeight, maxWidth, position } = this.props
     if (position !== 'center') return
     const status = this.state.status === 1 ? 0 : 1
@@ -81,7 +95,7 @@ class Magnify extends PureComponent {
     const { status, loading } = this.state
     // eslint-disable-next-line
     const cursor = this.props.position === 'center' ? (status === 1 ? 'zoom-out' : 'zoom-in') : 'pointer'
-    const style = { maxHeight, maxWidth, cursor }
+    const style: React.CSSProperties = { maxHeight, maxWidth, cursor }
     if (status === 1) {
       style.overflow = 'scroll'
       style.borderRightWidth = 0
@@ -95,7 +109,7 @@ class Magnify extends PureComponent {
         onClick={this.handleResize}
         onMouseMove={onMouseMove}
         ref={el => {
-          this.element = el
+          this.element = el!
         }}
         style={style}
         className={imageClass('magnify')}
@@ -109,14 +123,6 @@ class Magnify extends PureComponent {
       </div>
     )
   }
-}
-
-Magnify.propTypes = {
-  lockScroll: PropTypes.func,
-  maxHeight: PropTypes.number,
-  maxWidth: PropTypes.number,
-  position: PropTypes.string,
-  src: PropTypes.string,
 }
 
 export default Magnify

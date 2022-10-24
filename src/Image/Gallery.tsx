@@ -1,15 +1,40 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import immer from 'immer'
-import { PureComponent } from '../component'
-import normalizeWheel from '../utils/dom/normalizeWheel'
-import { imageClass } from './styles'
 import icons from '../icons'
 import Magnify from './Magnify'
+import { imageClass } from './styles'
+import { GalleryImage } from './events'
+import { PureComponent } from '../component'
 import { docSize } from '../utils/dom/document'
+import normalizeWheel from '../utils/dom/normalizeWheel'
 
-class Gallery extends PureComponent {
-  constructor(props) {
+interface GalleryProps {
+  current: number
+  onClose: () => void
+  images: GalleryImage[]
+}
+
+interface State {
+  current: number
+  direction: string
+}
+
+const DefaultProps = {
+  current: 0,
+}
+
+type Props = GalleryProps & Required<Pick<GalleryProps, keyof typeof DefaultProps>>
+
+class Gallery extends PureComponent<Props, State> {
+  static defaultProps = DefaultProps
+
+  scrollX: number
+
+  rawScroll: boolean
+
+  scrollTimer: NodeJS.Timeout
+
+  constructor(props: Props) {
     super(props)
 
     this.state = {
@@ -31,14 +56,14 @@ class Gallery extends PureComponent {
 
   componentWillUnmount() {
     super.componentWillUnmount()
-    document.removeEventListener('wheel', this.handleScroll, { passive: false })
+    document.removeEventListener('wheel', this.handleScroll, { passive: false } as EventListenerOptions)
   }
 
-  lockScroll(status) {
+  lockScroll(status: boolean) {
     this.rawScroll = status
   }
 
-  handleClick(direction) {
+  handleClick(direction: number) {
     const { length } = this.props.images
     this.setState(
       immer(draft => {
@@ -55,7 +80,7 @@ class Gallery extends PureComponent {
     )
   }
 
-  handleScroll(e) {
+  handleScroll(e: WheelEvent) {
     if (this.rawScroll) return
     e.preventDefault()
     if (this.scrollX !== 0) return
@@ -70,7 +95,7 @@ class Gallery extends PureComponent {
     }, 1000)
   }
 
-  renderImage(image, pos) {
+  renderImage(image: GalleryImage, pos: string) {
     const windowHeight = docSize.height
     const windowWidth = docSize.width
 
@@ -78,7 +103,6 @@ class Gallery extends PureComponent {
     if (pos !== 'center') {
       onClick = this.handleClick.bind(this, pos === 'left' ? -1 : 1)
     }
-
     return (
       <div key={image.key} className={imageClass(pos, this.state.direction)} onClick={onClick}>
         <a onClick={this.props.onClose} className={imageClass('close')}>
@@ -112,14 +136,8 @@ class Gallery extends PureComponent {
   }
 }
 
-Gallery.propTypes = {
-  current: PropTypes.number,
-  images: PropTypes.array.isRequired,
-  onClose: PropTypes.func.isRequired,
-}
-
 Gallery.defaultProps = {
   current: 0,
 }
 
-export default Gallery
+export default Gallery as React.ComponentType<GalleryProps>
