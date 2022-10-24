@@ -203,14 +203,4 @@ export interface ImageGroupProps extends StandardProps {
    */
   children?: ReactNode
 }
-declare class ImageGroup extends React.Component<ImageGroupProps, {}> {
-  render(): JSX.Element
-}
-
-declare class Image extends React.Component<ImageProps, {}> {
-  static Group: typeof ImageGroup
-
-  render(): JSX.Element
-}
-
 export default Image

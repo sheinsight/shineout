@@ -11,7 +11,7 @@ import normalizeWheel from '../utils/dom/normalizeWheel'
 interface GalleryProps {
   current: number
   onClose: () => void
-  images: any[]
+  images: GalleryImage[]
 }
 
 interface State {
