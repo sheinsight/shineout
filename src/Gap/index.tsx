@@ -1,19 +1,26 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import { getProps } from '../utils/proptypes'
 import { gapClass } from './styles'
 import support from './support'
+import { GapProps } from './interface'
 
 const flexGapSupport = support()
-class Gap extends PureComponent {
+const DefaultProps = {
+  row: 8,
+  column: 8,
+}
+type Props = GapProps & Required<Pick<GapProps, keyof typeof DefaultProps>>
+
+class Gap extends PureComponent<Props> {
+  static defaultProps = DefaultProps
+
   getStyle() {
     const { row, column, style } = this.props
-    const extendStyle = flexGapSupport ? { rowGap: row, columnGap: column } : { marginBottom: -row }
+    const extendStyle = flexGapSupport ? { rowGap: row, columnGap: column } : { marginBottom: -Number(row) }
     return Object.assign({}, style, extendStyle)
   }
 
-  getItemStyle(index) {
+  getItemStyle(index: number) {
     const { row, column, itemStyle, children } = this.props
     if (flexGapSupport) return itemStyle
     const isLast = React.Children.count(children) - 1 === index
@@ -40,16 +47,4 @@ class Gap extends PureComponent {
   }
 }
 
-Gap.propTypes = {
-  ...getProps(PropTypes),
-  row: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  column: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  itemStyle: PropTypes.object,
-}
-
-Gap.defaultProps = {
-  row: 8,
-  column: 8,
-}
-
-export default Gap
+export default Gap as React.ComponentType<GapProps>

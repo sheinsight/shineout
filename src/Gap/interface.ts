@@ -1,9 +1,8 @@
 import * as React from 'react'
 import { StandardProps } from '../@types/common'
-import { ReactNode } from "react"
+import { ReactNode } from 'react'
 
-export interface GapProps extends StandardProps{
-
+export interface GapProps extends StandardProps {
   /**
    * column spacing in the horizontal direction
    *
@@ -11,7 +10,7 @@ export interface GapProps extends StandardProps{
    *
    * default: 8
    */
-  column?: number | string;
+  column?: number | string
 
   /**
    * vertical line spacing
@@ -20,7 +19,7 @@ export interface GapProps extends StandardProps{
    *
    * default: 8
    */
-  row?: number | string;
+  row?: number | string
 
   /**
    * the styles of child elements
@@ -29,16 +28,16 @@ export interface GapProps extends StandardProps{
    *
    * default: -
    */
-   itemStyle?: React.CSSProperties;
+  itemStyle?: React.CSSProperties
 
-   /**
+  /**
    * children
    *
    * 子元素
    *
    * default: -
    */
-   children?: ReactNode;
+  children?: ReactNode
 }
 
 declare class Gap extends React.Component<GapProps, any> {

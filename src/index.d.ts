@@ -18,7 +18,7 @@ export { default as List } from './DataList'
 import { ListProps as __ListProps , ListBaseItemProps as __ListBaseItemProps } from './DataList'
 
 export { default as Alert } from './Alert'
-import { AlertProps as __AlertProps, DefaultProps as __DefaultProps,  } from './Alert/interface'
+import { AlertProps as __AlertProps,  } from './Alert/interface'
 
 export { default as AnimationList } from './AnimationList'
 
@@ -64,7 +64,7 @@ export { default as Form } from './Form'
 import { FormProps as __FormProps, FormItemProps as __FormItemProps, FormFlowProps as __FormFlowProps, FormRef as __FormRef, FormResetProps as __FormResetProps, FormSubmitProps as __FormSubmitProps, FormFieldProps as __FormFieldProps, FormFieldSetProps as __FormFieldSetProps, FieldChildrenFunc as __FieldChildrenFunc, FieldSetChildrenFunc as __FieldSetChildrenFunc,  } from './Form'
 
 export { default as Gap } from './Gap'
-import { GapProps as __GapProps,  } from './Gap'
+import { GapProps as __GapProps,  } from './Gap/interface'
 
 export { default as Grid } from './Grid'
 import { GridProps as __GridProps, responsiveType as __responsiveType } from './Grid'
@@ -161,7 +161,6 @@ export namespace TYPE {
 
   export namespace Alert {
     export type Props = __AlertProps
-    export type DefaultProps = __DefaultProps
   }
   export namespace Breadcrumb {
     export type Props<Item = __BreadcrumbData> = __BreadcrumbProps<Item>
