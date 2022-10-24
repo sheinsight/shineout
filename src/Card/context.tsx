@@ -3,14 +3,14 @@ import createReactContext from '../context'
 
 export type CardContextValueType = {
   collapsed?: boolean
-  onCollapse?: ()=> void
-  collapsible?: string | boolean
-  formStatus?: string,
-  onSubmit?: (value: any) => void,
+  onCollapse: ()=> void
+  collapsible: 'bottom' | boolean
+  formStatus: string,
+  onSubmit: (value: EventTarget) => void,
   setFormStatus?: (status: string) => void,
 }
 
-const context = createReactContext<CardContextValueType>({})
+const context = createReactContext<CardContextValueType>({} as CardContextValueType)
 
 
 
@@ -26,6 +26,6 @@ function filterProps<U extends {}, V extends keyof U>(props: U, keys: V[]) {
   return value as Pick<U, V>
 }
 
-export const consumer = <U, V extends keyof U>(Origin: React.ComponentType<U>, keys: V[] = []) => (props: Omit<U, V>) => (
-  <context.Consumer>{(value: Pick<U, V>) => <Origin {...props as U} {...filterProps(value, keys)} />}</context.Consumer>
+export const consumer = <U, V extends keyof CardContextValueType>(Origin: React.ComponentType<U>, keys: V[] = []) => (props: Omit<U, V>) => (
+  <context.Consumer>{(value: CardContextValueType) => <Origin {...props as U} {...filterProps(value, keys)} />}</context.Consumer>
 )

@@ -10,7 +10,7 @@ const getChildId = <T extends {props: {[name: string]: any}}>(child: T, i: numbe
   return i
 }
 
-class Accordion<T = string> extends PureComponent<CardAccordionProps<T>, any> {
+class Accordion<T = string> extends PureComponent<CardAccordionProps<T>, {active?: T | null}> {
 
   static  defaultProps = {
     defaultActive: 0,

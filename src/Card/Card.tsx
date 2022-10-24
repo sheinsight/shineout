@@ -84,7 +84,7 @@ class Card extends PureComponent<CardProps, CardState> {
 
     const provierValue: CardContextValueType = {
       onCollapse: this.handleCollapse,
-      collapsible,
+      collapsible: collapsible!,
       collapsed,
       formStatus: this.state.formStatus,
       onSubmit: this.handleSubmit,
