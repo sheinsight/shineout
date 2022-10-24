@@ -65,6 +65,33 @@ export interface AlertProps extends StandardProps {
    * default: none
    */
   outAnimation?: boolean
+
+  /**
+   * custom close button
+   *
+   * 自定义关闭按钮
+   *
+   * default: -
+   */
+  closeItem?: React.ReactNode
+
+  /**
+   * -
+   *
+   * -
+   *
+   * default: -
+   */
+  dismiss?: boolean
+
+  /**
+   * -
+   *
+   * -
+   *
+   * default: -
+   */
+  duration?: number
 }
 
 declare class Alert extends React.Component<AlertProps> {
