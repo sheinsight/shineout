@@ -1,18 +1,22 @@
-import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
+import React, { PureComponent } from "react"
 import Button from '../Button'
+import {CardSubmitProps} from './interface'
+import {CardContextValueType} from './context'
 
-class Submit extends PureComponent {
-  constructor(props) {
+type CardSubmitPropsWithProvider = CardSubmitProps & Pick<CardContextValueType, 'onSubmit' | 'formStatus'>
+
+class Submit extends PureComponent<CardSubmitPropsWithProvider> {
+  constructor(props: CardSubmitPropsWithProvider) {
     super(props)
     this.handleClick = this.handleClick.bind(this)
   }
 
-  handleClick(e) {
+  handleClick(e: React.MouseEvent) {
     e.persist()
-    setTimeout(() => {
-      this.props.onSubmit(e.target)
-    }, 50)
+      setTimeout(() => {
+        if (this.props.onSubmit) this.props.onSubmit(e.target)
+
+      }, 50)
   }
 
   render() {
@@ -29,14 +33,6 @@ class Submit extends PureComponent {
       </Button>
     )
   }
-}
-
-Submit.propTypes = {
-  children: PropTypes.any,
-  formStatus: PropTypes.string,
-  loading: PropTypes.bool,
-  onCollapse: PropTypes.func,
-  onSubmit: PropTypes.func,
 }
 
 export default Submit

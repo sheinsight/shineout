@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import { getProps, defaultProps } from '../utils/proptypes'
+import {  defaultProps } from '../utils/proptypes'
 import { dispatchEvent } from '../utils/dom/element'
 import { cardClass } from './styles'
 import { Provider } from './context'
@@ -10,10 +9,28 @@ import resizable from '../hoc/resizable'
 import moveable from '../hoc/moveable'
 import { modalClass } from '../Modal/styles'
 import { isRTL } from '../config'
+import {CardProps} from './interface'
+import { CardContextValueType } from './context'
 
-class Card extends PureComponent {
-  constructor(props) {
+interface CardState {
+  collapsed?: boolean
+  formStatus: string
+}
+
+
+class Card extends PureComponent<CardProps, CardState> {
+
+  static defaultProps = {
+    ...defaultProps,
+    defaultCollapsed: true,
+    collapsible: false,
+  }
+
+  element: HTMLDivElement
+
+  constructor(props: CardProps) {
     super(props)
+
 
     this.state = {
       collapsed: props.defaultCollapsed,
@@ -32,13 +49,13 @@ class Card extends PureComponent {
     return collapsed !== undefined ? collapsed : this.state.collapsed
   }
 
-  setFormStatus(status) {
+  setFormStatus(status: string) {
     if (status !== this.state.formStatus) {
       this.setState({ formStatus: status })
     }
   }
 
-  bindElement(el) {
+  bindElement(el: HTMLDivElement) {
     this.element = el
     const { forwardedRef } = this.props
     if (forwardedRef) forwardedRef(el)
@@ -50,7 +67,7 @@ class Card extends PureComponent {
     else this.setState({ collapsed })
   }
 
-  handleSubmit(target) {
+  handleSubmit(target: any) {
     const form = this.element.querySelector('form')
     if (form) dispatchEvent(form, 'submit', target)
     else console.error(new Error('No form found.'))
@@ -65,9 +82,9 @@ class Card extends PureComponent {
       this.props.className
     )
 
-    const provierValue = {
+    const provierValue: CardContextValueType = {
       onCollapse: this.handleCollapse,
-      collapsible,
+      collapsible: collapsible!,
       collapsed,
       formStatus: this.state.formStatus,
       onSubmit: this.handleSubmit,
@@ -82,17 +99,6 @@ class Card extends PureComponent {
   }
 }
 
-Card.propTypes = {
-  ...getProps(PropTypes),
-  shadow: PropTypes.oneOf([true, false, 'hover']),
-  forwardedRef: PropTypes.func,
-}
-
-Card.defaultProps = {
-  ...defaultProps,
-  defaultCollapsed: true,
-  collapsible: false,
-}
 
 export default compose(
   moveable(`.${cardClass('header')}, .${modalClass('method-title')}`),

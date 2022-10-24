@@ -1,19 +1,13 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import icons from '../icons'
 import { cardClass } from './styles'
 import { isRTL } from '../config'
+import { CardHeaderProps } from "./interface"
+import { CardContextValueType } from './context'
 
-export default class Header extends PureComponent {
-  static propTypes = {
-    align: PropTypes.string,
-    children: PropTypes.any,
-    className: PropTypes.string,
-    collapsed: PropTypes.bool,
-    onCollapse: PropTypes.func,
-    style: PropTypes.object,
-  }
+type CardHeaderPropsWidthProvider = CardHeaderProps & Pick<CardContextValueType, 'collapsed' | 'onCollapse'>
+class Header extends PureComponent<CardHeaderPropsWidthProvider> {
 
   renderIndicator() {
     const { collapsed } = this.props
@@ -36,3 +30,5 @@ export default class Header extends PureComponent {
     )
   }
 }
+
+export default Header

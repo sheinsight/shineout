@@ -29,7 +29,7 @@ export { default as Button } from './Button'
 import { ButtonProps as __ButtonProps, ButtonGroupProps as __ButtonGroupProps, ButtonType as __ButtonType, ButtonShape as __ButtonShape } from './Button/interface'
 
 export { default as Card } from './Card'
-import { CardProps as __CardProps, CardBodyProps as __CardBodyProps, CardHeaderProps as __CardHeaderProps, CardFooterProps as __CardFooterProps, CardSubmitProps as __CardSubmitProps, CardAccordionProps as __CardAccordionProps,  } from './Card'
+import { CardProps as __CardProps, CardBodyProps as __CardBodyProps, CardHeaderProps as __CardHeaderProps, CardFooterProps as __CardFooterProps, CardSubmitProps as __CardSubmitProps, CardAccordionProps as __CardAccordionProps,  } from './Card/interface'
 
 export { default as CardGroup } from './CardGroup'
 import { CardGroupProps as __CardGroupProps, CardGroupItemProps as __CardGroupItemProps,  } from './CardGroup'

@@ -16,4 +16,4 @@ Card.Body.displayName = 'ShineoutCardBody'
 Card.Header.displayName = 'ShineoutCardHeader'
 Card.displayName = 'ShineoutCard'
 
-export default Card
+export default  Card
