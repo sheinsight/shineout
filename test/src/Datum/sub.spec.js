@@ -1,4 +1,4 @@
-import Datum from '../../../src/Datum/index'
+import Datum from '../../../src/Datum'
 
 describe('Datum[sub/unsubscribe]', () => {
   test('should sub/unsubscribe', () => {

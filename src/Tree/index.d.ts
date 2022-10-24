@@ -4,13 +4,13 @@ import {
   StructDataStandardProps,
   keyType,
   FormItemStandardProps,
-  keygenType
+  LiteralUnion
 } from "../@types/common"
 import TreeSelect from '../TreeSelect'
 
 export interface TreeProps<Item, Value> extends
 StandardProps,
-Omit<StructDataStandardProps<Item>, 'renderItem'>,
+Omit<StructDataStandardProps<Item>, 'renderItem' | 'keygen'>,
 FormItemStandardProps<Value>
 {
 
@@ -246,7 +246,7 @@ FormItemStandardProps<Value>
    *
    * default: index
    */
-  keygen: keygenType<Item> | ((data: Item, parentKey: keyType) => keyType)
+  keygen: LiteralUnion<Item> | ((data: Item, parentKey: keyType) => keyType) | true 
 }
 
 declare class Tree<Item, Value> extends React.PureComponent<TreeProps<Item, Value>, {}> {
