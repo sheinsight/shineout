@@ -1,9 +1,15 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { carouselClass } from './styles'
 
-class Item extends PureComponent {
+interface CarouselItemProps {
+  children?: React.ReactNode
+  className?: string
+  current?: boolean
+  pre?: boolean
+}
+
+class Item extends PureComponent<CarouselItemProps> {
   render() {
     const { children, current, pre } = this.props
     const className = classnames(
@@ -12,13 +18,6 @@ class Item extends PureComponent {
     )
     return <div className={className}>{children}</div>
   }
-}
-
-Item.propTypes = {
-  children: PropTypes.element,
-  className: PropTypes.string,
-  current: PropTypes.bool,
-  pre: PropTypes.bool,
 }
 
 export default Item

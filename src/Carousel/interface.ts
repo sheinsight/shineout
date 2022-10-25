@@ -59,10 +59,3 @@ export interface CarouselProps extends StandardProps {
      */
     children?: ReactNode;
 }
-
-
-declare class Carousel extends React.Component<CarouselProps> {
-  render(): JSX.Element
-}
-
-export default Carousel

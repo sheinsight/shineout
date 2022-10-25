@@ -35,7 +35,7 @@ export { default as CardGroup } from './CardGroup'
 import { CardGroupProps as __CardGroupProps, CardGroupItemProps as __CardGroupItemProps,  } from './CardGroup'
 
 export { default as Carousel } from './Carousel'
-import { CarouselProps as __CarouselProps,  } from './Carousel'
+import { CarouselProps as __CarouselProps,  } from './Carousel/interface'
 
 export { default as Cascader } from './Cascader'
 import { CascaderProps as __CascaderProps,  } from './Cascader'
