@@ -42,9 +42,10 @@ const beforeValueChange =  <Value, >(fn: InputableProps<Value>["onChange"]) => (
 }
 
 
+interface InputableState<Value> {value?: Value, error: any}
 
 export default<Value,  U extends Omit<InputableProps<Value>, InputableFilterType>, Item = any >(Origin: ComponentType<U>) => {
-  class InputableInner extends Component<InputableProps<Value>, {value?: Value, error: any}> {
+  class InputableInner extends Component<InputableProps<Value>, InputableState<Value>> {
 
     static defaultProps: any = {
       rules: [] as RuleParamsType<Value>,
@@ -121,7 +122,7 @@ export default<Value,  U extends Omit<InputableProps<Value>, InputableFilterType
 
     }
 
-    shouldComponentUpdate(nextProps: InputableProps<Value>, nextState: any) {
+    shouldComponentUpdate(nextProps: InputableProps<Value>, nextState: InputableState<Value>) {
       const skip = [...(this.props.scuSkip! || []), 'formDatum']
       const isFormDatum = this.props.formDatum && this.props.name
       if (isFormDatum) skip.push('value')
