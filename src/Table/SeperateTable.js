@@ -17,6 +17,7 @@ import { isNumber } from '../utils/is'
 import { Provider as AbsoluteProvider } from './context'
 import { CLASS_FIXED_LEFT, CLASS_FIXED_RIGHT } from './Td'
 import Sticky from '../Sticky'
+import { banOverScrollX } from '../utils/dom/scrollBehavior'
 
 class SeperateTable extends PureComponent {
   constructor(props) {
@@ -66,6 +67,11 @@ class SeperateTable extends PureComponent {
       this.setState({ colgroup: undefined })
     }
     this.ajustBottom(dataChange)
+  }
+
+  componentWillUnmount() {
+    super.componentWillUnmount()
+    if (this.rmOverScrollListener) this.rmOverScrollListener()
   }
 
   getIndex(scrollTop = this.state.scrollTop) {
@@ -321,6 +327,14 @@ class SeperateTable extends PureComponent {
 
   bindElement(key, el) {
     this[key] = el
+    if (key === 'headWrapper') {
+      if (el) {
+        this.rmOverScrollListener = banOverScrollX(el)
+      } else if (this.rmOverScrollListener) {
+        this.rmOverScrollListener()
+        this.rmOverScrollListener = null
+      }
+    }
   }
 
   scrollToTop() {
