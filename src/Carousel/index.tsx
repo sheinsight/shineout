@@ -1,16 +1,44 @@
-import React, { Children } from 'react'
-import PropTypes from 'prop-types'
+import React, { Children, ComponentType } from "react"
 import classnames from 'classnames'
 import { PureComponent } from '../component'
-import { getProps, defaultProps } from '../utils/proptypes'
 import { range } from '../utils/numbers'
 import { carouselClass } from './styles'
 import Item from './Item'
 import getDataset from '../utils/dom/getDataset'
 import { isRTL } from '../config'
+import {CarouselProps} from  './interface'
 
-class Carousel extends PureComponent {
-  constructor(props) {
+interface CarouselState {
+  current: number,
+  direction: 'forward' | 'stop' | 'backward',
+  pre: number,
+}
+
+const CarouselDefaultProps = {
+  animation: 'slide',
+  indicatorPosition: 'center',
+  indicatorType: 'circle',
+  interval: 0,
+  className: '',
+  style: {},
+}
+
+type CarouselPropsWithDefault = CarouselProps & Required<Pick<CarouselProps, keyof typeof CarouselDefaultProps>>
+
+class Carousel extends PureComponent<CarouselPropsWithDefault, CarouselState> {
+
+  static defaultProps = CarouselDefaultProps
+
+  static displayName = 'ShineoutCarousel'
+
+  count: number
+
+  $timeout: NodeJS.Timeout | null
+
+  mouseInView: boolean
+
+
+  constructor(props: CarouselPropsWithDefault) {
     super(props)
     this.state = {
       current: 0,
@@ -42,7 +70,7 @@ class Carousel extends PureComponent {
     }
   }
 
-  setNext(next) {
+  setNext(next: number) {
     const { interval } = this.props
     if (interval > 0 && this.count > 1) {
       if (this.$timeout) {
@@ -55,12 +83,12 @@ class Carousel extends PureComponent {
     }
   }
 
-  moveTo(next) {
+  moveTo(next: number) {
     const { onMove } = this.props
     const { current } = this.state
     if (next === current) return
 
-    let direction = next > current ? 'forward' : 'backward'
+    let direction: 'forward' | 'backward' = next > current ? 'forward' : 'backward'
     if (next >= this.count) {
       direction = 'forward'
       next = 0
@@ -98,7 +126,10 @@ class Carousel extends PureComponent {
     const { indicatorType, indicatorPosition } = this.props
     const { current } = this.state
     const className = carouselClass('indicator', `indicator-${indicatorPosition}`)
-    return <div className={className}>{indicatorType(current, this.moveTo)}</div>
+    if (typeof indicatorType === 'function') {
+      return <div className={className}>{indicatorType(current, this.moveTo)}</div>
+    }
+    return null
   }
 
   renderIndicator() {
@@ -136,24 +167,5 @@ class Carousel extends PureComponent {
   }
 }
 
-Carousel.propTypes = {
-  ...getProps(PropTypes, 'size', 'type'),
-  animation: PropTypes.oneOf(['slide', 'slide-y', 'fade']),
-  children: PropTypes.oneOfType([PropTypes.array, PropTypes.element]),
-  indicatorPosition: PropTypes.oneOf(['left', 'center', 'right']),
-  indicatorType: PropTypes.oneOfType([PropTypes.func, PropTypes.oneOf(['number', 'circle', 'line'])]),
-  interval: PropTypes.number,
-  onMove: PropTypes.func,
-}
 
-Carousel.defaultProps = {
-  ...defaultProps,
-  animation: 'slide',
-  indicatorPosition: 'center',
-  indicatorType: 'circle',
-  interval: 0,
-}
-
-Carousel.displayName = 'ShineoutCarousel'
-
-export default Carousel
+export default Carousel as ComponentType<CarouselProps>
