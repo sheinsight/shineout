@@ -34,7 +34,7 @@ export const promiseAll = (ops: Promise<any>[], isForm = true) =>
       })
   })
 
-export const isSameError = (a: Error, b: Error) => {
+export const isSameError = (a: unknown, b: unknown) => {
   if (a === b) return true
   if (a instanceof Error && b instanceof Error) {
     return a.message === b.message

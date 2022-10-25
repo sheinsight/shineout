@@ -2,6 +2,8 @@ import React, { PureComponent, isValidElement, ReactNode } from 'react'
 import classnames from 'classnames'
 import { defaultProps } from '../utils/proptypes'
 import Spin from '../Spin'
+import Group from './Group'
+import Once from './Once'
 import { wrapSpan } from '../utils/dom/element'
 import { buttonClass } from './styles'
 import { isRTL } from '../config'
@@ -10,6 +12,12 @@ import { getDirectionClass } from '../utils/classname'
 import { ButtonProps } from './interface'
 
 class Button extends PureComponent<ButtonProps> {
+  static displayName = 'ShineoutButton'
+
+  static Group = Group
+
+  static Once = Once
+
   static defaultProps = {
     ...defaultProps,
     htmlType: 'button',
@@ -23,8 +31,8 @@ class Button extends PureComponent<ButtonProps> {
     const parsed = React.Children.map(wrapSpan(children, space), item => {
       if (loading && isValidElement(item) && (item.type as any).isShineoutIcon) return null
       return item
-    }).filter((v: ReactNode) => v !== null)
-    return parsed
+    })
+    return (parsed || []).filter((v: ReactNode) => v !== null)
   }
 
   render() {

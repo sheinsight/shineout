@@ -1,7 +1,6 @@
 import { isEmpty } from '../is'
-import { Range } from '../../Rule'
 
-export default (options: Range) => (value: any, _formdata: object, callback: (x: boolean | Error) => void) => {
+export default (options: {min?: number, max?: number, message: string}) => (value: any, _formdata: object, callback: (x: boolean | Error) => void) => {
   const { min, max, message } = options
   const error = new Error(message)
 
