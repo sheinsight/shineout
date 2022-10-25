@@ -95,8 +95,8 @@ export const formConsumer =
     if (!keys) return value
 
     keys.forEach((k) => {
-      const val = value[k as any]
-      if (val !== undefined) cps[k as any] = val
+      const val = value[k]
+      if (val !== undefined) cps[k] = val
     })
     return cps
   }

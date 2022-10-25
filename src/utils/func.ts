@@ -16,7 +16,7 @@ export * from './curry'
 
 export function curry<U extends AnyFunction>(f: U, ...args: any) {
   if (args.length >= f.length) {
-    return f(...args as any)
+    return f(...args)
   }
 
   return (...next: any) => curry(f.bind(f, ...args), ...next)

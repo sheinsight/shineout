@@ -47,7 +47,7 @@ function getRule<Value>(rules: RuleParamsType<Value>[number], props: Props = {})
     return (value: unknown, formData: any, callback: ((cbArgs: true | Error) => void), props?: Props) =>
       func(value, formData, callback, props)
 
-  if (other.required !== undefined) return required({message: props.message, required: this.props.required})
+  if (other.required !== undefined) return required({message: props.message, required: !!props.required})
 
   if (regExp) return regTest(regExp as RegExpParams['regExp'], {message: props.message})
 
@@ -93,8 +93,8 @@ const validate = <Value, Props extends ObjectType>(value: Value, formdata: Objec
     if (fn === rule && (value instanceof Datum.List || value instanceof Datum.Form)) {
       val = value.getValue()
     }
-    const cb = fn(val, formdata, callback) as unknown as {then?: any}
-    if (cb && (cb as any).then) {
+    const cb = fn(val, formdata, callback) as unknown as Promise<any>
+    if (cb && cb.then) {
       cb.then(callback.bind(null, true)).catch((e: Error) => {
         reject(wrapFormError(e))
       })

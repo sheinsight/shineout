@@ -61,7 +61,7 @@ function checkItem(type: CheckType): React.ComponentClass<CheckItemProps, Checkb
     getChecked() {
       const { checked, value, htmlValue } = this.props
       // 传函数的用法
-      if (typeof checked === 'function') return (checked as any) (htmlValue)
+      if (typeof checked === 'function') return checked(htmlValue)
       if (checked !== undefined) return checked
       if (this.state.checked === undefined) return value === htmlValue
       return this.state.checked
@@ -165,7 +165,7 @@ function checkItem(type: CheckType): React.ComponentClass<CheckItemProps, Checkb
             type={isSwitch ? 'checkbox' : type}
             onClick={onClick}
             onChange={this.handleChange}
-            checked={checked}
+            checked={checked as boolean}
           />
           <i className={checkinputClass('indicator', type)} />
           {children && !isSwitch && <span className={checkinputClass('desc')}>{children}</span>}

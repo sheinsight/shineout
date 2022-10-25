@@ -19,7 +19,7 @@ function  extendName (path:string = '', name: string | undefined | string[]): st
   if (name === undefined) return undefined
   if (name === '') return path
   if (Array.isArray(name)) {
-    return name.map((n) => extendName(path, n)) as string[]
+    return name.map((n) => extendName(path, n))
   }
   return `${path}${path.length > 0 ? '.' : ''}${name}`
 }
