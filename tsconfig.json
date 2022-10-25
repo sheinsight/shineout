@@ -4,6 +4,7 @@
         "checkJs": false,
         "baseUrl": "./",
        "declaration": true,
+       "outDir": "./temp",
         "paths": {
             "shineout": ["src/index"],
             "doc/*": ["site/*"]

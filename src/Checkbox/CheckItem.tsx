@@ -1,8 +1,7 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, {  KeyboardEvent } from "react"
 import classnames from 'classnames'
 import { PureComponent } from '../component'
-import { getProps, defaultProps } from '../utils/proptypes'
+import {  defaultProps } from '../utils/proptypes'
 import { getUidStr } from '../utils/uid'
 import { getDirectionClass } from '../utils/classname'
 import { isEnterPress } from '../utils/is'
@@ -10,14 +9,36 @@ import Input from '../Input'
 import { checkinputClass } from './styles'
 import { isRTL } from '../config'
 import getDataset from '../utils/dom/getDataset'
+import {CheckItemProps, SimpleCheckProps, SimpleRadioProps, SimpleSwitchProps, CheckValueType, CheckType} from "./Props"
 
-export default function(type) {
-  class CheckItem extends PureComponent {
-    constructor(props) {
+export interface CheckboxState {
+  checked?: CheckValueType
+}
+
+function checkItem(type: 'checkbox') : React.ComponentClass<SimpleCheckProps>
+function checkItem(type: 'radio') : React.ComponentClass<SimpleRadioProps>
+function checkItem(type: 'switch') : React.ComponentClass<SimpleSwitchProps>
+function checkItem(type: CheckType): React.ComponentClass<CheckItemProps, CheckboxState> {
+  class CheckItem extends PureComponent<CheckItemProps, CheckboxState> {
+
+    static defaultProps: any = {
+      ...defaultProps,
+      htmlValue: true,
+      onClick: undefined,
+      content: [],
+    }
+
+    id: string
+
+    input: null | HTMLElement
+
+    el: null | HTMLElement
+
+    constructor(props:CheckItemProps  ) {
       super(props)
 
       this.state = {
-        checked: props.checked,
+        checked: typeof props.checked === 'function' ? undefined : props.checked,
       }
 
       this.id = `cb_${getUidStr()}`
@@ -29,7 +50,7 @@ export default function(type) {
       this.bindRef = this.bindRef.bind(this)
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps: CheckItemProps) {
       const { checked, inputable, value, htmlValue } = this.props
       if (prevProps.value !== value && checked === undefined) {
         // eslint-disable-next-line
@@ -39,22 +60,23 @@ export default function(type) {
 
     getChecked() {
       const { checked, value, htmlValue } = this.props
+      // 传函数的用法
       if (typeof checked === 'function') return checked(htmlValue)
       if (checked !== undefined) return checked
       if (this.state.checked === undefined) return value === htmlValue
       return this.state.checked
     }
 
-    getProp(key) {
+    getProp(key: keyof CheckItemProps) {
       if (this.props[key] !== undefined) return this.props[key]
-      return this.state[key]
+      return this.state[key as keyof CheckboxState]
     }
 
-    bindRef(el) {
+    bindRef(el: HTMLLabelElement) {
       if (el) this.el = el
     }
 
-    handleEnter(e) {
+    handleEnter(e:KeyboardEvent) {
       if (isEnterPress(e)) {
         this.handleChange({
           target: {
@@ -66,10 +88,10 @@ export default function(type) {
       }
     }
 
-    handleChange(e) {
+    handleChange(e: {target: {checked: boolean}}) {
       const { onChange, onRawChange, index, inputable } = this.props
       const { checked } = e.target
-      this.setState({ checked }, () => this.el.focus())
+      this.setState({ checked }, () => this.el!.focus())
 
       if (type === 'switch' && onChange) {
         onChange(checked)
@@ -84,7 +106,7 @@ export default function(type) {
       if (onChange) onChange(value, checked, index)
     }
 
-    handleInputChange(val) {
+    handleInputChange(val: string) {
       const { onChange, index } = this.props
       const checked = val.length > 0
       if (onChange) onChange(val, checked, index)
@@ -115,7 +137,7 @@ export default function(type) {
         this.props.className
       )
 
-      const [checkedChildren, uncheckedChildren] = content
+      const [checkedChildren, uncheckedChildren] = content || []
       const switchChildren =
         isSwitch && size !== 'small' ? (
           <span className={checkinputClass('switch-children')}>{checked ? checkedChildren : uncheckedChildren}</span>
@@ -131,6 +153,7 @@ export default function(type) {
           htmlFor={this.id}
           tabIndex={disabled ? undefined : 0}
           ref={this.bindRef}
+          /* @ts-ignore */
           disabled={disabled}
           {...getDataset(this.props)}
         >
@@ -142,7 +165,7 @@ export default function(type) {
             type={isSwitch ? 'checkbox' : type}
             onClick={onClick}
             onChange={this.handleChange}
-            checked={checked}
+            checked={checked as boolean}
           />
           <i className={checkinputClass('indicator', type)} />
           {children && !isSwitch && <span className={checkinputClass('desc')}>{children}</span>}
@@ -155,26 +178,7 @@ export default function(type) {
     }
   }
 
-  CheckItem.propTypes = {
-    ...getProps(PropTypes, 'disabled'),
-    checked: PropTypes.oneOfType([PropTypes.oneOf([true, false, 'indeterminate']), PropTypes.func]),
-    inputable: PropTypes.bool,
-    htmlValue: PropTypes.any,
-    index: PropTypes.number,
-    onChange: PropTypes.func,
-    onRawChange: PropTypes.func,
-    value: PropTypes.any,
-    onClick: PropTypes.func,
-    size: PropTypes.oneOf(['small', 'default', 'large']),
-    content: PropTypes.array,
-  }
-
-  CheckItem.defaultProps = {
-    ...defaultProps,
-    htmlValue: true,
-    onClick: undefined,
-    content: [],
-  }
-
   return CheckItem
 }
+
+export default checkItem

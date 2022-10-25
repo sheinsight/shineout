@@ -4,8 +4,9 @@ import Datum from '../Datum'
 import { consumer } from '../Checkbox/context'
 import Group from './Group'
 import Radio from './Radio'
+import { RadioType } from "./Props"
 
-const exports = consumer(Radio)
+const exports: any = consumer(Radio)
 exports.Group = compose(
   inputable,
   Datum.hoc({ limit: 1, bindProps: ['disabled', 'format', 'prediction'], pure: false })
@@ -14,4 +15,4 @@ exports.Group = compose(
 exports.displayName = 'ShineoutRadio'
 exports.Group.displayName = 'ShineoutRadioGroup'
 
-export default exports
+export default exports as RadioType

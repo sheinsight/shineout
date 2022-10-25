@@ -1,17 +1,25 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { PureComponent } from '../component'
-import { getProps } from '../utils/proptypes'
 import { getKey } from '../utils/uid'
 import { CHANGE_TOPIC } from '../Datum/types'
 import { Provider } from '../Checkbox/context'
 import { checkinputClass } from '../Checkbox/styles'
 import Radio from './Radio'
 import { isRTL } from '../config'
+import {RadioGroupProps} from './Props'
+import { CheckValueType } from "../Checkbox/Props"
 
-class RadioGroup extends PureComponent {
-  constructor(props) {
+
+
+class RadioGroup<DataItem, Value> extends PureComponent<RadioGroupProps<DataItem, Value>, {}> {
+  static defaultProps = {
+    renderItem: (d: any) => d,
+  }
+
+  handleUpdate: () => void
+
+  constructor(props: RadioGroupProps<DataItem, Value>) {
     super(props)
 
     this.handleClick = this.handleClick.bind(this)
@@ -29,7 +37,7 @@ class RadioGroup extends PureComponent {
     this.props.datum.unsubscribe(CHANGE_TOPIC, this.handleUpdate)
   }
 
-  getContent(d, index) {
+  getContent(d: DataItem, index: number) {
     const { renderItem } = this.props
     if (typeof renderItem === 'string') {
       return d[renderItem]
@@ -41,12 +49,12 @@ class RadioGroup extends PureComponent {
     return ''
   }
 
-  handleClick(val, checked, index) {
+  handleClick(_val: any, _checked: CheckValueType, index:number) {
     const { data, datum } = this.props
-    datum.set(data[index])
+    datum.set(data![index])
   }
 
-  handleRawChange(value) {
+  handleRawChange(value: DataItem) {
     this.props.datum.set(value)
   }
 
@@ -95,19 +103,6 @@ class RadioGroup extends PureComponent {
       </div>
     )
   }
-}
-
-RadioGroup.propTypes = {
-  ...getProps(PropTypes, 'children', 'keygen', 'size'),
-  block: PropTypes.bool,
-  data: PropTypes.array,
-  button: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-  datum: PropTypes.object.isRequired,
-  renderItem: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-}
-
-RadioGroup.defaultProps = {
-  renderItem: d => d,
 }
 
 export default RadioGroup

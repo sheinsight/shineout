@@ -1,23 +1,24 @@
-import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
+import React, { ComponentType, PureComponent } from "react"
 import classnames from 'classnames'
 import immer from 'immer'
 import createReactContext from '../context'
 import { Component } from '../component'
 import { errorSubscribe, RESET_TOPIC } from '../Datum/types'
 import { getGrid } from '../Grid/utils'
-import { getProps, defaultProps } from '../utils/proptypes'
 import { objectValues } from '../utils/objects'
 import { formClass } from './styles'
+import { ObjectType } from "../@types/common"
+import FormDatum from '../Datum/Form'
+import { FormItemContextValue, GetFormItemConsumerProps } from "./Props"
 
-const { Provider, Consumer } = createReactContext()
 
-class Label extends PureComponent {
-  static propTypes = {
-    children: PropTypes.any,
-    width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  }
 
+const { Provider, Consumer } = createReactContext<FormItemContextValue>({} as FormItemContextValue)
+
+class Label extends PureComponent<{
+  width?: number | string
+  children: React.ReactNode
+}> {
   render() {
     const { width, children } = this.props
     if (children === undefined) return null
@@ -30,9 +31,38 @@ class Label extends PureComponent {
   }
 }
 
+interface ItemProps {
+  grid?: number | {width: number, offset: number, response: 'sm' | 'md' | 'lg' | 'xl'},
+  className?: string,
+  keepErrorHeight?: boolean,
+  label?: string,
+  labelAlign?: 'top'|'left'|'right',
+  labelWidth?: string | number,
+  required?: boolean,
+  tip?: React.ReactNode,
+  formDatum?: FormDatum<any>
+  labelVerticalAlign?: 'top' | 'middle' | 'bottom'
+  style: React.CSSProperties
+}
+interface ItemState {
+  inputs: ObjectType<Boolean>
+  errors: ObjectType<Error>
+}
+
 // eslint-disable-next-line
-class Item extends Component {
-  constructor(props) {
+class Item extends Component<ItemProps, ItemState> {
+  static defaultProps = {
+    className: '',
+    style: {},
+    formItemErrors: [],
+    keepErrorHeight: false,
+}
+
+  events: FormItemContextValue
+
+  updateTimer: NodeJS.Timeout
+
+  constructor(props: ItemProps) {
     super(props)
 
     this.state = {
@@ -51,7 +81,7 @@ class Item extends Component {
 
   getErrors() {
     const { formDatum } = this.props
-    const errors = []
+    const errors: Error[] = []
 
     if (formDatum) {
       Object.keys(this.state.inputs).forEach(name => {
@@ -74,7 +104,7 @@ class Item extends Component {
     })
   }
 
-  bind(name) {
+  bind(name: string) {
     const names = Array.isArray(name) ? name : [name]
     const { formDatum } = this.props
     if (formDatum) {
@@ -92,7 +122,7 @@ class Item extends Component {
     )
   }
 
-  unbind(name) {
+  unbind(name: string) {
     const names = Array.isArray(name) ? name : [name]
     const { formDatum } = this.props
     if (formDatum) {
@@ -110,7 +140,7 @@ class Item extends Component {
     )
   }
 
-  handleError(name, error) {
+  handleError(name: string, error: Error) {
     this.setState(
       immer(state => {
         state.errors[name] = error
@@ -118,7 +148,7 @@ class Item extends Component {
     )
   }
 
-  renderHelp(errors) {
+  renderHelp(errors: Error[]) {
     if (errors.length > 0) {
       return (
         <div className={formClass('error')}>
@@ -156,7 +186,7 @@ class Item extends Component {
         errors.length > 0 && 'invalid',
         labelVerticalAlign && `label-vertical-align-${labelVerticalAlign}`,
         keepErrorHeight && `item-keep-height`,
-        ['top', 'right', 'left'].indexOf(labelAlign) >= 0 && `label-align-${labelAlign}`
+        ['top', 'right', 'left'].indexOf(labelAlign || '') >= 0 && `label-align-${labelAlign}`
       ),
       this.props.className
     )
@@ -175,27 +205,10 @@ class Item extends Component {
   }
 }
 
-Item.propTypes = {
-  ...getProps(PropTypes, 'children', 'grid'),
-  className: PropTypes.string,
-  // formItemErrors: PropTypes.array,
-  keepErrorHeight: PropTypes.bool,
-  label: PropTypes.any,
-  labelAlign: PropTypes.string,
-  labelWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  required: PropTypes.bool,
-  tip: PropTypes.any,
-}
-
-Item.defaultProps = {
-  ...defaultProps,
-  formItemErrors: [],
-  keepErrorHeight: false,
-}
 
 export default Item
 
 // eslint-disable-next-line
-export const itemConsumer = Origin => (props) => {
-  return <Consumer>{events => <Origin {...props} {...events} />}</Consumer>
+export const itemConsumer = <U, >(Origin: ComponentType<U>): React.FC<GetFormItemConsumerProps<U>> =>  (props) => {
+  return <Consumer>{events => <Origin {...props as U} {...events} />}</Consumer>
 }

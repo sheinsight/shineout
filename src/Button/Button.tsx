@@ -31,8 +31,8 @@ class Button extends PureComponent<ButtonProps> {
     const parsed = React.Children.map(wrapSpan(children, space), item => {
       if (loading && isValidElement(item) && (item.type as any).isShineoutIcon) return null
       return item
-    }).filter((v: ReactNode) => v !== null)
-    return parsed
+    })
+    return (parsed || []).filter((v: ReactNode) => v !== null)
   }
 
   render() {
