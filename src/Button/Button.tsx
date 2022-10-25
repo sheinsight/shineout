@@ -2,6 +2,8 @@ import React, { PureComponent, isValidElement, ReactNode } from 'react'
 import classnames from 'classnames'
 import { defaultProps } from '../utils/proptypes'
 import Spin from '../Spin'
+import Group from './Group'
+import Once from './Once'
 import { wrapSpan } from '../utils/dom/element'
 import { buttonClass } from './styles'
 import { isRTL } from '../config'
@@ -10,6 +12,12 @@ import { getDirectionClass } from '../utils/classname'
 import { ButtonProps } from './interface'
 
 class Button extends PureComponent<ButtonProps> {
+  static displayName = 'ShineoutButton'
+
+  static Group = Group
+
+  static Once = Once
+
   static defaultProps = {
     ...defaultProps,
     htmlType: 'button',
