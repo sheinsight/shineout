@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import { ReactNode } from 'react'
 import { StandardProps, FormItemStandardProps } from '../@types/common'
 
 export interface EditableAreaProps extends StandardProps, FormItemStandardProps<string> {

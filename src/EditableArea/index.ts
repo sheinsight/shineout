@@ -1,17 +1,16 @@
-import { compose } from '../utils/func'
-import delay from '../hoc/delay'
 import trim from '../hoc/trim'
-import inputable from '../Form/inputable'
+import delay from '../hoc/delay'
 import Component from './EditableArea'
-import { EditableAreaProps } from './interface'
-import React from 'react'
+import { compose } from '../utils/func'
+import inputable from '../Form/inputable'
+import { EditableAreaType } from './Props'
 
-const EditableArea = compose(
+const EditableArea: any = compose(
   inputable,
   delay(400),
-  trim,
+  trim
 )(Component)
 
 EditableArea.displayName = 'ShineoutEditableArea'
 
-export default EditableArea as React.ComponentType<EditableAreaProps>
+export default EditableArea as EditableAreaType

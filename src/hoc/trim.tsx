@@ -2,16 +2,15 @@ import React, { PureComponent } from 'react'
 import config from '../config'
 
 export interface BaseProps {
+  value?: string
   onBlur?: (e: any) => void
   onChange?: (v: string) => void
-  value?: string
 }
 
-
-export type GetTrimProps<U> = U & {trim: boolean}
+export type GetTrimProps<U> = U & { trim?: boolean }
 
 export default <T extends BaseProps>(Origin: React.ComponentType<T>) =>
-  class extends PureComponent<GetTrimProps<T> > {
+  class extends PureComponent<GetTrimProps<T>> {
     constructor(props: GetTrimProps<T>) {
       super(props)
       this.handleBlur = this.handleBlur.bind(this)
