@@ -2,7 +2,7 @@ import React from 'react'
 
 function create(name: 'Component' | 'PureComponent') {
   const Base: typeof React.Component = React[name]
-  return class<P, V> extends Base<P, V> {
+  return class<P={}, V={}> extends Base<P, V> {
     $isMounted: boolean
 
     forceUpdateTimer: NodeJS.Timeout

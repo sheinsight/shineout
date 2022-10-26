@@ -20,7 +20,7 @@ export interface StandardProps {
      */
     style?: React.CSSProperties;
 
-    [key: string]: any;
+    // [key: string]: any;
 }
 
 export type keyType = string | number
@@ -134,7 +134,7 @@ export interface ListItemStandardProps<Item = any, Value = any> {
      *
      * default: false
      */
-    disabled?: ((data: Item) => boolean) | boolean;
+    disabled?: ((data: Item, ...rest: any) => boolean) | boolean;
 
     /**
      * Format value. The defaule value is return the original data. When it is a string, the value is fetched from the original data as a key equivalent to (d) => d[format] When it is a function, use its return value.
@@ -163,7 +163,7 @@ export interface StructDataStandardProps<Item = any> {
      *
      * default: d => d
      */
-    renderItem?: LiteralUnion<Item> | ((data: Item, index: number) => React.ReactNode);
+    renderItem?: LiteralUnion<Item> | ((data: Item, index?: number) => React.ReactNode);
 
     /**
      * The content displayed in the result after selecting, if not set, use renderItem. not show while return null, result is current selected
@@ -172,7 +172,7 @@ export interface StructDataStandardProps<Item = any> {
      *
      * default: renderItem
      */
-    renderResult?: LiteralUnion<Item> | ((data: Item, index: number) => React.ReactNode);
+    renderResult?: LiteralUnion<Item> | ((data: Item, index?: number) => React.ReactNode);
 
     /**
      * data
@@ -181,7 +181,7 @@ export interface StructDataStandardProps<Item = any> {
      *
      * default: empty data
      */
-    data?: Item[],
+    data: Item[],
 }
 
 export interface CommonProps {
@@ -221,3 +221,9 @@ export declare namespace RegularAttributes {
     type Position = 'top-left' | 'top' | 'top-right' | 'bottom-left' | 'bottom' | 'bottom-right';
     type Align = 'left' | 'center' | 'right';
 }
+
+export type ObjectType<V = any> = {[name: string]: V}
+
+export type ValueOf<T> = T[keyof T];
+
+export type ForceAdd<U, V> = U & Omit<V, keyof U>

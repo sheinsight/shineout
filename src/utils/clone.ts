@@ -12,7 +12,7 @@ const cloneObject = (source: { [x: string]: any }, specialKeys: string[] = []) =
   return target
 }
 
-export const fastClone = (obj: any) => JSON.parse(JSON.stringify(obj))
+export const fastClone= <U>(obj: U) => JSON.parse(JSON.stringify(obj)) as U
 
 export const shallowClone = (val: any) => {
   if (!val) return val

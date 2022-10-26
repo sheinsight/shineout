@@ -10,16 +10,11 @@
  * (...args) => f(g(h(...args))).
  */
 
-export function compose<U, T extends Function>(...funcs: T[]) {
-  if (funcs.length === 0) {
-    return (arg: T) => arg
-  }
-  const last = funcs[funcs.length - 1]
-  const rest = funcs.slice(0, -1)
-  return (...args: T[]) => rest.reduceRight((composed: U, f) => f(composed), last(...args))
-}
+type AnyFunction = (...args: any) => any
+export { compose } from './compose'
+export * from './curry'
 
-export function curry(f: Function, ...args: any[]) {
+export function curry<U extends AnyFunction>(f: U, ...args: any) {
   if (args.length >= f.length) {
     return f(...args)
   }

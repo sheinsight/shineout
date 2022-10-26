@@ -81,7 +81,7 @@ export function unflatten<T extends {}>(rawdata: T) {
       } while (idx >= 0)
       cur[prop] = deepClone(data[p])
     })
-  return result['']
+  return result[''] as {[name: string]: any}
 }
 
 type insertObject = {

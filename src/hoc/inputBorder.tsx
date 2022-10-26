@@ -47,7 +47,7 @@ export default curry(
   <U extends InputBorderProps >(options: Options, Origin: React.ComponentType<Omit<U, filterKeys>>) =>
     class extends Component<U, {focus?: boolean}> {
 
-      static defaultProps = {
+      static defaultProps: any = {
         border: true,
         style: {},
         popoverProps: {},

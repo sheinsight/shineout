@@ -29,19 +29,19 @@ export { default as Button } from './Button'
 import { ButtonProps as __ButtonProps, ButtonGroupProps as __ButtonGroupProps, ButtonType as __ButtonType, ButtonShape as __ButtonShape } from './Button/interface'
 
 export { default as Card } from './Card'
-import { CardProps as __CardProps, CardBodyProps as __CardBodyProps, CardHeaderProps as __CardHeaderProps, CardFooterProps as __CardFooterProps, CardSubmitProps as __CardSubmitProps, CardAccordionProps as __CardAccordionProps,  } from './Card'
+import { CardProps as __CardProps, CardBodyProps as __CardBodyProps, CardHeaderProps as __CardHeaderProps, CardFooterProps as __CardFooterProps, CardSubmitProps as __CardSubmitProps, CardAccordionProps as __CardAccordionProps,  } from './Card/interface'
 
 export { default as CardGroup } from './CardGroup'
 import { CardGroupProps as __CardGroupProps, CardGroupItemProps as __CardGroupItemProps,  } from './CardGroup'
 
 export { default as Carousel } from './Carousel'
-import { CarouselProps as __CarouselProps,  } from './Carousel'
+import { CarouselProps as __CarouselProps,  } from './Carousel/interface'
 
 export { default as Cascader } from './Cascader'
 import { CascaderProps as __CascaderProps,  } from './Cascader/interface'
 
 export { default as Checkbox } from './Checkbox'
-import { CheckboxProps as __CheckboxProps, CheckboxGroupProps as __CheckboxGroupProps,  } from './Checkbox'
+import { Prop as __Prop, GroupProps as __GroupProps } from './Checkbox/interface'
 
 export { default as DatePicker } from './DatePicker'
 import { DatePickerProps as __DatePickerProps, QuickSelect as __QuickSelect, AreaType as __AreaType, DateTimeType as __DateTimeType, DatePickerValue as __DatePickerValue } from './DatePicker'
@@ -49,7 +49,7 @@ import { DatePickerProps as __DatePickerProps, QuickSelect as __QuickSelect, Are
 export { default as Datum } from './Datum'
 
 export { default as Divider } from './Divider'
-import { DividerProps as __DividerProps,  } from './Divider'
+import { DividerProps as __DividerProps,  } from './Divider/interface'
 
 export { default as Drawer } from './Drawer'
 import { DrawerProps as __DrawerProps,  } from './Drawer'
@@ -64,7 +64,7 @@ export { default as Form } from './Form'
 import { FormProps as __FormProps, FormItemProps as __FormItemProps, FormFlowProps as __FormFlowProps, FormRef as __FormRef, FormResetProps as __FormResetProps, FormSubmitProps as __FormSubmitProps, FormFieldProps as __FormFieldProps, FormFieldSetProps as __FormFieldSetProps, FieldChildrenFunc as __FieldChildrenFunc, FieldSetChildrenFunc as __FieldSetChildrenFunc,  } from './Form'
 
 export { default as Gap } from './Gap'
-import { GapProps as __GapProps,  } from './Gap'
+import { GapProps as __GapProps,  } from './Gap/interface'
 
 export { default as Grid } from './Grid'
 import { GridProps as __GridProps, responsiveType as __responsiveType } from './Grid'
@@ -73,7 +73,7 @@ export { default as Icon } from './Icon'
 import { IconProps as __IconProps, IconComProps as __IconComProps,  } from './Icon'
 
 export { default as Image } from './Image'
-import { ImageProps as __ImageProps, ImageGroupProps as __ImageGroupProps,  } from './Image'
+import { ImageProps as __ImageProps, ImageGroupProps as __ImageGroupProps,  } from './Image/interface'
 
 export { default as Input } from './Input'
 import { InputProps as __InputProps, InputNumberProps as __InputNumberProps, InputGroupProps as __InputGroupProps, InputPasswordProps as __InputPasswordProps, numType as __numType } from './Input'
@@ -99,13 +99,13 @@ export { default as Progress } from './Progress'
 import { ProgressProps as __ProgressProps,  } from './Progress'
 
 export { default as Radio } from './Radio'
-import { RadioProps as __RadioProps, RadioGroupProps as __RadioGroupProps,  } from './Radio'
+import { Props as __Props, RadioGroupProps as __RadioGroupProps } from './Radio/interface'
 
 export { default as Rate } from './Rate'
 import { RateProps as __RateProps,  } from './Rate'
 
 export { default as Rule } from './Rule'
-import { Max as __Max, Min as __Min, Type as __Type, Range as __Range, Required as __Required, validFunc as __validFunc, RuleParams as __RuleParams, RuleResult as __RuleResult, RegExpParams as __RegExpParams, paramFunc as __paramFunc, RuleCommon as __RuleCommon, RuleParamsType as __RuleParamsType } from './Rule'
+import { Max as __Max, Min as __Min, Type as __Type, Range as __Range, Required as __Required, validFunc as __validFunc, paramFunc as __paramFunc, RuleParams as __RuleParams, RuleResult as __RuleResult, RegExpParams as __RegExpParams, RuleCommon as __RuleCommon, RuleItemResult as __RuleItemResult, RuleCommonValue as __RuleCommonValue, InnerRuleFunc as __InnerRuleFunc, RuleParamsType as __RuleParamsType } from './Rule'
 
 export { default as Scroll } from './Scroll'
 
@@ -122,7 +122,7 @@ export { default as Sticky } from './Sticky'
 import { StickyProps as __StickyProps,  } from './Sticky'
 
 export { default as Switch } from './Switch'
-import { SwitchProps as __SwitchProps,  } from './Switch'
+import { SwitchProps as __SwitchProps } from './Switch/interface'
 
 export { default as Table } from './Table'
 import { TableProps as __TableProps, TableRef as __TableRef, summaryItem as __summaryItem, renderSorterParam as __renderSorterParam, ColumnFix as __ColumnFix, ColumnType as __ColumnType, ColumnOrder as __ColumnOrder, ColumnItem as __ColumnItem } from './Table'
@@ -191,8 +191,9 @@ export namespace TYPE {
     export type Props<Item, Value> = __CascaderProps<Item, Value>
   }
   export namespace Checkbox {
-    export type Props<T> = __CheckboxProps<T>
-    export type GroupProps<Data, T> = __CheckboxGroupProps<Data, T>
+  
+    export type Prop<Value> = __Prop<Value>
+    export type GroupProps<DataItem, Value> = __GroupProps<DataItem, Value>
   }
   export namespace DatePicker {
     export type Props<T = __DatePickerValue> = __DatePickerProps<T>
@@ -271,7 +272,8 @@ export namespace TYPE {
     export type Props = __ProgressProps
   }
   export namespace Radio {
-    export type Props<Item = any> = __RadioProps<Item>
+  
+    export type Props = __Props
     export type GroupProps<Value, Item> = __RadioGroupProps<Value, Item>
   }
   export namespace Rate {
@@ -285,12 +287,15 @@ export namespace TYPE {
     export type Range = __Range
     export type Required = __Required
     export type validFunc = __validFunc
+    export type paramFunc = __paramFunc
     export type Params = __RuleParams
     export type Result = __RuleResult
-    export type RegExpParams = __RegExpParams
-    export type paramFunc<U> = __paramFunc<U>  
-    export type Common<U> = __RuleCommon<U>
-    export type ParamsType<Value, P = any, FormData = any> = __RuleParamsType<Value, P, FormData>
+    export type RegExpParams = __RegExpParams  
+    export type Common = __RuleCommon
+    export type ItemResult = __RuleItemResult
+    export type CommonValue = __RuleCommonValue
+    export type Func<U> = __InnerRuleFunc<U>
+    export type ParamsType<Value, FormData = any, Props = any> = __RuleParamsType<Value, FormData, Props>
   }
   export namespace Select {
     export type Props<Item, Value> = __SelectProps<Item, Value>
@@ -305,6 +310,7 @@ export namespace TYPE {
     export type Props = __StickyProps
   }
   export namespace Switch {
+  
     export type Props = __SwitchProps
   }
   export namespace Table {
