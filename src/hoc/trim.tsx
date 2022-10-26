@@ -1,18 +1,18 @@
 import React, { PureComponent } from 'react'
 import config from '../config'
 
-export interface TrimProps {
-  onBlur: (e: React.MouseEvent<HTMLElement>) => void
-  onChange: (v: string) => void
-  trim: boolean
-  value: string
+export interface BaseProps {
+  onBlur?: (e: any) => void
+  onChange?: (v: string) => void
+  value?: string
 }
 
-export type GetTrimProps<U, Keys extends keyof TrimProps> = Pick<TrimProps, Keys> & Omit<U, keyof TrimProps>
 
-export default <T extends TrimProps>(Origin: React.ComponentType<T>) =>
-  class extends PureComponent<T> {
-    constructor(props: T) {
+export type GetTrimProps<U> = U & {trim: boolean}
+
+export default <T extends BaseProps>(Origin: React.ComponentType<T>) =>
+  class extends PureComponent<GetTrimProps<T> > {
+    constructor(props: GetTrimProps<T>) {
       super(props)
       this.handleBlur = this.handleBlur.bind(this)
     }
@@ -29,7 +29,7 @@ export default <T extends TrimProps>(Origin: React.ComponentType<T>) =>
       const trim = this.getTrim()
       if (trim) {
         const tv = (e.target as HTMLInputElement).value.trim()
-        if (value !== tv) onChange(tv)
+        if (value !== tv && onChange) onChange(tv)
       }
       if (onBlur) onBlur(e)
     }

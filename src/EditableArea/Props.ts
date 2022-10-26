@@ -3,7 +3,7 @@ import { StandardProps, FormItemStandardProps } from '../@types/common'
 import { GetInputableProps } from '../Form/Props'
 import { TrimProps, GetTrimProps } from '../hoc/trim'
 
-export interface EditableAreaProps<Value = string> extends StandardProps, FormItemStandardProps<Value> {
+export interface EditableAreaProps extends StandardProps, FormItemStandardProps<string> {
   error?: Error
   bordered?: boolean
   disabled?: boolean
@@ -21,7 +21,7 @@ export interface EditableAreaProps<Value = string> extends StandardProps, FormIt
   renderResult?: (value: string) => React.ReactNode
 }
 
-export type Props<Value> = GetInputableProps<GetTrimProps<any,any>, Value>
+export type Props<Value> = GetInputableProps<GetTrimProps<a>, Value>
 
 export class EditableAreaClass<Value> extends React.Component<Props<Value>, {}> {
   // @ts-ignore
