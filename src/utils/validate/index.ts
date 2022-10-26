@@ -8,17 +8,20 @@ import required from './required'
 import typeOf from './type'
 import { RuleType } from './type'
 import regTest from './regExp'
-import { RuleParams, validFunc, RegExpParams, Required, Max, Min, Range, RuleResult } from '../../Rule'
+import {
+  RuleParams,
+  validFunc,
+  RegExpParams,
+  RuleItemResult,
+  RuleParamsType,
+   RuleCommonValue
+} from "../../Rule"
+import { ObjectType } from "../../@types/common"
 
-type RulesInnerValidator = Rule & {
-  isInnerValidator: boolean
-}
-
-type RulePropsFn = (() => Rule) & RulesInnerValidator
-
-type Props = (Required | Max | Min | Range | RuleResult) & {
+type Props = RuleItemResult & {
   type?: RuleType
-  message?: string | ((props?: Props) => string)
+  message?: string
+  [name: string]: any
 }
 
 export interface Rule extends RuleParams {
@@ -28,9 +31,9 @@ export interface Rule extends RuleParams {
   message: string | ((props?: Props) => string)
 }
 
-function getRule(rules: Rule, props: Props = {}) {
+function getRule<Value>(rules: RuleParamsType<Value>[number], props: Props = {}) {
   if (typeof rules === 'function') {
-    if ((rules as RulePropsFn).isInnerValidator) rules = (rules as RulePropsFn)()
+    if ((rules as RuleCommonValue).isInnerValidator) rules = (rules as RuleCommonValue)()
     else return rules
   }
   if (typeof props === 'string') props = { type: props }
@@ -38,21 +41,21 @@ function getRule(rules: Rule, props: Props = {}) {
 
   props = Object.assign({}, props, other)
 
-  props.message = typeof message === 'function' ? message(props) : substitute(message, props)
+  props.message = typeof message === 'function' ? message(props) : substitute(message!, props) as string
 
   if (func)
     return (value: unknown, formData: any, callback: ((cbArgs: true | Error) => void), props?: Props) =>
       func(value, formData, callback, props)
 
-  if (other.required !== undefined) return required(props as Required)
+  if (other.required !== undefined) return required({message: props.message, required: !!props.required})
 
-  if (regExp) return regTest(regExp as RegExpParams['regExp'], props as RegExpParams)
+  if (regExp) return regTest(regExp as RegExpParams['regExp'], {message: props.message})
 
   if (other.min !== undefined || other.max !== undefined) {
     if (type === 'number' || type === 'integer') {
-      return range({ ...props, min: other.min, max: other.max } as Range)
+      return range({message: props.message, min: other.min, max: other.max })
     }
-    return rangeLength(props as Range)
+    return rangeLength({message: props.message, min: other.min, max: other.max })
   }
 
   if (type) return typeOf(type, props.message)
@@ -62,9 +65,10 @@ function getRule(rules: Rule, props: Props = {}) {
   throw err
 }
 
-const validate = <T, U extends Rule>(value: keyof T, formdata: T, rules: U[keyof U][], props: Props) =>
+const validate = <Value, Props extends ObjectType>(value: Value, formdata: ObjectType, rules: RuleParamsType<Value>, props: Props) =>
+
   new Promise((resolve, reject) => {
-    const $rules = flattenArray(rules)
+    const $rules = flattenArray<RuleParamsType<any>[number]>(rules)
     const rule = $rules.shift()
     if (rule === undefined) {
       resolve(true)
@@ -84,12 +88,12 @@ const validate = <T, U extends Rule>(value: keyof T, formdata: T, rules: U[keyof
       validate(value, formdata, $rules, props).then(resolve, reject)
     }
 
-    const fn = getRule(rule as U, props)
+    const fn = getRule(rule, props)
     let val = value
     if (fn === rule && (value instanceof Datum.List || value instanceof Datum.Form)) {
       val = value.getValue()
     }
-    const cb = fn(val as string, formdata, callback)
+    const cb = fn(val, formdata, callback) as unknown as Promise<any>
     if (cb && cb.then) {
       cb.then(callback.bind(null, true)).catch((e: Error) => {
         reject(wrapFormError(e))
