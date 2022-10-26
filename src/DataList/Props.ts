@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react'
+import { PaginationProps } from '../Pagination'
 import { StandardProps, StructDataStandardProps, ListItemStandardProps, RegularAttributes } from '../@types/common'
 
 export interface ListProps<Item, Value>
@@ -7,12 +8,13 @@ export interface ListProps<Item, Value>
     ListItemStandardProps<Item, Value> {
   value?: Value[]
   fixed?: boolean
+  height?: number
   bordered?: boolean
   lineHeight?: number
-  height?: number
   rowsInView?: number
   empty?: string | ReactNode
   scrollLoading?: () => void
+  pagination?: PaginationProps
   size?: RegularAttributes.Size
   loading?: boolean | ReactNode
   footer?: ReactNode | (() => ReactNode)
