@@ -14,7 +14,7 @@ import Caret from '../icons/Caret'
 import { isRTL } from '../config'
 import { getDirectionClass } from '../utils/classname'
 import getDataset from '../utils/dom/getDataset'
-import { DropdownProps, DropdownNode } from './interface'
+import { DropdownProps, DropdownNode } from './Props'
 
 const positionMap = {
   'left-top': 'left-top',
@@ -37,14 +37,12 @@ const DefaultProps = {
   position: 'bottom-left',
 }
 
-interface State {
+interface DropDownState {
   show: boolean
 }
 
-type Props = DropdownProps & Required<Pick<DropdownProps, keyof typeof DefaultProps>> | DropdownProps
-
-class Dropdown extends PureComponent<Props, State> {
-  static defaultProps = DefaultProps
+class Dropdown extends PureComponent<DropdownProps, DropDownState> {
+  static defaultProps: any = DefaultProps
 
   dropdownId: string
 
@@ -60,7 +58,7 @@ class Dropdown extends PureComponent<Props, State> {
 
   static displayName: string
 
-  constructor(props: Props) {
+  constructor(props: DropdownProps) {
     super(props)
 
     this.state = {
@@ -277,7 +275,6 @@ class Dropdown extends PureComponent<Props, State> {
               type="link"
               key={index}
               position={childPosition as DropdownProps['position']}
-              btnColor
               onClick={onClick}
               renderItem={renderItem}
               trigger={this.getTrigger()}
@@ -326,4 +323,4 @@ class Dropdown extends PureComponent<Props, State> {
 
 Dropdown.displayName = 'ShineoutDropdown'
 
-export default absoluteComsumer(Dropdown) as React.ComponentType<DropdownProps>
+export default absoluteComsumer(Dropdown)
