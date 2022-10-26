@@ -6,8 +6,8 @@ import { getUidStr } from '../utils/uid'
 import {ResizableType} from './Props'
 
 interface BaseProps {
-  style: React.CSSProperties
-  className: string
+  style?: React.CSSProperties
+  className?: string
 }
 
 interface ResizeableState {

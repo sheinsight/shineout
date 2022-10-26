@@ -3,11 +3,9 @@ import classnames from 'classnames'
 import icons from '../icons'
 import { cardClass } from './styles'
 import { isRTL } from '../config'
-import { CardHeaderProps } from "./interface"
-import { CardContextValueType } from './context'
+import { OriginCardHeaderProps } from "./Props"
 
-type CardHeaderPropsWidthProvider = CardHeaderProps & Pick<CardContextValueType, 'collapsed' | 'onCollapse'>
-class Header extends PureComponent<CardHeaderPropsWidthProvider> {
+class Header extends PureComponent<OriginCardHeaderProps> {
 
   renderIndicator() {
     const { collapsed } = this.props

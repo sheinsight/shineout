@@ -1,12 +1,10 @@
 import React, { PureComponent } from "react"
 import Button from '../Button'
-import {CardSubmitProps} from './interface'
-import {CardContextValueType} from './context'
+import { OriginCardSubmitProps } from './Props'
 
-type CardSubmitPropsWithProvider = CardSubmitProps & Pick<CardContextValueType, 'onSubmit' | 'formStatus'>
 
-class Submit extends PureComponent<CardSubmitPropsWithProvider> {
-  constructor(props: CardSubmitPropsWithProvider) {
+class Submit extends PureComponent<OriginCardSubmitProps> {
+  constructor(props: OriginCardSubmitProps) {
     super(props)
     this.handleClick = this.handleClick.bind(this)
   }

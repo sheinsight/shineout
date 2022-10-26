@@ -1,14 +1,8 @@
 import React from 'react'
 import createReactContext from '../context'
+import { CardContextValueType } from "./Props"
 
-export type CardContextValueType = {
-  collapsed?: boolean
-  onCollapse: ()=> void
-  collapsible: 'bottom' | boolean
-  formStatus: string,
-  onSubmit: (value: EventTarget) => void,
-  setFormStatus?: (status: string) => void,
-}
+
 
 const context = createReactContext<CardContextValueType>({} as CardContextValueType)
 

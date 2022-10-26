@@ -3,14 +3,12 @@ import classnames from 'classnames'
 import List from '../AnimationList'
 import { cardClass } from './styles'
 import { isRTL } from '../config'
-import { CardBodyProps } from './interface'
-import { CardContextValueType } from "./context"
+import { OriginCardBodyProps } from './Props'
+import {  } from "./context"
 
 const CollapseList = List(['collapse'], 'fast')
 
-type CardBodyPropsWithProvider = CardBodyProps & Pick<CardContextValueType, 'collapsed' | 'collapsible' | 'onCollapse'>
-
-class Body extends PureComponent<CardBodyPropsWithProvider> {
+class Body extends PureComponent<OriginCardBodyProps> {
   render() {
     const { className, collapsed, collapsible, onCollapse, ...other } = this.props
     const newClassName = classnames(cardClass('body', isRTL() && 'body-rtl'), className)
