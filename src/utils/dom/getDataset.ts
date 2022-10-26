@@ -1,4 +1,4 @@
-// 
+//
 export default <T extends {}>(props?: T) => {
   if (!props) return {}
   const keys = Object.keys(props)

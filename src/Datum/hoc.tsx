@@ -5,37 +5,21 @@ import { IGNORE_VALIDATE, WITH_OUT_DISPATCH } from './types'
 import List from './List'
 import Form from './Form'
 import { ObjectType } from "../@types/common"
+import { DatumBaseProps, DatumHocOptions, GetDatumProps } from "./Props"
 
 const types = {
   form: Form,
   list: List,
 }
-interface DatumHocOptions<Props> {
-  type: 'list' | 'form'
-  key:  keyof Props & string
-  limit: number,
-  bindProps: (keyof Props)[],
-  ignoreUndefined: boolean,
-  pure: boolean
-}
 
-interface BaseProps {
-  onChange?: (...args: any) => void
-  onDatumBind?: (datum: ObjectType) => void
-  datum?: unknown
-  initValidate?: boolean
-  value?: any
-  disabled?: boolean | ((...args: any) => boolean)
-}
 
-type filterProps = 'onDatumBind'
-
-export default curry(<U extends BaseProps>(options: DatumHocOptions<U>, Origin: React.ComponentType<Omit<U,filterProps >>) => {
+export default curry(<U extends DatumBaseProps>(options: DatumHocOptions<U>, Origin: React.ComponentType<U>) => {
   const { type = 'list', key = 'value', limit = 0, bindProps = [], ignoreUndefined, pure = true } = options || {}
   const Datum = types[type]
   const Component = pure ? React.PureComponent : React.Component
-  return class extends Component<U> {
-    static defaultProps = {
+
+  return class extends Component<GetDatumProps<U>> {
+    static defaultProps: any = {
       initValidate: false,
     }
 
@@ -43,7 +27,7 @@ export default curry(<U extends BaseProps>(options: DatumHocOptions<U>, Origin: 
 
     prevValues: any
 
-    constructor(props: U) {
+    constructor(props: GetDatumProps<U>) {
       super(props)
       const { datum, onChange, initValidate } = props
 
@@ -52,16 +36,16 @@ export default curry(<U extends BaseProps>(options: DatumHocOptions<U>, Origin: 
       } else {
         const ops = bindProps.reduce(
           (o: any, k) => {
-            o[k] = props[k]
+            o[k] = props[k as keyof GetDatumProps<U>]
             return o
           },
           { limit, initValidate }
         )
         if (key in props) {
-          ops[key] = props[key]
+          ops[key] = props[key as keyof GetDatumProps<U>]
         }
         if (`default${capitalize(key)}` in props) {
-          ops[`default${capitalize(key)}`] = props[`default${capitalize(key)}` as keyof  U]
+          ops[`default${capitalize(key)}`] = props[`default${capitalize(key)}` as keyof GetDatumProps<U>]
         }
         this.datum = new (Datum as any)(Object.assign(ops, datum))
       }
@@ -73,10 +57,10 @@ export default curry(<U extends BaseProps>(options: DatumHocOptions<U>, Origin: 
 
     componentDidMount() {
       this.datum.setLock(false)
-      this.prevValues = this.props[key]
+      this.prevValues = this.props[key as keyof GetDatumProps<U>]
     }
 
-    componentDidUpdate(prevProps: U) {
+    componentDidUpdate(prevProps: GetDatumProps<U>) {
       // update datum.onchange
       this.datum.setLock(false)
       if (prevProps.onChange !== this.props.onChange) {
@@ -85,7 +69,7 @@ export default curry(<U extends BaseProps>(options: DatumHocOptions<U>, Origin: 
     }
 
     setValue(t?: string) {
-      const values = this.props[key]
+      const values = this.props[key as keyof GetDatumProps<U>]
       if (ignoreUndefined && values === undefined) return
       this.datum.setValue(values, t)
     }
@@ -96,7 +80,7 @@ export default curry(<U extends BaseProps>(options: DatumHocOptions<U>, Origin: 
       if (bindProps.includes('disabled')) {
         this.datum.setDisabled(props.disabled)
       }
-      const values = this.props[key]
+      const values = this.props[key as keyof GetDatumProps<U>]
       if (type === 'form' && values !== this.prevValues) {
         this.setValue(this.props.initValidate ? undefined : IGNORE_VALIDATE)
         this.datum.setLock(true)
@@ -106,7 +90,7 @@ export default curry(<U extends BaseProps>(options: DatumHocOptions<U>, Origin: 
       if (type === 'list') this.setValue(WITH_OUT_DISPATCH)
       // delete props[key]
       return (
-        <Origin {...props} datum={this.datum} />
+        <Origin {...props as U} datum={this.datum} />
       )
     }
   }

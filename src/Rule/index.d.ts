@@ -1,34 +1,43 @@
+import { ValueOf } from "../@types/common"
+
 type TypeEnum  = 'email' | 'integer' | 'number' | 'url' | 'json' | 'hex' | 'rgb' | 'ipv4';
+type MessageType = string | ((props: any) => string)
 export interface Required {
   required?: boolean;
-  message?: string;
+  message?: MessageType;
 }
 
 export interface Max {
   max?: number;
-  message?: string;
+  message?: MessageType;
 }
 
 export interface Min {
   min?: number;
-  message?: string;
+  message?: MessageType;
 }
 
 export interface Range extends Min, Max {}
 
 export interface Type {
   type?:  TypeEnum
-  message?: string;
+  message?: MessageType;
 }
 
 export interface RegExpParams {
   regExp?: RegExp | string;
-  message?: string;
+  message?: MessageType;
 }
+
 
 export interface validFunc {
   (value: any, formData: any, callback: (cbArgs: (true | Error)|(true | Error)[]) => void, props: any) : (void | Promise<any>);
 }
+
+export type RuleItemResult = Type & RegExpParams & Range & Min & Max & Required & {
+  func?: validFunc;
+}
+
 
 export interface RuleParams {
   required?: Required;
@@ -46,70 +55,76 @@ export interface RuleParams {
   ipv4?: Type;
   [propName: string]: ({
     func?: validFunc;
-    message?: string
+    message?: MessageType
     [propName: string]: any;
   } | validFunc | any) ;
 }
 
-export type RuleParamsType<Value, P = any, FormData = any> = Array<RuleParams  | ((value: Value, formData: FormData, callback: ((cbArgs: true | Error) => void), props?: P) => void) | object>
+// rules: RuleParamsType = []
+export type RuleCommonValue = ValueOf<RuleCommon>
 
-export type RuleCommon<U> =  {
-  [key: string]: paramFunc<U>
+export type RuleParamsType<Value, FormData = any, Props = any> = Array<RuleCommonValue | RuleItemResult  | ((value: Value, formData: FormData, callback: ((cbArgs: true | Error) => void), props?: Props) => void) >
+
+export type InnerRuleFunc<U> =  U & {isInnerValidator: true}
+
+export type RuleCommon =  {
+  [key: string]: paramFunc
  } & RuleResult
 
 export interface RuleResult {
-  required (message?: string): Required;
+  required: InnerRuleFunc<(message?: MessageType) => Required>;
 
-  min(number?: number, message?: string): Min;
+  min: InnerRuleFunc<(number?: number, message?: MessageType) => Min>;
 
-  max(number?: number, message?: string): Max;
+  max: InnerRuleFunc<(number?: number, message?: MessageType)=> Max>;
 
-  range(min?: number, max?: number, message?: string): Range;
+  range: InnerRuleFunc<(min?: number, max?: number, message?: MessageType)=> Range>;
 
-  regExp(reg?: RegExp | string, message?: string): RegExpParams;
+  regExp: InnerRuleFunc<(reg?: RegExp | string, message?: MessageType)=> RegExpParams>;
 
-  email(message?: string): Type;
+  email: InnerRuleFunc<(message?: MessageType)=> Type>;
 
-  integer(message?: string): Type;
+  integer: InnerRuleFunc<(message?: MessageType)=> Type>;
 
-  number(message?: string): Type;
+  number: InnerRuleFunc<(message?: MessageType)=> Type>;
 
-  url(message?: string): Type;
+  url: InnerRuleFunc<(message?: MessageType)=> Type>;
 
-  json(message?: string): Type;
+  json: InnerRuleFunc<(message?: MessageType)=> Type>;
 
-  hex(message?: string): Type;
+  hex: InnerRuleFunc<(message?: MessageType)=> Type>;
 
-  rgb(message?: string):Type;
+  rgb: InnerRuleFunc<(message?: MessageType)=>Type>;
 
-  ipv4(message?: string): Type;
+  ipv4: InnerRuleFunc<(message?: MessageType)=> Type>;
 
 }
 
-export interface paramFunc<U> {
-  (args?: U ): {args: U, func: validFunc, message?: string}
+export interface paramFunc {
+  <U>(args?: U ): {args: U, func: validFunc, message?: MessageType}
+  isInnerValidator: true
 }
 
-declare function Rule<U>() : RuleResult
+declare function Rule() : RuleResult
 
-declare function Rule<A extends RuleParams, U>(a: A) : {
-  [P in keyof A]: paramFunc<U>
+declare function Rule<A extends RuleParams>(a: A) : {
+  [P in keyof A]: paramFunc
 } & RuleResult
 
-declare function Rule<A extends RuleParams, B extends RuleParams, U>(a: A, b: B) : {
-  [P in keyof (A & B)]: paramFunc<U>
+declare function Rule<A extends RuleParams, B extends RuleParams>(a: A, b: B) : {
+  [P in keyof (A & B)]: paramFunc
 } & RuleResult
 
-declare function Rule<A extends RuleParams, B extends RuleParams, C extends RuleParams, U>(a: A, b: B, c: C) : {
-  [P in keyof (A & B & C)]: paramFunc<U>
+declare function Rule<A extends RuleParams, B extends RuleParams, C extends RuleParams>(a: A, b: B, c: C) : {
+  [P in keyof (A & B & C)]: paramFunc
 } & RuleResult
 
-declare function Rule<A extends RuleParams, B extends RuleParams, C extends RuleParams, D extends RuleParams, U>(a: A, b: B, c: C, d: D) : {
-  [P in keyof (A & B & C & D)]: paramFunc<U>
+declare function Rule<A extends RuleParams, B extends RuleParams, C extends RuleParams, D extends RuleParams>(a: A, b: B, c: C, d: D) : {
+  [P in keyof (A & B & C & D)]: paramFunc
 } & RuleResult
 
- declare function Rule<
-   U>(...args: RuleParams[]) :RuleCommon<U>
+ declare function Rule(...args: RuleParams[]) :RuleCommon
 
 
+export declare const RULE_TYPE: "RULE_OBJECT"
 export default Rule

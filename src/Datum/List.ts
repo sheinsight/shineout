@@ -1,16 +1,10 @@
 import deepEqual from 'deep-eql'
 import shallowEqual from '../utils/shallowEqual'
 import { CHANGE_TOPIC, ChangeType, WITH_OUT_DISPATCH } from "./types"
-import {ListItemStandardProps, FormItemStandardProps, ObjectType} from '../@types/common'
+import {ObjectType} from '../@types/common'
 
-interface ListDatumOptions<Item, Value>
-  extends Pick<ListItemStandardProps<Item, Value>, 'format' | 'disabled'>,
-  Pick<FormItemStandardProps<Value>, 'value' | 'onChange'> {
-  separator?: string
-  limit?: number
-  distinct?: boolean,
-  prediction?: (value: any, data: Item) => boolean
-}
+import {ListDatumOptions} from './Props'
+
 
 export default class<Item, Value> {
   distinct: ListDatumOptions<Item, Value>['distinct']
@@ -209,14 +203,14 @@ export default class<Item, Value> {
     return value === this.format(data)
   }
 
-  remove(value: unknown, _: unknown, childrenKey: string) {
+  remove(value: Item | {IS_NOT_MATCHED_VALUE: boolean, value: any}, _?: unknown, childrenKey?: string) {
     if (value === undefined || value === null) return
 
-    let raws = Array.isArray(value) ? value : [value]
+    let raws: any = Array.isArray(value) ? value : [value]
     if (childrenKey) {
       raws = this.flattenTreeData(raws, childrenKey as any)
     }
-    raws = raws.filter(r => !this.disabled(r))
+    raws = raws.filter((r: any) => !this.disabled(r))
     const values = []
 
     if (!this.prediction) {

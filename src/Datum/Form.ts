@@ -17,24 +17,10 @@ import {
   IGNORE_VALIDATE,
   ValidType, PublishType
 } from "./types"
+import {FormDatumOptions, ValidFunc} from './Props'
 import {ObjectType} from '../@types/common'
 
-interface RuleObject {
-  [name: string]: RuleParamsType<any> | RuleObject
-}
-interface ValidFunc {
-  (v: any, formValue: ObjectType, type: ValidType): Promise<any>
-  (type: ValidType): Promise<any>
-}
-interface FormDatumOptions<V extends {}> {
-  removeUndefined?: boolean
-  rules?: RuleObject
-  onChange?: (value: V) => void
-  value?: V,
-  error?: {[name: string]: string | Error}
-  initValidate?: boolean
-  defaultValue?: V
-}
+
 export default class<V extends ObjectType> {
   rules: FormDatumOptions<V>['rules']
   onChange: FormDatumOptions<V>['onChange']
@@ -88,13 +74,13 @@ export default class<V extends ObjectType> {
     this.updateLock = lock
   }
 
-  get(name: string): any {
+  get(name: string | (string[])): any {
     if (Array.isArray(name)) return name.map(n => this.get(n))
     return deepGet(this.$values, name)
   }
   set(value: ObjectType): void
-  set(name: string, value: any, pub?: boolean) : void
-  set(name: string | ObjectType, value?: any, pub?: boolean) {
+  set(name: string| string[] , value: any, pub?: boolean) : void
+  set(name: string | string[] | ObjectType, value?: any, pub?: boolean) {
     if (isObject(name)) {
       value = objectValues(name as ObjectType)
       name = Object.keys(name)
@@ -270,7 +256,7 @@ export default class<V extends ObjectType> {
     })
   }
 
-  bind(name: string, fn: ()=> void, value: any, validate: ValidFunc ) {
+  bind(name: string, fn:  (...args: any)=> void, value: any, validate: ValidFunc ) {
     if (this.$inputNames[name]) {
       console.warn(`There is already an item with name "${name}" exists. The name props must be unique.`)
     }
@@ -289,7 +275,7 @@ export default class<V extends ObjectType> {
     this.subscribe(errorSubscribe(name), fn)
   }
 
-  unbind(name: string, _cb?: any, reserveAble?: boolean) {
+  unbind(name: string| string[], _cb?: any, reserveAble?: boolean) {
     if (Array.isArray(name)) {
       name.forEach(n => this.unbind(n))
       return
