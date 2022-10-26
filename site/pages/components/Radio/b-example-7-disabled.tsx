@@ -5,12 +5,10 @@
  *    -- Set disabled property is set to true, all the options is disabled.
  */
 import React from 'react'
-import { Radio, TYPE } from 'shineout'
+import { Radio } from 'shineout'
 
-type RadioGroupProps = TYPE.Radio.GroupProps<any, any>
-type RadioGroupData = RadioGroupProps['data']
 
-const data: RadioGroupData = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
+const data = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
 
 const App: React.FC = () => (
   <div>

@@ -4,12 +4,12 @@ import { docSize } from './dom/document'
 
 type Timer = NodeJS.Timeout | null
 type Component = {
-  container: HTMLElement
+  container?: Element | null
   element: HTMLElement
   render: Function
   offset: number
-  noRemove: boolean
-  observer: IntersectionObserver
+  noRemove?: boolean
+  observer?: IntersectionObserver
 }
 
 const throttle = 80
@@ -20,7 +20,7 @@ let isLock = false
 
 const winHeight = docSize.height
 
-const getRect = (el: HTMLElement) => {
+const getRect = (el: Element) => {
   // document or invalid element
   if (!el || !el.getBoundingClientRect) {
     if (el) console.error(`the ${el} is not a element`)
@@ -38,7 +38,7 @@ export function dispatch<K extends keyof Component>() {
   Object.keys(components).forEach((k: K) => {
     const { element, render, container, offset, noRemove } = components[k]
     const rect = element.getBoundingClientRect()
-    const containerRect = getRect(container)
+    const containerRect = getRect(container!)
     if (rect.bottom + offset < containerRect.top || rect.top - offset > containerRect.bottom) return
     if (!noRemove) delete components[k]
     render()
@@ -56,7 +56,7 @@ const handleScroll = () => {
   }, throttle)
 }
 
-export function removeStack(id: string, removeListener?: boolean) {
+export function removeStack(id?: string | null, removeListener?: boolean) {
   if (!id || !components[id]) return
   const { observer, container } = components[id]
   const scrollEl = container || document
@@ -100,7 +100,7 @@ export function addStack(obj: Component) {
   }
   scrollEl.addEventListener('scroll', handleScroll, eventPassive)
   const rect = obj.element.getBoundingClientRect()
-  const containerRect = getRect(obj.container)
+  const containerRect = getRect(obj.container!)
 
   if (rect.bottom + obj.offset < containerRect.top || rect.top - obj.offset > containerRect.bottom) {
     components[id] = obj

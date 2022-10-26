@@ -20,7 +20,7 @@ function $getKey<T>(d: T, gen: keygenType<T>, index?: number) {
 }
 
 export function getKey<T>(...args: [T, keygenType<T>, number?]) {
-  const key = $getKey(...args)
+  const key = $getKey(...args) as string | number
   if (typeof key !== 'string' && typeof key !== 'number') {
     console.error(new Error(`keygen result expect a string or a number, get '${typeof key}'`))
   }

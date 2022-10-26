@@ -1,7 +1,6 @@
 import nullable from './nullable'
-import { RegExpParams } from '../../Rule'
 
-export default (regExp: string | RegExp | undefined, options: RegExpParams) =>
+export default (regExp: string | RegExp | undefined, options: {message: string}) =>
   nullable((value: unknown, _formdata: any, callback: (x: boolean | Error) => void) => {
     const { message } = options
 

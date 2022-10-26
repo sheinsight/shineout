@@ -1,7 +1,6 @@
 import nullable from './nullable'
-import { Range } from '../../Rule'
 
-export default (options: Range) =>
+export default (options: {min?: number, max?: number, message: string}) =>
   nullable((value: unknown, _formdata: any, callback: (x: boolean | Error) => void) => {
     const { min, max, message } = options
 
