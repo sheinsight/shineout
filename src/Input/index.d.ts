@@ -288,6 +288,24 @@ export interface InputProps<Value> extends
    */
   onBlur?: (e: Event) => void,
 
+  /**
+   * The callback when Textarea focus
+   *
+   * 聚焦后的回调
+   *
+   * default: -
+   */
+  onFocus?: any
+
+  /**
+   * Disabled input
+   *
+   * 禁用
+   *
+   * default: -
+   */
+  disabled?: boolean
+
 }
 
 export interface InputNumberProps<Value> extends InputProps<Value> {

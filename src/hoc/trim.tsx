@@ -1,12 +1,15 @@
 import React, { PureComponent } from 'react'
 import config from '../config'
 
-interface TrimProps {
+export interface TrimProps {
   onBlur: (e: React.MouseEvent<HTMLElement>) => void
   onChange: (v: string) => void
   trim: boolean
   value: string
 }
+
+export type GetTrimProps<U, Keys extends keyof TrimProps> = Pick<TrimProps, Keys> & Omit<U, keyof TrimProps>
+
 export default <T extends TrimProps>(Origin: React.ComponentType<T>) =>
   class extends PureComponent<T> {
     constructor(props: T) {

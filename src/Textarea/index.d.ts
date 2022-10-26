@@ -117,7 +117,7 @@ FormItemStandardProps<Value>
    * default: -
    */
   // 暂时屏蔽该属性
-  // innerTitle?: ReactNode,
+  innerTitle?: ReactNode,
   /**
    * Placeholder title, which needs to be used together with innerTitle
    *
@@ -153,6 +153,15 @@ FormItemStandardProps<Value>
    * default: -
    */
   onBlur?: (e: Event)=> void,
+
+  /**
+   * The callback when Textarea focus
+   *
+   * 聚焦后的回调
+   *
+   * default: -
+   */
+   onFocus?: (e: Event)=> void,
 
 }
 

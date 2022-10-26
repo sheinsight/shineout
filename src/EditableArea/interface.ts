@@ -140,8 +140,8 @@ export interface EditableAreaProps extends StandardProps, FormItemStandardProps<
   //  onShowTextareaChange?: (value: boolean)=> void,
 }
 
-declare class EditableArea extends React.PureComponent<EditableAreaProps, any> {
-  render(): JSX.Element
-}
+// declare class EditableArea extends React.PureComponent<EditableAreaProps, any> {
+//   render(): JSX.Element
+// }
 
-export default EditableArea
+// export default EditableArea
