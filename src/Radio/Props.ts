@@ -31,14 +31,16 @@ export type InputRadioGroupProps<DataItem, Value> = PropsWithChildren<
   GetInputableProps<GetDatumListProps<RadioGroupProps<DataItem, Value>, DataItem, Value, GroupDatumArgsType>, Value>
   >
 
-declare class RadioGroup<DataItem, Value> extends React.Component<InputRadioGroupProps<DataItem, Value>, {}> {
+export class RadioGroup<DataItem, Value> extends React.Component<InputRadioGroupProps<DataItem, Value>, {}> {
+  // @ts-ignore
   render(): JSX.Element;
 }
 
 
-declare class Radio<Value> extends React.Component<RadioProps, {}> {
+export class Radio extends React.Component<RadioProps, {}> {
   static Group: typeof RadioGroup;
 
+  // @ts-ignore
   render(): JSX.Element;
 }
 

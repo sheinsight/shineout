@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { ComponentType, PureComponent } from "react"
 import classnames from 'classnames'
 import {  defaultProps } from '../utils/proptypes'
 import { dispatchEvent } from '../utils/dom/element'
@@ -9,8 +9,7 @@ import resizable from '../hoc/resizable'
 import moveable from '../hoc/moveable'
 import { modalClass } from '../Modal/styles'
 import { isRTL } from '../config'
-import {CardProps} from './interface'
-import { CardContextValueType } from './context'
+import {CardProps, CardContextValueType} from './Props'
 
 interface CardState {
   collapsed?: boolean
@@ -103,4 +102,4 @@ class Card extends PureComponent<CardProps, CardState> {
 export default compose(
   moveable(`.${cardClass('header')}, .${modalClass('method-title')}`),
   resizable
-)(Card)
+)(Card) as ComponentType<CardProps>

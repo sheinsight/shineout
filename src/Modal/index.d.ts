@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { CardSubmitProps } from '../Card/interface'
+import { CardSubmitProps } from '../Card/Props'
 import { StandardProps } from '../@types/common'
 
 type ReactNode = React.ReactNode;

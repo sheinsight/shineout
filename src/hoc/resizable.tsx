@@ -3,12 +3,11 @@ import classnames from 'classnames'
 import immer from 'immer'
 import { resizableClass } from './styles'
 import { getUidStr } from '../utils/uid'
-import { curry } from '../utils/func'
+import {ResizableType} from './Props'
 
-interface ResizeableProps {
-  style: React.CSSProperties
-  className: string
-  resizable: boolean | string
+interface BaseProps {
+  style?: React.CSSProperties
+  className?: string
 }
 
 interface ResizeableState {
@@ -18,11 +17,10 @@ interface ResizeableState {
 
 type Direction = 'x' | 'y' | 'xy'
 
-type filterProps = 'resizable'
 
-export default curry(
-  <U extends ResizeableProps >(Origin: React.ComponentType<Omit<U, filterProps>>) =>
-    class Resizable extends React.Component<U, ResizeableState> {
+export default
+  <U extends BaseProps >(Origin: React.ComponentType<U>) =>
+    class Resizable extends React.Component<ResizableType<U>, ResizeableState> {
 
       resizableId: string
 
@@ -39,7 +37,7 @@ export default curry(
 
       el: HTMLElement
 
-      constructor(props: U) {
+      constructor(props: ResizableType<U>) {
         super(props)
         this.state = {
           x: 0,
@@ -133,4 +131,3 @@ export default curry(
         return <Origin {...others as U} style={ms} className={mc} />
       }
     }
-)

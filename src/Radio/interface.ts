@@ -1,4 +1,4 @@
-import {RadioProps, InputRadioGroupProps} from './Props'
+import {RadioProps as Props, InputRadioGroupProps} from './Props'
 
-export type Props = RadioProps
+export type RadioProps = Props
 export type RadioGroupProps<Value, Item> = InputRadioGroupProps<Value, Item>

@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import classnames from 'classnames'
 import { cardClass } from './styles'
 import { isRTL } from '../config'
-import { CardFooterProps } from './interface'
+import { CardFooterProps } from './Props'
 
 export default class Footer extends PureComponent<CardFooterProps> {
 

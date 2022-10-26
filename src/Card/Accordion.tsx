@@ -3,7 +3,7 @@ import classnames from 'classnames'
 import { PureComponent } from '../component'
 import { cardClass } from './styles'
 import { isRTL } from '../config'
-import { CardAccordionProps} from './interface'
+import { CardAccordionProps} from './Props'
 
 const getChildId = <T extends {props: {[name: string]: any}}>(child: T, i: number) => {
   if (child && child.props && child.props.id !== undefined) return child.props.id
