@@ -41,7 +41,7 @@ export { default as Cascader } from './Cascader'
 import { CascaderProps as __CascaderProps,  } from './Cascader'
 
 export { default as Checkbox } from './Checkbox'
-import { Prop as __Prop, GroupProps as __GroupProps } from './Checkbox/interface'
+import { CheckboxProps as __CheckboxProps, GroupProps as __GroupProps } from './Checkbox/interface'
 
 export { default as DatePicker } from './DatePicker'
 import { DatePickerProps as __DatePickerProps, QuickSelect as __QuickSelect, AreaType as __AreaType, DateTimeType as __DateTimeType, DatePickerValue as __DatePickerValue } from './DatePicker'
@@ -67,7 +67,7 @@ export { default as Gap } from './Gap'
 import { GapProps as __GapProps,  } from './Gap/interface'
 
 export { default as Grid } from './Grid'
-import { GridProps as __GridProps, responsiveType as __responsiveType } from './Grid'
+import { GridProps as __GridProps, responsiveType as __responsiveType } from './Grid/interface'
 
 export { default as Icon } from './Icon'
 import { IconProps as __IconProps, IconComProps as __IconComProps,  } from './Icon'
@@ -99,7 +99,7 @@ export { default as Progress } from './Progress'
 import { ProgressProps as __ProgressProps,  } from './Progress'
 
 export { default as Radio } from './Radio'
-import { Props as __Props, RadioGroupProps as __RadioGroupProps } from './Radio/interface'
+import { RadioProps as __RadioProps, RadioGroupProps as __RadioGroupProps } from './Radio/interface'
 
 export { default as Rate } from './Rate'
 import { RateProps as __RateProps,  } from './Rate'
@@ -192,7 +192,7 @@ export namespace TYPE {
   }
   export namespace Checkbox {
   
-    export type Prop<Value> = __Prop<Value>
+    export type Props<Value> = __CheckboxProps<Value>
     export type GroupProps<DataItem, Value> = __GroupProps<DataItem, Value>
   }
   export namespace DatePicker {
@@ -273,7 +273,7 @@ export namespace TYPE {
   }
   export namespace Radio {
   
-    export type Props = __Props
+    export type Props = __RadioProps
     export type GroupProps<Value, Item> = __RadioGroupProps<Value, Item>
   }
   export namespace Rate {

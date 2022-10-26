@@ -55,13 +55,13 @@ export type InputCheckboxGroupProps<DataItem, Value> = PropsWithChildren<
       GetDatumListProps<CheckboxGroupProps<DataItem, Value>, DataItem, Value, GroupDatumArgsType>, Value>
   >
 
-class CheckboxGroup<DataItem= any, Value= any> extends React.Component<InputCheckboxGroupProps<DataItem, Value>, {}> {
+export class CheckboxGroup<DataItem= any, Value= any> extends React.Component<InputCheckboxGroupProps<DataItem, Value>, {}> {
   // @ts-ignore
   render(): JSX.Element;
 }
 
 
-class CheckboxClass<Value = any> extends React.Component<InputCheckboxProps<Value>, {}> {
+export class CheckboxClass<Value = any> extends React.Component<InputCheckboxProps<Value>, {}> {
   static Group: typeof CheckboxGroup;
   // @ts-ignore
   render(): JSX.Element;
