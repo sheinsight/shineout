@@ -5,14 +5,13 @@ import { selectClass } from '../Select/styles'
 import { compose } from '../utils/func'
 import filter from './filter'
 import absolute from '../Table/context'
-import React from 'react'
-import { CascaderProps } from './interface'
+import { CascaderType } from './Props'
 
-const Cascader: React.ComponentType<CascaderProps<any, string[]>> = compose(
+const Cascader: any = compose(
   inputable,
   inputBorder({ className: selectClass('_'), tag: 'span' }),
   filter,
   absolute
 )(Component)
 
-export default Cascader
+export default Cascader as CascaderType

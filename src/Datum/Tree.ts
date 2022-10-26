@@ -1,5 +1,5 @@
 import { CHANGE_TOPIC } from './types'
-import { keyType, LiteralUnion, ObjectType } from "../@types/common"
+import { keyType, LiteralUnion, ObjectType } from '../@types/common'
 
 const IS_NOT_MATCHED_VALUE = 'IS_NOT_MATCHED_VALUE'
 
@@ -20,7 +20,6 @@ export const CheckedMode = {
   Freedom: 4,
 }
 
-
 type IdType = string | number
 type CheckedStatus = 0 | 1 | 2
 
@@ -36,13 +35,15 @@ const checkStatusStack = (stack: CheckedStatus[], defaultStatus: CheckedStatus) 
 }
 
 export interface TreeDatumOptions<Item, Value> {
-  data: Item[],
-  keygen?: LiteralUnion<Item> | ((data: Item ,parentId?:string | number  ) => keyType);
-  value?: Value,
+  data: Item[]
+  keygen?: LiteralUnion<Item> | ((data: Item, parentId?: string | number) => keyType)
+  value?: Value
   mode?: 0 | 1 | 2 | 3 | 4
-  disabled?: ((data: Item, ...rest: any) => boolean) | boolean;
+  disabled?: ((data: Item, ...rest: any) => boolean) | boolean
   childrenKey: string
   unmatch?: boolean
+  loader?: (key: keyType, data: Item) => void
+  onChange?: (value: Value, selected?: Item) => void
 }
 
 export default class<Item, Value extends any[]> {
@@ -58,17 +59,19 @@ export default class<Item, Value extends any[]> {
   value?: Value
   data?: Item[]
   cachedValue?: unknown[]
-  pathMap: Map<IdType, {
-    children: IdType[],
-    path: (number | string)[],
-    isDisabled: boolean,
-    indexPath: number[],
-    index: number,
-  }>
+  pathMap: Map<
+    IdType,
+    {
+      children: IdType[]
+      path: (number | string)[]
+      isDisabled: boolean
+      indexPath: number[]
+      index: number
+    }
+  >
   dataMap: Map<IdType, Item>
 
-  constructor(options: TreeDatumOptions<Item, Value> = {data:[], childrenKey: ''}) {
-
+  constructor(options: TreeDatumOptions<Item, Value> = { data: [], childrenKey: '' }) {
     const { data, value, keygen, mode, disabled, childrenKey = 'children', unmatch } = options
 
     this.keygen = keygen
@@ -133,21 +136,20 @@ export default class<Item, Value extends any[]> {
           if (checked >= 1) value.push(id)
           break
         case CheckedMode.Child:
-          if (checked === 1 ) {
+          if (checked === 1) {
             let info = this.pathMap.get(id)
-            if (info && info.children.length === 0)
-            value.push(id)
+            if (info && info.children.length === 0) value.push(id)
           }
           break
         case CheckedMode.Shallow:
           if (checked === 1) {
             const parentChecked = (() => {
-                const info = this.pathMap.get(id)
-                if (!info) return false
-                const { path } = info
-                const pid = path[path.length - 1]
-                if (!pid && pid !== 0) return false
-                return this.valueMap.get(pid) === 1
+              const info = this.pathMap.get(id)
+              if (!info) return false
+              const { path } = info
+              const pid = path[path.length - 1]
+              if (!pid && pid !== 0) return false
+              return this.valueMap.get(pid) === 1
             })()
             if (!parentChecked) value.push(id)
           }
@@ -162,7 +164,7 @@ export default class<Item, Value extends any[]> {
     return value
   }
 
-  setValueMap(id: IdType, checked : CheckedStatus) {
+  setValueMap(id: IdType, checked: CheckedStatus) {
     this.valueMap.set(id, checked)
     const update = this.events.get(id)
     if (update) update()
@@ -244,14 +246,14 @@ export default class<Item, Value extends any[]> {
 
   getChecked(id: IdType) {
     const value = this.get(id)
-    let checked: (boolean | 'indeterminate')  = value === 1
+    let checked: boolean | 'indeterminate' = value === 1
     if (value === 2) checked = 'indeterminate'
     return checked
   }
 
-  getKey(data: Item, id: IdType = '', index: number): IdType {
+  getKey(data: Item, id: IdType = '', index?: number): IdType {
     if (typeof this.keygen === 'function') return this.keygen(data, id)
-    if (this.keygen) return (data[this.keygen]) as unknown as IdType
+    if (this.keygen) return (data[this.keygen] as unknown) as IdType
     return id + (id ? ',' : '') + index
   }
 
@@ -354,7 +356,7 @@ export default class<Item, Value extends any[]> {
   subscribe(name: string, fn: Function) {
     if (!this.$events[name]) this.$events[name] = []
     const events = this.$events[name]
-    if (events.includes(fn) ) return
+    if (events.includes(fn)) return
     events.push(fn)
   }
 

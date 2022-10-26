@@ -47,7 +47,12 @@ const data = [
   },
 ]
 
-const highlight = (Component: any) => (props: CascaderProps) => {
+const highlight = (Component: any) => (
+  props: CascaderProps & {
+    beforeChange?: (...args: any[]) => void
+    highlightStyle?: React.CSSProperties
+  }
+) => {
   const [filterText, setFilterText] = useState<any>(undefined)
 
   const HandlerFilter: CascaderOnFilter = text => {

@@ -50,6 +50,7 @@ export interface CheckboxGroupProps<DataItem, Value> extends StandardProps,  Pic
 export type GroupDatumArgsType =  'disabled' | 'format' | 'prediction' | 'separator'
 
 export type InputCheckboxProps<Value> = PropsWithChildren<GetInputableProps<SimpleCheckProps, Value>>
+
 export type InputCheckboxGroupProps<DataItem, Value> = PropsWithChildren<
     GetInputableProps<
       GetDatumListProps<CheckboxGroupProps<DataItem, Value>, DataItem, Value, GroupDatumArgsType>, Value>
@@ -61,7 +62,7 @@ class CheckboxGroup<DataItem= any, Value= any> extends React.Component<InputChec
 }
 
 
-class CheckboxClass<Value = any> extends React.Component<InputCheckboxProps<Value>, {}> {
+export class CheckboxClass<Value = any> extends React.Component<InputCheckboxProps<Value>, {}> {
   static Group: typeof CheckboxGroup;
   // @ts-ignore
   render(): JSX.Element;

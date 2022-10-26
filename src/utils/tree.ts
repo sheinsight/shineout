@@ -5,7 +5,7 @@ type ExpandKeys = (string | number)[]
 interface Conf {
   advanced?: boolean
 }
-export const getFilterTree = <T extends { [children: string]: T[] }, K extends Function>(
+export const getFilterTree = <T, K extends Function>(
   treeNodes: T[] | undefined,
   filterFunc: (data: T) => boolean,
   filterExpandKeys: ExpandKeys | undefined,
@@ -22,7 +22,7 @@ export const getFilterTree = <T extends { [children: string]: T[] }, K extends F
       if (firstMatchNode) firstMatchNode(node)
       match = true
     }
-    const children = (node[childrenKey] || []).map(mapFilteredNodeToData).filter((n: T) => n)
+    const children = ((node[childrenKey] || []) as T[]).map(mapFilteredNodeToData).filter((n: T) => n)
     if (children.length || match) {
       const key = keyFunc(node)
       if (filterExpandKeys && children.length > 0) filterExpandKeys.push(key)

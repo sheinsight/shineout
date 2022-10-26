@@ -16,21 +16,20 @@ import absoluteList from '../AnimationList/AbsoluteList'
 import { isRTL } from '../config'
 import { getKey } from '../utils/uid'
 import Input from './Input'
-
-import { CascaderProps } from './interface'
+import { CascaderProps } from './Props'
 
 interface CascaderCompomemtProps<U, T> extends CascaderProps<U, T> {
   height: number
   position: string
   firstMatchNode: U
   clearable: boolean
-  keygen: any
   filterText: string
   filterDataChange: any
   zIndex: number | string
   onBlur: (e?: MouseEvent) => void
   onFocus: (e?: FocusEvent) => void
   onItemClick: (e: MouseEvent) => void
+  keygen: any
 }
 
 const OptionList = absoluteList(
@@ -65,7 +64,7 @@ interface State {
 class Cascader<U extends { [children: string]: U[] }, T extends []> extends PureComponent<Props<U, T>, State> {
   static defaultProps = DefaultProps
 
-  datum: DatumTree
+  datum: DatumTree<U, T>
 
   selectId: string
 
@@ -149,7 +148,7 @@ class Cascader<U extends { [children: string]: U[] }, T extends []> extends Pure
     const { onFilter, filterDataChange, filterText } = this.props
     if (!filterDataChange && prevProps.data !== this.props.data) this.datum.setData(this.props.data, true)
     if (prevProps.value !== this.props.value) {
-      this.datum.setValue(this.props.value || [])
+      this.datum.setValue(this.props.value || ([] as T))
       this.updatePathByValue()
     }
 
@@ -217,7 +216,7 @@ class Cascader<U extends { [children: string]: U[] }, T extends []> extends Pure
       const data = this.datum.getDataById(v)
       if (data === null) return
       try {
-        const id = this.datum.getKey(data)
+        const id = this.datum.getKey(data as U, '')
         let { path } = this.datum.getPath(id) || {}
         path = path || []
         this.handlePathChange(id, null, path)
@@ -236,7 +235,7 @@ class Cascader<U extends { [children: string]: U[] }, T extends []> extends Pure
     }
   }
 
-  handlePathChange(id: string, data: U | null, path: string[], fromClick?: boolean) {
+  handlePathChange(id: string | number, data: U | null, path: (string | number)[], fromClick?: boolean) {
     const { childrenKey, finalDismiss, loader } = this.props
     if (fromClick && data) {
       let leaf = !data[childrenKey] || data[childrenKey].length === 0
@@ -259,7 +258,7 @@ class Cascader<U extends { [children: string]: U[] }, T extends []> extends Pure
   handleClear() {
     const { mode } = this.props
     this.setState({ path: [] })
-    if (mode !== undefined) this.datum.setValue([])
+    if (mode !== undefined) this.datum.setValue([] as T)
     this.handleChange([] as T)
 
     // force close

@@ -7,13 +7,13 @@ import { CascaderProps } from './interface'
 import { getDirectionClass } from '../utils/classname'
 import { keyType } from '../@types/common'
 
-interface ListProps<U, T> extends CascaderProps<U, T> {
+interface ListProps<U, T extends []> extends CascaderProps<U, T> {
   id: string
   parentId: string
   keygen: any
   path: string[]
   active?: boolean
-  datum: DatumTree
+  datum: DatumTree<U, T>
   text?: any
   onNodeClick?: (node: U) => void
 }
@@ -24,9 +24,9 @@ const DefaultProps = {
   text: {},
 }
 
-type Props<U, T> = ListProps<U, T> & Required<Pick<ListProps<U, T>, keyof typeof DefaultProps>>
+type Props<U, T extends []> = ListProps<U, T> & Required<Pick<ListProps<U, T>, keyof typeof DefaultProps>>
 
-class List<U extends { [children: string]: U[] }, T extends string[]> extends Component<Props<U, T>> {
+class List<U, T extends []> extends Component<Props<U, T>> {
   static defaultProps = DefaultProps
 
   constructor(props: Props<U, T>) {

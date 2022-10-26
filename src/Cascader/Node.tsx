@@ -14,12 +14,12 @@ import { getDirectionClass } from '../utils/classname'
 
 const checkBoxStyle = { marginRight: 8, marginTop: -1, verticalAlign: 'top' }
 
-export interface NodeProps<U, T> {
+export interface NodeProps<U, T extends []> {
   data: U
   id: string
   path: string[]
   active: boolean
-  datum: DatumTree
+  datum: DatumTree<U, T>
   multiple?: boolean
   loader?: CascaderProps<U, T>['loader']
   onChange?: CascaderProps<U, T>['onChange']
@@ -34,11 +34,8 @@ interface NodeState {
   loading: boolean
 }
 
-class Node<U extends { [children: string]: U[] }, T extends string[]> extends PureComponent<
-  NodeProps<U, T>,
-  NodeState
-> {
-  handleUpdate: MouseEvent
+class Node<U, T extends []> extends PureComponent<NodeProps<U, T>, NodeState> {
+  handleUpdate: Function
 
   constructor(props: NodeProps<U, T>) {
     super(props)
@@ -72,7 +69,7 @@ class Node<U extends { [children: string]: U[] }, T extends string[]> extends Pu
     const { id, data, path, onChange, onPathChange, loader, multiple, datum } = this.props
     if (onPathChange) onPathChange(id, data, path, true)
     if (!multiple) {
-      if (onChange && path) onChange([...path, id] as T, datum.getDataById(id))
+      if (onChange && path) onChange(([...path, id] as unknown) as T, datum.getDataById(id) as U)
     }
 
     if (loader && !this.state.loading && !getParent(e.target as HTMLElement, `.${checkinputClass('_')}`)) {
@@ -90,7 +87,7 @@ class Node<U extends { [children: string]: U[] }, T extends string[]> extends Pu
   handleChange(_: any, checked: boolean) {
     const { datum, id, onChange } = this.props
     datum.set(id, checked ? 1 : 0)
-    if (onChange) onChange((datum as any).getValue(), datum.getDataById(id))
+    if (onChange) onChange((datum as any).getValue(), datum.getDataById(id) as U)
   }
 
   handleSelect(e: MouseEvent) {
@@ -110,7 +107,7 @@ class Node<U extends { [children: string]: U[] }, T extends string[]> extends Pu
     const { active, data, multiple, datum, id, loader, expandTrigger, childrenKey } = this.props
     const { loading } = this.state
     const disabled = this.checkDisabled()
-    const children = data[childrenKey!]
+    const children = (data[childrenKey!] as unknown) as U[]
     const hasChildren = children && children.length > 0
     const mayChildren = loader && !loading && children === undefined
     const className = cascaderClass(

@@ -41,8 +41,6 @@ interface InputBorderProps {
 type filterKeys = 'border' | 'className' | 'tip' | 'popover' | 'width' | 'error' | 'popoverProps' | 'underline' | 'style'
 
 
-
-
 export default curry(
   <U extends InputBorderProps >(options: Options, Origin: React.ComponentType<Omit<U, filterKeys>>) =>
     class extends Component<U, {focus?: boolean}> {

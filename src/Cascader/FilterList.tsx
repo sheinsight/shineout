@@ -9,28 +9,28 @@ import Spin from '../Spin'
 import { CascaderProps } from './interface'
 import DatumTree from '../Datum/Tree'
 
-interface FilterItemProps<U, T> {
-  datum: DatumTree
+interface FilterItemProps<U, T extends []> {
+  datum: DatumTree<U, T>
   filterText: string
   data: CascaderProps<U, T>['data']
   onChange?: CascaderProps<U, T>['onChange']
   onFilter?: CascaderProps<U, T>['onFilter']
   renderItem?: CascaderProps<U, T>['renderItem']
   expandTrigger?: CascaderProps<U, T>['expandTrigger']
-  onPathChange: (key: string, item: U, keys: string[], is: boolean) => void
+  onPathChange: (key: string | number, item: U, keys: string[], is: boolean) => void
 }
 
-interface FilterListProps<U, T> extends CascaderProps<U, T> {
+interface FilterListProps<U, T extends []> extends CascaderProps<U, T> {
   focus: boolean
   fixed: string
-  datum: DatumTree
+  datum: DatumTree<U, T>
   filterText: string
   getRef: () => void
   onPathChange: (key: string, item: U, keys: string[], is: boolean) => void
   filterDataChange: (list: any) => void
 }
 
-class FilterItem<U, T extends string[]> extends Component<FilterItemProps<U, T>, {}> {
+class FilterItem<U, T extends []> extends Component<FilterItemProps<U, T>, {}> {
   constructor(props: FilterItemProps<U, T>) {
     super(props)
     this.handleSelect = this.handleSelect.bind(this)
@@ -98,7 +98,7 @@ class FilterItem<U, T extends string[]> extends Component<FilterItemProps<U, T>,
 }
 
 // eslint-disable-next-line react/no-multi-comp
-class FilterList<U, T extends string[]> extends Component<FilterListProps<U, T>, {}> {
+class FilterList<U, T extends []> extends Component<FilterListProps<U, T>, {}> {
   getKey(path: U[]) {
     const { datum } = this.props
     return path.map(d => datum.getKey(d)).join('-')

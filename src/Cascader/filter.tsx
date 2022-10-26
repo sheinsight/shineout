@@ -13,17 +13,8 @@ interface CascaderFilterState {
   filter: null
 }
 
-export default <T, U extends CascaderFilterProps<U, T>>(Origin: React.ComponentClass) =>
+export default <T, U extends CascaderFilterProps<U, T>>(Origin: React.ComponentType<U>) =>
   class CascaderFilter extends Component<U, CascaderFilterState> {
-    // static propTypes = {
-    //   onFilter: PropTypes.func,
-    //   filterDelay: PropTypes.number,
-    //   data: PropTypes.array,
-    //   childrenKey: PropTypes.string,
-    //   keygen: PropTypes.any,
-    //   mode: PropTypes.number,
-    // }
-
     static defaultProps = {
       filterDelay: 400,
     }
