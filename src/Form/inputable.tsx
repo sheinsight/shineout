@@ -14,7 +14,7 @@ import { fieldSetConsumer } from './FieldSet'
 import ListDatum from "../Datum/List"
 import { ObjectType } from "../@types/common"
 import {RuleParamsType} from '../Rule/index'
-import {InputableProps, InputableFilterType} from './Props'
+import { InputableProps, BaseInputProps, GetInputableProps } from "./Props"
 
 
 
@@ -44,7 +44,7 @@ const beforeValueChange =  <Value, >(fn: InputableProps<Value>["onChange"]) => (
 
 interface InputableState<Value> {value?: Value, error: any}
 
-export default<Value,  U extends Omit<InputableProps<Value>, InputableFilterType>, Item = any >(Origin: ComponentType<U>) => {
+export default<Value,  U extends BaseInputProps, Item = any >(Origin: ComponentType<U>) => {
   class InputableInner extends Component<InputableProps<Value>, InputableState<Value>> {
 
     static defaultProps: any = {
@@ -351,5 +351,5 @@ export default<Value,  U extends Omit<InputableProps<Value>, InputableFilterType
   const WithFiledSetConsumer  = fieldSetConsumer(InputableInner)
   const WidthItemConsumer = itemConsumer(WithFiledSetConsumer)
   const WidthFormConsumer = formConsumer(types)(WidthItemConsumer)
-  return  WidthFormConsumer
+  return  WidthFormConsumer as ComponentType<GetInputableProps<U, Value>>
 }
