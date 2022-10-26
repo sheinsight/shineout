@@ -12,7 +12,7 @@ import getDataset from '../utils/dom/getDataset'
 import Checkbox from '../Table/Checkbox'
 import { isRTL } from '../config'
 
-import { ListProps ,ListBaseItemProps} from './interface'
+import { ListProps, ListBaseItemProps } from './Props'
 
 interface DataListProps<U, T> extends ListProps<U, T>, ListBaseItemProps {
   datum: Datum<U, T>

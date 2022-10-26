@@ -3,7 +3,8 @@ import { StandardProps, StructDataStandardProps, ListItemStandardProps, RegularA
 
 type ReactNode = React.ReactNode
 
-export interface ListProps<Item, Value> extends StandardProps,
+export interface ListProps<Item, Value>
+  extends StandardProps,
     StructDataStandardProps<Item>,
     ListItemStandardProps<Item, Value> {
   /**
@@ -179,15 +180,3 @@ export interface ListBaseItemProps {
    */
   colNum?: number
 }
-
-declare class ListBaseItem extends React.Component<ListBaseItemProps, {}> {
-  render(): JSX.Element
-}
-
-declare class List<Item = any, Value = any> extends React.Component<ListProps<Item, Value>, {}> {
-  static BaseItem: typeof ListBaseItem
-
-  render(): JSX.Element
-}
-
-export default List
