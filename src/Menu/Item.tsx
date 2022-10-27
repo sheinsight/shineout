@@ -1,5 +1,4 @@
 import React, { cloneElement } from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { PureComponent } from '../component'
 import { getKey, getUidStr } from '../utils/uid'
@@ -9,21 +8,40 @@ import { consumer } from './context'
 import { isLink } from '../utils/is'
 import { isRTL } from '../config'
 import { getParent } from '../utils/dom/element'
+import { ItemProps, BaseItemProps } from './Props'
+import { DefaultProps } from './Root'
+
+interface State {
+  open: boolean
+  inPath: string
+  isActive: boolean
+  isHighLight: boolean
+}
 
 const getBaseIndent = () => 16
 
-const calcIndent = (flag, indent) => {
+const calcIndent = (flag: boolean | undefined, indent: number) => {
   if (!flag) return indent
   return Math.ceil((indent / 3) * 2)
 }
 
-class Item extends PureComponent {
-  constructor(props) {
+class Item<U extends BaseItemProps<U>> extends PureComponent<ItemProps<U>, State> {
+  id: string
+
+  handleMouseEnter: React.MouseEventHandler<HTMLLIElement>
+
+  handleMouseLeave: React.MouseEventHandler<HTMLLIElement>
+
+  element: HTMLLIElement
+
+  toggleTimer: NodeJS.Timer
+
+  constructor(props: ItemProps<U>) {
     super(props)
 
     this.id = `${props.path},${getUidStr()}`
     const key = this.getKey(props)
-    const noop = () => {}
+    const noop: (...args: any) => any = () => {}
 
     const [activeUpdate, openUpdate, inPathUpdate] = props.bindItem(this.id, noop, noop, noop)
 
@@ -54,12 +72,12 @@ class Item extends PureComponent {
   }
 
   getKey(props = this.props) {
-    return getKey(props.data, props.keygen, props.index)
+    return getKey(props.data, props.keygen, props.index) as string
   }
 
   getCalcStyle() {
-    const style = {}
-    const { frontCaret, level, inlineIndent, mode } = this.props
+    const style: React.CSSProperties = {}
+    const { frontCaret, level, inlineIndent = DefaultProps.inlineIndent, mode } = this.props
 
     const rtl = isRTL()
 
@@ -68,47 +86,47 @@ class Item extends PureComponent {
     const indent = calcIndent(frontCaret, inlineIndent)
 
     if (rtl) {
-      style.paddingRight = getBaseIndent(frontCaret) + level * indent
+      style.paddingRight = getBaseIndent() + level * indent
     } else {
-      style.paddingLeft = getBaseIndent(frontCaret) + level * indent
+      style.paddingLeft = getBaseIndent() + level * indent
     }
 
     return style
   }
 
-  bindElement(el) {
+  bindElement(el: HTMLLIElement) {
     this.element = el
   }
 
   unbindDocumentEvent() {
-    document.removeEventListener('click', this.handleMouseLeave)
+    document.removeEventListener('click', (this.handleMouseLeave as unknown) as EventListenerObject)
   }
 
-  update(check, activePath) {
+  update(check: (id: string, data: U) => boolean, activePath: string) {
     const isActive = check(this.id, this.props.data)
     const isHighLight = activePath && isActive ? activePath.indexOf(this.id) > -1 : false
 
     this.setState({ isActive, isHighLight })
   }
 
-  updateOpen(check) {
+  updateOpen(check: (key: string) => boolean) {
     const isOpen = check(this.getKey())
     this.setState({ open: isOpen })
   }
 
-  updateInPath(check) {
+  updateInPath(check: (...args: any) => boolean) {
     const inPath = check(this.id)
     this.setState({ inPath })
   }
 
-  handleToggle(open) {
+  handleToggle(open: boolean) {
     const { toggleOpenKeys, toggleDuration } = this.props
     const key = this.getKey()
 
     if (this.toggleTimer) clearTimeout(this.toggleTimer)
     if (open) {
       toggleOpenKeys(key, true)
-      document.addEventListener('click', this.handleMouseLeave)
+      document.addEventListener('click', (this.handleMouseLeave as unknown) as EventListenerObject)
     } else {
       this.toggleTimer = setTimeout(() => {
         toggleOpenKeys(key, false)
@@ -117,9 +135,9 @@ class Item extends PureComponent {
     }
   }
 
-  handleClick(e) {
+  handleClick(e: React.MouseEvent) {
     const { data, onClick, mode, toggleOpenKeys, looseChildren, parentSelectable } = this.props
-    const expandClick = getParent(e.target, `.${menuClass('expand')}`)
+    const expandClick = getParent(e.target as HTMLElement, `.${menuClass('expand')}`)
     const canExpand = !parentSelectable || expandClick
     if (mode === 'inline' && data.children && canExpand) {
       const shouldToggle = looseChildren || data.children.length
@@ -140,14 +158,14 @@ class Item extends PureComponent {
     if (!isLeaf) e.nativeEvent.stopImmediatePropagation()
   }
 
-  handleItemClick(clickMethod, e) {
+  handleItemClick(clickMethod: Function, e: React.MouseEvent) {
     clickMethod()
     this.handleClick(e)
   }
 
-  handleSwitch(e) {
+  handleSwitch(e: React.MouseEvent) {
     const { renderItem, data, index } = this.props
-    const item = renderItem(data, index)
+    const item = renderItem(data, index) as React.ReactElement
     if (item.props && item.props.onClick) {
       this.handleItemClick(item.props.onClick, e)
     } else {
@@ -155,16 +173,16 @@ class Item extends PureComponent {
     }
   }
 
-  renderLink(data) {
+  renderLink(data: U) {
     const { linkKey } = this.props
     if (!linkKey) return null
     if (typeof linkKey === 'function') return linkKey(data)
-    return data[linkKey]
+    return data[linkKey as keyof typeof data]
   }
 
-  renderItem(hasChilds = false, style) {
+  renderItem(hasChilds = false, style: React.CSSProperties) {
     const { renderItem, data, index, frontCaret, caretColor } = this.props
-    const item = renderItem(data, index)
+    const item = renderItem(data, index) as React.ReactElement
     const link = this.renderLink(data)
     if (isLink(item)) {
       const mergeClass = classnames(menuClass('title'), item.props && item.props.className)
@@ -172,7 +190,7 @@ class Item extends PureComponent {
       return cloneElement(item, { className: mergeClass, style: mergeStyle, onClick: this.handleSwitch })
     }
 
-    const props = {
+    const props: React.ReactElement['props'] & { href?: string } = {
       className: menuClass('title'),
       style,
       onClick: this.handleClick,
@@ -224,7 +242,7 @@ class Item extends PureComponent {
 
     let isUp = false
     if (mode === 'vertical-auto' && this.element) {
-      isUp = this.element.getBoundingClientRect().bottom - topLine > (bottomLine - topLine) / 2
+      isUp = this.element.getBoundingClientRect().bottom - topLine! > (bottomLine! - topLine!) / 2
     }
 
     const hasChilds = looseChildren ? Array.isArray(dChildren) : children.length > 0
@@ -243,7 +261,10 @@ class Item extends PureComponent {
     )
 
     const style = this.getCalcStyle()
-    const events = {}
+    const events: {
+      onMouseEnter?: React.MouseEventHandler<HTMLLIElement>
+      onMouseLeave?: React.MouseEventHandler<HTMLLIElement>
+    } = {}
     if (mode !== 'inline') {
       events.onMouseEnter = this.handleMouseEnter
       events.onMouseLeave = this.handleMouseLeave
@@ -275,31 +296,6 @@ class Item extends PureComponent {
       </li>
     )
   }
-}
-
-Item.propTypes = {
-  bindItem: PropTypes.func,
-  bottomLine: PropTypes.number,
-  topLine: PropTypes.number,
-  data: PropTypes.object,
-  disabled: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
-  index: PropTypes.number,
-  inlineIndent: PropTypes.number,
-  level: PropTypes.number,
-  keygen: PropTypes.any,
-  mode: PropTypes.string,
-  onClick: PropTypes.func,
-  path: PropTypes.string,
-  renderItem: PropTypes.func,
-  toggleOpenKeys: PropTypes.func,
-  unbindItem: PropTypes.func,
-  linkKey: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-  toggleDuration: PropTypes.number,
-  frontCaret: PropTypes.bool,
-  looseChildren: PropTypes.bool,
-  parentSelectable: PropTypes.bool,
-  frontCaretType: PropTypes.oneOf(['hollow', 'solid']),
-  caretColor: PropTypes.string,
 }
 
 export default consumer(Item)

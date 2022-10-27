@@ -1,9 +1,8 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import immer from 'immer'
 import { getKey } from '../utils/uid'
-import { defaultProps, getProps } from '../utils/proptypes'
+import { defaultProps } from '../utils/proptypes'
 import normalizeWheel from '../utils/dom/normalizeWheel'
 import ScrollBar from '../Scroll/Bar'
 import { menuClass } from './styles'
@@ -11,16 +10,50 @@ import List from './List'
 import { Provider } from './context'
 import { isArray } from '../utils/is'
 import { isRTL } from '../config'
-
 import { Component } from '../component'
+import { RootProps, WH, Position, Direction, Mode } from './Props'
 
-const modeDirection = {
+interface State {
+  hasOpen?: boolean
+  scrollTop: number
+  scrollLeft: number
+  activeKey: null | string
+  openKeys: Map<string, boolean>
+}
+
+export const DefaultProps = {
+  ...defaultProps,
+  data: [],
+  level: 0,
+  keygen: 'id',
+  mode: 'inline',
+  inlineIndent: 24,
+  renderItem: 'title',
+  defaultOpenKeys: [],
+  onClick: () => true,
+  toggleDuration: 200,
+  frontCaretType: 'solid',
+  disabled: (d: { disabled: boolean }) => d.disabled,
+}
+
+const modeDirection: {
+  inline?: string
+  vertical?: string
+  horizontal?: string
+  'vertical-auto'?: string
+} = {
   'vertical-auto': 'y',
   vertical: 'y',
   horizontal: 'x',
 }
 
-const getOption = mode =>
+const getOption = (
+  mode: Mode
+): {
+  key: WH
+  pos: Position
+  direction: Direction
+} =>
   mode.indexOf('vertical') === 0
     ? {
         key: 'height',
@@ -33,7 +66,7 @@ const getOption = mode =>
         direction: 'X',
       }
 
-function keyToMap(keys = [], value = true) {
+function keyToMap<T>(keys: T[] = [], value = true) {
   const keyMap = new Map()
   keys.forEach(v => {
     keyMap.set(v, value)
@@ -47,8 +80,41 @@ function keyToMap(keys = [], value = true) {
 //   return isSubMenu(el.parentElement)
 // }
 
-class Root extends Component {
-  constructor(props) {
+class Root<U, T extends string> extends Component<RootProps<U, T>, State> {
+  static defaultProps = DefaultProps
+
+  static displayName: string
+
+  handleScrollLeft: any
+
+  handleScrollTop: any
+
+  items: {
+    [id: string]: <F, K>(checkActive: F, key: K) => void
+  }
+
+  itemsOpen: {
+    [id: string]: <F>(checkOpen: F) => void
+  }
+
+  itemsInPath: {
+    [id: string]: <F>(checkInPath: F) => void
+  }
+
+  providerValue: {
+    bindItem: <Active, Open, InPath>(id: string, active: Active, open: Open, inPath: InPath) => [Active, Open, InPath]
+    unbindItem: (id: string) => void
+  }
+
+  container: HTMLDivElement
+
+  hasToggled: boolean
+
+  wrapper: HTMLDivElement
+
+  rootElement: HTMLUListElement
+
+  constructor(props: RootProps<U, T>) {
     super(props)
 
     this.state = {
@@ -99,37 +165,39 @@ class Root extends Component {
     return this.hasToggled ? Array.from(this.state.openKeys.keys()) : defaultOpenKeys
   }
 
-  bindRootElement(el) {
+  bindRootElement(el: HTMLDivElement) {
     this.container = el
     if (!el) return
-    this.wrapper = el.querySelector(`.${menuClass('wrapper')}`)
-    this.rootElement = el.querySelector(`.${menuClass('root')}`)
+    this.wrapper = el.querySelector(`.${menuClass('wrapper')}`)!
+    this.rootElement = el.querySelector(`.${menuClass('root')}`)!
   }
 
-  bindItem(id, updateActive, updateOpen, updateInPath) {
+  bindItem(id: string, updateActive: () => void, updateOpen: () => void, updateInPath: () => void) {
     this.items[id] = updateActive
     this.itemsOpen[id] = updateOpen
     this.itemsInPath[id] = updateInPath
     return [this.checkActive, this.checkOpen, this.checkInPath]
   }
 
-  unbindItem(id) {
+  unbindItem(id: string) {
     delete this.items[id]
     delete this.itemsOpen[id]
     delete this.itemsInPath[id]
   }
 
-  checkActive(id, data) {
+  checkActive(id: string, data: U) {
     const { active } = this.props
     const act = typeof active === 'function' ? active(data) : id === this.state.activeKey
+    // @ts-ignore 历史原因，待优化
     if (act) this.state.activeKey = id
     if (!act && this.state.activeKey === id) {
+      // @ts-ignore 历史原因，待优化
       this.state.activeKey = ''
     }
     return act
   }
 
-  checkOpen(id) {
+  checkOpen(id: string) {
     const openKeys = this.getOpenKeys()
     if (isArray(openKeys)) {
       return openKeys.indexOf(id) > -1
@@ -137,7 +205,7 @@ class Root extends Component {
     return false
   }
 
-  checkInPath(id) {
+  checkInPath(id: string) {
     const { activeKey } = this.state
     if (!activeKey || !id) return false
     return activeKey.indexOf(id) >= 0
@@ -166,7 +234,7 @@ class Root extends Component {
       const update = this.itemsOpen[id]
       update(this.checkOpen)
     })
-    const hasOpen = this.getOpenKeys().filter(k => data.find((d, i) => getKey(d, keygen, i) === k)).length > 0
+    const hasOpen = this.getOpenKeys()!.filter(k => data!.find((d, i) => getKey(d, keygen, i) === k)).length > 0
     if (hasOpen !== this.state.hasOpen) {
       this.setState({ hasOpen })
     }
@@ -179,7 +247,7 @@ class Root extends Component {
     })
   }
 
-  toggleOpenKeys(id, open) {
+  toggleOpenKeys(id: string, open: boolean) {
     const newOpenKeys = immer(keyToMap(this.getOpenKeys()), draft => {
       if (open) {
         draft.set(id, true)
@@ -196,7 +264,7 @@ class Root extends Component {
     onOpenChange(keys)
   }
 
-  handleScrollX(pos, param) {
+  handleScrollX(pos: Position, param: number) {
     const sizeKey = pos === 'Top' ? 'height' : 'width'
     const size = this.container.getBoundingClientRect()[sizeKey]
     const scroll = this.rootElement.getBoundingClientRect()[sizeKey]
@@ -204,14 +272,22 @@ class Root extends Component {
     this.setState({ [`scroll${pos}`]: param })
   }
 
-  handleScroll(top) {
+  handleScroll(top: number) {
     const { height } = this.container.getBoundingClientRect()
     const scrollHeight = this.rootElement.getBoundingClientRect().height
     this.wrapper.scrollTop = top * (scrollHeight - height)
     this.setState({ scrollTop: top })
   }
 
-  handleWheel(e) {
+  handleWheel(
+    e: WheelEvent & {
+      axis: number
+      wheelDelta: number
+      wheelDeltaY: number
+      wheelDeltaX: number
+      HORIZONTAL_AXIS: number
+    }
+  ) {
     // if (isSubMenu(e.target)) return
     const { mode } = this.props
     const { key, pos, direction } = getOption(mode)
@@ -225,15 +301,15 @@ class Root extends Component {
     e.preventDefault()
   }
 
-  handleClick(id, data) {
+  handleClick(id: string, data: U) {
     const { onClick } = this.props
     this.setState({ activeKey: id })
     if (onClick) onClick(data)
   }
 
-  renderItem(data, index) {
+  renderItem(data: U, index: number) {
     const { renderItem } = this.props
-    if (typeof renderItem === 'string') return data[renderItem]
+    if (typeof renderItem === 'string') return data[renderItem as keyof typeof data]
     if (typeof renderItem === 'function') return renderItem(data, index)
     return null
   }
@@ -281,24 +357,24 @@ class Root extends Component {
 
   render() {
     const {
-      keygen,
       data,
       mode,
       style,
       theme,
-      inlineIndent,
+      height,
+      keygen,
       linkKey,
       disabled,
-      height,
-      toggleDuration,
-      frontCaret,
-      looseChildren,
-      parentSelectable,
-      frontCaretType,
       caretColor,
+      frontCaret,
+      inlineIndent,
+      looseChildren,
+      frontCaretType,
+      toggleDuration,
+      parentSelectable,
     } = this.props
     const isVertical = mode.indexOf('vertical') === 0
-    const showScroll = ((style.height || height) && isVertical) || mode === 'horizontal'
+    const showScroll = (((style && style.height) || height) && isVertical) || mode === 'horizontal'
 
     const rtl = isRTL()
 
@@ -314,8 +390,8 @@ class Root extends Component {
       this.props.className
     )
 
-    const rootStyle = {}
-    if (style.width && mode !== 'horizontal') rootStyle.width = style.width
+    const rootStyle: React.CSSProperties = {}
+    if (style && style.width && mode !== 'horizontal') rootStyle.width = style.width
 
     let bottomLine = 0
     let topLine = 0
@@ -330,28 +406,27 @@ class Root extends Component {
         <div className={menuClass('wrapper')}>
           <Provider value={this.providerValue}>
             <List
-              className={menuClass('root')}
-              data={data}
-              disabled={disabled}
-              inlineIndent={inlineIndent}
-              keygen={keygen}
+              path=""
               level={0}
               mode={mode}
-              onClick={this.handleClick}
-              path=""
-              renderItem={this.renderItem}
-              open
+              data={data}
+              keygen={keygen}
               style={rootStyle}
-              toggleOpenKeys={this.toggleOpenKeys}
-              bottomLine={bottomLine}
               topLine={topLine}
               linkKey={linkKey}
-              toggleDuration={toggleDuration}
+              disabled={disabled}
               frontCaret={frontCaret}
-              looseChildren={looseChildren}
-              parentSelectable={parentSelectable}
-              frontCaretType={frontCaretType}
+              bottomLine={bottomLine}
               caretColor={caretColor}
+              onClick={this.handleClick}
+              inlineIndent={inlineIndent}
+              renderItem={this.renderItem}
+              className={menuClass('root')}
+              looseChildren={looseChildren}
+              frontCaretType={frontCaretType}
+              toggleDuration={toggleDuration}
+              parentSelectable={parentSelectable}
+              toggleOpenKeys={this.toggleOpenKeys}
             />
           </Provider>
         </div>
@@ -360,39 +435,6 @@ class Root extends Component {
       </div>
     )
   }
-}
-
-Root.propTypes = {
-  ...getProps(PropTypes, 'style', 'keygen'),
-  active: PropTypes.func,
-  data: PropTypes.array,
-  defaultOpenKeys: PropTypes.array,
-  openKeys: PropTypes.array,
-  disabled: PropTypes.func,
-  inlineIndent: PropTypes.number,
-  mode: PropTypes.oneOf(['inline', 'vertical', 'horizontal', 'vertical-auto']),
-  onClick: PropTypes.func,
-  renderItem: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-  onOpenChange: PropTypes.func,
-  toggleDuration: PropTypes.number,
-  frontCaret: PropTypes.bool,
-  frontCaretType: List.propTypes.frontCaretType,
-  caretColor: List.propTypes.caretColor,
-}
-
-Root.defaultProps = {
-  ...defaultProps,
-  data: [],
-  disabled: d => d.disabled,
-  level: 0,
-  keygen: 'id',
-  mode: 'inline',
-  inlineIndent: 24,
-  renderItem: 'title',
-  defaultOpenKeys: [],
-  onClick: () => true,
-  toggleDuration: 200,
-  frontCaretType: 'solid',
 }
 
 export default Root

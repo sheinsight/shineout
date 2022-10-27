@@ -81,7 +81,7 @@ import { InputProps as __InputProps, InputNumberProps as __InputNumberProps, Inp
 export { default as Lazyload } from './Lazyload'
 
 export { default as Menu } from './Menu'
-import { MenuProps as __MenuProps,  } from './Menu'
+import { MenuProps as __MenuProps,  } from './Menu/Interface'
 
 export { default as Message } from './Message'
 import { MessageProps as __MessageProps, MessageOptions as __MessageOptions,  } from './Message'
