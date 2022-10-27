@@ -70,7 +70,7 @@ export { default as Grid } from './Grid'
 import { GridProps as __GridProps, responsiveType as __responsiveType } from './Grid/interface'
 
 export { default as Icon } from './Icon'
-import { IconProps as __IconProps, IconComProps as __IconComProps,  } from './Icon'
+import { IconProps as __IconProps, IconComProps as __IconComProps,  } from './Icon/interface'
 
 export { default as Image } from './Image'
 import { ImageProps as __ImageProps, ImageGroupProps as __ImageGroupProps,  } from './Image/interface'

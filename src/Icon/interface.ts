@@ -1,10 +1,7 @@
 import * as React from 'react'
 import { StandardProps, RegularAttributes } from '../@types/common'
-import { func } from "prop-types"
-
 
 export interface IconComProps extends StandardProps {
-
   /**
    * The unicode code of the icon.
    *
@@ -12,7 +9,7 @@ export interface IconComProps extends StandardProps {
    *
    * default: -
    */
-  children?: React.ReactNode;
+  children?: React.ReactNode
 
   /**
    * desc: Icon class name (the part without the prefix)
@@ -21,7 +18,7 @@ export interface IconComProps extends StandardProps {
    *
    * default:
    */
-  name?: string;
+  name?: string
 
   /**
    * desc: Icon size, same as style.fontsize
@@ -30,7 +27,7 @@ export interface IconComProps extends StandardProps {
    *
    * default:
    */
-  fontSize?: string | number;
+  fontSize?: string | number
 
   /**
    * desc: Built-in color type
@@ -39,7 +36,7 @@ export interface IconComProps extends StandardProps {
 
    * default: 'default'
    */
-  type?: RegularAttributes.Type | 'info';
+  type?: RegularAttributes.Type | 'info'
 
   /**
    * Size of pagination
@@ -48,13 +45,39 @@ export interface IconComProps extends StandardProps {
    *
    * default: 'default'
    */
-  size?: RegularAttributes.Size;
+  size?: RegularAttributes.Size
 
+  /**
+   * Size of pagination
+   *
+   * 类名前缀
+   *
+   * default: 'default'
+   */
+  prefix?: string
+
+  /**
+   * Size of pagination
+   *
+   * font-family 需要和引入的css/js文件内的font-family一致
+   *
+   * default: 'iconfont'
+   */
+   fontFamily?: string
+
+  /**
+   * -
+   *
+   * -
+   *
+   * -
+   */
+   ext?: string
 }
 
 type IconCom = React.FC<IconComProps>
 
-export interface IconProps extends IconComProps { }
+export interface IconProps extends IconComProps {}
 /**
  * Function, returns a new component. A project can create more than one, but fontFamily must be the unique.
  *
@@ -65,6 +88,6 @@ export interface IconProps extends IconComProps { }
  * @param prefix 类名前缀
  */
 
-declare function Icon (url: string, fontFamily?: string, prefix?: string): IconCom
+declare function Icon(url: string, fontFamily?: string, prefix?: string): IconCom
 
 export default Icon
