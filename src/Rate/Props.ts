@@ -1,4 +1,4 @@
-import  { ReactNode } from 'react'
+import { ReactElement, ReactNode } from "react"
 import { StandardProps } from "../@types/common"
 import { GetInputableProps } from "../Form/Props"
 
@@ -96,7 +96,7 @@ export interface ArgProps {
    *
    * default: -
    */
-  background?: ReactNode | Array<ReactNode>;
+  background?: ReactElement | Array<ReactElement>;
 
   /**
    * selected element background
@@ -105,7 +105,7 @@ export interface ArgProps {
    *
    * default: -
    */
-  front?: ReactNode | Array<ReactNode>;
+  front?: ReactElement | Array<ReactElement>;
 }
 
 
