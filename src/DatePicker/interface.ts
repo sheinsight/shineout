@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { StandardProps, FormItemStandardProps, CommonProps } from '../@types/common'
-import { ReactNode } from "react"
+import { ReactNode } from 'react'
 
 export type DateTimeType = Date | number | string | undefined
 
@@ -8,23 +8,23 @@ export type AreaType = 'year' | 'month' | 'week' | 'day' | 'time' | 'quick' | 'q
 
 type DisabledType = 'start' | 'end'
 
-export type DatePickerValue = DateTimeType | [DateTimeType, DateTimeType];
+export type DatePickerValue = DateTimeType | [DateTimeType, DateTimeType]
 
 interface Base {
   [propType: string]: any
 }
 
 export interface QuickSelect extends Base {
-  name?: string;
-  value?: Array<DateTimeType> | DateTimeType;
+  name?: string
+  value?: Array<DateTimeType> | DateTimeType
 }
 
 type FormItemProps<T> = Omit<FormItemStandardProps<T>, 'name'>
 
-export interface DatePickerProps<T = DatePickerValue> extends StandardProps,
-  FormItemProps<T>,
-  Pick<CommonProps, 'absolute'> {
-
+export interface DatePickerProps<T = DatePickerValue>
+  extends StandardProps,
+    FormItemProps<T>,
+    Pick<CommonProps, 'absolute'> {
   /**
    * onChange get undefined while clear
    *
@@ -32,7 +32,7 @@ export interface DatePickerProps<T = DatePickerValue> extends StandardProps,
    *
    * default: false
    */
-  clearWithUndefined?: boolean;
+  clearWithUndefined?: boolean
 
   /**
    * show border bottom
@@ -41,7 +41,7 @@ export interface DatePickerProps<T = DatePickerValue> extends StandardProps,
    *
    * default: false
    */
-  underline?: boolean;
+  underline?: boolean
 
   /**
    * width
@@ -50,7 +50,7 @@ export interface DatePickerProps<T = DatePickerValue> extends StandardProps,
    *
    * default: null
    */
-  width?: number | string;
+  width?: number | string
 
   /**
    * whether it can be cleared
@@ -59,7 +59,7 @@ export interface DatePickerProps<T = DatePickerValue> extends StandardProps,
    *
    * default: true
    */
-  clearable?: boolean;
+  clearable?: boolean
 
   /**
    * When the value is true, disabled all options; When the value is function, disable the options that this function returns true.
@@ -68,7 +68,7 @@ export interface DatePickerProps<T = DatePickerValue> extends StandardProps,
    *
    * default: false
    */
-  disabled?: ((date: Date, type: DisabledType, value: DatePickerValue,) => boolean) | boolean;
+  disabled?: ((date: Date, type: DisabledType, value: DatePickerValue) => boolean) | boolean
 
   /**
    * default values for different types: 'date': 'yyyy-MM-dd'. 'time': 'HH:mm:ss'. 'week': 'RRRR II'. 'month': 'yyyy-MM'. 'week': 'RRRR II'. 'quarter': 'yyyy-[Q]Q'. 'year': 'yyyy'. 'datetime': 'yyyy-MM-dd HH:mm:ss'
@@ -79,7 +79,7 @@ export interface DatePickerProps<T = DatePickerValue> extends StandardProps,
    *
    * default:
    */
-  format?: string;
+  format?: string
 
   /**
    * Format the selected time
@@ -88,7 +88,7 @@ export interface DatePickerProps<T = DatePickerValue> extends StandardProps,
    *
    * default: props.format
    */
-  formatResult?: string | ((date: Date) => string);
+  formatResult?: string | ((date: Date) => string)
 
   /**
    * a callback when the value is changing
@@ -97,7 +97,7 @@ export interface DatePickerProps<T = DatePickerValue> extends StandardProps,
    *
    * default: -
    */
-  onChange?: (value: T, quickSelect?: QuickSelect | void) => void;
+  onChange?: (value: T, quickSelect?: QuickSelect | void) => void
 
   /**
    * placeholder text. When the range property is not empty, it is an array of length 2.
@@ -106,7 +106,7 @@ export interface DatePickerProps<T = DatePickerValue> extends StandardProps,
    *
    * default: -
    */
-  placeholder?: string | string[];
+  placeholder?: string | string[]
 
   /**
    * range span，unit: **second**，When it is true, selection scope is not limited.
@@ -115,7 +115,7 @@ export interface DatePickerProps<T = DatePickerValue> extends StandardProps,
    *
    * default: -
    */
-  range?: boolean | number;
+  range?: boolean | number
 
   /**
    * type of datepicker
@@ -124,7 +124,7 @@ export interface DatePickerProps<T = DatePickerValue> extends StandardProps,
    *
    * default: 'date'
    */
-  type?: 'date' | 'time' | 'datetime' | 'month' | 'week' | 'quarter' | 'year';
+  type?: 'date' | 'time' | 'datetime' | 'month' | 'week' | 'quarter' | 'year'
 
   /**
    * Default time when selecting a date, the format is: 'HH:mm:ss'
@@ -133,7 +133,7 @@ export interface DatePickerProps<T = DatePickerValue> extends StandardProps,
    *
    * default: -
    */
-  defaultTime?: DatePickerValue;
+  defaultTime?: DatePickerValue
 
   /**
    * panel z-index
@@ -142,7 +142,7 @@ export interface DatePickerProps<T = DatePickerValue> extends StandardProps,
    *
    * default: 1000
    */
-  zIndex?: number;
+  zIndex?: number
 
   /**
    * allow single select, only in range can set
@@ -151,7 +151,7 @@ export interface DatePickerProps<T = DatePickerValue> extends StandardProps,
    *
    * default: false
    */
-  allowSingle?: boolean;
+  allowSingle?: boolean
 
   /**
    * quick select, only in range can set, name: tip, value: range date
@@ -160,7 +160,7 @@ export interface DatePickerProps<T = DatePickerValue> extends StandardProps,
    *
    * default: false
    */
-  quickSelect?: Array<QuickSelect>;
+  quickSelect?: Array<QuickSelect>
 
   /**
    * option min value
@@ -169,7 +169,7 @@ export interface DatePickerProps<T = DatePickerValue> extends StandardProps,
    *
    * default: none
    */
-  min?: DateTimeType;
+  min?: DateTimeType
 
   /**
    * option max value
@@ -178,7 +178,7 @@ export interface DatePickerProps<T = DatePickerValue> extends StandardProps,
    *
    * default: none
    */
-  max?: DateTimeType;
+  max?: DateTimeType
 
   /**
    * The initial month of range selection, the value is a time object, valid only in range mode, and the priority is lower than value and defaultValue
@@ -187,7 +187,7 @@ export interface DatePickerProps<T = DatePickerValue> extends StandardProps,
    *
    * default: -
    */
-  defaultRangeMonth?: Array<DateTimeType>;
+  defaultRangeMonth?: Array<DateTimeType>
 
   /**
    *
@@ -198,7 +198,7 @@ export interface DatePickerProps<T = DatePickerValue> extends StandardProps,
    * default: -
    *
    */
-  defaultPickerValue?: DateTimeType | DateTimeType[];
+  defaultPickerValue?: DateTimeType | [DateTimeType, DateTimeType]
 
   /**
    * hour step
@@ -207,7 +207,7 @@ export interface DatePickerProps<T = DatePickerValue> extends StandardProps,
    *
    * default: none
    */
-  hourStep?: number;
+  hourStep?: number
 
   /**
    * minute step
@@ -216,7 +216,7 @@ export interface DatePickerProps<T = DatePickerValue> extends StandardProps,
    *
    * default: none
    */
-  minuteStep?: number;
+  minuteStep?: number
 
   /**
    * second step
@@ -225,7 +225,7 @@ export interface DatePickerProps<T = DatePickerValue> extends StandardProps,
    *
    * default: none
    */
-  secondStep?: number;
+  secondStep?: number
 
   /**
    * Disable the specified Time.
@@ -234,7 +234,7 @@ export interface DatePickerProps<T = DatePickerValue> extends StandardProps,
    *
    * default: none
    */
-  disabledTime?: string | ((time: string) => boolean);
+  disabledTime?: string | ((time: string) => boolean)
 
   /**
    * horizontal align of the value
@@ -244,7 +244,7 @@ export interface DatePickerProps<T = DatePickerValue> extends StandardProps,
    * default: center
    *
    */
-  align?: 'left' | 'right' | 'center';
+  align?: 'left' | 'right' | 'center'
 
   /**
    * value onchange callback (every type of date)
@@ -253,7 +253,7 @@ export interface DatePickerProps<T = DatePickerValue> extends StandardProps,
    *
    * default: none
    */
-  onPickerChange?: (value: DatePickerValue, quickSelect: QuickSelect | void, areaType: AreaType) => void;
+  onPickerChange?: (value: DatePickerValue, quickSelect: QuickSelect | void, areaType: AreaType) => void
 
   /**
    * inner title
@@ -263,7 +263,7 @@ export interface DatePickerProps<T = DatePickerValue> extends StandardProps,
    * default: -
    */
 
-  innerTitle?: ReactNode;
+  innerTitle?: ReactNode
   /**
    * The name of a Form that accesses data
    *
@@ -311,9 +311,7 @@ export interface DatePickerProps<T = DatePickerValue> extends StandardProps,
 }
 
 declare class DatePicker extends React.Component<DatePickerProps, {}> {
-
-  render(): JSX.Element;
+  render(): JSX.Element
 }
 
 export default DatePicker
-

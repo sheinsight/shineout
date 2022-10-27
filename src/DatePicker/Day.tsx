@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { datepickerClass } from './styles'
 import utils from './utils'
 import paramUtils from './paramUtils'
@@ -7,12 +6,58 @@ import Icon from './Icon'
 import { getLocale } from '../locale'
 import { PureComponent } from '../component'
 import Time from './Time'
+import { DatePickerProps, DateTimeType } from './interface'
 
 const minStr = 'yyyy-MM-dd 00:00:00'
 const maxStr = 'yyyy-MM-dd 23:59:59'
 
-class Day extends PureComponent {
-  constructor(props) {
+interface DayProps {
+  current: Date
+  disabled: (date: Date) => boolean
+  format: string
+  index: number
+  max?: DatePickerProps['max']
+  min?: DatePickerProps['min']
+  onChange: DatePickerProps['onChange']
+  onChangeSync: any
+  onDayHover: any
+  onModeChange: any
+  range: DatePickerProps['range']
+  rangeDate: []
+  rangeTemp: object | string
+  showTimePicker: boolean
+  type: string
+  value: Date
+  defaultTime: [Date, Date]
+  allowSingle: DatePickerProps['allowSingle']
+  timeZone: DatePickerProps['timeZone']
+  disabledRegister: any
+}
+
+interface DayState {
+  hover: boolean | null
+}
+
+class Day extends PureComponent<DayProps, DayState> {
+  handleNextMonth: any
+
+  handlePrevMonth: any
+
+  handleNextYear: any
+
+  handlePrevYear: any
+
+  handleMonthMode: any
+
+  handleYearMode: any
+
+  handleWeekLeave: any
+
+  cachedDays: Date[]
+
+  cachedDate: DateTimeType
+
+  constructor(props: DayProps) {
     super(props)
 
     this.state = {
@@ -51,7 +96,7 @@ class Day extends PureComponent {
     return this.cachedDays
   }
 
-  formatWithDefaultTime(i) {
+  formatWithDefaultTime(i: number) {
     let idx = 0
     const { current, defaultTime, index } = this.props
     if (typeof index === 'number') idx = index
@@ -60,7 +105,7 @@ class Day extends PureComponent {
     return utils.cloneTime(current, defaultTime[idx], utils.TIME_FORMAT, this.getOptions())
   }
 
-  handleDayDoubleClick(date) {
+  handleDayDoubleClick(date: Date) {
     const { type, defaultTime, index } = this.props
     // range & datetime & deafultTime
     if (type !== 'datetime' || !defaultTime.length || index === undefined) return
@@ -68,18 +113,17 @@ class Day extends PureComponent {
     this.handleDayClick(date, 1)
   }
 
-  handleDayClick(date, sync) {
+  handleDayClick(date: Date, sync: number) {
     const { type, allowSingle, rangeDate, min, max, index, value } = this.props
     const current = (index === sync && value) || this.formatWithDefaultTime(sync)
     const onChange = typeof sync === 'number' ? this.props.onChangeSync.bind(this.props, sync) : this.props.onChange
     if (type === 'week') {
       onChange(...paramUtils.weekHandleChangeParams(date, true, true))
     } else {
-      let newDate = utils.setTime(utils.toDate(date), current)
+      let newDate: Date | string = utils.setTime(utils.toDate(date), current)
       // only can select day with the same day of min/max
-      if (min && utils.compareAsc(newDate, min) < 0) utils.setTime(newDate, min)
-      if (max && utils.compareAsc(newDate, max) > 0) utils.setTime(newDate, max)
-
+      if (min && utils.compareAsc(newDate, min) < 0) utils.setTime(newDate, min as Date)
+      if (max && utils.compareAsc(newDate, max) > 0) utils.setTime(newDate, max as Date)
       if (
         allowSingle &&
         rangeDate[index] &&
@@ -91,11 +135,11 @@ class Day extends PureComponent {
     }
   }
 
-  handleTimeChange(time, change, end, mode) {
-    this.props.onChange(...paramUtils.timeHandleChangeParams(time, true, false, mode))
+  handleTimeChange(time: Date, _change: boolean, _end: boolean, mode: string) {
+    if (this.props.onChange) this.props.onChange(...paramUtils.timeHandleChangeParams(time, true, false, mode))
   }
 
-  handleWeek(hover) {
+  handleWeek(hover: boolean) {
     this.setState({ hover })
   }
 
@@ -277,29 +321,6 @@ class Day extends PureComponent {
       </div>
     )
   }
-}
-
-Day.propTypes = {
-  current: PropTypes.object.isRequired,
-  disabled: PropTypes.func,
-  format: PropTypes.string,
-  index: PropTypes.number,
-  max: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  min: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  onChange: PropTypes.func.isRequired,
-  onChangeSync: PropTypes.func,
-  onDayHover: PropTypes.func,
-  onModeChange: PropTypes.func.isRequired,
-  range: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
-  rangeDate: PropTypes.array,
-  rangeTemp: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  showTimePicker: PropTypes.bool,
-  type: PropTypes.string.isRequired,
-  value: PropTypes.object,
-  defaultTime: PropTypes.array,
-  allowSingle: PropTypes.bool,
-  timeZone: PropTypes.string,
-  disabledRegister: PropTypes.func,
 }
 
 export default Day

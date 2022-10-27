@@ -1,5 +1,4 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { FocusEvent, KeyboardEvent } from 'react'
 import classnames from 'classnames'
 import immer from 'immer'
 import { PureComponent } from '../component'
@@ -23,18 +22,61 @@ import { isRTL } from '../config'
 import InputTitle from '../InputTitle'
 import { inputTitleClass } from '../InputTitle/styles'
 import { getDirectionClass } from '../utils/classname'
+import { DatePickerProps, DateTimeType } from './interface'
 
 const FadeList = List(['fade'], 'fast')
 const OptionList = absoluteList(({ focus, ...other }) => <FadeList show={focus} {...other} />)
-const getCurrentPosition = position => {
+const getCurrentPosition = (position: DatePickerProps['position']) => {
   if (isRTL()) {
-    return getRTLPosition(position)
+    return getRTLPosition(position!)
   }
   return position
 }
 
-class Container extends PureComponent {
-  constructor(props) {
+type vaildFn = (date: Date, ...args: any) => boolean
+type vaildFns = ((date: Date, ...args: any) => boolean)[]
+
+interface ContainerProps extends DatePickerProps {
+  onBlur: <T>(e?: T) => void
+  onFocus: <T>(e?: T) => void
+  onValueBlur: <T>(e: T) => void
+}
+
+interface ContainerState {
+  focus: boolean
+  current: DateTimeType | DateTimeType[]
+  position: DatePickerProps['position']
+  picker0: boolean
+  picker1: boolean
+}
+
+class Container extends PureComponent<ContainerProps, ContainerState> {
+  handleClick: any
+
+  handleBlur: any
+
+  disabledMap: {
+    day?: vaildFn | vaildFns
+    date?: vaildFn | vaildFns
+    time?: vaildFn | vaildFns
+    month?: vaildFn | vaildFns
+    year?: vaildFn | vaildFns
+    quarter?: vaildFn | vaildFns
+  }
+
+  pickerId: string
+
+  firstRender: boolean
+
+  element: HTMLElement
+
+  picker: Range | Picker
+
+  pickerContainer: HTMLDivElement
+
+  textSpan: HTMLElement
+
+  constructor(props: ContainerProps) {
     super(props)
 
     this.state = {
@@ -87,8 +129,8 @@ class Container extends PureComponent {
     let current
     const { defaultRangeMonth, defaultPickerValue, value } = this.props
     if (this.props.range) {
-      const defaultPickerRange = defaultRangeMonth || defaultPickerValue || []
-      current = (this.props.value || []).map((v, i) => {
+      const defaultPickerRange = (defaultRangeMonth || defaultPickerValue || []) as [DateTimeType, DateTimeType]
+      current = ((this.props.value as [DateTimeType, DateTimeType]) || []).map((v, i) => {
         v = this.parseDate(v)
         if (utils.isInvalid(v)) v = utils.newDate(defaultPickerRange[i], this.getOptions())
         return v
@@ -99,7 +141,7 @@ class Container extends PureComponent {
           utils.newDate(defaultPickerRange[1], this.getOptions()),
         ]
     } else {
-      current = this.parseDate(value || defaultPickerValue)
+      current = this.parseDate((value || defaultPickerValue) as DateTimeType)
     }
 
     return current
@@ -130,7 +172,7 @@ class Container extends PureComponent {
     }
   }
 
-  getQuick(format) {
+  getQuick(format: string) {
     const { quickSelect } = this.props
 
     if (!Array.isArray(quickSelect)) return undefined
@@ -158,23 +200,23 @@ class Container extends PureComponent {
     return []
   }
 
-  bindElement(el) {
+  bindElement(el: HTMLDivElement) {
     this.element = el
   }
 
-  bindPicker(picker) {
+  bindPicker(picker: Range | Picker) {
     this.picker = picker
   }
 
-  bindWrappedPicker(el) {
+  bindWrappedPicker(el: HTMLDivElement) {
     this.pickerContainer = el
   }
 
-  bindTextSpan(el) {
+  bindTextSpan(el: HTMLSpanElement) {
     this.textSpan = el
   }
 
-  parseDate(value) {
+  parseDate(value: DateTimeType) {
     return utils.toDateWithFormat(value, this.getFormat(), undefined, this.getOptions())
   }
 
@@ -186,15 +228,15 @@ class Container extends PureComponent {
     document.removeEventListener('mousedown', this.handleClickAway)
   }
 
-  shouldFocus(el) {
+  shouldFocus(el: HTMLElement) {
     if (el.getAttribute('data-id') === this.pickerId) return true
     if (getParent(el, `.${datepickerClass('result')}`)) return true
     return false
   }
 
-  handleClickAway(e) {
-    const onPicker = e.target === this.element || this.element.contains(e.target)
-    const onAbsolutePicker = getParent(e.target, `.${datepickerClass('location')}`)
+  handleClickAway(e: MouseEvent) {
+    const onPicker = e.target === this.element || this.element.contains(e.target as HTMLElement)
+    const onAbsolutePicker = getParent(e.target as HTMLElement, `.${datepickerClass('location')}`)
     if (!onPicker && !onAbsolutePicker) {
       if (this.props.inputable && this.textSpan) this.textSpan.blur()
       this.clearClickAway()
@@ -203,13 +245,13 @@ class Container extends PureComponent {
     }
   }
 
-  handleFocus(e) {
+  handleFocus(e: FocusEvent<HTMLDivElement>) {
     if (!this.shouldFocus(e.target)) return
     this.props.onFocus(e)
     this.bindClickAway()
   }
 
-  handleKeyDown(e) {
+  handleKeyDown(e: KeyboardEvent<HTMLDivElement>) {
     if (e.keyCode === 13) {
       e.preventDefault()
       this.handleToggle(!this.state.focus)
@@ -224,15 +266,15 @@ class Container extends PureComponent {
     }
   }
 
-  handleToggle(focus, e) {
+  handleToggle(focus: boolean, e?: MouseEvent) {
     const { quickSelect } = this.props
     const hasQuickColumn = Array.isArray(quickSelect) && quickSelect.length > 0
     if (this.props.disabled === true) return
     if (focus === this.state.focus) return
-    if (e && focus && getParent(e.target, this.pickerContainer)) return
+    if (e && focus && getParent(e.target as HTMLElement, this.pickerContainer)) return
 
     // click close icon
-    if (focus && e && e.target.classList.contains(datepickerClass('close'))) return
+    if (focus && e && (e.target as HTMLElement).classList.contains(datepickerClass('close'))) return
     this.setState(
       immer(state => {
         state.focus = focus
@@ -285,7 +327,7 @@ class Container extends PureComponent {
     this.disabledMap[mode][index] = disabled
   }
 
-  handleDisabled(date, index) {
+  handleDisabled(date: Date, index: number) {
     const mode = this.props.type
     const { disabledMap } = this
     const isRange = index !== undefined
@@ -293,22 +335,23 @@ class Container extends PureComponent {
     switch (mode) {
       case 'time':
         return isRange
-          ? disabledMap.time[index](date, undefined, undefined, true)
-          : disabledMap.time(date, undefined, undefined, true)
+          ? (disabledMap.time as vaildFns)[index](date, undefined, undefined, true)
+          : (disabledMap.time as vaildFn)(date, undefined, undefined, true)
       case 'date':
-        return isRange ? disabledMap.day[index](date) : disabledMap.day(date)
+        return isRange ? (disabledMap.day as vaildFns)[index](date) : (disabledMap.day as vaildFn)(date)
       case 'week':
-        return isRange ? disabledMap.day[index](date) : disabledMap.day(date)
+        return isRange ? (disabledMap.day as vaildFns)[index](date) : (disabledMap.day as vaildFn)(date)
       case 'month':
-        return isRange ? disabledMap.month[index](date) : disabledMap.month(date)
+        return isRange ? (disabledMap.month as vaildFns)[index](date) : (disabledMap.month as vaildFn)(date)
       case 'year':
-        return isRange ? disabledMap.year[index](date) : disabledMap.year(date)
+        return isRange ? (disabledMap.year as vaildFns)[index](date) : (disabledMap.year as vaildFn)(date)
       case 'quarter':
-        return isRange ? disabledMap.quarter[index](date) : disabledMap.quarter(date)
+        return isRange ? (disabledMap.quarter as vaildFns)[index](date) : (disabledMap.quarter as vaildFn)(date)
       case 'datetime':
         return isRange
-          ? disabledMap.time[index](date, undefined, undefined, true) || disabledMap.day[index](date)
-          : disabledMap.time(date, undefined, undefined, true) || disabledMap.day(date)
+          ? (disabledMap.time as vaildFns)[index](date, undefined, undefined, true) ||
+              (disabledMap.day as vaildFns)[index](date)
+          : (disabledMap.time as vaildFn)(date, undefined, undefined, true) || (disabledMap.day as vaildFn)(date)
       default:
         return false
     }
@@ -327,7 +370,7 @@ class Container extends PureComponent {
 
     if (!this.props.range) {
       const close = !(e && e.target && this.element.contains(e.target))
-      this.props.onChange(val, close ? this.triggerValueBlur.bind(this, this.handleBlur) : undefined)
+      //   this.props.onChange(val, close ? this.triggerValueBlur.bind(this, this.handleBlur) : undefined)
       return
     }
 
@@ -573,43 +616,6 @@ class Container extends PureComponent {
       </div>
     )
   }
-}
-
-Container.propTypes = {
-  clearable: PropTypes.bool,
-  disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
-  format: PropTypes.string,
-  formatResult: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-  inputable: PropTypes.bool,
-  placeholder: PropTypes.any,
-  onBlur: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired,
-  onFocus: PropTypes.func.isRequired,
-  position: PropTypes.string,
-  range: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
-  size: PropTypes.string,
-  type: PropTypes.string,
-  allowSingle: PropTypes.bool,
-  defaultTime: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
-  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.object, PropTypes.array]),
-  absolute: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
-  zIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  onValueBlur: PropTypes.func,
-  children: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  quickSelect: PropTypes.array,
-  min: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.object]),
-  max: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.object]),
-  defaultRangeMonth: PropTypes.array,
-  defaultPickerValue: PropTypes.oneOfType([PropTypes.any, PropTypes.array]),
-  hourStep: PropTypes.number,
-  minuteStep: PropTypes.number,
-  secondStep: PropTypes.number,
-  onPickerChange: PropTypes.func,
-  disabledTime: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-  align: PropTypes.oneOf(['left', 'right', 'center']),
-  clearWithUndefined: PropTypes.bool,
-  innerTitle: PropTypes.node,
-  timeZone: PropTypes.string,
 }
 
 Container.defaultProps = {

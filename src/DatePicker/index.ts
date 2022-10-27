@@ -6,7 +6,7 @@ import Container from './Container'
 import value from './value'
 import absolute from '../Table/context'
 
-const getClassName = opt => datepickerClass('_', `${opt.range ? 'r' : 'c'}-${opt.type || 'date'}`)
+const getClassName = (opt:any) => datepickerClass('_', `${opt.range ? 'r' : 'c'}-${opt.type || 'date'}`)
 
 const Datepicker = compose(
   inputable,

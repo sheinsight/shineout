@@ -9,9 +9,36 @@ import paramUtils from './paramUtils'
 import Picker from './Picker'
 import { datepickerClass } from './styles'
 import Quick from './Quick'
+import { DatePickerProps, DateTimeType, AreaType } from './interface'
 
-class Range extends PureComponent {
-  constructor(props) {
+interface RangeProps {
+  current: Date
+  format: string
+  value: DateTimeType[]
+  range: DateTimeType[]
+  timeZone: DatePickerProps['timeZone']
+}
+
+interface RangeState {
+  rangeDate: DateTimeType[]
+}
+
+class Range extends PureComponent<RangeProps, RangeState> {
+  pickers: Picker[]
+
+  handleFirstChange: () => void
+
+  handleSecondChange: () => void
+
+  bindFirstPicker: (picker: Picker) => void
+
+  bindSecondPicker: (picker: Picker) => void
+
+  handleDisabledStart: any
+
+  handleDisabledEnd: any
+
+  constructor(props: RangeProps) {
     super(props)
 
     this.state = {
@@ -33,10 +60,11 @@ class Range extends PureComponent {
     this.handleQuick = this.handleQuick.bind(this)
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: RangeProps) {
     const { rangeDate } = this.state
     if (
-      rangeDate.length !== 1 &&
+      Array.isArray(rangeDate) &&
+      (rangeDate as DateTimeType[]).length !== 1 &&
       !shallowEqual(prevProps.value, this.props.value) &&
       !shallowEqual(this.state.rangeDate, this.props.value)
     ) {
@@ -50,22 +78,22 @@ class Range extends PureComponent {
     return { timeZone, weekStartsOn: getLocale('startOfWeek') }
   }
 
-  bindPicker(index, el) {
+  bindPicker(index: number, el: Picker) {
     this.pickers[index] = el
   }
 
-  resetRange(rangeDate) {
+  resetRange(rangeDate: DatePickerProps['value']) {
     this.setState({ rangeDate })
   }
 
-  handleDayHover(date) {
+  handleDayHover(date: Date) {
     if (this.state.rangeDate.length === 1) {
-      utils.cloneTime(date, this.props.value[1], this.props.format, this.getOptions())
+      utils.cloneTime(date, (this.props.value as Date[])[1], this.props.format, this.getOptions())
       // this.setState({ hover: date })
     }
   }
 
-  changeDateSmart(rangeDate) {
+  changeDateSmart(rangeDate: Date[]) {
     if (!rangeDate[0] || !rangeDate[1]) return
     const [s, e] = rangeDate
     const { range } = this.props
@@ -81,7 +109,15 @@ class Range extends PureComponent {
   }
 
   // Be consistent with the parent onChange, expand first params: index
-  handleChange(index, date, change, end, mode, isQuickSelect, areaType) {
+  handleChange(
+    index: number,
+    date: Date,
+    change: boolean,
+    _end: number,
+    mode: string,
+    _isQuickSelect: boolean,
+    areaType: AreaType
+  ) {
     const { type, range, min, max } = this.props
 
     const handleOnChangeParams = paramUtils.handleOnChangeParams(areaType)
