@@ -309,9 +309,3 @@ export interface DatePickerProps<T = DatePickerValue>
    */
   timeZone?: string
 }
-
-declare class DatePicker extends React.Component<DatePickerProps, {}> {
-  render(): JSX.Element
-}
-
-export default DatePicker

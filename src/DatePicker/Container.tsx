@@ -22,7 +22,7 @@ import { isRTL } from '../config'
 import InputTitle from '../InputTitle'
 import { inputTitleClass } from '../InputTitle/styles'
 import { getDirectionClass } from '../utils/classname'
-import { DatePickerProps, DateTimeType } from './interface'
+import { AreaType, DatePickerProps, DatePickerValue, DateTimeType } from './Props'
 
 const FadeList = List(['fade'], 'fast')
 const OptionList = absoluteList(({ focus, ...other }) => <FadeList show={focus} {...other} />)
@@ -39,12 +39,12 @@ type vaildFns = ((date: Date, ...args: any) => boolean)[]
 interface ContainerProps extends DatePickerProps {
   onBlur: <T>(e?: T) => void
   onFocus: <T>(e?: T) => void
-  onValueBlur: <T>(e: T) => void
+  onValueBlur: <T>(e?: T) => void
 }
 
 interface ContainerState {
   focus: boolean
-  current: DateTimeType | DateTimeType[]
+  current: DateTimeType[]
   position: DatePickerProps['position']
   picker0: boolean
   picker1: boolean
@@ -62,6 +62,8 @@ class Container extends PureComponent<ContainerProps, ContainerState> {
     month?: vaildFn | vaildFns
     year?: vaildFn | vaildFns
     quarter?: vaildFn | vaildFns
+    datetime?: vaildFn | vaildFns
+    week?: vaildFn | vaildFns
   }
 
   pickerId: string
@@ -129,8 +131,8 @@ class Container extends PureComponent<ContainerProps, ContainerState> {
     let current
     const { defaultRangeMonth, defaultPickerValue, value } = this.props
     if (this.props.range) {
-      const defaultPickerRange = (defaultRangeMonth || defaultPickerValue || []) as [DateTimeType, DateTimeType]
-      current = ((this.props.value as [DateTimeType, DateTimeType]) || []).map((v, i) => {
+      const defaultPickerRange = (defaultRangeMonth || defaultPickerValue || []) as DateTimeType[]
+      current = ((this.props.value as DateTimeType[]) || []).map((v, i) => {
         v = this.parseDate(v)
         if (utils.isInvalid(v)) v = utils.newDate(defaultPickerRange[i], this.getOptions())
         return v
@@ -295,8 +297,8 @@ class Container extends PureComponent<ContainerProps, ContainerState> {
       })
     )
 
-    if (focus && this.picker && this.picker.resetRange) {
-      this.picker.resetRange((this.props.value || []).map(this.parseDate))
+    if (focus && this.picker && 'resetRange' in this.picker && this.picker.resetRange) {
+      this.picker.resetRange(((this.props.value || []) as any).map(this.parseDate))
     }
 
     if (focus === true) {
@@ -308,7 +310,7 @@ class Container extends PureComponent<ContainerProps, ContainerState> {
     }
   }
 
-  triggerValueBlur(cb) {
+  triggerValueBlur(cb: () => void) {
     const { inputable } = this.props
     const { focus } = this.state
     if (cb && typeof cb === 'function') cb()
@@ -318,13 +320,17 @@ class Container extends PureComponent<ContainerProps, ContainerState> {
     }
   }
 
-  disabledRegister(disabled, mode, index) {
+  disabledRegister(
+    disabled: vaildFn,
+    mode: 'time' | 'date' | 'week' | 'month' | 'year' | 'quarter' | 'datetime',
+    index: number
+  ) {
     if (index === undefined) {
       this.disabledMap[mode] = disabled
       return
     }
     if (!this.disabledMap[mode]) this.disabledMap[mode] = []
-    this.disabledMap[mode][index] = disabled
+    ;(this.disabledMap[mode] as vaildFns)[index] = disabled
   }
 
   handleDisabled(date: Date, index: number) {
@@ -357,7 +363,7 @@ class Container extends PureComponent<ContainerProps, ContainerState> {
     }
   }
 
-  handleTextChange(date, index, e) {
+  handleTextChange(date: Date, index: number, e: FocusEvent) {
     const { disabledTime, disabled, max, min, range } = this.props
     const format = this.getFormat()
     const val = date ? utils.format(date, format, this.getOptions()) : ''
@@ -368,27 +374,31 @@ class Container extends PureComponent<ContainerProps, ContainerState> {
       if (isDisabled) return
     }
 
-    if (!this.props.range) {
+    if (!this.props.range && this.props.onChange) {
       const close = !(e && e.target && this.element.contains(e.target))
-      //   this.props.onChange(val, close ? this.triggerValueBlur.bind(this, this.handleBlur) : undefined)
+      this.props.onChange(val, close ? this.triggerValueBlur.bind(this, this.handleBlur) : undefined)
       return
     }
 
     const value = [
-      ...immer(this.props.value === undefined && range ? [] : this.props.value, draft => {
+      ...(immer(this.props.value === undefined && range ? [] : this.props.value, (draft: DateTimeType[]) => {
         draft[index] = val
-      }),
-    ]
+      }) as DateTimeType[]),
+    ] as DateTimeType[]
+
     if (utils.compareAsc(value[0], value[1]) > 0) value.push(value.shift())
-    this.props.onChange(
-      value,
-      this.triggerValueBlur.bind(this, () => {
-        this.setState({ current: this.getCurrent() })
-      })
-    )
+
+    if (this.props.onChange) {
+      this.props.onChange(
+        value,
+        this.triggerValueBlur.bind(this, () => {
+          this.setState({ current: this.getCurrent() })
+        })
+      )
+    }
   }
 
-  dateToCurrent(date) {
+  dateToCurrent(date: DateTimeType[]) {
     const { range } = this.props
     if (!range) return date
 
@@ -397,14 +407,21 @@ class Container extends PureComponent<ContainerProps, ContainerState> {
     return [date[0] || current[0], date[1] || current[1]]
   }
 
-  handleChange(date, change, blur, isEnd, isQuickSelect, areaType) {
+  handleChange(
+    date: DateTimeType[] | DateTimeType,
+    change: boolean,
+    blur: boolean,
+    _isEnd: boolean,
+    isQuickSelect: boolean,
+    areaType: AreaType
+  ) {
     const { onPickerChange } = this.props
     // is range only select one
     const rangeOne = this.props.range && !(date[0] && date[1])
     const format = this.getFormat()
 
-    let value
-    if (this.props.range) value = date.map(v => (v ? utils.format(v, format, this.getOptions()) : v))
+    let value: DateTimeType[]
+    if (this.props.range && Array.isArray(date)) value = date.map(v => (v ? utils.format(v, format, this.getOptions()) : v))
     else value = utils.format(date, format, this.getOptions())
 
     let callback

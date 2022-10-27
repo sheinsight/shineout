@@ -209,9 +209,7 @@ function parse(d: DateTimeType, fmt: string, options: DateOptions) {
   return transDateWithZone(result, options, true)
 }
 
-function toDate(day: Date, options?: DateOptions): Date
-function toDate(day: DateTimeType, options: DateOptions): DateTimeType
-function toDate(day: DateTimeType | Date, options: DateOptions): Date | DateTimeType {
+function toDate(day: DateTimeType | Date, options: DateOptions): Date {
   if (!day) return new Date('')
   if (day instanceof Date) return dayjs(day).toDate()
   if (typeof day === 'number') return new Date(day)
@@ -311,7 +309,7 @@ function compareQuarter(dateLeft: Date, dateRight: Date, pad = 0, options: DateO
   return compareAsc(left, right)
 }
 
-function newDate(defaultDate: Date, options: DateOptions) {
+function newDate(defaultDate: Date | DateTimeType, options: DateOptions) {
   const date = defaultDate ? toDate(defaultDate, options) : new Date()
   const zd = transDateWithZone(date, options)
   const dd = dayjs(zd)
