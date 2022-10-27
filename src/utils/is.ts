@@ -23,7 +23,7 @@ export const isRegexp = (val: unknown): boolean => val instanceof RegExp
 export const isMap = nameIs('Map')
 export const isSet = nameIs('Set')
 export const isSymbol = nameIs('Symbol')
-export const isPromise = (p: unknown): boolean => p && (nameIs('Promise', p) || isFunc((p as Promise<unknown>).then))
+export const isPromise = (p: unknown): p is Promise<any> => p && (nameIs('Promise', p) || isFunc((p as Promise<unknown>).then))
 
 export const isValidKey = (key: string | number | symbol, object: object): key is keyof typeof object => key in object
 

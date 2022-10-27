@@ -1,8 +1,7 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { PureComponent } from '../component'
 import Input from './Input'
-import { getProps, defaultProps } from '../utils/proptypes'
+import {  defaultProps } from '../utils/proptypes'
 import Spin from '../Spin'
 import icons from '../icons'
 import { wrapSpan } from '../utils/dom/element'
@@ -11,12 +10,26 @@ import { isDark } from '../utils/color'
 import { tagClass } from './styles'
 import { isRTL } from '../config'
 import getDataset from '../utils/dom/getDataset'
+import {TagProps} from './interface'
 
 const hideInput = 0
 const showInput = 1
 
-class Tag extends PureComponent {
-  constructor(props) {
+interface TagState {
+  dismiss: 0 | 1 | 2
+  inputVisible: 0 | 1
+  value: null | string
+}
+
+type ReactMouseEvent =  React.MouseEvent<HTMLDivElement> & {defaultPrevented: boolean}
+
+class Tag extends PureComponent<TagProps,TagState> {
+  static defaultProps = {
+    ...defaultProps,
+    type: 'default',
+  }
+
+  constructor(props: TagProps) {
     super(props)
 
     this.state = {
@@ -46,7 +59,7 @@ class Tag extends PureComponent {
     this.setState({ dismiss })
   }
 
-  dismiss(e) {
+  dismiss(e:ReactMouseEvent) {
     const { onClose } = this.props
     let callback
     if (onClose === true) {
@@ -73,13 +86,13 @@ class Tag extends PureComponent {
     this.closeTag()
   }
 
-  inputBlur(value) {
+  inputBlur(value: string) {
     const { onCompleted } = this.props
     if (isFunc(onCompleted)) onCompleted(value)
     this.setState({ inputVisible: hideInput })
   }
 
-  inputChange(value) {
+  inputChange(value: string) {
     this.setState({ value })
   }
 
@@ -92,7 +105,7 @@ class Tag extends PureComponent {
     }
   }
 
-  handleClick(e) {
+  handleClick(e: React.MouseEvent<HTMLDivElement>) {
     const { onClick, disabled } = this.props
     if (disabled) return
 
@@ -104,13 +117,13 @@ class Tag extends PureComponent {
     }
   }
 
-  handleClose(e) {
+  handleClose(e: React.MouseEvent<HTMLDivElement>) {
     const { disabled } = this.props
     if (this.state.dismiss > 0 || disabled) return
     this.dismiss(e)
   }
 
-  renderClose(dismiss) {
+  renderClose(dismiss: 0 | 1) {
     const { onClose } = this.props
     if (!onClose) return null
     const closeClass = tagClass('close-icon')
@@ -188,21 +201,6 @@ class Tag extends PureComponent {
       </div>
     )
   }
-}
-
-Tag.propTypes = {
-  ...getProps(PropTypes, 'type'),
-  children: PropTypes.any,
-  onClose: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
-  backgroundColor: PropTypes.string,
-  onCompleted: PropTypes.func,
-  onKeyUp: PropTypes.func,
-  onEnterPress: PropTypes.func,
-}
-
-Tag.defaultProps = {
-  ...defaultProps,
-  type: 'default',
 }
 
 export default Tag

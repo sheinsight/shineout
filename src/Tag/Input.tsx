@@ -1,11 +1,13 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React  from "react"
 import { PureComponent } from '../component'
 import inputBorder from '../hoc/inputBorder'
 import { tagClass } from './styles'
+import {TagInputProps} from './interface'
 
-class TagInput extends PureComponent {
-  constructor(props) {
+class TagInput extends PureComponent<TagInputProps> {
+  element: HTMLInputElement
+
+  constructor(props:TagInputProps) {
     super(props)
     this.bindRef = this.bindRef.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -18,26 +20,26 @@ class TagInput extends PureComponent {
     if (this.element) this.element.focus()
   }
 
-  bindRef(el) {
+  bindRef(el: HTMLInputElement) {
     this.element = el
   }
 
-  handleChange(e) {
+  handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { value } = e.target
     const { onChange } = this.props
     if (onChange) onChange(value)
   }
 
-  handleKeyUp(e) {
+  handleKeyUp(e: React.KeyboardEvent<HTMLInputElement> & React.FocusEvent<HTMLInputElement>) {
     const { onBlur, onKeyUp, onEnterPress } = this.props
     if (e.keyCode === 13) {
       if (onEnterPress) onEnterPress(e.target.value, e)
-      else if (onBlur) onBlur(e.target.value, e)
+      else if (onBlur) onBlur(e.target.value, e as React.FocusEvent<HTMLInputElement>)
     }
     if (onKeyUp) onKeyUp(e)
   }
 
-  handleBlur(e) {
+  handleBlur(e: React.FocusEvent<HTMLInputElement>) {
     const { onBlur } = this.props
     if (onBlur) onBlur(e.target.value, e)
   }
@@ -57,15 +59,6 @@ class TagInput extends PureComponent {
       />
     )
   }
-}
-
-TagInput.propTypes = {
-  value: PropTypes.string,
-  onBlur: PropTypes.func,
-  onChange: PropTypes.func,
-  onKeyUp: PropTypes.func,
-  onEnterPress: PropTypes.func,
-  onFocus: PropTypes.func,
 }
 
 export default inputBorder({
