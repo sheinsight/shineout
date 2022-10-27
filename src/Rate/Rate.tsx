@@ -1,18 +1,34 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { ReactNode } from "react"
 import classnames from 'classnames'
 import { isRTL } from '../config'
 import { PureComponent } from '../component'
 import { range } from '../utils/numbers'
-import { getProps, defaultProps } from '../utils/proptypes'
+import { defaultProps } from '../utils/proptypes'
 import { rateClass } from './styles'
 import getDataset from '../utils/dom/getDataset'
+import { OriginRateProps } from "./Props"
 
 const MIN_SIZE = 12
-class Rate extends PureComponent {
-  constructor(props) {
-    super(props)
 
+interface RateState {
+  hover: number
+  highlight: number
+}
+
+const DefaultProps = {
+  ...defaultProps,
+  repeat: true,
+  max: 5,
+  size: 20,
+  text: [],
+  value: 0,
+}
+
+class Rate extends PureComponent<OriginRateProps, RateState> {
+  highlightTimer: NodeJS.Timeout
+
+  constructor(props: OriginRateProps) {
+    super(props)
     this.state = {
       hover: 0,
       highlight: -1,
@@ -21,25 +37,25 @@ class Rate extends PureComponent {
 
   getValue() {
     const { hover } = this.state
-    return hover === 0 ? this.props.value : hover
+    return Number(hover === 0 ? this.props.value : hover)
   }
 
   getStyle() {
     const { size } = this.props
     if (!size) return undefined
-    const parsed = Math.max(MIN_SIZE, parseFloat(size))
-    return { width: parsed, fontSize: parsed, position: 'relative' }
+    const parsed = Math.max(MIN_SIZE, parseFloat(`${size}`))
+    return { width: parsed, fontSize: parsed, position: 'relative' } as React.CSSProperties
   }
 
   getScale() {
-    const { size } = this.props
+    const { size = DefaultProps.size } = this.props
     if (size >= MIN_SIZE) return undefined
     return {
-      transform: `scale(${size / MIN_SIZE})`,
+      transform: `scale(${Number(size) / MIN_SIZE})`,
     }
   }
 
-  getIcon(icons, i, isBg) {
+  getIcon(icons: ReactNode | ReactNode[], i: number, isBg?: boolean) {
     const { repeat, allowHalf } = this.props
     const value = this.getValue()
     const remain = value - i
@@ -56,17 +72,15 @@ class Rate extends PureComponent {
 
     const style = { width: `${remain * 100}%`, display: 'block', overflow: 'hidden', fontSize: 'inherit' }
     return (
-      <span style={style} className={allowHalf && rateClass('allow-half')}>
+      <span style={style} className={allowHalf ? rateClass('allow-half'): undefined}>
         {icon}
       </span>
     )
   }
 
-  handleClick(...args) {
-    let value = args[0]
-    const e = args[1]
+  handleClick(value: number, e: React.MouseEvent) {
     const { clearable, allowHalf } = this.props
-    if (allowHalf && e.target.parentElement.querySelector(`.${rateClass('allow-half')}`)) {
+    if (allowHalf && (e.target as HTMLSpanElement).parentElement!.querySelector(`.${rateClass('allow-half')}`)) {
       value -= 0.5
     }
     if (clearable && this.props.value === value) {
@@ -82,12 +96,12 @@ class Rate extends PureComponent {
     }, 300)
   }
 
-  handleHover(hover) {
+  handleHover(hover: number) {
     this.setState({ hover })
   }
 
-  handleMove(hover, e) {
-    const { x, width } = e.target.getBoundingClientRect()
+  handleMove(hover: number, e: React.MouseEvent<HTMLSpanElement>) {
+    const { x, width } = (e.target as HTMLSpanElement).getBoundingClientRect()
     let offset
     if (isRTL()) {
       offset = x + width / 2 < e.clientX ? 0.5 : 0
@@ -98,7 +112,7 @@ class Rate extends PureComponent {
   }
 
   renderBackground() {
-    const { background, max, disabled } = this.props
+    const { background, max = DefaultProps.max, disabled } = this.props
     const style = this.getStyle()
     const value = this.getValue()
 
@@ -118,7 +132,7 @@ class Rate extends PureComponent {
   }
 
   renderRate() {
-    const { front, max, text, allowHalf } = this.props
+    const { front, max = DefaultProps.max, text = DefaultProps.text, allowHalf } = this.props
     const { highlight } = this.state
     const value = this.getValue()
     const style = this.getStyle()
@@ -148,7 +162,7 @@ class Rate extends PureComponent {
   }
 
   renderStatic() {
-    const { front, value, max, text } = this.props
+    const { front, value= DefaultProps.value, max = DefaultProps.max, text = DefaultProps.text } = this.props
     const style = this.getStyle()
 
     return (
@@ -173,28 +187,6 @@ class Rate extends PureComponent {
       </div>
     )
   }
-}
-
-Rate.propTypes = {
-  ...getProps(PropTypes, 'disabled', 'type'),
-  background: PropTypes.oneOfType([PropTypes.element, PropTypes.array]),
-  clearable: PropTypes.bool,
-  repeat: PropTypes.bool,
-  front: PropTypes.oneOfType([PropTypes.element, PropTypes.array]),
-  max: PropTypes.number,
-  onChange: PropTypes.func.isRequired,
-  size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  text: PropTypes.array,
-  value: PropTypes.number,
-}
-
-Rate.defaultProps = {
-  ...defaultProps,
-  repeat: true,
-  max: 5,
-  size: 20,
-  text: [],
-  value: 0,
 }
 
 export default Rate
