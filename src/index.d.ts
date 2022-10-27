@@ -131,7 +131,7 @@ export { default as Tabs } from './Tabs'
 import { TabsProps as __TabsProps, TabsLinkProps as __TabsLinkProps, TabsPanelProps as __TabsPanelProps,  } from './Tabs'
 
 export { default as Tag } from './Tag'
-import { TagProps as __TagProps, TagInputProps as __TagInputProps,  } from './Tag'
+import { TagProps as __TagProps, TagInputProps as __TagInputProps,  } from './Tag/interface'
 
 export { default as Textarea } from './Textarea'
 import { TextareaProps as __TextareaProps,  } from './Textarea'

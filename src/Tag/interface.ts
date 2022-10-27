@@ -1,6 +1,5 @@
 import * as React from 'react'
 import {StandardProps} from '../@types/common'
-import PropTypes from "prop-types"
 
 type ReactNode = React.ReactNode
 
@@ -32,7 +31,7 @@ export interface TagProps extends StandardProps{
    *
    * default: -
    */
-  onClose?: (() => void) | boolean;
+  onClose?: ((e: React.MouseEvent<HTMLDivElement>) => void | Promise<any>) | boolean;
 
   /**
    * the click callback
@@ -41,7 +40,7 @@ export interface TagProps extends StandardProps{
    *
    * default: -
    */
-  onClick?: (e: MouseEvent) => void;
+  onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
 
   /**
    * is disabled
@@ -70,24 +69,30 @@ export interface TagProps extends StandardProps{
    */
   onCompleted?: (value: string) => void;
 
+  /**
+   * 可编辑输入框回车事件
+   *
+   * Editable input box enter event
+   *
+   * default: -
+   */
+  onEnterPress?: (value: string, e: React.KeyboardEvent<HTMLInputElement>) => void;
+
+  /**
+   * 可编辑输入框 keyUp 事件
+   *
+   * Editable input box keyUp event
+   *
+   * default: -
+   */
+  onKeyUp?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
 export interface TagInputProps {
   value?: string;
-  onBlur?: (value: string, e: EventTarget) => void;
+  onBlur?: (value: string, e: React.FocusEvent<HTMLInputElement>) => void;
   onChange?: (value: string) => void;
-  onKeyUp?: (value: string, e: EventTarget) => void;
-  onEnterPress?: (value: string, e: EventTarget) => void;
-  onFocus?: (e: EventTarget) => void;
+  onKeyUp?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  onEnterPress?: (value: string, e: React.KeyboardEvent<HTMLInputElement>) => void;
+  onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
 }
-
-declare class TagInput extends React.Component<TagInputProps, any> {
-  render(): JSX.Element
-}
-
-declare class Tag extends React.Component<TagProps, {}> {
-  static Input : typeof TagInput
-  render(): JSX.Element;
-}
-
-export default Tag
