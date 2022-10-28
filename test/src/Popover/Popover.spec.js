@@ -3,7 +3,6 @@ import { mount } from 'enzyme'
 import { Popover, Button } from 'shineout'
 import { delay } from '../../utils'
 import { dispatchEvent } from '../../../src/utils/dom/element'
-import TContent from '../../../site/pages/components/Popover/test-001-content'
 
 class P extends React.Component {
   constructor(props) {
@@ -224,20 +223,6 @@ describe('Popover[content]', () => {
     wrapper.unmount()
   })
 
-  test('should set content hover', async () => {
-    jest.useFakeTimers()
-    document.querySelectorAll(`.${SO_PREFIX}-popover`).forEach(item => {
-      item.remove()
-    })
-    const wrapper = mount(<TContent />)
-    expect(wrapper.find(Button).length).toBe(1)
-    wrapper.find(Button).simulate('mouseenter')
-    const content = document.getElementsByClassName(`${SO_PREFIX}-popover-content`)
-    expect(content.length).toBe(1)
-    wrapper.find(Button).simulate('mouseleave')
-    expect(content[0].parentNode.style.display).toBe('none')
-    wrapper.unmount()
-  })
 })
 
 describe('Popover[priorityDirection]', () => {

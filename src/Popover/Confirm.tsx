@@ -1,15 +1,30 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import Popover from './index'
+import Popover from './Panel'
 import Button from '../Button'
 import Alert from '../Alert'
 import { Component } from '../component'
 import { popoverClass } from './styles'
-import { getProps } from '../utils/proptypes'
 import { getLocale } from '../locale'
+import { ConfirmProps } from "./Props"
 
-export default class Confirm extends Component {
-  constructor(props) {
+interface ConfirmState {
+  ok: boolean
+  cancel: boolean
+}
+
+const DefaultProps: any = {
+  type: 'confirmwarning',
+  icon: true,
+  okType: 'danger',
+}
+export default class Confirm extends Component<ConfirmProps, ConfirmState> {
+  static defaultProps = DefaultProps
+
+  handleCancel: (close: Function) => void
+
+  handleOk: (close: Function) => void
+
+  constructor(props: ConfirmProps) {
     super(props)
     this.state = {
       ok: false,
@@ -20,14 +35,14 @@ export default class Confirm extends Component {
     this.handleOk = this.handleClick.bind(this, 'ok')
   }
 
-  handleClick(type, close) {
+  handleClick(type: 'cancel' | 'ok', close: Function) {
     const { onOk, onCancel } = this.props
     const fn = type === 'ok' ? onOk : onCancel
-    let callback
+    let callback: Promise<any> | void
     if (fn) callback = fn()
     if (callback && typeof callback.then === 'function') {
       this.setState({ [type]: true }, () => {
-        callback.then(() => {
+        (callback as Promise<any>).then(() => {
           close()
           this.setState({ [type]: false })
         })
@@ -38,7 +53,7 @@ export default class Confirm extends Component {
   }
 
   render() {
-    const { children, type, text, onOk, okType, onCancel, icon, ...other } = this.props
+    const { children, type = DefaultProps.type, text, onOk, okType, onCancel, icon, ...other } = this.props
     const { ok, cancel } = this.state
     return (
       <Popover {...other} trigger="click">
@@ -63,20 +78,4 @@ export default class Confirm extends Component {
       </Popover>
     )
   }
-}
-
-Confirm.propTypes = {
-  ...getProps(PropTypes, 'type'),
-  children: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
-  text: PropTypes.object,
-  onOk: PropTypes.func,
-  onCancel: PropTypes.func,
-  okType: PropTypes.string,
-  icon: PropTypes.oneOfType([PropTypes.bool, PropTypes.node]),
-}
-
-Confirm.defaultProps = {
-  type: 'confirmwarning',
-  icon: true,
-  okType: 'danger',
 }

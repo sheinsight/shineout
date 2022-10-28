@@ -93,7 +93,7 @@ export { default as Pagination } from './Pagination'
 import { PaginationProps as __PaginationProps,  } from './Pagination'
 
 export { default as Popover } from './Popover'
-import { PopoverProps as __PopoverProps, PopoverConfirmProps as __PopoverConfirmProps, ContentProps as __ContentProps } from './Popover/interface'
+import { PopoverProps as __PopoverProps, PopoverConfirmProps as __PopoverConfirmProps, PopoverContentProps as __PopoverContentProps } from './Popover/interface'
 
 export { default as Progress } from './Progress'
 import { ProgressProps as __ProgressProps,  } from './Progress'
@@ -102,7 +102,7 @@ export { default as Radio } from './Radio'
 import { RadioProps as __RadioProps, RadioGroupProps as __RadioGroupProps } from './Radio/interface'
 
 export { default as Rate } from './Rate'
-import { RateProps as __RateProps,  } from './Rate'
+import { RateProps as __RateProps } from './Rate/interface'
 
 export { default as Rule } from './Rule'
 import { Max as __Max, Min as __Min, Type as __Type, Range as __Range, Required as __Required, validFunc as __validFunc, paramFunc as __paramFunc, RuleParams as __RuleParams, RuleResult as __RuleResult, RegExpParams as __RegExpParams, RuleCommon as __RuleCommon, RuleItemResult as __RuleItemResult, RuleCommonValue as __RuleCommonValue, InnerRuleFunc as __InnerRuleFunc, RuleParamsType as __RuleParamsType } from './Rule'
@@ -266,9 +266,10 @@ export namespace TYPE {
     export type Props = __PaginationProps
   }
   export namespace Popover {
+  
     export type Props = __PopoverProps
-    export type ConfirmProps = __PopoverConfirmProps  
-    export type ContentProps = __ContentProps
+    export type ConfirmProps = __PopoverConfirmProps
+    export type ContentProps = __PopoverContentProps
   }
   export namespace Progress {
     export type Props = __ProgressProps
@@ -279,6 +280,7 @@ export namespace TYPE {
     export type GroupProps<Value, Item> = __RadioGroupProps<Value, Item>
   }
   export namespace Rate {
+  
     export type Props = __RateProps
   }
   export namespace Rule {

@@ -1,6 +1,7 @@
 import { docScroll, docSize } from './document'
+import { Position } from "../../Popover/Props"
 
-interface Position {
+interface PositionInfo {
   top?: number
   left?: number
   right?: number
@@ -20,7 +21,7 @@ export const getPosition = (
   const scrollTop = container ? 0 : docScroll.top
   const scrollLeft = container ? 0 : docScroll.left
 
-  const pos: Position = {}
+  const pos: PositionInfo = {}
   switch (position) {
     case 'top-left':
       pos.left = scrollLeft + rect.left - containerRect.left
@@ -82,6 +83,6 @@ export const getPosition = (
       ...data,
       [key]: typeof pos[key] === 'number' ? `${Math.round(pos[key]!)}px` : 'auto',
     }),
-    {}
+    ({} as PositionInfo)
   )
 }
