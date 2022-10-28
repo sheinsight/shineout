@@ -5,3 +5,5 @@ export type MovableType<U> = U & {
 export type ResizableType<Props>  = Props & {
   resizable?: boolean | string
 }
+
+export type ConfigType<Props>  = Props

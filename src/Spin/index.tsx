@@ -1,5 +1,4 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { ReactElement } from "react"
 import classnames from 'classnames'
 import config from '../config'
 import configable from '../hoc/config'
@@ -17,7 +16,7 @@ import {
   Default,
 } from './Multiple'
 import { Ring, Plane, Pulse } from './Simple'
-import { getProps } from '../utils/proptypes'
+import { SpinName, SpinProps } from "./Props"
 
 const spins = {
   plane: Plane,
@@ -35,8 +34,7 @@ const spins = {
   'three-bounce': ThreeBounce,
 }
 
-function renderContainer(Loading, props) {
-  // eslint-disable-next-line react/prop-types
+function renderContainer(Loading: ReactElement, props: Pick<SpinProps, 'loading' | 'children'>) {
   const { loading, children } = props
   return (
     <div className={spinClass('container', loading && 'show')}>
@@ -46,35 +44,33 @@ function renderContainer(Loading, props) {
   )
 }
 
-function getName(name) {
+function getName(name?: SpinName) {
   if (name !== undefined) return name
   if (config.spin !== undefined) return config.spin
   return 'default'
 }
 
-function Spin(props) {
-  const { children, style, className, ...rest } = props
+const Spin: React.FC<SpinProps> =(props: SpinProps) =>{
+  const { children, style, className, size = 40, color ='#6c757d',  ...rest } = props
   const name = getName(props.name)
   const Component = spins[name]
   if (!Component) {
     console.warn(`Spin type '${name}' not existed.`)
     return null
   }
-  const classes = classnames(spinClass('_'), className)
   const wrapperStyle = Object.assign(
     {
-      margin: props.margin,
       color: props.color,
     },
     style
   )
   let Content
   if (!('tip' in props)) {
-    Content = <Component {...rest} sry wrapperStyle={wrapperStyle} wrapperClass={className} />
+    Content = <Component size={size} color={color} {...rest} wrapperStyle={wrapperStyle} wrapperClass={className} />
   } else {
     Content = (
-      <div className={classes} style={wrapperStyle}>
-        <Component {...rest} />
+      <div style={wrapperStyle} className={classnames(spinClass('_'), className)}>
+        <Component size={size} color={color} {...rest} />
         {props.tip && (
           <div className={spinClass('tip')}>{typeof props.tip === 'string' ? <span>{props.tip}</span> : props.tip}</div>
         )}
@@ -87,32 +83,5 @@ function Spin(props) {
 
 Spin.displayName = 'ShineoutSpin'
 
-Spin.propTypes = {
-  ...getProps(PropTypes),
-  color: PropTypes.string,
-  tip: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
-  children: PropTypes.node,
-  size: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  name: PropTypes.oneOf([
-    'default',
-    'chasing-ring',
-    'chasing-dots',
-    'cube-grid',
-    'double-bounce',
-    'fading-circle',
-    'four-dots',
-    'plane',
-    'pulse',
-    'ring',
-    'scale-circle',
-    'three-bounce',
-    'wave',
-  ]),
-}
-
-Spin.defaultProps = {
-  color: '#6c757d',
-  size: 40,
-}
 
 export default configable(Spin, 'spin')

@@ -1,10 +1,13 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import classname from 'classnames'
 import { range } from '../utils/numbers'
 
-export default function Spin(props) {
-  const { spinClass, count, render, size, wrapperClass, wrapperStyle } = props
+import {OriginSpinProps} from './Props'
+
+export default function Spin(props: OriginSpinProps) {
+  const {
+    spinClass, count = 0, render, size, wrapperClass, wrapperStyle
+  } = props
 
   const style = Object.assign(
     {
@@ -17,7 +20,7 @@ export default function Spin(props) {
 
   const className = classname(spinClass('_'), wrapperClass)
 
-  if (count < 1) {
+  if (count < 1 || !render) {
     return <div style={style} className={className} />
   }
 
@@ -26,18 +29,4 @@ export default function Spin(props) {
       {range(count + 1, 1).map(i => render(spinClass, i, props))}
     </div>
   )
-}
-
-Spin.propTypes = {
-  count: PropTypes.number,
-  render: PropTypes.func,
-  size: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  spinClass: PropTypes.func,
-  style: PropTypes.object,
-  wrapperClass: PropTypes.string,
-  wrapperStyle: PropTypes.object,
-}
-
-Spin.defaultProps = {
-  count: 0,
 }
