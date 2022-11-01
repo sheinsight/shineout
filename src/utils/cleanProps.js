@@ -20,7 +20,6 @@ const names = [
   'autoSelect',
   'autoFix',
   'numType',
-  'forceValidate',
 ]
 
 /**
