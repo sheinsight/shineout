@@ -6,58 +6,37 @@ import Icon from './Icon'
 import { getLocale } from '../locale'
 import { PureComponent } from '../component'
 import Time from './Time'
-import { DatePickerProps, DateTimeType } from './interface'
+import { DayProps, PickMouseEvent } from './Props'
 
 const minStr = 'yyyy-MM-dd 00:00:00'
 const maxStr = 'yyyy-MM-dd 23:59:59'
 
-interface DayProps {
-  current: Date
-  disabled: (date: Date) => boolean
-  format: string
-  index: number
-  max?: DatePickerProps['max']
-  min?: DatePickerProps['min']
-  onChange: DatePickerProps['onChange']
-  onChangeSync: any
-  onDayHover: any
-  onModeChange: any
-  range: DatePickerProps['range']
-  rangeDate: []
-  rangeTemp: object | string
-  showTimePicker: boolean
-  type: string
-  value: Date
-  defaultTime: [Date, Date]
-  allowSingle: DatePickerProps['allowSingle']
-  timeZone: DatePickerProps['timeZone']
-  disabledRegister: any
-}
-
 interface DayState {
-  hover: boolean | null
+  hover: Date | null
 }
 
-class Day extends PureComponent<DayProps, DayState> {
-  handleNextMonth: any
+class Day<Value> extends PureComponent<DayProps<Value>, DayState> {
+  handleNextMonth: PickMouseEvent
 
-  handlePrevMonth: any
+  handlePrevMonth: PickMouseEvent
 
-  handleNextYear: any
+  handleNextYear: PickMouseEvent
 
-  handlePrevYear: any
+  handlePrevYear: PickMouseEvent
 
-  handleMonthMode: any
+  handleMonthMode: PickMouseEvent
 
-  handleYearMode: any
+  handleYearMode: PickMouseEvent
 
-  handleWeekLeave: any
+  handleWeekLeave: PickMouseEvent
 
   cachedDays: Date[]
 
-  cachedDate: DateTimeType
+  cachedDate: Date
 
-  constructor(props: DayProps) {
+  today: Date
+
+  constructor(props: DayProps<Value>) {
     super(props)
 
     this.state = {
@@ -117,6 +96,7 @@ class Day extends PureComponent<DayProps, DayState> {
     const { type, allowSingle, rangeDate, min, max, index, value } = this.props
     const current = (index === sync && value) || this.formatWithDefaultTime(sync)
     const onChange = typeof sync === 'number' ? this.props.onChangeSync.bind(this.props, sync) : this.props.onChange
+    console.log(min, max)
     if (type === 'week') {
       onChange(...paramUtils.weekHandleChangeParams(date, true, true))
     } else {
@@ -131,42 +111,43 @@ class Day extends PureComponent<DayProps, DayState> {
           utils.clearHMS(rangeDate[index], this.getOptions()).getTime()
       )
         newDate = ''
-      onChange(...paramUtils.dayHandleChangeParams(newDate, true, type !== 'datetime'))
+      onChange(...paramUtils.dayHandleChangeParams(newDate as Date, true, type !== 'datetime'))
     }
   }
 
-  handleTimeChange(time: Date, _change: boolean, _end: boolean, mode: string) {
-    if (this.props.onChange) this.props.onChange(...paramUtils.timeHandleChangeParams(time, true, false, mode))
+  handleTimeChange(time: Date) {
+    if (this.props.onChange) this.props.onChange(...paramUtils.timeHandleChangeParams(time, true, false))
   }
 
   handleWeek(hover: boolean) {
     this.setState({ hover })
   }
 
-  handleMonth(month) {
+  handleMonth(month: number) {
     const { current, onChange } = this.props
     // warning: month === 12 || month === -12, this is statement is year mode.
+    console.log('month', month)
     if (month === -12 || month === 12) {
+      console.log('month', [...paramUtils.yearHandleChangeParams(utils.addMonths(current, month, this.getOptions()))])
       onChange(...paramUtils.yearHandleChangeParams(utils.addMonths(current, month, this.getOptions())))
       return
     }
     onChange(...paramUtils.monthHandleChangeParams(utils.addMonths(current, month, this.getOptions())))
   }
 
-  handleModeChange(mode) {
+  handleModeChange(mode: 'month' | 'year') {
     this.props.onModeChange(mode)
   }
 
-  handleDayHover(date) {
+  handleDayHover(date: Date) {
     this.props.onDayHover(date)
   }
 
-  handleDisabled(date, minDate, maxDate) {
+  handleDisabled(date: Date, minDate?: Date, maxDate?: Date) {
     const { index, disabled, range, rangeTemp, min, max } = this.props
     const minD = minDate || (min && utils.toDate(utils.format(min, minStr, this.getOptions()), this.getOptions()))
     const maxD = maxDate || (max && utils.toDate(utils.format(max, maxStr, this.getOptions()), this.getOptions()))
-
-    let isDisabled = disabled ? disabled(date) : false
+    let isDisabled = disabled && typeof disabled === 'function' ? disabled(date) : false
     // only for single, single picker don't has index
     if (index === undefined && !isDisabled) {
       if ((minD && utils.compareAsc(date, minD) < 0) || (maxD && utils.compareAsc(date, maxD) > 0)) isDisabled = true
@@ -174,9 +155,9 @@ class Day extends PureComponent<DayProps, DayState> {
     if (!isDisabled && index === 1) {
       if (
         (typeof range === 'number' &&
-          utils.compareAsc(date, utils.addSeconds(rangeTemp, range, this.getOptions())) > 0) ||
-        utils.compareAsc(date, utils.clearHMS(rangeTemp, this.getOptions())) < 0 ||
-        utils.compareAsc(date, utils.clearHMS(min, this.getOptions())) < 0 ||
+          utils.compareAsc(date, utils.addSeconds(rangeTemp!, range, this.getOptions())) > 0) ||
+        utils.compareAsc(date, utils.clearHMS(rangeTemp!, this.getOptions())) < 0 ||
+        utils.compareAsc(date, utils.clearHMS(min!, this.getOptions())) < 0 ||
         utils.compareAsc(date, max) > 0
       ) {
         isDisabled = true
@@ -185,14 +166,14 @@ class Day extends PureComponent<DayProps, DayState> {
     }
 
     if (!isDisabled && index === 0) {
-      if (utils.compareAsc(date, utils.clearHMS(min, this.getOptions())) < 0 || utils.compareAsc(date, max) > 0) {
+      if (utils.compareAsc(date, utils.clearHMS(min!, this.getOptions())) < 0 || utils.compareAsc(date, max) > 0) {
         isDisabled = true
       }
     }
     return isDisabled
   }
 
-  renderDay(date, minD, maxD) {
+  renderDay(date: Date, minD?: Date, maxD?: Date) {
     const { current, value, index, type, rangeDate } = this.props
     const { hover } = this.state
     const isDisabled = this.handleDisabled(date, minD, maxD)
@@ -204,7 +185,10 @@ class Day extends PureComponent<DayProps, DayState> {
     ]
 
     let hoverClass
-    const hoverProps = {}
+    const hoverProps: {
+      onMouseEnter?: typeof this.handleWeek
+      onMouseLeave?: typeof this.handleWeekLeave
+    } = {}
     const weekStart = getLocale('startOfWeek')
     const weekEnd = weekStart ? 0 : 6
     const day = utils.getDateInfo(date, 'day', this.getOptions())
@@ -308,7 +292,7 @@ class Day extends PureComponent<DayProps, DayState> {
         </div>
 
         <div className={datepickerClass('week')}>
-          {getLocale('weekdayValues.narrow').map(w => (
+          {getLocale('weekdayValues.narrow').map((w: string) => (
             <span key={w}>{w}</span>
           ))}
         </div>

@@ -1,14 +1,24 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import { datepickerClass } from './styles'
 import TimeScroll from './TimeScroll'
 import utils from './utils'
 import { isRTL } from '../config'
 import paramUtils from './paramUtils'
 import { getLocale } from '../locale'
+import { TimeProps } from './Props'
 
-class Time extends PureComponent {
-  constructor(props) {
+class Time<Value> extends PureComponent<TimeProps<Value>> {
+  defaultValue: Date
+
+  handleMinuteChange: any
+
+  handleHourChange: any
+
+  handleSecondChange: any
+
+  handleAMPMChange: any
+
+  constructor(props: TimeProps<Value>) {
     super(props)
 
     this.defaultValue = this.getDefaultTime()
@@ -39,23 +49,28 @@ class Time extends PureComponent {
     return this.props.value || this.defaultValue
   }
 
-  handleDisabled(value, val, mode, onlyVaild) {
+  handleDisabled(
+    value: Date,
+    val: number,
+    mode: 'H' | 'h' | 'm' | 'minute' | 's' | 'second' | 'ampm',
+    onlyVaild?: boolean
+  ) {
     const { disabled, min, max, range, disabledTime } = this.props
     const [isDisabled, date] = paramUtils.judgeTimeByRange(
       val,
       value,
       mode,
-      min,
-      max,
+      min!,
+      max!,
       range,
-      disabled,
+      disabled!,
       disabledTime,
       this.getOptions()
     )
     return onlyVaild ? isDisabled : [isDisabled, date]
   }
 
-  handleChange(type, val) {
+  handleChange(type: 'hour' | 'H' | 'h' | 'minute' | 'second' | 'ampm', val: number) {
     const { format } = this.props
     const value = this.getValue()
 
@@ -68,13 +83,20 @@ class Time extends PureComponent {
         mode = 'H'
       }
     }
-    const [isDisabled, date] = this.handleDisabled(value, val, mode)
+    const [isDisabled, date] = this.handleDisabled(value, val, mode as
+      | 'H'
+      | 'h'
+      | 'm'
+      | 'minute'
+      | 's'
+      | 'second'
+      | 'ampm') as [boolean, Date]
 
     if (isDisabled) return
-    this.props.onChange(...paramUtils.timeHandleChangeParams(date, true, false, 'time'))
+    this.props.onChange(paramUtils.timeHandleChangeParams(date, true, false)[0])
   }
 
-  renderTimeScroller(value, min, max, hours) {
+  renderTimeScroller(value: Date, min: Date | null, max: Date | null, hours: number) {
     const { format, hourStep, minuteStep, secondStep, range, disabled, disabledTime } = this.props
 
     const rtl = isRTL()
@@ -182,24 +204,6 @@ class Time extends PureComponent {
 
     return <div className={className}>{this.renderTimeScroller(value, min, max, hours)}</div>
   }
-}
-
-Time.propTypes = {
-  disabled: PropTypes.func,
-  format: PropTypes.string.isRequired,
-  min: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  max: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  onChange: PropTypes.func.isRequired,
-  range: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
-  value: PropTypes.object,
-  defaultTime: PropTypes.array,
-  index: PropTypes.number,
-  hourStep: PropTypes.number,
-  minuteStep: PropTypes.number,
-  secondStep: PropTypes.number,
-  disabledTime: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-  disabledRegister: PropTypes.func,
-  timeZone: PropTypes.string,
 }
 
 export default Time

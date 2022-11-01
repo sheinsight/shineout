@@ -12,10 +12,10 @@ import Quick from './Quick'
 import { DatePickerProps, DateTimeType, AreaType } from './interface'
 
 interface RangeProps {
-  current: Date
+  current: Date | Date[]
   format: string
   value: DateTimeType[]
-  range: DateTimeType[]
+  range?: number | boolean
   timeZone: DatePickerProps['timeZone']
 }
 

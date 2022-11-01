@@ -4,6 +4,7 @@ import { getParent, focusElement } from '../utils/dom/element'
 import utils from './utils'
 import { datepickerClass } from './styles'
 import { getLocale } from '../locale'
+import { TextProps } from './Props'
 
 let target = null
 document.addEventListener(
@@ -15,8 +16,8 @@ document.addEventListener(
   true
 )
 
-class Text extends PureComponent {
-  constructor(props) {
+class Text extends PureComponent<TextProps> {
+  constructor(props: TextProps) {
     super(props)
 
     this.handleBlur = this.handleBlur.bind(this)

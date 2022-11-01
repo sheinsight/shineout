@@ -54,7 +54,7 @@ const compatibleFmt = (fmt: string) => {
   return result
 }
 
-function getDayJsLocate(options: DateOptions) {
+function getDayJsLocate(options?: DateOptions) {
   if (options && options.weekStartsOn === 1) return 'en2'
   return 'en'
 }
@@ -120,7 +120,7 @@ function changeDate(date: Date, type: Mode, num: number, options: DateOptions) {
   return ud
 }
 
-function getDateInfo(date: Date, type: Mode, options: DateOptions) {
+function getDateInfo(date: Date, type: Mode | 'date', options: DateOptions): number {
   const zd = transDateWithZone(date, options)
   return (dayjs(zd) as any)[type]()
 }
@@ -169,7 +169,7 @@ function isValid(date: DateTimeType) {
   return dayjs(date).isValid()
 }
 
-function parse(d: DateTimeType, fmt: string, options: DateOptions) {
+function parse(d: DateTimeType, fmt: string, options?: DateOptions) {
   if (!d) return new Date('')
   // should clear[xxx]
   const reg = /[[]([^[^\]]+?)[\]]/g
@@ -209,7 +209,7 @@ function parse(d: DateTimeType, fmt: string, options: DateOptions) {
   return transDateWithZone(result, options, true)
 }
 
-function toDate(day: DateTimeType | Date, options: DateOptions): Date {
+function toDate(day: DateTimeType | Date, options?: DateOptions): Date {
   if (!day) return new Date('')
   if (day instanceof Date) return dayjs(day).toDate()
   if (typeof day === 'number') return new Date(day)
@@ -246,10 +246,10 @@ function isInvalid(date: unknown) {
   return isNaN(date as number)
 }
 
-function toDateWithFormat(dirtyDate: Date, fmt: string, def: DateTimeType, options: DateOptions): Date
-function toDateWithFormat(dirtyDate: DateTimeType, fmt: string, def: DateTimeType, options: DateOptions): DateTimeType
-function toDateWithFormat(dirtyDate: DateTimeType | Date, fmt: string, def: DateTimeType, options: DateOptions) {
-  let date
+// function toDateWithFormat(dirtyDate: Date, fmt: string, def: DateTimeType, options: DateOptions): Date
+// function toDateWithFormat(dirtyDate: DateTimeType, fmt: string, def: DateTimeType, options: DateOptions): DateTimeType
+function toDateWithFormat(dirtyDate: DateTimeType, fmt: string, def?: Date, options?: DateOptions) {
+  let date: Date
   if (typeof dirtyDate === 'string') {
     date = parse(dirtyDate, fmt, options)
     const str = format(date, fmt, options)
@@ -257,7 +257,7 @@ function toDateWithFormat(dirtyDate: DateTimeType | Date, fmt: string, def: Date
       date = toDate(dirtyDate, options)
     }
   } else date = toDate(dirtyDate, options)
-  if (isInvalid(date)) date = def
+  if (isInvalid(date)) date = def!
   return date
 }
 
@@ -309,7 +309,7 @@ function compareQuarter(dateLeft: Date, dateRight: Date, pad = 0, options: DateO
   return compareAsc(left, right)
 }
 
-function newDate(defaultDate: Date | DateTimeType, options: DateOptions) {
+function newDate(defaultDate?: Date | DateTimeType, options?: DateOptions) {
   const date = defaultDate ? toDate(defaultDate, options) : new Date()
   const zd = transDateWithZone(date, options)
   const dd = dayjs(zd)
@@ -383,7 +383,7 @@ function getFormat(fo: string) {
   return defaultFormat
 }
 
-function resetTimeByFormat(value: Date, fo: string, options: DateOptions) {
+function resetTimeByFormat(value: Date | undefined, fo: string, options: DateOptions) {
   if (!value) return null
   const date = toDate(value, options)
   return toDate(format(date, getFormat(fo), options), options)

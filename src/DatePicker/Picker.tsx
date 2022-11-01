@@ -10,25 +10,9 @@ import paramUtils from './paramUtils'
 import { getLocale } from '../locale'
 import { datepickerClass } from './styles'
 import { PureComponent } from '../component'
-import { DatePickerProps, DatePickerValue, DateTimeType } from './interface'
+import { PickerProps, DatePickerValue, DateTimeType } from './Props'
 
 export type Mode = 'year' | 'month' | 'quarter' | 'time' | 'day' | 'minute' | 'second' | 'hour'
-
-export interface PickerProps {
-  index: number
-  current: DatePickerValue
-  max?: DatePickerProps['max']
-  min?: DatePickerProps['min']
-  type: DatePickerProps['type']
-  value: DatePickerProps['value']
-  format?: DatePickerProps['format']
-  onChange: DatePickerProps['onChange']
-  children: DatePickerProps['children']
-  timeZone: DatePickerProps['timeZone']
-  disabled?: DatePickerProps['disabled']
-  defaultTime?: [Date, Date]
-  handleHover: (index: number, isEnter: boolean) => void
-}
 
 interface PickerState {
   mode: Mode
@@ -118,7 +102,8 @@ class Picker extends PureComponent<PickerProps, PickerState> {
 
   render() {
     const { mode } = this.state
-    const { current, index, children, ...otherProps } = this.props
+    const { current, index, ...otherProps } = this.props
+    console.warn(current)
 
     let Render
     switch (mode) {
@@ -137,7 +122,6 @@ class Picker extends PureComponent<PickerProps, PickerState> {
       default:
         Render = Day
     }
-
     // only range has index prop
     if (index === undefined)
       return (
