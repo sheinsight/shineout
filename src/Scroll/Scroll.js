@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import { banOverScrollX } from '../utils/dom/scrollBehavior'
 import { PureComponent } from '../component'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { getParent } from '../utils/dom/element'
@@ -51,6 +52,7 @@ class Scroll extends PureComponent {
     this.wheelElement.addEventListener('touchmove', this.handleTouchMove, { passive: false })
     this.inner.addEventListener('scroll', this.handleInnerScroll)
     this.wheelElement.addEventListener('scroll', this.handleInnerScroll)
+    this.rmOverScrollListener = banOverScrollX(this.wheelElement)
   }
 
   componentDidUpdate(prevProps) {
@@ -66,6 +68,7 @@ class Scroll extends PureComponent {
     this.wheelElement.removeEventListener('touchmove', this.handleTouchMove)
     this.inner.removeEventListener('scroll', this.handleInnerScroll)
     this.wheelElement.removeEventListener('scroll', this.handleInnerScroll)
+    if (this.rmOverScrollListener) this.rmOverScrollListener()
   }
 
   getWheelRect() {
