@@ -1,19 +1,19 @@
 let htmlDom
-let lastStyle
+let lastStyle = null
 
+const getHtml = () => {
+  if (!htmlDom) htmlDom = document.body.parentElement
+  return htmlDom
+}
 const setScrollBehavior = () => {
-  if (!htmlDom) {
-    htmlDom = document.querySelector('html')
-  }
-  lastStyle = htmlDom.style.overscrollBehaviorX
+  if (lastStyle !== null) return
+  lastStyle = getHtml().style.overscrollBehaviorX
   htmlDom.style.overscrollBehaviorX = 'none'
 }
 
 const resetScrollBehavior = () => {
-  if (!htmlDom) {
-    htmlDom = document.querySelector('html')
-  }
   htmlDom.style.overscrollBehaviorX = lastStyle
+  lastStyle = null
 }
 
 export const banOverScrollX = el => {
