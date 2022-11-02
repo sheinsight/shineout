@@ -56,7 +56,9 @@ exports[`Message[snapshot] Snapshot test: Message[site/pages/components/Message/
   <div>
     <div>
       <div>
-        <span />
+        <span>
+          top-right
+        </span>
         <a>
           <svg>
             <path />
