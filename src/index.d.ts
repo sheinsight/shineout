@@ -32,7 +32,7 @@ export { default as Card } from './Card'
 import { CardProps as __CardProps, CardBodyProps as __CardBodyProps, CardHeaderProps as __CardHeaderProps, CardFooterProps as __CardFooterProps, CardSubmitProps as __CardSubmitProps, CardAccordionProps as __CardAccordionProps } from './Card/interface'
 
 export { default as CardGroup } from './CardGroup'
-import { CardGroupProps as __CardGroupProps, CardGroupItemProps as __CardGroupItemProps,  } from './CardGroup'
+import { CardGroupProps as __CardGroupProps, GroupItemProps as __GroupItemProps } from './CardGroup/interface'
 
 export { default as Carousel } from './Carousel'
 import { CarouselProps as __CarouselProps,  } from './Carousel/interface'
@@ -182,8 +182,9 @@ export namespace TYPE {
     export type AccordionProps<T> = __CardAccordionProps<T>
   }
   export namespace CardGroup {
+  
     export type Props = __CardGroupProps
-    export type ItemProps<T> = __CardGroupItemProps<T>
+    export type GroupItemProps<T> = __GroupItemProps<T>
   }
   export namespace Carousel {
     export type Props = __CarouselProps
