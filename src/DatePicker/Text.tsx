@@ -58,7 +58,7 @@ class Text extends PureComponent<TextProps> {
   handleBlur(e: React.FocusEvent<HTMLSpanElement>) {
     const { format, index, onChange, value } = this.props
     const txt = e.target.innerText
-    if (getParent(target, `.${datepickerClass('picker')}`)) return
+    if (getParent(target!, `.${datepickerClass('picker')}`)) return
     if (txt === value) return
     if (txt.trim().length === 0) {
       onChange(undefined, index, e)
