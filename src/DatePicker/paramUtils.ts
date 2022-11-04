@@ -1,20 +1,20 @@
 import utils from './utils'
 import { isNumber } from '../utils/is'
-import { AreaType, DatePickerValue, DatePickerProps } from './interface'
-import { DisabledType } from './Props'
+import { AreaType, DatePickerValue, DatePickerProps } from './Props'
+import { DisabledType, Quick } from './Props'
 
 const { TIME_FORMAT, compareAsc, addSeconds, format } = utils
 
 const handleOnChangeParams: (
   type: AreaType
 ) => (
-  date: Date,
+  date: any,
   change?: boolean | undefined,
-  blur?: boolean | undefined,
-  isEnd?: boolean | undefined,
-  isQuickSelect?: boolean | undefined,
+  blur?: boolean | undefined | null,
+  isEnd?: boolean | undefined | null,
+  isQuickSelect?: boolean | undefined | Quick,
   areaType?: AreaType
-) => [Date, boolean, boolean, boolean, boolean, AreaType] = type => (
+) => [any, boolean, boolean, boolean, boolean, AreaType] = type => (
   date,
   change = undefined,
   blur = undefined,

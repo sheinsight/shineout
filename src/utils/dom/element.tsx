@@ -17,7 +17,7 @@ if (Element && !Element.prototype.matches) {
     proto.webkitMatchesSelector
 }
 
-export function getParent(el: HTMLElement, target: string | HTMLElement) {
+export function getParent(el: HTMLElement | null, target: string | HTMLElement) {
   if (!target) {
     return null
   }
@@ -109,7 +109,7 @@ export function getCursorOffset(length: number) {
   return null
 }
 
-function end(element: HTMLTextAreaElement) {
+function end<T extends HTMLElement & { selectionStart?: number }>(element: T) {
   if (!element) return
   element.focus()
   if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {

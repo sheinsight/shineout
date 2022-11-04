@@ -44,7 +44,7 @@ export { default as Checkbox } from './Checkbox'
 import { CheckboxProps as __CheckboxProps, GroupProps as __GroupProps } from './Checkbox/interface'
 
 export { default as DatePicker } from './DatePicker'
-import { DatePickerProps as __DatePickerProps, QuickSelect as __QuickSelect, AreaType as __AreaType, DateTimeType as __DateTimeType, DatePickerValue as __DatePickerValue } from './DatePicker'
+import { DatePickerValue as __DatePickerValue, DatePickerProps as __DatePickerProps } from './DatePicker/interface'
 
 export { default as Datum } from './Datum'
 
@@ -102,7 +102,7 @@ export { default as Radio } from './Radio'
 import { RadioProps as __RadioProps, RadioGroupProps as __RadioGroupProps } from './Radio/interface'
 
 export { default as Rate } from './Rate'
-import { RateProps as __RateProps,  } from './Rate'
+import { RateProps as __RateProps } from './Rate/interface'
 
 export { default as Rule } from './Rule'
 import { Max as __Max, Min as __Min, Type as __Type, Range as __Range, Required as __Required, validFunc as __validFunc, paramFunc as __paramFunc, RuleParams as __RuleParams, RuleResult as __RuleResult, RegExpParams as __RegExpParams, RuleCommon as __RuleCommon, RuleItemResult as __RuleItemResult, RuleCommonValue as __RuleCommonValue, InnerRuleFunc as __InnerRuleFunc, RuleParamsType as __RuleParamsType } from './Rule'
@@ -197,11 +197,9 @@ export namespace TYPE {
     export type GroupProps<DataItem, Value> = __GroupProps<DataItem, Value>
   }
   export namespace DatePicker {
-    export type Props<T = __DatePickerValue> = __DatePickerProps<T>
-    export type QuickSelect = __QuickSelect  
-    export type AreaType = __AreaType
-    export type DateTimeType = __DateTimeType
+  
     export type Value = __DatePickerValue
+    export type Props<Value> = __DatePickerProps<Value>
   }
   export namespace Divider {
     export type Props = __DividerProps
@@ -278,6 +276,7 @@ export namespace TYPE {
     export type GroupProps<Value, Item> = __RadioGroupProps<Value, Item>
   }
   export namespace Rate {
+  
     export type Props = __RateProps
   }
   export namespace Rule {

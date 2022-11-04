@@ -104,7 +104,6 @@ class Item extends PureComponent {
   handleToggle(open) {
     const { toggleOpenKeys, toggleDuration } = this.props
     const key = this.getKey()
-
     if (this.toggleTimer) clearTimeout(this.toggleTimer)
     if (open) {
       toggleOpenKeys(key, true)

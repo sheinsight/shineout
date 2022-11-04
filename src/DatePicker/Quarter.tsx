@@ -1,15 +1,19 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import Icon from './Icon'
 import utils from './utils'
 import paramUtils from './paramUtils'
 import { datepickerClass } from './styles'
 import { getLocale } from '../locale'
+import { UnionPannelProps } from './Props'
 
 const Quarters = ['Q1', 'Q2', 'Q3', 'Q4']
 
-class Quarter extends PureComponent {
-  constructor(props) {
+class Quarter<Value> extends PureComponent<UnionPannelProps<Value>> {
+  handleNextYear: any
+
+  handlePrevYear: any
+
+  constructor(props: UnionPannelProps<Value>) {
     super(props)
     this.handleNextYear = this.handleYearChange.bind(this, 1)
     this.handlePrevYear = this.handleYearChange.bind(this, -1)
@@ -24,7 +28,7 @@ class Quarter extends PureComponent {
     return { timeZone, weekStartsOn: getLocale('startOfWeek') }
   }
 
-  handleYearChange(year) {
+  handleYearChange(year: number) {
     const { current, onChange } = this.props
     onChange(...paramUtils.yearHandleChangeParams(utils.addYears(current, year, this.getOptions())))
   }
@@ -33,12 +37,12 @@ class Quarter extends PureComponent {
     this.props.onModeChange('year')
   }
 
-  handleQuarterClick(date) {
+  handleQuarterClick(date: Date) {
     const { onChange } = this.props
     onChange(...paramUtils.quarterHandleChangeParams(date, true, true))
   }
 
-  handleDisabled(date) {
+  handleDisabled(date: Date) {
     const { disabled, index, min, max, rangeDate, range, type } = this.props
 
     let isDisabled = min && utils.compareQuarter(min, date, 1, this.getOptions()) >= 0
@@ -53,7 +57,12 @@ class Quarter extends PureComponent {
     if (!isDisabled && index === 0) {
       if (
         rangeDate[1] &&
-        utils.compareQuarter(date, utils.addSeconds(rangeDate[1], -range, this.getOptions()), 0, this.getOptions()) < 0
+        utils.compareQuarter(
+          date,
+          utils.addSeconds(rangeDate[1], -(range as number), this.getOptions()),
+          0,
+          this.getOptions()
+        ) < 0
       ) {
         isDisabled = true
       }
@@ -62,7 +71,12 @@ class Quarter extends PureComponent {
     if (!isDisabled && index === 1) {
       if (
         rangeDate[0] &&
-        utils.compareQuarter(date, utils.addSeconds(rangeDate[0], range, this.getOptions()), 0, this.getOptions()) > 0
+        utils.compareQuarter(
+          date,
+          utils.addSeconds(rangeDate[0], range as number, this.getOptions()),
+          0,
+          this.getOptions()
+        ) > 0
       ) {
         isDisabled = true
       }
@@ -70,7 +84,7 @@ class Quarter extends PureComponent {
     return isDisabled
   }
 
-  renderQuarter(q, i) {
+  renderQuarter(q: string, i: number) {
     const { current, index, rangeDate, value } = this.props
     const year = utils.getDateInfo(current, 'year', this.getOptions())
     const date = utils.parse(`${year} ${i + 1}`, 'yyyy Q', this.getOptions())
@@ -78,7 +92,7 @@ class Quarter extends PureComponent {
     // let hoverClass
     const classList = [isDisabled && 'disabled']
     if (rangeDate) {
-      if (utils.isSameQuarter(date, rangeDate[index], this.getOptions())) {
+      if (utils.isSameQuarter(date, rangeDate[index!], this.getOptions())) {
         classList.push('active')
       }
       // hoverClass = datepickerClass(
@@ -123,22 +137,6 @@ class Quarter extends PureComponent {
       </div>
     )
   }
-}
-
-Quarter.propTypes = {
-  current: PropTypes.object.isRequired,
-  disabled: PropTypes.func,
-  index: PropTypes.number,
-  max: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  min: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  onChange: PropTypes.func.isRequired,
-  onModeChange: PropTypes.func.isRequired,
-  range: PropTypes.number,
-  rangeDate: PropTypes.array,
-  type: PropTypes.string.isRequired,
-  value: PropTypes.object,
-  timeZone: PropTypes.string,
-  disabledRegister: PropTypes.func,
 }
 
 export default Quarter

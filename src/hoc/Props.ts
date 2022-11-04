@@ -40,6 +40,4 @@ export interface InputBorderProps extends BaseBorderProps {
   style?: React.CSSProperties
 }
 
-export type GetInputBorderProps<Props> = Props &
-  Omit<Props, 'onFocus' | 'onBlur' | 'inputFocus'> &
-  Required<Pick<InputBorderProps, 'onBlur' | 'onFocus'>>
+export type GetInputBorderProps<Props> = Omit<Props, 'onFocus' | 'onBlur' | 'inputFocus'> & BaseBorderProps

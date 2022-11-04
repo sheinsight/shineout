@@ -6,7 +6,7 @@ import Icon from './Icon'
 import { getLocale } from '../locale'
 import { PureComponent } from '../component'
 import Time from './Time'
-import { DayProps, PickMouseEvent } from './Props'
+import { UnionPannelProps, PickMouseEvent } from './Props'
 
 const minStr = 'yyyy-MM-dd 00:00:00'
 const maxStr = 'yyyy-MM-dd 23:59:59'
@@ -15,7 +15,7 @@ interface DayState {
   hover: Date | null
 }
 
-class Day<Value> extends PureComponent<DayProps<Value>, DayState> {
+class Day<Value> extends PureComponent<UnionPannelProps<Value>, DayState> {
   handleNextMonth: PickMouseEvent
 
   handlePrevMonth: PickMouseEvent
@@ -36,7 +36,7 @@ class Day<Value> extends PureComponent<DayProps<Value>, DayState> {
 
   today: Date
 
-  constructor(props: DayProps<Value>) {
+  constructor(props: UnionPannelProps<Value>) {
     super(props)
 
     this.state = {
@@ -53,7 +53,6 @@ class Day<Value> extends PureComponent<DayProps<Value>, DayState> {
     this.handleTimeChange = this.handleTimeChange.bind(this)
     this.handleDisabled = this.handleDisabled.bind(this)
     this.formatWithDefaultTime = this.formatWithDefaultTime.bind(this)
-
     props.disabledRegister(this.handleDisabled, 'day', props.index)
   }
 
@@ -96,7 +95,6 @@ class Day<Value> extends PureComponent<DayProps<Value>, DayState> {
     const { type, allowSingle, rangeDate, min, max, index, value } = this.props
     const current = (index === sync && value) || this.formatWithDefaultTime(sync)
     const onChange = typeof sync === 'number' ? this.props.onChangeSync.bind(this.props, sync) : this.props.onChange
-    console.log(min, max)
     if (type === 'week') {
       onChange(...paramUtils.weekHandleChangeParams(date, true, true))
     } else {
@@ -106,9 +104,9 @@ class Day<Value> extends PureComponent<DayProps<Value>, DayState> {
       if (max && utils.compareAsc(newDate, max) > 0) utils.setTime(newDate, max as Date)
       if (
         allowSingle &&
-        rangeDate[index] &&
+        rangeDate[index!] &&
         utils.clearHMS(newDate, this.getOptions()).getTime() ===
-          utils.clearHMS(rangeDate[index], this.getOptions()).getTime()
+          utils.clearHMS(rangeDate[index!], this.getOptions()).getTime()
       )
         newDate = ''
       onChange(...paramUtils.dayHandleChangeParams(newDate as Date, true, type !== 'datetime'))
@@ -203,14 +201,14 @@ class Day<Value> extends PureComponent<DayProps<Value>, DayState> {
     } else if (rangeDate && utils.compareMonth(current, date, 0, this.getOptions()) === 0) {
       hoverProps.onMouseEnter = this.handleDayHover.bind(this, date)
 
-      classList.push(utils.isSameDay(date, rangeDate[index], this.getOptions()) && 'active')
+      classList.push(utils.isSameDay(date, rangeDate[index!], this.getOptions()) && 'active')
 
       hoverClass = datepickerClass(
         utils.compareDay(rangeDate[0], date, 0, this.getOptions()) <= 0 &&
           utils.compareDay(rangeDate[1], date, 0, this.getOptions()) >= 0 &&
           'hover',
         // Datetime Picker range end datetime classname #330
-        utils.isSameDay(rangeDate[index], date, this.getOptions()) && `hover-${index === 0 ? 'start' : 'end'} active`
+        utils.isSameDay(rangeDate[index!], date, this.getOptions()) && `hover-${index === 0 ? 'start' : 'end'} active`
       )
     } else if (value) {
       classList.push(utils.isSameDay(date, value, this.getOptions()) && 'active')
@@ -244,7 +242,7 @@ class Day<Value> extends PureComponent<DayProps<Value>, DayState> {
     }
 
     const value = rangeDate
-      ? utils.toDateWithFormat(rangeDate[index], format, undefined, this.getOptions())
+      ? utils.toDateWithFormat(rangeDate[index!], format, undefined, this.getOptions())
       : this.props.value
     if (!value) return undefined
 
@@ -265,7 +263,7 @@ class Day<Value> extends PureComponent<DayProps<Value>, DayState> {
     const maxDate = max && utils.toDate(utils.format(max, maxStr, this.getOptions()), this.getOptions())
     return (
       <div className={datepickerClass('day-picker')}>
-        <div className={datepickerClass('title')}>{getLocale('pickerTitle')[index]}</div>
+        <div className={datepickerClass('title')}>{getLocale('pickerTitle')[index!]}</div>
         <div className={datepickerClass('header')}>
           <Icon
             name="AngleDoubleLeft"

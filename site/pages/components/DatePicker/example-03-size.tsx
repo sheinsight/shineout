@@ -7,12 +7,10 @@
 import React from 'react'
 import { DatePicker, TYPE } from 'shineout'
 
-type DatePickerValue = TYPE.DatePicker.Value
-type DatePickerProps = TYPE.DatePicker.Props<DatePickerValue>
 type DatePickerSize = DatePickerProps['size']
-type DatePickerDefaultValue = DatePickerProps['defaultValue']
+type DatePickerProps = TYPE.DatePicker.Props<Date>
 
-const Now: DatePickerDefaultValue = Date.now()
+const Now = Date.now()
 const Size: DatePickerSize[] = ['small', 'default', 'large']
 
 const App: React.FC = () => (

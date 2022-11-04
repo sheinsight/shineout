@@ -22,7 +22,7 @@ import { isRTL } from '../config'
 import InputTitle from '../InputTitle'
 import { inputTitleClass } from '../InputTitle/styles'
 import { getDirectionClass } from '../utils/classname'
-import { AreaType, DatePickerProps, DateTimeType, ContainerProp, vaildFn, vaildFns } from './Props'
+import { AreaType, DatePickerProps, DateTimeType, ContainerProp, vaildFn, vaildFns, Quick } from './Props'
 
 const FadeList = List(['fade'], 'fast')
 const OptionList = absoluteList(({ focus, ...other }: any) => <FadeList show={focus} {...other} />)
@@ -71,7 +71,7 @@ class Container<Value> extends PureComponent<ContainerProp<Value>, ContainerStat
 
   element: HTMLSpanElement
 
-  picker: Range | Picker
+  picker: Range<Value> | Picker
 
   pickerContainer: HTMLDivElement
 
@@ -205,7 +205,7 @@ class Container<Value> extends PureComponent<ContainerProp<Value>, ContainerStat
     this.element = el
   }
 
-  bindPicker(picker: Range | Picker) {
+  bindPicker(picker: Range<Value> | Picker) {
     this.picker = picker
   }
 
@@ -242,13 +242,13 @@ class Container<Value> extends PureComponent<ContainerProp<Value>, ContainerStat
       if (this.props.inputable && this.textSpan) this.textSpan.blur()
       this.clearClickAway()
       this.handleToggle(false)
-      this.props.onBlur()
+      this.props.onBlur!()
     }
   }
 
   handleFocus(e: FocusEvent<HTMLDivElement>) {
     if (!this.shouldFocus(e.target)) return
-    this.props.onFocus(e)
+    this.props.onFocus!(e)
     this.bindClickAway()
   }
 
@@ -260,7 +260,7 @@ class Container<Value> extends PureComponent<ContainerProp<Value>, ContainerStat
 
     // fot close the list
     if (e.keyCode === 9) {
-      this.props.onBlur(e)
+      this.props.onBlur!(e)
       // e.preventDefault()
       if (this.state.focus) this.handleToggle(false)
       else this.clearClickAway()
@@ -305,7 +305,7 @@ class Container<Value> extends PureComponent<ContainerProp<Value>, ContainerStat
       // this.props.onFocus()
       this.bindClickAway()
     } else {
-      this.props.onValueBlur()
+      this.props.onValueBlur!()
     }
   }
 
@@ -315,7 +315,7 @@ class Container<Value> extends PureComponent<ContainerProp<Value>, ContainerStat
     if (cb && typeof cb === 'function') cb()
     // OnChange is not triggered when handling copy and paste
     if (inputable && focus === false) {
-      this.props.onValueBlur()
+      this.props.onValueBlur!()
     }
   }
 
@@ -447,7 +447,7 @@ class Container<Value> extends PureComponent<ContainerProp<Value>, ContainerStat
     const empty = clearWithUndefined ? undefined : ''
     const value = this.props.range ? [empty, empty] : empty
     this.props.onChange!(value, () => {
-      this.props.onValueBlur()
+      this.props.onValueBlur!()
       this.handleToggle(false)
       this.element.focus()
     })
@@ -576,20 +576,22 @@ class Container<Value> extends PureComponent<ContainerProp<Value>, ContainerStat
       timeZone,
     } = this.props
     const format = this.getFormat()
-    const quicks = this.getQuick(format)
+    const quicks = (this.getQuick(format) as unknown) as Quick[]
     const Component = range ? Range : Picker
     return (
       <Component
         ref={this.bindPicker}
-        defaultTime={this.getDefaultTime()}
-        current={this.state.current}
+        defaultTime={this.getDefaultTime() as any}
+        current={this.state.current as any}
         format={format}
         disabled={typeof disabled === 'function' ? disabled : undefined}
         onChange={this.handleChange}
         type={type}
         range={range}
         quicks={quicks}
-        value={range ? ((value || []) as Date[]).map(v => this.parseDate(v)) : this.parseDate(value)}
+        value={
+          (range ? ((value || []) as Date[]).map(v => this.parseDate(v)) : this.parseDate(value as DateTimeType)) as any
+        }
         showTimePicker={!!value}
         allowSingle={allowSingle}
         handleHover={this.handleHover}

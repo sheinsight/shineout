@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import immer from 'immer'
 import { PureComponent } from '../component'
 import shallowEqual from '../utils/shallowEqual'
@@ -9,21 +8,19 @@ import paramUtils from './paramUtils'
 import Picker from './Picker'
 import { datepickerClass } from './styles'
 import Quick from './Quick'
-import { DatePickerProps, DateTimeType, AreaType } from './interface'
-
-interface RangeProps {
-  current: Date | Date[]
-  format: string
-  value: DateTimeType[]
-  range?: number | boolean
-  timeZone: DatePickerProps['timeZone']
-}
+import { DatePickerProps, DateTimeType, AreaType } from './Props'
+import { RangeProps, DisabledType } from './Props'
 
 interface RangeState {
-  rangeDate: DateTimeType[]
+  rangeDate: Date[]
 }
 
-class Range extends PureComponent<RangeProps, RangeState> {
+const DefaultValue = {
+  value: [],
+}
+class Range<Value> extends PureComponent<RangeProps<Value>, RangeState> {
+  static defaultProps = DefaultValue
+
   pickers: Picker[]
 
   handleFirstChange: () => void
@@ -38,7 +35,7 @@ class Range extends PureComponent<RangeProps, RangeState> {
 
   handleDisabledEnd: any
 
-  constructor(props: RangeProps) {
+  constructor(props: RangeProps<Value>) {
     super(props)
 
     this.state = {
@@ -56,11 +53,10 @@ class Range extends PureComponent<RangeProps, RangeState> {
     this.handleDisabledStart = this.handleDisabled.bind(this, 'start')
     this.handleDisabledEnd = this.handleDisabled.bind(this, 'end')
     this.changeDateSmart = this.changeDateSmart.bind(this)
-    this.fillTime = this.fillTime.bind(this)
     this.handleQuick = this.handleQuick.bind(this)
   }
 
-  componentDidUpdate(prevProps: RangeProps) {
+  componentDidUpdate(prevProps: RangeProps<Value>) {
     const { rangeDate } = this.state
     if (
       Array.isArray(rangeDate) &&
@@ -121,7 +117,6 @@ class Range extends PureComponent<RangeProps, RangeState> {
     const { type, range, min, max } = this.props
 
     const handleOnChangeParams = paramUtils.handleOnChangeParams(areaType)
-
     if (!change) {
       const current = immer(this.props.current, draft => {
         draft[index] = date
@@ -131,7 +126,7 @@ class Range extends PureComponent<RangeProps, RangeState> {
     }
 
     if (mode === 'time') {
-      let endChangedDate
+      let endChangedDate: Date
       this.setState(
         immer(draft => {
           draft.rangeDate[index] = date
@@ -186,18 +181,11 @@ class Range extends PureComponent<RangeProps, RangeState> {
     if (max && utils.compareAsc(date, max) >= 0) {
       utils.setTime(date, max)
     }
-    // if (this.state.rangeDate.filter(a => a).length !== 1) {
-    //   this.setState({ rangeDate: index === 1 ? [undefined, date] : [date], hover: undefined })
-    //   return
-    // }
 
     this.setState(
       immer(draft => {
-        // const method = utils.compareAsc(draft.rangeDate[0], date) > 0 ? 'unshift' : 'push'
         draft.rangeDate[index] = date
         draft.rangeDate[1 - index] = draft.rangeDate[1 - index] || ''
-        // draft.rangeDate.map(this.fillTime)
-        // range change start&end
         this.changeDateSmart(draft.rangeDate)
         draft.hover = undefined
       }),
@@ -208,12 +196,7 @@ class Range extends PureComponent<RangeProps, RangeState> {
     )
   }
 
-  fillTime(date, index) {
-    const { defaultTime, format, value } = this.props
-    return utils.formatDateWithDefaultTime(date, value[index], defaultTime[index], format, this.getOptions())
-  }
-
-  handleDisabled(type, date) {
+  handleDisabled(type: DisabledType, date: Date) {
     const { disabled } = this.props
     const { rangeDate } = this.state
     if (disabled) {
@@ -222,7 +205,7 @@ class Range extends PureComponent<RangeProps, RangeState> {
     return false
   }
 
-  handleQuick(quick) {
+  handleQuick(quick: { invalid: boolean; value: Date[]; name?: string }) {
     this.setState({ rangeDate: quick.value })
     this.props.onChange(...paramUtils.quickHandleChangeParams(quick.value, true, null, null, quick))
   }
@@ -272,26 +255,6 @@ class Range extends PureComponent<RangeProps, RangeState> {
       </div>
     )
   }
-}
-
-Range.propTypes = {
-  current: PropTypes.array,
-  disabled: PropTypes.func,
-  children: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  format: PropTypes.string,
-  onChange: PropTypes.func.isRequired,
-  range: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
-  value: PropTypes.array,
-  type: PropTypes.string.isRequired,
-  defaultTime: PropTypes.array,
-  quicks: PropTypes.array,
-  min: PropTypes.object,
-  max: PropTypes.object,
-  timeZone: PropTypes.string,
-}
-
-Range.defaultProps = {
-  value: [],
 }
 
 export default Range

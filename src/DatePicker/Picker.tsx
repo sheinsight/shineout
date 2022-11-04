@@ -10,16 +10,14 @@ import paramUtils from './paramUtils'
 import { getLocale } from '../locale'
 import { datepickerClass } from './styles'
 import { PureComponent } from '../component'
-import { PickerProps, DatePickerValue, DateTimeType } from './Props'
-
-export type Mode = 'year' | 'month' | 'quarter' | 'time' | 'day' | 'minute' | 'second' | 'hour'
+import { PickerProps, Mode } from './Props'
 
 interface PickerState {
   mode: Mode
 }
 
 class Picker extends PureComponent<PickerProps, PickerState> {
-  defaultCurrent: any
+  defaultCurrent: Date | Date[]
 
   handleEnter: React.MouseEventHandler<HTMLDivElement>
 
@@ -71,18 +69,9 @@ class Picker extends PureComponent<PickerProps, PickerState> {
     return { timeZone, weekStartsOn: getLocale('startOfWeek') }
   }
 
-  handleQuick(quick: { name: string; value: DatePickerValue }) {
+  handleQuick(quick: { invalid: boolean; value: Date[]; name?: string }) {
     const { onChange } = this.props
-    const value = [
-      ...paramUtils.quickHandleChangeParams(
-        (quick.value as [DateTimeType, DateTimeType])[0],
-        true,
-        null,
-        null,
-        quick
-      )[0],
-    ]
-    if (onChange) onChange(value[0], value[1])
+    onChange(...paramUtils.quickHandleChangeParams(quick.value[0], true, null, null, quick))
   }
 
   handleMouse(isEnter: boolean, e: Event) {
@@ -91,7 +80,7 @@ class Picker extends PureComponent<PickerProps, PickerState> {
 
     const { index, handleHover } = this.props
 
-    handleHover(index, isEnter)
+    if (handleHover) handleHover(index, isEnter)
   }
 
   handleModeChange(mode: Mode) {
@@ -103,7 +92,6 @@ class Picker extends PureComponent<PickerProps, PickerState> {
   render() {
     const { mode } = this.state
     const { current, index, ...otherProps } = this.props
-    console.warn(current)
 
     let Render
     switch (mode) {
@@ -127,16 +115,19 @@ class Picker extends PureComponent<PickerProps, PickerState> {
       return (
         <div className={datepickerClass('split')}>
           <Quick {...otherProps} current={current || this.defaultCurrent} onChange={this.handleQuick} />
-          <Render {...otherProps} current={current || this.defaultCurrent} onModeChange={this.handleModeChange} />
+          <Render
+            {...otherProps}
+            current={(current || this.defaultCurrent) as Date}
+            onModeChange={this.handleModeChange}
+          />
         </div>
       )
-
     return (
       <div onMouseEnter={this.handleEnter} onMouseLeave={this.handleLeave}>
         <Render
           {...otherProps}
           index={index}
-          current={current || this.defaultCurrent}
+          current={(current || this.defaultCurrent) as Date}
           onModeChange={this.handleModeChange}
         />
       </div>

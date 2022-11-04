@@ -1,22 +1,29 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import { getParent, focusElement } from '../utils/dom/element'
 import utils from './utils'
 import { datepickerClass } from './styles'
 import { getLocale } from '../locale'
 import { TextProps } from './Props'
 
-let target = null
+let target: HTMLElement | null = null
 document.addEventListener(
   'mousedown',
   e => {
     // eslint-disable-next-line prefer-destructuring
-    target = e.target
+    target = e.target as HTMLElement
   },
   true
 )
 
+const DefaultValue = {
+  value: '',
+}
+
 class Text extends PureComponent<TextProps> {
+  static defaultProps = DefaultValue
+
+  element: HTMLSpanElement
+
   constructor(props: TextProps) {
     super(props)
 
@@ -26,7 +33,7 @@ class Text extends PureComponent<TextProps> {
     this.bindElement = this.bindElement.bind(this)
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: TextProps) {
     if (
       prevProps.focus !== this.props.focus &&
       this.props.focus &&
@@ -42,13 +49,13 @@ class Text extends PureComponent<TextProps> {
     return { timeZone, weekStartsOn: getLocale('startOfWeek') }
   }
 
-  bindElement(el) {
+  bindElement(el: HTMLSpanElement) {
     const { onTextSpanRef } = this.props
     this.element = el
     if (onTextSpanRef) onTextSpanRef(el)
   }
 
-  handleBlur(e) {
+  handleBlur(e: React.FocusEvent<HTMLSpanElement>) {
     const { format, index, onChange, value } = this.props
     const txt = e.target.innerText
     if (getParent(target, `.${datepickerClass('picker')}`)) return
@@ -56,26 +63,27 @@ class Text extends PureComponent<TextProps> {
     if (txt.trim().length === 0) {
       onChange(undefined, index, e)
     } else {
-      const newValue = utils.toDateWithFormat(txt, format, undefined, this.getOptions())
+      const newValue = utils.toDateWithFormat(txt, format as string, undefined, this.getOptions())
       // if translate fail, clear
       if (!newValue) {
+        // @ts-ignore
         this.element.innerText = null
       }
       onChange(newValue, index, e)
     }
   }
 
-  handleFocus(e) {
+  handleFocus(e: React.FocusEvent) {
     const { onTextSpanRef } = this.props
-    if (onTextSpanRef) onTextSpanRef(e.target)
+    if (onTextSpanRef) onTextSpanRef(e.target as HTMLSpanElement)
   }
 
-  handleInput(e) {
+  handleInput(e: React.KeyboardEvent<HTMLSpanElement>) {
     if (e.keyCode === 13) {
       e.preventDefault()
       e.stopPropagation()
       this.element.blur()
-      this.handleBlur(e)
+      this.handleBlur(e as any)
 
       // must wait for handleBlur to finish executing
       Promise.resolve().then(() => {
@@ -89,7 +97,7 @@ class Text extends PureComponent<TextProps> {
 
     if (!inputable || disabled || !focus) {
       return (
-        <span onClick={this.handleFocus} className={className}>
+        <span onClick={this.handleFocus as any} className={className}>
           {value || placeholder}
         </span>
       )
@@ -107,25 +115,6 @@ class Text extends PureComponent<TextProps> {
       />
     )
   }
-}
-
-Text.propTypes = {
-  disabled: PropTypes.bool,
-  className: PropTypes.string,
-  format: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-  index: PropTypes.number,
-  inputable: PropTypes.bool,
-  onChange: PropTypes.func,
-  placeholder: PropTypes.any,
-  value: PropTypes.string,
-  onTextSpanRef: PropTypes.func,
-  focus: PropTypes.bool,
-  focusElement: PropTypes.instanceOf(Element),
-  timeZone: PropTypes.string,
-}
-
-Text.defaultProps = {
-  value: '',
 }
 
 export default Text

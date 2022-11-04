@@ -10,8 +10,8 @@ import weekOfYear from 'dayjs/plugin/weekOfYear'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import enLocale from 'dayjs/locale/en'
-import { DateTimeType } from './interface'
-import { Mode } from './Picker'
+import { DateTimeType } from './Props'
+import { Mode } from './Props'
 
 interface DateOptions {
   timeZone?: string
@@ -36,7 +36,7 @@ dayjs.extend(quarterOfYear)
 
 const TIME_FORMAT = 'HH:mm:ss'
 
-const compatibleFmt = (fmt: string) => {
+const compatibleFmt = (fmt?: string) => {
   if (typeof fmt !== 'string') return fmt
   const trans = {
     yy: 'YY',
@@ -112,7 +112,7 @@ function addYears(date: Date, offset: number, options: DateOptions) {
   return ud
 }
 
-function changeDate(date: Date, type: Mode, num: number, options: DateOptions) {
+function changeDate(date: Date, type: Mode | 'date', num: number, options: DateOptions) {
   const zd = transDateWithZone(date, options)
   // type is year month ...
   const d = (dayjs(zd) as any)[type](num).toDate()
@@ -134,7 +134,7 @@ function compareAsc(dateA: DateTimeType, dateB: DateTimeType) {
   return a > b ? 1 : -1
 }
 
-function format(date: Date, fmt: string, options: DateOptions = {}) {
+function format(date: Date, fmt?: string, options: DateOptions = {}) {
   if (!date) return 'Invalid Date'
   const fmt2 = compatibleFmt(fmt)
   let zd = date
@@ -169,12 +169,12 @@ function isValid(date: DateTimeType) {
   return dayjs(date).isValid()
 }
 
-function parse(d: DateTimeType, fmt: string, options?: DateOptions) {
+function parse(d: DateTimeType, fmt?: string, options?: DateOptions) {
   if (!d) return new Date('')
   // should clear[xxx]
   const reg = /[[]([^[^\]]+?)[\]]/g
   const date = d && typeof d === 'string' && d.replace ? d.replace(reg, ' ') : d
-  const fmt2 = compatibleFmt(fmt).replace(reg, ' ')
+  const fmt2 = compatibleFmt(fmt)!.replace(reg, ' ')
 
   // handle IOS Year Week
   const index = fmt2.indexOf('GGGG')
@@ -248,7 +248,7 @@ function isInvalid(date: unknown) {
 
 // function toDateWithFormat(dirtyDate: Date, fmt: string, def: DateTimeType, options: DateOptions): Date
 // function toDateWithFormat(dirtyDate: DateTimeType, fmt: string, def: DateTimeType, options: DateOptions): DateTimeType
-function toDateWithFormat(dirtyDate: DateTimeType, fmt: string, def?: Date, options?: DateOptions) {
+function toDateWithFormat(dirtyDate: DateTimeType, fmt?: string, def?: Date, options?: DateOptions) {
   let date: Date
   if (typeof dirtyDate === 'string') {
     date = parse(dirtyDate, fmt, options)
@@ -327,7 +327,7 @@ function setTime(date: Date, old: Date) {
   return date
 }
 
-function cloneTime(date: Date, old: Date, fmt: string, options: DateOptions) {
+function cloneTime(date: Date, old: Date, fmt?: string, options?: DateOptions) {
   if (!date) return date
   const oldDate = toDateWithFormat(old, fmt, undefined, options)
   if (isInvalid(oldDate)) return date

@@ -80,7 +80,7 @@ export default <Props extends DatePickerValueProps>(Origin: React.ComponentType<
       if (!range) {
         const newValue = utils.format(
           utils.toDateWithFormat(value as Date, format, undefined, this.getOptions()),
-          format,
+          format as string,
           this.getOptions()
         )
         if (newValue !== value) this.props.onChange!(newValue)
@@ -93,7 +93,11 @@ export default <Props extends DatePickerValueProps>(Origin: React.ComponentType<
 
       const newValue: Date[] = (value as Date[]).map(v => {
         if (!v) return undefined
-        return utils.format(utils.toDateWithFormat(v, format, undefined, this.getOptions()), format, this.getOptions())
+        return utils.format(
+          utils.toDateWithFormat(v, format, undefined, this.getOptions()),
+          format as string,
+          this.getOptions()
+        )
       })
 
       if (!shallowEqual(newValue, value)) {

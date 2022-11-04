@@ -5,9 +5,9 @@ import utils from './utils'
 import { isRTL } from '../config'
 import paramUtils from './paramUtils'
 import { getLocale } from '../locale'
-import { TimeProps } from './Props'
+import { UnionPannelProps } from './Props'
 
-class Time<Value> extends PureComponent<TimeProps<Value>> {
+class Time<Value> extends PureComponent<UnionPannelProps<Value>> {
   defaultValue: Date
 
   handleMinuteChange: any
@@ -18,7 +18,7 @@ class Time<Value> extends PureComponent<TimeProps<Value>> {
 
   handleAMPMChange: any
 
-  constructor(props: TimeProps<Value>) {
+  constructor(props: UnionPannelProps<Value>) {
     super(props)
 
     this.defaultValue = this.getDefaultTime()
@@ -41,8 +41,8 @@ class Time<Value> extends PureComponent<TimeProps<Value>> {
     const current = utils.newDate()
     const { index, defaultTime, format } = this.props
     if (typeof index === 'number') idx = index
-    if (!defaultTime[idx]) return current
-    return utils.cloneTime(current, defaultTime[idx], format, this.getOptions())
+    if (!defaultTime![idx]) return current
+    return utils.cloneTime(current, defaultTime![idx], format, this.getOptions())
   }
 
   getValue() {
