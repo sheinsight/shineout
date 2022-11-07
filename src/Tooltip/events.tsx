@@ -1,11 +1,15 @@
 import classnames from 'classnames'
 import ReactDOM from 'react-dom'
+import { CSSProperties, ReactElement } from "react"
 import { tooltipClass } from './styles'
 import getCommonContainer from '../utils/dom/popContainer'
+import {ContainerOptions} from './Props'
 
 const div = document.createElement('div')
-let timer
+let timer: NodeJS.Timeout
 div.style.display = 'none'
+
+const transStyle = (value: (number | string) = '') =>  typeof value === 'number' ? `${value}px` : value
 
 getCommonContainer().appendChild(div)
 
@@ -17,7 +21,7 @@ const inner = document.createElement('div')
 inner.className = tooltipClass('inner')
 div.appendChild(inner)
 
-let currentId
+let currentId: string | undefined
 
 export function hide() {
   if (timer) clearTimeout(timer)
@@ -31,14 +35,14 @@ function clickaway() {
   document.removeEventListener('click', clickaway)
 }
 
-export function show(props, id, innerStyle) {
-  const { position, style, tip, trigger, animation, className: cn } = props
+export const show: ContainerOptions['show'] =  (props, id, innerStyle) => {
+  const { position, style = {}, tip, trigger, animation, className: cn } = props
 
   currentId = id
 
   div.style.cssText = 'display: none'
-  Object.keys(style).forEach(k => {
-    div.style[k] = style[k]
+  Object.keys(style).forEach((k: (keyof CSSProperties)) => {
+    div.style[k as any] = transStyle(style[k])
   })
 
   const className = tooltipClass('_', 'in', position, animation && 'animation')
@@ -49,12 +53,12 @@ export function show(props, id, innerStyle) {
     div.className = classnames(className, cn)
   }, 0)
 
-  ReactDOM.render(tip, inner)
+  ReactDOM.render(tip as ReactElement, inner)
 
-  inner.setAttribute('style', false)
+  inner.setAttribute('style', '')
   if (innerStyle) {
-    Object.keys(innerStyle).forEach(k => {
-      inner.style[k] = typeof innerStyle[k] === 'number' ? `${innerStyle[k]}px` : innerStyle[k]
+    Object.keys(innerStyle).forEach((k : keyof CSSProperties)=> {
+      inner.style[k as any] = transStyle(innerStyle[k])
     })
   }
 
@@ -63,13 +67,11 @@ export function show(props, id, innerStyle) {
   }
 }
 
-export function move(id, pos) {
+export const move:ContainerOptions['move'] = (id, pos) => {
   if (id === currentId) {
     // eslint-disable-next-line no-return-assign
-    Object.keys(pos).map(key => (div.style[key] = pos[key]))
+    Object.keys(pos).map((key: keyof typeof pos) => (div.style[key] = transStyle(pos[key])))
   }
 }
 
-export function isCurrent(id) {
-  return id === currentId
-}
+export const isCurrent: ContainerOptions['isCurrent'] = (id) => id === currentId
