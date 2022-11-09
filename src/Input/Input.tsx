@@ -5,7 +5,7 @@ import cleanProps from '../utils/cleanProps'
 import Clear from './clear'
 import { inputClass } from './styles'
 import InputTitle from '../InputTitle'
-import { InputProps } from './Props'
+import { Props } from './Props'
 
 function regLength(size?: number) {
   return /\d+/.test(String(size)) && size! > 0 ? `{0,${size}}` : '*'
@@ -25,7 +25,7 @@ const DefaultValue = {
   type: 'text',
 }
 
-class Input extends PureComponent<InputProps<string>> {
+class Input extends PureComponent<Props<string>> {
   static defaultProps: any = DefaultValue
 
   enterLock: boolean
@@ -34,7 +34,7 @@ class Input extends PureComponent<InputProps<string>> {
 
   enterPress: boolean
 
-  constructor(props: InputProps<string>) {
+  constructor(props: Props<string>) {
     super(props)
     this.enterLock = false
     this.handleChange = this.handleChange.bind(this)
@@ -170,7 +170,7 @@ class Input extends PureComponent<InputProps<string>> {
     if (onBlur) onBlur(e)
   }
 
-  handleAutoSelect(event: React.FocusEvent) {
+  handleAutoSelect(event: React.MouseEvent<HTMLElement>) {
     const { onFocus } = this.props
     const { autoSelect } = this.props
     if (autoSelect) {
@@ -248,7 +248,7 @@ class Input extends PureComponent<InputProps<string>> {
           onKeyDown={this.handleKeyDown}
           onKeyUp={this.handleKeyUp}
           onBlur={this.handleBlur}
-          onFocus={this.handleAutoSelect}
+          onFocus={this.handleAutoSelect as any}
         />
       </InputTitle>,
       showClear && <Clear onClick={this.handleChange} key="close" clearResult={needClearUndefined ? undefined : ''} />,

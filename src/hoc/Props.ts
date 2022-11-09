@@ -57,12 +57,7 @@ export interface DelayProps<Value> {
   onChange: (...args: any) => void
 }
 
-interface BaseDelayProps {
-  forceChange?: (value: unknown, ...args: unknown[]) => void
-  cancelChange?: () => void
-}
-
-export type GetDelayProps<Props> = Props & BaseDelayProps
+export type GetDelayProps<Props> = Omit<Props, 'forceChange' | 'cancelChange'>
 
 export interface CoinProps {
   value?: string | number

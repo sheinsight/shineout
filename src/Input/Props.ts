@@ -7,7 +7,7 @@ import { GetInputBorderProps, GetDelayProps } from '../hoc/Props'
 type ReactNode = React.ReactNode
 export type numType = 'positive' | 'non-negative'
 
-export interface ExportProps<Value = string> extends StandardProps, FormItemStandardProps<Value> {
+export interface Props<Value = string> extends StandardProps, FormItemStandardProps<Value> {
   width?: number
   delay?: number
   clearable?: boolean | (() => void)
@@ -37,10 +37,15 @@ export interface ExportProps<Value = string> extends StandardProps, FormItemStan
   autoSelect?: boolean
   autoFix?: boolean
   htmlName?: string
+  disabled?: boolean
+  inputFocus?: boolean
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void
+  cancelChange?: () => void
+  forceChange?: (value: unknown, ...args: unknown[]) => void
+  onFocus?: (e: React.MouseEvent<HTMLElement>) => void
 }
 
-export type InputProps<Value> = GetInputableProps<GetInputBorderProps<GetDelayProps<ExportProps<Value>>>, Value>
+export type InputProps<Value> = GetInputableProps<GetInputBorderProps<GetDelayProps<Props<Value>>>, Value>
 
 export class InputClass<Value = string> extends React.Component<InputProps<Value>, {}> {
   static Number: typeof InputNumberClass
@@ -58,7 +63,7 @@ export interface ClearProps {
 }
 
 // Input.Number 对内
-export interface InputNumber extends ExportProps {
+export interface InputNumber extends Props {
   min?: number
   max?: number
   step?: number
@@ -78,7 +83,7 @@ export class InputNumberClass extends React.Component<InputNumberProps, {}> {
 }
 
 // Input.Password 对内
-export interface InputPassword extends ExportProps {
+export interface InputPassword extends Props {
   point?: string
   value: string
   onChange: (value: string) => void
