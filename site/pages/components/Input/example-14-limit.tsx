@@ -7,7 +7,7 @@
 import React, { useState } from 'react'
 import { Input, TYPE } from 'shineout'
 
-type InputProps = TYPE.Input.Props<string>
+type InputProps = TYPE.Input.Props
 type InputOnKeyUp = InputProps['onKeyUp']
 type InputOnKeyDown = InputProps['onKeyDown']
 

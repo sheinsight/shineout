@@ -1,20 +1,36 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import icons from '../icons'
 import Input from './Input'
 import { inputClass } from './styles'
 import { isRTL } from '../config'
 import { sub } from '../utils/numbers'
 import { getDirectionClass } from '../utils/classname'
+import { InputNumber } from './Props'
 
-class Number extends PureComponent {
-  constructor(props) {
+const DefaultValue = {
+  step: 1,
+  allowNull: false,
+  hideArrow: false,
+}
+
+class Number extends PureComponent<InputNumber> {
+  static defaultProps: any = DefaultValue
+
+  hold: boolean
+
+  handleAddClick: React.MouseEventHandler<HTMLAnchorElement>
+
+  handleSubClick: React.MouseEventHandler<HTMLAnchorElement>
+
+  keyPressTimeOut: NodeJS.Timer
+
+  constructor(props: InputNumber) {
     super(props)
 
     this.handleBlur = this.handleBlur.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleAddClick = this.handleCalc.bind(this, props.step)
-    this.handleSubClick = this.handleCalc.bind(this, -props.step)
+    this.handleSubClick = this.handleCalc.bind(this, -props.step!)
     this.handleMouseUp = this.handleMouseUp.bind(this)
     this.handleKeyDown = this.handleKeyDown.bind(this)
     this.handleKeyUp = this.handleKeyUp.bind(this)
@@ -25,49 +41,49 @@ class Number extends PureComponent {
     if (this.keyPressTimeOut) clearTimeout(this.keyPressTimeOut)
   }
 
-  handleChange(value, check, isEmpty) {
+  handleChange(value: string | number | null | undefined, check: boolean, isEmpty?: boolean) {
     if (isEmpty || value === undefined) {
       this.props.onChange(value)
       return
     }
 
     if (!check) {
-      if (new RegExp('^-?\\d*\\.?\\d*$').test(value)) {
+      if (new RegExp('^-?\\d*\\.?\\d*$').test((value as unknown) as string)) {
         this.props.onChange(value)
       }
       return
     }
-    const { digits, step, numType, allowNull } = this.props
+    const { digits, step = DefaultValue.step, numType, allowNull = DefaultValue.allowNull } = this.props
 
-    if (numType === 'positive' && value <= 0) {
+    if (numType === 'positive' && value! <= 0) {
       value = allowNull ? null : undefined
     } else if (typeof digits === 'number') {
-      value = parseFloat(value.toFixed(digits))
+      value = parseFloat((value as number).toFixed(digits))
     } else {
       const stepStr = step.toString()
       const dot = stepStr.lastIndexOf('.')
-      if (dot >= 0) value = parseFloat(value.toFixed(stepStr.length - dot))
+      if (dot >= 0) value = parseFloat((value as number).toFixed(stepStr.length - dot))
     }
 
     const { min, max } = this.props
 
-    if (max !== undefined && value > max) value = max
-    if (min !== undefined && value < min) value = min
+    if (max !== undefined && value! > max) value = max
+    if (min !== undefined && value! < min) value = min
 
     if (value !== this.props.value) {
       this.props.onChange(value)
     }
   }
 
-  handleBlur(e) {
+  handleBlur(e: React.FocusEvent<HTMLInputElement>) {
     this.hold = false
-    let value = parseFloat(e.target.value)
+    let value: number | null = parseFloat(e.target.value)
     // for the empty
     if (e.target.value === '' && this.props.allowNull) {
       value = null
     }
     // eslint-disable-next-line no-restricted-globals
-    if (isNaN(value)) value = 0
+    if (isNaN(value as number)) value = 0
     if (this.props.clearToUndefined && e.target.value === '' && this.props.value === undefined) {
       this.handleChange(undefined, true, true)
     } else {
@@ -76,10 +92,10 @@ class Number extends PureComponent {
     this.props.onBlur(e)
   }
 
-  changeValue(mod) {
+  changeValue(mod: number) {
     if (this.props.disabled) return
     let val = this.props.value
-    if (val === 0) val = '0'
+    if (((val as unknown) as number) === 0) val = '0'
     let value = parseFloat(`${val || ''}`.replace(/,/g, ''))
     // eslint-disable-next-line
     if (isNaN(value)) value = 0
@@ -94,14 +110,14 @@ class Number extends PureComponent {
       return
     }
 
-    if (integerLimit && String(parseInt(calculateVal, 10)).length > integerLimit) {
+    if (integerLimit && String(parseInt((calculateVal as unknown) as string, 10)).length > integerLimit) {
       return
     }
 
     this.handleChange(calculateVal, true)
   }
 
-  longPress(mod) {
+  longPress(mod: number) {
     if (!this.hold) return
     setTimeout(() => {
       this.changeValue(mod)
@@ -109,8 +125,8 @@ class Number extends PureComponent {
     }, 50)
   }
 
-  handleKeyDown(e) {
-    const { step } = this.props
+  handleKeyDown(e: React.KeyboardEvent) {
+    const { step = DefaultValue.step } = this.props
     this.hold = true
     if (e.keyCode !== 38 && e.keyCode !== 40) return
     e.preventDefault()
@@ -122,7 +138,7 @@ class Number extends PureComponent {
     }, 600)
   }
 
-  handleCalc(mod) {
+  handleCalc(mod: number) {
     const { onMouseDown } = this.props
     if (onMouseDown) onMouseDown()
     this.hold = true
@@ -211,31 +227,6 @@ class Number extends PureComponent {
       ...this.renderArrowGroup(),
     ]
   }
-}
-
-Number.propTypes = {
-  disabled: PropTypes.bool,
-  min: PropTypes.number,
-  max: PropTypes.number,
-  onMouseDown: PropTypes.func,
-  onMouseUp: PropTypes.func,
-  onBlur: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired,
-  step: PropTypes.number,
-  digits: PropTypes.number,
-  integerLimit: PropTypes.number,
-  numType: PropTypes.string,
-  autoSelect: PropTypes.bool,
-  allowNull: PropTypes.bool,
-  hideArrow: PropTypes.bool,
-  clearToUndefined: PropTypes.bool,
-  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-}
-
-Number.defaultProps = {
-  step: 1,
-  allowNull: false,
-  hideArrow: false,
 }
 
 export default Number

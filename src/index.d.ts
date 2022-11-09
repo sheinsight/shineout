@@ -76,7 +76,7 @@ export { default as Image } from './Image'
 import { ImageProps as __ImageProps, ImageGroupProps as __ImageGroupProps,  } from './Image/interface'
 
 export { default as Input } from './Input'
-import { InputProps as __InputProps, InputNumberProps as __InputNumberProps, InputGroupProps as __InputGroupProps, InputPasswordProps as __InputPasswordProps, numType as __numType } from './Input'
+import { InputProps as __InputProps, InputGroupProps as __InputGroupProps, InputNumberProps as __InputNumberProps, InputPasswordProps as __InputPasswordProps } from './Input/interface'
 
 export { default as Lazyload } from './Lazyload'
 
@@ -102,7 +102,7 @@ export { default as Radio } from './Radio'
 import { RadioProps as __RadioProps, RadioGroupProps as __RadioGroupProps } from './Radio/interface'
 
 export { default as Rate } from './Rate'
-import { RateProps as __RateProps,  } from './Rate'
+import { RateProps as __RateProps } from './Rate/interface'
 
 export { default as Rule } from './Rule'
 import { Max as __Max, Min as __Min, Type as __Type, Range as __Range, Required as __Required, validFunc as __validFunc, paramFunc as __paramFunc, RuleParams as __RuleParams, RuleResult as __RuleResult, RegExpParams as __RegExpParams, RuleCommon as __RuleCommon, RuleItemResult as __RuleItemResult, RuleCommonValue as __RuleCommonValue, InnerRuleFunc as __InnerRuleFunc, RuleParamsType as __RuleParamsType } from './Rule'
@@ -245,11 +245,11 @@ export namespace TYPE {
     export type GroupProps = __ImageGroupProps
   }
   export namespace Input {
-    export type Props<Value> = __InputProps<Value>
-    export type NumberProps<Value> = __InputNumberProps<Value>
-    export type GroupProps<Value = string> = __InputGroupProps<Value>
-    export type PasswordProps<Value = string> = __InputPasswordProps<Value>  
-    export type numType = __numType
+  
+    export type Props = __InputProps
+    export type GroupProps = __InputGroupProps
+    export type NumberProps = __InputNumberProps
+    export type PasswordProps = __InputPasswordProps
   }
   export namespace Menu {
     export type Props<Item, Value> = __MenuProps<Item, Value>
@@ -279,6 +279,7 @@ export namespace TYPE {
     export type GroupProps<Value, Item> = __RadioGroupProps<Value, Item>
   }
   export namespace Rate {
+  
     export type Props = __RateProps
   }
   export namespace Rule {

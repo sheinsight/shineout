@@ -2,10 +2,10 @@ import React, { PureComponent } from 'react'
 import config from '../config'
 
 interface TrimProps {
-  onBlur: (e: React.MouseEvent<HTMLElement>) => void
-  onChange: (v: string) => void
-  trim: boolean
-  value: string
+  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void
+  onChange?: (v: string) => void
+  trim?: boolean
+  value?: string
 }
 export default <T extends TrimProps>(Origin: React.ComponentType<T>) =>
   class extends PureComponent<T> {
@@ -21,12 +21,12 @@ export default <T extends TrimProps>(Origin: React.ComponentType<T>) =>
       return false
     }
 
-    handleBlur(e: React.MouseEvent<HTMLInputElement>) {
+    handleBlur(e: React.FocusEvent<HTMLInputElement>) {
       const { value, onBlur, onChange } = this.props
       const trim = this.getTrim()
       if (trim) {
         const tv = (e.target as HTMLInputElement).value.trim()
-        if (value !== tv) onChange(tv)
+        if (value !== tv && onChange) onChange(tv)
       }
       if (onBlur) onBlur(e)
     }

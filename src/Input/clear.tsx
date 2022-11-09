@@ -1,19 +1,19 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { inputClass } from './styles'
+import { ClearProps } from './Props'
 
-class Clear extends Component {
-  constructor(props) {
+class Clear extends Component<ClearProps> {
+  constructor(props: ClearProps) {
     super(props)
     this.handleClick = this.handleClick.bind(this)
   }
 
-  handleClick(e) {
+  handleClick(e: React.MouseEvent) {
     // do not blur
     e.preventDefault()
 
     const { onClick, clearResult } = this.props
-    if (onClick) onClick({ target: { value: clearResult } }, true)
+    if (onClick) onClick({ target: { value: clearResult } } as any, true)
   }
 
   render() {
@@ -23,11 +23,6 @@ class Clear extends Component {
       </div>
     )
   }
-}
-
-Clear.propTypes = {
-  onClick: PropTypes.func,
-  clearResult: PropTypes.any,
 }
 
 export default Clear

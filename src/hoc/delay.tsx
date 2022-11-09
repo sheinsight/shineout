@@ -1,19 +1,14 @@
 import React, { PureComponent } from 'react'
 import config from '../config'
 import { curry } from '../utils/func'
-
-interface DelayProps {
-  delay?: number
-  onChange: (...args: any) => void
-  value?: any
-}
+import { DelayProps } from './Props'
 
 interface DelayState {
   value?: unknown
 }
 
 export default curry(
-  <U extends DelayProps >(defaultDelay: number, Origin: React.ComponentType<U>) =>
+  <Value, U extends DelayProps<Value>>(defaultDelay: number, Origin: React.ComponentType<U>) =>
     class extends PureComponent<U, DelayState> {
       changeLocked: boolean
 
@@ -75,7 +70,7 @@ export default curry(
         const { value, onChange, ...props } = this.props
         return (
           <Origin
-            {...(props as U)}
+            {...props as U}
             value={this.getValue()}
             onChange={this.handleChange}
             forceChange={this.forceChange}

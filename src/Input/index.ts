@@ -8,14 +8,16 @@ import Input from './Input'
 import Number from './Number'
 import Group from './Group'
 import Password from './Password'
+import { InputType } from './Props'
 
-const exports = compose(
+const exports: any = compose(
   inputable,
   inputBorder({}),
   delay(400),
   trim,
   coin('input')
 )(Input)
+
 exports.Group = inputBorder({ tag: 'div', isGroup: true, from: 'input' })(Group)
 exports.Number = compose(
   inputable,
@@ -32,4 +34,4 @@ exports.Number.displayName = 'ShineoutInputNumber'
 exports.Password.displayName = 'ShineoutInputPassword'
 exports.Group.displayName = 'ShineoutInputGroup'
 
-export default exports
+export default exports as InputType
