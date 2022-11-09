@@ -102,7 +102,7 @@ export { default as Radio } from './Radio'
 import { RadioProps as __RadioProps, RadioGroupProps as __RadioGroupProps } from './Radio/interface'
 
 export { default as Rate } from './Rate'
-import { RateProps as __RateProps,  } from './Rate'
+import { RateProps as __RateProps } from './Rate/interface'
 
 export { default as Rule } from './Rule'
 import { Max as __Max, Min as __Min, Type as __Type, Range as __Range, Required as __Required, validFunc as __validFunc, paramFunc as __paramFunc, RuleParams as __RuleParams, RuleResult as __RuleResult, RegExpParams as __RegExpParams, RuleCommon as __RuleCommon, RuleItemResult as __RuleItemResult, RuleCommonValue as __RuleCommonValue, InnerRuleFunc as __InnerRuleFunc, RuleParamsType as __RuleParamsType } from './Rule'
@@ -137,7 +137,7 @@ export { default as Textarea } from './Textarea'
 import { TextareaProps as __TextareaProps,  } from './Textarea'
 
 export { default as Tooltip } from './Tooltip'
-import { TooltipProps as __TooltipProps,  } from './Tooltip'
+import { TooltipProps as __TooltipProps } from './Tooltip/interface'
 
 export { default as Transfer } from './Transfer'
 import { TransferProps as __TransferProps,  } from './Transfer'
@@ -279,6 +279,7 @@ export namespace TYPE {
     export type GroupProps<Value, Item> = __RadioGroupProps<Value, Item>
   }
   export namespace Rate {
+  
     export type Props = __RateProps
   }
   export namespace Rule {
@@ -338,6 +339,7 @@ export namespace TYPE {
     export type Props = __TextareaProps
   }
   export namespace Tooltip {
+  
     export type Props = __TooltipProps
   }
   export namespace Transfer {

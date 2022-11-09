@@ -25,6 +25,8 @@ const DefaultProps = {
 }
 
 class Rate extends PureComponent<OriginRateProps, RateState> {
+  static defaultProps = DefaultProps
+
   highlightTimer: NodeJS.Timeout
 
   constructor(props: OriginRateProps) {
