@@ -4,7 +4,7 @@ import { docSize } from '../utils/dom/document'
 import { moveableClass } from './styles'
 import { getUidStr } from '../utils/uid'
 import { curry } from '../utils/func'
-import {MovableType} from './Props'
+import { MovableType } from './Props'
 
 const DIS_LIMIT = 50
 
@@ -12,7 +12,6 @@ interface BaseProps {
   style?: React.CSSProperties
   className?: string
 }
-
 
 interface MovableState {
   x: number

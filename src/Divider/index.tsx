@@ -27,5 +27,4 @@ class Divider extends PureComponent<DividerProps> {
   }
 }
 
-
 export default Divider

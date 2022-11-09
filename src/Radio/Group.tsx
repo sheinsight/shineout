@@ -7,10 +7,8 @@ import { Provider } from '../Checkbox/context'
 import { checkinputClass } from '../Checkbox/styles'
 import Radio from './Radio'
 import { isRTL } from '../config'
-import {RadioGroupProps} from './Props'
-import { CheckValueType } from "../Checkbox/Props"
-
-
+import { RadioGroupProps } from './Props'
+import { CheckValueType } from '../Checkbox/Props'
 
 class RadioGroup<DataItem, Value> extends PureComponent<RadioGroupProps<DataItem, Value>, {}> {
   static defaultProps = {
@@ -49,7 +47,7 @@ class RadioGroup<DataItem, Value> extends PureComponent<RadioGroupProps<DataItem
     return ''
   }
 
-  handleClick(_val: any, _checked: CheckValueType, index:number) {
+  handleClick(_val: any, _checked: CheckValueType, index: number) {
     const { data, datum } = this.props
     datum.set(data![index])
   }

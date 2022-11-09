@@ -9,10 +9,10 @@ const scripts: {
   [url: string]: HTMLScriptElement
 } = {}
 
-export default function icon(url: string, fontFamily = 'iconfont', prefix = 'icon'):React.ComponentType<IconProps> {
+export default function icon(url: string, fontFamily = 'iconfont', prefix = 'icon'): React.ComponentType<IconProps> {
   if (typeof url !== 'string') {
     console.error(`Shineout Icon url must be a string, but get ${url}`)
-    return null as unknown as React.ComponentType<IconProps>
+    return (null as unknown) as React.ComponentType<IconProps>
   }
   const ext = url.substr(url.lastIndexOf('.') + 1)
   if (ext === 'css' && !links[url]) {
