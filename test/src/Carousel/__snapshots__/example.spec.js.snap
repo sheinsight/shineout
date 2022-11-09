@@ -7,7 +7,9 @@ exports[`Carousel[snapshot] Snapshot test: Carousel[site/pages/components/Carous
     <div>
       <div>
         <div>
-          <span />
+          <span>
+            slide
+          </span>
           <a>
             <svg>
               <path />
@@ -25,7 +27,9 @@ exports[`Carousel[snapshot] Snapshot test: Carousel[site/pages/components/Carous
     <div>
       <div>
         <div>
-          <span />
+          <span>
+            center
+          </span>
           <a>
             <svg>
               <path />
@@ -43,7 +47,9 @@ exports[`Carousel[snapshot] Snapshot test: Carousel[site/pages/components/Carous
     <div>
       <div>
         <div>
-          <span />
+          <span>
+            circle
+          </span>
           <a>
             <svg>
               <path />

@@ -52,7 +52,7 @@ export default function<U extends PagableProps>(Component: React.ComponentType<O
           current: this.getProp('current'),
           pageSize: this.getProp('pageSize'),
           total,
-          disabled: loading,
+          disabled: !!loading,
         },
         pagination,
         { onChange: this.handleChange },
