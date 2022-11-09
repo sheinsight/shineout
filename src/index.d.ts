@@ -137,7 +137,7 @@ export { default as Textarea } from './Textarea'
 import { TextareaProps as __TextareaProps,  } from './Textarea'
 
 export { default as Tooltip } from './Tooltip'
-import { TooltipProps as __TooltipProps,  } from './Tooltip'
+import { TooltipProps as __TooltipProps } from './Tooltip/interface'
 
 export { default as Transfer } from './Transfer'
 import { TransferProps as __TransferProps,  } from './Transfer'
@@ -339,6 +339,7 @@ export namespace TYPE {
     export type Props = __TextareaProps
   }
   export namespace Tooltip {
+  
     export type Props = __TooltipProps
   }
   export namespace Transfer {

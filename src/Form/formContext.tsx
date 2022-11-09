@@ -5,6 +5,7 @@ import { isObject, isArray } from '../utils/is'
 import {  RuleParamsType } from "../Rule"
 import { ObjectType } from "../@types/common"
 import { FormContextValue, FormProviderProps, GetFormProviderConsumerProps } from './Props'
+import { curry3 } from "../utils/func"
 
 
 // 去掉独有的属性
@@ -85,10 +86,7 @@ export interface FormConsumerProps {
 }
 
 
-export const formConsumer =
-
-  (keys: (keyof FormContextValue)[]) =>
-    <U extends FormConsumerProps>(Origin: ComponentType<U>): React.FC<GetFormProviderConsumerProps<U>> => (props:U) => {
+export const formConsumer = curry3(<U extends FormConsumerProps>(keys: (keyof FormContextValue)[], Origin: ComponentType<U>, props: GetFormProviderConsumerProps<U>) => {
   const filterProps = (value?: ObjectType) => {
     const cps: ObjectType = {}
     if (!value) return cps
@@ -109,4 +107,5 @@ export const formConsumer =
       }}
     </Consumer>
   )
-}
+})
+

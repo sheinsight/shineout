@@ -1,15 +1,30 @@
-import React, { PureComponent, cloneElement, isValidElement } from 'react'
-import PropTypes from 'prop-types'
+import React, { PureComponent, cloneElement, isValidElement, CSSProperties } from "react"
 import { tooltipClass } from './styles'
 import { scrollConsumer } from '../Scroll/context'
 import { getUidStr } from '../utils/uid'
 import { getPosition } from '../utils/dom/popover'
+import { ContainerOptions, ContainerProps, ToolPosition, TriggerType  } from "./Props"
+import { ObjectType } from "../@types/common"
 
-export default function(options) {
+const DefaultProps = {
+  animation: true,
+  delay: 0,
+  position: 'top' as ToolPosition,
+  trigger: 'hover' as TriggerType,
+}
+export default function(options: ContainerOptions) {
   const { show, hide, move, isCurrent } = options
 
-  class Container extends PureComponent {
-    constructor(props) {
+  class Container extends PureComponent<ContainerProps> {
+    static defaultProps = DefaultProps
+
+    id: string
+
+    placeholderElement: HTMLElement
+
+    showTimer: NodeJS.Timeout
+
+    constructor(props: ContainerProps) {
       super(props)
       this.handleShow = this.handleShow.bind(this)
       this.handleDismiss = this.handleDismiss.bind(this)
@@ -19,7 +34,7 @@ export default function(options) {
       this.id = getUidStr()
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps: ContainerProps) {
       if (!move || !isCurrent(this.id)) return
 
       const { scrollLeft, scrollTop } = this.props
@@ -35,23 +50,23 @@ export default function(options) {
     }
 
     getElement() {
-      return this.placeholderElement.nextSibling
+      return this.placeholderElement.nextSibling as HTMLElement
     }
 
     getPosition() {
-      const { position } = this.props
+      const { position = DefaultProps.position } = this.props
       const el = this.getElement()
       return getPosition(position, el)
     }
 
-    elementRef(el) {
+    elementRef(el: HTMLElement) {
       this.placeholderElement = el
     }
 
     tryHide() {
       const { scrollElement } = this.props
       const rect = this.getElement().getBoundingClientRect()
-      const scrollRect = scrollElement ? scrollElement.getBoundingClientRect() : {}
+      const scrollRect = scrollElement ? scrollElement.getBoundingClientRect() : {top: 0, bottom: 0, left: 0, right: 0}
 
       if (
         rect.bottom < scrollRect.top ||
@@ -59,7 +74,7 @@ export default function(options) {
         rect.right < scrollRect.left ||
         rect.left > scrollRect.right
       ) {
-        hide(0)
+        hide()
       }
     }
 
@@ -82,23 +97,24 @@ export default function(options) {
 
     showSync() {
       const pos = this.getPosition()
-      const style = Object.keys(pos).reduce((data, key) => {
+      type PosType = typeof pos
+      const style = Object.keys(pos).reduce((data, key: keyof PosType) => {
         data[key] = pos[key]
         return data
-      }, {})
+      }, {} as CSSProperties)
       const props = Object.assign({}, this.props, { style })
       show(props, this.id, this.props.style)
     }
 
     render() {
-      const { children, trigger, disabledChild, tip, content } = this.props
+      const { children, trigger, disabledChild, tip } = this.props
 
       if (!isValidElement(children)) {
         console.error(new Error('Tooltip children expect a single ReactElement.'))
         return null
       }
 
-      if (!tip && !content) return children
+      if (!tip) return children
 
       const inner = disabledChild ? (
         <span className={tooltipClass('disabled-wrapper')} style={{ cursor: 'not-allowed' }}>
@@ -108,12 +124,12 @@ export default function(options) {
         children
       )
 
-      const props = { key: 'el' }
+      const props: ObjectType  = { key: 'el' }
       if (trigger === 'hover') {
         props.onMouseEnter = this.handleShow
         props.onMouseLeave = this.handleDismiss
       } else {
-        props.onClick = e => {
+        props.onClick = (e: Event) => {
           if (e) e.stopPropagation()
           setTimeout(this.handleShow, 10)
           if (children.props.onClick) children.props.onClick()
@@ -122,46 +138,6 @@ export default function(options) {
 
       return [<noscript ref={this.elementRef} key="ns" />, cloneElement(inner, props)]
     }
-  }
-
-  Container.propTypes = {
-    // eslint-disable-next-line
-    animation: PropTypes.bool,
-    children: PropTypes.element.isRequired,
-    // eslint-disable-next-line
-    content: PropTypes.oneOfType([
-      PropTypes.element,
-      PropTypes.func,
-    ]),
-    delay: PropTypes.number,
-    position: PropTypes.oneOf([
-      'top-left',
-      'top',
-      'top-right',
-      'left-top',
-      'left',
-      'left-bottom',
-      'right-top',
-      'right',
-      'right-bottom',
-      'bottom-left',
-      'bottom',
-      'bottom-right',
-    ]),
-    scrollElement: PropTypes.object,
-    scrollLeft: PropTypes.number,
-    scrollTop: PropTypes.number,
-    style: PropTypes.object,
-    trigger: PropTypes.oneOf(['click', 'hover']),
-    disabledChild: PropTypes.bool,
-    tip: PropTypes.node,
-  }
-
-  Container.defaultProps = {
-    animation: true,
-    delay: 0,
-    position: 'top',
-    trigger: 'hover',
   }
 
   return scrollConsumer(Container)
