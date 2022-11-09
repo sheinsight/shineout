@@ -119,10 +119,11 @@ class Item extends Component {
   }
 
   renderHelp(errors) {
-    if (errors.length > 0) {
+    const realErrors = errors.filter(e => e.message)
+    if (realErrors.length > 0) {
       return (
         <div className={formClass('error')}>
-          {errors.map((e, i) => (
+          {realErrors.map((e, i) => (
             <div key={i}>{e.message}</div>
           ))}
         </div>
@@ -196,6 +197,6 @@ Item.defaultProps = {
 export default Item
 
 // eslint-disable-next-line
-export const itemConsumer = Origin => (props) => {
+export const itemConsumer = Origin => props => {
   return <Consumer>{events => <Origin {...props} {...events} />}</Consumer>
 }

@@ -15,7 +15,7 @@ export default function (Component) {
   return class extends PureComponent {
     static propTypes = {
       data: PropTypes.any,
-      loading: PropTypes.bool,
+      loading: PropTypes.oneOfType([PropTypes.bool, PropTypes.node]),
       pagination: PropTypes.object.isRequired,
     }
 
@@ -43,7 +43,7 @@ export default function (Component) {
           current: this.getProp('current'),
           pageSize: this.getProp('pageSize'),
           total,
-          disabled: loading,
+          disabled: !!loading,
         },
         pagination,
         { onChange: this.handleChange },
