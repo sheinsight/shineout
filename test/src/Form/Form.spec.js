@@ -222,7 +222,6 @@ describe('Form[initValidate, keepErrorHeight, onError, rule]', () => {
     await delay(500)
     wrapper.update()
     expect(wrapper.find('.so-input-invalid').length).toBe(1)
-    console.log(wrapper.html())
     wrapper
       .find('button')
       .at(0)
