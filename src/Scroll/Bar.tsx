@@ -1,12 +1,13 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { scrollClass } from './styles'
 import fixedLength from './fixedLength'
 import { isRTL } from '../config'
+import { BarProps } from './Props'
 
-class ScrollBar extends PureComponent {
-  constructor(props) {
+class ScrollBar extends PureComponent<BarProps> {
+  handle: HT
+  constructor(props: BarProps) {
     super(props)
 
     this.state = {
@@ -24,7 +25,7 @@ class ScrollBar extends PureComponent {
     this.unbindEvent()
   }
 
-  toggleClassList(method) {
+  toggleClassList(method: 'remove' | 'add') {
     const { classList } = this.handle.parentNode.parentNode
     if (classList) {
       classList[method](scrollClass('dragging'))
@@ -125,21 +126,11 @@ class ScrollBar extends PureComponent {
 
     return (
       <div className={className} style={{ height: forceHeight }} onMouseDown={show ? this.handleBgClick : undefined}>
+        <input type="text" onChange={} />
         <div className={scrollClass('handle')} onMouseDown={this.handleBarClick} ref={this.bindHandle} style={style} />
       </div>
     )
   }
-}
-
-ScrollBar.propTypes = {
-  barLength: PropTypes.number.isRequired,
-  className: PropTypes.string,
-  direction: PropTypes.oneOf(['x', 'y']),
-  forceHeight: PropTypes.number,
-  length: PropTypes.number.isRequired,
-  offset: PropTypes.number.isRequired,
-  onScroll: PropTypes.func.isRequired,
-  scrollLength: PropTypes.number.isRequired,
 }
 
 ScrollBar.defaultProps = {
