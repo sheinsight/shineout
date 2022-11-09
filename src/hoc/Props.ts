@@ -20,8 +20,8 @@ type InputBorderFilterType =
   | 'underline'
   | 'style'
 interface BaseInputBorderProps {
-  onBlur?: <T>(e: T) => void
-  onFocus?: <T>(e: T) => void
+  onBlur?: (e: React.MouseEvent<HTMLElement>) => void
+  onFocus?: (e: React.MouseEvent<HTMLElement>) => void
   inputFocus?: boolean
 }
 export interface InputBorderProps {
