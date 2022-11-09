@@ -86,7 +86,6 @@ export default<Value,  U extends BaseInputProps, Item = any >(Origin: ComponentT
       this.handleError = this.handleError.bind(this)
       this.validate = this.validate.bind(this)
       this.validateHook = this.validateHook.bind(this)
-      this.forceValidate = this.forceValidate.bind(this)
 
       this.lastValue = formDatum && name ? formDatum.get(name) || {} : {}
     }
@@ -279,10 +278,6 @@ export default<Value,  U extends BaseInputProps, Item = any >(Origin: ComponentT
       if (fieldSetValidate) fieldSetValidate(true)
     }
 
-    forceValidate() {
-      this.validate(this.props.value)
-    }
-
     handleUpdate(value: Value, sn: string, type?: typeof ERROR_TYPE | typeof FORCE_PASS | typeof IGNORE_VALIDATE) {
       if (type === ERROR_TYPE) {
         if (!isSameError(value, this.state.error)) this.setState({ error: value })
@@ -342,7 +337,6 @@ export default<Value,  U extends BaseInputProps, Item = any >(Origin: ComponentT
           onChange={this.handleChange}
           onDatumBind={this.handleDatumBind}
           validateHook={this.validateHook}
-          forceValidate={this.forceValidate}
         />
       )
     }
