@@ -375,6 +375,13 @@ export class InputNumberClass extends React.Component<InputNumberProps, {}> {
 
 // Input.Password 对内
 export interface InputPassword extends Props {
+  /**
+   * password symbol
+   *
+   * 密码符号
+   *
+   * default: '.'
+   */
   point?: string
   value: string
   onChange: (value: string) => void

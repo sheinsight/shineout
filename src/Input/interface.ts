@@ -1,7 +1,7 @@
 import {
   InputProps as __InputProps,
-  InputNumberProps as __InputNumberProps,
   InputGroupProps as __InputGroupProps,
+  InputNumberProps as __InputNumberProps,
   InputPasswordProps as __InputPasswordProps,
 } from './Props'
 
