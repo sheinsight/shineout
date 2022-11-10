@@ -2,12 +2,10 @@ import React from 'react'
 import classname from 'classnames'
 import { range } from '../utils/numbers'
 
-import {OriginSpinProps} from './Props'
+import { OriginSpinProps } from './Props'
 
 export default function Spin(props: OriginSpinProps) {
-  const {
-    spinClass, count = 0, render, size, wrapperClass, wrapperStyle
-  } = props
+  const { spinClass, count = 0, render, size, wrapperClass, wrapperStyle } = props
 
   const style = Object.assign(
     {

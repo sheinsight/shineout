@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react"
+import React, { ReactElement } from 'react'
 import classnames from 'classnames'
 import config from '../config'
 import configable from '../hoc/config'
@@ -16,7 +16,7 @@ import {
   Default,
 } from './Multiple'
 import { Ring, Plane, Pulse } from './Simple'
-import { SpinName, SpinProps } from "./Props"
+import { SpinName, SpinProps } from './Props'
 
 const spins = {
   plane: Plane,
@@ -50,8 +50,8 @@ function getName(name?: SpinName) {
   return 'default'
 }
 
-const Spin: React.FC<SpinProps> =(props: SpinProps) =>{
-  const { children, style, className, size = 40, color ='#6c757d',  ...rest } = props
+const Spin: React.FC<SpinProps> = (props: SpinProps) => {
+  const { children, style, className, size = 40, color = '#6c757d', ...rest } = props
   const name = getName(props.name)
   const Component = spins[name]
   if (!Component) {
@@ -82,6 +82,5 @@ const Spin: React.FC<SpinProps> =(props: SpinProps) =>{
 }
 
 Spin.displayName = 'ShineoutSpin'
-
 
 export default configable(Spin, 'spin')

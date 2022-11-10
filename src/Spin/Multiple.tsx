@@ -11,9 +11,8 @@ import {
   threeBounceClass,
   fourDotsClass,
 } from './styles'
-import { formatSize } from "./util"
+import { formatSize } from './util'
 import { TypeSpinProps, OriginSpinProps } from './Props'
-
 
 function simpleRender(classname: OriginSpinProps['spinClass'], i: number, { color, itemStyle }: OriginSpinProps) {
   const style = Object.assign({ backgroundColor: color }, itemStyle)
@@ -60,7 +59,11 @@ export function ChasingRing(prop: TypeSpinProps) {
 
 // =============================================================================
 
-function multRenderDiv(className: OriginSpinProps['spinClass'], i: number, { color, itemStyle, itemClass }: OriginSpinProps) {
+function multRenderDiv(
+  className: OriginSpinProps['spinClass'],
+  i: number,
+  { color, itemStyle, itemClass }: OriginSpinProps
+) {
   const style = Object.assign({ backgroundColor: color }, itemStyle)
   return (
     <div key={i} className={className('item', itemClass)}>
@@ -85,7 +88,11 @@ export function Default(prop: TypeSpinProps) {
 
 // =============================================================================
 
-function multRenderSvg(className: OriginSpinProps['spinClass'], i: number, { color, itemSize, itemClass }: OriginSpinProps) {
+function multRenderSvg(
+  className: OriginSpinProps['spinClass'],
+  i: number,
+  { color, itemSize, itemClass }: OriginSpinProps
+) {
   return (
     <div key={i} className={className('item', itemClass)}>
       <svg width={itemSize} height={itemSize} viewBox="0 0 100 100">
@@ -95,7 +102,7 @@ function multRenderSvg(className: OriginSpinProps['spinClass'], i: number, { col
   )
 }
 
-function twelveCircle(prop: TypeSpinProps , type: OriginSpinProps['itemClass']) {
+function twelveCircle(prop: TypeSpinProps, type: OriginSpinProps['itemClass']) {
   const { value, unit } = formatSize(prop.size)
   const itemSize = (value / 7).toFixed(3) + unit
 

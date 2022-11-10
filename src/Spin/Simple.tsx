@@ -1,10 +1,8 @@
 import React from 'react'
 import Spin from './Spin'
 import { ringClass, planeClass, pulseClass } from './styles'
-import { TypeSpinProps } from "./Props"
-import { formatSize } from "./util"
-
-
+import { TypeSpinProps } from './Props'
+import { formatSize } from './util'
 
 export function Ring(obj: TypeSpinProps) {
   const { value, unit } = formatSize(obj.size)
