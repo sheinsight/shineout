@@ -1,5 +1,6 @@
 import React from 'react'
-import {  RegularAttributes } from '../@types/common'
+import { RegularAttributes } from '../@types/common'
+
 export interface defaultProptypes {
   className: string
   size: RegularAttributes.Size

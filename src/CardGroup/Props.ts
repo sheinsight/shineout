@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { StandardProps } from '../@types/common'
 
-type ReactNode = React.ReactNode;
+type ReactNode = React.ReactNode
 
 export interface CardContextValueType {
   /**
@@ -12,13 +12,9 @@ export interface CardContextValueType {
   container?: HTMLDivElement
 }
 
-
 export type GetCardConsumerProps<U> = Omit<U, keyof CardContextValueType>
 
-
-
 export interface CardGroupProps extends StandardProps {
-
   /**
    * group height
    *
@@ -26,7 +22,7 @@ export interface CardGroupProps extends StandardProps {
    *
    * default: none
    */
-  height?: number;
+  height?: number
 
   /**
    * card min width
@@ -35,7 +31,7 @@ export interface CardGroupProps extends StandardProps {
    *
    * default: none
    */
-  cardWidth?: number;
+  cardWidth?: number
 
   /**
    * items count each row, not work while cardWidth setted
@@ -44,7 +40,7 @@ export interface CardGroupProps extends StandardProps {
    *
    * default: 3
    */
-  columns?: number;
+  columns?: number
 
   /**
    * grid style
@@ -53,8 +49,7 @@ export interface CardGroupProps extends StandardProps {
    *
    * default: none
    */
-  gridStyle?: React.CSSProperties;
-
+  gridStyle?: React.CSSProperties
 
   /**
    * gutter width horizontal and vertical, if diff shoud set gridStyle
@@ -63,7 +58,7 @@ export interface CardGroupProps extends StandardProps {
    *
    * default: 16
    */
-  gutter?: number;
+  gutter?: number
 
   /**
    * children
@@ -72,12 +67,10 @@ export interface CardGroupProps extends StandardProps {
    *
    * default: -
    */
-  children?: ReactNode;
+  children?: ReactNode
 }
 
-
 export interface CardGroupItemProps<T> extends StandardProps, CardContextValueType {
-
   /**
    * desc: lazy load placeholder, enable lazy load while set
    *
@@ -85,7 +78,7 @@ export interface CardGroupItemProps<T> extends StandardProps, CardContextValueTy
    *
    * default: none
    */
-  placeholder?: ReactNode;
+  placeholder?: ReactNode
 
   /**
    * desc: checked status, hide while not set
@@ -94,7 +87,7 @@ export interface CardGroupItemProps<T> extends StandardProps, CardContextValueTy
    *
    * default: -
    */
-  checked?: boolean | undefined;
+  checked?: boolean | undefined
 
   /**
    * desc: disable checkbox
@@ -103,7 +96,7 @@ export interface CardGroupItemProps<T> extends StandardProps, CardContextValueTy
    *
    * default: false
    */
-  disabled?: boolean;
+  disabled?: boolean
 
   /**
    * desc: Specifies the result
@@ -112,7 +105,7 @@ export interface CardGroupItemProps<T> extends StandardProps, CardContextValueTy
    *
    * default: true
    */
-  value?: T;
+  value?: T
 
   /**
    * desc: check changed, value is the value props
@@ -121,7 +114,7 @@ export interface CardGroupItemProps<T> extends StandardProps, CardContextValueTy
    *
    * default: -
    */
-  onChange?: (checked: boolean, value: T) => void;
+  onChange?: (checked: boolean, value: T) => void
 
   /**
    * children
@@ -130,22 +123,17 @@ export interface CardGroupItemProps<T> extends StandardProps, CardContextValueTy
    *
    * default: -
    */
-  children?: ReactNode;
-
+  children?: ReactNode
 }
 export type GetCardGroupItemProps<T> = GetCardConsumerProps<CardGroupItemProps<T>>
-export class CardGroupItem<Value = any> extends React.Component<GetCardGroupItemProps<Value>, {}> {
-  // @ts-ignore
-  render(): JSX.Element;
+export declare class CardGroupItem<Value = any> extends React.Component<GetCardGroupItemProps<Value>, {}> {
+  render(): JSX.Element
 }
 
-
-export class CardGroup extends React.Component<CardGroupProps, {}> {
+export declare class CardGroup extends React.Component<CardGroupProps, {}> {
   static Item: typeof CardGroupItem
 
-  // @ts-ignore
-  render(): JSX.Element;
+  render(): JSX.Element
 }
 
-export type  CardGroupType = typeof CardGroup
-
+export type CardGroupType = typeof CardGroup
