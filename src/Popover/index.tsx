@@ -1,5 +1,5 @@
 import _Popover from './Panel'
-import Confirm from './Panel'
+import Confirm from './Confirm'
 import Content from './Content'
 
 import { PopoverType } from './Props'

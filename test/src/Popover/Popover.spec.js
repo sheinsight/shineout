@@ -186,45 +186,6 @@ describe('Popover[onOpen/onClose/onVisibleChange]', () => {
   })
 })
 
-describe('Popover[content]', () => {
-  test('should set content', () => {
-    jest.useFakeTimers()
-    document.querySelectorAll(`.${SO_PREFIX}-popover`).forEach(item => {
-      item.remove()
-    })
-
-    const wrapper = mount(
-      <Popover trigger="click" content={<div>233</div>}>
-        <Button>Hover</Button>
-      </Popover>
-    )
-    jest.runAllTimers()
-    expect(wrapper.find(Button).length).toBe(1)
-    dispatchEvent(wrapper.find('button').instance(), 'click')
-    expect(document.getElementsByClassName(`${SO_PREFIX}-popover-content`).length).toBe(1)
-    wrapper.unmount()
-  })
-
-  test('should set content click', () => {
-    jest.useFakeTimers()
-    document.querySelectorAll(`.${SO_PREFIX}-popover`).forEach(item => {
-      item.remove()
-    })
-    const content = <div>Some text</div>
-    const wrapper = mount(
-      <Popover trigger="click" content={content}>
-        <Button>Hover</Button>
-      </Popover>
-    )
-    jest.runAllTimers()
-    expect(wrapper.find(Button).length).toBe(1)
-    wrapper.find(Button).simulate('click')
-    expect(document.getElementsByClassName(`${SO_PREFIX}-popover-content`).length).toBe(1)
-    wrapper.unmount()
-  })
-
-})
-
 describe('Popover[priorityDirection]', () => {
   test('should set priorityDirection', () => {
     jest.useFakeTimers()
