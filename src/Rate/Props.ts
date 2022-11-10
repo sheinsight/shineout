@@ -1,8 +1,11 @@
-import React, { ReactNode } from 'react'
-import { FormItemStandardProps } from '../@types/common'
+import { ReactElement, ReactNode } from "react"
+import { StandardProps } from "../@types/common"
+import { GetInputableProps } from "../Form/Props"
 
-export declare interface RateProps extends
-  Pick<FormItemStandardProps<number>, 'value' | 'defaultValue' | 'onChange'> {
+
+
+
+export declare interface OriginRateProps extends ArgProps, StandardProps{
   /**
    * Whether to allow semi selection
    *
@@ -65,12 +68,45 @@ export declare interface RateProps extends
    * default: -
    */
   text?: Array<ReactNode>;
+
+  /**
+   * Selected key (controlled)
+   *
+   * 选中的 key （受控)
+   *
+   * default: -
+   */
+  value: number;
+
+  /**
+   * value change callback
+   *
+   * 值改变回调
+   *
+   * default: -
+   */
+  onChange: (value: number) => void;
+
+}
+export interface ArgProps {
+  /**
+   * Unselected element background
+   *
+   * 未选中元素背景
+   *
+   * default: -
+   */
+  background?: ReactElement | Array<ReactElement>;
+
+  /**
+   * selected element background
+   *
+   * 选中元素背景
+   *
+   * default: -
+   */
+  front?: ReactElement | Array<ReactElement>;
 }
 
-declare class RateComponent extends React.Component<RateProps, any> {
-  render(): JSX.Element
-}
-type shape = React.ReactElement | string | Array<string | React.ReactElement>
-declare function Rate(background: shape, front: shape): (typeof RateComponent)
 
-export default Rate
+export type RateProps = GetInputableProps<Omit<OriginRateProps, keyof ArgProps>, string>

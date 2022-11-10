@@ -1,12 +1,21 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import classname from 'classnames'
 import { cardGroupClass } from './styles'
 import { PureComponent } from '../component'
 import { Provider } from './context'
+import { CardGroupProps } from './Props'
 
-class CardGroup extends PureComponent {
-  constructor(props) {
+interface CardGroupState {
+  scroller?: HTMLDivElement
+}
+
+class CardGroup extends PureComponent<CardGroupProps, CardGroupState> {
+  static defaultProps = {
+    columns: 3,
+    gap: 16,
+  }
+
+  constructor(props: CardGroupProps) {
     super(props)
     this.state = {
       scroller: undefined,
@@ -15,12 +24,13 @@ class CardGroup extends PureComponent {
   }
 
   getGap() {
+    // @ts-ignore gap 属性以被重命名了
     const { gap, gutter } = this.props
     if (gutter !== undefined) return gutter
     return gap
   }
 
-  bindScroller(ref) {
+  bindScroller(ref: HTMLDivElement) {
     const { scroller } = this.state
     if (scroller || !ref) return
     this.setState({
@@ -67,23 +77,6 @@ class CardGroup extends PureComponent {
       </div>
     )
   }
-}
-
-CardGroup.defaultProps = {
-  columns: 3,
-  gap: 16,
-}
-
-CardGroup.propTypes = {
-  style: PropTypes.object,
-  children: PropTypes.oneOfType([PropTypes.array, PropTypes.node]),
-  className: PropTypes.string,
-  height: PropTypes.number,
-  cardWidth: PropTypes.number,
-  columns: PropTypes.number,
-  gridStyle: PropTypes.object,
-  gap: PropTypes.number,
-  gutter: PropTypes.number,
 }
 
 export default CardGroup

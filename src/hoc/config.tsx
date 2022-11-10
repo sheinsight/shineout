@@ -1,7 +1,7 @@
 import React from 'react'
 import { noti } from '../config'
 
-export default <U, >(Com: React.ComponentType<U>, name: string) =>
+export default <U extends any>(Com: React.ComponentType<U>, name: string) =>
   class extends React.Component<U, any> {
     handleUpdate: () => void
 

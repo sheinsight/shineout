@@ -11,6 +11,7 @@ export default () => (
   <Form>
     <Form.Item tip="hello world">
       <Upload
+        rules={[{ required: true, message: '想啥呢，你没传文件！' }]}
         action="/upload-test"
         accept="image/*"
         name="file"
@@ -32,6 +33,10 @@ export default () => (
           Upload file
         </Button>
       </Upload>
+    </Form.Item>
+    <Form.Item>
+      <Form.Submit>Submit</Form.Submit>
+      <Form.Reset>Reset</Form.Reset>
     </Form.Item>
   </Form>
 )

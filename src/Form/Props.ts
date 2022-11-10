@@ -56,6 +56,11 @@ export interface FormItemContextValue {
 
 export type GetFormItemConsumerProps<U> = Omit<U, keyof FormItemContextValue>
 
+export interface BaseInputProps {
+  value?: any
+  onChange?: any
+}
+
 export interface InputableProps<Value> {
   beforeChange?: (value: Value | undefined, datum: FormDatum<ObjectType>) => Value | undefined
   onChange?: (value: Value | undefined, ...rest: any) => void
@@ -83,5 +88,11 @@ export interface InputableProps<Value> {
 }
 export type InputableFilterType  =  'required' | 'bind' | 'onItemError' | 'bindInputToItem' | 'unbindInputFromItem' | 'scuSkip' | 'defaultValue' | 'reserveAble'
 
+// 过滤掉原生属性required
 type InputablePropsFiltered<Value> = Omit<InputableProps<Value>, 'required'>
-export type GetInputableProps<Props, Value> =  GetFormItemConsumerProps<GetFieldSetConsumerProps<ForceAdd<Props, InputablePropsFiltered<Value>>>>
+// value 和 onChange 变为可选属性
+type HandleValueProps<Props extends BaseInputProps> = Omit<Props, 'value' | 'onChange'> & Partial<Pick<Props, 'value' | 'onChange'>>
+// inputable 中增加一些属性
+type AddInputProps<Props extends BaseInputProps, Value> =  ForceAdd<HandleValueProps<Props>, InputablePropsFiltered<Value>>
+// consumer
+export type GetInputableProps<Props extends BaseInputProps, Value> =  GetFormItemConsumerProps<GetFieldSetConsumerProps<AddInputProps<Props, Value>>>

@@ -6,8 +6,8 @@ describe('Select[compressed]', () => {
     cy.get('@Select').find('.so-select-option').each((el)=>{
       cy.wrap(el).click()
     })
-    cy.get('@Select').find('.so-select-item').should('have.length', 4)
-    cy.get('@Select').find('.so-select-item-compressed').should('have.text', '+4')
+    cy.get('@Select').find('.so-select-item').should('have.length', 5)
+    cy.get('@Select').find('.so-select-item-compressed').should('have.text', '+3')
 
     // 自适应宽度
     cy.get('@Select').setAttr({style: "width: 400px"})

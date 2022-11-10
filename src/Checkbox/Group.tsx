@@ -6,9 +6,7 @@ import { CHANGE_TOPIC } from '../Datum/types'
 import Checkbox from './Checkbox'
 import { Provider } from './context'
 import { checkinputClass } from './styles'
-import {CheckboxGroupProps, CheckValueType} from './Props'
-
-
+import { CheckboxGroupProps, CheckValueType } from './Props'
 
 class CheckboxGroup<DataItem, Value> extends PureComponent<CheckboxGroupProps<DataItem, Value>, {}> {
   static defaultProps = {

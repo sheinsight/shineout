@@ -7,7 +7,7 @@ import React, { PropsWithChildren } from "react"
 
 export type InputSwitchProps = PropsWithChildren<GetInputableProps<CheckboxProviderProps<SimpleSwitchProps>, boolean>>
 
-class Switch extends React.Component<InputSwitchProps, any>{
+export class Switch extends React.Component<InputSwitchProps, any>{
   // @ts-ignore
   render(): JSX.Element
 }
