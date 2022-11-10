@@ -11,28 +11,22 @@ import {
   threeBounceClass,
   fourDotsClass,
 } from './styles'
+import { formatSize } from './util'
+import { TypeSpinProps, OriginSpinProps } from './Props'
 
-function formatSize(size) {
-  const ss = /^(\d+)([%|\w]*)$/.exec(size)
-  return {
-    value: parseFloat(ss[1]),
-    unit: ss[2] || 'px',
-  }
-}
-
-function simpleRender(classname, i, { color, itemStyle }) {
+function simpleRender(classname: OriginSpinProps['spinClass'], i: number, { color, itemStyle }: OriginSpinProps) {
   const style = Object.assign({ backgroundColor: color }, itemStyle)
   return <div key={i} style={style} className={classname('item')} />
 }
 
-export function DoubleBounce(props) {
+export function DoubleBounce(props: TypeSpinProps) {
   return <Spin {...props} count={2} spinClass={doubleBounceClass} render={simpleRender} />
 }
 
-export function Wave(prop) {
+export function Wave(prop: TypeSpinProps) {
   const { value, unit } = formatSize(prop.size)
   let width = value / 7
-  let margin = value / 20
+  let margin: string | number = value / 20
 
   if (unit === 'px') {
     width = Math.floor(width)
@@ -52,11 +46,11 @@ export function Wave(prop) {
   )
 }
 
-export function CubeGrid(props) {
+export function CubeGrid(props: TypeSpinProps) {
   return <Spin {...props} count={9} spinClass={cubeGridClass} render={simpleRender} />
 }
 
-export function ChasingRing(prop) {
+export function ChasingRing(prop: TypeSpinProps) {
   const { value, unit } = formatSize(prop.size)
   const borderWidth = `${value / 10}${unit}`
   const style = { borderWidth, borderTopColor: prop.color, backgroundColor: 'transparent' }
@@ -65,7 +59,11 @@ export function ChasingRing(prop) {
 
 // =============================================================================
 
-function multRenderDiv(className, i, { color, itemStyle, itemClass }) {
+function multRenderDiv(
+  className: OriginSpinProps['spinClass'],
+  i: number,
+  { color, itemStyle, itemClass }: OriginSpinProps
+) {
   const style = Object.assign({ backgroundColor: color }, itemStyle)
   return (
     <div key={i} className={className('item', itemClass)}>
@@ -74,7 +72,7 @@ function multRenderDiv(className, i, { color, itemStyle, itemClass }) {
   )
 }
 
-export function Default(prop) {
+export function Default(prop: TypeSpinProps) {
   const { value, unit } = formatSize(prop.size)
   const size = Math.ceil(value / 12.5) + unit
   return (
@@ -90,7 +88,11 @@ export function Default(prop) {
 
 // =============================================================================
 
-function multRenderSvg(className, i, { color, itemSize, itemClass }) {
+function multRenderSvg(
+  className: OriginSpinProps['spinClass'],
+  i: number,
+  { color, itemSize, itemClass }: OriginSpinProps
+) {
   return (
     <div key={i} className={className('item', itemClass)}>
       <svg width={itemSize} height={itemSize} viewBox="0 0 100 100">
@@ -100,7 +102,7 @@ function multRenderSvg(className, i, { color, itemSize, itemClass }) {
   )
 }
 
-function twelveCircle(prop, type) {
+function twelveCircle(prop: TypeSpinProps, type: OriginSpinProps['itemClass']) {
   const { value, unit } = formatSize(prop.size)
   const itemSize = (value / 7).toFixed(3) + unit
 
@@ -116,10 +118,10 @@ function twelveCircle(prop, type) {
   )
 }
 
-export const ScaleCircle = opt => twelveCircle(opt, 'scale')
-export const FadingCircle = opt => twelveCircle(opt, 'fade')
+export const ScaleCircle = (opt: TypeSpinProps) => twelveCircle(opt, 'scale')
+export const FadingCircle = (opt: TypeSpinProps) => twelveCircle(opt, 'fade')
 
-export function ThreeBounce(prop) {
+export function ThreeBounce(prop: TypeSpinProps) {
   const { value, unit } = formatSize(prop.size)
   return (
     <Spin
@@ -133,10 +135,10 @@ export function ThreeBounce(prop) {
   )
 }
 
-export function ChasingDots(props) {
+export function ChasingDots(props: TypeSpinProps) {
   return <Spin {...props} count={2} spinClass={chasingDotsClass} render={multRenderSvg} />
 }
 
-export function FourDots(props) {
+export function FourDots(props: TypeSpinProps) {
   return <Spin {...props} count={4} spinClass={fourDotsClass} render={multRenderSvg} />
 }

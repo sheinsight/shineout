@@ -116,7 +116,7 @@ export { default as Slider } from './Slider'
 import { SliderProps as __SliderProps,  } from './Slider'
 
 export { default as Spin } from './Spin'
-import { SpinProps as __SpinProps,  } from './Spin'
+import { SpinProps as __SpinProps } from './Spin/interface'
 
 export { default as Sticky } from './Sticky'
 import { StickyProps as __StickyProps,  } from './Sticky'
@@ -308,6 +308,7 @@ export namespace TYPE {
     export type Props<Value> = __SliderProps<Value>
   }
   export namespace Spin {
+  
     export type Props = __SpinProps
   }
   export namespace Sticky {
