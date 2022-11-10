@@ -36,6 +36,14 @@
       "rules": {
         "@typescript-eslint/no-unused-vars": [2, { "args": "none", "ignoreRestSiblings": true }  ]
       }
+    },
+    {
+      "files": ["*.ts"],
+      "rules": {
+        "react/prefer-stateless-function": 0,
+        "react/no-multi-comp": 0,
+        "import/export": 0
+      }
     }
   ],
     "rules": {

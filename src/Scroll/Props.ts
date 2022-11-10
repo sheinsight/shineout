@@ -5,4 +5,3 @@ export interface ScrollContextProviderValue {
 }
 
 export type GetScrollContextConsumerValue<U> = Omit<U, 'scrollElement' | 'scrollLeft' | 'scrollTop'>
-

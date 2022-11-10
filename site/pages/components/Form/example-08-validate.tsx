@@ -59,7 +59,6 @@ const App: React.FC = () => (
         name="colors"
         keygen={d => d}
         defaultValue={[]}
-        title="Favorite Colors"
         data={['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']}
         rules={[rules.required('At least select one favorite color'), rules.min(2), rules.max(3)]}
       />

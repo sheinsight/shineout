@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { StandardProps, ListItemStandardProps , keygenType} from '../@types/common'
+import { StandardProps , keygenType} from '../@types/common'
 
 type ReactNode = React.ReactNode;
 
