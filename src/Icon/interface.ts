@@ -63,7 +63,7 @@ export interface IconComProps extends StandardProps {
    *
    * default: 'iconfont'
    */
-   fontFamily?: string
+  fontFamily?: string
 
   /**
    * -
@@ -72,7 +72,7 @@ export interface IconComProps extends StandardProps {
    *
    * -
    */
-   ext?: string
+  ext?: string
 }
 
 type IconCom = React.FC<IconComProps>

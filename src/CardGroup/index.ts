@@ -1,7 +1,7 @@
 import CardGroup from './CardGroup'
 import Item from './Item'
 import { consumer } from './context'
-import { CardGroupType } from "./Props"
+import { CardGroupType } from './Props'
 
 const Exports: any = CardGroup
 

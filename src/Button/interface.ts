@@ -1,10 +1,9 @@
 import * as React from 'react'
 import { StandardProps, RegularAttributes } from '../@types/common'
 
-export type ButtonType = 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'link';
+export type ButtonType = 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'link'
 export type ButtonShape = 'default' | 'circle' | 'round'
 export interface ButtonProps extends StandardProps {
-
   /**
    * The content inside the button, can be a text icon, etc.
    *
@@ -12,7 +11,7 @@ export interface ButtonProps extends StandardProps {
    *
    * default: required
    */
-  children?: React.ReactNode;
+  children?: React.ReactNode
 
   /**
    * Specifies the button should be disabled
@@ -21,7 +20,7 @@ export interface ButtonProps extends StandardProps {
    *
    * default: false
    */
-  disabled?: boolean;
+  disabled?: boolean
 
   /**
    * If the href attribute is set, &lt;a> will be used instead of &lt;button>.
@@ -30,7 +29,7 @@ export interface ButtonProps extends StandardProps {
    *
    * default: -
    */
-  href?: string;
+  href?: string
 
   /**
    * If present, target will be set onto <a> element.(Effective only when href is been set)
@@ -39,7 +38,7 @@ export interface ButtonProps extends StandardProps {
    *
    * default: -
    */
-  target?: '_self' | '_blank' | '_parent' | '_top' | string;
+  target?: '_self' | '_blank' | '_parent' | '_top' | string
 
   /**
    * When outline is true, the background is transparent.
@@ -48,7 +47,7 @@ export interface ButtonProps extends StandardProps {
    *
    * default: false
    */
-  outline?: boolean;
+  outline?: boolean
 
   /**
    * size of button
@@ -57,8 +56,7 @@ export interface ButtonProps extends StandardProps {
    *
    * default: 'default'
    */
-  size?: RegularAttributes.Size;
-
+  size?: RegularAttributes.Size
 
   /**
    * type of button
@@ -67,8 +65,7 @@ export interface ButtonProps extends StandardProps {
    *
    * default: 'default'
    */
-  type?: ButtonType;
-
+  type?: ButtonType
 
   /**
    * type of button original
@@ -77,7 +74,7 @@ export interface ButtonProps extends StandardProps {
    *
    * default: 'button'
    */
-  htmlType?: 'button' | 'reset' | 'submit';
+  htmlType?: 'button' | 'reset' | 'submit'
 
   /**
    * text button
@@ -86,7 +83,7 @@ export interface ButtonProps extends StandardProps {
    *
    * default: false
    */
-  text?: boolean;
+  text?: boolean
 
   /**
    * button click callback
@@ -95,7 +92,7 @@ export interface ButtonProps extends StandardProps {
    *
    * default: none
    */
-  onClick?: React.MouseEventHandler<HTMLElement>;
+  onClick?: React.MouseEventHandler<HTMLElement>
 
   /**
    * For Button with only 2 Chinese characters, whether to insert a space between the two Chinese characters.
@@ -104,7 +101,7 @@ export interface ButtonProps extends StandardProps {
    *
    * default: false
    */
-  space?: boolean;
+  space?: boolean
 
   /**
    * loading
@@ -122,7 +119,7 @@ export interface ButtonProps extends StandardProps {
    *
    * default: 'default'
    */
-  shape?: ButtonShape;
+  shape?: ButtonShape
 
   /**
    *  get button dom
@@ -134,8 +131,7 @@ export interface ButtonProps extends StandardProps {
   onRef?: React.RefCallback<any>
 }
 
-export interface ButtonGroupProps extends StandardProps{
-
+export interface ButtonGroupProps extends StandardProps {
   /**
    * array of Button
    *
@@ -143,7 +139,7 @@ export interface ButtonGroupProps extends StandardProps{
    *
    * default: required
    */
-  children?: React.ReactNode;
+  children?: React.ReactNode
 
   /**
    * same as Button
@@ -152,7 +148,7 @@ export interface ButtonGroupProps extends StandardProps{
    *
    * default: -
    */
-  size?: RegularAttributes.Size;
+  size?: RegularAttributes.Size
 
   /**
    * same as Button
@@ -161,7 +157,7 @@ export interface ButtonGroupProps extends StandardProps{
    *
    * default: -
    */
-  outline?: boolean;
+  outline?: boolean
 
   /**
    * same as Button
@@ -170,6 +166,5 @@ export interface ButtonGroupProps extends StandardProps{
    *
    * default: -
    */
-  type?: ButtonType;
-
+  type?: ButtonType
 }
