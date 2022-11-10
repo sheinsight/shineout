@@ -39,8 +39,8 @@ export interface SpinProps extends Omit<TypeSpinProps, 'size'> {
   style?: CSSProperties
   className?: string
   name?: SpinName
-  tip?: ReactElement
-  children?: ReactElement
+  tip?: ReactElement | string
+  children?: ReactElement | string
   size?: number | string
   loading?: boolean
 }

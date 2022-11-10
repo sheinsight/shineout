@@ -51,7 +51,7 @@ function getName(name?: SpinName) {
 }
 
 const Spin: React.FC<SpinProps> = (props: SpinProps) => {
-  const { children, style, className, size = 40, color = '#6c757d', ...rest } = props
+  const { children, style, className, size = 40, color = '#6c757d', tip, ...rest } = props
   const name = getName(props.name)
   const Component = spins[name]
   if (!Component) {
@@ -60,7 +60,7 @@ const Spin: React.FC<SpinProps> = (props: SpinProps) => {
   }
   const wrapperStyle = Object.assign(
     {
-      color: props.color,
+      color,
     },
     style
   )
@@ -71,8 +71,10 @@ const Spin: React.FC<SpinProps> = (props: SpinProps) => {
     Content = (
       <div style={wrapperStyle} className={classnames(spinClass('_'), className)}>
         <Component size={size} color={color} {...rest} />
-        {props.tip && (
-          <div className={spinClass('tip')}>{typeof props.tip === 'string' ? <span>{props.tip}</span> : props.tip}</div>
+        {tip && (
+          <div className={spinClass('tip')} style={{ color }}>
+            {typeof tip === 'string' ? <span>{tip}</span> : tip}
+          </div>
         )}
       </div>
     )
