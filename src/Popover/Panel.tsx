@@ -12,7 +12,7 @@ import { Provider as AbsoluteProvider } from '../Table/context'
 import { consumer, Provider } from './context'
 import { getUidStr } from '../utils/uid'
 import getCommonContainer from '../utils/dom/popContainer'
-import { PanelProps, Position } from "./Props"
+import { PanelProps, Position } from './Props'
 
 const emptyEvent = <U extends { stopPropagation: () => void }>(e: U) => e.stopPropagation()
 
@@ -126,14 +126,13 @@ class Panel extends Component<PanelProps, PanelState> {
         if (show && this.props.onOpen) this.props.onOpen()
         if (!show && this.props.onClose) this.props.onClose()
 
-        if(show){
+        if (show) {
           this.bindScrollDismiss(true)
           document.addEventListener('mousedown', this.clickAway)
-        }else{
+        } else {
           this.bindScrollDismiss(false)
           document.removeEventListener('mousedown', this.clickAway)
         }
-
       },
       trigger === 'hover' ? delay : 0
     )
@@ -199,7 +198,7 @@ class Panel extends Component<PanelProps, PanelState> {
   }
 
   bindEvents() {
-    const { trigger, clickToCancelDelay, mouseEnterDelay= DefaultProps.mouseEnterDelay } = this.props
+    const { trigger, clickToCancelDelay, mouseEnterDelay = DefaultProps.mouseEnterDelay } = this.props
     if (trigger === 'hover') {
       this.parentElement.addEventListener('mouseenter', this.handleShow)
       this.parentElement.addEventListener('mouseleave', this.handleHide)

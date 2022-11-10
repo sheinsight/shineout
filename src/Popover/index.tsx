@@ -1,4 +1,4 @@
-import  _Popover from './Panel'
+import _Popover from './Panel'
 import Confirm from './Panel'
 import Content from './Content'
 

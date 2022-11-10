@@ -5,7 +5,7 @@ import Alert from '../Alert'
 import { Component } from '../component'
 import { popoverClass } from './styles'
 import { getLocale } from '../locale'
-import { ConfirmProps } from "./Props"
+import { ConfirmProps } from './Props'
 
 interface ConfirmState {
   ok: boolean
@@ -42,7 +42,7 @@ export default class Confirm extends Component<ConfirmProps, ConfirmState> {
     if (fn) callback = fn()
     if (callback && typeof callback.then === 'function') {
       this.setState({ [type]: true }, () => {
-        (callback as Promise<any>).then(() => {
+        ;(callback as Promise<any>).then(() => {
           close()
           this.setState({ [type]: false })
         })

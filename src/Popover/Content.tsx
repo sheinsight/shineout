@@ -1,6 +1,6 @@
 import React from 'react'
 import Panel from './Panel'
-import { PopoverContentProps } from "./Props"
+import { PopoverContentProps } from './Props'
 
 function Content(props: PopoverContentProps) {
   // eslint-disable-next-line

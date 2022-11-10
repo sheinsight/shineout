@@ -1,5 +1,4 @@
 import { docScroll, docSize } from './document'
-import { Position } from "../../Popover/Props"
 
 interface PositionInfo {
   top?: number
@@ -80,10 +79,10 @@ export const getPosition = (
   }
 
   return posKeys.reduce(
-    (data, key: keyof Position) => ({
+    (data,key: keyof PositionInfo) => ({
       ...data,
       [key]: typeof pos[key] === 'number' ? `${Math.round(pos[key]!)}px` : 'auto',
     }),
-    {} as Record<keyof Position, string>
+    {} as Record<keyof PositionInfo, string>
   )
 }
