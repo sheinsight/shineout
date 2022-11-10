@@ -9,8 +9,9 @@ interface PositionInfo {
 }
 
 const posKeys = ['left', 'top', 'bottom', 'right']
+export type PositionStr = 'top-left' | 'top' | 'top-right' | 'left-top' | 'left' | 'left-bottom' | 'right-top' | 'right' | 'right-bottom' | 'bottom-left' | 'bottom' | 'bottom-right' | 'cover'
 export const getPosition = (
-  position: Position,
+  position: PositionStr,
   el: HTMLElement,
   container: HTMLElement | undefined = document.body
 ) => {
@@ -79,10 +80,10 @@ export const getPosition = (
   }
 
   return posKeys.reduce(
-    (data, key: keyof typeof pos) => ({
+    (data, key: keyof Position) => ({
       ...data,
       [key]: typeof pos[key] === 'number' ? `${Math.round(pos[key]!)}px` : 'auto',
     }),
-    ({} as PositionInfo)
+    {} as Record<keyof Position, string>
   )
 }

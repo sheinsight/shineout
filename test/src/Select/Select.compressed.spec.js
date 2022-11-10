@@ -1,6 +1,7 @@
 import React from 'react'
 import { mount } from 'enzyme/build'
 import More, { getResetMore } from 'shineout/Select/More'
+import { Select } from 'shineout'
 
 const createDiv = (width, style = {}, parent) => {
   const div = document.createElement('div')
@@ -104,5 +105,48 @@ describe('More[props]', () => {
       .changeStatus(true)
     wrapper.update()
     expect(wrapper.find('.more-item').length).toBe(4)
+  })
+})
+
+describe('Select[treeData]', () => {
+  it('should trigger resetMore when treeData change', () => {
+    const wrapper = mount(
+      <Select
+        onChange={() => {}}
+        value={['0', '0-1', '1-0']}
+        disabled={v => (v.text || '').startsWith('1')}
+        format="id"
+        keygen="id"
+        renderItem={v => `node ${v.text}`}
+        style={{ width: 250, marginBottom: 20 }}
+        treeData={[]}
+        multiple
+        compressed
+      />
+    )
+    const fn = jest.fn()
+    wrapper.find('Result').instance().resetMore = fn
+    wrapper.setProps({
+      treeData: [
+        {
+          id: '0',
+          text: '0',
+          children: [
+            {
+              id: '0-0',
+              text: '0-0',
+              children: [],
+            },
+            {
+              id: '0-1',
+              text: '0-1',
+              children: [],
+            },
+          ],
+        },
+      ],
+    })
+    wrapper.update()
+    expect(fn.mock.calls.length).toBe(1)
   })
 })

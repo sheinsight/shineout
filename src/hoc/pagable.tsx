@@ -1,9 +1,9 @@
 import React from 'react'
 import { PureComponent } from '../component'
 import Pagination from '../Pagination'
-import {PaginationProps} from '../Pagination'
+import { PaginationProps } from '../Pagination'
 
-interface PagableProps{
+interface PagableProps {
   data?: unknown
   loading?: boolean
   pagination: PaginationProps
@@ -14,7 +14,7 @@ interface PagableState {
   pageSize: number
 }
 
-function getData(data: unknown, pager: {pageSize: number, current: number, [name: string]: any} ) {
+function getData(data: unknown, pager: { pageSize: number; current: number; [name: string]: any }) {
   if (!Array.isArray(data)) return data
   if (data.length <= pager.pageSize) return data
 
@@ -26,7 +26,6 @@ type filterProps = 'pagination'
 
 export default function<U extends PagableProps>(Component: React.ComponentType<Omit<PagableProps, filterProps>>) {
   return class extends PureComponent<U, PagableState> {
-
     constructor(props: U) {
       super(props)
 
@@ -43,8 +42,10 @@ export default function<U extends PagableProps>(Component: React.ComponentType<O
       return this.props.pagination[key] || this.state[key]
     }
 
-    getPager(data: any, pagination: PaginationProps)
-      : PaginationProps & Required<Pick<PaginationProps, 'current' | 'pageSize' | 'total'>> {
+    getPager(
+      data: any,
+      pagination: PaginationProps
+    ): PaginationProps & Required<Pick<PaginationProps, 'current' | 'pageSize' | 'total'>> {
       const { loading } = this.props
       const total = Array.isArray(data) ? data.length : 0
       return Object.assign(
@@ -52,10 +53,10 @@ export default function<U extends PagableProps>(Component: React.ComponentType<O
           current: this.getProp('current'),
           pageSize: this.getProp('pageSize'),
           total,
-          disabled: loading,
+          disabled: !!loading,
         },
         pagination,
-        { onChange: this.handleChange },
+        { onChange: this.handleChange }
       )
     }
 
@@ -69,10 +70,7 @@ export default function<U extends PagableProps>(Component: React.ComponentType<O
       const { pagination, data, ...props } = this.props
       const pager = this.getPager(data, pagination)
 
-      return [
-        <Component key="origin" data={getData(data, pager)} {...props} />,
-        <Pagination key="pager" {...pager} />,
-      ]
+      return [<Component key="origin" data={getData(data, pager)} {...props} />, <Pagination key="pager" {...pager} />]
     }
   }
 }

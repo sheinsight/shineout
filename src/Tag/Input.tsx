@@ -1,13 +1,13 @@
-import React  from "react"
+import React from 'react'
 import { PureComponent } from '../component'
 import inputBorder from '../hoc/inputBorder'
 import { tagClass } from './styles'
-import {TagInputProps} from './interface'
+import { TagInputProps } from './interface'
 
 class TagInput extends PureComponent<TagInputProps> {
   element: HTMLInputElement
 
-  constructor(props:TagInputProps) {
+  constructor(props: TagInputProps) {
     super(props)
     this.bindRef = this.bindRef.bind(this)
     this.handleChange = this.handleChange.bind(this)

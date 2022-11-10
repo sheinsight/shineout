@@ -9,14 +9,14 @@ import { inputBorderClass } from '../Form/styles'
 import Popover from '../Popover'
 import { isRTL } from '../config'
 import getDataset from '../utils/dom/getDataset'
-import { RegularAttributes } from "../@types/common"
-import {PopoverProps} from '../Popover/interface'
+import { RegularAttributes } from '../@types/common'
+import { PopoverProps } from '../Popover/interface'
 
 interface Options {
   tag: 'label' | 'div' | 'span'
   isGroup?: boolean
   overflow?: string
-  className?: ((props:{[name: string]: any}) => string) | string
+  className?: ((props: { [name: string]: any }) => string) | string
   from?: string
   enterPress?: boolean
 }
@@ -38,15 +38,20 @@ interface InputBorderProps {
   style?: React.CSSProperties
 }
 
-type filterKeys = 'border' | 'className' | 'tip' | 'popover' | 'width' | 'error' | 'popoverProps' | 'underline' | 'style'
-
-
-
+type filterKeys =
+  | 'border'
+  | 'className'
+  | 'tip'
+  | 'popover'
+  | 'width'
+  | 'error'
+  | 'popoverProps'
+  | 'underline'
+  | 'style'
 
 export default curry(
-  <U extends InputBorderProps >(options: Options, Origin: React.ComponentType<Omit<U, filterKeys>>) =>
-    class extends Component<U, {focus?: boolean}> {
-
+  <U extends InputBorderProps>(options: Options, Origin: React.ComponentType<Omit<U, filterKeys>>) =>
+    class extends Component<U, { focus?: boolean }> {
       static defaultProps: any = {
         border: true,
         style: {},
@@ -163,7 +168,13 @@ export default curry(
             tabIndex={options.enterPress ? 0 : undefined}
             {...getDataset(other)}
           >
-            <Origin {...(other as U)} size={size} onFocus={this.handleFocus} onBlur={this.handleBlur} inputFocus={focus} />
+            <Origin
+              {...other as U}
+              size={size}
+              onFocus={this.handleFocus}
+              onBlur={this.handleBlur}
+              inputFocus={focus}
+            />
             {this.renderHelp(focus)}
           </Tag>
         )
