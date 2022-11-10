@@ -1,24 +1,36 @@
-import { ComponentType, ReactNode } from "react"
-import { StandardProps } from "../@types/common"
-import {ButtonType} from '../Button/interface'
-import {AlertProps} from '../Alert/interface'
+import { ComponentType, ReactNode } from 'react'
+import { StandardProps } from '../@types/common'
+import { ButtonType } from '../Button/interface'
+import { AlertProps } from '../Alert/interface'
 
 export interface PopoverContextValue {
   (id: string): void
 }
 
-export interface  PopoverProviderProps {
+export interface PopoverProviderProps {
   bindChain: PopoverContextValue
 }
 
 export type GetPopoverConsumerProps<P> = Omit<P, keyof PopoverProviderProps>
 
-
-export type Position =  'top-left' | 'top' | 'top-right' | 'left-top' | 'left' | 'left-bottom' | 'right-top' | 'right' | 'right-bottom' | 'bottom-left' | 'bottom' | 'bottom-right' | 'cover'
+export type Position =
+  | 'top-left'
+  | 'top'
+  | 'top-right'
+  | 'left-top'
+  | 'left'
+  | 'left-bottom'
+  | 'right-top'
+  | 'right'
+  | 'right-bottom'
+  | 'bottom-left'
+  | 'bottom'
+  | 'bottom-right'
+  | 'cover'
 export type PopType = 'success' | 'info' | 'warning' | 'danger'
 export type PriorityDirection = 'vertical' | 'horizontal' | 'auto'
 
-export interface PanelProps extends StandardProps,PopoverProviderProps {
+export interface PanelProps extends StandardProps, PopoverProviderProps {
   /**
    * Pop-up background-color(with arrows)
    *
@@ -26,7 +38,7 @@ export interface PanelProps extends StandardProps,PopoverProviderProps {
    *
    * default: '#fff'
    */
-  background?: string,
+  background?: string
   /**
    * The color of pop-up border(with arrows)
    *
@@ -34,7 +46,7 @@ export interface PanelProps extends StandardProps,PopoverProviderProps {
    *
    * default: '#dee2e6'
    */
-  border?: string,
+  border?: string
   /**
    * Pop-up content.
    *
@@ -42,7 +54,7 @@ export interface PanelProps extends StandardProps,PopoverProviderProps {
    *
    * default: required
    */
-  children?: ReactNode | ((close: ((e?: MouseEvent) => void)) => ReactNode);
+  children?: ReactNode | ((close: ((e?: MouseEvent) => void)) => ReactNode)
   /**
    * Callback event when close.
    *
@@ -146,7 +158,7 @@ export interface PanelProps extends StandardProps,PopoverProviderProps {
    *
    * default: false
    */
-  scrollDismiss?: boolean | (() => (HTMLElement | null))
+  scrollDismiss?: boolean | (() => HTMLElement | null)
   /**
    * show arrow
    *
@@ -181,7 +193,7 @@ export interface PanelProps extends StandardProps,PopoverProviderProps {
   useTextStyle?: boolean
 }
 
-export interface ConfirmProps extends Omit<PopoverProps, 'children' | 'type'>{
+export interface ConfirmProps extends Omit<PopoverProps, 'children' | 'type'> {
   /**
    * button text
    *
@@ -200,7 +212,7 @@ export interface ConfirmProps extends Omit<PopoverProps, 'children' | 'type'>{
    *
    * default: none
    */
-  onOk?: () => (void | Promise<any>)
+  onOk?: () => void | Promise<any>
   /**
    * cancel button click callback, will close tooltip while returned promise resolve
    *
@@ -208,7 +220,7 @@ export interface ConfirmProps extends Omit<PopoverProps, 'children' | 'type'>{
    *
    * default: none
    */
-  onCancel?: () => (void | Promise<any>)
+  onCancel?: () => void | Promise<any>
   /**
    * ok button's type, same with button type
    *
@@ -224,7 +236,7 @@ export interface ConfirmProps extends Omit<PopoverProps, 'children' | 'type'>{
    *
    * default: danger
    */
-  icon?: AlertProps["icon"]
+  icon?: AlertProps['icon']
   children: ReactNode
   /**
    * same with Alert type
@@ -233,12 +245,12 @@ export interface ConfirmProps extends Omit<PopoverProps, 'children' | 'type'>{
    *
    * default: confirmwarning
    */
-  type?: AlertProps["type"]
+  type?: AlertProps['type']
 }
 export type PopoverProps = GetPopoverConsumerProps<PanelProps>
-export interface PopoverContentProps extends Omit<PopoverProps, 'useTextStyle'>{}
+export interface PopoverContentProps extends Omit<PopoverProps, 'useTextStyle'> {}
 
 export type PopoverType = ComponentType<PopoverProps> & {
-  Confirm:ComponentType<ConfirmProps>
+  Confirm: ComponentType<ConfirmProps>
   Content: ComponentType<PopoverContentProps>
 }

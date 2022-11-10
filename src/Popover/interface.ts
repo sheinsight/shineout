@@ -1,4 +1,4 @@
-import { PopoverProps as _PopoverProps, ConfirmProps, PopoverContentProps as ContentProps  } from './Props'
+import { PopoverProps as _PopoverProps, ConfirmProps, PopoverContentProps as ContentProps } from './Props'
 
 export type PopoverProps = _PopoverProps
 
