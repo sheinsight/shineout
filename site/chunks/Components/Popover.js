@@ -183,19 +183,6 @@ const examples = [
 
   },
   {
-    name: '8-old',
-    isTs: true,
-    isTest: false,
-    title: locate(
-      '旧API \n 旧接口使用 Popover 包在组件外使用，通过 content 传递内容，已不推荐',
-      'Old API \n Old API, is out of date.'
-    ),
-    component: require('doc/pages/components/Popover/example-8-old.tsx').default,
-    rawText: require('!raw-loader!doc/pages/components/Popover/example-8-old.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Popover/example-8-old.tsx'),
-
-  },
-  {
     name: '9-event',
     isTs: true,
     isTest: false,
@@ -206,19 +193,6 @@ const examples = [
     component: require('doc/pages/components/Popover/example-9-event.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Popover/example-9-event.tsx'),
     parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Popover/example-9-event.tsx'),
-
-  },
-  {
-    name: 'test-001-content',
-    isTs: true,
-    isTest: true,
-    title: locate(
-      'T:content \n ',
-      'T:content \n '
-    ),
-    component: require('doc/pages/components/Popover/test-001-content.tsx').default,
-    rawText: require('!raw-loader!doc/pages/components/Popover/test-001-content.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Popover/test-001-content.tsx'),
 
   },
   {

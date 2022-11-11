@@ -2,15 +2,14 @@ import React from 'react'
 import classname from 'classnames'
 import { cardGroupClass } from './styles'
 import { PureComponent } from '../component'
-import { Provider } from "./context"
-import {CardGroupProps} from './Props'
+import { Provider } from './context'
+import { CardGroupProps } from './Props'
 
 interface CardGroupState {
   scroller?: HTMLDivElement
 }
 
 class CardGroup extends PureComponent<CardGroupProps, CardGroupState> {
-
   static defaultProps = {
     columns: 3,
     gap: 16,

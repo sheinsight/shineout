@@ -3,7 +3,6 @@ import { mount } from 'enzyme'
 import { Popover, Button } from 'shineout'
 import { delay } from '../../utils'
 import { dispatchEvent } from '../../../src/utils/dom/element'
-import TContent from '../../../site/pages/components/Popover/test-001-content'
 
 class P extends React.Component {
   constructor(props) {
@@ -184,59 +183,6 @@ describe('Popover[onOpen/onClose/onVisibleChange]', () => {
     expect(onClose).toBeCalled()
     expect(onVisibleChange).toBeCalled()
     expect(onVisibleChange).toBeCalledTimes(2)
-  })
-})
-
-describe('Popover[content]', () => {
-  test('should set content', () => {
-    jest.useFakeTimers()
-    document.querySelectorAll(`.${SO_PREFIX}-popover`).forEach(item => {
-      item.remove()
-    })
-
-    const wrapper = mount(
-      <Popover trigger="click" content={<div>233</div>}>
-        <Button>Hover</Button>
-      </Popover>
-    )
-    jest.runAllTimers()
-    expect(wrapper.find(Button).length).toBe(1)
-    dispatchEvent(wrapper.find('button').instance(), 'click')
-    expect(document.getElementsByClassName(`${SO_PREFIX}-popover-content`).length).toBe(1)
-    wrapper.unmount()
-  })
-
-  test('should set content click', () => {
-    jest.useFakeTimers()
-    document.querySelectorAll(`.${SO_PREFIX}-popover`).forEach(item => {
-      item.remove()
-    })
-    const content = <div>Some text</div>
-    const wrapper = mount(
-      <Popover trigger="click" content={content}>
-        <Button>Hover</Button>
-      </Popover>
-    )
-    jest.runAllTimers()
-    expect(wrapper.find(Button).length).toBe(1)
-    wrapper.find(Button).simulate('click')
-    expect(document.getElementsByClassName(`${SO_PREFIX}-popover-content`).length).toBe(1)
-    wrapper.unmount()
-  })
-
-  test('should set content hover', async () => {
-    jest.useFakeTimers()
-    document.querySelectorAll(`.${SO_PREFIX}-popover`).forEach(item => {
-      item.remove()
-    })
-    const wrapper = mount(<TContent />)
-    expect(wrapper.find(Button).length).toBe(1)
-    wrapper.find(Button).simulate('mouseenter')
-    const content = document.getElementsByClassName(`${SO_PREFIX}-popover-content`)
-    expect(content.length).toBe(1)
-    wrapper.find(Button).simulate('mouseleave')
-    expect(content[0].parentNode.style.display).toBe('none')
-    wrapper.unmount()
   })
 })
 

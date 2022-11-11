@@ -5,7 +5,6 @@ import { isRTL } from '../config'
 import { CardFooterProps } from './Props'
 
 export default class Footer extends PureComponent<CardFooterProps> {
-
   render() {
     const { align, className, ...props } = this.props
     const newClassName = classnames(cardClass('footer', align, isRTL() && 'footer-rtl'), className)

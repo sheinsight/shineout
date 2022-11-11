@@ -1,11 +1,8 @@
-import { ReactElement, ReactNode } from "react"
-import { StandardProps } from "../@types/common"
-import { GetInputableProps } from "../Form/Props"
+import { ReactElement, ReactNode } from 'react'
+import { StandardProps } from '../@types/common'
+import { GetInputableProps } from '../Form/Props'
 
-
-
-
-export declare interface OriginRateProps extends ArgProps, StandardProps{
+export declare interface OriginRateProps extends ArgProps, StandardProps {
   /**
    * Whether to allow semi selection
    *
@@ -13,7 +10,7 @@ export declare interface OriginRateProps extends ArgProps, StandardProps{
    *
    * default: false
    */
-  allowHalf?: boolean;
+  allowHalf?: boolean
 
   /**
    * whether to allow clear when click again
@@ -22,7 +19,7 @@ export declare interface OriginRateProps extends ArgProps, StandardProps{
    *
    * default: false
    */
-  clearable?: boolean;
+  clearable?: boolean
 
   /**
    * read-only
@@ -31,7 +28,7 @@ export declare interface OriginRateProps extends ArgProps, StandardProps{
    *
    * default: false
    */
-  disabled?: boolean;
+  disabled?: boolean
 
   /**
    * The maximum value of the option, integer
@@ -40,7 +37,7 @@ export declare interface OriginRateProps extends ArgProps, StandardProps{
    *
    * default: 5
    */
-  max?: number;
+  max?: number
 
   /**
    * When repeat is true, display item is a copy of the item corresponding to the current value
@@ -49,7 +46,7 @@ export declare interface OriginRateProps extends ArgProps, StandardProps{
    *
    * default: true
    */
-  repeat?: boolean;
+  repeat?: boolean
 
   /**
    * the size of the icon
@@ -58,7 +55,7 @@ export declare interface OriginRateProps extends ArgProps, StandardProps{
    *
    * default: 20
    */
-  size?: number | string;
+  size?: number | string
 
   /**
    * Text
@@ -67,7 +64,7 @@ export declare interface OriginRateProps extends ArgProps, StandardProps{
    *
    * default: -
    */
-  text?: Array<ReactNode>;
+  text?: Array<ReactNode>
 
   /**
    * Selected key (controlled)
@@ -76,7 +73,7 @@ export declare interface OriginRateProps extends ArgProps, StandardProps{
    *
    * default: -
    */
-  value: number;
+  value: number
 
   /**
    * value change callback
@@ -85,8 +82,7 @@ export declare interface OriginRateProps extends ArgProps, StandardProps{
    *
    * default: -
    */
-  onChange: (value: number) => void;
-
+  onChange: (value: number) => void
 }
 export interface ArgProps {
   /**
@@ -96,7 +92,7 @@ export interface ArgProps {
    *
    * default: -
    */
-  background?: ReactElement | Array<ReactElement>;
+  background?: ReactElement | string | Array<string | ReactElement>
 
   /**
    * selected element background
@@ -105,8 +101,7 @@ export interface ArgProps {
    *
    * default: -
    */
-  front?: ReactElement | Array<ReactElement>;
+  front?: ReactElement | string | Array<string | ReactElement>
 }
-
 
 export type RateProps = GetInputableProps<Omit<OriginRateProps, keyof ArgProps>, string>

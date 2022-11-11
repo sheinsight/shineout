@@ -1,6 +1,6 @@
-import React, { ComponentType, PureComponent } from "react"
+import React, { ComponentType, PureComponent } from 'react'
 import classnames from 'classnames'
-import {  defaultProps } from '../utils/proptypes'
+import { defaultProps } from '../utils/proptypes'
 import { dispatchEvent } from '../utils/dom/element'
 import { cardClass } from './styles'
 import { Provider } from './context'
@@ -9,16 +9,14 @@ import resizable from '../hoc/resizable'
 import moveable from '../hoc/moveable'
 import { modalClass } from '../Modal/styles'
 import { isRTL } from '../config'
-import {CardProps, CardContextValueType} from './Props'
+import { CardProps, CardContextValueType } from './Props'
 
 interface CardState {
   collapsed?: boolean
   formStatus: string
 }
 
-
 class Card extends PureComponent<CardProps, CardState> {
-
   static defaultProps = {
     ...defaultProps,
     defaultCollapsed: true,
@@ -29,7 +27,6 @@ class Card extends PureComponent<CardProps, CardState> {
 
   constructor(props: CardProps) {
     super(props)
-
 
     this.state = {
       collapsed: props.defaultCollapsed,
@@ -97,7 +94,6 @@ class Card extends PureComponent<CardProps, CardState> {
     )
   }
 }
-
 
 export default compose(
   moveable(`.${cardClass('header')}, .${modalClass('method-title')}`),

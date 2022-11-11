@@ -1,15 +1,15 @@
 import classnames from 'classnames'
 import ReactDOM from 'react-dom'
-import { CSSProperties, ReactElement } from "react"
+import { CSSProperties, ReactElement } from 'react'
 import { tooltipClass } from './styles'
 import getCommonContainer from '../utils/dom/popContainer'
-import {ContainerOptions} from './Props'
+import { ContainerOptions } from './Props'
 
 const div = document.createElement('div')
 let timer: NodeJS.Timeout
 div.style.display = 'none'
 
-const transStyle = (value: (number | string) = '') =>  typeof value === 'number' ? `${value}px` : value
+const transStyle = (value: number | string = '') => (typeof value === 'number' ? `${value}px` : value)
 
 getCommonContainer().appendChild(div)
 
@@ -35,13 +35,13 @@ function clickaway() {
   document.removeEventListener('click', clickaway)
 }
 
-export const show: ContainerOptions['show'] =  (props, id, innerStyle) => {
+export const show: ContainerOptions['show'] = (props, id, innerStyle) => {
   const { position, style = {}, tip, trigger, animation, className: cn } = props
 
   currentId = id
 
   div.style.cssText = 'display: none'
-  Object.keys(style).forEach((k: (keyof CSSProperties)) => {
+  Object.keys(style).forEach((k: keyof CSSProperties) => {
     div.style[k as any] = transStyle(style[k])
   })
 
@@ -57,7 +57,7 @@ export const show: ContainerOptions['show'] =  (props, id, innerStyle) => {
 
   inner.setAttribute('style', '')
   if (innerStyle) {
-    Object.keys(innerStyle).forEach((k : keyof CSSProperties)=> {
+    Object.keys(innerStyle).forEach((k: keyof CSSProperties) => {
       inner.style[k as any] = transStyle(innerStyle[k])
     })
   }
@@ -67,11 +67,11 @@ export const show: ContainerOptions['show'] =  (props, id, innerStyle) => {
   }
 }
 
-export const move:ContainerOptions['move'] = (id, pos) => {
+export const move: ContainerOptions['move'] = (id, pos) => {
   if (id === currentId) {
     // eslint-disable-next-line no-return-assign
     Object.keys(pos).map((key: keyof typeof pos) => (div.style[key] = transStyle(pos[key])))
   }
 }
 
-export const isCurrent: ContainerOptions['isCurrent'] = (id) => id === currentId
+export const isCurrent: ContainerOptions['isCurrent'] = id => id === currentId

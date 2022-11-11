@@ -9,6 +9,8 @@ export type ResizableType<Props> = Props & {
   resizable?: boolean | string
 }
 
+export type ConfigType<Props> = Props
+
 type InputBorderFilterType =
   | 'border'
   | 'className'

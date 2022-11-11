@@ -1,8 +1,8 @@
-import { ReactNode, CSSProperties, FC } from "react"
-import { StandardProps } from "../@types/common"
-import { GetScrollContextConsumerValue } from "../Scroll/Props"
+import { ReactNode, CSSProperties, FC } from 'react'
+import { StandardProps } from '../@types/common'
+import { GetScrollContextConsumerValue } from '../Scroll/Props'
 
-export type ToolPosition =  'top' | 'left' | 'right' | 'bottom' | 'bottom-right' | 'cover'
+export type ToolPosition = 'top' | 'left' | 'right' | 'bottom' | 'bottom-right' | 'cover'
 export type TriggerType = 'click' | 'hover'
 export interface ContainerOptions {
   show: (props: ContainerProps, id: string, innerStyle?: CSSProperties) => void
@@ -18,7 +18,7 @@ export interface ContainerProps extends StandardProps {
    *
    * default: true
    */
-  animation?: boolean,
+  animation?: boolean
   /**
    * The child element can only be a ReactElement.
    *
@@ -84,4 +84,3 @@ export interface ContainerProps extends StandardProps {
 export type TooltipProps = GetScrollContextConsumerValue<ContainerProps>
 
 export type TooltipType = FC<TooltipProps>
-

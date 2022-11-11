@@ -1,10 +1,9 @@
-import React, {  PureComponent } from "react"
+import React, { PureComponent } from 'react'
 import classnames from 'classnames'
 import List from '../AnimationList'
 import { cardClass } from './styles'
 import { isRTL } from '../config'
 import { OriginCardBodyProps } from './Props'
-import {  } from "./context"
 
 const CollapseList = List(['collapse'], 'fast')
 

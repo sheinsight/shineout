@@ -3,10 +3,9 @@ import classnames from 'classnames'
 import icons from '../icons'
 import { cardClass } from './styles'
 import { isRTL } from '../config'
-import { OriginCardHeaderProps } from "./Props"
+import { OriginCardHeaderProps } from './Props'
 
 class Header extends PureComponent<OriginCardHeaderProps> {
-
   renderIndicator() {
     const { collapsed } = this.props
     if (collapsed === undefined) return undefined

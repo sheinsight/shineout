@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react"
+import React, { ReactNode } from 'react'
 import classnames from 'classnames'
 import { isRTL } from '../config'
 import { PureComponent } from '../component'
@@ -6,7 +6,7 @@ import { range } from '../utils/numbers'
 import { defaultProps } from '../utils/proptypes'
 import { rateClass } from './styles'
 import getDataset from '../utils/dom/getDataset'
-import { OriginRateProps } from "./Props"
+import { OriginRateProps } from './Props'
 
 const MIN_SIZE = 12
 
@@ -74,7 +74,7 @@ class Rate extends PureComponent<OriginRateProps, RateState> {
 
     const style = { width: `${remain * 100}%`, display: 'block', overflow: 'hidden', fontSize: 'inherit' }
     return (
-      <span style={style} className={allowHalf ? rateClass('allow-half'): undefined}>
+      <span style={style} className={allowHalf ? rateClass('allow-half') : undefined}>
         {icon}
       </span>
     )
@@ -164,7 +164,7 @@ class Rate extends PureComponent<OriginRateProps, RateState> {
   }
 
   renderStatic() {
-    const { front, value= DefaultProps.value, max = DefaultProps.max, text = DefaultProps.text } = this.props
+    const { front, value = DefaultProps.value, max = DefaultProps.max, text = DefaultProps.text } = this.props
     const style = this.getStyle()
 
     return (

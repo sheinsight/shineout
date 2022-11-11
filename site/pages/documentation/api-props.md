@@ -8,9 +8,6 @@
 ## data *- object | array*
 数据项。通常用在 *Select*, *Table* 等根据数据渲染的组件。
 
-## fetch *- Promise*
-需要传入data的组件，可以传入一个 fetch 作为数据项，如果同时传入 data 和 fetch，fetch 无效。
-
 ## keygen *- string | function | true*
 *Select*, *Table* 等根据数据渲染的组件，生成 key 的规则。
 

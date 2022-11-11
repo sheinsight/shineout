@@ -1,5 +1,6 @@
 export class FormError extends Error {
   value: any
+
   constructor(message: string, name?: string, value?: any) {
     super()
     this.message = message
