@@ -16,7 +16,11 @@ class Password extends PureComponent<InputPassword> {
   }
 
   handleChange(val: string) {
-    const { value = DefaultValue.value, point = DefaultValue.point } = this.props
+    const { value = DefaultValue.value, point = DefaultValue.point, clearToUndefined } = this.props
+    if (val === undefined && clearToUndefined) {
+      this.props.onChange(undefined)
+      return
+    }
     const newValue: string[] = []
     val.split('').forEach((v, i) => {
       newValue.push(v === point ? value[i] : v)
@@ -26,9 +30,9 @@ class Password extends PureComponent<InputPassword> {
   }
 
   render() {
-    const { point = DefaultValue.point, ...others } = this.props
-    const value = Array.from({ length: this.props.value.length }, () => point).join('')
-    return <Input {...others} type="text" value={value} onChange={this.handleChange} />
+    const { point = DefaultValue.point, value = DefaultValue.value, ...others } = this.props
+    const transValue = Array.from({ length: value.length }, () => point).join('')
+    return <Input {...others} type="text" value={transValue} onChange={this.handleChange} />
   }
 }
 

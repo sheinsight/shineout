@@ -64,7 +64,7 @@ export type GetFormItemConsumerProps<U> = Omit<U, keyof FormItemContextValue>
 
 export interface BaseInputProps {
   value?: any
-  onChange?: any
+  onChange: any
 }
 
 export interface InputableProps<Value> {
@@ -79,7 +79,7 @@ export interface InputableProps<Value> {
   filterSameChange?: boolean
   combineRules?: (name: string, rules?: RuleParamsType<Value>) => RuleParamsType<Value>
   required?: boolean
-  bind?: [string, string]
+  bind?: string[]
   onItemError?: (id: string, error?: Error) => void
   bindInputToItem?: (name: string) => void
   unbindInputFromItem?: (name: string) => void

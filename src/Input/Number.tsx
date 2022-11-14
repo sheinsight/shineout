@@ -5,7 +5,7 @@ import { inputClass } from './styles'
 import { isRTL } from '../config'
 import { sub } from '../utils/numbers'
 import { getDirectionClass } from '../utils/classname'
-import { InputNumber } from './Props'
+import { InputNumber, NumberValue } from './Props'
 
 const DefaultValue = {
   step: 1,
@@ -41,7 +41,11 @@ class Number extends PureComponent<InputNumber> {
     if (this.keyPressTimeOut) clearTimeout(this.keyPressTimeOut)
   }
 
-  handleChange(value: string | number | null | undefined, check: boolean, isEmpty?: boolean) {
+  // handleChange(value: NumberValue) {
+  //   this.handleChange(NumberValue)
+  // }
+
+  handleChange(value?: NumberValue, check?: boolean, isEmpty?: boolean) {
     if (isEmpty || value === undefined) {
       this.props.onChange(value)
       return
@@ -138,9 +142,9 @@ class Number extends PureComponent<InputNumber> {
     }, 600)
   }
 
-  handleCalc(mod: number) {
+  handleCalc(mod: number, e: React.MouseEvent) {
     const { onMouseDown } = this.props
-    if (onMouseDown) onMouseDown()
+    if (onMouseDown) onMouseDown(e)
     this.hold = true
     this.changeValue(mod)
     this.keyPressTimeOut = setTimeout(() => {
@@ -153,9 +157,9 @@ class Number extends PureComponent<InputNumber> {
     if (this.keyPressTimeOut) clearTimeout(this.keyPressTimeOut)
   }
 
-  handleMouseUp() {
+  handleMouseUp(e: React.MouseEvent) {
     const { onMouseUp } = this.props
-    if (onMouseUp) onMouseUp()
+    if (onMouseUp) onMouseUp(e)
     this.hold = false
     if (this.keyPressTimeOut) clearTimeout(this.keyPressTimeOut)
   }
@@ -191,11 +195,12 @@ class Number extends PureComponent<InputNumber> {
   }
 
   renderRTL() {
-    const { onChange, allowNull, hideArrow, ...other } = this.props
+    const { onChange, allowNull, hideArrow, value, defaultValue, ...other } = this.props
     return [
       ...this.renderArrowGroup(),
       <Input
         key="input"
+        value={value as string}
         {...other}
         className={inputClass(!hideArrow && getDirectionClass('number'), 'rtl')}
         onChange={this.handleChange}
@@ -208,7 +213,7 @@ class Number extends PureComponent<InputNumber> {
   }
 
   render() {
-    const { onChange, allowNull, hideArrow, ...other } = this.props
+    const { onChange, allowNull, hideArrow, defaultValue, value, ...other } = this.props
     const rtl = isRTL()
     if (rtl) {
       return this.renderRTL()
@@ -216,6 +221,7 @@ class Number extends PureComponent<InputNumber> {
     return [
       <Input
         key="input"
+        value={value as string}
         {...other}
         className={inputClass(!hideArrow && getDirectionClass('number'))}
         onChange={this.handleChange}

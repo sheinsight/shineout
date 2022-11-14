@@ -24,12 +24,12 @@ const App: React.FC = () => {
     <div>
       <Input.Group style={style}>
         <b className="min">min</b>
-        <Input.Number delay={0} placeholder="100" min={100} onKeyUp={onKeyUp} />
+        <Input.Number placeholder="100" min={100} onKeyUp={onKeyUp} />
       </Input.Group>
 
       <Input.Group style={style}>
         <b className="max">max</b>
-        <Input.Number delay={0} placeholder="200" max={200} onKeyDown={onKeyDown} />
+        <Input.Number placeholder="200" max={200} onKeyDown={onKeyDown} />
       </Input.Group>
 
       <Input.Group style={style}>

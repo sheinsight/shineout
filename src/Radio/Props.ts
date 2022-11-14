@@ -15,7 +15,7 @@ export interface RadioGroupProps<DataItem, Value>
   datum: ListDatum<DataItem, Value>
   data?: DataItem[]
   size?: RegularAttributes.Size
-  onChange?: (value: Value, Data: DataItem) => void
+  onChange: (value: Value, Data: DataItem) => void
   value: Value
 }
 

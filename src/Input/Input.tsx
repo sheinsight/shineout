@@ -25,7 +25,7 @@ const DefaultValue = {
   type: 'text',
 }
 
-class Input extends PureComponent<Props<string>> {
+class Input extends PureComponent<Props> {
   static defaultProps: any = DefaultValue
 
   enterLock: boolean
@@ -34,7 +34,7 @@ class Input extends PureComponent<Props<string>> {
 
   enterPress: boolean
 
-  constructor(props: Props<string>) {
+  constructor(props: Props) {
     super(props)
     this.enterLock = false
     this.handleChange = this.handleChange.bind(this)
@@ -170,7 +170,7 @@ class Input extends PureComponent<Props<string>> {
     if (onBlur) onBlur(e)
   }
 
-  handleAutoSelect(event: React.MouseEvent<HTMLElement>) {
+  handleAutoSelect(event: React.FocusEvent) {
     const { onFocus } = this.props
     const { autoSelect } = this.props
     if (autoSelect) {
@@ -237,7 +237,7 @@ class Input extends PureComponent<Props<string>> {
       >
         <input
           {...cleanProps(other)}
-          placeholder={needClearUndefined ? '' : (placeholder as string)}
+          placeholder={needClearUndefined ? '' : placeholder}
           className={mc || undefined}
           name={other.name || htmlName}
           type={type === 'password' ? type : 'text'}
@@ -248,7 +248,7 @@ class Input extends PureComponent<Props<string>> {
           onKeyDown={this.handleKeyDown}
           onKeyUp={this.handleKeyUp}
           onBlur={this.handleBlur}
-          onFocus={this.handleAutoSelect as any}
+          onFocus={this.handleAutoSelect}
         />
       </InputTitle>,
       showClear && <Clear onClick={this.handleChange} key="close" clearResult={needClearUndefined ? undefined : ''} />,

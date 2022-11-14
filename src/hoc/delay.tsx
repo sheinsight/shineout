@@ -1,20 +1,20 @@
-import React, { PureComponent } from 'react'
+import React, { PureComponent, ComponentType } from 'react'
 import config from '../config'
 import { curry } from '../utils/func'
-import { DelayProps } from './Props'
+import { DelayProps, GetDelayProps } from './Props'
 
 interface DelayState {
   value?: unknown
 }
 
 export default curry(
-  <Value, U extends DelayProps<Value>>(defaultDelay: number, Origin: React.ComponentType<U>) =>
-    class extends PureComponent<U, DelayState> {
+  <U extends {}>(defaultDelay: number, Origin: ComponentType<U>) =>
+    (class extends PureComponent<DelayProps, DelayState> {
       changeLocked: boolean
 
       changeTimer: NodeJS.Timeout
 
-      constructor(props: U) {
+      constructor(props: DelayProps) {
         super(props)
 
         this.state = {
@@ -78,5 +78,5 @@ export default curry(
           />
         )
       }
-    }
+    } as unknown) as ComponentType<GetDelayProps<U>>
 )

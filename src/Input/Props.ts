@@ -1,15 +1,35 @@
 import * as React from 'react'
-import { PopoverProps } from '../Popover/interface'
-import { StandardProps, RegularAttributes, FormItemStandardProps } from '../@types/common'
+import { StandardProps, RegularAttributes, ObjectType } from '../@types/common'
 import { GetInputableProps } from '../Form/Props'
-import { GetInputBorderProps, GetDelayProps } from '../hoc/Props'
+import { GetInputBorderProps, GetDelayProps, GetCoinProps, GetTrimProps } from '../hoc/Props'
 
 type ReactNode = React.ReactNode
 export type numType = 'positive' | 'non-negative'
 
+type InputValue = string
+export type NumberValue = InputValue | number | null
+
 type WidthInputHTMLAttribute<U> = U & Omit<React.InputHTMLAttributes<any>, keyof U>
 
-export interface Props<Value = string> extends StandardProps, FormItemStandardProps<Value> {
+export interface Props extends StandardProps {
+  /**
+   * value
+   *
+   * 输入值
+   *
+   * default: null
+   */
+  value?: InputValue
+
+  /**
+   * onChange
+   *
+   * 值改变回调
+   *
+   * default: null
+   */
+  onChange: (value?: InputValue) => void
+
   /**
    * width
    *
@@ -18,15 +38,6 @@ export interface Props<Value = string> extends StandardProps, FormItemStandardPr
    * default: null
    */
   width?: number
-
-  /**
-   * User input triggers the onChange and to check interval, unit: ms.
-   *
-   * 用户输入触发 onChange 和校验间隔时间，单位 毫秒。
-   *
-   * default: 400
-   */
-  delay?: number
 
   /**
    * If clearable is true, show clear value icon
@@ -44,7 +55,7 @@ export interface Props<Value = string> extends StandardProps, FormItemStandardPr
    *
    * default: -
    */
-  onEnterPress?: (value: Value, e?: any) => void
+  onEnterPress?: (value: InputValue, e?: any) => void
 
   /**
    * The callback function for key down
@@ -65,24 +76,6 @@ export interface Props<Value = string> extends StandardProps, FormItemStandardPr
   onKeyUp?: (e: React.KeyboardEvent) => void
 
   /**
-   * The callback function for mouse down
-   *
-   * 鼠标按下后的回调
-   *
-   * default: none
-   */
-  onMouseDown?: () => void
-
-  /**
-   * The callback function for mouse up
-   *
-   * 鼠标按下后抬起的回调
-   *
-   * default: none
-   */
-  onMouseUp?: () => void
-
-  /**
    * The position where the text pop up
    *
    * 信息弹出位置
@@ -101,24 +94,6 @@ export interface Props<Value = string> extends StandardProps, FormItemStandardPr
   size?: RegularAttributes.Size
 
   /**
-   * Prompt information
-   *
-   * 提示信息
-   *
-   * default: none
-   */
-  tip?: ReactNode
-
-  /**
-   * When trim is true, blank characters are automatically deleted when lose focus。
-   *
-   * trim 为 true 时，失去焦点时会自动删除空白字符。
-   *
-   * default: false
-   */
-  trim?: boolean
-
-  /**
    * Same as the type of the native input tag
    *
    * 同原生 input 标签的 type
@@ -128,15 +103,6 @@ export interface Props<Value = string> extends StandardProps, FormItemStandardPr
   type?: string
 
   /**
-   * Show as thousands separator, valid only when type is 'number'
-   *
-   * 以千位分隔符展示,仅当type为number时有效
-   *
-   * default: false
-   */
-  coin?: boolean
-
-  /**
    * Infomation
    *
    * 提示信息
@@ -144,15 +110,6 @@ export interface Props<Value = string> extends StandardProps, FormItemStandardPr
    * default: -
    */
   info?: ((msg: string) => string) | number
-
-  /**
-   * Vilidate popup properties, specific properties refer to Popover component description
-   *
-   * 校验弹框接受的属性，具体属性参考Popover组件说明
-   *
-   * default: none
-   */
-  popoverProps?: PopoverProps
 
   /**
    * input max length
@@ -239,16 +196,6 @@ export interface Props<Value = string> extends StandardProps, FormItemStandardPr
   numType?: numType
 
   /**
-   *  nonnegative number (valid when type is number)
-   *
-   *  非负数，仅在type = number 下生效
-   *
-   *  default: -
-   *
-   */
-  nonnegative?: boolean
-
-  /**
    *  Automatically select all data after mouse click
    *
    *  鼠标点击后自动全选数据
@@ -288,25 +235,18 @@ export interface Props<Value = string> extends StandardProps, FormItemStandardPr
    *  default: -
    *
    */
-  onBlur: (e: React.FocusEvent<HTMLInputElement>) => void
-  onFocus: (e: React.MouseEvent<HTMLElement>) => void
+  onBlur: React.FocusEventHandler
+  onFocus: React.FocusEventHandler
   cancelChange?: () => void
   forceChange?: (value: unknown, ...args: unknown[]) => void
+  placeholder?: string
+  name?: string
+  defaultValue?: InputValue
 }
 
-export type InputProps<Value = string> = WidthInputHTMLAttribute<
-  GetInputableProps<GetInputBorderProps<GetDelayProps<Props<Value>>>, Value>
+export type InputProps = WidthInputHTMLAttribute<
+  GetInputableProps<GetInputBorderProps<GetDelayProps<GetTrimProps<GetCoinProps<Props>>>>, InputValue>
 >
-
-export class InputClass<Value = string> extends React.Component<InputProps<Value>, {}> {
-  static Number: typeof InputNumberClass
-  static Password: typeof InputPasswordClass
-  static Group: typeof InputGroupClass
-  // @ts-ignore
-  render(): JSX.Element
-}
-
-export type InputType = typeof InputClass
 
 export interface ClearProps {
   onClick: (e: React.ChangeEvent<Element>, clearClick: boolean) => void
@@ -314,7 +254,7 @@ export interface ClearProps {
 }
 
 // Input.Number 对内
-export interface InputNumber extends Props {
+export interface InputNumber extends Omit<Props, 'value' | 'defaultValue' | 'onChange'> {
   /**
    * The minimum value
    *
@@ -341,7 +281,8 @@ export interface InputNumber extends Props {
    * default: 1
    */
   step?: number
-  value: string
+  value?: NumberValue
+  defaultValue?: NumberValue
   disabled?: boolean
 
   /**
@@ -361,17 +302,29 @@ export interface InputNumber extends Props {
    * default: false
    */
   hideArrow?: boolean
-  onChange: (value: string | number | null | undefined) => void
+  onChange: (value?: NumberValue) => void
+  /**
+   * The callback function for mouse down
+   *
+   * 鼠标按下后的回调
+   *
+   * default: none
+   */
+  onMouseDown?: (e: React.MouseEvent) => void
+
+  /**
+   * The callback function for mouse up
+   *
+   * 鼠标按下后抬起的回调
+   *
+   * default: none
+   */
+  onMouseUp?: (e: React.MouseEvent) => void
 }
 // Input.Number 对外
 export type InputNumberProps<Value = string> = WidthInputHTMLAttribute<
-  GetInputableProps<GetInputBorderProps<InputNumber>, Value>
+  GetInputableProps<GetInputBorderProps<GetCoinProps<InputNumber>>, Value>
 >
-
-export class InputNumberClass extends React.Component<InputNumberProps, {}> {
-  // @ts-ignore
-  render(): JSX.Element
-}
 
 // Input.Password 对内
 export interface InputPassword extends Props {
@@ -383,27 +336,36 @@ export interface InputPassword extends Props {
    * default: '.'
    */
   point?: string
-  value: string
-  onChange: (value: string) => void
 }
 
 // Input.Password 对外
 export type InputPasswordProps<Value = string> = WidthInputHTMLAttribute<
   GetInputableProps<GetInputBorderProps<InputPassword>, Value>
 >
-
-export class InputPasswordClass extends React.Component<InputPasswordProps, {}> {
-  // @ts-ignore
-  render(): JSX.Element
-}
-
 export interface InputGroupBaseProps {
   children?: ReactNode
 }
 
-export interface InputGroupProps<Value = string> extends InputGroupBaseProps, InputProps<Value> {}
+export interface InputGroupProps extends InputGroupBaseProps, ObjectType {}
 
-export class InputGroupClass extends React.Component<InputGroupProps, {}> {
-  // @ts-ignore
+export declare class InputNumberClass extends React.Component<InputNumberProps, {}> {
   render(): JSX.Element
 }
+export declare class InputGroupClass extends React.Component<InputGroupProps, {}> {
+  render(): JSX.Element
+}
+export declare class InputPasswordClass extends React.Component<InputPasswordProps, {}> {
+  render(): JSX.Element
+}
+
+export declare class InputClass extends React.Component<InputProps, {}> {
+  static Number: typeof InputNumberClass
+
+  static Password: typeof InputPasswordClass
+
+  static Group: typeof InputGroupClass
+
+  render(): JSX.Element
+}
+
+export type InputType = typeof InputClass

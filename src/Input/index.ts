@@ -10,7 +10,7 @@ import Group from './Group'
 import Password from './Password'
 import { InputType } from './Props'
 
-const exports: any = compose(
+const exports = compose(
   inputable,
   inputBorder({}),
   delay(400),
@@ -24,6 +24,7 @@ exports.Number = compose(
   inputBorder({}),
   coin()
 )(Number)
+
 exports.Password = compose(
   inputable,
   inputBorder({})

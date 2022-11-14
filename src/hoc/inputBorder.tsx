@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ComponentType } from 'react'
 import classnames from 'classnames'
 import { Component } from '../component'
 import { curry } from '../utils/func'
@@ -9,8 +9,7 @@ import { inputBorderClass } from '../Form/styles'
 import Popover from '../Popover'
 import { isRTL } from '../config'
 import getDataset from '../utils/dom/getDataset'
-import { RegularAttributes } from '../@types/common'
-import { PopoverProps } from '../Popover/interface'
+import { InputBorderProps, GetInputBorderProps } from './Props'
 
 interface Options {
   tag: 'label' | 'div' | 'span'
@@ -21,37 +20,9 @@ interface Options {
   enterPress?: boolean
 }
 
-interface InputBorderProps {
-  autoFocus?: boolean
-  disabled?: boolean | (() => boolean)
-  onBlur?: (e: React.MouseEvent<HTMLElement>) => void
-  onFocus?: (e: React.MouseEvent<HTMLElement>) => void
-  size?: RegularAttributes.Size
-  border?: boolean
-  className?: string
-  tip?: any
-  popover?: RegularAttributes.Position
-  width?: string | number
-  error?: Error
-  popoverProps?: PopoverProps
-  underline?: boolean
-  style?: React.CSSProperties
-}
-
-type filterKeys =
-  | 'border'
-  | 'className'
-  | 'tip'
-  | 'popover'
-  | 'width'
-  | 'error'
-  | 'popoverProps'
-  | 'underline'
-  | 'style'
-
 export default curry(
-  <U extends InputBorderProps>(options: Options, Origin: React.ComponentType<Omit<U, filterKeys>>) =>
-    class extends Component<U, { focus?: boolean }> {
+  <U extends InputBorderProps>(options: Options, Origin: React.ComponentType<U>) =>
+    (class extends Component<InputBorderProps, { focus?: boolean }> {
       static defaultProps: any = {
         border: true,
         style: {},
@@ -60,7 +31,7 @@ export default curry(
 
       el: HTMLElement | null
 
-      constructor(props: U) {
+      constructor(props: InputBorderProps) {
         super(props)
         this.el = null
         this.state = {
@@ -76,13 +47,13 @@ export default curry(
         this.el = el
       }
 
-      handleBlur(event: React.MouseEvent<HTMLElement>) {
+      handleBlur(event: React.FocusEvent<HTMLElement>) {
         this.setState({ focus: false })
         const { onBlur } = this.props
         if (onBlur) onBlur(event)
       }
 
-      handleFocus(event: React.MouseEvent<HTMLElement>) {
+      handleFocus(event: React.FocusEvent<HTMLElement>) {
         this.setState({ focus: true })
         const { onFocus } = this.props
         if (onFocus) onFocus(event)
@@ -179,5 +150,5 @@ export default curry(
           </Tag>
         )
       }
-    }
+    } as unknown) as ComponentType<GetInputBorderProps<U>>
 )

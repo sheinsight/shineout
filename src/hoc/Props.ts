@@ -1,6 +1,7 @@
-import { RegularAttributes } from '../@types/common'
+import React, { ReactNode } from 'react'
+import { ForceAdd, PartialKeys, RegularAttributes } from '../@types/common'
 import { PopoverProps } from '../Popover/interface'
-import { ForceAdd } from '../@types/common'
+
 export type MovableType<U> = U & {
   moveable?: boolean
 }
@@ -11,63 +12,92 @@ export type ResizableType<Props> = Props & {
 
 export type ConfigType<Props> = Props
 
-type InputBorderFilterType =
-  | 'border'
-  | 'className'
-  | 'tip'
-  | 'popover'
-  | 'width'
-  | 'error'
-  | 'popoverProps'
-  | 'underline'
-  | 'style'
-interface BaseInputBorderProps {
-  onBlur?: (e: React.MouseEvent<HTMLElement>) => void
-  onFocus?: (e: React.MouseEvent<HTMLElement>) => void
-  inputFocus?: boolean
-}
+/** ------ inputBorder ------ * */
 export interface InputBorderProps {
-  autoFocus?: boolean
-  disabled?: boolean | (() => boolean)
-  onBlur?: (e: React.MouseEvent<HTMLElement>) => void
-  onFocus?: (e: React.MouseEvent<HTMLElement>) => void
-  size?: RegularAttributes.Size
-  border?: boolean
   className?: string
-  tip?: any
+  style?: React.CSSProperties
+  /**
+   * Prompt information
+   *
+   * 提示信息
+   *
+   * default: none
+   */
+  tip?: ReactNode
   popover?: RegularAttributes.Position
   width?: string | number
   error?: Error
+  /**
+   * Vilidate popup properties, specific properties refer to Popover component description
+   *
+   * 校验弹框接受的属性，具体属性参考Popover组件说明
+   *
+   * default: none
+   */
   popoverProps?: PopoverProps
   underline?: boolean
-  style?: React.CSSProperties
+  autoFocus?: boolean
+  border?: boolean
+  // base props
+  disabled?: boolean | (() => boolean)
+  onBlur?: React.FocusEventHandler
+  onFocus?: React.FocusEventHandler
+  size?: RegularAttributes.Size
 }
 
-// 过滤掉原生属性 onFocus onBlur
-type InputBorderPropsFiltered<Props> = Omit<Props, 'onFocus' | 'onBlur' | InputBorderFilterType>
-// 将 onBlur onFocus 变成可选
-type HandleValueProps<Props extends BaseInputBorderProps> = Omit<Props, 'onBlur' | 'onFocus'> &
-  Partial<Pick<Props, 'onBlur' | 'onFocus'>>
-// inputborder 中增加一些属性
-type AddInputBorderProps<Props> = ForceAdd<HandleValueProps<Props>, BaseInputBorderProps>
+export type GetInputBorderProps<Props extends {}> = ForceAdd<
+  Omit<PartialKeys<Props, 'onFocus' | 'onBlur'>, 'inputFocus'>,
+  InputBorderProps
+>
 
-export type GetInputBorderProps<Props> = AddInputBorderProps<Props> & InputBorderPropsFiltered<InputBorderProps>
-
-export interface DelayProps<Value> {
+/** ------ delay ------ * */
+export interface DelayProps {
+  /**
+   * User input triggers the onChange and to check interval, unit: ms.
+   *
+   * 用户输入触发 onChange 和校验间隔时间，单位 毫秒。
+   *
+   * default: 400
+   */
   delay?: number
-  value?: Value
+  value?: any
   onChange: (...args: any) => void
 }
+export type GetDelayProps<Props> = ForceAdd<Omit<Props, 'forceChange' | 'cancelChange'>, DelayProps>
 
-export type GetDelayProps<Props> = Omit<Props, 'forceChange' | 'cancelChange'>
-
+/** ------ coin ------ * */
 export interface CoinProps {
-  value?: string | number
+  value?: number | string | null
+  onChange?: any
   type?: string
-  onFocus?: (e: React.MouseEvent<HTMLElement>) => void
-  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void
-  onMouseDown?: (e: React.MouseEvent<HTMLElement>) => void
-  onMouseUp?: (e: React.MouseEvent<HTMLElement>) => void
-  onChange?: (value: string) => void
+  onFocus?: (e: any) => void
+  onBlur?: (e: any) => void
+  onMouseDown?: React.MouseEventHandler
+  onMouseUp?: React.MouseEventHandler
+  /**
+   * Show as thousands separator, valid only when type is 'number'
+   *
+   * 以千位分隔符展示,仅当type为number时有效
+   *
+   * default: false
+   */
   coin?: boolean
 }
+export type GetCoinProps<Props> = ForceAdd<PartialKeys<Props, 'onFocus' | 'onBlur'>, CoinProps>
+
+/** ------ trim ------ * */
+
+export interface TrimProps {
+  value?: any
+  onChange?: (...args: any) => void
+  onBlur?: (e: any) => void
+  /**
+   * When trim is true, blank characters are automatically deleted when lose focus。
+   *
+   * trim 为 true 时，失去焦点时会自动删除空白字符。
+   *
+   * default: false
+   */
+  trim?: boolean
+}
+export type GetTrimProps<Props> = ForceAdd<Props, TrimProps>
