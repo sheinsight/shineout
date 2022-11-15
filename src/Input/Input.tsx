@@ -127,7 +127,7 @@ class Input extends PureComponent<Props> {
       if (typeof clearable === 'function') clearable()
     }
     let { value } = e.target as HTMLInputElement
-    if (clearClick && this.props.clearToUndefined && this.props.onChange) {
+    if (clearClick && this.props.clearToUndefined) {
       this.props.onChange(value)
       return
     }
@@ -142,7 +142,7 @@ class Input extends PureComponent<Props> {
       value = this.formatValue(value)
     }
 
-    if (this.props.onChange) this.props.onChange(value)
+    this.props.onChange(value)
   }
 
   handleKeyDown(e: React.KeyboardEvent) {

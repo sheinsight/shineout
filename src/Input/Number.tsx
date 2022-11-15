@@ -52,7 +52,7 @@ class Number extends PureComponent<InputNumber> {
     }
 
     if (!check) {
-      if (new RegExp('^-?\\d*\\.?\\d*$').test((value as unknown) as string)) {
+      if (new RegExp('^-?\\d*\\.?\\d*$').test(value as string)) {
         this.props.onChange(value)
       }
       return
@@ -99,7 +99,7 @@ class Number extends PureComponent<InputNumber> {
   changeValue(mod: number) {
     if (this.props.disabled) return
     let val = this.props.value
-    if (((val as unknown) as number) === 0) val = '0'
+    if (val === 0) val = '0'
     let value = parseFloat(`${val || ''}`.replace(/,/g, ''))
     // eslint-disable-next-line
     if (isNaN(value)) value = 0
