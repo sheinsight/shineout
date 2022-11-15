@@ -1,17 +1,17 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { inputTitleClass } from '../InputTitle/styles'
 import cleanProps from '../utils/cleanProps'
 import Clear from './clear'
 import { inputClass } from './styles'
 import InputTitle from '../InputTitle'
+import { Props } from './Props'
 
-function regLength(size) {
-  return /\d+/.test(size) && size > 0 ? `{0,${size}}` : '*'
+function regLength(size?: number) {
+  return /\d+/.test(String(size)) && size! > 0 ? `{0,${size}}` : '*'
 }
 
-function fillNumber(val) {
+function fillNumber(val: string) {
   return (
     val
       .replace(/^(-)?(\.\d+)(?!=\.).*/g, '$10$2')
@@ -21,8 +21,20 @@ function fillNumber(val) {
   )
 }
 
-class Input extends PureComponent {
-  constructor(props) {
+const DefaultValue = {
+  type: 'text',
+}
+
+class Input extends PureComponent<Props> {
+  static defaultProps: any = DefaultValue
+
+  enterLock: boolean
+
+  ref: HTMLInputElement
+
+  enterPress: boolean
+
+  constructor(props: Props) {
     super(props)
     this.enterLock = false
     this.handleChange = this.handleChange.bind(this)
@@ -33,28 +45,28 @@ class Input extends PureComponent {
     this.bindRef = this.bindRef.bind(this)
   }
 
-  defaultInfo = value => {
+  defaultInfo = (value?: string) => {
     if (!value || value.length === 0) return null
     const { info } = this.props
     const text = `${value.length} / ${info}`
-    if (value.length <= info) return text
+    if (typeof info === 'number' && value.length <= info) return text
     return new Error(text)
   }
 
-  bindRef(el) {
+  bindRef(el: HTMLInputElement) {
     const { forwardedRef } = this.props
     this.ref = el
     if (forwardedRef) forwardedRef(el)
   }
 
-  isValidNumber(val) {
+  isValidNumber(val: string) {
     const { numType } = this.props
     const noNeg = numType === 'non-negative' || numType === 'positive'
     const regExp = new RegExp(`^(${noNeg ? '' : '-'})?\\d*\\.?\\d*$`, 'g')
     return regExp.test(val)
   }
 
-  formatValue(val) {
+  formatValue(val: string) {
     let value = val
     const { type, digits, integerLimit, numType } = this.props
     const noNeg = numType === 'non-negative' || numType === 'positive'
@@ -69,12 +81,12 @@ class Input extends PureComponent {
     return value
   }
 
-  fixValue(val) {
+  fixValue(val: string) {
     const { type, digits, autoFix, cancelChange, numType } = this.props
     if (type !== 'number' || val === '') return val
     if (/^[.-]+$/.test(val)) return ''
     let fixVal = fillNumber(val)
-    if (numType === 'positive' && fixVal <= 0) return ''
+    if (numType === 'positive' && Number(fixVal) <= 0) return ''
 
     if (digits !== undefined && autoFix) {
       if (digits > 0) {
@@ -87,11 +99,11 @@ class Input extends PureComponent {
     return fixVal
   }
 
-  invalidNumber(value) {
+  invalidNumber(value: string) {
     const { digits, type, integerLimit } = this.props
     if (type !== 'number') return false
 
-    let reg = '^-?'
+    let reg: string | RegExp = '^-?'
     if (!integerLimit) {
       reg += `\\d*`
     } else if (integerLimit > 0) {
@@ -108,13 +120,13 @@ class Input extends PureComponent {
     return !reg.test(value)
   }
 
-  handleChange(e, clearClick) {
+  handleChange(e: React.ChangeEvent, clearClick: boolean) {
     const { type, clearable } = this.props
     if (clearClick) {
       this.ref.focus()
       if (typeof clearable === 'function') clearable()
     }
-    let { value } = e.target
+    let { value } = e.target as HTMLInputElement
     if (clearClick && this.props.clearToUndefined) {
       this.props.onChange(value)
       return
@@ -133,23 +145,23 @@ class Input extends PureComponent {
     this.props.onChange(value)
   }
 
-  handleKeyDown(e) {
+  handleKeyDown(e: React.KeyboardEvent) {
     const { onKeyDown } = this.props
     if (e.keyCode === 13) this.enterPress = true
     if (onKeyDown) onKeyDown(e)
   }
 
-  handleKeyUp(e) {
+  handleKeyUp(e: React.KeyboardEvent) {
     const { onKeyUp, onEnterPress } = this.props
     if (this.enterPress && e.keyCode === 13 && onEnterPress) {
-      onEnterPress(e.target.value, e)
+      onEnterPress((e.target as HTMLInputElement).value, e)
       this.enterPress = false
     }
     if (onKeyUp) onKeyUp(e)
   }
 
-  handleBlur(e) {
-    const { value } = e.target
+  handleBlur(e: React.FocusEvent<HTMLInputElement>) {
+    const { value } = e.target as HTMLInputElement
     const { forceChange, onBlur, clearToUndefined, cancelChange } = this.props
     if (cancelChange) cancelChange()
     const newVal = this.fixValue(value)
@@ -158,11 +170,11 @@ class Input extends PureComponent {
     if (onBlur) onBlur(e)
   }
 
-  handleAutoSelect(event) {
+  handleAutoSelect(event: React.FocusEvent) {
     const { onFocus } = this.props
     const { autoSelect } = this.props
     if (autoSelect) {
-      event.currentTarget.select()
+      ;(event.currentTarget as HTMLInputElement).select()
     }
     if (typeof onFocus === 'function') {
       onFocus(event)
@@ -232,7 +244,7 @@ class Input extends PureComponent {
           value={value}
           ref={this.bindRef}
           key="input"
-          onChange={this.handleChange}
+          onChange={this.handleChange as React.ChangeEventHandler<HTMLInputElement>}
           onKeyDown={this.handleKeyDown}
           onKeyUp={this.handleKeyUp}
           onBlur={this.handleBlur}
@@ -243,38 +255,6 @@ class Input extends PureComponent {
       this.renderInfo(),
     ]
   }
-}
-
-Input.propTypes = {
-  className: PropTypes.string,
-  defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  digits: PropTypes.number,
-  integerLimit: PropTypes.number,
-  numType: PropTypes.string,
-  autoSelect: PropTypes.bool,
-  autoFix: PropTypes.bool,
-  forceChange: PropTypes.func,
-  htmlName: PropTypes.string,
-  onBlur: PropTypes.func,
-  onChange: PropTypes.func.isRequired,
-  cancelChange: PropTypes.func,
-  onEnterPress: PropTypes.func,
-  type: PropTypes.string,
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  onFocus: PropTypes.func,
-  clearable: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
-  info: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
-  forwardedRef: PropTypes.func,
-  onKeyDown: PropTypes.func,
-  onKeyUp: PropTypes.func,
-  innerTitle: PropTypes.node,
-  inputFocus: PropTypes.bool,
-  clearToUndefined: PropTypes.bool,
-  placeholder: PropTypes.string,
-}
-
-Input.defaultProps = {
-  type: 'text',
 }
 
 export default Input
