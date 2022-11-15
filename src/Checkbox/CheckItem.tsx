@@ -1,7 +1,7 @@
-import React, {  KeyboardEvent } from "react"
+import React, { KeyboardEvent } from 'react'
 import classnames from 'classnames'
 import { PureComponent } from '../component'
-import {  defaultProps } from '../utils/proptypes'
+import { defaultProps } from '../utils/proptypes'
 import { getUidStr } from '../utils/uid'
 import { getDirectionClass } from '../utils/classname'
 import { isEnterPress } from '../utils/is'
@@ -9,18 +9,24 @@ import Input from '../Input'
 import { checkinputClass } from './styles'
 import { isRTL } from '../config'
 import getDataset from '../utils/dom/getDataset'
-import {CheckItemProps, SimpleCheckProps, SimpleRadioProps, SimpleSwitchProps, CheckValueType, CheckType} from "./Props"
+import {
+  CheckItemProps,
+  SimpleCheckProps,
+  SimpleRadioProps,
+  SimpleSwitchProps,
+  CheckValueType,
+  CheckType,
+} from './Props'
 
 export interface CheckboxState {
   checked?: CheckValueType
 }
 
-function checkItem(type: 'checkbox') : React.ComponentClass<SimpleCheckProps>
-function checkItem(type: 'radio') : React.ComponentClass<SimpleRadioProps>
-function checkItem(type: 'switch') : React.ComponentClass<SimpleSwitchProps>
+function checkItem(type: 'checkbox'): React.ComponentClass<SimpleCheckProps>
+function checkItem(type: 'radio'): React.ComponentClass<SimpleRadioProps>
+function checkItem(type: 'switch'): React.ComponentClass<SimpleSwitchProps>
 function checkItem(type: CheckType): React.ComponentClass<CheckItemProps, CheckboxState> {
   class CheckItem extends PureComponent<CheckItemProps, CheckboxState> {
-
     static defaultProps: any = {
       ...defaultProps,
       htmlValue: true,
@@ -34,7 +40,7 @@ function checkItem(type: CheckType): React.ComponentClass<CheckItemProps, Checkb
 
     el: null | HTMLElement
 
-    constructor(props:CheckItemProps  ) {
+    constructor(props: CheckItemProps) {
       super(props)
 
       this.state = {
@@ -76,7 +82,7 @@ function checkItem(type: CheckType): React.ComponentClass<CheckItemProps, Checkb
       if (el) this.el = el
     }
 
-    handleEnter(e:KeyboardEvent) {
+    handleEnter(e: KeyboardEvent) {
       if (isEnterPress(e)) {
         this.handleChange({
           target: {
@@ -88,7 +94,7 @@ function checkItem(type: CheckType): React.ComponentClass<CheckItemProps, Checkb
       }
     }
 
-    handleChange(e: {target: {checked: boolean}}) {
+    handleChange(e: { target: { checked: boolean } }) {
       const { onChange, onRawChange, index, inputable } = this.props
       const { checked } = e.target
       this.setState({ checked }, () => this.el!.focus())

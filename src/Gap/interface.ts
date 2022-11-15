@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { StandardProps } from '../@types/common'
 import { ReactNode } from 'react'
+import { StandardProps } from '../@types/common'
 
 export interface GapProps extends StandardProps {
   /**

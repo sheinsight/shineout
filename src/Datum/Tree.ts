@@ -48,16 +48,27 @@ export interface TreeDatumOptions<Item, Value> {
 
 export default class<Item, Value extends any[]> {
   keygen?: TreeDatumOptions<Item, Value>['keygen']
+
   mode: TreeDatumOptions<Item, Value>['mode']
+
   unmatch: TreeDatumOptions<Item, Value>['unmatch']
+
   disabled: TreeDatumOptions<Item, Value>['disabled']
+
   childrenKey: TreeDatumOptions<Item, Value>['childrenKey']
+
   valueMap: Map<IdType, CheckedStatus>
+
   unmatchedValueMap: Map<any, any>
+
   events: Map<IdType, Function>
+
   $events: ObjectType<Function[]>
+
   value?: Value
+
   data?: Item[]
+
   cachedValue?: unknown[]
   pathMap: Map<
     IdType,
@@ -137,7 +148,7 @@ export default class<Item, Value extends any[]> {
           break
         case CheckedMode.Child:
           if (checked === 1) {
-            let info = this.pathMap.get(id)
+            const info = this.pathMap.get(id)
             if (info && info.children.length === 0) value.push(id)
           }
           break

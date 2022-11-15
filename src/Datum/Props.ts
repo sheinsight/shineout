@@ -1,6 +1,6 @@
-import { RuleParamsType } from "../Rule"
-import { FormItemStandardProps, ListItemStandardProps, ObjectType } from "../@types/common"
-import { ValidType } from "./types"
+import { RuleParamsType } from '../Rule'
+import { ListItemStandardProps, ObjectType } from '../@types/common'
+import { ValidType } from './types'
 
 interface RuleObject {
   [name: string]: RuleParamsType<any> | RuleObject
@@ -14,28 +14,27 @@ export interface FormDatumOptions<V extends {}> {
   removeUndefined?: boolean
   rules?: RuleObject
   onChange?: (value: V) => void
-  value?: V,
-  error?: {[name: string]: string | Error}
+  value?: V
+  error?: { [name: string]: string | Error }
   initValidate?: boolean
   defaultValue?: V
 }
 
-
-export interface ListDatumOptions<Item, Value>
-  extends Pick<ListItemStandardProps<Item, Value>, 'format' | 'disabled'>,
-    Pick<FormItemStandardProps<Value>, 'value' | 'onChange'> {
+export interface ListDatumOptions<Item, Value> extends Pick<ListItemStandardProps<Item, Value>, 'format' | 'disabled'> {
+  value?: Value
+  onChange?: (value: Value, ...rest: any) => void
   separator?: string
   limit?: number
-  distinct?: boolean,
+  distinct?: boolean
   prediction?: (value: any, data: Item) => boolean
 }
 
 export interface DatumHocOptions<Props> {
   type: 'list' | 'form'
-  key:  keyof Props & string
-  limit: number,
-  bindProps: (keyof Props)[],
-  ignoreUndefined: boolean,
+  key: keyof Props & string
+  limit: number
+  bindProps: (keyof Props)[]
+  ignoreUndefined: boolean
   pure: boolean
 }
 
@@ -51,6 +50,10 @@ export interface DatumAddProps {
   datum?: ObjectType
 }
 
-export type GetDatumProps<U>  = DatumAddProps & Omit<U, keyof DatumAddProps>
-export type GetDatumListProps<U, DataItem, Value, Keys extends keyof ListDatumOptions<DataItem, Value>> = DatumAddProps & Pick<ListDatumOptions<DataItem, Value>, Keys> & Omit<U, keyof DatumAddProps>
-
+export type GetDatumProps<U> = DatumAddProps & Omit<U, keyof DatumAddProps>
+export type GetDatumListProps<
+  U,
+  DataItem,
+  Value,
+  Keys extends keyof ListDatumOptions<DataItem, Value>
+> = DatumAddProps & Pick<ListDatumOptions<DataItem, Value>, Keys> & Omit<U, keyof DatumAddProps>

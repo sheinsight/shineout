@@ -29,10 +29,10 @@ export { default as Button } from './Button'
 import { ButtonProps as __ButtonProps, ButtonGroupProps as __ButtonGroupProps, ButtonType as __ButtonType, ButtonShape as __ButtonShape } from './Button/interface'
 
 export { default as Card } from './Card'
-import { CardProps as __CardProps, CardBodyProps as __CardBodyProps, CardHeaderProps as __CardHeaderProps, CardFooterProps as __CardFooterProps, CardSubmitProps as __CardSubmitProps, CardAccordionProps as __CardAccordionProps,  } from './Card/interface'
+import { CardProps as __CardProps, CardBodyProps as __CardBodyProps, CardHeaderProps as __CardHeaderProps, CardFooterProps as __CardFooterProps, CardSubmitProps as __CardSubmitProps, CardAccordionProps as __CardAccordionProps } from './Card/interface'
 
 export { default as CardGroup } from './CardGroup'
-import { CardGroupProps as __CardGroupProps, CardGroupItemProps as __CardGroupItemProps,  } from './CardGroup'
+import { CardGroupProps as __CardGroupProps, CardGroupItemProps as __CardGroupItemProps } from './CardGroup/interface'
 
 export { default as Carousel } from './Carousel'
 import { CarouselProps as __CarouselProps,  } from './Carousel/interface'
@@ -41,7 +41,7 @@ export { default as Cascader } from './Cascader'
 import { CascaderProps as __CascaderProps,  } from './Cascader/interface'
 
 export { default as Checkbox } from './Checkbox'
-import { Prop as __Prop, GroupProps as __GroupProps } from './Checkbox/interface'
+import { CheckboxProps as __CheckboxProps, GroupProps as __GroupProps } from './Checkbox/interface'
 
 export { default as DatePicker } from './DatePicker'
 import { DatePickerProps as __DatePickerProps, QuickSelect as __QuickSelect, AreaType as __AreaType, DateTimeType as __DateTimeType, DatePickerValue as __DatePickerValue } from './DatePicker'
@@ -67,16 +67,16 @@ export { default as Gap } from './Gap'
 import { GapProps as __GapProps,  } from './Gap/interface'
 
 export { default as Grid } from './Grid'
-import { GridProps as __GridProps, responsiveType as __responsiveType } from './Grid'
+import { GridProps as __GridProps, responsiveType as __responsiveType } from './Grid/interface'
 
 export { default as Icon } from './Icon'
-import { IconProps as __IconProps, IconComProps as __IconComProps,  } from './Icon'
+import { IconProps as __IconProps, IconComProps as __IconComProps,  } from './Icon/interface'
 
 export { default as Image } from './Image'
 import { ImageProps as __ImageProps, ImageGroupProps as __ImageGroupProps,  } from './Image/interface'
 
 export { default as Input } from './Input'
-import { InputProps as __InputProps, InputNumberProps as __InputNumberProps, InputGroupProps as __InputGroupProps, InputPasswordProps as __InputPasswordProps, numType as __numType } from './Input'
+import { InputProps as __InputProps, InputGroupProps as __InputGroupProps, InputNumberProps as __InputNumberProps, InputPasswordProps as __InputPasswordProps } from './Input/interface'
 
 export { default as Lazyload } from './Lazyload'
 
@@ -93,16 +93,16 @@ export { default as Pagination } from './Pagination'
 import { PaginationProps as __PaginationProps,  } from './Pagination'
 
 export { default as Popover } from './Popover'
-import { PopoverProps as __PopoverProps, PopoverConfirmProps as __PopoverConfirmProps, ContentProps as __ContentProps } from './Popover/interface'
+import { PopoverProps as __PopoverProps, PopoverConfirmProps as __PopoverConfirmProps, PopoverContentProps as __PopoverContentProps } from './Popover/interface'
 
 export { default as Progress } from './Progress'
 import { ProgressProps as __ProgressProps,  } from './Progress'
 
 export { default as Radio } from './Radio'
-import { Props as __Props, RadioGroupProps as __RadioGroupProps } from './Radio/interface'
+import { RadioProps as __RadioProps, RadioGroupProps as __RadioGroupProps } from './Radio/interface'
 
 export { default as Rate } from './Rate'
-import { RateProps as __RateProps,  } from './Rate'
+import { RateProps as __RateProps } from './Rate/interface'
 
 export { default as Rule } from './Rule'
 import { Max as __Max, Min as __Min, Type as __Type, Range as __Range, Required as __Required, validFunc as __validFunc, paramFunc as __paramFunc, RuleParams as __RuleParams, RuleResult as __RuleResult, RegExpParams as __RegExpParams, RuleCommon as __RuleCommon, RuleItemResult as __RuleItemResult, RuleCommonValue as __RuleCommonValue, InnerRuleFunc as __InnerRuleFunc, RuleParamsType as __RuleParamsType } from './Rule'
@@ -116,7 +116,7 @@ export { default as Slider } from './Slider'
 import { SliderProps as __SliderProps,  } from './Slider'
 
 export { default as Spin } from './Spin'
-import { SpinProps as __SpinProps,  } from './Spin'
+import { SpinProps as __SpinProps } from './Spin/interface'
 
 export { default as Sticky } from './Sticky'
 import { StickyProps as __StickyProps,  } from './Sticky'
@@ -131,13 +131,13 @@ export { default as Tabs } from './Tabs'
 import { TabsProps as __TabsProps, TabsLinkProps as __TabsLinkProps, TabsPanelProps as __TabsPanelProps,  } from './Tabs'
 
 export { default as Tag } from './Tag'
-import { TagProps as __TagProps, TagInputProps as __TagInputProps,  } from './Tag'
+import { TagProps as __TagProps, TagInputProps as __TagInputProps,  } from './Tag/interface'
 
 export { default as Textarea } from './Textarea'
 import { TextareaProps as __TextareaProps,  } from './Textarea'
 
 export { default as Tooltip } from './Tooltip'
-import { TooltipProps as __TooltipProps,  } from './Tooltip'
+import { TooltipProps as __TooltipProps } from './Tooltip/interface'
 
 export { default as Transfer } from './Transfer'
 import { TransferProps as __TransferProps,  } from './Transfer'
@@ -173,6 +173,7 @@ export namespace TYPE {
     export type Shape = __ButtonShape
   }
   export namespace Card {
+  
     export type Props = __CardProps
     export type BodyProps = __CardBodyProps
     export type HeaderProps = __CardHeaderProps
@@ -181,6 +182,7 @@ export namespace TYPE {
     export type AccordionProps<T> = __CardAccordionProps<T>
   }
   export namespace CardGroup {
+  
     export type Props = __CardGroupProps
     export type ItemProps<T> = __CardGroupItemProps<T>
   }
@@ -192,7 +194,7 @@ export namespace TYPE {
   }
   export namespace Checkbox {
   
-    export type Prop<Value> = __Prop<Value>
+    export type Props<Value> = __CheckboxProps<Value>
     export type GroupProps<DataItem, Value> = __GroupProps<DataItem, Value>
   }
   export namespace DatePicker {
@@ -243,11 +245,11 @@ export namespace TYPE {
     export type GroupProps = __ImageGroupProps
   }
   export namespace Input {
-    export type Props<Value> = __InputProps<Value>
-    export type NumberProps<Value> = __InputNumberProps<Value>
-    export type GroupProps<Value = string> = __InputGroupProps<Value>
-    export type PasswordProps<Value = string> = __InputPasswordProps<Value>  
-    export type numType = __numType
+  
+    export type Props = __InputProps
+    export type GroupProps = __InputGroupProps
+    export type NumberProps = __InputNumberProps
+    export type PasswordProps = __InputPasswordProps
   }
   export namespace Menu {
     export type Props<Item, Value> = __MenuProps<Item, Value>
@@ -264,19 +266,21 @@ export namespace TYPE {
     export type Props = __PaginationProps
   }
   export namespace Popover {
+  
     export type Props = __PopoverProps
-    export type ConfirmProps = __PopoverConfirmProps  
-    export type ContentProps = __ContentProps
+    export type ConfirmProps = __PopoverConfirmProps
+    export type ContentProps = __PopoverContentProps
   }
   export namespace Progress {
     export type Props = __ProgressProps
   }
   export namespace Radio {
   
-    export type Props = __Props
+    export type Props = __RadioProps
     export type GroupProps<Value, Item> = __RadioGroupProps<Value, Item>
   }
   export namespace Rate {
+  
     export type Props = __RateProps
   }
   export namespace Rule {
@@ -304,6 +308,7 @@ export namespace TYPE {
     export type Props<Value> = __SliderProps<Value>
   }
   export namespace Spin {
+  
     export type Props = __SpinProps
   }
   export namespace Sticky {
@@ -336,6 +341,7 @@ export namespace TYPE {
     export type Props = __TextareaProps
   }
   export namespace Tooltip {
+  
     export type Props = __TooltipProps
   }
   export namespace Transfer {

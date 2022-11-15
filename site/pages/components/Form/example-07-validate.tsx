@@ -115,7 +115,6 @@ const App: React.FC = () => {
           keygen={d => d}
           data={['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']}
           defaultValue={[]}
-          title="Favorite Colors"
           rules={[rules.required('At least select one favorite color'), rules.min(2), rules.max(3)]}
         />
       </Form.Item>
