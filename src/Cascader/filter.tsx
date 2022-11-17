@@ -1,29 +1,26 @@
-import React from 'react'
+import React, { ComponentType } from 'react'
 import { getKey } from '../utils/uid'
 import { Component } from '../component'
 import { getFilterTree } from '../utils/tree'
-import { CascaderProps } from './interface'
-
-interface CascaderFilterProps<U, T> extends Omit<CascaderProps<U, T>, 'renderItem'> {
-  filterDelay: number
-}
+import { FilterProps, GetFilterProps } from './Props'
 
 interface CascaderFilterState {
   filterText: string
   filter: null
 }
 
-export default <T, U extends CascaderFilterProps<U, T>>(Origin: React.ComponentType<U>) =>
-  class CascaderFilter extends Component<U, CascaderFilterState> {
+export default <DataItem, Props>(Origin: React.ComponentType<Props>) =>
+  (class CascaderFilter extends Component<FilterProps<DataItem>, CascaderFilterState> {
     static defaultProps = {
       filterDelay: 400,
+      childrenKey: 'children',
     }
 
-    firstMatchNode: U | null
+    firstMatchNode: DataItem | null
 
     timer: NodeJS.Timeout
 
-    constructor(props: U) {
+    constructor(props: FilterProps<DataItem>) {
       super(props)
       this.handleFilter = this.handleFilter.bind(this)
       this.state = {
@@ -38,7 +35,7 @@ export default <T, U extends CascaderFilterProps<U, T>>(Origin: React.ComponentT
       if (!filter) return data
       return getFilterTree(data, filter, undefined, (node: any) => getKey(node, keygen), childrenKey, true, node => {
         if (this.firstMatchNode) return
-        this.firstMatchNode = node as U
+        this.firstMatchNode = node
       })
     }
 
@@ -62,11 +59,11 @@ export default <T, U extends CascaderFilterProps<U, T>>(Origin: React.ComponentT
     render() {
       const { onFilter } = this.props
       const { filterText, filter } = this.state
-      if (!onFilter) return <Origin {...this.props} />
+      if (!onFilter) return <Origin {...(this.props as unknown) as Props} />
       const data = this.getData()
       return (
         <Origin
-          {...this.props}
+          {...(this.props as unknown) as Props}
           data={data}
           filterText={filterText}
           onFilter={this.handleFilter}
@@ -75,4 +72,4 @@ export default <T, U extends CascaderFilterProps<U, T>>(Origin: React.ComponentT
         />
       )
     }
-  }
+  } as unknown) as ComponentType<GetFilterProps<Props, DataItem>>

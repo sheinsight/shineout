@@ -25,7 +25,7 @@ export type SimpleCheckProps = Omit<CheckItemProps, 'content' | 'onChange'> & {
 }
 export type SimpleRadioProps = Omit<CheckItemProps, 'content' | 'onChange' | 'onRawChange' | 'inputable' | 'value'> & {
   checked?: boolean | ((htmlValue: any) => boolean)
-  onChange?: ((value: any, checked: CheckValueType, index?: number) => void)
+  onChange: ((value: any, checked: CheckValueType, index?: number) => void)
 }
 export type SimpleSwitchProps = Omit<CheckItemProps, 'onChange' | 'onRawChange' | 'inputable' | 'value'> & {
   checked?: boolean | ((htmlValue: any) => boolean)

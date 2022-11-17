@@ -1,6 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component, ComponentType } from 'react'
 import ReactDOM from 'react-dom'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import shallowEqual from '../utils/shallowEqual'
 import { compose } from '../utils/func'
@@ -11,28 +10,43 @@ import { getRTLPosition } from '../utils/strings'
 import zIndexConsumer from '../Modal/context'
 import { isRTL } from '../config'
 import { addZoomListener, removeZoomListener } from '../utils/zoom'
+import { AbsoluteProps } from './Props'
 
 const PICKER_V_MARGIN = 4
-let root
+let root: HTMLDivElement
 function initRoot() {
   root = document.createElement('div')
   root.className = listClass('root', isRTL() && 'rtl')
   document.body.appendChild(root)
 }
 
-const getOverDocStyle = right => (right ? { left: 0, right: 'auto' } : { right: 0, left: 'auto' })
+const getOverDocStyle = (right: boolean) => (right ? { left: 0, right: 'auto' } : { right: 0, left: 'auto' })
 
 const listPosition = ['drop-down', 'drop-up']
 const pickerPosition = ['left-bottom', 'left-top', 'right-bottom', 'right-top']
 const dropdownPosition = ['bottom-left', 'bottom-right', 'top-left', 'top-right']
 
-export default function(List) {
-  class AbsoluteList extends Component {
+export default function<U extends {}>(List: ComponentType<U>) {
+  class AbsoluteList extends Component<AbsoluteProps> {
     state = {
       overdoc: false,
     }
 
-    constructor(props) {
+    lastStyle: React.CSSProperties
+
+    container: HTMLElement
+
+    element: HTMLElement
+
+    ajustdoc: boolean
+
+    containerRect: DOMRect
+
+    containerScroll: { left: number; top: number }
+
+    el: HTMLElement
+
+    constructor(props: AbsoluteProps) {
       super(props)
       this.handleRef = this.handleRef.bind(this)
       if (!props.absolute) return
@@ -61,7 +75,7 @@ export default function(List) {
       }
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps: AbsoluteProps) {
       if (!this.props.focus) this.ajustdoc = false
       if (shallowEqual(prevProps.value, this.props.value)) return
       setTimeout(() => {
@@ -78,11 +92,11 @@ export default function(List) {
       }
     }
 
-    getPosition(rect) {
+    getPosition(rect: DOMRect) {
       const { fixed } = this.props
-      let { position } = this.props
+      let { position } = this.props as { position: string }
       const rtl = isRTL()
-      const style = {
+      const style: React.CSSProperties = {
         position: 'absolute',
         right: 'auto',
       }
@@ -147,7 +161,7 @@ export default function(List) {
       let style = {}
       if (parentElement) {
         const rect = parentElement.getBoundingClientRect()
-        const scrollRect = scrollElement ? scrollElement.getBoundingClientRect() : {}
+        const scrollRect: any = scrollElement ? scrollElement.getBoundingClientRect() : {}
 
         if (
           rect.bottom < scrollRect.top ||
@@ -175,7 +189,7 @@ export default function(List) {
     isRight() {
       const { position } = this.props
       let isRight = false
-      if (position.indexOf('right') > 1) {
+      if (position && position.indexOf('right') > 1) {
         isRight = true
       }
       if (isRTL()) {
@@ -184,7 +198,7 @@ export default function(List) {
       return isRight
     }
 
-    resetPosition(clean) {
+    resetPosition(clean?: boolean) {
       const { focus, parentElement } = this.props
       if (!this.el || !focus || (this.ajustdoc && !clean)) return
       const width = this.el.offsetWidth
@@ -212,7 +226,7 @@ export default function(List) {
       })
     }
 
-    handleRef(ref) {
+    handleRef(ref: HTMLElement) {
       this.el = ref
     }
 
@@ -232,10 +246,13 @@ export default function(List) {
         autoAdapt: ignore,
         ...props
       } = this.props
-      const parsed = parseInt(zIndex, 10)
-      if (!Number.isNaN(parsed)) style.zIndex = parsed
+      if (zIndex !== undefined) {
+        const parsed = parseInt((zIndex as unknown) as string, 10)
+        if (!Number.isNaN(parsed)) style.zIndex = parsed
+      }
+
       const mergeStyle = Object.assign({}, style, this.state.overdoc ? getOverDocStyle(this.isRight()) : undefined)
-      return <List getRef={this.handleRef} {...props} focus={focus} style={mergeStyle} />
+      return <List getRef={this.handleRef} {...props as U} focus={focus} style={mergeStyle} />
     }
 
     render() {
@@ -243,7 +260,6 @@ export default function(List) {
       setTimeout(() => {
         this.resetPosition(autoAdapt)
       })
-
       if (!this.props.absolute) {
         return this.renderList()
       }
@@ -266,7 +282,7 @@ export default function(List) {
         ...props
       } = this.props
       const mergeClass = classnames(listClass('absolute-wrapper'), rootClass, autoClass)
-      const { focus, style } = props.focus ? this.getStyle() : { style: this.lastStyle }
+      const { focus, style } = props.focus ? this.getStyle() : { style: this.lastStyle, focus: undefined }
       this.element.className = mergeClass
       const mergeStyle = Object.assign(
         {},
@@ -274,30 +290,12 @@ export default function(List) {
         props.style,
         this.state.overdoc ? getOverDocStyle(this.isRight()) : undefined
       )
-      if (zIndex || typeof zIndex === 'number') mergeStyle.zIndex = parseInt(zIndex, 10)
+      if (zIndex || typeof zIndex === 'number') mergeStyle.zIndex = parseInt((zIndex as unknown) as string, 10)
       return ReactDOM.createPortal(
-        <List getRef={this.handleRef} {...props} focus={focus} style={mergeStyle} />,
+        <List getRef={this.handleRef} {...props as U} focus={focus} style={mergeStyle} />,
         this.element
       )
     }
-  }
-
-  AbsoluteList.propTypes = {
-    focus: PropTypes.bool,
-    fixed: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]), // same width with parentElement
-    parentElement: PropTypes.object,
-    position: PropTypes.string,
-    absolute: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
-    scrollElement: PropTypes.object,
-    scrollLeft: PropTypes.number,
-    scrollTop: PropTypes.number,
-    rootClass: PropTypes.string,
-    zIndex: PropTypes.number,
-    style: PropTypes.object,
-    autoClass: PropTypes.string,
-    value: PropTypes.any,
-    getResetPosition: PropTypes.func,
-    autoAdapt: PropTypes.bool,
   }
 
   return compose(

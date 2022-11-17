@@ -35,7 +35,7 @@ const checkStatusStack = (stack: CheckedStatus[], defaultStatus: CheckedStatus) 
 }
 
 export interface TreeDatumOptions<Item, Value> {
-  data: Item[]
+  data?: Item[]
   keygen?: LiteralUnion<Item> | ((data: Item, parentId?: string | number) => keyType)
   value?: Value
   mode?: 0 | 1 | 2 | 3 | 4
@@ -70,6 +70,7 @@ export default class<Item, Value extends any[]> {
   data?: Item[]
 
   cachedValue?: unknown[]
+
   pathMap: Map<
     IdType,
     {
@@ -80,6 +81,7 @@ export default class<Item, Value extends any[]> {
       index: number
     }
   >
+
   dataMap: Map<IdType, Item>
 
   constructor(options: TreeDatumOptions<Item, Value> = { data: [], childrenKey: '' }) {
@@ -100,7 +102,11 @@ export default class<Item, Value extends any[]> {
   }
 
   updateDisabled(dis: TreeDatumOptions<Item, Value>['disabled']) {
-    this.disabled = dis || (() => false)
+    if (typeof dis === 'function') {
+      this.disabled = dis
+    } else {
+      this.disabled = () => !!dis
+    }
   }
 
   bind(id: number | string, update: Function) {
@@ -123,7 +129,7 @@ export default class<Item, Value extends any[]> {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  isUnMatch(data: ObjectType | null) {
+  isUnMatch(data: ObjectType | null): boolean {
     return data && data[IS_NOT_MATCHED_VALUE]
   }
 
@@ -347,7 +353,7 @@ export default class<Item, Value extends any[]> {
     return ids
   }
 
-  setData(data: Item[], dispatch?: boolean) {
+  setData(data?: Item[], dispatch?: boolean) {
     const prevValue: any[] = this.value || []
     this.cachedValue = []
     this.pathMap = new Map()

@@ -2,21 +2,9 @@ import React, { Component } from 'react'
 import { cascaderClass } from './styles'
 import Node from './Node'
 import { getLocale } from '../locale'
-import DatumTree from '../Datum/Tree'
-import { CascaderProps } from './interface'
+import { CascaderListProps } from './Props'
 import { getDirectionClass } from '../utils/classname'
 import { keyType } from '../@types/common'
-
-interface ListProps<U, T extends []> extends CascaderProps<U, T> {
-  id: string
-  parentId: string
-  keygen: any
-  path: string[]
-  active?: boolean
-  datum: DatumTree<U, T>
-  text?: any
-  onNodeClick?: (node: U) => void
-}
 
 const DefaultProps = {
   id: '',
@@ -24,27 +12,25 @@ const DefaultProps = {
   text: {},
 }
 
-type Props<U, T extends []> = ListProps<U, T> & Required<Pick<ListProps<U, T>, keyof typeof DefaultProps>>
-
-class List<U, T extends []> extends Component<Props<U, T>> {
+class List<U, T extends any[]> extends Component<CascaderListProps<U, T>> {
   static defaultProps = DefaultProps
 
-  constructor(props: Props<U, T>) {
+  constructor(props: CascaderListProps<U, T>) {
     super(props)
 
     this.state = {}
     this.getText = this.getText.bind(this)
   }
 
-  getKey(data: U, index: number) {
+  getKey(data: U, index: number): string | number {
     const { keygen, parentId } = this.props
     if (typeof keygen === 'function') return keygen(data, parentId)
-    if (keygen && typeof keygen === 'string') return data[keygen as keyof U]
+    if (keygen && typeof keygen === 'string') return (data[keygen as keyof U] as unknown) as string | number
     return parentId + (parentId ? ',' : '') + index
   }
 
   getText(key: string) {
-    return this.props.text[key] || getLocale(key)
+    return (this.props.text || {})[key] || getLocale(key)
   }
 
   render() {

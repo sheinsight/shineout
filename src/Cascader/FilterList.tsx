@@ -6,38 +6,16 @@ import { getFlattenTree } from '../utils/tree'
 import { selectClass } from '../Select/styles'
 import { cascaderClass } from './styles'
 import Spin from '../Spin'
-import { CascaderProps } from './interface'
-import DatumTree from '../Datum/Tree'
+import { FilterItemProps, FilterListProps, BaseValue, FilterListType } from './Props'
 
-interface FilterItemProps<U, T extends []> {
-  datum: DatumTree<U, T>
-  filterText: string
-  data: CascaderProps<U, T>['data']
-  onChange?: CascaderProps<U, T>['onChange']
-  onFilter?: CascaderProps<U, T>['onFilter']
-  renderItem?: CascaderProps<U, T>['renderItem']
-  expandTrigger?: CascaderProps<U, T>['expandTrigger']
-  onPathChange: (key: string | number, item: U, keys: string[], is: boolean) => void
-}
-
-interface FilterListProps<U, T extends []> extends CascaderProps<U, T> {
-  focus: boolean
-  fixed: string
-  datum: DatumTree<U, T>
-  filterText: string
-  getRef: () => void
-  onPathChange: (key: string, item: U, keys: string[], is: boolean) => void
-  filterDataChange: (list: any) => void
-}
-
-class FilterItem<U, T extends []> extends Component<FilterItemProps<U, T>, {}> {
-  constructor(props: FilterItemProps<U, T>) {
+class FilterItem<DataItem, T extends BaseValue> extends Component<FilterItemProps<DataItem, T>, {}> {
+  constructor(props: FilterItemProps<DataItem, T>) {
     super(props)
     this.handleSelect = this.handleSelect.bind(this)
     this.handleSelectItem = this.handleSelectItem.bind(this)
   }
 
-  checkDisabled(data: U) {
+  checkDisabled(data: DataItem) {
     const { datum } = this.props
     const key = datum.getKey(data)
     return datum.isDisabled(key)
@@ -49,9 +27,9 @@ class FilterItem<U, T extends []> extends Component<FilterItemProps<U, T>, {}> {
     if (e) e.stopPropagation()
     const item = this.props.data![index]
     if (this.checkDisabled(item)) return
-    const keys = data!.slice(0, index + 1).map(i => datum.getKey(i)) as T
+    const keys = data!.slice(0, index + 1).map((i: DataItem) => datum.getKey(i)) as T
     if (onChange) onChange(keys)
-    onPathChange(datum.getKey(item), item, keys.slice(0, keys.length - 1), true)
+    onPathChange(datum.getKey(item), item, keys.slice(0, keys.length - 1) as any, true)
     if (onFilter && filterText) onFilter('')
   }
 
@@ -60,7 +38,7 @@ class FilterItem<U, T extends []> extends Component<FilterItemProps<U, T>, {}> {
     this.handleSelectItem(data!.length - 1)
   }
 
-  renderItem(item: U) {
+  renderItem(item: DataItem) {
     const { renderItem } = this.props
     let render = renderItem
     if (typeof render === 'string') {
@@ -98,13 +76,13 @@ class FilterItem<U, T extends []> extends Component<FilterItemProps<U, T>, {}> {
 }
 
 // eslint-disable-next-line react/no-multi-comp
-class FilterList<U, T extends []> extends Component<FilterListProps<U, T>, {}> {
+class FilterList<U, T extends BaseValue> extends Component<FilterListProps<U, T>, {}> {
   getKey(path: U[]) {
     const { datum } = this.props
     return path.map(d => datum.getKey(d)).join('-')
   }
 
-  getWideMatch<V>(list: V[][]) {
+  getWideMatch(list: U[][]) {
     const { filterDataChange } = this.props
     return list.filter(arr => arr.some(item => filterDataChange(item)))
   }
@@ -165,4 +143,5 @@ class FilterList<U, T extends []> extends Component<FilterListProps<U, T>, {}> {
   }
 }
 
-export default absoluteList(FilterList)
+// @ts-ignore
+export default absoluteList(FilterList) as FilterListType

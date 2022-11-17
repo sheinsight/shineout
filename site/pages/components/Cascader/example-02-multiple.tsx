@@ -55,7 +55,10 @@ const App: React.FC = () => {
         format="value"
         data={modeList}
         renderItem="text"
-        onChange={v => setMode(v)}
+        onChange={v => {
+          setMode(v)
+          setValue([])
+        }}
       />
 
       <br />

@@ -3,9 +3,8 @@ import Spin from '../Spin'
 import { isRTL } from '../config'
 import Caret from '../icons/Caret'
 import Checkbox from '../Checkbox'
-import DatumTree from '../Datum/Tree'
 import { cascaderClass } from './styles'
-import { CascaderProps } from './interface'
+import { NodeProps } from './Props'
 import { PureComponent } from '../component'
 import { CHANGE_TOPIC } from '../Datum/types'
 import { getParent } from '../utils/dom/element'
@@ -14,27 +13,11 @@ import { getDirectionClass } from '../utils/classname'
 
 const checkBoxStyle = { marginRight: 8, marginTop: -1, verticalAlign: 'top' }
 
-export interface NodeProps<U, T extends []> {
-  data: U
-  id: string
-  path: string[]
-  active: boolean
-  datum: DatumTree<U, T>
-  multiple?: boolean
-  loader?: CascaderProps<U, T>['loader']
-  onChange?: CascaderProps<U, T>['onChange']
-  disabled?: CascaderProps<U, T>['disabled']
-  renderItem?: CascaderProps<U, T>['renderItem']
-  childrenKey?: CascaderProps<U, T>['childrenKey']
-  expandTrigger?: CascaderProps<U, T>['expandTrigger']
-  onPathChange?: (id: string, data: U, path?: string[], is?: boolean) => void
-}
-
 interface NodeState {
   loading: boolean
 }
 
-class Node<U, T extends []> extends PureComponent<NodeProps<U, T>, NodeState> {
+class Node<U, T extends any[]> extends PureComponent<NodeProps<U, T>, NodeState> {
   handleUpdate: Function
 
   constructor(props: NodeProps<U, T>) {
@@ -59,8 +42,7 @@ class Node<U, T extends []> extends PureComponent<NodeProps<U, T>, NodeState> {
   }
 
   checkDisabled() {
-    const { datum, id, disabled } = this.props
-    if (disabled) return true
+    const { datum, id } = this.props
 
     return datum.isDisabled(id)
   }

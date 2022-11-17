@@ -16,21 +16,7 @@ import absoluteList from '../AnimationList/AbsoluteList'
 import { isRTL } from '../config'
 import { getKey } from '../utils/uid'
 import Input from './Input'
-import { CascaderProps } from './Props'
-
-interface CascaderCompomemtProps<U, T> extends CascaderProps<U, T> {
-  height: number
-  position: string
-  firstMatchNode: U
-  clearable: boolean
-  filterText: string
-  filterDataChange: any
-  zIndex: number | string
-  onBlur: (e?: MouseEvent) => void
-  onFocus: (e?: FocusEvent) => void
-  onItemClick: (e: MouseEvent) => void
-  keygen: any
-}
+import { OriginCascaderProps } from './Props'
 
 const OptionList = absoluteList(
   ({ focus, getRef, ...other }: { focus: boolean; getRef: (e: HTMLDivElement) => void }) =>
@@ -49,22 +35,22 @@ const DefaultProps = {
   clearable: true,
   showArrow: true,
   expandTrigger: 'click',
-  childrenKey: 'children',
+  childrenKey: 'children' as any,
 }
-
-type Props<U, T> = CascaderCompomemtProps<U, T> &
-  Required<Pick<CascaderCompomemtProps<U, T>, keyof typeof DefaultProps>>
 
 interface State {
   focus: boolean
   path: string[]
-  position: string
+  position: 'drop-down' | 'drop-up'
 }
 
-class Cascader<U extends { [children: string]: U[] }, T extends []> extends PureComponent<Props<U, T>, State> {
+class Cascader<DataItem, Value extends (string | number)[]> extends PureComponent<
+  OriginCascaderProps<DataItem, Value>,
+  State
+> {
   static defaultProps = DefaultProps
 
-  datum: DatumTree<U, T>
+  datum: DatumTree<DataItem, Value>
 
   selectId: string
 
@@ -76,17 +62,17 @@ class Cascader<U extends { [children: string]: U[] }, T extends []> extends Pure
 
   handleBlur: (e: MouseEvent) => void
 
-  handleClick: (e: any) => void
+  handleClick: (e?: any) => void
 
-  input: Input<string>
+  input: Input
 
-  lastValue: string[] | undefined
+  lastValue?: Value
 
   element: HTMLDivElement
 
   renderPending: boolean
 
-  constructor(props: Props<U, T>) {
+  constructor(props: OriginCascaderProps<DataItem, Value>) {
     super(props)
 
     this.state = {
@@ -101,9 +87,9 @@ class Cascader<U extends { [children: string]: U[] }, T extends []> extends Pure
       keygen: props.keygen,
       mode: props.mode,
       onChange: props.onChange,
-      value: props.value || props.defaultValue,
+      value: props.value,
       disabled: typeof props.disabled === 'function' ? props.disabled : undefined,
-      childrenKey: props.childrenKey,
+      childrenKey: props.childrenKey || DefaultProps.childrenKey,
       unmatch: props.unmatch,
     })
 
@@ -143,12 +129,12 @@ class Cascader<U extends { [children: string]: U[] }, T extends []> extends Pure
     }
   }
 
-  componentDidUpdate(prevProps: Props<U, T>, prevState: State) {
+  componentDidUpdate(prevProps: OriginCascaderProps<DataItem, Value>, prevState: State) {
     this.datum.mode = this.props.mode
     const { onFilter, filterDataChange, filterText } = this.props
     if (!filterDataChange && prevProps.data !== this.props.data) this.datum.setData(this.props.data, true)
     if (prevProps.value !== this.props.value) {
-      this.datum.setValue(this.props.value || ([] as T))
+      this.datum.setValue(this.props.value || (([] as unknown) as Value))
       this.updatePathByValue()
     }
 
@@ -175,7 +161,7 @@ class Cascader<U extends { [children: string]: U[] }, T extends []> extends Pure
     document.addEventListener('mousedown', this.handleClickAway)
   }
 
-  bindInput(input: Input<string>) {
+  bindInput(input: Input) {
     this.input = input
   }
 
@@ -195,7 +181,7 @@ class Cascader<U extends { [children: string]: U[] }, T extends []> extends Pure
       this.setState({ path: [] })
       return
     }
-    const key = getKey(firstMatchNode, keygen as any)
+    const key = getKey(firstMatchNode, keygen)
     const current = this.datum.getPath(key)
     if (!current) return
     this.setState(
@@ -214,9 +200,9 @@ class Cascader<U extends { [children: string]: U[] }, T extends []> extends Pure
     } else {
       const v = value[value.length - 1]
       const data = this.datum.getDataById(v)
-      if (data === null) return
+      if (data === null || this.datum.isUnMatch(data)) return
       try {
-        const id = this.datum.getKey(data as U, '')
+        const id = this.datum.getKey(data as DataItem, '')
         let { path } = this.datum.getPath(id) || {}
         path = path || []
         this.handlePathChange(id, null, path)
@@ -235,10 +221,10 @@ class Cascader<U extends { [children: string]: U[] }, T extends []> extends Pure
     }
   }
 
-  handlePathChange(id: string | number, data: U | null, path: (string | number)[], fromClick?: boolean) {
+  handlePathChange(id: string | number, data: DataItem | null, path: (string | number)[], fromClick?: boolean) {
     const { childrenKey, finalDismiss, loader } = this.props
-    if (fromClick && data) {
-      let leaf = !data[childrenKey] || data[childrenKey].length === 0
+    if (fromClick && data && childrenKey) {
+      let leaf = !data[childrenKey] || ((data[childrenKey] as unknown) as DataItem[]).length === 0
       if (loader && typeof loader === 'function' && data[childrenKey] === undefined) {
         leaf = false
       }
@@ -258,14 +244,14 @@ class Cascader<U extends { [children: string]: U[] }, T extends []> extends Pure
   handleClear() {
     const { mode } = this.props
     this.setState({ path: [] })
-    if (mode !== undefined) this.datum.setValue([] as T)
-    this.handleChange([] as T)
+    if (mode !== undefined) this.datum.setValue([] as any)
+    this.handleChange([] as any)
 
     // force close
     setTimeout(() => this.handleState(false), 10)
   }
 
-  handleRemove(node: U) {
+  handleRemove(node: DataItem) {
     const { onChange } = this.props
     this.datum.set(this.datum.getKey(node), 0)
     if (onChange) onChange((this.datum as any).getValue(), node)
@@ -281,7 +267,7 @@ class Cascader<U extends { [children: string]: U[] }, T extends []> extends Pure
     // if remove node, return
     if (e && getParent(e.target as HTMLElement, `.${cascaderClass('remove-container')}`)) return
 
-    const { height, onCollapse } = this.props
+    const { height = DefaultProps.height, onCollapse } = this.props
     let { position } = this.props
     if (!position) {
       const windowHeight = docSize.height
@@ -320,7 +306,7 @@ class Cascader<U extends { [children: string]: U[] }, T extends []> extends Pure
     }
   }
 
-  handleChange(...args: [T, U?]) {
+  handleChange(...args: [Value, DataItem?]) {
     const { onChange, onFilter, filterText } = this.props
     if (this.input) {
       this.input.reset()
@@ -355,7 +341,15 @@ class Cascader<U extends { [children: string]: U[] }, T extends []> extends Pure
     let tempData: any = data
 
     let list = [
-      <CascaderList {...props} text={undefined} key="root" data={tempData} id={path[0]} parentId="" path={[]} />,
+      <CascaderList<DataItem, Value>
+        {...props}
+        text={undefined}
+        key="root"
+        data={tempData}
+        id={path[0]}
+        parentId=""
+        path={([] as unknown) as Value}
+      />,
     ]
 
     const childs = path.map((p, i) => {
@@ -369,14 +363,14 @@ class Cascader<U extends { [children: string]: U[] }, T extends []> extends Pure
       if (tempData && tempData[childrenKey] && tempData[childrenKey].length > 0) {
         tempData = tempData[childrenKey]
         return (
-          <CascaderList
+          <CascaderList<DataItem, Value>
             {...props}
             key={p}
             text={undefined}
             data={tempData}
             id={path[i + 1]}
             parentId={path[i]}
-            path={path.slice(0, i + 1)}
+            path={path.slice(0, i + 1) as Value}
           />
         )
       }
@@ -387,7 +381,7 @@ class Cascader<U extends { [children: string]: U[] }, T extends []> extends Pure
       list = list.concat(childs as any[])
     }
 
-    const listStyle = data.length === 0 ? { height: 'auto', width: '100%' } : { height }
+    const listStyle = data && data.length === 0 ? { height: 'auto', width: '100%' } : { height }
 
     return (
       <div ref={this.bindRef} style={listStyle}>
@@ -468,7 +462,8 @@ class Cascader<U extends { [children: string]: U[] }, T extends []> extends Pure
   renderPanel() {
     const { filterText, data, mode, loading } = this.props
     if (loading) return this.renderFilterList()
-    if (!filterText || (filterText && mode !== undefined) || data.length === 0) return this.renderAbsoluteList()
+    if (!filterText || (filterText && mode !== undefined) || (data && data.length === 0))
+      return this.renderAbsoluteList()
     return this.renderFilterList()
   }
 

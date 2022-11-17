@@ -61,9 +61,9 @@ const highlight = (Component: any) => (
     return onFilter!(text)
   }
 
-  const RenderItem: CascaderRenderItem = (d, index) => {
+  const RenderItem: CascaderRenderItem = (d: DateItem) => {
     const { renderItem = item => item, highlightStyle } = props
-    const result = typeof renderItem === 'function' ? renderItem(d, index) : d[renderItem]
+    const result = typeof renderItem === 'function' ? renderItem(d) : d[renderItem]
     if (!filterText) return result
     if (typeof result !== 'string') return result
     return result.split(filterText).map((item, i, arr) => {

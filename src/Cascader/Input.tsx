@@ -6,8 +6,8 @@ const handleFocus = (e: FocusEvent) => {
   e.stopPropagation()
 }
 
-interface Props<T> {
-  onFilter: (text: string) => (d: T) => boolean
+interface Props {
+  onFilter: (text: string) => void
   trim: boolean
   focus: boolean
   filterText: string
@@ -17,14 +17,14 @@ interface State {
   editable: boolean
 }
 
-class FilterInput<T> extends Component<Props<T>, State> {
+class FilterInput extends Component<Props, State> {
   lastCursorOffset: number
 
   editElement: HTMLSpanElement
 
   blurTimer: number
 
-  constructor(props: Props<T>) {
+  constructor(props: Props) {
     super(props)
 
     this.state = {
