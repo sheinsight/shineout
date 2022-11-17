@@ -1,18 +1,22 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { progressClass } from './styles'
 import analyzeColor from './analyzeColor'
 import Popup from './Popup'
 import { isRTL } from '../config'
+import { ProgressProps } from './Props'
 
-function Line(props) {
-  const { children, strokeWidth, type, value, color, style, background, popup } = props
+const DefaultValue = {
+  strokeWidth: 8,
+}
+
+function Line(props: ProgressProps) {
+  const { children, strokeWidth = DefaultValue.strokeWidth, type, value, color, style, background, popup } = props
   const hasChildren = children !== undefined
   const isPopup = popup && hasChildren
   const className = classnames(progressClass('line', type, isPopup && 'line-popup', isRTL() && 'rtl'), props.className)
-  const innerStyle = {
-    width: `${(value / 100) * 100}%`,
+  const innerStyle: React.CSSProperties = {
+    width: `${(value! / 100) * 100}%`,
     borderRadius: strokeWidth / 2,
   }
 
@@ -40,20 +44,6 @@ function Line(props) {
   )
 }
 
-Line.propTypes = {
-  background: PropTypes.string,
-  children: PropTypes.any,
-  className: PropTypes.string,
-  color: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  strokeWidth: PropTypes.number,
-  style: PropTypes.object,
-  type: PropTypes.oneOf(['success', 'info', 'warning', 'error', 'danger']),
-  value: PropTypes.number,
-  popup: PropTypes.bool,
-}
-
-Line.defaultProps = {
-  strokeWidth: 8,
-}
+Line.defaultProps = DefaultValue
 
 export default Line

@@ -17,3 +17,4 @@
 | type | string | - | Built-in color, options: \['success', 'info', 'warning', 'danger'] | |
 | value | number | 0 | Percentage, 0 <= value <= 100 | |
 | popup | boolean | false | show children with popup | |
+| strokeLinecap | string | - | The shape to be used at the end of open subpaths when they are stroked | |
