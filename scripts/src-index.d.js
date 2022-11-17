@@ -30,10 +30,6 @@ const getTypes = file => {
 }
 
 const getArgs = (types, withDefault) => {
-  if (!withDefault) {
-    console.log(console.log(types, withDefault))
-  }
-
   const exp = /(?<=<).*(?=>)/
   const matches = types.toString().match(exp)
   if (!matches) return ''
