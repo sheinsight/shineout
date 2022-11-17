@@ -1,12 +1,28 @@
-import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
+import React, { CSSProperties, PureComponent } from 'react'
 import classnames from 'classnames'
 import { scrollClass } from './styles'
 import fixedLength from './fixedLength'
 import { isRTL } from '../config'
+import { BarProps } from './Props'
 
-class ScrollBar extends PureComponent {
-  constructor(props) {
+interface BarState {
+  dragging: boolean
+}
+
+class ScrollBar extends PureComponent<BarProps, BarState> {
+  static defaultProps = {
+    direction: 'y',
+  } as any
+
+  handle: HTMLElement
+
+  cacheOffset: number
+
+  mouseX: number
+
+  mouseY: number
+
+  constructor(props: BarProps) {
     super(props)
 
     this.state = {
@@ -24,14 +40,16 @@ class ScrollBar extends PureComponent {
     this.unbindEvent()
   }
 
-  toggleClassList(method) {
-    const { classList } = this.handle.parentNode.parentNode
-    if (classList) {
-      classList[method](scrollClass('dragging'))
+  toggleClassList(method: 'remove' | 'add') {
+    if (this.handle && this.handle.parentNode && this.handle.parentNode.parentNode) {
+      const { classList } = this.handle.parentNode.parentNode as HTMLElement
+      if (classList) {
+        classList[method](scrollClass('dragging'))
+      }
     }
   }
 
-  bindHandle(el) {
+  bindHandle(el: HTMLDivElement) {
     this.handle = el
   }
 
@@ -47,7 +65,7 @@ class ScrollBar extends PureComponent {
     document.removeEventListener('mouseup', this.unbindEvent)
   }
 
-  handleBarClick(event) {
+  handleBarClick(event: React.MouseEvent<HTMLDivElement>) {
     const { offset } = this.props
     this.cacheOffset = offset
     this.setState({ dragging: true })
@@ -57,7 +75,7 @@ class ScrollBar extends PureComponent {
     this.bindEvent()
   }
 
-  handleMouseMove(event) {
+  handleMouseMove(event: MouseEvent) {
     const x = event.clientX - this.mouseX
     const y = event.clientY - this.mouseY
     this.mouseX = event.clientX
@@ -79,7 +97,7 @@ class ScrollBar extends PureComponent {
     onScroll(newOffset)
   }
 
-  handleBgClick(event) {
+  handleBgClick(event: React.MouseEvent<HTMLDivElement>) {
     if (event.target === this.handle) return
 
     const { direction, length, scrollLength, offset, onScroll } = this.props
@@ -112,7 +130,7 @@ class ScrollBar extends PureComponent {
 
     const value = (length - barLength) * offset
     const x = rtl ? 'right' : 'left'
-    const style = {}
+    const style: CSSProperties = {}
     if (scrollLength > 0) {
       if (direction === 'x') {
         style.width = `${(length / scrollLength) * 100}%`
@@ -129,21 +147,6 @@ class ScrollBar extends PureComponent {
       </div>
     )
   }
-}
-
-ScrollBar.propTypes = {
-  barLength: PropTypes.number.isRequired,
-  className: PropTypes.string,
-  direction: PropTypes.oneOf(['x', 'y']),
-  forceHeight: PropTypes.number,
-  length: PropTypes.number.isRequired,
-  offset: PropTypes.number.isRequired,
-  onScroll: PropTypes.func.isRequired,
-  scrollLength: PropTypes.number.isRequired,
-}
-
-ScrollBar.defaultProps = {
-  direction: 'y',
 }
 
 export default fixedLength(ScrollBar)

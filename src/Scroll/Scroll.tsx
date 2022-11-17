@@ -1,9 +1,7 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { banOverScrollX } from '../utils/dom/scrollBehavior'
 import { PureComponent } from '../component'
-import { getProps, defaultProps } from '../utils/proptypes'
 import { getParent } from '../utils/dom/element'
 import normalizeWheel from '../utils/dom/normalizeWheel'
 import { scrollClass } from './styles'
@@ -12,11 +10,44 @@ import config from '../config'
 import { Provider } from './context'
 import { throttleWrapper } from '../utils/lazyload'
 import { isRTL } from '../config'
+import { ScrollProps } from './Props'
 
 export const BAR_WIDTH = 16
 
-class Scroll extends PureComponent {
-  constructor(props) {
+class Scroll extends PureComponent<ScrollProps> {
+  static defaultProps = {
+    scrollHeight: 0,
+    scrollWidth: 0,
+    innerScrollAttr: [],
+  }
+
+  baseScrollRatio: number
+
+  touchStartX: number
+
+  touchStartY: number
+
+  wheelX: boolean
+
+  wheelY: boolean
+
+  pixelX: number
+
+  pixelY: number
+
+  cacheWidth: number
+
+  cacheHeight: number
+
+  wheelElement: HTMLElement
+
+  inner: HTMLElement
+
+  footerElement: HTMLElement
+
+  rmOverScrollListener: () => void
+
+  constructor(props: ScrollProps) {
     super(props)
 
     this.touchStartX = 0
@@ -56,7 +87,7 @@ class Scroll extends PureComponent {
     this.rmOverScrollListener = banOverScrollX(this.wheelElement)
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: ScrollProps) {
     const { stable, scrollWidth, scrollHeight } = this.props
     if (scrollWidth !== prevProps.scrollWidth) this.setRect()
     else if (stable && scrollHeight !== prevProps.scrollHeight) this.setRect()
@@ -90,7 +121,7 @@ class Scroll extends PureComponent {
       this.cacheHeight = height
     }
 
-    const { scrollX, scrollY, style } = this.props
+    const { scrollX, scrollY, style = {} } = this.props
     width = (typeof style.width === 'number' ? style.width : width) - (scrollY ? BAR_WIDTH : 0)
     height = (typeof style.height === 'number' ? style.height : height) - (scrollX ? BAR_WIDTH : 0)
     return { width, height }
@@ -101,7 +132,7 @@ class Scroll extends PureComponent {
     this.forceUpdate()
   }
 
-  setBaseScrollHeightRatio(height) {
+  setBaseScrollHeightRatio(height: number) {
     if (this.baseScrollRatio) return
     this.baseScrollRatio = 1
 
@@ -112,26 +143,26 @@ class Scroll extends PureComponent {
     }
   }
 
-  setStartPoint(position) {
+  setStartPoint(position: { clientX: number; clientY: number }) {
     this.touchStartX = position.clientX
     this.touchStartY = position.clientY
   }
 
-  bindInner(el) {
+  bindInner(el: HTMLDivElement) {
     this.inner = el
   }
 
-  bindIframe(el) {
+  bindIframe(el: HTMLIFrameElement) {
     if (el && el.contentWindow) {
-      el.contentWindow.onresize = throttleWrapper(this.setRect)
+      el.contentWindow.onresize = throttleWrapper(this.setRect) as any
     }
   }
 
-  bindWheel(el) {
+  bindWheel(el: HTMLDivElement) {
     this.wheelElement = el
   }
 
-  bindFooter(el) {
+  bindFooter(el: HTMLDivElement) {
     if (this.footerElement) {
       this.footerElement.removeEventListener('wheel', this.handleWheel)
       this.footerElement.removeEventListener('touchstart', this.handleTouchStart)
@@ -164,7 +195,10 @@ class Scroll extends PureComponent {
     }
 
     const { left, top } = this.props
-    const { scrollWidth, scrollHeight } = this.props
+    const {
+      scrollWidth = Scroll.defaultProps.scrollWidth,
+      scrollHeight = Scroll.defaultProps.scrollHeight,
+    } = this.props
     let x = left + this.pixelX / scrollWidth
     if (x < 0) x = 0
     if (x > 1) x = 1
@@ -180,20 +214,21 @@ class Scroll extends PureComponent {
     this.pixelY = 0
   }
 
-  handleWheel(event) {
+  handleWheel(event: WheelEvent) {
     const scrollX = this.wheelX
     const scrollY = this.wheelY
-    const { innerScrollAttr } = this.props
+    const { innerScrollAttr = Scroll.defaultProps.innerScrollAttr } = this.props
     if (!scrollX && !scrollY) return
-    if (innerScrollAttr.find(attr => event.target.hasAttribute(attr))) {
+    const wheelTarget = event.target as HTMLElement
+    if (innerScrollAttr.find(attr => wheelTarget.hasAttribute(attr))) {
       event.stopPropagation()
       return
     }
 
-    const target = getParent(event.target, `.${scrollClass('_')}`)
+    const target = getParent(wheelTarget, `.${scrollClass('_')}`)
     let inFooter = false
     if (this.footerElement) {
-      inFooter = this.footerElement === event.target || this.footerElement.contains(event.target)
+      inFooter = this.footerElement === event.target || this.footerElement.contains(wheelTarget)
     }
 
     if (target !== this.wheelElement && !inFooter) return
@@ -212,8 +247,8 @@ class Scroll extends PureComponent {
     // }
   }
 
-  handleScroll(x, y, pixelX, pixelY, { drag } = {}) {
-    const { scrollWidth } = this.props
+  handleScroll(x: number, y: number, pixelX?: number, pixelY?: number, { drag }: { drag?: boolean } = {}) {
+    const { scrollWidth = Scroll.defaultProps.scrollWidth } = this.props
     const { width, height } = this.getWheelRect()
     const max = Math.round((1 - width / scrollWidth) * scrollWidth)
     if (this.props.onScroll) {
@@ -221,19 +256,19 @@ class Scroll extends PureComponent {
     }
   }
 
-  handleScrollX(left) {
+  handleScrollX(left: number) {
     this.handleScroll(left, this.props.top, undefined, 0, { drag: true })
   }
 
-  handleScrollY(top) {
+  handleScrollY(top: number) {
     this.handleScroll(this.props.left, top, undefined, undefined, { drag: true })
   }
 
-  handleTouchStart(e) {
+  handleTouchStart(e: TouchEvent) {
     this.setStartPoint(e.changedTouches[0])
   }
 
-  handleTouchMove(e) {
+  handleTouchMove(e: TouchEvent) {
     const { scrollX, scrollY } = this.props
     e.preventDefault()
     const position = e.changedTouches[0]
@@ -250,9 +285,14 @@ class Scroll extends PureComponent {
   }
 
   // handle inner scroll cased by input focus
-  handleInnerScroll(e) {
-    const { target } = e
-    const { left, scrollWidth, top, scrollHeight } = this.props
+  handleInnerScroll(e: MouseEvent) {
+    const { target } = (e as unknown) as { target: HTMLElement }
+    const {
+      scrollWidth = Scroll.defaultProps.scrollWidth,
+      scrollHeight = Scroll.defaultProps.scrollHeight,
+      left,
+      top,
+    } = this.props
     const { width, height } = this.getWheelRect()
     if (target.scrollLeft || target.scrollTop) {
       let sLeft = target.scrollLeft ? left + target.scrollLeft / (scrollWidth - width) : left
@@ -268,7 +308,16 @@ class Scroll extends PureComponent {
   }
 
   render() {
-    const { children, scrollWidth, scrollHeight, left, top, scrollX, scrollY, style } = this.props
+    const {
+      scrollWidth = Scroll.defaultProps.scrollWidth,
+      scrollHeight = Scroll.defaultProps.scrollHeight,
+      children,
+      left,
+      top,
+      scrollX,
+      scrollY,
+      style,
+    } = this.props
     const { width, height } = this.getWheelRect()
     const rtl = isRTL()
 
@@ -314,29 +363,6 @@ class Scroll extends PureComponent {
       </>
     )
   }
-}
-
-Scroll.propTypes = {
-  ...getProps(PropTypes),
-  left: PropTypes.number.isRequired,
-  // overLock: PropTypes.bool,
-  top: PropTypes.number.isRequired,
-  onScroll: PropTypes.func.isRequired,
-  scrollHeight: PropTypes.number,
-  scrollWidth: PropTypes.number,
-  scrollX: PropTypes.bool.isRequired,
-  scrollY: PropTypes.bool.isRequired,
-  stable: PropTypes.bool,
-  footer: PropTypes.node,
-  innerScrollAttr: PropTypes.arrayOf(PropTypes.string),
-}
-
-Scroll.defaultProps = {
-  ...defaultProps,
-  // overLock: true,
-  scrollHeight: 0,
-  scrollWidth: 0,
-  innerScrollAttr: [],
 }
 
 export default Scroll
