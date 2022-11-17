@@ -1,23 +1,20 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { PureComponent } from '../component'
 import Scroll from './Scroll'
+import { ScrollIndexProps } from './Props'
 
-export default class extends PureComponent {
+interface ScrollIndexState {
+  left: number
+  top: number
+}
+export default class extends PureComponent<ScrollIndexProps, ScrollIndexState> {
   static displayName = 'ShineoutScroll'
-
-  static propTypes = {
-    onScroll: PropTypes.func,
-    scroll: PropTypes.oneOf(['x', 'y', 'both', '']),
-    scrollLeft: PropTypes.number,
-    scrollTop: PropTypes.number,
-  }
 
   static defaultProps = {
     scroll: 'both',
   }
 
-  constructor(props) {
+  constructor(props: ScrollIndexProps) {
     super(props)
     this.state = {
       left: props.scrollLeft || 0,
@@ -43,11 +40,12 @@ export default class extends PureComponent {
     return { left, top }
   }
 
-  handleScroll(x, y, ...others) {
+  handleScroll(x: number, y: number, ...others: any) {
     const left = this.scrollX ? x : 0
     const top = this.scrollY ? y : 0
     this.setState({ left, top })
     if (this.props.onScroll) {
+      // @ts-ignore
       this.props.onScroll(left, top, ...others)
     }
   }
