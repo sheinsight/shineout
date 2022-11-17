@@ -1,21 +1,31 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import Popover from '../Popover'
-import { getProps, defaultProps } from '../utils/proptypes'
+import { defaultProps } from '../utils/proptypes'
 import { breadcrumbClass } from './styles'
 import { getKey } from '../utils/uid'
 import Caret from '../icons/Caret'
+import { BreadcrumbProps, BreadcrumbData, StructureArray } from './Props'
 
-class Breadcrumb extends React.PureComponent {
-  renderArray(data) {
-    const first = data[0]
+const defaultValue = {
+  ...defaultProps,
+  data: [],
+  separator: '/',
+}
+
+class Breadcrumb extends React.PureComponent<BreadcrumbProps> {
+  static defaultProps = defaultValue
+
+  static displayName: string
+
+  renderArray(data: StructureArray<BreadcrumbData>) {
+    const first = data[0] as BreadcrumbData
     return (
       <span>
         {this.renderItem(first)}
         <span className={breadcrumbClass('down')}>{<Caret />}</span>
         <Popover position="bottom">
-          {data.slice(1).map((d, i) => (
+          {(data as BreadcrumbData[]).slice(1).map((d, i) => (
             <div className={breadcrumbClass('dropdown-item')} key={i}>
               {this.renderItem(d)}
             </div>
@@ -25,12 +35,12 @@ class Breadcrumb extends React.PureComponent {
     )
   }
 
-  renderItem(d) {
+  renderItem(d: BreadcrumbData) {
     const { renderItem } = this.props
     let item = d.title
     if (!React.isValidElement(item)) {
       if (d.onClick || d.url) {
-        const props = {
+        const props: React.AnchorHTMLAttributes<HTMLAnchorElement> = {
           onClick: d.onClick,
         }
         if (d.url) props.href = d.url
@@ -54,28 +64,16 @@ class Breadcrumb extends React.PureComponent {
 
     return (
       <div className={className} style={this.props.style}>
-        {data.map((d, index) => (
-          <span key={keygen ? getKey(d, keygen, index) : index}>
-            {Array.isArray(d) ? this.renderArray(d) : this.renderItem(d)}
-            {index !== data.length - 1 ? <span className={breadcrumbClass('separator')}>{separator}</span> : null}
-          </span>
-        ))}
+        {data &&
+          data.map((d, index) => (
+            <span key={keygen ? getKey(d, keygen, index) : index}>
+              {Array.isArray(d) ? this.renderArray(d) : this.renderItem(d)}
+              {index !== data.length - 1 ? <span className={breadcrumbClass('separator')}>{separator}</span> : null}
+            </span>
+          ))}
       </div>
     )
   }
-}
-
-Breadcrumb.propTypes = {
-  ...getProps(PropTypes),
-  data: PropTypes.array,
-  renderItem: PropTypes.func,
-  separator: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
-}
-
-Breadcrumb.defaultProps = {
-  ...defaultProps,
-  data: [],
-  separator: '/',
 }
 
 Breadcrumb.displayName = 'ShineoutBreadcrumb'
