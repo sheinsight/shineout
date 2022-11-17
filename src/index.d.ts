@@ -90,7 +90,7 @@ export { default as Modal } from './Modal'
 import { ModalProps as __ModalProps, ModalFunctionOptions as __ModalFunctionOptions,  } from './Modal'
 
 export { default as Pagination } from './Pagination'
-import { PaginationProps as __PaginationProps,  } from './Pagination'
+import { TextParams as __TextParams, PaginationProps as __PaginationProps } from './Pagination/interface'
 
 export { default as Popover } from './Popover'
 import { PopoverProps as __PopoverProps, PopoverConfirmProps as __PopoverConfirmProps, PopoverContentProps as __PopoverContentProps } from './Popover/interface'
@@ -265,6 +265,8 @@ export namespace TYPE {
     export type FunctionOptions = __ModalFunctionOptions
   }
   export namespace Pagination {
+  
+    export type TextParams = __TextParams
     export type Props = __PaginationProps
   }
   export namespace Popover {

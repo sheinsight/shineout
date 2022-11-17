@@ -1,19 +1,17 @@
-import * as React from 'react'
-import {StandardProps} from '../@types/common'
+import { StandardProps } from '../@types/common'
 
 interface SizeListProps {
   [propName: string]: any
 }
 
-interface TextParams {
-  prev?: string,
-  next?: string,
-  page?: string,
-  jumper?: string,
+export interface TextParams {
+  prev?: string
+  next?: string
+  page?: string
+  jumper?: any
 }
 
 export interface PaginationProps extends StandardProps {
-
   /**
    * align of pagination
    *
@@ -21,7 +19,7 @@ export interface PaginationProps extends StandardProps {
    *
    * default: 'left'
    */
-  align?: 'left' | 'center' | 'right';
+  align?: 'left' | 'center' | 'right'
 
   /**
    * Current page.
@@ -30,7 +28,7 @@ export interface PaginationProps extends StandardProps {
    *
    * default: -
    */
-  current?: number;
+  current?: number
 
   /**
    * Initial page number
@@ -39,7 +37,7 @@ export interface PaginationProps extends StandardProps {
    *
    * default: 1
    */
-  defaultCurrent?: number;
+  defaultCurrent?: number
 
   /**
    * Disabled
@@ -48,7 +46,7 @@ export interface PaginationProps extends StandardProps {
    *
    * default: false
    */
-  disabled?: boolean;
+  disabled?: boolean
 
   /**
    * The layout of child elements, options: 'links': page number。'simple': simple page number(Do not use both simple and links)。'list': page size selector。'jumper': jump to page number。'simple': minimalist mode。function({ current, total, pageSize }): custom information
@@ -57,7 +55,7 @@ export interface PaginationProps extends StandardProps {
    *
    * default: ['links']
    */
-  layout?: (string | ((...args: any[]) => string) )[];
+  layout?: (string | ((...args: any[]) => string))[]
 
   /**
    * The callback function when current page or pageSize is changing。current: new page number。pageSize: number of each page
@@ -66,7 +64,7 @@ export interface PaginationProps extends StandardProps {
    *
    * default: -
    */
-  onChange?: (current: number, pageSize: number) => void;
+  onChange?: (current: number, pageSize: number, sizeChange?: boolean) => void
 
   /**
    * Number of each page
@@ -75,7 +73,7 @@ export interface PaginationProps extends StandardProps {
    *
    * default: 10
    */
-  pageSize?: number;
+  pageSize?: number
 
   /**
    * The list of number of each page
@@ -84,7 +82,7 @@ export interface PaginationProps extends StandardProps {
    *
    * default: [10, 20, 30, 50, 100]
    */
-  pageSizeList?: number[];
+  pageSizeList?: number[]
 
   /**
    * size of pagination
@@ -93,7 +91,7 @@ export interface PaginationProps extends StandardProps {
    *
    * default: 'default'
    */
-  size?: 'large' | 'default' | 'small';
+  size?: 'large' | 'default' | 'small'
 
   /**
    * Replaced text。prev: the previous page。next: the next page。page:the text of pageSizeList。jumper: jump to input box text, '{input}' pilaceholder for input box
@@ -102,7 +100,7 @@ export interface PaginationProps extends StandardProps {
    *
    * default: none
    */
-  text?: TextParams;
+  text?: TextParams
 
   /**
    * Total number. If total is less than 0, hide the Pagination.
@@ -111,7 +109,7 @@ export interface PaginationProps extends StandardProps {
    *
    * default: 0
    */
-  total?: number;
+  total?: number
 
   /**
    * Additional attributes which need to given page size selector
@@ -120,7 +118,7 @@ export interface PaginationProps extends StandardProps {
    *
    * default: -
    */
-  sizeListProps?: SizeListProps;
+  sizeListProps?: SizeListProps
 
   /**
    * The number of pagination buttons
@@ -129,12 +127,69 @@ export interface PaginationProps extends StandardProps {
    *
    * default: 5
    */
-   span?: number;
-
+  span?: number
 }
 
-declare class Pagination extends React.Component<PaginationProps, any> {
-  render(): JSX.Element
+export interface Props {
+  current: number
+  defaultCurrent: number
+  onChange: (current: number, pageSize: number, sizeChange?: boolean) => void
+  pageSize: number
+  total: number
 }
 
-export default Pagination
+export interface PaginationItem {
+  children?: React.ReactNode
+  className?: string
+  disabled?: boolean
+  isCurrent?: boolean
+  onClick: (current: number, pageSize?: number) => void
+  page: number
+}
+
+export interface JumperProps {
+  current: number
+  onChange: (current: number) => void
+  pageSize: number
+  text: TextParams
+  total: number
+  size?: 'large' | 'default' | 'small'
+  isSimple?: boolean
+}
+
+interface Base {
+  onChange: (current: number, pageSize: number) => void
+  current: number
+  pageSize: number
+  total: number
+}
+export interface LinksProps extends Base {
+  disabled?: boolean
+  span?: number
+  text?: TextParams
+}
+
+export interface NextProps extends Base {
+  disabled?: boolean
+  text?: TextParams
+  isSimple?: boolean
+}
+
+export interface PageSizeListProps {
+  current: number
+  disabled?: boolean
+  onChange: (current: number, pageSize: number) => void
+  pageSize: number
+  pageSizeList: number[]
+  text: TextParams
+  size?: 'large' | 'default' | 'small'
+  sizeListProps: any
+}
+
+export interface PrevProps {
+  current: number
+  disabled?: boolean
+  onChange: (current: number, pageSize: number) => void
+  text: TextParams
+  isSimple?: boolean
+}

@@ -1,10 +1,17 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import { getDirectionClass } from '../utils/classname'
 import { paginationClass } from './styles'
+import { PaginationItem } from './Props'
 
-class Item extends PureComponent {
-  constructor(props) {
+const DefaultValue = {
+  disabled: false,
+  isCurrent: false,
+}
+
+class Item extends PureComponent<PaginationItem> {
+  static defaultProps = DefaultValue
+
+  constructor(props: PaginationItem) {
     super(props)
 
     this.handleClick = this.handleClick.bind(this)
@@ -20,25 +27,12 @@ class Item extends PureComponent {
     const className = paginationClass(getDirectionClass('item'), this.props.className, isCurrent && 'current')
 
     return (
+      // @ts-ignore
       <a className={className} disabled={disabled || isCurrent} onClick={this.handleClick}>
         {children}
       </a>
     )
   }
-}
-
-Item.propTypes = {
-  children: PropTypes.any,
-  className: PropTypes.string,
-  disabled: PropTypes.bool,
-  isCurrent: PropTypes.bool,
-  onClick: PropTypes.func.isRequired,
-  page: PropTypes.number.isRequired,
-}
-
-Item.defaultProps = {
-  disabled: false,
-  isCurrent: false,
 }
 
 export default Item

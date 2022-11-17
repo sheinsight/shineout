@@ -1,15 +1,19 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import { getUidStr } from '../utils/uid'
 import { paginationClass } from './styles'
 import Input from '../Input'
 import { getDirectionClass } from '../utils/classname'
+import { JumperProps } from './Props'
 
 const inputStyle = { width: 60, display: 'inline-block' }
 const nofunc = () => {}
 
-class Jumper extends PureComponent {
-  constructor(props) {
+class Jumper extends PureComponent<JumperProps> {
+  renderRequire: string
+
+  autoFocus: boolean
+
+  constructor(props: JumperProps) {
     super(props)
 
     this.handleKeyDown = this.handleKeyDown.bind(this)
@@ -21,9 +25,9 @@ class Jumper extends PureComponent {
     return Math.ceil(total / pageSize) || 1
   }
 
-  handleKeyDown(e) {
+  handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.keyCode === 13) {
-      let current = parseInt(e.target.value, 10)
+      let current = parseInt((e.target as HTMLInputElement).value, 10)
       this.autoFocus = true
 
       if (!Number.isFinite(current)) return
@@ -58,13 +62,12 @@ class Jumper extends PureComponent {
         ],
       ]
     }
-
     return (
       <div className={paginationClass(getDirectionClass('section'))}>
         {txt[0]}
         <Input
           key={this.renderRequire}
-          value={current}
+          value={String(current)}
           onChange={nofunc}
           autoFocus={this.autoFocus}
           onKeyDown={this.handleKeyDown}
@@ -79,16 +82,6 @@ class Jumper extends PureComponent {
       </div>
     )
   }
-}
-
-Jumper.propTypes = {
-  current: PropTypes.number.isRequired,
-  onChange: PropTypes.func.isRequired,
-  pageSize: PropTypes.number.isRequired,
-  text: PropTypes.object,
-  total: PropTypes.number.isRequired,
-  size: PropTypes.string,
-  isSimple: PropTypes.bool,
 }
 
 export default Jumper
