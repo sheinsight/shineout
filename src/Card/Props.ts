@@ -1,10 +1,9 @@
+import { ReactNode, Component } from 'react'
 import { ButtonProps } from '../Button/interface'
 import { RegularAttributes, StandardProps } from '../@types/common'
-import {ResizableType, MovableType} from '../hoc/Props'
-import { ReactNode, Component } from "react"
+import { ResizableType, MovableType } from '../hoc/Props'
 
 export interface OriginCardProps extends StandardProps {
-
   /**
    * Whether can be collapsed，'bottom' can collaps on bottom
    *
@@ -12,7 +11,7 @@ export interface OriginCardProps extends StandardProps {
    *
    * default: false
    */
-  collapsible?: boolean | 'bottom';
+  collapsible?: boolean | 'bottom'
 
   /**
    * Whether to be collapsed.
@@ -21,7 +20,7 @@ export interface OriginCardProps extends StandardProps {
    *
    * default: -
    */
-  collapsed?: boolean;
+  collapsed?: boolean
 
   /**
    * Initial collapsed state
@@ -30,7 +29,7 @@ export interface OriginCardProps extends StandardProps {
    *
    * default: true
    */
-  defaultCollapsed?: boolean;
+  defaultCollapsed?: boolean
 
   /**
    * Callback when collapsed state changed
@@ -39,7 +38,7 @@ export interface OriginCardProps extends StandardProps {
    *
    * default: -
    */
-  onCollapse?: (collapsed: boolean) => void;
+  onCollapse?: (collapsed: boolean) => void
 
   /**
    * Whether to show the shadow.'hover' - Display it when the mouse is over the element.true - Always show, false - Never show
@@ -48,7 +47,7 @@ export interface OriginCardProps extends StandardProps {
    *
    * default: false
    */
-  shadow?: true | false | 'hover';
+  shadow?: true | false | 'hover'
 
   /**
    * Card.Accordion expand controlled key
@@ -57,7 +56,7 @@ export interface OriginCardProps extends StandardProps {
    *
    * default: none
    */
-  id?: any;
+  id?: any
 
   /**
    * children
@@ -66,7 +65,7 @@ export interface OriginCardProps extends StandardProps {
    *
    * default: -
    */
-  children?: ReactNode;
+  children?: ReactNode
 
   /**
    * get Card dom
@@ -82,21 +81,20 @@ export type CardProps = MovableType<ResizableType<OriginCardProps>>
 
 export type CardContextValueType = {
   collapsed?: boolean
-  onCollapse: ()=> void
+  onCollapse: () => void
   collapsible: 'bottom' | boolean
-  formStatus: string,
-  onSubmit: (value: EventTarget) => void,
-  setFormStatus?: (status: string) => void,
+  formStatus: string
+  onSubmit: (value: EventTarget) => void
+  setFormStatus?: (status: string) => void
 }
 
 export type CardHeaderUseContext = 'collapsed' | 'onCollapse'
 export type CardBodyUseContext = 'collapsed' | 'collapsible' | 'onCollapse'
-export type CardSubmitUseContext  = 'onSubmit' | 'formStatus'
+export type CardSubmitUseContext = 'onSubmit' | 'formStatus'
 
 export type CardConsumerType<U, key extends string> = Omit<U, key>
 
 export interface OriginCardHeaderProps extends StandardProps, Pick<CardContextValueType, CardHeaderUseContext> {
-
   /**
    * align
    *
@@ -104,7 +102,7 @@ export interface OriginCardHeaderProps extends StandardProps, Pick<CardContextVa
    *
    * default: none
    */
-  align?: RegularAttributes.Align;
+  align?: RegularAttributes.Align
 
   /**
    * children
@@ -113,17 +111,15 @@ export interface OriginCardHeaderProps extends StandardProps, Pick<CardContextVa
    *
    * default: -
    */
-  children?: ReactNode;
+  children?: ReactNode
 
   /**
    * 内部属性由 Card 透传
    */
   collapsed?: boolean
-
 }
 
 export type CardHeaderProps = CardConsumerType<OriginCardHeaderProps, CardHeaderUseContext>
-
 
 export interface OriginCardBodyProps extends StandardProps, Pick<CardContextValueType, CardBodyUseContext> {
   /**
@@ -133,14 +129,12 @@ export interface OriginCardBodyProps extends StandardProps, Pick<CardContextValu
    *
    * default: -
    */
-  children?: ReactNode;
+  children?: ReactNode
 }
 
 export type CardBodyProps = CardConsumerType<OriginCardBodyProps, CardBodyUseContext>
 
-
 export interface CardFooterProps extends StandardProps {
-
   /**
    * align
    *
@@ -148,7 +142,7 @@ export interface CardFooterProps extends StandardProps {
    *
    * default: none
    */
-  align?: RegularAttributes.Align;
+  align?: RegularAttributes.Align
 
   /**
    * children
@@ -157,13 +151,10 @@ export interface CardFooterProps extends StandardProps {
    *
    * default: none
    */
-  children?: ReactNode;
-
+  children?: ReactNode
 }
 
-
 export interface CardAccordionProps<T> {
-
   /**
    * Active value. It is -1 when fully closed. Used in controlled state. be id while Card.id setted
    *
@@ -171,7 +162,7 @@ export interface CardAccordionProps<T> {
    *
    * default: none
    */
-  active?: T | null;
+  active?: T | null
 
   /**
    * The default active value for uncontrolled state, be id while Card.id setted
@@ -180,7 +171,7 @@ export interface CardAccordionProps<T> {
    *
    * default: 0
    */
-  defaultActive?: T | null;
+  defaultActive?: T | null
 
   /**
    * The callback function when the panel is opened
@@ -189,7 +180,7 @@ export interface CardAccordionProps<T> {
    *
    * default: none
    */
-  onChange?: (active: T | null) => void;
+  onChange?: (active: T | null) => void
 
   /**
    * children
@@ -198,44 +189,46 @@ export interface CardAccordionProps<T> {
    *
    * default: none
    */
-  children?: ReactNode;
+  children?: ReactNode
 }
 
-
-export interface OriginCardSubmitProps extends ButtonProps, Pick<CardContextValueType, CardSubmitUseContext> {
-}
+export interface OriginCardSubmitProps extends ButtonProps, Pick<CardContextValueType, CardSubmitUseContext> {}
 
 export type CardSubmitProps = CardConsumerType<OriginCardSubmitProps, CardSubmitUseContext>
 
-
 export class Header extends Component<CardHeaderProps, {}> {
   // @ts-ignore
-  render(): JSX.Element;
+  render(): JSX.Element
 }
 export class Body extends Component<CardBodyProps, {}> {
   // @ts-ignore
-  render(): JSX.Element;
+  render(): JSX.Element
 }
 export class Footer extends Component<CardFooterProps, {}> {
   // @ts-ignore
-  render(): JSX.Element;
+  render(): JSX.Element
 }
 export class Submit extends Component<CardSubmitProps, {}> {
   // @ts-ignore
-  render(): JSX.Element;
+  render(): JSX.Element
 }
 export class Accordion<T> extends Component<CardAccordionProps<T>, {}> {
   // @ts-ignore
-  render(): JSX.Element;
+  render(): JSX.Element
 }
 export class Card extends Component<CardProps, {}> {
   static Header: typeof Header
+
   static Body: typeof Body
+
   static Footer: typeof Footer
+
   static Submit: typeof Submit
+
   static Accordion: typeof Accordion
+
   // @ts-ignore
-  render(): JSX.Element;
+  render(): JSX.Element
 }
 
 export type CardType = typeof Card

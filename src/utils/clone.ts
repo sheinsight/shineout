@@ -2,17 +2,19 @@ import { isArray, isDate, isMap, isSet, isRegexp, isMergeable, isError } from '.
 
 type ArraySource<T> = T[] | ArrayLike<T>
 
+// eslint-disable-next-line
 const cloneArray = (source: ArraySource<any>): any[] => Array.from(source, (x: any) => deepClone(x))
 
 const cloneObject = (source: { [x: string]: any }, specialKeys: string[] = []) => {
   const target = Object.create(Object.getPrototypeOf(source))
   ;[...specialKeys, ...Object.keys(source)].forEach(k => {
+    // eslint-disable-next-line
     target[k] = deepClone(source[k])
   })
   return target
 }
 
-export const fastClone= <U>(obj: U) => JSON.parse(JSON.stringify(obj)) as U
+export const fastClone = <U>(obj: U) => JSON.parse(JSON.stringify(obj)) as U
 
 export const shallowClone = (val: any) => {
   if (!val) return val

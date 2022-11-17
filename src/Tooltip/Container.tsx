@@ -1,10 +1,10 @@
-import React, { PureComponent, cloneElement, isValidElement, CSSProperties } from "react"
+import React, { PureComponent, cloneElement, isValidElement, CSSProperties } from 'react'
 import { tooltipClass } from './styles'
 import { scrollConsumer } from '../Scroll/context'
 import { getUidStr } from '../utils/uid'
 import { getPosition } from '../utils/dom/popover'
-import { ContainerOptions, ContainerProps, ToolPosition, TriggerType  } from "./Props"
-import { ObjectType } from "../@types/common"
+import { ContainerOptions, ContainerProps, ToolPosition, TriggerType } from './Props'
+import { ObjectType } from '../@types/common'
 
 const DefaultProps = {
   animation: true,
@@ -66,7 +66,9 @@ export default function(options: ContainerOptions) {
     tryHide() {
       const { scrollElement } = this.props
       const rect = this.getElement().getBoundingClientRect()
-      const scrollRect = scrollElement ? scrollElement.getBoundingClientRect() : {top: 0, bottom: 0, left: 0, right: 0}
+      const scrollRect = scrollElement
+        ? scrollElement.getBoundingClientRect()
+        : { top: 0, bottom: 0, left: 0, right: 0 }
 
       if (
         rect.bottom < scrollRect.top ||
@@ -98,10 +100,13 @@ export default function(options: ContainerOptions) {
     showSync() {
       const pos = this.getPosition()
       type PosType = typeof pos
-      const style = Object.keys(pos).reduce((data, key: keyof PosType) => {
-        data[key] = pos[key]
-        return data
-      }, {} as CSSProperties)
+      const style = Object.keys(pos).reduce(
+        (data, key: keyof PosType) => {
+          data[key] = pos[key]
+          return data
+        },
+        {} as CSSProperties
+      )
       const props = Object.assign({}, this.props, { style })
       show(props, this.id, this.props.style)
     }
@@ -124,7 +129,7 @@ export default function(options: ContainerOptions) {
         children
       )
 
-      const props: ObjectType  = { key: 'el' }
+      const props: ObjectType = { key: 'el' }
       if (trigger === 'hover') {
         props.onMouseEnter = this.handleShow
         props.onMouseLeave = this.handleDismiss

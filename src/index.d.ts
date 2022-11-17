@@ -32,13 +32,13 @@ export { default as Card } from './Card'
 import { CardProps as __CardProps, CardBodyProps as __CardBodyProps, CardHeaderProps as __CardHeaderProps, CardFooterProps as __CardFooterProps, CardSubmitProps as __CardSubmitProps, CardAccordionProps as __CardAccordionProps } from './Card/interface'
 
 export { default as CardGroup } from './CardGroup'
-import { CardGroupProps as __CardGroupProps, GroupItemProps as __GroupItemProps } from './CardGroup/interface'
+import { CardGroupProps as __CardGroupProps, CardGroupItemProps as __CardGroupItemProps } from './CardGroup/interface'
 
 export { default as Carousel } from './Carousel'
 import { CarouselProps as __CarouselProps,  } from './Carousel/interface'
 
 export { default as Cascader } from './Cascader'
-import { CascaderProps as __CascaderProps,  } from './Cascader'
+import { BaseValue as __BaseValue, CascaderProps as __CascaderProps } from './Cascader/interface'
 
 export { default as Checkbox } from './Checkbox'
 import { CheckboxProps as __CheckboxProps, GroupProps as __GroupProps } from './Checkbox/interface'
@@ -76,7 +76,7 @@ export { default as Image } from './Image'
 import { ImageProps as __ImageProps, ImageGroupProps as __ImageGroupProps,  } from './Image/interface'
 
 export { default as Input } from './Input'
-import { InputProps as __InputProps, InputNumberProps as __InputNumberProps, InputGroupProps as __InputGroupProps, InputPasswordProps as __InputPasswordProps, numType as __numType } from './Input'
+import { InputProps as __InputProps, InputGroupProps as __InputGroupProps, InputNumberProps as __InputNumberProps, InputPasswordProps as __InputPasswordProps } from './Input/interface'
 
 export { default as Lazyload } from './Lazyload'
 
@@ -93,7 +93,7 @@ export { default as Pagination } from './Pagination'
 import { PaginationProps as __PaginationProps,  } from './Pagination'
 
 export { default as Popover } from './Popover'
-import { PopoverProps as __PopoverProps, PopoverConfirmProps as __PopoverConfirmProps, ContentProps as __ContentProps } from './Popover/interface'
+import { PopoverProps as __PopoverProps, PopoverConfirmProps as __PopoverConfirmProps, PopoverContentProps as __PopoverContentProps } from './Popover/interface'
 
 export { default as Progress } from './Progress'
 import { ProgressProps as __ProgressProps,  } from './Progress'
@@ -116,7 +116,7 @@ export { default as Slider } from './Slider'
 import { SliderProps as __SliderProps,  } from './Slider'
 
 export { default as Spin } from './Spin'
-import { SpinProps as __SpinProps,  } from './Spin'
+import { SpinProps as __SpinProps } from './Spin/interface'
 
 export { default as Sticky } from './Sticky'
 import { StickyProps as __StickyProps,  } from './Sticky'
@@ -184,13 +184,15 @@ export namespace TYPE {
   export namespace CardGroup {
   
     export type Props = __CardGroupProps
-    export type GroupItemProps<T> = __GroupItemProps<T>
+    export type ItemProps<T> = __CardGroupItemProps<T>
   }
   export namespace Carousel {
     export type Props = __CarouselProps
   }
   export namespace Cascader {
-    export type Props<Item, Value> = __CascaderProps<Item, Value>
+  
+    export type BaseValue = __BaseValue
+    export type Props<Item, Value extends BaseValue> = __CascaderProps<Item, Value>
   }
   export namespace Checkbox {
   
@@ -245,11 +247,11 @@ export namespace TYPE {
     export type GroupProps = __ImageGroupProps
   }
   export namespace Input {
-    export type Props<Value> = __InputProps<Value>
-    export type NumberProps<Value> = __InputNumberProps<Value>
-    export type GroupProps<Value = string> = __InputGroupProps<Value>
-    export type PasswordProps<Value = string> = __InputPasswordProps<Value>  
-    export type numType = __numType
+  
+    export type Props = __InputProps
+    export type GroupProps = __InputGroupProps
+    export type NumberProps = __InputNumberProps
+    export type PasswordProps = __InputPasswordProps
   }
   export namespace Menu {
     export type Props<Item, Value> = __MenuProps<Item, Value>
@@ -266,9 +268,10 @@ export namespace TYPE {
     export type Props = __PaginationProps
   }
   export namespace Popover {
+  
     export type Props = __PopoverProps
-    export type ConfirmProps = __PopoverConfirmProps  
-    export type ContentProps = __ContentProps
+    export type ConfirmProps = __PopoverConfirmProps
+    export type ContentProps = __PopoverContentProps
   }
   export namespace Progress {
     export type Props = __ProgressProps
@@ -307,6 +310,7 @@ export namespace TYPE {
     export type Props<Value> = __SliderProps<Value>
   }
   export namespace Spin {
+  
     export type Props = __SpinProps
   }
   export namespace Sticky {

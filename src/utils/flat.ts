@@ -35,8 +35,8 @@ export function flatten(data: Result, skipArray?: boolean) {
       }
     } else {
       let empty = true
-      // eslint-disable-next-line
       if (typeof cur === 'object') {
+        // eslint-disable-next-line
         for (const p in cur) {
           empty = false
           recurse(cur[p as keyof typeof cur], prop ? `${prop}.${p}` : p)
@@ -61,7 +61,12 @@ export function unflatten<T extends {}>(rawdata: T) {
 
   const result: Result = {}
   // let { cur, prop, idx, last, temp, match } = {}
-  let cur: any, prop: keyof typeof cur, idx: number, last: number, temp: string, match: RegExpExecArray | null
+  let cur: any
+  let prop: keyof typeof cur
+  let idx: number
+  let last: number
+  let temp: string
+  let match: RegExpExecArray | null
 
   // eslint-disable-next-line
   Object.keys(data)
@@ -81,7 +86,7 @@ export function unflatten<T extends {}>(rawdata: T) {
       } while (idx >= 0)
       cur[prop] = deepClone(data[p])
     })
-  return result[''] as {[name: string]: any}
+  return result[''] as { [name: string]: any }
 }
 
 type insertObject = {

@@ -2,7 +2,7 @@ import inputable from '../Form/inputable'
 import { compose } from '../utils/func'
 import Switch from './Switch'
 import { consumer } from '../Checkbox/context'
-import { SwitchType } from "./Props"
+import { SwitchType } from './Props'
 
 const exports: any = compose(
   inputable,

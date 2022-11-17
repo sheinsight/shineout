@@ -1,8 +1,8 @@
 {
     "extends": [
         "airbnb",
-        "plugin:@typescript-eslint/eslint-recommended",
-        "prettier"
+        "prettier",
+        "plugin:@typescript-eslint/eslint-recommended"
     ],
     "plugins": [
         "prettier",
@@ -35,6 +35,14 @@
       "files": ["*.ts", "*.tsx"],
       "rules": {
         "@typescript-eslint/no-unused-vars": [2, { "args": "none", "ignoreRestSiblings": true }  ]
+      }
+    },
+    {
+      "files": ["*.ts"],
+      "rules": {
+        "react/prefer-stateless-function": 0,
+        "react/no-multi-comp": 0,
+        "import/export": 0
       }
     }
   ],

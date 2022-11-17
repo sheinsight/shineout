@@ -1,3 +1,3 @@
 import { InputSwitchProps } from './Props'
 
-export type SwitchProps =  InputSwitchProps
+export type SwitchProps = InputSwitchProps
