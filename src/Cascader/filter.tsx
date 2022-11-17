@@ -1,25 +1,26 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { ComponentType } from 'react'
 import { getKey } from '../utils/uid'
 import { Component } from '../component'
 import { getFilterTree } from '../utils/tree'
+import { FilterProps, GetFilterProps } from './Props'
 
-export default Origin =>
-  class extends Component {
-    static propTypes = {
-      onFilter: PropTypes.func,
-      filterDelay: PropTypes.number,
-      data: PropTypes.array,
-      childrenKey: PropTypes.string,
-      keygen: PropTypes.any,
-      mode: PropTypes.number,
-    }
+interface CascaderFilterState {
+  filterText: string
+  filter: null
+}
 
+export default <DataItem, Props>(Origin: React.ComponentType<Props>) =>
+  (class CascaderFilter extends Component<FilterProps<DataItem>, CascaderFilterState> {
     static defaultProps = {
       filterDelay: 400,
+      childrenKey: 'children',
     }
 
-    constructor(props) {
+    firstMatchNode: DataItem | null
+
+    timer: NodeJS.Timeout
+
+    constructor(props: FilterProps<DataItem>) {
       super(props)
       this.handleFilter = this.handleFilter.bind(this)
       this.state = {
@@ -32,13 +33,13 @@ export default Origin =>
       const { data, childrenKey, keygen } = this.props
       const { filter } = this.state
       if (!filter) return data
-      return getFilterTree(data, filter, undefined, node => getKey(node, keygen), childrenKey, true, node => {
+      return getFilterTree(data, filter, undefined, (node: any) => getKey(node, keygen), childrenKey, true, node => {
         if (this.firstMatchNode) return
         this.firstMatchNode = node
       })
     }
 
-    handleFilter(filterText) {
+    handleFilter(filterText: string) {
       const { filterDelay, onFilter } = this.props
       if (this.timer) clearTimeout(this.timer)
       this.firstMatchNode = null
@@ -48,7 +49,7 @@ export default Origin =>
       }
 
       this.timer = setTimeout(() => {
-        const fn = onFilter(filterText)
+        const fn = onFilter!(filterText)
         if (typeof fn === 'function') {
           this.setState({ filter: fn, filterText })
         }
@@ -58,11 +59,11 @@ export default Origin =>
     render() {
       const { onFilter } = this.props
       const { filterText, filter } = this.state
-      if (!onFilter) return <Origin {...this.props} />
+      if (!onFilter) return <Origin {...(this.props as unknown) as Props} />
       const data = this.getData()
       return (
         <Origin
-          {...this.props}
+          {...(this.props as unknown) as Props}
           data={data}
           filterText={filterText}
           onFilter={this.handleFilter}
@@ -71,4 +72,4 @@ export default Origin =>
         />
       )
     }
-  }
+  } as unknown) as ComponentType<GetFilterProps<Props, DataItem>>

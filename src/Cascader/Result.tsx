@@ -1,5 +1,4 @@
-import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
+import React, { PureComponent, ReactNode } from 'react'
 import classnames from 'classnames'
 import { inputClass } from '../Input/styles'
 import { selectClass } from '../Select/styles'
@@ -14,11 +13,21 @@ import Caret from '../icons/Caret'
 import { getDirectionClass } from '../utils/classname'
 import InputTitle from '../InputTitle'
 import { inputTitleClass } from '../InputTitle/styles'
+import { ResultProps, ResultItemProps, BaseValue } from './Props'
 
 // eslint-disable-next-line react/prop-types
-function Item({ children, close, className, data, isPopover, singleRemove, click, only }) {
+function Item<DataItem>({
+  children,
+  close,
+  className,
+  data,
+  isPopover,
+  singleRemove,
+  click,
+  only,
+}: ResultItemProps<DataItem>) {
   const onClose = close
-    ? e => {
+    ? (e: any) => {
         close(data, isPopover, e)
       }
     : undefined
@@ -43,8 +52,22 @@ function Item({ children, close, className, data, isPopover, singleRemove, click
   )
 }
 
-class Result extends PureComponent {
-  constructor(props) {
+interface ResultState {
+  more: number
+}
+
+class Result<DataItem, Value extends BaseValue> extends PureComponent<ResultProps<DataItem, Value>, ResultState> {
+  static defaultProps = {
+    value: [],
+  }
+
+  cancelResizeObserver: () => void
+
+  resultEl: HTMLElement
+
+  shouldResetMore: boolean
+
+  constructor(props: ResultProps<DataItem, Value>) {
     super(props)
     this.state = {
       more: -1,
@@ -67,7 +90,7 @@ class Result extends PureComponent {
     }
   }
 
-  componentDidUpdate(preProps) {
+  componentDidUpdate(preProps: ResultProps<DataItem, Value>) {
     this.updateMore(preProps)
   }
 
@@ -89,7 +112,7 @@ class Result extends PureComponent {
     this.forceUpdate()
   }
 
-  bindResult(el) {
+  bindResult(el: HTMLDivElement) {
     this.resultEl = el
   }
 
@@ -98,7 +121,7 @@ class Result extends PureComponent {
     return compressedBound && isNumber(compressedBound) && compressedBound >= 1
   }
 
-  updateMore(preProps) {
+  updateMore(preProps: ResultProps<DataItem, Value>) {
     const { compressed, value = [], onFilter, data } = this.props
     if (compressed) {
       if (this.isCompressedBound()) return
@@ -108,11 +131,8 @@ class Result extends PureComponent {
         this.resetMore()
       } else if (value.length && this.shouldResetMore) {
         this.shouldResetMore = false
-        this.state.more = getResetMore(
-          onFilter,
-          this.resultEl,
-          this.resultEl.querySelectorAll(`.${cascaderClass('item')}`)
-        )
+        const more = getResetMore(onFilter, this.resultEl, this.resultEl.querySelectorAll(`.${cascaderClass('item')}`))
+        this.setState({ more })
         this.forceUpdate()
       }
     }
@@ -121,21 +141,21 @@ class Result extends PureComponent {
   resetMore() {
     if (!this.props.compressed) return
     this.shouldResetMore = true
-    this.state.more = -1
+    this.setState({ more: -1 })
     this.forceUpdate()
   }
 
-  handleNodeClick(data, show = false) {
+  handleNodeClick(data: DataItem, show = false) {
     const id = this.props.datum.getKey(data)
     const { path } = this.props.datum.getPath(id) || {}
     if (!path) return
-    this.props.onPathChange(id, null, path)
+    this.props.onPathChange(id, null, path as Value)
     if (show) {
       this.props.showList()
     }
   }
 
-  handleNode(nodes, render) {
+  handleNode(nodes: any[], render: (data: DataItem, row: DataItem[]) => ReactNode) {
     const { singleRemove } = this.props
 
     const removeContainerClassName = cascaderClass(singleRemove && getDirectionClass('remove-container'))
@@ -153,8 +173,7 @@ class Result extends PureComponent {
       .filter(n => !isEmpty(n))
   }
 
-  removeTargetNode(...args) {
-    const [node, isPopover, event] = args
+  removeTargetNode(node: DataItem, isPopover: boolean, event: Event) {
     if (isPopover) {
       event.stopPropagation()
     }
@@ -163,10 +182,10 @@ class Result extends PureComponent {
   }
 
   renderClear() {
-    const { clearable, value, disabled, onClear } = this.props
+    const { clearable, value = [], onClear } = this.props
     const className = classnames(selectClass('indicator', 'close'), cascaderClass(getDirectionClass('close')))
 
-    if (clearable && value.length > 0 && !disabled) {
+    if (clearable && value.length > 0) {
       /* eslint-disable */
       return (
         <a
@@ -181,7 +200,20 @@ class Result extends PureComponent {
     return null
   }
 
-  renderItem({ index, render, data, raw, className, ...options }) {
+  renderItem({
+    index,
+    render,
+    data,
+    raw,
+    className,
+    ...options
+  }: {
+    index: number
+    render: (data: DataItem, row: DataItem[]) => ReactNode
+    data: DataItem
+    raw: DataItem[]
+    className: string
+  }) {
     const { singleRemove } = this.props
     const res = data && render(data, raw)
     if (!res) return null
@@ -203,7 +235,7 @@ class Result extends PureComponent {
     )
   }
 
-  renderMore(list) {
+  renderMore(list: ReactNode[]) {
     const { selectId, size, compressed } = this.props
     const more = this.getCompressedBound()
     return [
@@ -221,16 +253,15 @@ class Result extends PureComponent {
   }
 
   renderInput() {
-    const { onFilter, focus, trim, focusSelected, bindInput, filterText } = this.props
+    const { onFilter, focus, trim, bindInput, filterText } = this.props
     return (
       <Input
         filterText={filterText}
         ref={bindInput}
-        trim={trim}
+        trim={!!trim}
         key={`input.${focus ? 1 : 0}`}
         focus
-        onFilter={onFilter}
-        focusSelected={focusSelected}
+        onFilter={onFilter!}
       />
     )
   }
@@ -268,15 +299,15 @@ class Result extends PureComponent {
   }
 
   renderResult() {
-    const { datum, value, renderItem, renderResult, compressed, focus, onFilter } = this.props
+    const { datum, value = [], renderItem, renderResult, compressed, focus, onFilter } = this.props
     const nodes = value.map(v => datum.getDataById(v))
     let render = renderResult || renderItem
     if (typeof render === 'string') {
       const copyRender = render
-      render = n => n[copyRender]
+      render = (n: DataItem) => n[copyRender]
     }
 
-    let items = this.handleNode(nodes, render)
+    let items = this.handleNode(nodes, render as (d: DataItem, row: DataItem[]) => ReactNode)
 
     if (compressed && items.length) {
       items = this.renderMore(items)
@@ -292,7 +323,7 @@ class Result extends PureComponent {
   }
 
   render() {
-    const { style, value, compressed, multiple, innerTitle, onFilter, focus } = this.props
+    const { style, value = [], compressed, multiple, innerTitle, onFilter, focus } = this.props
     const empty = value.length === 0
     const result = empty ? this.renderPlaceholder() : this.renderResult()
     const clearEl = this.renderClear()
@@ -322,40 +353,6 @@ class Result extends PureComponent {
       </InputTitle>
     )
   }
-}
-
-Result.propTypes = {
-  clearable: PropTypes.bool,
-  datum: PropTypes.object,
-  disabled: PropTypes.bool,
-  multiple: PropTypes.bool,
-  onClear: PropTypes.func,
-  onPathChange: PropTypes.func,
-  placeholder: PropTypes.any,
-  renderItem: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-  renderResult: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-  style: PropTypes.object,
-  value: PropTypes.array,
-  compressed: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-  compressedBound: PropTypes.number,
-  focus: PropTypes.bool,
-  onFilter: PropTypes.func,
-  trim: PropTypes.bool,
-  focusSelected: PropTypes.bool,
-  bindInput: PropTypes.func,
-  filterText: PropTypes.string,
-  singleRemove: PropTypes.bool,
-  handleRemove: PropTypes.func,
-  selectId: PropTypes.string,
-  showList: PropTypes.func,
-  size: PropTypes.string,
-  showArrow: PropTypes.bool,
-  data: PropTypes.array,
-  innerTitle: PropTypes.string,
-}
-
-Result.defaultProps = {
-  value: [],
 }
 
 export default Result

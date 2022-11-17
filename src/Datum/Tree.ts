@@ -35,13 +35,15 @@ const checkStatusStack = (stack: CheckedStatus[], defaultStatus: CheckedStatus) 
 }
 
 export interface TreeDatumOptions<Item, Value> {
-  data: Item[]
+  data?: Item[]
   keygen?: LiteralUnion<Item> | ((data: Item, parentId?: string | number) => keyType)
   value?: Value
   mode?: 0 | 1 | 2 | 3 | 4
   disabled?: ((data: Item, ...rest: any) => boolean) | boolean
   childrenKey: string
   unmatch?: boolean
+  loader?: (key: keyType, data: Item) => void
+  onChange?: (value: Value, selected?: Item) => void
 }
 
 export default class<Item, Value extends any[]> {
@@ -100,7 +102,11 @@ export default class<Item, Value extends any[]> {
   }
 
   updateDisabled(dis: TreeDatumOptions<Item, Value>['disabled']) {
-    this.disabled = dis || (() => false)
+    if (typeof dis === 'function') {
+      this.disabled = dis
+    } else {
+      this.disabled = () => !!dis
+    }
   }
 
   bind(id: number | string, update: Function) {
@@ -123,7 +129,7 @@ export default class<Item, Value extends any[]> {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  isUnMatch(data: ObjectType | null) {
+  isUnMatch(data: ObjectType | null): boolean {
     return data && data[IS_NOT_MATCHED_VALUE]
   }
 
@@ -262,7 +268,7 @@ export default class<Item, Value extends any[]> {
     return checked
   }
 
-  getKey(data: Item, id: IdType = '', index: number): IdType {
+  getKey(data: Item, id: IdType = '', index?: number): IdType {
     if (typeof this.keygen === 'function') return this.keygen(data, id)
     if (this.keygen) return (data[this.keygen] as unknown) as IdType
     return id + (id ? ',' : '') + index
@@ -347,7 +353,7 @@ export default class<Item, Value extends any[]> {
     return ids
   }
 
-  setData(data: Item[], dispatch?: boolean) {
+  setData(data?: Item[], dispatch?: boolean) {
     const prevValue: any[] = this.value || []
     this.cachedValue = []
     this.pathMap = new Map()

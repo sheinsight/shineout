@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import immer from 'immer'
 import classnames from 'classnames'
 import { isFunc } from '../utils/is'
@@ -16,17 +15,64 @@ import { getParent } from '../utils/dom/element'
 import absoluteList from '../AnimationList/AbsoluteList'
 import { isRTL } from '../config'
 import { getKey } from '../utils/uid'
+import Input from './Input'
+import { OriginCascaderProps } from './Props'
 
-const OptionList = absoluteList(({ focus, getRef, ...other }) => (focus ? <div {...other} ref={getRef} /> : null))
+const OptionList = absoluteList(
+  ({ focus, getRef, ...other }: { focus: boolean; getRef: (e: HTMLDivElement) => void }) =>
+    focus ? <div {...other} ref={getRef} /> : null
+)
 
-const isDescendent = (el, id) => {
+const isDescendent = (el: HTMLElement, id: string): boolean => {
   if (el.getAttribute('data-id') === id) return true
   if (!el.parentElement) return false
   return isDescendent(el.parentElement, id)
 }
 
-class Cascader extends PureComponent {
-  constructor(props) {
+const DefaultProps = {
+  data: [],
+  height: 300,
+  clearable: true,
+  showArrow: true,
+  expandTrigger: 'click',
+  childrenKey: 'children' as any,
+}
+
+interface State {
+  focus: boolean
+  path: string[]
+  position: 'drop-down' | 'drop-up'
+}
+
+class Cascader<DataItem, Value extends (string | number)[]> extends PureComponent<
+  OriginCascaderProps<DataItem, Value>,
+  State
+> {
+  static defaultProps = DefaultProps
+
+  datum: DatumTree<DataItem, Value>
+
+  selectId: string
+
+  isRendered: boolean
+
+  ref: HTMLDivElement
+
+  close: (e: MouseEvent) => void
+
+  handleBlur: (e: MouseEvent) => void
+
+  handleClick: (e?: any) => void
+
+  input: Input
+
+  lastValue?: Value
+
+  element: HTMLDivElement
+
+  renderPending: boolean
+
+  constructor(props: OriginCascaderProps<DataItem, Value>) {
     super(props)
 
     this.state = {
@@ -41,9 +87,9 @@ class Cascader extends PureComponent {
       keygen: props.keygen,
       mode: props.mode,
       onChange: props.onChange,
-      value: props.value || props.defaultValue,
+      value: props.value,
       disabled: typeof props.disabled === 'function' ? props.disabled : undefined,
-      childrenKey: props.childrenKey,
+      childrenKey: props.childrenKey || DefaultProps.childrenKey,
       unmatch: props.unmatch,
     })
 
@@ -68,7 +114,7 @@ class Cascader extends PureComponent {
       if (isFunc(props.getComponentRef)) {
         props.getComponentRef(this)
       } else {
-        props.getComponentRef.current = this
+        ;(props.getComponentRef as any).current = this
       }
     }
   }
@@ -76,19 +122,19 @@ class Cascader extends PureComponent {
   componentDidMount() {
     super.componentDidMount()
     this.updatePathByValue()
-    if (this.props.loader && [0, 1, 2].includes(this.props.mode)) {
+    if (this.props.mode !== undefined && this.props.loader && [0, 1, 2].includes(this.props.mode)) {
       console.error(
         new Error(`The mode ${this.props.mode} is not supported when loader setted. Only 3 or 4 can be set.`)
       )
     }
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps: OriginCascaderProps<DataItem, Value>, prevState: State) {
     this.datum.mode = this.props.mode
     const { onFilter, filterDataChange, filterText } = this.props
     if (!filterDataChange && prevProps.data !== this.props.data) this.datum.setData(this.props.data, true)
     if (prevProps.value !== this.props.value) {
-      this.datum.setValue(this.props.value || [])
+      this.datum.setValue(this.props.value || (([] as unknown) as Value))
       this.updatePathByValue()
     }
 
@@ -107,7 +153,7 @@ class Cascader extends PureComponent {
     this.clearClickAway()
   }
 
-  bindRef(el) {
+  bindRef(el: HTMLDivElement) {
     this.ref = el
   }
 
@@ -115,7 +161,7 @@ class Cascader extends PureComponent {
     document.addEventListener('mousedown', this.handleClickAway)
   }
 
-  bindInput(input) {
+  bindInput(input: Input) {
     this.input = input
   }
 
@@ -123,7 +169,7 @@ class Cascader extends PureComponent {
     document.removeEventListener('mousedown', this.handleClickAway)
   }
 
-  shouldFocus(el) {
+  shouldFocus(el: HTMLDivElement) {
     if (el.getAttribute('data-id') === this.selectId) return true
     if (getParent(el, `.${cascaderClass('result')}`)) return true
     return false
@@ -154,9 +200,9 @@ class Cascader extends PureComponent {
     } else {
       const v = value[value.length - 1]
       const data = this.datum.getDataById(v)
-      if (data === null) return
+      if (data === null || this.datum.isUnMatch(data)) return
       try {
-        const id = this.datum.getKey(data)
+        const id = this.datum.getKey(data as DataItem, '')
         let { path } = this.datum.getPath(id) || {}
         path = path || []
         this.handlePathChange(id, null, path)
@@ -166,8 +212,8 @@ class Cascader extends PureComponent {
     }
   }
 
-  handleClickAway(e) {
-    const desc = isDescendent(e.target, this.selectId)
+  handleClickAway(e: MouseEvent) {
+    const desc = isDescendent(e.target as HTMLElement, this.selectId)
     if (!desc) {
       this.clearClickAway()
       this.props.onBlur()
@@ -175,10 +221,10 @@ class Cascader extends PureComponent {
     }
   }
 
-  handlePathChange(id, data, path, fromClick) {
+  handlePathChange(id: string | number, data: DataItem | null, path: (string | number)[], fromClick?: boolean) {
     const { childrenKey, finalDismiss, loader } = this.props
-    if (fromClick && data) {
-      let leaf = !data[childrenKey] || data[childrenKey].length === 0
+    if (fromClick && data && childrenKey) {
+      let leaf = !data[childrenKey] || ((data[childrenKey] as unknown) as DataItem[]).length === 0
       if (loader && typeof loader === 'function' && data[childrenKey] === undefined) {
         leaf = false
       }
@@ -189,8 +235,8 @@ class Cascader extends PureComponent {
     }, 50)
   }
 
-  handleFocus(e) {
-    if (!this.shouldFocus(e.target)) return
+  handleFocus(e: any) {
+    if (!this.shouldFocus(e.target as HTMLDivElement)) return
     this.props.onFocus(e)
     this.bindClickAway()
   }
@@ -198,30 +244,30 @@ class Cascader extends PureComponent {
   handleClear() {
     const { mode } = this.props
     this.setState({ path: [] })
-    if (mode !== undefined) this.datum.setValue([])
-    this.handleChange([])
+    if (mode !== undefined) this.datum.setValue([] as any)
+    this.handleChange([] as any)
 
     // force close
     setTimeout(() => this.handleState(false), 10)
   }
 
-  handleRemove(node) {
+  handleRemove(node: DataItem) {
     const { onChange } = this.props
     this.datum.set(this.datum.getKey(node), 0)
-    if (onChange) onChange(this.datum.getValue(), node)
+    if (onChange) onChange((this.datum as any).getValue(), node)
   }
 
-  handleState(focus, e) {
+  handleState(focus: boolean, e?: MouseEvent) {
     if (this.props.disabled === true) return
     if (focus === this.state.focus) return
 
     // click close icon
-    if (focus && e && e.target.classList.contains(cascaderClass('close'))) return
+    if (focus && e && (e.target as HTMLElement).classList.contains(cascaderClass('close'))) return
 
     // if remove node, return
-    if (e && getParent(e.target, `.${cascaderClass('remove-container')}`)) return
+    if (e && getParent(e.target as HTMLElement, `.${cascaderClass('remove-container')}`)) return
 
-    const { height, onCollapse } = this.props
+    const { height = DefaultProps.height, onCollapse } = this.props
     let { position } = this.props
     if (!position) {
       const windowHeight = docSize.height
@@ -242,7 +288,7 @@ class Cascader extends PureComponent {
     // }
   }
 
-  handleKeyDown(e) {
+  handleKeyDown(e: any) {
     if (e.keyCode === 13) {
       e.preventDefault()
       this.handleState(!this.state.focus)
@@ -260,7 +306,7 @@ class Cascader extends PureComponent {
     }
   }
 
-  handleChange(...args) {
+  handleChange(...args: [Value, DataItem?]) {
     const { onChange, onFilter, filterText } = this.props
     if (this.input) {
       this.input.reset()
@@ -268,7 +314,9 @@ class Cascader extends PureComponent {
     }
     const [value] = args
     this.lastValue = value
-    onChange(...args)
+    if (onChange) {
+      onChange(...args)
+    }
 
     if (onFilter && filterText) onFilter('')
   }
@@ -290,13 +338,24 @@ class Cascader extends PureComponent {
       childrenKey,
     }
 
-    let tempData = data
+    let tempData: any = data
 
-    let list = [<CascaderList {...props} key="root" data={tempData} id={path[0]} parentId="" path={[]} />]
+    let list = [
+      <CascaderList<DataItem, Value>
+        {...props}
+        text={undefined}
+        key="root"
+        data={tempData}
+        id={path[0]}
+        parentId=""
+        path={([] as unknown) as Value}
+      />,
+    ]
 
     const childs = path.map((p, i) => {
       tempData =
         tempData &&
+        tempData instanceof Array &&
         tempData.find(d => {
           const nid = this.datum.getKey(d, path[i - 1])
           return nid === p
@@ -304,22 +363,25 @@ class Cascader extends PureComponent {
       if (tempData && tempData[childrenKey] && tempData[childrenKey].length > 0) {
         tempData = tempData[childrenKey]
         return (
-          <CascaderList
+          <CascaderList<DataItem, Value>
             {...props}
             key={p}
+            text={undefined}
             data={tempData}
             id={path[i + 1]}
             parentId={path[i]}
-            path={path.slice(0, i + 1)}
+            path={path.slice(0, i + 1) as Value}
           />
         )
       }
       return null
     })
 
-    list = list.concat(childs)
+    if (childs) {
+      list = list.concat(childs as any[])
+    }
 
-    const listStyle = data.length === 0 ? { height: 'auto', width: '100%' } : { height }
+    const listStyle = data && data.length === 0 ? { height: 'auto', width: '100%' } : { height }
 
     return (
       <div ref={this.bindRef} style={listStyle}>
@@ -400,7 +462,8 @@ class Cascader extends PureComponent {
   renderPanel() {
     const { filterText, data, mode, loading } = this.props
     if (loading) return this.renderFilterList()
-    if (!filterText || (filterText && mode !== undefined) || data.length === 0) return this.renderAbsoluteList()
+    if (!filterText || (filterText && mode !== undefined) || (data && data.length === 0))
+      return this.renderAbsoluteList()
     return this.renderFilterList()
   }
 
@@ -429,7 +492,7 @@ class Cascader extends PureComponent {
         data-id={this.selectId}
         onKeyDown={this.handleKeyDown}
         ref={el => {
-          this.element = el
+          this.element = el!
         }}
       >
         <Result
@@ -451,52 +514,6 @@ class Cascader extends PureComponent {
       </div>
     )
   }
-}
-
-Cascader.propTypes = {
-  clearable: PropTypes.bool,
-  data: PropTypes.array,
-  defaultValue: PropTypes.arrayOf(PropTypes.string),
-  disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
-  expandTrigger: PropTypes.oneOf(['click', 'hover', 'hover-only']),
-  height: PropTypes.number,
-  keygen: PropTypes.any,
-  loader: PropTypes.func,
-  mode: PropTypes.oneOf([0, 1, 2, 3, 4]),
-  onBlur: PropTypes.func,
-  onChange: PropTypes.func,
-  onFocus: PropTypes.func,
-  onItemClick: PropTypes.func,
-  placeholder: PropTypes.any,
-  position: PropTypes.string,
-  renderItem: PropTypes.any,
-  renderResult: PropTypes.any,
-  size: PropTypes.string,
-  style: PropTypes.object,
-  value: PropTypes.array,
-  absolute: PropTypes.bool,
-  zIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  childrenKey: PropTypes.string,
-  finalDismiss: PropTypes.bool,
-  onCollapse: PropTypes.func,
-  filterText: PropTypes.string,
-  onFilter: PropTypes.func,
-  filterDataChange: PropTypes.any,
-  firstMatchNode: PropTypes.object,
-  unmatch: PropTypes.bool,
-  getComponentRef: PropTypes.func,
-  showArrow: PropTypes.bool,
-  loading: PropTypes.oneOfType([PropTypes.bool, PropTypes.node]),
-  wideMatch: PropTypes.bool,
-}
-
-Cascader.defaultProps = {
-  clearable: true,
-  expandTrigger: 'click',
-  height: 300,
-  data: [],
-  childrenKey: 'children',
-  showArrow: true,
 }
 
 export default Cascader

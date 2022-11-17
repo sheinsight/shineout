@@ -83,7 +83,9 @@ export default <Value, U extends BaseInputProps, Item = any>(Origin: ComponentTy
 
     componentDidMount() {
       super.componentDidMount()
-      const { onChange, readOnly, disabled } = this.props
+      // @ts-ignore
+      const { readOnly } = this.props
+      const { onChange, disabled } = this.props
       if ('value' in this.props && !onChange && disabled !== true && readOnly !== true) {
         console.error(
           'warning: You provided a `value` prop to a form field without an `onChange` handler. This will render a read-only field. If the field should be mutable use `defaultValue`. Otherwise, set either `onChange` or `readOnly` or `disabled`'
@@ -112,7 +114,7 @@ export default <Value, U extends BaseInputProps, Item = any>(Origin: ComponentTy
     }
 
     shouldComponentUpdate(nextProps: InputableProps<Value>, nextState: InputableState<Value>) {
-      const skip = [...(this.props.scuSkip! || []), 'formDatum']
+      const skip = [...(this.props.scuSkip || []), 'formDatum']
       const isFormDatum = this.props.formDatum && this.props.name
       if (isFormDatum) skip.push('value')
       const options = { skip, deep: ['data', 'defaultValue', 'datum', 'name', 'rule', 'style'] }

@@ -1,31 +1,28 @@
 import immer from 'immer'
 import { deepClone } from './clone'
 
-type Node = {
-  [x: string]: any
-}
 type ExpandKeys = (string | number)[]
 interface Conf {
   advanced?: boolean
 }
-export const getFilterTree = (
-  treeNodes: Node[],
-  filterFunc: (data: Node) => boolean,
-  filterExpandKeys: ExpandKeys,
-  keyFunc: (node: Node) => string | number,
-  childrenKey = 'children',
+export const getFilterTree = <T, K extends Function>(
+  treeNodes: T[] | undefined,
+  filterFunc: (data: T) => boolean,
+  filterExpandKeys: ExpandKeys | undefined,
+  keyFunc: K,
+  childrenKey = 'children' as keyof T,
   showHitDescendants: boolean,
-  firstMatchNode: (node: Node) => void,
+  firstMatchNode: (node: T) => void,
   { advanced }: Conf = {}
 ) => {
-  const mapFilteredNodeToData = (node: Node) => {
+  const mapFilteredNodeToData = (node: T): T | null => {
     if (!node) return null
     let match = false
     if (filterFunc(node)) {
       if (firstMatchNode) firstMatchNode(node)
       match = true
     }
-    const children = (node[childrenKey] || []).map(mapFilteredNodeToData).filter((n: Node) => n)
+    const children = ((node[childrenKey] || []) as T[]).map(mapFilteredNodeToData).filter((n: T) => n)
     if (children.length || match) {
       const key = keyFunc(node)
       if (filterExpandKeys && children.length > 0) filterExpandKeys.push(key)
@@ -36,14 +33,14 @@ export const getFilterTree = (
     }
     return null
   }
-  return treeNodes.map(mapFilteredNodeToData).filter(node => node)
+  return treeNodes!.map(mapFilteredNodeToData).filter(node => node)
 }
 
-export const getFlattenTree = (data: Node[], childrenKey = 'children', wide: boolean) => {
-  const arr: Node[][] = []
-  const flatten = (list: Node[], path: Node[]) => {
+export const getFlattenTree = <T>(data: T[], childrenKey = 'children' as keyof T, wide?: boolean) => {
+  const arr: T[][] = []
+  const flatten = (list: T[], path: T[]) => {
     list.forEach(item => {
-      const children = item[childrenKey]
+      const children = item[childrenKey] as any
       if (children && children.length > 0) {
         const clonedPath = [...path]
         clonedPath.push(item)

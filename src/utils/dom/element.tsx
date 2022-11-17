@@ -109,7 +109,7 @@ export function getCursorOffset(length: number) {
   return null
 }
 
-function end(element: HTMLTextAreaElement) {
+function end<T extends HTMLElement & { selectionStart?: number }>(element: T) {
   if (!element) return
   element.focus()
   if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
@@ -163,7 +163,7 @@ interface IEWindow extends Window {
   }
 }
 export const preventPasteFile = (
-  e: React.ClipboardEvent<HTMLInputElement>,
+  e: React.ClipboardEvent,
   beforeHandler?: Function,
   { noLineBreak = true, convertBr = ' ' }: { noLineBreak?: boolean; convertBr?: string | Function } = {}
 ) => {

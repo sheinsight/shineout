@@ -1,14 +1,30 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React, { Component, FocusEvent, ChangeEvent, ClipboardEvent } from 'react'
 import { cascaderClass } from './styles'
 import { focusElement, getCursorOffset, preventPasteFile } from '../utils/dom/element'
 
-const handleFocus = e => {
+const handleFocus = (e: FocusEvent) => {
   e.stopPropagation()
 }
 
-class FilterInput extends Component {
-  constructor(props) {
+interface Props {
+  onFilter: (text: string) => void
+  trim: boolean
+  focus: boolean
+  filterText: string
+}
+
+interface State {
+  editable: boolean
+}
+
+class FilterInput extends Component<Props, State> {
+  lastCursorOffset: number
+
+  editElement: HTMLSpanElement
+
+  blurTimer: number
+
+  constructor(props: Props) {
     super(props)
 
     this.state = {
@@ -25,7 +41,7 @@ class FilterInput extends Component {
     this.focusInput(true)
   }
 
-  getProcessedValue(text) {
+  getProcessedValue(text: string) {
     const { trim } = this.props
     if (!trim && this.lastCursorOffset === 0 && /^\u00A0$/.test(text)) return ''
     return trim ? text.trim() : text.replace(/\u00A0/g, ' ')
@@ -57,11 +73,11 @@ class FilterInput extends Component {
     })
   }
 
-  bindElement(el) {
+  bindElement(el: HTMLSpanElement) {
     this.editElement = el
   }
 
-  handleInput(e) {
+  handleInput(e: ChangeEvent<HTMLSpanElement>) {
     const text = e.target.innerText.replace('\feff ', '')
     this.lastCursorOffset = getCursorOffset(text.length)
     const t = this.getProcessedValue(text)
@@ -69,7 +85,7 @@ class FilterInput extends Component {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  handlePaste(e) {
+  handlePaste(e: ClipboardEvent<HTMLSpanElement>) {
     preventPasteFile(e)
   }
 
@@ -87,13 +103,6 @@ class FilterInput extends Component {
 
     return <span {...props} />
   }
-}
-
-FilterInput.propTypes = {
-  onFilter: PropTypes.func.isRequired,
-  trim: PropTypes.bool,
-  focus: PropTypes.bool,
-  filterText: PropTypes.string,
 }
 
 export default FilterInput
