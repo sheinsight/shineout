@@ -1,13 +1,36 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import immer from 'immer'
 import { PureComponent } from '../component'
 import Alert from '../Alert'
 import { messageClass } from './styles'
 import { getUidStr } from '../utils/uid'
+import { MessageProps } from './Props'
 
-class Container extends PureComponent {
-  constructor(props) {
+type Message = {
+  id: string
+  type: 'success' | 'info' | 'warning' | 'danger'
+  content: React.ReactNode
+  dismiss: boolean
+  h: number
+  title: string
+  top: number
+  className: string
+  position: string
+  hideClose: boolean
+  onClose: () => void
+}
+interface MessageState {
+  messages: Message[]
+}
+
+class Container extends PureComponent<MessageProps, MessageState> {
+  handleClassName: (position: string | undefined, closeMsg: any) => string
+
+  handleStyle: (closeMsg: boolean, h: number, position?: string) => React.CSSProperties | null
+
+  static displayName: string
+
+  constructor(props: MessageProps) {
     super(props)
 
     this.state = {
@@ -42,7 +65,7 @@ class Container extends PureComponent {
     }
   }
 
-  addMessage(msg) {
+  addMessage(msg: { duration: number }) {
     const id = getUidStr()
     this.setState(
       immer(state => {
@@ -54,7 +77,7 @@ class Container extends PureComponent {
       setTimeout(() => {
         this.setState(
           immer(state => {
-            state.messages.forEach(m => {
+            state.messages.forEach((m: Message) => {
               if (m.id === id) {
                 m.dismiss = true
               }
@@ -66,7 +89,7 @@ class Container extends PureComponent {
     return this.closeMessageForAnimation.bind(this, id, 200, 200)
   }
 
-  removeMessage(id) {
+  removeMessage(id: string) {
     let callback
     const messages = this.state.messages.filter(m => {
       if (m.id !== id) return true
@@ -82,10 +105,10 @@ class Container extends PureComponent {
       this.setState({ messages })
     }
 
-    if (callback) callback()
+    if (callback) (callback as Function)()
   }
 
-  closeMessageForAnimation(...args) {
+  closeMessageForAnimation(...args: any[]) {
     const [id, duration, msgHeight] = args
     if (!duration) {
       this.removeMessage(id)
@@ -95,7 +118,7 @@ class Container extends PureComponent {
     // duration animation duration time
     this.setState(
       immer(state => {
-        state.messages.forEach(m => {
+        state.messages.forEach((m: Message) => {
           if (m.id === id) {
             m.dismiss = true
             m.h = msgHeight + 20 // messageHeight + messageMargin
@@ -108,7 +131,7 @@ class Container extends PureComponent {
     }, duration)
   }
 
-  closeEvent(id, duration) {
+  closeEvent(id: string, duration: number) {
     if (duration === 0) {
       return this.removeMessage.bind(this, id)
     }
@@ -123,7 +146,7 @@ class Container extends PureComponent {
         <div
           key={id}
           className={`${this.handleClassName(position, dismiss)} ${className}`}
-          style={this.handleStyle(dismiss, h, position)}
+          style={this.handleStyle(dismiss, h, position)!}
         >
           <Alert
             outAnimation
@@ -143,10 +166,6 @@ class Container extends PureComponent {
       )),
     ]
   }
-}
-
-Container.propTypes = {
-  onDestory: PropTypes.func.isRequired,
 }
 
 Container.displayName = 'ShineoutMessage'

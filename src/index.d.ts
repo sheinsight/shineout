@@ -84,7 +84,7 @@ export { default as Menu } from './Menu'
 import { MenuProps as __MenuProps,  } from './Menu'
 
 export { default as Message } from './Message'
-import { MessageProps as __MessageProps, MessageOptions as __MessageOptions,  } from './Message'
+import { MessageProps as __MessageProps } from './Message/interface'
 
 export { default as Modal } from './Modal'
 import { ModalProps as __ModalProps, ModalFunctionOptions as __ModalFunctionOptions,  } from './Modal'
@@ -255,8 +255,8 @@ export namespace TYPE {
     export type Props<Item, Value> = __MenuProps<Item, Value>
   }
   export namespace Message {
+  
     export type Props = __MessageProps
-    export type Options = __MessageOptions
   }
   export namespace Modal {
     export type Props = __ModalProps
