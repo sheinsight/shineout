@@ -1,13 +1,17 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import List from '../AnimationList'
 import { tabsClass } from './styles'
+import { PanelProps } from './Props'
 
 const CollapseList = List(['collapse'], 'fast')
 
-class Panel extends PureComponent {
-  constructor(props) {
+class Panel extends PureComponent<PanelProps> {
+  isPristine: boolean
+
+  static isTabPanel: boolean
+
+  constructor(props: PanelProps) {
     super(props)
     this.isPristine = true
   }
@@ -33,17 +37,5 @@ class Panel extends PureComponent {
 }
 
 Panel.isTabPanel = true
-
-Panel.propTypes = {
-  background: PropTypes.string,
-  className: PropTypes.string,
-  collapsed: PropTypes.bool,
-  collapsible: PropTypes.bool,
-  color: PropTypes.string,
-  children: PropTypes.any,
-  isActive: PropTypes.bool,
-  style: PropTypes.object,
-  lazy: PropTypes.bool,
-}
 
 export default Panel

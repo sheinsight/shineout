@@ -1,14 +1,18 @@
-import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
+import React, { CSSProperties, PureComponent } from 'react'
 import classnames from 'classnames'
 import { tabsClass } from './styles'
 import { getUidStr } from '../utils/uid'
 import { defer } from '../utils/uid'
 import getDataset from '../utils/dom/getDataset'
 import { getDirectionClass } from '../utils/classname'
+import { TabProps } from './Props'
 
-class Tab extends PureComponent {
-  constructor(props) {
+class Tab extends PureComponent<TabProps> {
+  element: HTMLElement
+
+  uid: string
+
+  constructor(props: TabProps) {
     super(props)
     this.getActiveStyle = this.getActiveStyle.bind(this)
     this.handleClick = this.handleClick.bind(this)
@@ -26,7 +30,7 @@ class Tab extends PureComponent {
 
     if (shape === 'line' || shape === 'dash') return {}
 
-    const style = { background, color }
+    const style: CSSProperties = { background, color }
 
     if (shape === 'bordered') return { background }
 
@@ -42,13 +46,13 @@ class Tab extends PureComponent {
     return style
   }
 
-  handleClick(init) {
+  handleClick(init: any) {
     const { onClick, id, isActive, disabled, last } = this.props
     if (disabled) return
 
     if (init !== true) onClick(id, isActive)
     if (!this.element) {
-      this.element = document.querySelector(`.${this.uid}`)
+      this.element = document.querySelector(`.${this.uid}`)!
     }
     if (this.element && this.element.getBoundingClientRect) {
       this.props.moveToCenter(this.element.getBoundingClientRect(), last, id === 0)
@@ -82,26 +86,6 @@ class Tab extends PureComponent {
 
     return <div {...props}>{children}</div>
   }
-}
-
-Tab.propTypes = {
-  background: PropTypes.string,
-  border: PropTypes.string,
-  children: PropTypes.any,
-  color: PropTypes.string,
-  disabled: PropTypes.bool,
-  isVertical: PropTypes.bool,
-  id: PropTypes.any.isRequired,
-  isActive: PropTypes.bool.isRequired,
-  moveToCenter: PropTypes.func.isRequired,
-  onClick: PropTypes.func.isRequired,
-  shape: PropTypes.string,
-  align: PropTypes.oneOf(['left', 'right', 'vertical-left', 'vertical-right']),
-  last: PropTypes.bool,
-}
-
-Tab.defaultProps = {
-  // border: 'transparent',
 }
 
 export default Tab

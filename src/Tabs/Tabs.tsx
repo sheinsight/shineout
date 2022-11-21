@@ -1,17 +1,42 @@
-import React, { Children } from 'react'
-import PropTypes from 'prop-types'
+import React, { Children, ReactElement } from 'react'
 import classnames from 'classnames'
 import { PureComponent } from '../component'
 import Header from './Header'
 import getDataset from '../utils/dom/getDataset'
 import Wrapper from './Wrapper'
-import Sticky from '../Sticky'
+import Sticky, { StickyProps } from '../Sticky'
 import { tabsClass } from './styles'
 import { isEmpty, isObject } from '../utils/is'
 import { isRTL } from '../config'
+import { TabsProps, TabsChildProps } from './Props'
+import Panel from './Panel'
+import Link from './Link'
 
-class Tabs extends PureComponent {
-  constructor(props) {
+interface TabsState {
+  active: string | number
+  collapsed?: boolean
+}
+
+const DefaultValue = {
+  defaultCollapsed: false,
+  lazy: true,
+  hideSplit: false,
+}
+
+class Tabs extends PureComponent<TabsProps, TabsState> {
+  static defaultProps = DefaultValue
+
+  container: HTMLDivElement | null
+
+  sticky: boolean
+
+  static Panel = Panel
+
+  static Link = Link
+
+  static displayName: string
+
+  constructor(props: TabsProps) {
     super(props)
 
     this.state = {
@@ -27,7 +52,7 @@ class Tabs extends PureComponent {
     this.setStickyStatus = this.setStickyStatus.bind(this)
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps: TabsProps, prevState: TabsState) {
     const { sticky, switchToTop, active } = this.props
 
     if (
@@ -67,27 +92,27 @@ class Tabs extends PureComponent {
     return this.state.active
   }
 
-  setStickyStatus(flag) {
+  setStickyStatus(flag: boolean) {
     const { sticky, switchToTop } = this.props
     if (!sticky || !switchToTop) return
     this.sticky = flag
   }
 
-  bindContainer(node) {
+  bindContainer(node: HTMLDivElement) {
     this.container = node
   }
 
-  handleChange(active) {
+  handleChange(active: string | number) {
     const { onChange } = this.props
     if (onChange) onChange(active)
     this.setState({ active })
   }
 
-  handleCollapse(collapsed) {
+  handleCollapse(collapsed: boolean) {
     this.setState({ collapsed })
   }
 
-  renderHeader({ align, isVertical }) {
+  renderHeader({ align, isVertical }: any) {
     const {
       children,
       color,
@@ -100,43 +125,45 @@ class Tabs extends PureComponent {
       hideSplit,
     } = this.props
     const active = this.getActive()
-    const tabs = []
+    const tabs: TabsChildProps[] = []
 
     let { border } = this.props
-    Children.toArray(children).forEach((child, i, arr) => {
-      if (!child || !child.type) return
+    Children.toArray(children).forEach(
+      (child: ReactElement & { type: { isTabPanel: boolean; isTabLink: boolean } }, i, arr) => {
+        if (!child || !child.type) return
 
-      let tab = null
-      if (child.type.isTabPanel) {
+        let tab = null
+        if (child.type.isTabPanel) {
+          // eslint-disable-next-line
+          tab = child.props.tab
+        } else if (child.type.isTabLink) {
+          tab = child
+        } else return
+
+        const { id = i, background } = child.props
+        let childBorder = child.props.border
         // eslint-disable-next-line
-        tab = child.props.tab
-      } else if (child.type.isTabLink) {
-        tab = child
-      } else return
+        if (active === id) {
+          if (childBorder) border = childBorder
+          else childBorder = border
+        }
 
-      const { id = i, background } = child.props
-      let childBorder = child.props.border
-      // eslint-disable-next-line
-      if (active === id) {
-        if (childBorder) border = childBorder
-        else childBorder = border
+        tabs.push({
+          id,
+          isActive: active === id,
+          tab,
+          isVertical,
+          align,
+          background: background || (active === id ? this.props.background : inactiveBackground),
+          border: childBorder,
+          color: child.props.color || (active === id ? color : undefined),
+          disabled: child.props.disabled,
+          shape,
+          last: arr.length - 1 === i,
+          ...getDataset(child.props),
+        })
       }
-
-      tabs.push({
-        id,
-        isActive: active === id,
-        tab,
-        isVertical,
-        align,
-        background: background || (active === id ? this.props.background : inactiveBackground),
-        border: childBorder,
-        color: child.props.color || (active === id ? color : undefined),
-        disabled: child.props.disabled,
-        shape,
-        last: arr.length - 1 === i,
-        ...getDataset(child.props),
-      })
-    })
+    )
 
     const header = (
       <Header
@@ -155,7 +182,7 @@ class Tabs extends PureComponent {
 
     if (!isEmpty(sticky) && !isVertical) {
       const stickyClassName = tabsClass('sticky')
-      let stickyProps = {
+      let stickyProps: { top?: number | undefined; className: string } = {
         top: 0,
         className: stickyClassName,
       }
@@ -163,7 +190,10 @@ class Tabs extends PureComponent {
         stickyProps.top = sticky
       }
       if (isObject(sticky)) {
-        stickyProps = { ...sticky, className: classnames(stickyClassName, sticky.className) }
+        stickyProps = {
+          ...(sticky as StickyProps),
+          className: classnames(stickyClassName, (sticky as StickyProps).className),
+        }
       }
       return (
         <Sticky onChange={this.setStickyStatus} {...stickyProps}>
@@ -174,7 +204,7 @@ class Tabs extends PureComponent {
     return header
   }
 
-  renderContent(child, i) {
+  renderContent(child: ReactElement & { type: { isTabPanel: boolean; isTabLink: boolean } }, i: number) {
     if (!(child && child.type && child.type.isTabPanel)) return null
     const { collapsible, lazy } = this.props
     const { id = i, ...other } = child.props
@@ -216,40 +246,6 @@ class Tabs extends PureComponent {
       </div>
     )
   }
-}
-
-Tabs.propTypes = {
-  active: PropTypes.any,
-  align: PropTypes.oneOf(['left', 'right', 'vertical-left', 'vertical-right', 'bottom']),
-  background: PropTypes.string,
-  border: PropTypes.string,
-  children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]),
-  className: PropTypes.string,
-  collapsible: PropTypes.bool,
-  color: PropTypes.string,
-  defaultActive: PropTypes.any,
-  defaultCollapsed: PropTypes.bool,
-  inactiveBackground: PropTypes.string,
-  onChange: PropTypes.func,
-  shape: PropTypes.oneOf(['card', 'line', 'button', 'bordered', 'dash']),
-  style: PropTypes.object,
-  tabBarExtraContent: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
-  tabBarStyle: PropTypes.object,
-  lazy: PropTypes.bool,
-  autoFill: PropTypes.bool,
-  sticky: PropTypes.oneOfType([PropTypes.bool, PropTypes.number, PropTypes.object]),
-  switchToTop: PropTypes.bool,
-  hideSplit: PropTypes.bool,
-}
-
-Tabs.defaultProps = {
-  // background: '#fff',
-  // border: '#ddd',
-  // color: '#333',
-  defaultCollapsed: false,
-  // inactiveBackground: 'transparent',
-  lazy: true,
-  hideSplit: false,
 }
 
 export default Tabs

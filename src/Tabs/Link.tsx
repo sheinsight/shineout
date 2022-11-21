@@ -1,10 +1,12 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { tabsClass } from './styles'
 import { isLink } from '../utils/is'
+import { TabsLinkProps } from './Props'
 
-class Link extends PureComponent {
+class Link extends PureComponent<TabsLinkProps> {
+  static isTabLink: boolean
+
   render() {
     const { children, href, className, ...other } = this.props
     const mergeClass = classnames(className, tabsClass('link'))
@@ -16,10 +18,10 @@ class Link extends PureComponent {
     }
 
     if (isLink(children)) {
-      if (children.props.onClick) {
+      if (children!.props.onClick) {
         props.onClick = () => {
           children.props.onClick()
-          other.onClick()
+          other.onClick!()
         }
       }
       return React.cloneElement(children, { ...props })
@@ -30,11 +32,5 @@ class Link extends PureComponent {
 }
 
 Link.isTabLink = true
-
-Link.propTypes = {
-  className: PropTypes.string,
-  href: PropTypes.string,
-  children: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
-}
 
 export default Link
