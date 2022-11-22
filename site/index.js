@@ -9,7 +9,9 @@ import App from './App'
 import theme from './utils/theme'
 
 theme.init(() => {
-  ReactDOM.render(<App />, document.getElementById('root'))
+  const root = ReactDOM.createRoot(document.getElementById('root'));
+  root.render(<App />)
+  // ReactDOM.render(, document.getElementById('root'))
 })
 
 if (module.hot) module.hot.accept()

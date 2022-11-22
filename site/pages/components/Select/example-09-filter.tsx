@@ -48,6 +48,7 @@ const App: React.FC = () => {
       keygen="id"
       data={data}
       loading={loading}
+      maxLength={10}
       style={{ width: 240 }}
       onFilter={handleFilter}
       renderItem={renderItem}
