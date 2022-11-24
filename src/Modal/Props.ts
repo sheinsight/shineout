@@ -249,6 +249,8 @@ export interface ModalProps extends Props {
   autoFocusButton?: string
   noPadding?: boolean
   height?: number | string
+  drawer?: boolean
+  children?: React.ReactNode
 }
 
 export interface ModalPanelProps extends StandardProps {

@@ -52,7 +52,7 @@ export { default as Divider } from './Divider'
 import { DividerProps as __DividerProps,  } from './Divider/interface'
 
 export { default as Drawer } from './Drawer'
-import { DrawerProps as __DrawerProps,  } from './Drawer'
+import { DrawerProps as __DrawerProps } from './Drawer/interface'
 
 export { default as Dropdown } from './Dropdown'
 import { DropdownProps as __DropdownProps, DropdownItem as __DropdownItem } from './Dropdown'
@@ -210,6 +210,7 @@ export namespace TYPE {
     export type Props = __DividerProps
   }
   export namespace Drawer {
+  
     export type Props = __DrawerProps
   }
   export namespace Dropdown {
