@@ -11,16 +11,19 @@ import { getParent } from '../utils/dom/element'
 import ready from '../utils/dom/ready'
 import { docSize } from '../utils/dom/document'
 import { isRTL } from '../config'
+import { Methods, Options } from './Props'
 
-const containers = {}
+const containers: {
+  [id: string]: { div: HTMLElement; container: HTMLElement; visible?: boolean; props: Options }
+} = {}
 const DURATION = 300
 
-function getDiv(id) {
-  const mod = containers[id]
+function getDiv(id?: string) {
+  const mod = containers[id!]
   return mod ? mod.div : null
 }
 
-function getContainer(id) {
+function getContainer(id: string) {
   const mod = containers[id]
   return mod ? mod.container : null
 }
@@ -29,13 +32,13 @@ function hasVisible() {
   return Object.keys(containers).some(k => containers[k].visible)
 }
 
-function isMask(id) {
+function isMask(id: string) {
   const ids = Object.keys(containers).filter(k => containers[k].visible)
   if (ids.length === 0) return true
   return ids[0] === id
 }
 
-export function destroy(id, unmount) {
+export function destroy(id: string, unmount: boolean) {
   const div = getDiv(id)
   const container = getContainer(id)
   if (!div || !container) return
@@ -44,7 +47,7 @@ export function destroy(id, unmount) {
   container.removeChild(div)
 }
 
-export function close(props, callback) {
+export function close(props: Options, callback?: Function) {
   const { id } = props
   const modal = containers[props.id]
 
@@ -61,7 +64,7 @@ export function close(props, callback) {
     if (props.destroy) destroy(id, !props.usePortal)
 
     if (!hasVisible()) {
-      const doc = document.body.parentNode
+      const doc = document.body.parentNode as HTMLElement
       doc.style.overflow = ''
       doc.style.paddingRight = ''
     }
@@ -69,7 +72,7 @@ export function close(props, callback) {
   }, DURATION)
 }
 
-export function createDiv(props) {
+export function createDiv(props: Options) {
   const { id, position, fullScreen, container = document.body } = props
   let div = getDiv(props.id)
   if (div) return div
@@ -88,13 +91,13 @@ export function createDiv(props) {
 }
 
 // eslint-disable-next-line
-export function open(props, isPortal) {
+export function open(props: Options, isPortal?: boolean) {
   const { content, onClose, zIndex, forceMask, ...otherProps } = props
   const div = createDiv(props)
   div.style.display = 'block'
-  const parsed = parseInt(zIndex, 10)
-  if (!Number.isNaN(parsed)) div.style.zIndex = parsed
-  const doc = document.body.parentNode
+  const parsed = parseInt(String(zIndex), 10)
+  if (!Number.isNaN(parsed)) div.style.zIndex = (parsed as unknown) as string
+  const doc = document.body.parentNode as HTMLElement
   if (!doc.style.paddingRight) {
     const scrollWidth = window.innerWidth - docSize.width
     doc.style.overflow = 'hidden'
@@ -118,13 +121,13 @@ export function open(props, isPortal) {
   )
 
   if (isPortal) return ReactDOM.createPortal(panel, div)
-  if (document.activeElement && !getParent(document.activeElement, div)) document.activeElement.blur()
+  if (document.activeElement && !getParent(document.activeElement, div)) (document.activeElement as HTMLElement).blur()
 
   ReactDOM.render(panel, div)
   return null
 }
 
-const closeCallback = (fn, option, setLoading) => () => {
+const closeCallback = <T extends Function>(fn: T, option: Options, setLoading?: Function) => () => {
   let callback
   if (fn) callback = fn()
   if (callback && typeof callback.then === 'function') {
@@ -145,8 +148,16 @@ const closeCallback = (fn, option, setLoading) => () => {
   }
 }
 // eslint-disable-next-line react/prop-types
-class LoadingOk extends PureComponent {
-  constructor(props) {
+interface LoadingOkProps {
+  option: Options
+}
+interface LoadingOkState {
+  loading: boolean
+}
+class LoadingOk extends PureComponent<LoadingOkProps, LoadingOkState> {
+  setLoading: (loading: boolean) => void
+
+  constructor(props: LoadingOkProps) {
     super(props)
     this.state = {
       loading: false,
@@ -160,7 +171,7 @@ class LoadingOk extends PureComponent {
     // eslint-disable-next-line react/prop-types
     const { option } = this.props
     const { loading } = this.state
-    const onClick = closeCallback(option.onOk, option, this.setLoading)
+    const onClick = closeCallback(option.onOk!, option, this.setLoading)
     return (
       <Button loading={loading} key="ok" id={`${option.id}-ok`} onClick={onClick} type="primary">
         {getLocale('ok', option.text)}
@@ -178,8 +189,8 @@ class LoadingOk extends PureComponent {
 //   )
 // }
 
-const btnCancel = option => {
-  const onClick = closeCallback(option.onCancel, option)
+const btnCancel = (option: Options) => {
+  const onClick = closeCallback(option.onCancel!, option)
   return (
     <Button.Once id={`${option.id}-cancel`} key="cancel" onClick={onClick}>
       {getLocale('cancel', option.text)}
@@ -187,7 +198,7 @@ const btnCancel = option => {
   )
 }
 
-export const method = type => option => {
+export const method = (type: Methods) => (option: Options) => {
   const props = Object.assign(
     {
       width: 420,

@@ -3,6 +3,15 @@ import { RuleParamsType } from '../Rule'
 
 export interface StandardProps {
   /**
+   * id
+   *
+   * 原生 id 属性
+   *
+   * default: -
+   */
+  id?: string
+
+  /**
    * extend className
    *
    * 扩展className
@@ -209,6 +218,7 @@ export interface CommonProps {
    */
   zIndex?: number
 }
+
 export declare namespace RegularAttributes {
   type Size = 'small' | 'default' | 'large'
   type Type = 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger'

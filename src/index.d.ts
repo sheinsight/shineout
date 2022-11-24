@@ -87,7 +87,7 @@ export { default as Message } from './Message'
 import { MessageProps as __MessageProps, MessageOptions as __MessageOptions,  } from './Message'
 
 export { default as Modal } from './Modal'
-import { ModalProps as __ModalProps, ModalFunctionOptions as __ModalFunctionOptions,  } from './Modal'
+import { ModalProps as __ModalProps } from './Modal/interface'
 
 export { default as Pagination } from './Pagination'
 import { PaginationProps as __PaginationProps,  } from './Pagination'
@@ -261,8 +261,8 @@ export namespace TYPE {
     export type Options = __MessageOptions
   }
   export namespace Modal {
+  
     export type Props = __ModalProps
-    export type FunctionOptions = __ModalFunctionOptions
   }
   export namespace Pagination {
     export type Props = __PaginationProps

@@ -1,12 +1,44 @@
-import PropTypes from 'prop-types'
 import { Component } from 'react'
-import { defaultProps, getProps } from '../utils/proptypes'
+import { defaultProps } from '../utils/proptypes'
 import shallowEqual from '../utils/shallowEqual'
 import { getUidStr } from '../utils/uid'
 import { open, close, destroy } from './events'
+import Card from '../Card'
+import { ModalProps, Options } from './Props'
 
-class Modal extends Component {
-  constructor(props) {
+const DefaultValue = {
+  ...defaultProps,
+  usePortal: true,
+  visible: false,
+  esc: true,
+}
+
+class Modal extends Component<ModalProps> {
+  static defaultProps = DefaultValue
+
+  id: string
+
+  visible?: boolean
+
+  static displayName: string
+
+  static info: (option: ModalProps) => () => void
+
+  static warn: (option: ModalProps) => () => void
+
+  static error: (option: ModalProps) => () => void
+
+  static confirm: (option: ModalProps) => () => void
+
+  static show: (option: ModalProps) => () => void
+
+  static success: (option: ModalProps) => () => void
+
+  static closeAll: () => void
+
+  static Submit: typeof Card.Submit
+
+  constructor(props: ModalProps) {
     super(props)
     this.id = getUidStr()
     this.visible = props.visible
@@ -19,7 +51,7 @@ class Modal extends Component {
     }
   }
 
-  shouldComponentUpdate(nextProps) {
+  shouldComponentUpdate(nextProps: any) {
     if (shallowEqual(this.props, nextProps)) return false
     if (nextProps.visible) return true
     close({ ...this.props, id: this.id }, this.handleUpdate)
@@ -38,7 +70,7 @@ class Modal extends Component {
     destroy(this.id, !usePortal)
   }
 
-  getOption() {
+  getOption(): Options {
     const { children, usePortal, visible, ...props } = this.props
     return {
       ...props,
@@ -60,19 +92,6 @@ class Modal extends Component {
     if (visible && usePortal) return open(option, true)
     return null
   }
-}
-
-Modal.propTypes = {
-  ...getProps(PropTypes),
-  usePortal: PropTypes.bool,
-  destroy: PropTypes.bool,
-}
-
-Modal.defaultProps = {
-  ...defaultProps,
-  usePortal: true,
-  visible: false,
-  esc: true,
 }
 
 Modal.displayName = 'ShineoutModal'
