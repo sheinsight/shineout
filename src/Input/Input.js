@@ -70,7 +70,7 @@ class Input extends PureComponent {
   }
 
   fixValue(val) {
-    const { type, digits, autoFix, cancelChange, numType } = this.props
+    const { type, digits, autoFix, numType } = this.props
     if (type !== 'number' || val === '') return val
     if (/^[.-]+$/.test(val)) return ''
     let fixVal = fillNumber(val)
@@ -82,7 +82,6 @@ class Input extends PureComponent {
       } else {
         fixVal = parseInt(fixVal, 10).toString()
       }
-      if (cancelChange) cancelChange()
     }
     return fixVal
   }
@@ -153,8 +152,8 @@ class Input extends PureComponent {
     const { forceChange, onBlur, clearToUndefined, cancelChange } = this.props
     if (cancelChange) cancelChange()
     const newVal = this.fixValue(value)
-    const canForceChange = !(clearToUndefined && newVal === '' && this.props.value === undefined)
-    if (canForceChange && forceChange && !this.invalidNumber(newVal)) forceChange(newVal)
+    const isChange = !(clearToUndefined && newVal === '' && this.props.value === undefined)
+    if (isChange && forceChange && !this.invalidNumber(newVal)) forceChange(newVal)
     if (onBlur) onBlur(e)
   }
 
