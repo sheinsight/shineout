@@ -23,7 +23,7 @@ interface Column {
   group?: any
   width?: number | string
 }
-export function compareColumns(columns1: Column[], columns2: Column[]) {
+export function compareColumns(columns1?: Column[], columns2?: Column[]) {
   if (!columns1 || !columns2) return true
   if (columns1.length !== columns2.length) return false
   const simpleCompare = columns1.every(

@@ -1,13 +1,19 @@
-import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
+import React, { PureComponent, CSSProperties } from 'react'
 import { throttleWrapper } from '../utils/lazyload'
+import { ExpandProps } from './Props'
 
-const iframeStyle = {
-  position: 'absolute', left: 0, width: 0, height: '100%', border: 0,
+const iframeStyle: CSSProperties = {
+  position: 'absolute',
+  left: 0,
+  width: 0,
+  height: '100%',
+  border: 0,
 }
 
-class Expand extends PureComponent {
-  constructor(props) {
+class Expand extends PureComponent<ExpandProps> {
+  element: HTMLTableRowElement
+
+  constructor(props: ExpandProps) {
     super(props)
 
     this.bindElement = this.bindElement.bind(this)
@@ -29,11 +35,11 @@ class Expand extends PureComponent {
     }
   }
 
-  bindElement(el) {
+  bindElement(el: HTMLTableRowElement) {
     this.element = el
   }
 
-  bindIframe(el) {
+  bindIframe(el: HTMLIFrameElement) {
     if (el && el.contentWindow) {
       el.contentWindow.onresize = throttleWrapper(this.setHeight)
     }
@@ -50,12 +56,6 @@ class Expand extends PureComponent {
       </tr>
     )
   }
-}
-
-Expand.propTypes = {
-  children: PropTypes.any,
-  colSpan: PropTypes.number,
-  setExpandHeight: PropTypes.func,
 }
 
 export default Expand

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { CommonProps, keygenType, StandardProps, FormItemStandardProps, StructDataStandardProps } from "../@types/common"
+import { CommonProps, KeygenType, StandardProps, FormItemStandardProps, StructDataStandardProps } from "../@types/common"
 
 type ReactNode = React.ReactNode;
 
@@ -110,7 +110,7 @@ export interface TreeSelectProps<Item, Value> extends StandardProps,
    *
    * default: index
    */
-  keygen: keygenType<Item>;
+  keygen: KeygenType<Item>;
 
   /**
    * Expanded node key (controlled)

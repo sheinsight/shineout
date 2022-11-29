@@ -1,16 +1,17 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { ReactNode } from 'react'
 import immer from 'immer'
 import { PureComponent } from '../component'
-import { getProps } from '../utils/proptypes'
 import { compareColumns } from '../utils/shallowEqual'
 import { getKey } from '../utils/uid'
 import Tr from './Tr'
 import { tableClass } from './styles'
+import { TbodyProps, ColumnItemWithFixed, Row } from './Props'
+import { keyType } from '../@types/common'
+import { isFunc } from '../utils/is'
 
 export const RENDER_COL_GROUP_EVENT = 'RENDER_COL_GROUP_EVENT'
 
-function ignoreBorderRight(rows) {
+function ignoreBorderRight<DataItem>(rows: RowData<DataItem>[][]) {
   rows.forEach(row => {
     const lastColumn = row[row.length - 1]
     if (lastColumn) {
@@ -19,24 +20,39 @@ function ignoreBorderRight(rows) {
   })
 }
 
-function format(columns, data, nextRow, index, expandKeys) {
+interface RowData<DataItem> extends Row<DataItem> {
+  ignoreBorderRight: boolean
+  content?: ReactNode
+}
+
+function format<DataItem, Value>(
+  columns: TbodyProps<DataItem, Value>['columns'],
+  data: DataItem,
+  nextRow: (RowData<DataItem> | null)[],
+  index: number,
+  expandKeys?: keyType[]
+) {
   const row = columns.map((col, i) => {
-    const cell = { index, data, expandKeys }
+    const cell = { index, data, expandKeys } as RowData<DataItem>
     cell.colSpan = typeof col.colSpan === 'function' ? col.colSpan(data, index) : 1
     if (cell.colSpan < 1) cell.colSpan = 1
 
     const { rowSpan } = col
     if (rowSpan && nextRow && nextRow[i]) {
       if (col.type !== 'checkbox') {
-        cell.content = typeof col.render === 'string' ? data[col.render] : col.render(data, index)
+        if (typeof col.render === 'string') {
+          cell.content = data[col.render]
+        } else if (isFunc(col.render)) {
+          cell.content = col.render(data, index)
+        }
       }
       const isEqual =
         rowSpan === true
-          ? cell.content === nextRow[i].content
-          : typeof rowSpan === 'function' && rowSpan(data, nextRow[i].data)
+          ? nextRow[i] && cell.content === nextRow[i]!.content
+          : nextRow[i] && typeof rowSpan === 'function' && rowSpan(data, nextRow[i]!.data)
 
       const nextTd = nextRow[i]
-      if (isEqual && nextTd.colSpan === cell.colSpan) {
+      if (isEqual && nextTd && nextTd.colSpan === cell.colSpan) {
         cell.rowSpan = (nextTd.rowSpan || 1) + 1
         let j = cell.colSpan || 1
         while (j) {
@@ -52,8 +68,17 @@ function format(columns, data, nextRow, index, expandKeys) {
   return row
 }
 
-class Tbody extends PureComponent {
-  constructor(props) {
+interface TbodyState {
+  expand: Record<string, boolean>
+}
+class Tbody<DataItem, Value> extends PureComponent<TbodyProps<DataItem, Value>, TbodyState> {
+  colgroupSetted: boolean
+
+  keys: Record<string, boolean>
+
+  body: HTMLTableSectionElement
+
+  constructor(props: TbodyProps<DataItem, Value>) {
     super(props)
 
     this.state = {
@@ -72,7 +97,7 @@ class Tbody extends PureComponent {
     this.bodyRender()
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: TbodyProps<DataItem, Value>) {
     const { onScrollTop, data } = this.props
     if (onScrollTop && prevProps.data.length && data.length === 0) onScrollTop()
     if (this.props.resize || !this.colgroupSetted || !compareColumns(prevProps.columns, this.props.columns)) {
@@ -96,11 +121,11 @@ class Tbody extends PureComponent {
     onBodyRender(tr.querySelectorAll('td'))
   }
 
-  bindBody(el) {
+  bindBody(el: HTMLTableSectionElement) {
     this.body = el
   }
 
-  handleExpand(key, render) {
+  handleExpand(key: keyType, render: ReactNode) {
     this.setState(
       immer(draft => {
         if (render) draft.expand[key] = render
@@ -109,24 +134,29 @@ class Tbody extends PureComponent {
     )
   }
 
-  findExpandFunc(key, i) {
+  findExpandFunc(key: keyType, i: number) {
+    //
+    // (rowData: DataItem, index?: number) => ReactNode
     const { columns, expandKeys, data, externalExpandRender, index } = this.props
-    const expandableObj = columns.find(c => c.type === 'expand' || c.type === 'row-expand')
+    const expandableObj =
+      columns.find(c => c.type === 'expand' || c.type === 'row-expand') || ({} as ColumnItemWithFixed<DataItem>)
     const idx = i + index
     if (expandKeys) {
       const expanded = expandKeys.find(k => k === key)
       if (externalExpandRender) return expanded !== undefined ? externalExpandRender(data[i], idx) : undefined
-      const expandObj = expanded !== undefined ? expandableObj : {}
-      return expandObj.render ? expandObj.render(data[i], idx) : undefined
+      const expandObj = expanded !== undefined ? expandableObj : ({} as ColumnItemWithFixed<DataItem>)
+      const { render } = expandObj
+      return render && isFunc(render) ? render(data[i], idx) : undefined
     }
     if (this.state.expand[key]) {
+      const { render } = expandableObj
       if (externalExpandRender) return externalExpandRender(data[i], idx)
-      return expandableObj.render ? expandableObj.render(data[i], idx) : undefined
+      return render && isFunc(render) ? render(data[i], idx) : undefined
     }
     return undefined
   }
 
-  renderTr(row, i) {
+  renderTr(row: Row<DataItem>[], i: number) {
     const { columns, keygen, data, sorter, index, expandKeys, colgroup, ...other } = this.props
 
     let key = getKey(data[i], keygen, index + i)
@@ -139,9 +169,10 @@ class Tbody extends PureComponent {
     }
     this.keys[key] = true
     const originKey = key
-    if (sorter && sorter.order) {
-      key = `${key}-${sorter.index}-${sorter.order}`
-    }
+    // seems to be useless code
+    // if (sorter && sorter.order) {
+    //   key = `${key}-${sorter.index}-${sorter.order}`
+    // }
     return (
       <Tr
         {...other}
@@ -189,7 +220,7 @@ class Tbody extends PureComponent {
     )
   }
 
-  renderTrs(rows) {
+  renderTrs(rows: RowData<DataItem>[][]) {
     const { columns, colgroup } = this.props
     const minWidthSup = columns.find(d => d.minWidth)
     const trs = rows.map(this.renderTr)
@@ -199,7 +230,7 @@ class Tbody extends PureComponent {
 
   render() {
     const { index, data, columns, expandKeys, bordered } = this.props
-    const rows = []
+    const rows: RowData<DataItem>[][] = []
     for (let i = data.length - 1; i >= 0; i--) {
       const d = data[i]
       rows.unshift(
@@ -216,23 +247,6 @@ class Tbody extends PureComponent {
     this.keys = {}
     return <tbody ref={this.bindBody}>{this.renderTrs(rows)}</tbody>
   }
-}
-
-Tbody.propTypes = {
-  ...getProps(PropTypes, 'keygen'),
-  columns: PropTypes.array.isRequired,
-  data: PropTypes.array.isRequired,
-  index: PropTypes.number.isRequired,
-  offsetLeft: PropTypes.number,
-  offsetRight: PropTypes.number,
-  onBodyRender: PropTypes.func,
-  values: PropTypes.object,
-  bordered: PropTypes.bool,
-  externalExpandRender: PropTypes.func,
-}
-
-Tbody.defaultProps = {
-  onBodyRender: undefined,
 }
 
 export default Tbody

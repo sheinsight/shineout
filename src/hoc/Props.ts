@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react'
 import { ForceAdd, PartialKeys, RegularAttributes } from '../@types/common'
 import { PopoverProps } from '../Popover/interface'
+import { PaginationProps } from '../Pagination'
 
 export type MovableType<U> = U & {
   moveable?: boolean
@@ -86,7 +87,6 @@ export interface CoinProps {
 export type GetCoinProps<Props> = ForceAdd<PartialKeys<Props, 'onFocus' | 'onBlur'>, CoinProps>
 
 /** ------ trim ------ * */
-
 export interface TrimProps {
   value?: any
   onChange?: (...args: any) => void
@@ -101,3 +101,11 @@ export interface TrimProps {
   trim?: boolean
 }
 export type GetTrimProps<Props> = ForceAdd<Props, TrimProps>
+
+/** ------ hidable ------ * */
+export type GetHidableConsumerProps<Props> = Props
+
+/** ------ pagable ------ * */
+export type GetPagableProps<Props> = Props & {
+  pagination?: PaginationProps
+}

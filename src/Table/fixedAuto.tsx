@@ -1,18 +1,26 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { ComponentType } from 'react'
 import { scrollClass } from '../Scroll/styles'
 import { compareColumns } from '../utils/shallowEqual'
 import { Component } from '../component'
+import { GetFixAutoProps } from './Props'
 
-export default Table =>
-  class extends Component {
-    static propTypes = {
-      fixed: PropTypes.oneOf(['x', 'y', 'both', 'auto']),
-      data: PropTypes.array,
-      columns: PropTypes.array,
+interface BaseProps {
+  fixed?: any
+  columns?: any
+  data?: any
+  width?: any
+  height?: any
+}
+export default <Props extends BaseProps>(Table: ComponentType<Props>) =>
+  class AutoFixed extends Component<
+    GetFixAutoProps<Props>,
+    {
+      fixed: 'x' | 'y' | 'both' | null
     }
+  > {
+    wrapper: HTMLDivElement
 
-    constructor(props) {
+    constructor(props: GetFixAutoProps<Props>) {
       super(props)
       this.state = {
         fixed: null,
@@ -21,10 +29,14 @@ export default Table =>
       this.resetAutoFixedState = this.resetAutoFixedState.bind(this)
     }
 
-    componentDidUpdate(prevProps) {
-      const diff = ['fixed', 'width', 'height', 'data'].find(k => this.props[k] && prevProps[k] !== this.props[k])
+    componentDidUpdate(prevProps: GetFixAutoProps<Props>) {
+      type PropsKey = keyof GetFixAutoProps<Props>
+      const diff = ['fixed', 'width', 'height', 'data'].find(
+        k => this.props[k as PropsKey] && prevProps[k as PropsKey] !== this.props[k as PropsKey]
+      )
       const reset = !compareColumns(prevProps.columns, this.props.columns) || diff
       if (reset) {
+        // eslint-disable-next-line react/no-did-update-set-state
         this.setState({
           fixed: null,
         })
@@ -37,7 +49,7 @@ export default Table =>
       return this.props.fixed
     }
 
-    bindWrapper(wrapper) {
+    bindWrapper(wrapper: HTMLDivElement) {
       this.wrapper = wrapper
     }
 
@@ -67,7 +79,12 @@ export default Table =>
       const fixed = this.getFixed()
       setTimeout(this.fixedAuto.bind(this))
       return (
-        <Table {...this.props} fixed={fixed} bindWrapper={this.bindWrapper} resetFixAuto={this.resetAutoFixedState} />
+        <Table
+          {...this.props as Props}
+          fixed={fixed}
+          bindWrapper={this.bindWrapper}
+          resetFixAuto={this.resetAutoFixedState}
+        />
       )
     }
   }

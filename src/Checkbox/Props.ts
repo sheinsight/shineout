@@ -1,5 +1,5 @@
 import React, { PropsWithChildren, ReactNode } from 'react'
-import { keygenType, StandardProps, StructDataStandardProps } from '../@types/common'
+import { KeygenType, StandardProps, StructDataStandardProps } from '../@types/common'
 import ListDatum from '../Datum/List'
 import { GetInputableProps } from '../Form/Props'
 import { GetDatumListProps } from '../Datum/Props'
@@ -42,7 +42,7 @@ export type CheckboxProviderProps<U> = Omit<U, 'onRawChange'>
 export interface CheckboxGroupProps<DataItem, Value>
   extends StandardProps,
     Pick<StructDataStandardProps<DataItem>, 'renderItem'> {
-  keygen: keygenType<DataItem>
+  keygen: KeygenType<DataItem>
   block?: boolean
   datum: ListDatum<DataItem, Value>
   value?: Value

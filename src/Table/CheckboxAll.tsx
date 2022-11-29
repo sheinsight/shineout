@@ -1,20 +1,17 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { Component } from '../component'
 import shallowEqual from '../utils/shallowEqual'
 import { CHANGE_TOPIC } from '../Datum/types'
 import Checkbox from '../Checkbox/Checkbox'
 import { isFunc } from '../utils/is'
+import { CheckboxAllProps, ColumnItemWithFixed } from './Props'
 
-export default class TableCheckboxAll extends Component {
-  static propTypes = {
-    data: PropTypes.array,
-    col: PropTypes.object,
-    datum: PropTypes.object.isRequired,
-    treeColumnsName: PropTypes.string,
-  }
+export default class TableCheckboxAll<DataItem, Value> extends Component<CheckboxAllProps<DataItem, Value>> {
+  handleUpdate: () => void
 
-  constructor(props) {
+  lastValueLength: number
+
+  constructor(props: CheckboxAllProps<DataItem, Value>) {
     super(props)
     this.handleChange = this.handleChange.bind(this)
     this.handleUpdate = this.forceUpdate.bind(this)
@@ -25,7 +22,7 @@ export default class TableCheckboxAll extends Component {
     this.props.datum.subscribe(CHANGE_TOPIC, this.handleUpdate)
   }
 
-  shouldComponentUpdate(nextProps) {
+  shouldComponentUpdate(nextProps: CheckboxAllProps<DataItem, Value>) {
     const { datum } = nextProps
     if (!shallowEqual(this.props, nextProps)) return true
     if (this.lastValueLength !== (datum.getValue() || []).length) return true
@@ -39,7 +36,8 @@ export default class TableCheckboxAll extends Component {
 
   getFilterData() {
     const { col = {}, data } = this.props
-    const { filterAll } = col
+    const colTemp = col as ColumnItemWithFixed<DataItem>
+    const { filterAll } = colTemp
     if (data && filterAll && Array.isArray(data) && isFunc(filterAll)) {
       return filterAll(data)
     }
@@ -65,10 +63,10 @@ export default class TableCheckboxAll extends Component {
     return checked
   }
 
-  check(d) {
+  check(d: DataItem) {
     const { datum, treeColumnsName } = this.props
     const p = datum.check(d)
-    const children = d[treeColumnsName]
+    const children = treeColumnsName && d[treeColumnsName]
     const isArray = children && Array.isArray(children)
     if (isArray) {
       for (const c of children) {
@@ -78,7 +76,7 @@ export default class TableCheckboxAll extends Component {
     return p
   }
 
-  handleChange(_, checked, index) {
+  handleChange(_: any, checked: boolean, index: number) {
     const { datum, treeColumnsName } = this.props
     const filterData = this.getFilterData()
     if (checked) {
