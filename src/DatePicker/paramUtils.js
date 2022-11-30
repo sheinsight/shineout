@@ -17,6 +17,7 @@ const monthHandleChangeParams = handleOnChangeParams('month')
 const quarterHandleChangeParams = handleOnChangeParams('quarter')
 const dayHandleChangeParams = handleOnChangeParams('day')
 const weekHandleChangeParams = handleOnChangeParams('week')
+const localWeekHandleChangeParams = handleOnChangeParams('localWeek')
 const timeHandleChangeParams = handleOnChangeParams('time')
 const quickHandleChangeParams = handleOnChangeParams('quick')
 
@@ -94,5 +95,6 @@ export default {
   quarterHandleChangeParams,
   judgeTimeByRange,
   handleTimeDisabled,
+  localWeekHandleChangeParams,
   handleDisabled,
 }

@@ -108,8 +108,6 @@ class Container extends PureComponent {
   getFormat() {
     const { format, type } = this.props
     if (format) {
-      if (type === 'week' && format.indexOf('I') > -1) return format.replace(/y/g, 'Y')
-
       return format
     }
     switch (type) {
@@ -119,10 +117,12 @@ class Container extends PureComponent {
         return 'yyyy-MM'
       case 'time':
         return 'HH:mm:ss'
+      case 'week':
+        return 'GGGG WW'
+      case 'localWeek':
+        return 'gggg ww'
       case 'year':
         return 'yyyy'
-      case 'week':
-        return 'RRRR II'
       case 'quarter':
         return 'yyyy-[Q]Q'
       default:

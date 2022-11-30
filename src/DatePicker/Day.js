@@ -73,7 +73,9 @@ class Day extends PureComponent {
     const current = (index === sync && value) || this.formatWithDefaultTime(sync)
     const onChange = typeof sync === 'number' ? this.props.onChangeSync.bind(this.props, sync) : this.props.onChange
     if (type === 'week') {
-      onChange(...paramUtils.weekHandleChangeParams(date, true, true))
+      onChange(...paramUtils.weekHandleChangeParams(date, true, true, type))
+    } else if (type === 'localWeek') {
+      onChange(...paramUtils.localWeekHandleChangeParams(date, true, true, type))
     } else {
       let newDate = utils.setTime(utils.toDate(date), current)
       // only can select day with the same day of min/max
@@ -164,7 +166,7 @@ class Day extends PureComponent {
     const weekStart = getLocale('startOfWeek')
     const weekEnd = weekStart ? 0 : 6
     const day = utils.getDateInfo(date, 'day', this.getOptions())
-    if (type === 'week') {
+    if (type === 'week' || type === 'localWeek') {
       hoverProps.onMouseEnter = this.handleWeek.bind(this, date)
       hoverProps.onMouseLeave = this.handleWeekLeave
       if (utils.isSameWeek(date, value, this.getOptions())) {

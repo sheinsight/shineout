@@ -124,7 +124,7 @@ export interface DatePickerProps<T = DatePickerValue> extends StandardProps,
    *
    * default: 'date'
    */
-  type?: 'date' | 'time' | 'datetime' | 'month' | 'week' | 'quarter' | 'year';
+  type?: 'date' | 'time' | 'datetime' | 'month' | 'week' | 'quarter' | 'year' | 'localWeek';
 
   /**
    * Default time when selecting a date, the format is: 'HH:mm:ss'

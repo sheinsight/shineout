@@ -15,6 +15,7 @@ const en2Locate = {
   ...enLocale,
   name: 'en2',
   weekStart: 1,
+  yearStart: 4,
 }
 
 dayjs.locale(en2Locate, null, true)
@@ -181,6 +182,20 @@ function parse(d, fmt, options) {
       .toDate()
     return transDateWithZone(result, options, true)
   }
+
+  // handle Year Week
+  const index2 = fmt2.indexOf('gggg')
+  if (index2 >= 0) {
+    const year = date.slice(index2, index2 + 5)
+    const weekIndex = fmt2.indexOf('ww')
+    const week = weekIndex >= 0 ? date.slice(weekIndex, weekIndex + 3) : 1
+    const result = dayjs(`${year}-06-15`, 'YYYY-MM-dd')
+      .locale(getDayJsLocate(options))
+      .week(Number(week))
+      .toDate()
+    return transDateWithZone(result, options, true)
+  }
+
   // handle Quarter
   const quarterIndex = fmt2.indexOf('Q')
   if (quarterIndex >= 0) {

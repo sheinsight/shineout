@@ -58,7 +58,13 @@ export default Origin =>
         case 'time':
           return 'HH:mm:ss'
         case 'week':
-          return 'RRRR II'
+          return 'GGGG WW'
+        case 'localWeek':
+          return 'gggg ww'
+        case 'year':
+          return 'yyyy'
+        case 'quarter':
+          return 'yyyy-[Q]Q'
         default:
           return 'yyyy-MM-dd'
       }
