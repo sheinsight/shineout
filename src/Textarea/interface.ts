@@ -125,7 +125,7 @@ FormItemStandardProps<Value>
    *
    * default: -
    */
-  placeTitle?: ReactNode,
+  // placeTitle?: ReactNode,
 
   /**
    * render textarea footer
