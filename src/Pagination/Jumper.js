@@ -6,8 +6,6 @@ import Input from '../Input'
 import { getDirectionClass } from '../utils/classname'
 
 const inputStyle = { width: 60, display: 'inline-block' }
-const inheritStyle = { color: 'inherit' }
-
 const nofunc = () => {}
 
 class Jumper extends PureComponent {
@@ -63,7 +61,7 @@ class Jumper extends PureComponent {
 
     return (
       <div className={paginationClass(getDirectionClass('section'))}>
-        <span style={inheritStyle}>{txt[0]}</span>
+        {txt[0]}
         <Input
           key={this.renderRequire}
           value={current}
@@ -77,7 +75,7 @@ class Jumper extends PureComponent {
           className={paginationClass(isSimple && 'simple-input')}
           delay={400}
         />
-        <span style={inheritStyle}>{txt[1]}</span>
+        {txt[1]}
       </div>
     )
   }
