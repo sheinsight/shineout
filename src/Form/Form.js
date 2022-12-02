@@ -122,7 +122,6 @@ class Form extends Component {
 
     const { activeElement } = document
     if (activeElement) activeElement.blur()
-    console.log('aaaa')
     datum.dispatch(SUBMIT_TOPIC)
     setTimeout(() => {
       datum
