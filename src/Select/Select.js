@@ -75,12 +75,7 @@ class Select extends PureComponent {
     super.componentDidMount()
     const { formDatum } = this.props
     if (formDatum) {
-      formDatum.subscribe(SUBMIT_TOPIC, () => {
-        if (this.inputBlurTimer && this.blurHandler) {
-          clearTimeout(this.inputBlurTimer)
-          this.blurHandler()
-        }
-      })
+      formDatum.subscribe(SUBMIT_TOPIC, this.forceChange)
     }
   }
 
@@ -97,6 +92,10 @@ class Select extends PureComponent {
 
   componentWillUnmount() {
     super.componentWillUnmount()
+    const { formDatum } = this.props
+    if (formDatum) {
+      formDatum.unsubscribe(SUBMIT_TOPIC, this.forceChange)
+    }
     this.clearClickAway()
   }
 
@@ -115,6 +114,13 @@ class Select extends PureComponent {
 
   setInputReset(fn) {
     this.inputReset = fn
+  }
+
+  forceChange = () => {
+    if (this.inputBlurTimer && this.blurHandler) {
+      clearTimeout(this.inputBlurTimer)
+      this.blurHandler()
+    }
   }
 
   isDescendent(el, id) {
