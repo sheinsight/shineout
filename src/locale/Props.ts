@@ -1,2 +1,2 @@
-export type LanType = 'en_US' | 'zh-CN'
+export type LanType = 'en-US' | 'zh-CN'
 export type Direction = 'ltr' | 'rtl'
