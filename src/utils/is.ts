@@ -14,7 +14,7 @@ export const isNotUndef = (v: unknown): boolean => v != null
 // eslint-disable-next-line
 export const isNan = (a: unknown): boolean => a !== a
 export const isFunc = (f: unknown): f is Function => typeof f === 'function'
-export const isNumber = (n: unknown): boolean => typeof n === 'number'
+export const isNumber = (n: unknown): n is number => typeof n === 'number'
 export const isObject = (val: unknown): boolean => !!val && typeof val === 'object' && !isArray(val)
 export const isString = (s: unknown): boolean => typeof s === 'string'
 export const isDate = (val: unknown): boolean => val instanceof Date

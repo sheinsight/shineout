@@ -1,14 +1,23 @@
-import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
+import React, { PureComponent, ReactNode } from 'react'
 import classnames from 'classnames'
 import { tableClass } from './styles'
 import Checkbox from './Checkbox'
+import { TdProps } from './Props'
 
 export const CLASS_FIXED_LEFT = 'fixed-left'
 export const CLASS_FIXED_RIGHT = 'fixed-right'
 
-class Td extends PureComponent {
-  constructor(props) {
+const DefaultProps: any = {
+  fixed: '',
+  style: {},
+  align: 'left',
+}
+class Td<DataItem, Value> extends PureComponent<TdProps<DataItem, Value>> {
+  static defaultProps = DefaultProps
+
+  cachedRender: ReactNode
+
+  constructor(props: TdProps<DataItem, Value>) {
     super(props)
     this.handleExpandClick = this.handleExpandClick.bind(this)
     this.handleTreeExpand = this.handleTreeExpand.bind(this)
@@ -38,7 +47,7 @@ class Td extends PureComponent {
         index={index}
         datum={datum}
         disabled={disabled}
-        treeColumnsName={treeCheckAll && treeColumnsName}
+        treeColumnsName={treeCheckAll ? treeColumnsName : undefined}
       />
     )
     if (render && typeof render === 'function') {
@@ -47,7 +56,7 @@ class Td extends PureComponent {
     return checkbox
   }
 
-  renderExpand(index) {
+  renderExpand(index: number) {
     const { expanded, render, data } = this.props
     if (typeof render !== 'function') return null
 
@@ -67,7 +76,7 @@ class Td extends PureComponent {
     )
   }
 
-  renderTreeExpand(content) {
+  renderTreeExpand(content: ReactNode) {
     const {
       data,
       treeRoot,
@@ -80,7 +89,11 @@ class Td extends PureComponent {
     } = this.props
     const level = treeExpandLevel.get(originKey) || 0
     const className = tableClass('expand-wrapped')
-    if (!treeColumnsName || !data[treeColumnsName] || (data[treeColumnsName].length === 0 && !treeEmptyExpand)) {
+    if (
+      !treeColumnsName ||
+      !data[treeColumnsName] ||
+      (((data[treeColumnsName] as unknown) as DataItem[]).length === 0 && !treeEmptyExpand)
+    ) {
       return (
         <span className={className} style={{ marginLeft: level * treeIndent, paddingLeft: treeRoot ? 0 : 25 }}>
           {content}
@@ -101,7 +114,7 @@ class Td extends PureComponent {
 
   renderResult() {
     const { render, data, index, treeColumnsName, treeExpandShow } = this.props
-    const content = typeof render === 'function' ? render(data, index) : data[render]
+    const content = typeof render === 'function' ? render(data, index) : data[render as keyof DataItem]
     if (!treeColumnsName || !treeExpandShow) return content
     return this.renderTreeExpand(content)
   }
@@ -141,45 +154,6 @@ class Td extends PureComponent {
       </td>
     )
   }
-}
-
-Td.propTypes = {
-  data: PropTypes.object,
-  colSpan: PropTypes.number,
-  className: PropTypes.string,
-  expanded: PropTypes.bool,
-  firstFixed: PropTypes.bool,
-  fixed: PropTypes.string,
-  index: PropTypes.number,
-  lastFixed: PropTypes.bool,
-  onExpand: PropTypes.func,
-  align: PropTypes.oneOf(['left', 'center', 'right']),
-  originKey: PropTypes.any,
-  rowSpan: PropTypes.number,
-  style: PropTypes.object,
-  type: PropTypes.string,
-  expandKeys: PropTypes.array,
-  expandClick: PropTypes.func,
-  datum: PropTypes.object,
-  render: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-  ignoreBorderRight: PropTypes.bool,
-  treeColumnsName: PropTypes.string,
-  onTreeExpand: PropTypes.func,
-  treeExpand: PropTypes.bool,
-  treeExpandShow: PropTypes.bool,
-  treeExpandLevel: PropTypes.object,
-  treeIndent: PropTypes.number,
-  treeRoot: PropTypes.bool,
-  treeEmptyExpand: PropTypes.bool,
-  treeCheckAll: PropTypes.bool,
-  resetFixAuto: PropTypes.func,
-  disabled: PropTypes.func,
-}
-
-Td.defaultProps = {
-  fixed: '',
-  style: {},
-  align: 'left',
 }
 
 export default Td

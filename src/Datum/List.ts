@@ -134,7 +134,7 @@ export default class<Item, Value> {
     this.updateLock = lock
   }
 
-  add(data: Item, _?: any, childrenKey?: keyof Item, unshift?: boolean) {
+  add(data: Item | Item[], _?: any, childrenKey?: keyof Item, unshift?: boolean) {
     if (data === undefined || data === null) return
 
     // clear value
@@ -215,7 +215,7 @@ export default class<Item, Value> {
     return value === this.format(data)
   }
 
-  remove(value: Item | { IS_NOT_MATCHED_VALUE: boolean; value: any }, _?: unknown, childrenKey?: string) {
+  remove(value: Item | Item[] | { IS_NOT_MATCHED_VALUE: boolean; value: any }, _?: unknown, childrenKey?: string) {
     if (value === undefined || value === null) return
 
     let raws: any = Array.isArray(value) ? value : [value]

@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { PureComponent } from '../component'
 import { tableClass } from './styles'
 import { range, split } from '../utils/numbers'
@@ -10,13 +9,37 @@ import Tfoot from './Tfoot'
 import { compareColumns } from '../utils/shallowEqual'
 import Sticky from '../Sticky'
 import { addResizeObserver } from '../utils/dom/element'
+import { ColumnItem, ColumnOrder, SimpleTableProps } from './Props'
 
-function setScrollLeft(target, scrollLeft) {
+function setScrollLeft(target: HTMLElement, scrollLeft: number) {
   if (target && target.scrollLeft !== scrollLeft) target.scrollLeft = scrollLeft
 }
 
-class SimpleTable extends PureComponent {
-  constructor(props) {
+interface SimpleTableState {
+  colgroup?: number[]
+  overHeight: boolean
+  overWidth: boolean
+  resize: boolean
+}
+
+class SimpleTable<DataItem, Value> extends PureComponent<SimpleTableProps<DataItem, Value>, SimpleTableState> {
+  bindHeader: (el: HTMLDivElement) => void
+
+  bindBody: (el: HTMLDivElement) => void
+
+  bindFooter: (el: HTMLDivElement) => void
+
+  removeReiszeObserver: () => void
+
+  body: HTMLDivElement
+
+  header: HTMLDivElement
+
+  footer: HTMLDivElement
+
+  lastColGroup: number[]
+
+  constructor(props: SimpleTableProps<DataItem, Value>) {
     super(props)
 
     this.state = {
@@ -38,27 +61,28 @@ class SimpleTable extends PureComponent {
     this.scrollCheck()
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: SimpleTableProps<DataItem, Value>) {
     this.scrollCheck()
     const resize = prevProps.data.length === 0 && this.props.data.length
     // when resize
     if (resize && this.body) this.handleScroll({ currentTarget: this.body })
     const shouldResetColgroup = this.props.dataChangeResize && this.props.data !== prevProps.data
     if (resize || shouldResetColgroup || !compareColumns(prevProps.columns, this.props.columns)) {
+      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({ colgroup: undefined, resize: true })
     }
   }
 
   componentWillUnmount() {
-    if (this.body) this.body.removeEventListener('wheel', this.handleScroll)
+    if (this.body) this.body.removeEventListener('wheel', this.handleScroll as any)
     if (this.removeReiszeObserver) this.removeReiszeObserver()
   }
 
-  bindElement(key, el) {
+  bindElement(key: 'header' | 'body' | 'footer', el: HTMLDivElement) {
     this[key] = el
     // this.body will be undefined on componentDidMount when columns length is 0
     if (key === 'body' && el) {
-      el.addEventListener('wheel', this.handleScroll, { passive: false })
+      el.addEventListener('wheel', this.handleScroll as any, { passive: false })
       this.removeReiszeObserver = addResizeObserver(el, this.resetColGroup, { direction: 'x' })
     }
   }
@@ -76,19 +100,26 @@ class SimpleTable extends PureComponent {
     if (overHeight !== this.state.overHeight) this.setState({ overHeight })
   }
 
-  handleSortChange(...args) {
+  handleSortChange(
+    finalOrder: ColumnOrder | undefined,
+    sorter: ColumnItem<DataItem>['sorter'],
+    index: number,
+    cancelOrder: ColumnOrder,
+    // 是否是自动触发
+    manual: boolean
+  ) {
     if (this.body) this.body.scrollTop = 0
-    this.props.onSortChange(...args)
+    this.props.onSortChange(finalOrder, sorter, index, cancelOrder, manual)
   }
 
-  handleColgroup(tds) {
+  handleColgroup(tds: NodeListOf<HTMLTableCellElement>) {
     const { columns } = this.props
     const colgroup = []
     for (let i = 0, count = tds.length; i < count; i++) {
       const { width } = tds[i].getBoundingClientRect()
-      const colSpan = parseInt(tds[i].getAttribute('colspan'), 10)
+      const colSpan = parseInt(tds[i].getAttribute('colspan') || '', 10)
       if (colSpan > 1) {
-        split(width, range(colSpan).map(j => columns[i + j].width)).forEach(w => colgroup.push(w))
+        split(width, range(colSpan).map(j => columns[i + j].width!)).forEach(w => colgroup.push(w))
       } else {
         colgroup.push(width)
       }
@@ -96,7 +127,7 @@ class SimpleTable extends PureComponent {
     this.setState({ colgroup, resize: false })
   }
 
-  handleScroll({ currentTarget }) {
+  handleScroll({ currentTarget }: { currentTarget: HTMLElement }) {
     const { scrollLeft } = currentTarget
     setScrollLeft(this.header, scrollLeft)
     setScrollLeft(this.body, scrollLeft)
@@ -114,7 +145,7 @@ class SimpleTable extends PureComponent {
       </table>
     )
     const empty = data.length === 0
-    const headerStyle = {}
+    const headerStyle: React.CSSProperties = {}
     if (!empty) headerStyle.overflowY = overHeight ? 'scroll' : 'hidden'
 
     const header = (
@@ -150,7 +181,7 @@ class SimpleTable extends PureComponent {
         <Tfoot {...this.props} />
       </table>
     )
-    const footStyle = {}
+    const footStyle: React.CSSProperties = {}
     footStyle.overflowY = overHeight ? 'scroll' : 'hidden'
 
     const footer = (
@@ -186,6 +217,7 @@ class SimpleTable extends PureComponent {
             onBodyRender={this.handleColgroup}
             resize={resize}
             bordered={bordered}
+            columnResizable={columnResizable}
             {...others}
           />
         </table>
@@ -203,27 +235,6 @@ class SimpleTable extends PureComponent {
       )
     return [hideHeader ? null : this.renderHeader(), this.renderBody(), this.renderFooter(), children]
   }
-}
-
-SimpleTable.propTypes = {
-  columns: PropTypes.array,
-  data: PropTypes.array,
-  fixed: PropTypes.string,
-  width: PropTypes.number,
-  onResize: PropTypes.func,
-  onSortChange: PropTypes.func,
-  children: PropTypes.any,
-  dataChangeResize: PropTypes.bool,
-  columnResizable: PropTypes.bool,
-  sticky: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
-  hideHeader: PropTypes.bool,
-  bordered: PropTypes.bool,
-  summary: PropTypes.array,
-}
-
-SimpleTable.defaultProps = {
-  data: undefined,
-  width: undefined,
 }
 
 export default SimpleTable

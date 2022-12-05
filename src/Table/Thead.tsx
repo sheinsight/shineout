@@ -1,5 +1,4 @@
-import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
+import React, { PureComponent, ReactElement } from 'react'
 import classnames from 'classnames'
 import { getUidStr } from '../utils/uid'
 import { tableClass } from './styles'
@@ -7,18 +6,44 @@ import Sorter from './Sorter'
 import CheckboxAll from './CheckboxAll'
 import { getParent } from '../utils/dom/element'
 import { isNumber } from '../utils/is'
+import { ColumnItemWithFixed, TheadColumn, TheadProps, GroupColumn } from './Props'
+import { ObjectType } from '../@types/common'
 
 const cacheGroup = new Map()
 const MIN_RESIZABLE_WIDTH = 20
-class Thead extends PureComponent {
-  constructor(props) {
+class Thead<DataItem, Value> extends PureComponent<TheadProps<DataItem, Value>> {
+  static defaultProps = {
+    showSelectAll: true,
+  }
+
+  handleMouseDown: (e: React.MouseEvent) => void
+
+  handleMouseMove: () => void
+
+  handleMouseUp: () => void
+
+  resizingTh: HTMLTableHeaderCellElement
+
+  resizingTable: HTMLTableElement
+
+  columnLevel: number
+
+  resizingIndex: number
+
+  resizingCol: HTMLTableColElement
+
+  lastX?: number
+
+  rightBorderRecord: ObjectType<boolean>
+
+  constructor(props: TheadProps<DataItem, Value>) {
     super(props)
     this.handleMouseDown = this.handleResize.bind(this, 'mousedown')
     this.handleMouseMove = this.handleResize.bind(this, 'mousemove')
     this.handleMouseUp = this.handleResize.bind(this, 'mouseup')
   }
 
-  setColumns(columns, col, level, index = 0) {
+  setColumns(columns: TheadColumn<DataItem>[], col: ColumnItemWithFixed<DataItem>, level: number, index = 0) {
     if (!col.group) {
       columns.push(col)
       return 1
@@ -26,7 +51,7 @@ class Thead extends PureComponent {
 
     if (level > this.columnLevel) this.columnLevel = level
     const g = Array.isArray(col.group) ? col.group : [col.group]
-    const last = columns[columns.length - 1]
+    const last = columns[columns.length - 1] as GroupColumn<DataItem>
 
     if (!g[level]) {
       columns.push(col)
@@ -40,7 +65,7 @@ class Thead extends PureComponent {
       if (col.fixed) last.fixed = col.fixed
       if (col.lastFixed) last.lastFixed = true
     } else {
-      const sub = []
+      const sub = [] as TheadColumn<DataItem>[]
       colSpan = this.setColumns(sub, col, level + 1, index)
       const group = g[level]
       columns.push({
@@ -60,7 +85,7 @@ class Thead extends PureComponent {
     return colSpan
   }
 
-  resizeColgroup(deltaX) {
+  resizeColgroup(deltaX: number) {
     const { columns } = this.props
     const item = columns[this.resizingIndex]
     const { minWidth, maxWidth } = item
@@ -81,17 +106,20 @@ class Thead extends PureComponent {
     this.resizingCol.style.width = `${w}px`
   }
 
-  handleResize(type, e) {
+  handleResize(type: 'mousedown' | 'mousemove' | 'mouseup', e: MouseEvent) {
     if (type === 'mousedown') {
-      const { target } = e
-      this.resizingTh = getParent(target, 'th')
-      this.resizingTable = getParent(target, 'table')
-      const thList = getParent(target, 'tr').children
+      const target = e.target as HTMLElement
+      this.resizingTh = getParent(target, 'th') as HTMLTableHeaderCellElement
+      this.resizingTable = getParent(target, 'table') as HTMLTableElement
+      const thList = getParent(target, 'tr')!.children
+
       const indexInTr = [].indexOf.call(thList, this.resizingTh)
-      this.resizingIndex = [].slice.call(thList, 0, indexInTr).reduce((total, th) => {
-        const count = Number(th.getAttribute('colspan')) || 1
-        return total + count
-      }, 0)
+      this.resizingIndex = [].slice
+        .call(thList, 0, indexInTr)
+        .reduce((total: number, th: HTMLTableHeaderCellElement) => {
+          const count = Number(th.getAttribute('colspan')) || 1
+          return total + count
+        }, 0)
       this.resizingCol = this.resizingTable.querySelectorAll('col')[this.resizingIndex]
       this.resizingTable.classList.add(tableClass('resizing'))
       this.resizingTh.classList.add(tableClass('resizing-item'))
@@ -115,8 +143,10 @@ class Thead extends PureComponent {
     }
   }
 
-  createTh(trs, col, level) {
+  createTh(trs: ReactElement[][], col: TheadColumn<DataItem>, level: number) {
     const { columnResizable } = this.props
+    const colTemp = col as ColumnItemWithFixed<DataItem>
+    const colTemp2 = col as GroupColumn<DataItem>
     const fixed = []
     if (col.fixed) fixed.push(`fixed-${col.fixed}`)
     if (col.firstFixed) fixed.push('fixed-first')
@@ -124,26 +154,32 @@ class Thead extends PureComponent {
 
     const { sorter, onSortChange, data, datum, showSelectAll, disabled, treeColumnsName, treeCheckAll } = this.props
     const isEmpty = !(data && data.length)
-    const align = col.align && `align-${col.align}`
+    const align = colTemp.align && `align-${colTemp.align}`
     const ignoreBorderRight = this.rightBorderRecord[col.key] && 'ignore-right-border'
     const resize =
-      level === 0 && !isEmpty && columnResizable && col.columnResizable !== false ? (
+      level === 0 && !isEmpty && columnResizable && (col as ColumnItemWithFixed<DataItem>).columnResizable !== false ? (
         <span onMouseDown={this.handleMouseDown} className={tableClass('resize-spanner')} />
       ) : null
-    if (col.title) {
+    if (colTemp.title) {
       trs[level].push(
         <th
           className={classnames(
             tableClass(level > 0 && 'condensed', align, ignoreBorderRight, ...fixed),
-            col.className
+            (col as ColumnItemWithFixed<DataItem>).className
           )}
           rowSpan={this.columnLevel - level + 1}
           key={col.key}
         >
-          <div className={tableClass(col.sorter && 'has-sorter')}>
-            <span>{typeof col.title === 'function' ? col.title(data) : col.title}</span>
-            {col.sorter && (
-              <Sorter {...col} current={sorter} onChange={onSortChange} renderSorter={this.props.renderSorter} />
+          <div className={tableClass(colTemp.sorter && 'has-sorter')}>
+            <span>{typeof colTemp.title === 'function' ? colTemp.title(data) : colTemp.title}</span>
+            {colTemp.sorter && (
+              <Sorter
+                {...colTemp}
+                sorter={colTemp.sorter}
+                current={sorter}
+                onChange={onSortChange}
+                renderSorter={this.props.renderSorter}
+              />
             )}
             {resize}
           </div>
@@ -153,15 +189,19 @@ class Thead extends PureComponent {
       return
     }
 
-    if (col.type === 'checkbox') {
+    if (colTemp.type === 'checkbox') {
       trs[level].push(
-        <th key="checkbox" rowSpan={trs.length} className={classnames(tableClass('checkbox', ...fixed), col.className)}>
+        <th
+          key="checkbox"
+          rowSpan={trs.length}
+          className={classnames(tableClass('checkbox', ...fixed), colTemp.className)}
+        >
           {showSelectAll && (
             <CheckboxAll
               disabled={disabled === true}
               data={data}
               datum={datum}
-              treeColumnsName={treeCheckAll && treeColumnsName}
+              treeColumnsName={treeCheckAll ? treeColumnsName : undefined}
               col={col}
             />
           )}
@@ -170,32 +210,36 @@ class Thead extends PureComponent {
       return
     }
 
-    const style = typeof col.name === 'string' ? undefined : { padding: 0 }
+    const style = typeof colTemp2.name === 'string' ? undefined : { padding: 0 }
     trs[level].push(
       <th
-        className={classnames(tableClass('center', 'condensed', ignoreBorderRight, ...fixed), col.className)}
-        colSpan={col.colSpan}
+        className={classnames(
+          tableClass('center', 'condensed', ignoreBorderRight, ...fixed),
+          (col as ColumnItemWithFixed<DataItem>).className
+        )}
+        colSpan={colTemp2.colSpan}
         key={col.key}
         style={style}
       >
-        {col.name}
+        {colTemp2.name}
         {resize}
       </th>
     )
 
-    if (col.columns) {
-      col.columns.forEach(c => this.createTh(trs, c, level + 1))
+    if (colTemp2.columns) {
+      colTemp2.columns.forEach(c => this.createTh(trs, c, level + 1))
     }
   }
 
-  ignoreRightBorder(column) {
+  ignoreRightBorder(column: TheadColumn<DataItem>) {
+    const columnGroup = column as GroupColumn<DataItem>
     this.rightBorderRecord[column.key] = true
-    if (column.columns) this.ignoreRightBorder(column.columns[column.columns.length - 1])
+    if (columnGroup.columns) this.ignoreRightBorder(columnGroup.columns[columnGroup.columns.length - 1])
   }
 
   formatColumns() {
     this.columnLevel = 0
-    const columns = []
+    const columns: TheadColumn<DataItem>[] = []
     this.props.columns.forEach((col, index) => {
       this.setColumns(columns, col, 0, index)
     })
@@ -209,7 +253,7 @@ class Thead extends PureComponent {
 
   formatTrs() {
     const columns = this.formatColumns()
-    const trs = []
+    const trs: ReactElement[][] = []
     for (let i = 0; i <= this.columnLevel; i++) {
       trs.push([])
     }
@@ -228,27 +272,6 @@ class Thead extends PureComponent {
       </thead>
     )
   }
-}
-
-Thead.propTypes = {
-  columns: PropTypes.array.isRequired,
-  data: PropTypes.array,
-  datum: PropTypes.object,
-  disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
-  onSortChange: PropTypes.func,
-  sorter: PropTypes.array,
-  showSelectAll: PropTypes.bool,
-  bordered: PropTypes.bool,
-  onColChange: PropTypes.func,
-  columnResizable: PropTypes.bool,
-  treeColumnsName: PropTypes.string,
-  treeCheckAll: PropTypes.bool,
-  colgroup: PropTypes.array,
-  renderSorter: PropTypes.func,
-}
-
-Thead.defaultProps = {
-  showSelectAll: true,
 }
 
 export default Thead

@@ -1,18 +1,20 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { tableClass } from './styles/index'
+import React, { ReactNode } from 'react'
+import { tableClass } from './styles'
 import { isArray } from '../utils/is'
+import { TfootProps, SummaryItem } from './Props'
+import { ObjectType } from '../@types/common'
 
-class Tfoot extends React.PureComponent {
+class Tfoot<DataItem, Value> extends React.PureComponent<TfootProps<DataItem, Value>> {
   getTrs() {
     let { summary = [] } = this.props
     if (!isArray(summary[0])) {
-      summary = [summary]
+      summary = [summary as SummaryItem[]]
     }
+    const summarys = summary as SummaryItem[][]
     const trs = []
-    for (let i = 0; i < summary.length; i++) {
-      const row = summary[i]
-      trs[i] = []
+    for (let i = 0; i < summarys.length; i++) {
+      const row = summarys[i]
+      trs[i] = [] as ReactNode[]
       let index = 0
       for (let j = 0; j < row.length; j++) {
         const item = row[j]
@@ -24,11 +26,11 @@ class Tfoot extends React.PureComponent {
     return trs
   }
 
-  renderTd(item, index) {
+  renderTd(item: SummaryItem, index: number) {
     const { render, colSpan = 1 } = item
     const { columns } = this.props
     const content = render()
-    const fixed = {}
+    const fixed: ObjectType = {}
     const isLast = index + colSpan - 1 >= columns.length - 1
     for (let i = 0; i < colSpan; i++) {
       const col = columns[index + i] || {}
@@ -62,11 +64,6 @@ class Tfoot extends React.PureComponent {
       </tfoot>
     )
   }
-}
-
-Tfoot.propTypes = {
-  summary: PropTypes.array,
-  columns: PropTypes.array,
 }
 
 export default Tfoot
