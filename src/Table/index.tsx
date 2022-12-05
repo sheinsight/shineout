@@ -286,10 +286,10 @@ export default class TableIndex<DataItem, Value> extends React.Component<
     const externalExpandRender = (this.getExternalExpandObj() || {}).render
     const externalExpandOnClick = (this.getExternalExpandObj() || {}).onClick
 
-    const Component2 = Component as ComponentType<TablePropsWidthPT<DataItem, Value>>
+    const ComponentPT = Component as ComponentType<TablePropsWidthPT<DataItem, Value>>
 
     return (
-      <Component2
+      <ComponentPT
         {...props}
         onChange={onRowSelect}
         columns={this.getColumns(columns)}
