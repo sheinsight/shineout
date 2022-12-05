@@ -140,7 +140,7 @@ export { default as Tooltip } from './Tooltip'
 import { TooltipProps as __TooltipProps } from './Tooltip/interface'
 
 export { default as Transfer } from './Transfer'
-import { TransferProps as __TransferProps,  } from './Transfer'
+import { TransferProps as __TransferProps } from './Transfer/interface'
 
 export { default as Tree } from './Tree'
 import { TreeProps as __TreeProps,  } from './Tree'
@@ -348,7 +348,8 @@ export namespace TYPE {
     export type Props = __TooltipProps
   }
   export namespace Transfer {
-    export type Props<Item, Value> = __TransferProps<Item, Value>
+  
+    export type Props<Item, Value extends any[]> = __TransferProps<Item, Value>
   }
   export namespace Tree {
     export type Props<Item, Value> = __TreeProps<Item, Value>

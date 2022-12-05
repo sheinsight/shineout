@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import Btns from './btns'
 import { PureComponent } from '../component'
@@ -9,35 +8,55 @@ import Context from './context'
 import splitSelecteds from './select'
 import { isRTL } from '../config'
 import getDataset from '../utils/dom/getDataset'
+import { TransferProps, SelectedArr, IndexType } from './Props'
+import { keyType } from '../@types/common'
 
-class Transfer extends PureComponent {
-  constructor(props) {
+const DefaultProps = {
+  titles: [],
+  data: [],
+  footers: [],
+  operations: [],
+  operationIcon: true,
+  renderItem: (d: any) => d,
+  rowsInView: 20,
+  lineHeight: 32,
+  listHeight: 180,
+} as any
+
+interface TransferState {
+  selecteds: SelectedArr
+}
+
+class Transfer<DataItem, Value extends any[]> extends PureComponent<TransferProps<DataItem, Value>, TransferState> {
+  static defaultProps = DefaultProps
+
+  constructor(props: TransferProps<DataItem, Value>) {
     super(props)
     this.state = {
-      selecteds: props.selectedKeys
+      selecteds: (props.selectedKeys
         ? splitSelecteds(props.selectedKeys, props)
-        : splitSelecteds(props.defaultSelectedKeys, props) || [[], []],
+        : splitSelecteds(props.defaultSelectedKeys, props) || [[], []]) as SelectedArr,
     }
     this.getSelected = this.getSelected.bind(this)
     this.setSelecteds = this.setSelecteds.bind(this)
     this.getLoading = this.getLoading.bind(this)
   }
 
-  getLoading(index) {
+  getLoading(index: IndexType) {
     const { loading } = this.props
     if (Array.isArray(loading)) return loading[index]
     return loading
   }
 
   getSelected() {
-    if ('selectedKeys' in this.props) return splitSelecteds(this.props.selectedKeys, this.props)
+    if ('selectedKeys' in this.props) return splitSelecteds(this.props.selectedKeys || [], this.props) as SelectedArr
     return this.state.selecteds
   }
 
-  setSelecteds(index, value) {
+  setSelecteds(index: IndexType, value: keyType[]) {
     const { onSelectChange } = this.props
     const { selecteds } = this.state
-    const newSelecteds = index ? [selecteds[0], value] : [value, selecteds[1]]
+    const newSelecteds = index ? [selecteds![0], value] : [value, selecteds![1]]
 
     if (onSelectChange) onSelectChange(newSelecteds[0], newSelecteds[1])
 
@@ -48,13 +67,13 @@ class Transfer extends PureComponent {
 
   render() {
     const {
-      titles,
+      titles = DefaultProps.titles,
       data,
       datum,
       keygen,
       renderItem,
-      footers,
-      operations,
+      footers = DefaultProps.footers,
+      operations = DefaultProps.operations,
       operationIcon,
       className,
       style,
@@ -65,9 +84,9 @@ class Transfer extends PureComponent {
       empty,
       disabled,
       itemClass,
-      rowsInView,
-      lineHeight,
-      listHeight,
+      rowsInView = DefaultProps.rowsInView,
+      lineHeight = DefaultProps.lineHeight,
+      listHeight = DefaultProps.listHeight,
       renderFilter,
       children,
     } = this.props
@@ -159,48 +178,6 @@ class Transfer extends PureComponent {
       </div>
     )
   }
-}
-
-Transfer.defaultProps = {
-  titles: [],
-  data: [],
-  footers: [],
-  operations: [],
-  operationIcon: true,
-  renderItem: d => d,
-  rowsInView: 20,
-  lineHeight: 32,
-  listHeight: 180,
-}
-
-Transfer.propTypes = {
-  titles: PropTypes.array,
-  data: PropTypes.array,
-  datum: PropTypes.object,
-  keygen: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-  renderItem: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-  footers: PropTypes.array,
-  operations: PropTypes.array,
-  operationIcon: PropTypes.bool,
-  value: PropTypes.array,
-  className: PropTypes.string,
-  style: PropTypes.object,
-  listClassName: PropTypes.string,
-  listStyle: PropTypes.object,
-  selectedKeys: PropTypes.array,
-  defaultSelectedKeys: PropTypes.array,
-  onSelectChange: PropTypes.func,
-  disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
-  empty: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  onFilter: PropTypes.func,
-  itemClass: PropTypes.string,
-  loading: PropTypes.oneOfType([PropTypes.bool, PropTypes.array]),
-  onSearch: PropTypes.func,
-  rowsInView: PropTypes.number,
-  lineHeight: PropTypes.number,
-  listHeight: PropTypes.number,
-  renderFilter: PropTypes.func,
-  children: PropTypes.func,
 }
 
 export default Transfer

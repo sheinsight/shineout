@@ -44,7 +44,7 @@ export function memoize<T extends Function>(
   }
 }
 
-export function createFunc(func: Function) {
+export function createFunc(func?: Function | string) {
   if (typeof func === 'function') return func
   return (data: { [x: string]: any }) => (func ? data[func] : data)
 }
