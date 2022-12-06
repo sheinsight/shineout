@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { StandardProps , keygenType} from '../@types/common'
+import { StandardProps , KeygenType} from '../@types/common'
 
 type ReactNode = React.ReactNode;
 
@@ -88,7 +88,7 @@ export interface BreadcrumbProps<Item = BreadcrumbData> extends StandardProps  {
    *
    * default: -
    */
-  keygen?: keygenType<Item>
+  keygen?: KeygenType<Item>
 
 }
 

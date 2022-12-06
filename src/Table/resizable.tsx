@@ -1,16 +1,21 @@
-import React from 'react'
+import React, { ComponentType } from 'react'
 import immer from 'immer'
 import PropTypes from 'prop-types'
+import { GetResizeProps, SimpleTableProps } from './Props'
 
-export default Table =>
-  class extends React.Component {
+interface ScrollState<DataItem, Value> {
+  columns: SimpleTableProps<DataItem, Value>['columns']
+  delta: number
+}
+export default <DataItem, Value, Props extends SimpleTableProps<DataItem, Value>>(Table: ComponentType<Props>) =>
+  class extends React.Component<GetResizeProps<Props, DataItem>, ScrollState<DataItem, Value>> {
     static propTypes = {
       columns: PropTypes.array.isRequired,
       onColumnResize: PropTypes.func,
       width: PropTypes.number,
     }
 
-    constructor(props) {
+    constructor(props: GetResizeProps<Props, DataItem>) {
       super(props)
       this.handleResize = this.handleResize.bind(this)
       this.state = {
@@ -19,11 +24,12 @@ export default Table =>
       }
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps: Props) {
       const prevColumns = prevProps.columns
       const { columns, onColumnResize } = this.props
       if (prevColumns !== columns) {
         if (prevColumns.length !== columns.length) {
+          // eslint-disable-next-line react/no-did-update-set-state
           this.setState({ columns })
         } else {
           const widthed = onColumnResize
@@ -33,6 +39,7 @@ export default Table =>
                   column.width = this.state.columns[index].width
                 })
               })
+          // eslint-disable-next-line react/no-did-update-set-state
           this.setState({ columns: widthed })
         }
       }
@@ -44,10 +51,11 @@ export default Table =>
       return width
     }
 
-    handleResize(index, width, colgroup) {
+    handleResize(index: number, width: number, colgroup: number[]) {
       const { onColumnResize } = this.props
       const changed = immer(this.state, draft => {
         const column = draft.columns[index]
+        // @ts-ignore
         draft.delta += parseFloat(width - (column.width || colgroup[index] || 0))
         colgroup[index] = width
         draft.columns.forEach((col, i) => {
@@ -66,6 +74,13 @@ export default Table =>
       const { columns } = this.state
       const { onColumnResize, ...other } = this.props
       const width = this.getWidth()
-      return <Table {...other} width={width} columns={columns} onResize={this.handleResize} />
+      return (
+        <Table
+          {...other as GetResizeProps<Props, DataItem>}
+          width={width}
+          columns={columns}
+          onResize={this.handleResize}
+        />
+      )
     }
   }

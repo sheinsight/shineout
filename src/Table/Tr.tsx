@@ -1,5 +1,4 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React, { Component, ReactNode } from 'react'
 import classnames from 'classnames'
 import { setTranslate } from '../utils/dom/translate'
 import { tableClass } from './styles'
@@ -7,6 +6,8 @@ import { inputClass } from '../Input/styles'
 import { checkinputClass } from '../Checkbox/styles'
 import Td, { CLASS_FIXED_LEFT, CLASS_FIXED_RIGHT } from './Td'
 import Expand from './Expand'
+import { TrProps } from './Props'
+import { isFunc } from '../utils/is'
 
 export const ROW_HEIGHT_UPDATE_EVENT = 'ROW_HEIGHT_UPDATE_EVENT_NAME'
 
@@ -16,7 +17,7 @@ const preventClasses = [
   tableClass('icon-tree-plus'),
   tableClass('icon-tree-sub'),
 ]
-const isExpandableElement = el => {
+const isExpandableElement = (el: HTMLElement): boolean => {
   const { tagName } = el
   if (tagName === 'TD' || tagName === 'TR') return true
   if (tagName === 'A' || tagName === 'BUTTON' || tagName === 'INPUT') return false
@@ -24,9 +25,32 @@ const isExpandableElement = el => {
   if (!el.parentElement) return false
   return isExpandableElement(el.parentElement)
 }
+const DefaultProps = {
+  rowClickAttr: ['*'],
+  lazy: true,
+}
+class Tr<DataItem, Value> extends Component<TrProps<DataItem, Value>> {
+  static displayName = 'ShineoutTr'
 
-class Tr extends Component {
-  constructor(props) {
+  static defaultProps = DefaultProps
+
+  manualExpand: boolean
+
+  expandHeight: number
+
+  element: HTMLElement
+
+  lastRowHeight: number
+
+  lastExpandHeight: number
+
+  lastIndex: number
+
+  lastExpandRender: TrProps<DataItem, Value>['expandRender']
+
+  cachedExpand: ReactNode
+
+  constructor(props: TrProps<DataItem, Value>) {
     super(props)
     this.manualExpand = false
     this.bindElement = this.bindElement.bind(this)
@@ -39,12 +63,12 @@ class Tr extends Component {
   componentDidMount() {
     const { offsetLeft, offsetRight } = this.props
     if (offsetLeft) {
-      ;[].forEach.call(this.element.querySelectorAll(`.${tableClass(CLASS_FIXED_LEFT)}`), td => {
+      ;[].forEach.call(this.element.querySelectorAll(`.${tableClass(CLASS_FIXED_LEFT)}`), (td: HTMLElement) => {
         setTranslate(td, `${offsetLeft}px`, '0')
       })
     }
     if (offsetRight) {
-      ;[].forEach.call(this.element.querySelectorAll(`.${tableClass(CLASS_FIXED_RIGHT)}`), td => {
+      ;[].forEach.call(this.element.querySelectorAll(`.${tableClass(CLASS_FIXED_RIGHT)}`), (td: HTMLElement) => {
         setTranslate(td, `-${offsetRight}px`, '0')
       })
     }
@@ -52,17 +76,17 @@ class Tr extends Component {
     this.setRowHeight()
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: TrProps<DataItem, Value>) {
     const { hasNotRenderRows, dataUpdated, columnResizable, resize } = this.props
     if (hasNotRenderRows || dataUpdated || prevProps.resize !== resize) {
-      const exec = columnResizable ? setTimeout : func => func()
+      const exec = columnResizable ? setTimeout : (func: Function) => func()
       exec(() => {
         this.setRowHeight()
       })
     }
   }
 
-  setRowHeight(expand) {
+  setRowHeight(expand?: boolean) {
     const { setRowHeight, dataUpdated, datum, lazy } = this.props
     if (!lazy || !setRowHeight || !this.element) return
     let { height } = this.element.getBoundingClientRect()
@@ -82,10 +106,10 @@ class Tr extends Component {
     this.lastRowHeight = height
     this.lastIndex = this.props.index
     this.lastExpandHeight = this.expandHeight
-    setRowHeight(height + this.expandHeight, this.props.index, expand)
+    setRowHeight(height + this.expandHeight, this.props.index, !!expand)
   }
 
-  setExpandHeight(height) {
+  setExpandHeight(height: number) {
     this.expandHeight = height
     this.setRowHeight(this.manualExpand)
   }
@@ -99,17 +123,17 @@ class Tr extends Component {
     return res.map(v => (v === '*' ? '' : v))
   }
 
-  bindElement(el) {
+  bindElement(el: HTMLTableRowElement) {
     this.element = el
   }
 
-  isFireElement(el) {
+  isFireElement(el: HTMLElement) {
     const { rowClickAttr } = this.props
     if (rowClickAttr === true) return true
     return this.getRowClickAttr().find(v => el.hasAttribute(v))
   }
 
-  handleRowClick(e) {
+  handleRowClick(e: React.MouseEvent) {
     const {
       columns,
       rowData,
@@ -117,29 +141,30 @@ class Tr extends Component {
       onRowClick,
       externalExpandRender,
       externalExpandClick,
-      expandKeys,
       onExpand,
       originKey,
       expandRender,
     } = this.props
+    const target = e.target as HTMLElement
     // business needed #row click to modal drawer
-    const fireAttr = this.isFireElement(e.target)
-    if (fireAttr) {
+    const fireAttr = this.isFireElement(target)
+    if (fireAttr && onRowClick) {
       onRowClick(rowData, index, fireAttr)
       return
     }
     if (externalExpandRender) {
       const expanded = typeof expandRender === 'function'
-      if (expandKeys) {
+      // @ts-ignore seems to be useless because expandKeys always undefined
+      if (this.props.expandKeys) {
         if (externalExpandClick) externalExpandClick(rowData, !expanded)
       } else {
         onExpand(originKey, expanded ? undefined : externalExpandRender(rowData, index))
       }
     }
 
-    if (isExpandableElement(e.target)) {
-      const el = this.element.querySelector(`.${tableClass('expand-indicator')}`)
-      if (el && el !== e.target && columns.some(c => c.type === 'row-expand')) el.click()
+    if (isExpandableElement(target)) {
+      const el = this.element.querySelector(`.${tableClass('expand-indicator')}`) as HTMLElement
+      if (el && el !== target && columns.some(c => c.type === 'row-expand')) el.click()
       const matchBlank = this.getRowClickAttr().indexOf('') >= 0
       if (onRowClick && e.target !== el && matchBlank) onRowClick(rowData, index)
     }
@@ -147,7 +172,8 @@ class Tr extends Component {
 
   renderExpand() {
     const { expandRender, rowData } = this.props
-    if (this.lastExpandRender !== expandRender) {
+    if (!expandRender) return null
+    if (this.lastExpandRender !== expandRender && isFunc(expandRender)) {
       this.lastExpandRender = expandRender
       this.cachedExpand = expandRender(rowData)
     }
@@ -172,7 +198,10 @@ class Tr extends Component {
     } = this.props
     const other = Object.keys(reset)
       .filter(key => !['format', 'prediction', 'onChange'].includes(key))
-      .reduce((r, key) => ({ ...r, [key]: reset[key] }), {})
+      .reduce((r, key: keyof typeof reset) => ({ ...r, [key]: reset[key] }), {}) as Omit<
+      typeof reset,
+      'format' | 'prediction' | 'onChange'
+    >
     const tds = []
     let skip = 0
     for (let i = 0, c = columns.length; i < c; i++) {
@@ -212,6 +241,7 @@ class Tr extends Component {
             lastFixed={lastFixed}
             align={align}
             render={render}
+            // @ts-ignore  这儿重复了
             index={index}
             {...data[i]}
           />
@@ -243,39 +273,4 @@ class Tr extends Component {
     return result
   }
 }
-
-Tr.propTypes = {
-  columns: PropTypes.array.isRequired,
-  data: PropTypes.array.isRequired,
-  datum: PropTypes.object,
-  expandRender: PropTypes.func,
-  hasNotRenderRows: PropTypes.bool,
-  index: PropTypes.number,
-  offsetLeft: PropTypes.number,
-  offsetRight: PropTypes.number,
-  onExpand: PropTypes.func,
-  onRowClick: PropTypes.func,
-  rowClassName: PropTypes.func,
-  rowData: PropTypes.object,
-  striped: PropTypes.bool,
-  setRowHeight: PropTypes.func,
-  rowClickAttr: PropTypes.oneOfType([PropTypes.bool, PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
-  dataUpdated: PropTypes.bool,
-  treeExpandKeys: PropTypes.object,
-  columnResizable: PropTypes.bool,
-  resize: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
-  rowEvents: PropTypes.object,
-  lazy: PropTypes.bool,
-  externalExpandRender: PropTypes.func,
-  externalExpandClick: PropTypes.func,
-  expandKeys: PropTypes.array,
-  originKey: PropTypes.any,
-}
-
-Tr.defaultProps = {
-  rowClickAttr: ['*'],
-  lazy: true,
-}
-Tr.displayName = 'ShineoutTr'
-
 export default Tr

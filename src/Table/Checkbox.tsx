@@ -1,19 +1,14 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { PureComponent } from '../component'
 import { CHANGE_TOPIC } from '../Datum/types'
 import Checkbox from '../Checkbox/Checkbox'
 import Radio from '../Radio/Radio'
+import { CheckboxProps } from './Props'
 
-export default class TableCheckbox extends PureComponent {
-  static propTypes = {
-    data: PropTypes.object.isRequired,
-    datum: PropTypes.object.isRequired,
-    treeColumnsName: PropTypes.string,
-    checked: PropTypes.bool,
-  }
+export default class TableCheckbox<DataItem, Value> extends PureComponent<CheckboxProps<DataItem, Value>> {
+  handleUpdate: () => void
 
-  constructor(props) {
+  constructor(props: CheckboxProps<DataItem, Value>) {
     super(props)
     this.handleChange = this.handleChange.bind(this)
     this.handleUpdate = this.forceUpdate.bind(this)
@@ -29,7 +24,7 @@ export default class TableCheckbox extends PureComponent {
     this.props.datum.unsubscribe(CHANGE_TOPIC, this.handleUpdate)
   }
 
-  handleChange(_, checked, index) {
+  handleChange(_: any, checked: boolean, index: number) {
     const { data, datum, treeColumnsName } = this.props
     if (checked) {
       datum.add(data, index, treeColumnsName)

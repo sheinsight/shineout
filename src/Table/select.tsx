@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { ComponentType } from 'react'
 import PropTypes from 'prop-types'
 import { addEventListener } from '../utils/dom/document'
 import { getParent } from '../utils/dom/element'
 import { isMacOS, isFirefox } from '../utils/is'
 import ready from '../utils/dom/ready'
+import { GetSelectProps, OriginTableProps } from './Props'
 
 import { tableClass } from './styles'
 
@@ -12,18 +13,18 @@ const trClass = tableClass('normal')
 const noSelection = tableClass('no-selection')
 
 // event combination
-function isEventCombination(event) {
+function isEventCombination(event: KeyboardEvent | MouseEvent | React.MouseEvent) {
   const ismo = isMacOS()
   return (ismo && event.metaKey) || (!ismo && event.ctrlKey)
 }
 
 // 根据table tr层次   合并td
-function mergeDomsText(nodes) {
+function mergeDomsText(nodes: NodeListOf<HTMLTableRowElement>) {
   if (!nodes || nodes.length <= 0) return []
-  const trs = []
-  const res = []
+  const trs: HTMLTableRowElement[] = []
+  const res: string[][] = []
   nodes.forEach(node => {
-    const tr = getParent(node, `tr.${trClass}`)
+    const tr = getParent(node, `tr.${trClass}`) as HTMLTableRowElement
     let index = trs.indexOf(tr)
     if (index === -1) {
       trs.push(tr)
@@ -40,7 +41,8 @@ function mergeDomsText(nodes) {
 
 // format table text
 // 组合 text
-function formatTableText(arrs) {
+type arrSource = Array<string | arrSource>
+function formatTableText(arrs: arrSource) {
   if (!arrs || arrs.length <= 0) return ''
   let txt = ''
   arrs.forEach(value => {
@@ -54,7 +56,7 @@ function formatTableText(arrs) {
 }
 
 // 生成 textarea，并且执行 copy
-function execCopyCommand(text) {
+function execCopyCommand(text: string) {
   // if none, return;
   if (!text) return
   const textarea = document.createElement('textarea')
@@ -75,28 +77,28 @@ function execCopyCommand(text) {
 }
 
 // remove all selectClass from dom
-function removeSelectClass(dom, force = false) {
+function removeSelectClass(dom?: HTMLTableCellElement, force = false) {
   if (dom) {
     dom.classList.remove(selectClass)
     return
   }
   if (force) return
-  let nodes = document.querySelectorAll(`.${selectClass}`)
+  const nodes = document.querySelectorAll(`.${selectClass}`)
   if (nodes.length <= 0) return
-  nodes.forEach(elem => {
+  nodes.forEach((elem: HTMLTableCellElement) => {
     removeSelectClass(elem)
   })
-  nodes = document.querySelector(`.${noSelection}`)
-  if (nodes) nodes.classList.remove(`.${noSelection}`)
+  const node = document.querySelector(`.${noSelection}`)
+  if (node) node.classList.remove(`.${noSelection}`)
 }
 
 // add selection class
-function addSelectionClass(dom, className = selectClass) {
+function addSelectionClass(dom?: HTMLTableCellElement, className = selectClass) {
   if (!dom) return
   dom.classList.add(className)
 }
 
-function toggleNoSelection(flag) {
+function toggleNoSelection(flag?: boolean) {
   if (flag) {
     document.body.classList.add(noSelection)
     return
@@ -105,9 +107,10 @@ function toggleNoSelection(flag) {
 }
 
 // handle document click
-function docClick(event) {
+function docClick(event: MouseEvent) {
+  const target = event.target as HTMLElement
   if (
-    (getParent(event.target, `.${tableClass('simple-body')}`) || getParent(event.target, `.${tableClass('body')}`)) &&
+    (getParent(target, `.${tableClass('simple-body')}`) || getParent(target, `.${tableClass('body')}`)) &&
     isEventCombination(event)
   )
     return
@@ -117,28 +120,29 @@ function docClick(event) {
 
 // 批量操作
 // bulk operation doms
-function bulkOperation(doms, start, end) {
-  if (!doms || doms.length <= 0 || start <= -1 || end <= -1) return
+function bulkOperation(doms: HTMLTableRowElement, start: number, end: number) {
+  if (!doms || doms.childNodes.length <= 0 || start <= -1 || end <= -1) return
   const arr = Array.prototype.slice.call(doms.childNodes, start, end + 1)
-  arr.forEach(dom => {
+  arr.forEach((dom: HTMLTableCellElement) => {
     addSelectionClass(dom)
   })
 }
 
 // 批量操作 -->  添加 selection classname
-function bulkAddSelectionClass(td, cache) {
-  const tr = getParent(td, `tr.${trClass}`)
+function bulkAddSelectionClass(td: HTMLTableCellElement, cache: CacheType) {
+  const tr = getParent(td, `tr.${trClass}`) as HTMLTableRowElement
 
   if (!tr) return
 
-  const trs = tr.parentNode.childNodes
+  const trs = tr.parentNode!.childNodes
   const xIndex = Array.prototype.indexOf.call(tr.childNodes, td)
 
   let count = 0
   // xIndex - cache.xIndex
   while (count < trs.length) {
-    if (cache.yIndex <= count) {
-      bulkOperation(trs[count], cache.xIndex, xIndex)
+    if (cache.yIndex! <= count) {
+      const Atr = trs[count] as HTMLTableRowElement
+      bulkOperation(Atr, cache.xIndex!, xIndex)
     }
     if (trs[count] === tr) {
       break
@@ -147,7 +151,7 @@ function bulkAddSelectionClass(td, cache) {
   }
 }
 
-function handleKeyDown(event) {
+function handleKeyDown(event: KeyboardEvent) {
   if (!isEventCombination(event) || event.keyCode !== 67) return
 
   const texts = formatTableText(mergeDomsText(document.querySelectorAll(`.${selectClass}`)))
@@ -159,14 +163,32 @@ ready(() => {
   addEventListener(document, 'keydown', handleKeyDown)
 })
 
-export default Table =>
-  class extends React.Component {
+interface CacheType {
+  xIndex?: number
+  yIndex?: number
+  dom?: HTMLTableCellElement
+}
+
+export default <DataItem, Value, Props extends OriginTableProps<DataItem, Value>>(Table: ComponentType<Props>) =>
+  class extends React.Component<GetSelectProps<Props>> {
+    doc: null | { remove: () => void }
+
+    isFirefox: boolean
+
+    events: Props['events']
+
+    move: boolean
+
+    cache: CacheType
+
+    prevDom: null | HTMLTableCellElement
+
     static propTypes = {
       selection: PropTypes.bool,
       cellSelectable: PropTypes.bool,
     }
 
-    constructor(props) {
+    constructor(props: GetSelectProps<Props>) {
       super(props)
 
       this.doc = null
@@ -207,32 +229,32 @@ export default Table =>
       return selection || cellSelectable
     }
 
-    isEventCombination(event) {
+    isEventCombination(event: MouseEvent | React.MouseEvent) {
       return this.selection && isEventCombination(event)
     }
 
-    handleMouseDown(event) {
+    handleMouseDown(event: React.MouseEvent) {
       if (!this.isEventCombination(event)) return
       toggleNoSelection(true)
 
       // toggle move
       this.move = true
 
-      const td = getParent(event.target, 'td')
-      const tr = getParent(td, `tr.${trClass}`)
+      const td = getParent(event.target as HTMLElement, 'td') as HTMLTableCellElement
+      const tr = getParent(td, `tr.${trClass}`) as HTMLTableRowElement
       this.prevDom = td
       if (!tr) return
       const xIndex = Array.prototype.indexOf.call(tr.childNodes, td)
-      const yIndex = Array.prototype.indexOf.call(tr.parentNode.childNodes, tr)
+      const yIndex = Array.prototype.indexOf.call(tr.parentNode!.childNodes, tr)
       this.cache.xIndex = xIndex
       this.cache.yIndex = yIndex
       this.cache.dom = td
     }
 
-    handleMouseUp(event) {
+    handleMouseUp(event: React.MouseEvent<HTMLDivElement>) {
       if (!this.isEventCombination(event)) return
-
-      const td = getParent(event.target, 'td')
+      const target = event.target as HTMLElement
+      const td = getParent(target, 'td') as HTMLTableCellElement
       if (td === this.cache.dom) {
         this.cache = {}
         this.move = false
@@ -252,10 +274,10 @@ export default Table =>
       this.move = false
     }
 
-    handleMouseMove(event) {
+    handleMouseMove(event: React.MouseEvent) {
       if (!this.move) return
 
-      const td = getParent(event.target, 'td')
+      const td = getParent(event.target as HTMLElement, 'td') as HTMLTableCellElement
       if (this.prevDom === td) return
       this.prevDom = td
 
@@ -267,6 +289,6 @@ export default Table =>
 
     render() {
       const { selection, cellSelectable, ...otherProps } = this.props
-      return <Table {...otherProps} events={this.events} />
+      return <Table {...otherProps as Props} events={this.events} />
     }
   }

@@ -1,36 +1,48 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { ComponentType } from 'react'
 import immer from 'immer'
 import deepEqual from 'deep-eql'
 import pagable from '../hoc/pagable'
 import Table from './Table'
 import { compose } from '../utils/func'
+import { isFunc } from '../utils/is'
 import treeExpand from './TreeExpand'
+import {
+  ColumnItem,
+  ColumnItemWithFixed,
+  ColumnOrder,
+  SorterState,
+  TableIndexProps,
+  TableProps,
+  TablePropsWidthPT,
+} from './Props'
 
-const TableWithPagination = pagable(Table)
-const TableWithTree = treeExpand(Table)
+const TableWithPagination = pagable(Table as ComponentType<TableProps<any, any>>)
+const TableWithTree = treeExpand<any, any>(Table)
 const TableWithPT = compose(
   pagable,
   treeExpand
 )(Table)
 
-export default class extends React.Component {
-  static displayName = 'ShineoutTable'
+interface TableIndexState<DataItem> {
+  sorter: SorterState<DataItem>[]
+}
+export default class TableIndex<DataItem, Value> extends React.Component<
+  TableIndexProps<DataItem, Value>,
+  TableIndexState<DataItem>
+> {
+  cacheDefaultSorterList: Array<SorterState<DataItem>>
 
-  static propTypes = {
-    columns: PropTypes.array,
-    data: PropTypes.array,
-    onRowSelect: PropTypes.func,
-    datum: PropTypes.object,
-    sorter: PropTypes.func,
-    onSortCancel: PropTypes.func,
-  }
+  oldColumns: TableIndexProps<DataItem, Value>['columns']
+
+  cachedColumns: TableProps<DataItem, Value>['columns']
+
+  static displayName = 'ShineoutTable'
 
   static defaultProps = {
     data: [],
   }
 
-  constructor(props) {
+  constructor(props: TableIndexProps<DataItem, Value>) {
     super(props)
     this.state = {
       sorter: [],
@@ -48,7 +60,7 @@ export default class extends React.Component {
     return has[0].treeColumnsName
   }
 
-  getColumns(columns) {
+  getColumns(columns: TableIndexProps<DataItem, Value>['columns'] = []) {
     if (deepEqual(columns, this.oldColumns)) {
       return this.cachedColumns
     }
@@ -63,7 +75,7 @@ export default class extends React.Component {
       if (c.fixed === 'right' && right < 0) right = i
     })
     let setDefaultOrder = false
-    this.cachedColumns = columns.map((c, i) =>
+    this.cachedColumns = (columns as ColumnItemWithFixed<DataItem>[]).map((c, i) =>
       immer(c, draft => {
         draft.index = i
         if (draft.key === undefined) draft.key = i
@@ -89,6 +101,7 @@ export default class extends React.Component {
     const haveCheckbox = columns.find(v => v.type === 'checkbox')
     if ((onRowSelect || datum) && this.cachedColumns[0] && this.cachedColumns[0].type !== 'checkbox' && !haveCheckbox) {
       this.cachedColumns.unshift({
+        index: -1,
         key: 'checkbox',
         type: 'checkbox',
         // width: 48,
@@ -106,8 +119,8 @@ export default class extends React.Component {
     if (!tableSorter) {
       console.error('You need to specify a sorter as a sort function for the table. Default alphabetical order.')
       tableSorter = (sorter, order) => (a, b) => {
-        const a1 = (a[sorter] || '').toString()
-        const b1 = (b[sorter] || '').toString()
+        const a1 = ((a[sorter as keyof DataItem] || '') as any).toString()
+        const b1 = ((b[sorter as keyof DataItem] || '') as any).toString()
         return order === 'asc' ? a1.localeCompare(b1) : b1.localeCompare(a1)
       }
     }
@@ -117,24 +130,30 @@ export default class extends React.Component {
   getFilteredColumn() {
     const { columns } = this.props
     if (!columns) return columns
-    return columns.filter(v => !(['expand', 'row-expand'].indexOf(v.type) > -1 && v.hide))
+    return columns.filter(v => !(['expand', 'row-expand'].indexOf(v.type!) > -1 && v.hide))
   }
 
   getExternalExpandObj() {
     const { columns } = this.props
     if (!columns) return undefined
-    const obj = columns.find(v => ['expand', 'row-expand'].indexOf(v.type) > -1 && v.hide)
+    const obj = columns.find(v => ['expand', 'row-expand'].indexOf(v.type!) > -1 && v.hide)
     if (obj && typeof obj === 'object') return obj
     return undefined
   }
 
-  handleSortChange(order, sorter, index, cancelOrder, manual) {
+  handleSortChange(
+    order: ColumnOrder | undefined,
+    sorter: Required<ColumnItem<DataItem>>['sorter'],
+    index: number,
+    cancelOrder: ColumnOrder,
+    manual: boolean
+  ) {
     const { onSortCancel } = this.props
     // cancel sorter
     if (!order) {
       this.setState(
         immer(state => {
-          const item = state.sorter.find(v => v.index === index)
+          const item = state.sorter.find((v: SorterState<DataItem>) => v.index === index)
           if (item) {
             item.order = undefined
             item.manual = true
@@ -144,7 +163,7 @@ export default class extends React.Component {
         () => {
           const rpm = this.state.sorter
             .filter(v => v.order && !v.deleted)
-            .map(v => ({ order: v.order, index: v.index, weight: v.weight, manual: v.manual }))
+            .map(v => ({ order: v.order!, index: v.index, weight: v.weight, manual: v.manual }))
           if (typeof sorter === 'object' && typeof sorter.rule === 'function') {
             sorter.rule(rpm)
           }
@@ -155,8 +174,14 @@ export default class extends React.Component {
     }
     if (typeof sorter === 'object') {
       this.setState(
-        immer(state => {
-          let rpm = state.sorter.map(v => ({ order: v.order, index: v.index, weight: v.weight, manual: v.manual }))
+        immer((state: TableIndexState<DataItem>) => {
+          let rpm: SorterState<DataItem>[] = state.sorter.map(v => ({
+            order: v.order,
+            index: v.index,
+            weight: v.weight,
+            manual: v.manual,
+            deleted: v.deleted,
+          }))
           const item = state.sorter.find(v => v.index === index)
           if (state.sorter.length === 1 && !state.sorter[0].multiple) {
             state.sorter = []
@@ -166,20 +191,27 @@ export default class extends React.Component {
             item.order = order
             item.manual = manual
             item.deleted = false
-            const rpmItem = rpm.find(v => v.index === index)
+            const rpmItem = rpm.find(v => v.index === index)!
             rpmItem.order = order
             rpmItem.manual = manual
             rpm = rpm.filter(v => v.order && !v.deleted)
             const sort = typeof sorter.rule === 'string' ? this.getTableSorter()(sorter.rule, order, rpm) : undefined
-            item.sort = sort
+            item.sort = sort!
           } else {
             if (manual) {
               this.cacheDefaultSorterList = []
-              rpm.push({ order, index, weight: sorter.weight, manual })
+              rpm.push({ order, index, weight: sorter.weight, manual, deleted: false })
               rpm = rpm.filter(v => v.order && !v.deleted)
             }
             if (!manual) {
-              this.cacheDefaultSorterList.push({ order, index, weight: sorter.weight, manual })
+              this.cacheDefaultSorterList.push({
+                order,
+                index,
+                weight: sorter.weight,
+                deleted: false,
+                multiple: false,
+                manual,
+              })
               rpm = this.cacheDefaultSorterList
             }
             const sort = typeof sorter.rule === 'string' ? this.getTableSorter()(sorter.rule, order, rpm) : undefined
@@ -226,22 +258,23 @@ export default class extends React.Component {
     const { onRowSelect, ...props } = this.props
     const columns = this.getFilteredColumn()
     let { sorter } = this.state
-    if (!columns) return <Table {...props} />
+    if (!columns) return <Table {...(props as unknown) as TableProps<DataItem, Value>} />
 
     let { data } = this.props
     if (!sorter.length) {
       sorter = immer(sorter, draft => {
+        // @ts-ignore
         draft.push({})
       })
     }
     sorter
       .filter(v => !v.deleted)
       .forEach(v => {
-        if (v.sort) data = immer(data, draft => draft.sort(v.sort))
+        if (v.sort) data = immer(data, (draft: DataItem[]) => draft.sort(v.sort!))
       })
 
     const treeColumnsName = this.getTreeColumnsName()
-    let Component = Table
+    let Component: any = Table
     if (props.pagination && treeColumnsName) {
       Component = TableWithPT
     } else if (props.pagination) {
@@ -253,8 +286,10 @@ export default class extends React.Component {
     const externalExpandRender = (this.getExternalExpandObj() || {}).render
     const externalExpandOnClick = (this.getExternalExpandObj() || {}).onClick
 
+    const ComponentPT = Component as ComponentType<TablePropsWidthPT<DataItem, Value>>
+
     return (
-      <Component
+      <ComponentPT
         {...props}
         onChange={onRowSelect}
         columns={this.getColumns(columns)}
@@ -262,7 +297,7 @@ export default class extends React.Component {
         sorter={sorter}
         onSortChange={this.handleSortChange}
         treeColumnsName={treeColumnsName}
-        externalExpandRender={externalExpandRender}
+        externalExpandRender={isFunc(externalExpandRender) ? externalExpandRender : undefined}
         externalExpandClick={externalExpandOnClick}
       />
     )

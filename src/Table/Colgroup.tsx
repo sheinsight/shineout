@@ -1,8 +1,11 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import { ColgroupProps } from './Props'
 
-class Colgroup extends React.Component {
-  constructor(props) {
+interface ColgroupState {
+  didShow: boolean
+}
+class Colgroup<DataItem> extends React.Component<ColgroupProps<DataItem>, ColgroupState> {
+  constructor(props: ColgroupProps<DataItem>) {
     super(props)
     this.state = {
       didShow: false,
@@ -12,11 +15,13 @@ class Colgroup extends React.Component {
   componentDidUpdate() {
     const { colgroup, columns, resizable } = this.props
     if (!colgroup && resizable && this.state.didShow) {
+      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({ didShow: false })
       return
     }
     if (!resizable || this.state.didShow) return
     if (!colgroup || colgroup.length !== columns.length) return
+    // eslint-disable-next-line react/no-did-update-set-state
     this.setState({ didShow: true })
   }
 
@@ -44,16 +49,6 @@ class Colgroup extends React.Component {
       </colgroup>
     )
   }
-}
-
-Colgroup.propTypes = {
-  columns: PropTypes.array.isRequired,
-  colgroup: PropTypes.array,
-  resizable: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
-}
-
-Colgroup.defaultProps = {
-  colgroup: undefined,
 }
 
 export default Colgroup

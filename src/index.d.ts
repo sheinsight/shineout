@@ -125,7 +125,7 @@ export { default as Switch } from './Switch'
 import { SwitchProps as __SwitchProps } from './Switch/interface'
 
 export { default as Table } from './Table'
-import { TableProps as __TableProps, TableRef as __TableRef, summaryItem as __summaryItem, renderSorterParam as __renderSorterParam, ColumnFix as __ColumnFix, ColumnType as __ColumnType, ColumnOrder as __ColumnOrder, ColumnItem as __ColumnItem } from './Table'
+import { TableRef as __TableRef, ColumnFix as __ColumnFix, ColumnType as __ColumnType, ColumnOrder as __ColumnOrder, SummaryItem as __SummaryItem, renderSorterParam as __renderSorterParam, ColumnItem as __ColumnItem, TableProps as __TableProps } from './Table/interface'
 
 export { default as Tabs } from './Tabs'
 import { TabsProps as __TabsProps, TabsLinkProps as __TabsLinkProps, TabsPanelProps as __TabsPanelProps,  } from './Tabs'
@@ -321,14 +321,15 @@ export namespace TYPE {
     export type Props = __SwitchProps
   }
   export namespace Table {
-    export type Props<TRD, Value> = __TableProps<TRD, Value>
+  
     export type Ref = __TableRef
-    export type summaryItem = __summaryItem
-    export type renderSorterParam = __renderSorterParam  
     export type ColumnFix = __ColumnFix
     export type ColumnType = __ColumnType
     export type ColumnOrder = __ColumnOrder
-    export type ColumnItem<T> = __ColumnItem<T>
+    export type SummaryItem = __SummaryItem
+    export type renderSorterParam = __renderSorterParam
+    export type ColumnItem<DataItem> = __ColumnItem<DataItem>
+    export type Props<DataItem, Value> = __TableProps<DataItem, Value>
   }
   export namespace Tabs {
     export type Props = __TabsProps

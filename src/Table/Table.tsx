@@ -1,12 +1,10 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { ComponentType } from 'react'
 import classnames from 'classnames'
 import { isRTL } from '../config'
 import { Component } from '../component'
 import { getLocale } from '../locale'
 import { compose } from '../utils/func'
 import { getDirectionClass } from '../utils/classname'
-import { getProps, defaultProps } from '../utils/proptypes'
 import { tableClass } from './styles'
 import fixedAuto from './fixedAuto'
 import Datum from '../Datum'
@@ -18,17 +16,32 @@ import SimpleTable from './SimpleTable'
 import { ROW_HEIGHT_UPDATE_EVENT } from './Tr'
 import { RENDER_COL_GROUP_EVENT } from './Tbody'
 import select from './select'
+import { GetRadioProps, OriginTableProps, TableDatumBindKey, TableType } from './Props'
 
 const ResizeSeperateTable = resizableHOC(SeperateTable)
 const ResizeSimpleTable = resizableHOC(SimpleTable)
 
-const RadioWrapper = Origin => props => (
-  // eslint-disable-next-line react/prop-types
-  <Origin {...props} distinct limit={props.radio ? 1 : 0} />
-)
+const RadioWrapper = <Props extends { limit: any; distinct: any }>(
+  Origin: ComponentType<Props>
+): React.FC<GetRadioProps<Props>> => props => <Origin {...props as Props} distinct limit={props.radio ? 1 : 0} />
 
-class Table extends Component {
-  constructor(props) {
+interface FormState {
+  scrollLeft: number
+  scrollRight: number
+}
+const DefaultProps = {
+  hover: true,
+  rowsInView: 20,
+  verticalAlign: 'top',
+  columns: [],
+  size: 'default',
+}
+class Table<DataItem, Value> extends Component<OriginTableProps<DataItem, Value>, FormState> {
+  table: HTMLElement
+
+  static defaultProps = DefaultProps
+
+  constructor(props: OriginTableProps<DataItem, Value>) {
     super(props)
     this.state = {
       scrollLeft: 0,
@@ -38,7 +51,7 @@ class Table extends Component {
     this.bindTable = this.bindTable.bind(this)
   }
 
-  componentDidUpdate(preProps) {
+  componentDidUpdate(preProps: OriginTableProps<DataItem, Value>) {
     const { datum, treeCheckAll } = this.props
     datum.dispatch(ROW_HEIGHT_UPDATE_EVENT)
     datum.dispatch(RENDER_COL_GROUP_EVENT)
@@ -48,13 +61,13 @@ class Table extends Component {
   }
 
   getRowsInView() {
-    const { rowsInView, data, fixed } = this.props
+    const { rowsInView = DefaultProps.rowsInView, data, fixed } = this.props
     const dataLength = data.length
     if (rowsInView <= 0 || rowsInView > dataLength || fixed === 'x') return dataLength
-    return parseInt(rowsInView, 10)
+    return parseInt(String(rowsInView), 10)
   }
 
-  bindTable(el) {
+  bindTable(el: HTMLDivElement) {
     const { bindWrapper } = this.props
     this.table = el
     if (el && bindWrapper) bindWrapper(el)
@@ -145,38 +158,11 @@ class Table extends Component {
   }
 }
 
-Table.propTypes = {
-  ...getProps(PropTypes, 'type', 'keygen'),
-  size: PropTypes.oneOf(['small', 'default']),
-  bordered: PropTypes.bool,
-  children: PropTypes.any,
-  columns: PropTypes.array,
-  data: PropTypes.array,
-  empty: PropTypes.any,
-  fixed: PropTypes.oneOf(['x', 'y', 'both']),
-  height: PropTypes.number,
-  hover: PropTypes.bool,
-  loading: PropTypes.oneOfType([PropTypes.element, PropTypes.bool]),
-  rowsInView: PropTypes.number,
-  striped: PropTypes.bool,
-  verticalAlign: PropTypes.oneOf(['top', 'middle']),
-  width: PropTypes.number,
-  columnResizable: PropTypes.bool,
-  bindWrapper: PropTypes.func,
-}
-
-Table.defaultProps = {
-  ...defaultProps,
-  hover: true,
-  rowsInView: 20,
-  verticalAlign: 'top',
-  columns: [],
-}
-
+const bindKeys: TableDatumBindKey[] = ['disabled', 'format', 'prediction', 'limit', 'distinct']
 export default compose(
   RadioWrapper,
   Datum.hoc({
-    bindProps: ['disabled', 'format', 'prediction', 'limit', 'distinct'],
+    bindProps: bindKeys,
     ignoreUndefined: true,
     setValueType: null,
     pure: false,
@@ -184,4 +170,4 @@ export default compose(
   fixedAuto,
   hideableConsumer,
   select
-)(Table)
+)(Table) as TableType
