@@ -42,3 +42,16 @@ describe('Input[Trim]', () => {
     expect(wrapper.find('input').prop('value')).toBe('hello')
   })
 })
+
+describe('coin', () => {
+  test('修复 coin 为 true, 无法自动补全带千分位的数据', () => {
+    const wrapper = mount(<Input coin type="number" />)
+    wrapper.find('input').simulate('change', {
+      target: {
+        value: '123,000',
+      },
+    })
+    wrapper.update()
+    expect(wrapper.find('input').prop('value')).toBe('123,000')
+  })
+})
