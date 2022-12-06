@@ -61,7 +61,7 @@ class Jumper extends PureComponent {
 
     return (
       <div className={paginationClass(getDirectionClass('section'))}>
-        {txt[0]}
+        {txt[0] ? <span>{txt[0]}</span> : undefined}
         <Input
           key={this.renderRequire}
           value={current}
@@ -75,7 +75,7 @@ class Jumper extends PureComponent {
           className={paginationClass(isSimple && 'simple-input')}
           delay={400}
         />
-        {txt[1]}
+        {txt[1] ? <span>{txt[1]}</span> : undefined}
       </div>
     )
   }
