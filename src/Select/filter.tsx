@@ -1,35 +1,29 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { getKey } from '../utils/uid'
 import { getFilterTree } from '../utils/tree'
 import { IS_NOT_MATCHED_VALUE } from './Result'
+import { FilterProps, GetFilterProps, ResultValue } from './Props'
 
-export default Origin =>
-  class extends React.Component {
-    static propTypes = {
-      expanded: PropTypes.arrayOf(PropTypes.string),
-      data: PropTypes.array,
-      treeData: PropTypes.array,
-      datum: PropTypes.object,
-      filterDelay: PropTypes.number,
-      keygen: PropTypes.any,
-      onFilter: PropTypes.func,
-      onCreate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
-      value: PropTypes.any,
-      noCache: PropTypes.bool,
-      multiple: PropTypes.bool,
-      showHitDescendants: PropTypes.bool,
-      hideCreateOption: PropTypes.bool,
-      onAdvancedFilter: PropTypes.bool,
-    }
+interface FilterState {
+  innerFilter: any
+  innerData: any
+  filterText: string
+  text: string
+}
 
+export default <Item, Value>(Origin: React.ComponentType<GetFilterProps<Item, Value>>) =>
+  class Filter extends React.Component<FilterProps<Item, Value>, FilterState> {
     static defaultProps = {
       data: [],
       filterDelay: 300,
       showHitDescendants: false,
     }
 
-    constructor(props) {
+    resultCache: Map<Value, Item>
+
+    timer: NodeJS.Timer
+
+    constructor(props: FilterProps<Item, Value>) {
       super(props)
       this.state = {
         innerFilter: undefined,
@@ -44,22 +38,23 @@ export default Origin =>
       this.resultCache = new Map()
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps: FilterProps<Item, Value>) {
       const { datum, multiple } = this.props
       if (prevProps.multiple !== multiple) {
         datum.limit = multiple ? 0 : 1
       }
     }
 
-    getTreeResult(value, prediction) {
+    getTreeResult(value: Value, prediction: (value: Value, data: Item) => boolean) {
       const { treeData, childrenKey = 'children' } = this.props
-      let finded
-      const treeNode = children => {
+      let finded: Item | undefined
+      const treeNode = (children?: Item[]) => {
         if (finded) return false
         if (!children || children.length === 0) return false
         for (let i = 0; i < children.length; i++) {
           const d = children[i]
           if (prediction(value, d)) finded = d
+          // @ts-ignore
           treeNode(d[childrenKey])
         }
         return false
@@ -68,7 +63,7 @@ export default Origin =>
       return finded
     }
 
-    getResult(value) {
+    getResult(value: Value) {
       const { data, treeData, datum, onCreate } = this.props
 
       const prediction = datum.prediction || ((v, d) => v === datum.format(d))
@@ -79,18 +74,17 @@ export default Origin =>
         if (prediction(value, d)) return d
       }
 
-      if (onCreate) return this.handleCreate(value)
+      if (onCreate) return this.handleCreate((value as unknown) as string) as Item
 
       return undefined
     }
 
     getResultByValues() {
       const { datum, noCache } = this.props
-      const { values = [] } = datum
-
-      const result = []
+      const { values = [] }: { values: Value[] } = datum
+      const result: (Item | ResultValue<Value>)[] = []
       values.forEach(v => {
-        let res = noCache ? undefined : this.resultCache.get(v)
+        let res: Item | ResultValue<Value> | undefined = noCache ? undefined : this.resultCache.get(v)
         if (!res) {
           res = this.getResult(v)
           if (res !== undefined && !noCache) this.resultCache.set(v, res)
@@ -104,7 +98,7 @@ export default Origin =>
       return result
     }
 
-    handleFilter(text, from = 'edit') {
+    handleFilter(text: string, from = 'edit') {
       const { filterDelay, onFilter, onCreate } = this.props
 
       this.setState({ text })
@@ -134,26 +128,26 @@ export default Origin =>
       }, filterDelay)
     }
 
-    handleCreate(text) {
+    handleCreate(text: string) {
       const { onCreate } = this.props
-      const createFn = typeof onCreate === 'boolean' ? t => t : onCreate
-      return createFn(text)
+      const createFn = typeof onCreate === 'boolean' ? (t: string) => t : onCreate
+      return createFn!(text)
     }
 
     filterTreeData() {
       const { treeData, expanded, showHitDescendants, onAdvancedFilter, ...other } = this.props
       const { innerFilter } = this.state
       let filterExpandedKeys = expanded
-      let newData = treeData
+      let newData: (Item | null)[] | undefined = treeData
       if (innerFilter) {
         filterExpandedKeys = []
         newData = getFilterTree(
           treeData,
           innerFilter,
           filterExpandedKeys,
-          node => getKey(node, other.keygen),
-          other.childrenKey,
-          showHitDescendants,
+          (node: Item) => getKey(node, other.keygen),
+          other.childrenKey as keyof Item,
+          showHitDescendants!,
           undefined,
           { advanced: onAdvancedFilter }
         )
@@ -172,7 +166,7 @@ export default Origin =>
       if (innerFilter) newData = data.filter(d => innerFilter(d))
       if (innerData && !hideCreateOption) {
         const newKey = getKey(innerData, other.keygen, innerData)
-        if (!newData.find(d => getKey(d, other.keygen, d) === newKey)) {
+        if (!newData.find(d => getKey(d, other.keygen, d as any) === newKey)) {
           newData = [innerData, ...newData]
         }
       }
@@ -197,6 +191,6 @@ export default Origin =>
         innerData,
         ...dataGenerator.call(this),
       }
-      return <Origin {...props} />
+      return <Origin {...props as GetFilterProps<Item, Value>} />
     }
   }

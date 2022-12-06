@@ -14,15 +14,67 @@ import { getParent } from '../utils/dom/element'
 import { isRTL } from '../config'
 import absoluteList from '../AnimationList/AbsoluteList'
 import { getDirectionClass } from '../utils/classname'
+import { SelectProps } from './Props'
 
 const WrappedOptionList = absoluteList(OptionList)
 const WrappedBoxList = absoluteList(BoxList)
 const WrappedOptionTree = absoluteList(OptionTree)
 
-const isResult = (el, selector) => getParent(el, selector || `.${selectClass('result')}`)
+const isResult = (el: HTMLDivElement, selector?: string) => getParent(el, selector || `.${selectClass('result')}`)
 
-class Select extends PureComponent {
-  constructor(props) {
+const DefaultValue = {
+  clearable: false,
+  data: [],
+  height: 250,
+  itemsInView: 10,
+  lineHeight: 34,
+  loading: false,
+  multiple: false,
+  renderItem: e => e,
+  text: {},
+  compressed: false,
+  trim: true,
+  autoAdapt: false,
+  showArrow: true,
+  focusSelected: true,
+}
+
+interface SelectState {
+  control: 'mouse' | 'keyboard'
+  focus: boolean
+  position: 'drop-down' | 'drop-up'
+}
+
+class Select<Item, Value> extends PureComponent<SelectProps<Item, Value>, SelectState> {
+  static defaultProps = DefaultValue
+
+  renderPending: boolean
+
+  optionList: {
+    handleHover?: () => void
+    hoverMove?: () => void
+    getIndex?: () => void
+  }
+
+  selectId: string
+
+  mouseDown: boolean
+
+  lastResult: undefined
+
+  focusInput: null | ((flag?: boolean) => void)
+
+  inputReset: () => void
+
+  element: HTMLDivElement
+
+  blured: boolean
+
+  inputBlurTimer: NodeJS.Timer
+
+  lastChangeIsOptionClick: boolean
+
+  constructor(props: SelectProps<Item, Value>) {
     super(props)
 
     this.state = {
@@ -61,6 +113,7 @@ class Select extends PureComponent {
     this.renderPending = true
 
     this.optionList = {}
+
     this.selectId = `select_${getUidStr()}`
     // this.closeByResult = false
     this.mouseDown = false
@@ -70,7 +123,7 @@ class Select extends PureComponent {
     this.focusInput = null
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(_prevProps: SelectProps<Item, Value>, prevState: SelectState) {
     const { onFilter } = this.props
 
     // clear filter
@@ -99,7 +152,7 @@ class Select extends PureComponent {
     return focusSelected
   }
 
-  setInputReset(fn) {
+  setInputReset(fn: () => void) {
     this.inputReset = fn
   }
 
@@ -124,15 +177,15 @@ class Select extends PureComponent {
     return this.isDescendent(el.parentElement, id)
   }
 
-  bindOptionFunc(name, fn) {
+  bindOptionFunc(name: 'handleHover' | 'hoverMove' | 'getIndex', fn: () => void) {
     this.optionList[name] = fn
   }
 
-  bindFocusInputFunc(fn) {
+  bindFocusInputFunc(fn: (flag?: boolean) => void) {
     this.focusInput = fn
   }
 
-  bindElement(el) {
+  bindElement(el: HTMLDivElement) {
     this.element = el
   }
 
@@ -157,11 +210,12 @@ class Select extends PureComponent {
     }
   }
 
-  handleClick(e) {
+  handleClick(e: React.MouseEvent<HTMLDivElement>) {
     const { onCreate, onFilter } = this.props
     const plain = !onCreate && !onFilter
+    const target = e.target as HTMLDivElement
     if (this.state.focus) {
-      if ((plain && isResult(e.target)) || isResult(e.target, `.${selectClass('caret')}`)) {
+      if ((plain && isResult(target)) || isResult(target, `.${selectClass('caret')}`)) {
         this.handleState(false, e)
         return
       }
@@ -169,13 +223,13 @@ class Select extends PureComponent {
     this.handleState(true, e)
   }
 
-  handleState(focus, e) {
+  handleState(focus: boolean, e?: any) {
     if (this.getDisabledStatus() === true) return
     if (focus === this.state.focus) return
     // click close icon
     if (focus && e && e.target.classList.contains(selectClass('close'))) return
 
-    const { height, onCollapse } = this.props
+    const { height = DefaultValue.height, onCollapse } = this.props
     let { position } = this.props
     const windowHeight = docSize.height
     const bottom = height + this.element.getBoundingClientRect().bottom
@@ -190,11 +244,11 @@ class Select extends PureComponent {
     }
   }
 
-  handleControlChange(control) {
+  handleControlChange(control: 'mouse' | 'keyboard') {
     if (control !== this.state.control) this.setState({ control })
   }
 
-  handleChange(_, data, fromInput) {
+  handleChange(_: any, data: Item, fromInput: boolean) {
     const { datum, multiple, emptyAfterSelect, onFilter, filterText, onCreate, reFocus } = this.props
     if (this.getDisabledStatus() === true) return
 
@@ -438,7 +492,7 @@ class Select extends PureComponent {
       'treeData',
       'expanded',
       'onExpand',
-      'loader',
+      // 'loader',
       'defaultExpanded',
       'defaultExpandAll',
       'datum',
@@ -593,7 +647,7 @@ class Select extends PureComponent {
           onClear={clearable ? this.handleClear : undefined}
           onCreate={onCreate}
           onRemove={this.handleRemove}
-          onFilter={onFilter && this.handleFilter}
+          onFilter={onFilter ? this.handleFilter : undefined}
           datum={datum}
           disabled={disabled}
           focus={this.state.focus}

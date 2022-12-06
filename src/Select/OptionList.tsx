@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { getKey } from '../utils/uid'
 import { setTranslate } from '../utils/dom/translate'
@@ -11,11 +10,22 @@ import { selectClass } from './styles'
 import Option from './Option'
 import { getDirectionClass } from '../utils/classname'
 import { getCustomList } from './utils'
+import { OptionListProps } from './Props'
+
+interface OptionListState {
+  currentIndex: number
+  hoverIndex: number
+  scrollTop: number
+}
 
 const ScaleList = List(['fade', 'scale-y'], 'fast')
 
-class OptionList extends Component {
-  constructor(props) {
+class OptionList<Item, Value> extends Component<OptionListProps<Item, Value>, OptionListState> {
+  optionInner: HTMLDivElement
+
+  lastScrollTop: number
+
+  constructor(props: OptionListProps<Item, Value>) {
     super(props)
     this.state = {
       currentIndex: 0,
@@ -37,7 +47,7 @@ class OptionList extends Component {
     props.bindOptionFunc('getIndex', () => this.state.hoverIndex)
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: OptionListProps<Item, Value>) {
     const { data } = this.props
 
     if (data !== prevProps.data && data.length !== prevProps.data.length) {
@@ -52,11 +62,11 @@ class OptionList extends Component {
     }
   }
 
-  getText(key) {
-    return this.props.text[key] || getLocale(key)
+  getText(key: string) {
+    return this.props.text[key as keyof typeof this.props.text] || getLocale(key)
   }
 
-  hoverMove(step) {
+  hoverMove(step: number) {
     const max = this.props.data.length
     const { lineHeight, height, groupKey } = this.props
     let { hoverIndex, currentIndex } = this.state
@@ -111,7 +121,16 @@ class OptionList extends Component {
     this.setState({ hoverIndex })
   }
 
-  handleScroll(x, y, max, bar, v, h, pixelX, pixelY) {
+  handleScroll(
+    _x: number,
+    y: number,
+    _max: number,
+    _bar: HTMLElement,
+    _v: number,
+    h: number,
+    _pixelX?: number,
+    pixelY?: number
+  ) {
     if (!this.optionInner) return
     const { data, itemsInView, lineHeight } = this.props
     const fullHeight = itemsInView * lineHeight
@@ -141,7 +160,7 @@ class OptionList extends Component {
     this.setState({ scrollTop, currentIndex: index })
   }
 
-  handleHover(index, force) {
+  handleHover(index: number, force: boolean) {
     if ((this.props.control === 'mouse' || force) && this.state.hoverIndex !== index) {
       this.setState({ hoverIndex: index })
     }
@@ -184,7 +203,7 @@ class OptionList extends Component {
       return <span className={selectClass(getDirectionClass('option'))}>{emptyText || this.getText('noData')}</span>
     return (
       <Scroll
-        scroll={scroll}
+        scroll={scroll as 'x' | 'y' | 'both'}
         style={{ height: scroll ? height : undefined }}
         onScroll={this.handleScroll}
         scrollHeight={data.length * lineHeight}
@@ -192,13 +211,13 @@ class OptionList extends Component {
       >
         <div
           ref={el => {
-            this.optionInner = el
+            this.optionInner = el!
           }}
         >
           <div style={{ height: currentIndex * lineHeight }} />
           {data.slice(currentIndex, currentIndex + itemsInView).map((d, i) => (
             <Option
-              isActive={datum.check(d)}
+              isActive={datum.check(d as any)}
               disabled={datum.disabled(d)}
               isHover={hoverIndex === currentIndex + i}
               key={d && d[groupKey] ? `__${d[groupKey]}__` : getKey(d, keygen, i)}
@@ -239,35 +258,6 @@ class OptionList extends Component {
       </ScaleList>
     )
   }
-}
-
-OptionList.propTypes = {
-  control: PropTypes.oneOf(['mouse', 'keyboard']),
-  data: PropTypes.array,
-  datum: PropTypes.object.isRequired,
-  focus: PropTypes.bool,
-  height: PropTypes.number,
-  itemsInView: PropTypes.number,
-  keygen: PropTypes.any,
-  lineHeight: PropTypes.number,
-  loading: PropTypes.oneOfType([PropTypes.element, PropTypes.bool]),
-  multiple: PropTypes.bool,
-  onControlChange: PropTypes.func,
-  onChange: PropTypes.func,
-  renderItem: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-  renderPending: PropTypes.bool,
-  selectId: PropTypes.string,
-  bindOptionFunc: PropTypes.func.isRequired,
-  autoClass: PropTypes.string,
-  style: PropTypes.object,
-  text: PropTypes.object,
-  groupKey: PropTypes.string,
-  getRef: PropTypes.func,
-  customHeader: PropTypes.node,
-  filterText: PropTypes.string,
-  hideCreateOption: PropTypes.bool,
-  emptyText: PropTypes.node,
-  renderOptionList: PropTypes.func,
 }
 
 export default OptionList

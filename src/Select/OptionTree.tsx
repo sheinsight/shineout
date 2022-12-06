@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { getDirectionClass } from '../utils/classname'
 import List from '../AnimationList'
 import Tree from '../Tree'
@@ -7,29 +6,30 @@ import Spin from '../Spin'
 import { getLocale } from '../locale'
 import { selectClass } from './styles'
 import { getCustomList } from './utils'
+import { OptionTreeProps } from './Props'
 
 const ScaleList = List(['fade', 'scale-y'], 'fast')
 const DATA_PATH_KEY = '$PATH'
 
-class OptionList extends Component {
-  constructor(props) {
+class OptionList<Item, Value> extends Component<OptionTreeProps<Item, Value>> {
+  constructor(props: OptionTreeProps<Item, Value>) {
     super(props)
 
     this.handleClick = this.handleClick.bind(this)
   }
 
-  getText(key) {
-    return this.props.text[key] || getLocale(key)
+  getText(key: string) {
+    return this.props.text[key as keyof typeof this.props.text] || getLocale(key)
   }
 
-  handleClick(data, _, p) {
+  handleClick(data: Item, _: any, p: { path: string }) {
     const { path } = p
     const { datum, onChange } = this.props
     if (datum.disabled(data)) return
     onChange(null, { ...data, [DATA_PATH_KEY]: path })
   }
 
-  renderItem(data) {
+  renderItem(data: Item) {
     const { renderItem, datum } = this.props
     const content = renderItem(data)
     return (
@@ -52,7 +52,7 @@ class OptionList extends Component {
       treeData,
       keygen,
       onExpand,
-      loader,
+      // loader,
       expanded,
       defaultExpanded,
       defaultExpandAll,
@@ -69,18 +69,17 @@ class OptionList extends Component {
       )
     if (treeData.length === 0 || renderPending)
       return <span className={selectClass(getDirectionClass('option'))}>{emptyText || this.getText('noData')}</span>
-
     return (
       <div className={selectClass('tree-wrapper')}>
         <Tree
           radioUpdate
-          onClick={this.handleClick}
+          onClick={this.handleClick as any}
           line={false}
           data={treeData}
-          keygen={keygen}
+          keygen={keygen as any}
           renderItem={this.renderItem.bind(this)}
           onExpand={onExpand}
-          loader={loader}
+          // loader={loader}
           expanded={expanded}
           defaultExpandAll={defaultExpandAll}
           defaultExpanded={defaultExpanded}
@@ -112,32 +111,6 @@ class OptionList extends Component {
       </ScaleList>
     )
   }
-}
-
-OptionList.propTypes = {
-  onChange: PropTypes.func,
-  loader: PropTypes.func,
-  defaultExpanded: PropTypes.arrayOf(PropTypes.string),
-  expanded: PropTypes.arrayOf(PropTypes.string),
-  renderPending: PropTypes.bool,
-  treeData: PropTypes.array,
-  datum: PropTypes.object.isRequired,
-  focus: PropTypes.bool,
-  onExpand: PropTypes.func,
-  keygen: PropTypes.any,
-  loading: PropTypes.oneOfType([PropTypes.element, PropTypes.bool]),
-  renderItem: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-  selectId: PropTypes.string,
-  style: PropTypes.object,
-  text: PropTypes.object,
-  height: PropTypes.number,
-  defaultExpandAll: PropTypes.bool,
-  childrenKey: PropTypes.string,
-  getRef: PropTypes.func,
-  customHeader: PropTypes.node,
-  expandIcons: PropTypes.array,
-  emptyText: PropTypes.node,
-  renderOptionList: PropTypes.func,
 }
 
 export default OptionList

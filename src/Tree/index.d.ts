@@ -247,6 +247,8 @@ FormItemStandardProps<Value>
    * default: index
    */
   keygen: LiteralUnion<Item> | ((data: Item, parentKey: keyType) => keyType) | true 
+
+  radioUpdate?:boolean
 }
 
 declare class Tree<Item, Value> extends React.PureComponent<TreeProps<Item, Value>, {}> {

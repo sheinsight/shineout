@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { getLocale } from '../locale'
 // import icons from '../icons'
 import { getKey } from '../utils/uid'
@@ -11,12 +10,22 @@ import { selectClass } from './styles'
 import BoxOption from './BoxOption'
 import LazyList from '../AnimationList/LazyList'
 import { getCustomList } from './utils'
+import { BoxListProps } from './Props'
+import { CheckValueType } from '../Checkbox/Props'
 
 const ScaleList = List(['fade', 'scale-y'], 'fast', 'flex')
 const emptyFunc = () => {}
 
-class BoxList extends Component {
-  constructor(props) {
+const DefaultValue = {
+  columnWidth: 160,
+}
+
+class BoxList<Item, Value> extends Component<BoxListProps<Item, Value>> {
+  static defaultProps = DefaultValue
+
+  handleMouseMove: any
+
+  constructor(props: BoxListProps<Item, Value>) {
     super(props)
 
     // fake events
@@ -29,8 +38,8 @@ class BoxList extends Component {
     this.handleRenderItem = this.handleRenderItem.bind(this)
   }
 
-  getText(key) {
-    return this.props.text[key] || getLocale(key)
+  getText(key: string) {
+    return this.props.text[key as keyof typeof this.props.text] || getLocale(key)
   }
 
   getWidth() {
@@ -39,22 +48,22 @@ class BoxList extends Component {
     return columnWidth * columns
   }
 
-  handleSelectAll(_, checked) {
+  handleSelectAll(_: any, checked: boolean) {
     const { datum, data } = this.props
     if (checked) datum.add(data)
     else datum.remove(data)
   }
 
-  handleSearch(text) {
-    this.props.onFilter(text)
+  handleSearch(text: string) {
+    this.props.onFilter!(text)
   }
 
-  handleRenderItem(data, groupIndex) {
+  handleRenderItem(data: Item[], groupIndex: number) {
     const { datum, keygen, columns, multiple, onChange, renderItem, lineHeight } = this.props
     return (
       <div style={{ height: lineHeight }}>
         {data.map((d, i) => {
-          const isActive = datum.check(d)
+          const isActive = datum.check(d as any)
           return (
             <BoxOption
               key={getKey(d, keygen, groupIndex + i)}
@@ -82,12 +91,12 @@ class BoxList extends Component {
   //   )
   // }
 
-  renderHeader(count) {
+  renderHeader(count: number) {
     const { data, loading, multiple, columnsTitle } = this.props
 
     if (loading || !multiple) return null
 
-    let checked = 'indeterminate'
+    let checked: CheckValueType = 'indeterminate'
     if (count === 0) checked = false
     else if (count === data.length) checked = true
 
@@ -105,8 +114,8 @@ class BoxList extends Component {
 
   renderLazyList() {
     const { columns, height, lineHeight, data, itemsInView } = this.props
-    const sliceData = data.reduce((red, item) => {
-      let lastItem = red[red.length - 1]
+    const sliceData = data.reduce((red: Item[][], item) => {
+      let lastItem: Item[] = red[red.length - 1]
       if (!lastItem) {
         lastItem = []
         red.push(lastItem)
@@ -129,7 +138,7 @@ class BoxList extends Component {
   renderStack() {
     const { columns, datum, multiple, onChange, renderItem, data, keygen } = this.props
     return data.map((d, i) => {
-      const isActive = datum.check(d)
+      const isActive = datum.check(d as any)
       return (
         <BoxOption
           key={getKey(d, keygen, i)}
@@ -165,7 +174,6 @@ class BoxList extends Component {
 
   render() {
     const { data, datum, style, loading, focus, selectId, getRef, customHeader, renderOptionList } = this.props
-
     const checkedCount = data.filter(d => datum.check(d)).length
 
     const newStyle = Object.assign({}, style, { width: this.getWidth() })
@@ -191,38 +199,6 @@ class BoxList extends Component {
       </ScaleList>
     )
   }
-}
-
-BoxList.propTypes = {
-  bindOptionFunc: PropTypes.func.isRequired,
-  columnWidth: PropTypes.number,
-  columns: PropTypes.number,
-  data: PropTypes.array,
-  datum: PropTypes.object.isRequired,
-  // filterText: PropTypes.string,
-  focus: PropTypes.bool,
-  keygen: PropTypes.any,
-  loading: PropTypes.oneOfType([PropTypes.element, PropTypes.bool]),
-  multiple: PropTypes.bool,
-  onChange: PropTypes.func,
-  onFilter: PropTypes.func,
-  renderItem: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-  selectId: PropTypes.string,
-  style: PropTypes.object,
-  text: PropTypes.object,
-  height: PropTypes.number,
-  lineHeight: PropTypes.number,
-  itemsInView: PropTypes.number,
-  getRef: PropTypes.func,
-  columnsTitle: PropTypes.any,
-  customHeader: PropTypes.node,
-  renderPending: PropTypes.bool,
-  emptyText: PropTypes.node,
-  renderOptionList: PropTypes.func,
-}
-
-BoxList.defaultProps = {
-  columnWidth: 160,
 }
 
 export default BoxList

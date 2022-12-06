@@ -11,7 +11,7 @@ interface TranslateStyleType extends CSSStyleDeclaration {
 
 let use3d: boolean
 
-const getDirectionX = (x: number) => {
+const getDirectionX = (x: number | string) => {
   const xs = String(x)
   const num = Number.parseFloat(xs)
   const numStr = String(num)
@@ -20,7 +20,7 @@ const getDirectionX = (x: number) => {
   const result = String((isRTL() ? -1 : 1) * num) + u
   return result
 }
-export function setTranslate(el: HTMLElement, x: number, y: number) {
+export function setTranslate(el: HTMLElement, x: number | string, y: number | string) {
   const tn: keyof typeof TRANSFORMS = getTransformName()
   ;(el.style as TranslateStyleType)[tn] = `translate(${getDirectionX(x)},${y})`
 }

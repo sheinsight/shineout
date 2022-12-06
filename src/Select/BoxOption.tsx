@@ -1,12 +1,14 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import Checkbox from '../Checkbox/Checkbox'
 import Radio from '../Radio/Radio'
 import { selectClass } from './styles'
 import { getDirectionClass } from '../utils/classname'
+import { BoxOptionProps } from './Props'
 
-class BoxOption extends PureComponent {
-  constructor(props) {
+class BoxOption<Item, Value> extends PureComponent<BoxOptionProps<Item, Value>> {
+  locked: boolean
+
+  constructor(props: BoxOptionProps<Item, Value>) {
     super(props)
     this.handleClick = this.handleClick.bind(this)
   }
@@ -40,17 +42,6 @@ class BoxOption extends PureComponent {
       </Input>
     )
   }
-}
-
-BoxOption.propTypes = {
-  columns: PropTypes.number,
-  data: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.number]).isRequired,
-  disabled: PropTypes.bool,
-  index: PropTypes.number,
-  isActive: PropTypes.bool,
-  multiple: PropTypes.bool,
-  onClick: PropTypes.func,
-  renderItem: PropTypes.func.isRequired,
 }
 
 export default BoxOption
