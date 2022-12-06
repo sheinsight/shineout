@@ -83,6 +83,7 @@ export default coinType => Origin =>
           value={this.getValue()}
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}
+          coin
         />
       )
     }
