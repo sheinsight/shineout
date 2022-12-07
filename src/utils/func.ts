@@ -22,7 +22,7 @@ export function curry<U extends AnyFunction>(f: U, ...args: any) {
   return (...next: any) => curry(f.bind(f, ...args), ...next)
 }
 
-export function empty(e: Event) {
+export function empty(e: { preventDefault: () => void }) {
   e.preventDefault()
 }
 

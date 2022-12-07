@@ -64,7 +64,7 @@ export type GetFormItemConsumerProps<U> = Omit<U, keyof FormItemContextValue>
 
 export interface BaseInputProps {
   value?: any
-  onChange: any
+  onChange?: any
 }
 
 export interface InputableProps<Value> {

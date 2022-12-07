@@ -1,19 +1,13 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { PureComponent } from '../component'
 import Checkbox from '../Checkbox/Checkbox'
 import { treeClass } from './styles'
 import { getDirectionClass } from '../utils/classname'
+import { CheckboxProps } from './Props'
+import { CheckValueType } from '../Checkbox/Props'
 
-export default class TreeCheckbox extends PureComponent {
-  static propTypes = {
-    datum: PropTypes.object.isRequired,
-    disabled: PropTypes.bool,
-    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    onChange: PropTypes.func.isRequired,
-  }
-
-  constructor(props) {
+export default class TreeCheckbox<DataItem, Value extends any[]> extends PureComponent<CheckboxProps<DataItem, Value>> {
+  constructor(props: CheckboxProps<DataItem, Value>) {
     super(props)
     this.handleChange = this.handleChange.bind(this)
     props.datum.bind(props.id, this.forceUpdate.bind(this))
@@ -41,10 +35,10 @@ export default class TreeCheckbox extends PureComponent {
     return datum.isDisabled(id)
   }
 
-  handleChange(v, checked) {
+  handleChange(_: any, checked: CheckValueType) {
     const { datum, id, onChange } = this.props
     datum.set(id, checked ? 1 : 0)
-    onChange(datum.getValue(), id)
+    onChange(datum.getValue() as Value, id)
   }
 
   render() {
