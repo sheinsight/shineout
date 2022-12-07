@@ -163,7 +163,7 @@ class Tree<DataItem, Value extends any[]> extends PureComponent<TreeProps<DataIt
       let offset = 0
       current.indexPath.forEach((p, i) => {
         if (i < current.indexPath.length - 1) {
-          node = (node[p][childrenKey!] as unknown) as DataItem[]
+          node = node[p][childrenKey] as DataItem[]
         } else {
           temp = node
           removeNode = () => temp.splice(p, 1)[0]
