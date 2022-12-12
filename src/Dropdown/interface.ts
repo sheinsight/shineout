@@ -1,3 +1,3 @@
-import { DropdownProps } from './Props'
+import { DropdownProps as __DropdownProps } from './Props'
 
-export type Prop = DropdownProps
+export type DropdownProps = __DropdownProps
