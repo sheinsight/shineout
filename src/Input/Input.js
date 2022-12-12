@@ -70,7 +70,7 @@ class Input extends PureComponent {
   }
 
   fixValue(val) {
-    const { type, digits, autoFix, cancelChange, numType } = this.props
+    const { type, digits, autoFix, numType } = this.props
     if (type !== 'number' || val === '') return val
     if (/^[.-]+$/.test(val)) return ''
     let fixVal = fillNumber(val)
@@ -82,7 +82,6 @@ class Input extends PureComponent {
       } else {
         fixVal = parseInt(fixVal, 10).toString()
       }
-      if (cancelChange) cancelChange()
     }
     return fixVal
   }
@@ -109,7 +108,7 @@ class Input extends PureComponent {
   }
 
   handleChange(e, clearClick) {
-    const { type, clearable } = this.props
+    const { type, clearable, coin } = this.props
     if (clearClick) {
       this.ref.focus()
       if (typeof clearable === 'function') clearable()
@@ -123,6 +122,9 @@ class Input extends PureComponent {
     if (type === 'number') {
       if (typeof value !== 'number') {
         value = String(value).replace(/。/g, '.')
+        if (coin) {
+          value = value.replaceAll(',', '')
+        }
       }
       if (!this.isValidNumber(value)) {
         return
@@ -153,8 +155,8 @@ class Input extends PureComponent {
     const { forceChange, onBlur, clearToUndefined, cancelChange } = this.props
     if (cancelChange) cancelChange()
     const newVal = this.fixValue(value)
-    const canForceChange = !(clearToUndefined && newVal === '' && this.props.value === undefined)
-    if (canForceChange && forceChange && !this.invalidNumber(newVal)) forceChange(newVal)
+    const isChange = !(clearToUndefined && newVal === '' && this.props.value === undefined)
+    if (isChange && forceChange && !this.invalidNumber(newVal)) forceChange(newVal)
     if (onBlur) onBlur(e)
   }
 
@@ -205,6 +207,7 @@ class Input extends PureComponent {
       inputFocus,
       clearToUndefined,
       placeholder,
+      coin,
       ...other
     } = this.props
     const value = this.props.value == null || this.props.value === undefined ? '' : this.props.value
@@ -271,6 +274,7 @@ Input.propTypes = {
   inputFocus: PropTypes.bool,
   clearToUndefined: PropTypes.bool,
   placeholder: PropTypes.string,
+  coin: PropTypes.bool,
 }
 
 Input.defaultProps = {

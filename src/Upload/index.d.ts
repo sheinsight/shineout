@@ -285,7 +285,7 @@ export interface UploadProps<T> extends StandardProps, OmitFormProps<T[]> {
    *
    * default: none
    */
-  filesFilter?: (fileList: any[]) => boolean;
+  filesFilter?: (fileList: any[]) => any[];
 
   /**
    * remove update failed callback

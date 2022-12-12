@@ -377,6 +377,19 @@ const examples = [
     parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Select/test-003-hideCreateOption.tsx'),
 
   },
+  {
+    name: 'test-004-blurAndSubmit',
+    isTs: true,
+    isTest: true,
+    title: locate(
+      '创建选项 blur 后点击回调搜索 \n 修复blur 后延迟导致 onSubmit 的数据不对的问题',
+      ''
+    ),
+    component: require('doc/pages/components/Select/test-004-blurAndSubmit.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/test-004-blurAndSubmit.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Select/test-004-blurAndSubmit.tsx'),
+
+  },
 ]
 
 const codes = undefined

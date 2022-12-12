@@ -6,7 +6,7 @@ import { formClass } from './styles'
 import { FormError } from '../utils/errors'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { docScroll } from '../utils/dom/document'
-import { IGNORE_BIND } from '../Datum/types'
+import { IGNORE_BIND, SUBMIT_TOPIC } from '../Datum/types'
 import { FieldSetProvider } from './FieldSet'
 import { isRTL } from '../config'
 
@@ -122,7 +122,7 @@ class Form extends Component {
 
     const { activeElement } = document
     if (activeElement) activeElement.blur()
-
+    datum.dispatch(SUBMIT_TOPIC)
     setTimeout(() => {
       datum
         .validate(IGNORE_BIND)
