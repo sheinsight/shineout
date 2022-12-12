@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { SUBMIT_TOPIC } from 'shineout/Datum/types'
+import { SUBMIT_TOPIC } from '../Datum/types'
 import { PureComponent } from '../component'
 import { getProps } from '../utils/proptypes'
 import { getUidStr } from '../utils/uid'
