@@ -10,18 +10,18 @@ import {
 import List from '../Datum/List'
 import { GetInputableProps } from '../Form/Props'
 import { GetInputBorderProps } from '../hoc/Props'
-import { GetDatumListProps, GetDatumProps } from '../Datum/Props'
-import Item from 'src/Form/Item'
+import { GetDatumProps } from '../Datum/Props'
 
 type ReactNode = React.ReactNode
 type ReactElement = React.ReactElement
-
-export interface SelectProps<Item, Value>
+export type Position = 'drop-down' | 'drop-up'
+export interface BaseSelectProps<Item, Value>
   extends StandardProps,
     FormItemStandardProps<Value>,
-    StructDataStandardProps<Item>,
+    Omit<StructDataStandardProps<Item>, 'data'>,
     ListItemStandardProps<Item, Value>,
     Pick<CommonProps, 'absolute' | 'clearable' | 'zIndex'> {
+  data?: Item[]
   /**
    * The maximum length of the input string in the Select input box
    *
@@ -74,7 +74,7 @@ export interface SelectProps<Item, Value>
    *
    * default: -
    */
-  onEnterExpand?: (e: Event) => boolean
+  onEnterExpand?: (e: React.KeyboardEvent<HTMLDivElement>) => boolean
 
   /**
    * height
@@ -92,7 +92,7 @@ export interface SelectProps<Item, Value>
    *
    * default: auto
    */
-  position?: 'drop-down' | 'drop-up'
+  position?: Position
 
   /**
    * When it is true, a default [Spin](/components/Spin) component will be displayed, a custom loading icon can be passed in to replace.
@@ -198,7 +198,7 @@ export interface SelectProps<Item, Value>
    *
    * default: -
    */
-  onCreate?: ((input: string | Value | Item) => Value | Item) | boolean
+  onCreate?: ((input: string | Item) => Item | string) | boolean
 
   /**
    * When the onFilter is not empty, you can filter data by input. If the onFilter returns a function, use this function as a front-end filter. If return undefined, you can do your own backend filtering.
@@ -435,8 +435,10 @@ export interface SelectProps<Item, Value>
   renderOptionList?: (list: ReactElement, info: { loading: boolean }) => ReactElement
 }
 
+/** ---------- optionList ---------- */
+export type Control = 'mouse' | 'keyboard'
 export interface OptionListProps<Item, Value> {
-  control: 'mouse' | 'keyboard'
+  control: Control
   data: Item[]
   datum: List<Item, Value>
   focus?: boolean
@@ -446,7 +448,7 @@ export interface OptionListProps<Item, Value> {
   lineHeight: number
   loading?: boolean | ReactNode
   multiple?: boolean
-  onControlChange: (control: string) => void
+  onControlChange: (control: Control) => void
   onChange: (isActive: boolean, data: Item, index?: number) => void
   renderItem: ((data: Item, index?: number) => ReactNode)
   renderPending?: boolean
@@ -464,6 +466,7 @@ export interface OptionListProps<Item, Value> {
   renderOptionList?: (list: ReactElement) => ReactElement
 }
 
+/** ---------- option ---------- */
 export interface OptionProps<Item> {
   data: Item
   disabled?: boolean
@@ -478,6 +481,7 @@ export interface OptionProps<Item> {
   filterText?: string
 }
 
+/** ---------- optionTree ---------- */
 export interface OptionTreeProps<Item, Value> {
   onChange: (_: any, data: Item, fromInput?: boolean) => void
   // loader: PropTypes.func,
@@ -511,39 +515,41 @@ export interface UnMatchedValue<Value> {
 
 export type ResultValue<Value> = Value | UnMatchedValue<Value>
 
+/** ---------- result ---------- */
 export interface ResultProps<Item, Value> {
   datum: List<Item, Value>
   disabled?: boolean | ((data: Item) => boolean)
   filterText?: string
   focus: boolean
-  multiple: boolean
+  multiple?: boolean
   onRemove: (...args: any) => void
   onClear?: () => void
   onFilter?: (...args: any) => void
   onInputBlur: (text: string) => void
   onInputFocus: () => void
   result: (ResultValue<Value>)[]
-  renderResult: ((data: Value, index?: number) => ReactNode)
-  placeholder?: string
+  renderResult: ((data: Item | ResultValue<Value>, index?: number) => ReactNode)
+  placeholder?: ReactNode
   setInputReset: (fn: () => void) => void
-  bindFocusInputFunc: (fn: (flag: boolean) => void) => void
+  bindFocusInputFunc: (fn: (flag?: boolean) => void) => void
   // collapse: PropTypes.func,
   compressed?: boolean | 'no-repeat'
   compressedBound?: number
-  trim: boolean
-  renderUnmatched?: (data: Value) => ReactNode
-  showArrow: boolean
-  focusSelected: boolean
+  trim?: boolean
+  renderUnmatched?: (data: Item | Value) => ReactNode
+  showArrow?: boolean
+  focusSelected?: boolean
   compressedClassName?: string
-  resultClassName?: string | ((value: ResultValue<Value>) => string)
+  resultClassName?: string | ((value: Item | ResultValue<Value>) => string)
   maxLength?: number
   innerTitle?: ReactNode
   keygen: ListItemStandardProps<Item, Value>['keygen']
   data: Item[]
   convertBr?: string | ((text: string) => string)
-  onCreate: ((input: string | Item) => Item | string) | boolean
+  onCreate?: ((input: string | Item) => Item | string) | boolean
 }
 
+/** ---------- more ---------- */
 export interface MoreProps {
   className?: string
   data: React.ReactNode[]
@@ -557,6 +563,7 @@ export interface MoreProps {
   more?: number
 }
 
+/** ---------- input ---------- */
 export interface InputProps {
   focus: boolean
   multiple?: boolean
@@ -567,13 +574,14 @@ export interface InputProps {
   setInputReset: (fn: () => void) => void
   text: React.ReactNode
   trim?: boolean
-  focusSelected: boolean
-  bindFocusInputFunc: (fn: (flag: boolean) => void) => void
+  focusSelected?: boolean
+  bindFocusInputFunc: (fn: (flag?: boolean) => void) => void
   // collapse: PropTypes.func,
   maxLength?: number
   convertBr?: string | ((text: string) => string)
 }
 
+/** ---------- boxList ---------- */
 export interface BoxListProps<Item, Value> extends OptionListProps<Item, Value> {
   columns: number
   columnWidth: number
@@ -581,8 +589,9 @@ export interface BoxListProps<Item, Value> extends OptionListProps<Item, Value> 
   onFilter?: ((text: string) => void)
 }
 
+/** ---------- boxOption ---------- */
 export interface BoxOptionProps<Item, Value>
-  extends Pick<SelectProps<Item, Value>, 'multiple'>,
+  extends Pick<BaseSelectProps<Item, Value>, 'multiple'>,
     Pick<BoxListProps<Item, Value>, 'renderItem'> {
   columns: number
   data: Item
@@ -592,58 +601,123 @@ export interface BoxOptionProps<Item, Value>
   onClick: BoxListProps<Item, Value>['onChange']
 }
 
-export interface FilterProps<Item, Value> extends Omit<SelectProps<Item, Value>, 'onAdvancedFilter'> {
-  onAdvancedFilter: boolean
-  expanded: string[]
-  datum: List<Item, Value>
-}
-
-export interface GroupProps<Item> {
-  data: Item[]
-  groupBy: (record: Item, index: number, data: Item[]) => any
-}
-
-export interface BaseFilterProps<Item, Value> extends Omit<SelectProps<Item, Value>, 'onCreate'> {
+/** ---------- filter ---------- */
+export interface FilterProps<Item, Value> extends Omit<BaseSelectProps<Item, Value>, 'onAdvancedFilter'> {
   filterText: string
   inputText: string
   result: ResultValue<Value>[]
   inputable: boolean
   onFilter: ((text: string, from?: string) => void) | undefined
   innerData: string | Item | Value
-  onCreate: ((text: string) => string | Item | Value) | undefined
-}
-
-type BaseSelectProps<Item, Value> = Omit<SelectProps<Item, Value>, 'onChange'> &
-  Required<Pick<SelectProps<Item, Value>, 'onChange'>>
-
-export type GetFilterProps<Props, Item, Value> = Omit<Props, 'onCreate'> & BaseFilterProps<Item, Value>
-
-export type GetLimitWrapProps<Props, Item, Value> = Omit<Props, 'limit'> &
-  GetInputableProps<GetInputBorderProps<BaseSelectProps<Item, Value>>, Value> & {
-    limit: number
-  }
-
-export type GetAdvancedFilterHOC<Props> = Omit<Props, 'onAdvancedFilter' | 'onFilter'> & {
   onAdvancedFilter: boolean
+  expanded: string[]
+  datum: List<Item, Value>
 }
 
-export type GetTiledProps<Props> = Omit<Props, 'onFilter' | 'expandIcons'> & {
-  onFilter: (text: string, from: string) => void
-  expandIcons: ((data: any) => React.ReactNode)[]
-}
+/** ---------- group ---------- */
+export interface GroupProps<Item, Value> extends Omit<BaseSelectProps<Item, Value>, 'data'> {
+  data: Item[]
 
-export type GetGroupProps<Props, Item> = Omit<Props, 'data' | 'groupBy'> & {
+  /**
+   * group by
+   *
+   * 分组
+   *
+   * default: -
+   */
+  groupBy?: (record: Item, index: number, data: Item[]) => any
+
+  /**
+   *
+   * 内部属性
+   *
+   */
   groupKey: string
+}
+
+export type GetFilterProps<Props, Item, Value> = Omit<Props, 'onFilter' | 'result'> & {
+  /**
+   * onFilter 不为空时，可以输入过滤数据。onFilter 如果返回一个函数，使用这个函数做前端过滤。如果不返回，可以自行做后端过滤
+   *
+   * default: -
+   */
+  onFilter?: (text: string, from?: string) => ((data: Item) => boolean) | void
+  inputText: string
+  innerData: Item
+  filterText: string
+  inputable: boolean
+  result: (ResultValue<Value>)[]
+  datum: List<Item, Value>
+  expanded?: string[]
+}
+
+export type GetLimitWrapProps<Props> = Omit<Props, 'limit'> & {
+  /**
+   * if it is true, it will be multiple selection
+   *
+   * 是否是多选
+   *
+   * default: false
+   */
+  multiple?: boolean
+}
+
+export type GetAdvancedFilterHOC<Props, Item> = Omit<Props, 'onAdvancedFilter'> & {
+  /**
+   * Use the onAdvancedFilter property to enable filtering to switch between filtering results and raw data for the current hierarchy.
+   *
+   * 使用 onAdvancedFilter 属性开启高级筛选，可针对当前层级在筛选结果和原始数据间切换
+   *
+   * default: -
+   */
+  onAdvancedFilter?: (text: string) => ((data: Item) => boolean) | void
+}
+
+export type GetTiledProps<Props> = Omit<Props, 'expandIcons'>
+
+export type GetGroupProps<Props> = Props & {
+  groupKey: string
+}
+
+export type SelectPropsWidthGroup<Item, Value> = GetGroupProps<BaseSelectProps<Item, Value>>
+export type SelectPropsWidthTiled<Item, Value> = GetTiledProps<SelectPropsWidthGroup<Item, Value>>
+export type SelectPropsWidthFilter<Item, Value> = GetFilterProps<SelectPropsWidthTiled<Item, Value>, Item, Value>
+export type SelectPropsWidthAdvancedFilter<Item, Value> = GetAdvancedFilterHOC<
+  SelectPropsWidthFilter<Item, Value>,
+  Item
+>
+export type SelectPropsWidthLimitWrap<Item, Value> = GetLimitWrapProps<SelectPropsWidthAdvancedFilter<Item, Value>>
+export type SelectPropsWidthDatum<Item, Value> = GetDatumProps<SelectPropsWidthLimitWrap<Item, Value>> & {
+  datum: List<Item, Value>
+}
+export type SelectPropsWidthInputBorder<Item, Value> = GetInputBorderProps<SelectPropsWidthDatum<Item, Value>> & {
+  onBlur: (e?: any) => void
+  onFocus: (e?: any) => void
+}
+export type SelectPropsWidthInputable<Item, Value> = GetInputableProps<SelectPropsWidthInputBorder<Item, Value>, Value>
+export type SelectProps<Item, Value> = SelectPropsWidthInputable<Item, Value> & {
   data: Item[]
 }
 
-export type GetSelectProps<Item, Value> = GetInputableProps<
-  GetInputBorderProps<
-    GetLimitWrapProps<
-      GetDatumProps<GetAdvancedFilterHOC<GetFilterProps<GetTiledProps<BaseSelectProps<Item, Value>>, Item, Value>>>,
-      Item,
-      Value
-    >
-  >,
-  Value
->
+export type GetSelectProps<Item, Value> = Omit<
+  SelectProps<Item, Value>,
+  | 'datum'
+  | 'groupKey'
+  | 'filterText'
+  | 'result'
+  | 'onFocus'
+  | 'inputText'
+  | 'innerData'
+  | 'inputable'
+  | 'onBlur'
+  | 'data'
+> & {
+  // 原先开放 datum 属性，现在不开放了，弱化该类型提示
+  datum?: any
+  data?: Item[]
+}
+export declare class SelectClass<Item = any, Value = any> extends React.Component<GetSelectProps<Item, Value>, {}> {
+  render(): JSX.Element
+}
+
+export type SelectType = typeof SelectClass

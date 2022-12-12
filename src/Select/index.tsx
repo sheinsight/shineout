@@ -9,10 +9,10 @@ import Select from './Select'
 import filter from './filter'
 import group from './group'
 import absolute from '../Table/context'
-import { GetLimitWrapProps } from './Props'
+import { GetLimitWrapProps, SelectType } from './Props'
 
-const limitWrap = <Props, Item, Value>(Origin: React.ComponentType<GetLimitWrapProps<Props, Item, Value>>) => (
-  props: GetLimitWrapProps<Props, Item, Value>
+const limitWrap = <Props extends {}>(Origin: React.ComponentType<GetLimitWrapProps<Props>>) => (
+  props: GetLimitWrapProps<Props>
 ) => {
   // eslint-disable-next-line
   const limit = props.multiple ? 0 : 1
@@ -33,4 +33,4 @@ const exportSelect = compose(
 
 exportSelect.displayName = 'ShineoutSelect'
 
-export default exportSelect
+export default exportSelect as SelectType

@@ -2,7 +2,7 @@ import React from 'react'
 import { getKey } from '../utils/uid'
 import { getFilterTree } from '../utils/tree'
 import { IS_NOT_MATCHED_VALUE } from './Result'
-import { FilterProps, GetFilterProps, ResultValue } from './Props'
+import { BaseSelectProps, ResultValue, GetFilterProps } from './Props'
 
 interface FilterState {
   innerFilter: any
@@ -11,8 +11,8 @@ interface FilterState {
   text: string
 }
 
-export default <Item, Value>(Origin: React.ComponentType<GetFilterProps<Item, Value>>) =>
-  class Filter extends React.Component<FilterProps<Item, Value>, FilterState> {
+export default <Props extends BaseSelectProps<Item, Value>, Item, Value>(Origin: React.ComponentType<Props>) =>
+  class Filter extends React.Component<GetFilterProps<Props, Item, Value>, FilterState> {
     static defaultProps = {
       data: [],
       filterDelay: 300,
@@ -23,7 +23,7 @@ export default <Item, Value>(Origin: React.ComponentType<GetFilterProps<Item, Va
 
     timer: NodeJS.Timer
 
-    constructor(props: FilterProps<Item, Value>) {
+    constructor(props: GetFilterProps<Props, Item, Value>) {
       super(props)
       this.state = {
         innerFilter: undefined,
@@ -38,7 +38,7 @@ export default <Item, Value>(Origin: React.ComponentType<GetFilterProps<Item, Va
       this.resultCache = new Map()
     }
 
-    componentDidUpdate(prevProps: FilterProps<Item, Value>) {
+    componentDidUpdate(prevProps: GetFilterProps<Props, Item, Value>) {
       const { datum, multiple } = this.props
       if (prevProps.multiple !== multiple) {
         datum.limit = multiple ? 0 : 1
@@ -67,11 +67,11 @@ export default <Item, Value>(Origin: React.ComponentType<GetFilterProps<Item, Va
       const { data, treeData, datum, onCreate } = this.props
 
       const prediction = datum.prediction || ((v, d) => v === datum.format(d))
-      if (treeData) return this.getTreeResult(value, prediction)
+      if (treeData) return this.getTreeResult(value, prediction as (value: Value, data: Item) => boolean)
 
-      for (let i = 0, count = data.length; i < count; i++) {
-        const d = data[i]
-        if (prediction(value, d)) return d
+      for (let i = 0, count = data!.length; i < count; i++) {
+        const d = data![i]
+        if (prediction(value as any, d)) return d
       }
 
       if (onCreate) return this.handleCreate((value as unknown) as string) as Item
@@ -131,13 +131,13 @@ export default <Item, Value>(Origin: React.ComponentType<GetFilterProps<Item, Va
     handleCreate(text: string) {
       const { onCreate } = this.props
       const createFn = typeof onCreate === 'boolean' ? (t: string) => t : onCreate
-      return createFn!(text)
+      return (createFn as Function)(text)
     }
 
     filterTreeData() {
       const { treeData, expanded, showHitDescendants, onAdvancedFilter, ...other } = this.props
       const { innerFilter } = this.state
-      let filterExpandedKeys = expanded
+      let filterExpandedKeys: any = expanded
       let newData: (Item | null)[] | undefined = treeData
       if (innerFilter) {
         filterExpandedKeys = []
@@ -163,11 +163,11 @@ export default <Item, Value>(Origin: React.ComponentType<GetFilterProps<Item, Va
       const { data, hideCreateOption, ...other } = this.props
       const { innerFilter, innerData } = this.state
       let newData = data
-      if (innerFilter) newData = data.filter(d => innerFilter(d))
+      if (innerFilter) newData = data!.filter(d => innerFilter(d))
       if (innerData && !hideCreateOption) {
         const newKey = getKey(innerData, other.keygen, innerData)
-        if (!newData.find(d => getKey(d, other.keygen, d as any) === newKey)) {
-          newData = [innerData, ...newData]
+        if (!newData!.find(d => getKey(d, other.keygen, d as any) === newKey)) {
+          newData = [innerData, ...newData!]
         }
       }
       return {
@@ -191,6 +191,6 @@ export default <Item, Value>(Origin: React.ComponentType<GetFilterProps<Item, Va
         innerData,
         ...dataGenerator.call(this),
       }
-      return <Origin {...props as GetFilterProps<Item, Value>} />
+      return <Origin {...props} />
     }
   }

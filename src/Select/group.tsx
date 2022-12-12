@@ -6,15 +6,15 @@ interface GroupState<Item> {
   data: Item[]
 }
 
-export default <Props, Item>(Origin: React.ComponentType<GetGroupProps<Props, Item>>) =>
-  class Group extends React.Component<GroupProps<Item>, GroupState<Item>> {
+export default <Item, Value, Props extends GroupProps<Item, Value>>(Origin: React.ComponentType<Props>) =>
+  class Group extends React.Component<GetGroupProps<Props>, GroupState<Item>> {
     static defaultProps = {
       data: [],
     }
 
     groupKey: string
 
-    constructor(props: GroupProps<Item>) {
+    constructor(props: GetGroupProps<Props>) {
       super(props)
       this.state = {
         data: [],
@@ -27,7 +27,7 @@ export default <Props, Item>(Origin: React.ComponentType<GetGroupProps<Props, It
       this.groupByData()
     }
 
-    componentDidUpdate(prevProps: GroupProps<Item>) {
+    componentDidUpdate(prevProps: GetGroupProps<Props>) {
       if (prevProps.data !== this.props.data) this.groupByData()
     }
 
@@ -39,21 +39,21 @@ export default <Props, Item>(Origin: React.ComponentType<GetGroupProps<Props, It
         return
       }
 
-      const groupData = {}
+      const groupData: { [group: string]: Item[] } = {}
 
       data.forEach((d, i) => {
         const g = groupBy(d, i, data)
-        if (!groupData[g]) groupData[g || ''] = g ? [{ [this.groupKey]: g }] : []
+        if (!groupData[g]) groupData[g || ''] = (g ? [{ [this.groupKey]: g }] : []) as Item[]
         groupData[g].push(d)
       })
 
       this.setState({
-        data: Object.keys(groupData).reduce((p, v) => (v ? p.concat(groupData[v]) : groupData[v].concat(p)), []),
+        data: Object.keys(groupData).reduce((p, v) => (v ? p.concat(groupData[v] as any) : groupData[v].concat(p)), []),
       })
     }
 
     render() {
       const { groupBy, data, ...props } = this.props
-      return <Origin {...props} data={this.state.data} groupKey={this.groupKey} />
+      return <Origin {...props as Props} data={this.state.data} groupKey={this.groupKey} />
     }
   }

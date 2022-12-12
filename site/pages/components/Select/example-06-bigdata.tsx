@@ -30,7 +30,7 @@ const style: React.CSSProperties = { width: 240, marginBottom: 12, display: 'blo
 
 const App: React.FC = () => {
   const renderResult: SelectRenderResult = user => `${user.firstName} ${user.lastName}`
-  const renderItem: SelectRenderItem = (user, i) => `${user.firstName} ${user.lastName} (${i + 1})`
+  const renderItem: SelectRenderItem = (user, i) => `${user.firstName} ${user.lastName} (${i! + 1})`
 
   return (
     <Select

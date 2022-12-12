@@ -41,7 +41,7 @@ const getResultContent = <Item, Value>(
     if (typeof renderUnmatched === 'function') return renderUnmatched(data.value)
     return isObject(data.value) ? renderResult(data.value) : data.value
   }
-  return renderResult(data as Value)
+  return renderResult(data)
 }
 
 // eslint-disable-next-line

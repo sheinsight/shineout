@@ -110,7 +110,7 @@ import { Max as __Max, Min as __Min, Type as __Type, Range as __Range, Required 
 export { default as Scroll } from './Scroll'
 
 export { default as Select } from './Select'
-import { SelectProps as __SelectProps,  } from './Select'
+import { SelectProps as __SelectProps } from './Select/interface'
 
 export { default as Slider } from './Slider'
 import { SliderProps as __SliderProps,  } from './Slider'
@@ -304,6 +304,7 @@ export namespace TYPE {
     export type ParamsType<Value, FormData = any, Props = any> = __RuleParamsType<Value, FormData, Props>
   }
   export namespace Select {
+  
     export type Props<Item, Value> = __SelectProps<Item, Value>
   }
   export namespace Slider {
