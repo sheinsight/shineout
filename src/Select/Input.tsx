@@ -17,7 +17,7 @@ const DefaultValue = {
   updatAble: false,
 }
 
-class FilterInput extends Component<InputProps, InputState> {
+class FilterInput<Item, Value> extends Component<InputProps<Item, Value>, InputState> {
   static defaultProps = DefaultValue
 
   lastCursorOffset: number
@@ -32,7 +32,7 @@ class FilterInput extends Component<InputProps, InputState> {
 
   blurTimer: NodeJS.Timer
 
-  constructor(props: InputProps) {
+  constructor(props: InputProps<Item, Value>) {
     super(props)
 
     this.state = {
@@ -67,7 +67,7 @@ class FilterInput extends Component<InputProps, InputState> {
     return this.props.updatAble
   }
 
-  componentDidUpdate(prevProps: InputProps) {
+  componentDidUpdate(prevProps: InputProps<Item, Value>) {
     if (this.props.focus === prevProps.focus || !this.props.focus) return
     this.props.onInputFocus()
     this.focus()

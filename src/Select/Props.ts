@@ -207,7 +207,7 @@ export interface BaseSelectProps<Item, Value>
    *
    * default: -
    */
-  onFilter?: (text: string, from: string) => ((data: Item) => boolean) | void
+  onFilter?: (text: string, from?: string) => ((data: Item) => boolean) | void
 
   /**
    * Use the onAdvancedFilter property to enable filtering to switch between filtering results and raw data for the current hierarchy.
@@ -279,7 +279,7 @@ export interface BaseSelectProps<Item, Value>
    *
    * default: none
    */
-  renderUnmatched?: (data: Item) => ReactNode
+  renderUnmatched?: (data: Item | Value) => ReactNode
 
   /**
    * empty input after select value
@@ -351,7 +351,7 @@ export interface BaseSelectProps<Item, Value>
    *
    * default: none
    */
-  resultClassName?: ((value: Item) => string) | string
+  resultClassName?: ((value: Item | ResultValue<Value>) => string) | string
 
   /**
    * title of columns multiple select
@@ -437,17 +437,18 @@ export interface BaseSelectProps<Item, Value>
 
 /** ---------- optionList ---------- */
 export type Control = 'mouse' | 'keyboard'
-export interface OptionListProps<Item, Value> {
+export interface OptionListProps<Item, Value>
+  extends Pick<
+    BaseSelectProps<Item, Value>,
+    'renderOptionList' | 'emptyText' | 'hideCreateOption' | 'style' | 'multiple' | 'loading' | 'keygen'
+  > {
   control: Control
   data: Item[]
   datum: List<Item, Value>
   focus?: boolean
   height: number
   itemsInView: number
-  keygen: ListItemStandardProps<Item, Value>['keygen']
   lineHeight: number
-  loading?: boolean | ReactNode
-  multiple?: boolean
   onControlChange: (control: Control) => void
   onChange: (isActive: boolean, data: Item, index?: number) => void
   renderItem: ((data: Item, index?: number) => ReactNode)
@@ -455,15 +456,11 @@ export interface OptionListProps<Item, Value> {
   selectId: string
   bindOptionFunc: (name: string, fn: Function) => void
   autoClass: string
-  style: React.CSSProperties
   text: Object
   groupKey: keyof Item & string
   getRef: (el: HTMLElement) => void
   customHeader?: ReactNode
   filterText?: string
-  hideCreateOption?: boolean
-  emptyText?: ReactNode
-  renderOptionList?: (list: ReactElement) => ReactElement
 }
 
 /** ---------- option ---------- */
@@ -482,7 +479,11 @@ export interface OptionProps<Item> {
 }
 
 /** ---------- optionTree ---------- */
-export interface OptionTreeProps<Item, Value> {
+export interface OptionTreeProps<Item, Value>
+  extends Pick<
+    BaseSelectProps<Item, Value>,
+    'loading' | 'style' | 'height' | 'defaultExpandAll' | 'childrenKey' | 'emptyText' | 'renderOptionList'
+  > {
   onChange: (_: any, data: Item, fromInput?: boolean) => void
   // loader: PropTypes.func,
   defaultExpanded?: string[]
@@ -493,19 +494,12 @@ export interface OptionTreeProps<Item, Value> {
   focus?: boolean
   onExpand?: () => void
   keygen: ListItemStandardProps<Item, Value>['keygen']
-  loading?: boolean | ReactNode
   renderItem: ((data: Item, index?: number) => ReactNode)
   selectId: string
-  style: React.CSSProperties
   text: Object
-  height?: number
-  defaultExpandAll?: boolean
-  childrenKey?: string
   getRef?: () => void
   customHeader?: React.ReactNode
   expandIcons?: ReactNode[]
-  emptyText?: ReactNode
-  renderOptionList: (list: ReactElement) => ReactElement
 }
 
 export interface UnMatchedValue<Value> {
@@ -516,37 +510,40 @@ export interface UnMatchedValue<Value> {
 export type ResultValue<Value> = Value | UnMatchedValue<Value>
 
 /** ---------- result ---------- */
-export interface ResultProps<Item, Value> {
+export interface ResultProps<Item, Value>
+  extends Pick<
+    BaseSelectProps<Item, Value>,
+    | 'disabled'
+    | 'multiple'
+    | 'onFilter'
+    | 'placeholder'
+    | 'compressed'
+    | 'compressedBound'
+    | 'trim'
+    | 'renderUnmatched'
+    | 'showArrow'
+    | 'focusSelected'
+    | 'compressedClassName'
+    | 'resultClassName'
+    | 'maxLength'
+    | 'innerTitle'
+    | 'keygen'
+    | 'convertBr'
+    | 'onCreate'
+  > {
   datum: List<Item, Value>
-  disabled?: boolean | ((data: Item) => boolean)
   filterText?: string
   focus: boolean
-  multiple?: boolean
   onRemove: (...args: any) => void
   onClear?: () => void
-  onFilter?: (...args: any) => void
   onInputBlur: (text: string) => void
   onInputFocus: () => void
   result: (ResultValue<Value>)[]
   renderResult: ((data: Item | ResultValue<Value>, index?: number) => ReactNode)
-  placeholder?: ReactNode
   setInputReset: (fn: () => void) => void
   bindFocusInputFunc: (fn: (flag?: boolean) => void) => void
   // collapse: PropTypes.func,
-  compressed?: boolean | 'no-repeat'
-  compressedBound?: number
-  trim?: boolean
-  renderUnmatched?: (data: Item | Value) => ReactNode
-  showArrow?: boolean
-  focusSelected?: boolean
-  compressedClassName?: string
-  resultClassName?: string | ((value: Item | ResultValue<Value>) => string)
-  maxLength?: number
-  innerTitle?: ReactNode
-  keygen: ListItemStandardProps<Item, Value>['keygen']
   data: Item[]
-  convertBr?: string | ((text: string) => string)
-  onCreate?: ((input: string | Item) => Item | string) | boolean
 }
 
 /** ---------- more ---------- */
@@ -564,29 +561,26 @@ export interface MoreProps {
 }
 
 /** ---------- input ---------- */
-export interface InputProps {
+export interface InputProps<Item, Value>
+  extends Pick<
+    BaseSelectProps<Item, Value>,
+    'multiple' | 'trim' | 'focusSelected' | 'maxLength' | 'convertBr' | 'onFilter'
+  > {
   focus: boolean
-  multiple?: boolean
-  onFilter: ((text: string) => void) | undefined
   onInputBlur: (text: string) => void
   onInputFocus: () => void
   updatAble: boolean
   setInputReset: (fn: () => void) => void
   text: React.ReactNode
-  trim?: boolean
-  focusSelected?: boolean
   bindFocusInputFunc: (fn: (flag?: boolean) => void) => void
   // collapse: PropTypes.func,
-  maxLength?: number
-  convertBr?: string | ((text: string) => string)
 }
 
 /** ---------- boxList ---------- */
-export interface BoxListProps<Item, Value> extends OptionListProps<Item, Value> {
+export interface BoxListProps<Item, Value>
+  extends OptionListProps<Item, Value>,
+    Pick<BaseSelectProps<Item, Value>, 'onFilter' | 'columnWidth' | 'columnsTitle'> {
   columns: number
-  columnWidth: number
-  columnsTitle: React.ReactNode
-  onFilter?: ((text: string) => void)
 }
 
 /** ---------- boxOption ---------- */
@@ -602,12 +596,11 @@ export interface BoxOptionProps<Item, Value>
 }
 
 /** ---------- filter ---------- */
-export interface FilterProps<Item, Value> extends Omit<BaseSelectProps<Item, Value>, 'onAdvancedFilter'> {
+export interface FilterProps<Item, Value> extends Omit<BaseSelectProps<Item, Value>, 'onAdvancedFilter' | 'onFilter'> {
   filterText: string
   inputText: string
   result: ResultValue<Value>[]
   inputable: boolean
-  onFilter: ((text: string, from?: string) => void) | undefined
   innerData: string | Item | Value
   onAdvancedFilter: boolean
   expanded: string[]

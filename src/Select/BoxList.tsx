@@ -43,7 +43,7 @@ class BoxList<Item, Value> extends Component<BoxListProps<Item, Value>> {
   }
 
   getWidth() {
-    const { columnWidth, columns } = this.props
+    const { columnWidth = DefaultValue.columnWidth, columns } = this.props
     if (columns === -1) return columnWidth
     return columnWidth * columns
   }
