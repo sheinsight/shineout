@@ -735,6 +735,64 @@ describe('Tree[onDrop]', () => {
     expect(handleDrop).toBeCalled()
     wrapper.unmount()
   })
+  test('should onDrop effect when key is number', () => {
+    const handleDrop = jest.fn()
+    const setData = jest.fn()
+    const setDragImage = jest.fn()
+    const handleToggle = jest.fn()
+    const wrapper = mount(
+      <Tree
+        data={data}
+        keygen={d => (d.id === '0' ? 0 : d.id)}
+        dragHoverExpand
+        renderItem={node => `node ${node.id}`}
+        onDrop={handleDrop}
+        onChange={v => {
+          console.log(v)
+        }}
+      />
+    )
+    wrapper
+      .find('Node')
+      .first()
+      .instance().element.getBoundingClientRect = () => ({ top: 0, bottom: 20 })
+
+    wrapper
+      .find('Node')
+      .first()
+      .instance().handleToggle = handleToggle
+
+    wrapper
+      .find('Content')
+      .first()
+      .simulate('dragStart', {
+        dataTransfer: {
+          effectAllowed: 'copyMove',
+          setData,
+          setDragImage,
+        },
+      })
+
+    wrapper
+      .find('Content')
+      .first()
+      .simulate('dragOver', {
+        clientY: 20,
+        target: {
+          getBoundingClientRect: () => ({
+            height: 20,
+          }),
+        },
+      })
+    document.body.removeChild = jest.fn()
+    wrapper
+      .find('Content')
+      .first()
+      .simulate('dragEnd')
+
+    expect(handleDrop).toBeCalled()
+    wrapper.unmount()
+  })
 })
 
 describe('Tree[onExpand]', () => {

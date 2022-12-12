@@ -13,6 +13,8 @@ placeElement.className = treeClass('drag-place')
 const innerPlaceElement = document.createElement('div')
 placeElement.appendChild(innerPlaceElement)
 
+const placeInfo = {}
+
 let isDragging = false
 
 class Node extends PureComponent {
@@ -76,7 +78,7 @@ class Node extends PureComponent {
 
     event.dataTransfer.effectAllowed = 'copyMove'
     event.dataTransfer.setData('text/plain', this.props.id)
-    placeElement.setAttribute('data-start', this.props.id)
+    placeInfo.start = this.props.id
     placeElement.setAttribute('data-start-index', index)
     const element = document.querySelector(dragImageSelector(data))
 
@@ -108,7 +110,7 @@ class Node extends PureComponent {
     if (!isDragging) return
 
     const { dragHoverExpand, datum, dragSibling } = this.props
-    const startId = placeElement.getAttribute('data-start')
+    const startId = placeInfo.start
     // const startIndex = parseInt(placeElement.getAttribute('data-start-index'), 10)
     const current = datum.getPath(startId)
     const target = datum.getPath(this.props.id)
@@ -146,7 +148,7 @@ class Node extends PureComponent {
     // if (position !== -1 && currentPathStr === targetPathStr && startIndex <= index) {
     //   position -= 1
     // }
-    placeElement.setAttribute('data-target', this.props.id)
+    placeInfo.target = this.props.id
     placeElement.setAttribute('data-position', position)
   }
 
@@ -160,7 +162,7 @@ class Node extends PureComponent {
 
     const { id, index, onDrop } = this.props
     const position = parseInt(placeElement.getAttribute('data-position'), 10)
-    const target = placeElement.getAttribute('data-target')
+    const { target } = placeInfo
 
     placeElement.parentNode.removeChild(placeElement)
 
