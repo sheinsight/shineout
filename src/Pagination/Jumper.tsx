@@ -47,7 +47,7 @@ class Jumper extends PureComponent<JumperProps> {
   render() {
     const { current, text, size, isSimple } = this.props
 
-    let txt = text.jumper ? text.jumper.split('{input}') : []
+    let txt: string[] | React.ReactNode[] = text.jumper ? text.jumper.split('{input}') : []
     if (isSimple) {
       const spanClass = paginationClass('simple-span')
       txt = [

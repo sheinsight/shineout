@@ -8,7 +8,7 @@ export interface TextParams {
   prev?: string
   next?: string
   page?: string
-  jumper?: any
+  jumper?: string
 }
 
 export interface PaginationProps extends StandardProps {
