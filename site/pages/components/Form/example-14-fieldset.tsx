@@ -99,7 +99,7 @@ const App: React.FC = () => {
                 digits={0}
                 title="age"
                 type="number"
-                defaultValue={18}
+                defaultValue="18"
                 style={{ width: 100 }}
                 rules={[rule.min(18), rule.max(60)]}
               />
@@ -112,7 +112,6 @@ const App: React.FC = () => {
             <Select
               keygen="id"
               name="city"
-              title="city"
               data={citys}
               renderItem="city"
               style={{ width: 200 }}

@@ -7,13 +7,13 @@ import { consumer } from './context'
 import { CheckboxType, GroupDatumArgsType } from './Props'
 
 const bindProps: GroupDatumArgsType[] = ['disabled', 'format', 'prediction', 'separator']
-const exports: any = compose(
+const exports = compose(
   inputable,
   consumer
 )(Checkbox)
 exports.Group = compose(
   inputable,
-  Datum.hoc({ bindProps: bindProps })
+  Datum.hoc({ bindProps })
 )(Group)
 exports.displayName = 'ShineoutCheckbox'
 exports.Group.displayName = 'ShineoutCheckboxGroup'

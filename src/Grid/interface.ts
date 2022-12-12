@@ -1,11 +1,10 @@
 import * as React from 'react'
+import { ReactNode } from 'react'
 import { StandardProps } from '../@types/common'
-import { ReactNode } from "react"
 
 export type responsiveType = 'sm' | 'md' | 'lg' | 'xl'
 
 export interface GridProps extends StandardProps {
-
   /**
    * Spacing between grids
    *
@@ -13,7 +12,7 @@ export interface GridProps extends StandardProps {
    *
    * default: none
    */
-  gutter?: number;
+  gutter?: number
 
   /**
    * Left offset percentage, 0 <= offset < 1
@@ -22,8 +21,7 @@ export interface GridProps extends StandardProps {
    *
    * default: 0
    */
-  offset?: number;
-
+  offset?: number
 
   /**
    * Percentage of width, 0 < number <= 1
@@ -32,8 +30,7 @@ export interface GridProps extends StandardProps {
    *
    * default: 1
    */
-  width?: number;
-
+  width?: number
 
   /**
    * The min size of responsive: sm: 568px; md: 768px; lg: 992px; xl: 1200px
@@ -42,8 +39,7 @@ export interface GridProps extends StandardProps {
    *
    * default: 'md'
    */
-  responsive?: responsiveType;
-
+  responsive?: responsiveType
 
   /**
    * Stretch full height of content
@@ -52,7 +48,7 @@ export interface GridProps extends StandardProps {
    *
    * default: 1
    */
-  stretch?: boolean;
+  stretch?: boolean
 
   /**
    * children
@@ -61,8 +57,7 @@ export interface GridProps extends StandardProps {
    *
    * default: -
    */
-  children?: ReactNode;
-
+  children?: ReactNode
 }
 
 declare class Grid extends React.Component<GridProps, any> {

@@ -1,4 +1,4 @@
-export default function hash(obj: any) {
+export default function createHash(obj: any) {
   let hash = 0
   let i
   let chr

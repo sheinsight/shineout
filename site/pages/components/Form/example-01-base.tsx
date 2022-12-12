@@ -79,7 +79,7 @@ const App: React.FC = () => {
       </Form.Item>
 
       <Form.Item label="Age">
-        <Input style={{ width: 100 }} name="age" type="number" digits={0} defaultValue={0} />
+        <Input style={{ width: 100 }} name="age" type="number" digits={0} defaultValue="0" />
       </Form.Item>
 
       <Form.Item label="Favorite Color">

@@ -1,4 +1,4 @@
 /gh-pages/**
 /libs/**
 /publish/**
-*.ts
+*.d.ts

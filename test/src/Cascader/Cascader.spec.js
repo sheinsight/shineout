@@ -217,7 +217,6 @@ describe('Cascader[Lazyload]', () => {
     const wrapper = mount(<CascaderLazyload />)
     wrapper.find(`.${SO_PREFIX}-cascader`).simulate('click')
 
-    // console.log(wrapper.html())
     wrapper.update()
     wrapper.find('Node').forEach(node => {
       expect(node.find(`.${SO_PREFIX}-cascader-may-be-children`).length).toBe(1)
