@@ -241,7 +241,7 @@ export interface TabsLinkProps extends AnchorHTMLAttributes<any> {
    *
    * default: required
    */
-  children: any
+  children: React.ReactElement
 
   onClick?: () => void
 }
@@ -308,10 +308,10 @@ export interface HeaderProps {
   border?: string
   collapsed?: boolean
   isVertical?: boolean
-  onChange?: (key: string | number) => void
+  onChange: (key: string | number) => void
   onCollapse?: (collapsed: boolean) => void
   shape?: string
-  tabs?: TabsChildProps[]
+  tabs: TabsChildProps[]
   tabBarExtraContent?: string | ReactNode
   tabBarStyle?: React.CSSProperties
   hideSplit?: boolean

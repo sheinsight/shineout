@@ -164,10 +164,10 @@ class Header extends PureComponent<HeaderProps, HeaderState> {
     const { onChange, tabs } = this.props
     return (
       <Button.Group className={tabsClass('header-button')}>
-        {tabs!.map(tab => (
+        {tabs.map(tab => (
           <Button
             key={tab.id}
-            onClick={tab.isActive ? undefined : onChange!.bind(this, tab.id)}
+            onClick={tab.isActive ? undefined : onChange.bind(this, tab.id)}
             className={tabsClass(tab.isActive && 'button-active')}
             disabled={tab.disabled}
           >
@@ -180,7 +180,7 @@ class Header extends PureComponent<HeaderProps, HeaderState> {
 
   renderTabs() {
     const { tabs } = this.props
-    return tabs!.map(this.renderTab)
+    return tabs.map(this.renderTab)
   }
 
   render() {

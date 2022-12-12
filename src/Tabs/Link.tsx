@@ -18,10 +18,12 @@ class Link extends PureComponent<TabsLinkProps> {
     }
 
     if (isLink(children)) {
-      if (children!.props.onClick) {
+      if (children.props.onClick) {
         props.onClick = () => {
           children.props.onClick()
-          other.onClick!()
+          if (other.onClick) {
+            other.onClick()
+          }
         }
       }
       return React.cloneElement(children, { ...props })
