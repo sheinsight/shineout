@@ -1,12 +1,15 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { PureComponent } from '../component'
+import { InputTitleProps } from './props'
 
 import { inputTitleClass } from './styles'
 
-class InputTitle extends PureComponent {
-  constructor(props) {
+interface InputTitleState {
+  animation: boolean
+}
+class InputTitle extends PureComponent<InputTitleProps, InputTitleState> {
+  constructor(props: InputTitleProps) {
     super(props)
     this.state = {
       animation: false,
@@ -14,7 +17,7 @@ class InputTitle extends PureComponent {
     this.stopAnimation = this.stopAnimation.bind(this)
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: InputTitleProps) {
     if (prevProps.open !== this.props.open) {
       this.startAnimation()
     }
@@ -51,17 +54,6 @@ class InputTitle extends PureComponent {
       </div>
     )
   }
-}
-
-InputTitle.propTypes = {
-  innerTitle: PropTypes.node,
-  className: PropTypes.string,
-  style: PropTypes.object,
-  children: PropTypes.node,
-  open: PropTypes.bool,
-  titleClass: PropTypes.string,
-  placeTitle: PropTypes.node,
-  contentClass: PropTypes.string,
 }
 
 export default InputTitle

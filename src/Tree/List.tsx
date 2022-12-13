@@ -1,35 +1,61 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { treeClass } from './styles'
 import { empty } from '../utils/func'
 import Node from './Node'
+import { ListProps } from './Props'
+import { keyType } from '../@types/common'
 
-class List extends PureComponent {
-  constructor(props) {
+class List<DataItem, Value extends any[]> extends PureComponent<ListProps<DataItem, Value>> {
+  static defaultProps = {
+    id: '',
+    line: true,
+    className: treeClass('children'),
+  }
+
+  bindLines: (el: HTMLDivElement) => void
+
+  bindList: (el: HTMLDivElement) => void
+
+  lines: HTMLDivElement
+
+  element: HTMLDivElement
+
+  hasExpanded: boolean
+
+  constructor(props: ListProps<DataItem, Value>) {
     super(props)
 
     this.bindLines = this.bindElement.bind(this, 'lines')
-    this.bindElement = this.bindElement.bind(this, 'element')
+    this.bindList = this.bindElement.bind(this, 'element')
     this.renderNode = this.renderNode.bind(this)
   }
 
-  getKey(data, index) {
-    const { id, keygen } = this.props
+  getKey(data: DataItem, index: number) {
+    const { id = '', keygen } = this.props
     if (typeof keygen === 'function') return keygen(data, id)
     if (keygen) return data[keygen]
     return id + (id ? ',' : '') + index
   }
 
-  bindElement(name, el) {
+  bindElement(name: 'lines' | 'element', el: HTMLDivElement) {
     this[name] = el
   }
 
-  renderNode(child, index) {
+  renderNode(child: DataItem, index: number) {
     const { data, isRoot, expanded, keygen, line, className, style, ...other } = this.props
-    const id = this.getKey(child, index)
+    const id = this.getKey(child, index) as keyType
     return (
-      <Node {...other} data={child} id={id} index={index} key={id} line={line} keygen={keygen} listComponent={List} />
+      <Node<DataItem, Value>
+        {...other}
+        data={child}
+        id={id}
+        index={index}
+        key={id}
+        line={line}
+        keygen={keygen}
+        listComponent={List}
+      />
     )
   }
 
@@ -44,7 +70,7 @@ class List extends PureComponent {
     return (
       <div
         className={classnames(className, childrenClassName)}
-        ref={this.bindElement}
+        ref={this.bindList}
         onDrop={empty}
         onDragOver={empty}
         style={newStyle}
@@ -53,25 +79,6 @@ class List extends PureComponent {
       </div>
     )
   }
-}
-
-List.propTypes = {
-  className: PropTypes.string,
-  data: PropTypes.array,
-  expanded: PropTypes.bool,
-  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  isRoot: PropTypes.bool,
-  keygen: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
-  line: PropTypes.bool,
-  setLine: PropTypes.func,
-  style: PropTypes.object,
-  childrenClassName: PropTypes.string,
-}
-
-List.defaultProps = {
-  id: '',
-  line: true,
-  className: treeClass('children'),
 }
 
 export default List

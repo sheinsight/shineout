@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import Spin from '../Spin'
 import filter from './filter'
@@ -14,9 +13,17 @@ import Item from './item'
 import LazyList from '../AnimationList/LazyList'
 import { getLocale } from '../locale'
 import Input from '../Input'
+import { CardProps } from './Props'
+import { keyType } from '../@types/common'
 
-class Card extends PureComponent {
-  constructor(props) {
+interface CardState {
+  listHeight: number
+  mounted: boolean
+}
+class Card<DataItem, Value extends any[]> extends PureComponent<CardProps<DataItem, Value>, CardState> {
+  cardBody: HTMLDivElement
+
+  constructor(props: CardProps<DataItem, Value>) {
     super(props)
     this.getCheckAll = this.getCheckAll.bind(this)
     this.checkAll = this.checkAll.bind(this)
@@ -40,7 +47,7 @@ class Card extends PureComponent {
     return 'indeterminate'
   }
 
-  bindCardBody(node) {
+  bindCardBody(node: HTMLDivElement) {
     this.cardBody = node
     let { listHeight } = this.props
     if (node) {
@@ -49,17 +56,20 @@ class Card extends PureComponent {
     this.setState({ listHeight, mounted: true })
   }
 
-  checkAll(c) {
+  checkAll(c?: boolean) {
     const { setSelecteds, index, data, keygen, disabled } = this.props
     if (c) {
       if (typeof disabled === 'function')
         setSelecteds(
           index,
-          data.reduce((r, d, i) => {
-            if (disabled(d)) return r
-            r.push(getKey(d, keygen, i))
-            return r
-          }, [])
+          data.reduce(
+            (r, d, i) => {
+              if (disabled(d)) return r
+              r.push(getKey(d, keygen, i))
+              return r
+            },
+            [] as keyType[]
+          )
         )
       else setSelecteds(index, data.map((d, i) => getKey(d, keygen, i)))
     } else {
@@ -67,7 +77,7 @@ class Card extends PureComponent {
     }
   }
 
-  handleRenderItem(d, i) {
+  handleRenderItem(d: DataItem, i: number) {
     const { keygen, index, renderItem, disabled, lineHeight } = this.props
     const disable = disabled === true
     const key = getKey(d, keygen, i)
@@ -85,7 +95,7 @@ class Card extends PureComponent {
     )
   }
 
-  customSetSelected(value) {
+  customSetSelected(value: keyType) {
     const { index, setSelecteds, selecteds } = this.props
     if (typeof value === 'string') {
       setSelecteds(index, [...selecteds, value])
@@ -201,31 +211,6 @@ class Card extends PureComponent {
       </SCard>
     )
   }
-}
-
-Card.propTypes = {
-  selecteds: PropTypes.array,
-  keygen: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-  data: PropTypes.array,
-  setSelecteds: PropTypes.func,
-  title: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  renderItem: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-  index: PropTypes.number,
-  footer: PropTypes.object,
-  listClassName: PropTypes.string,
-  listStyle: PropTypes.object,
-  disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
-  onFilter: PropTypes.func,
-  empty: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  loading: PropTypes.bool,
-  onSearch: PropTypes.func,
-  rowsInView: PropTypes.number,
-  lineHeight: PropTypes.number,
-  listHeight: PropTypes.number,
-  filterText: PropTypes.string,
-  renderFilter: PropTypes.func,
-  customRender: PropTypes.func,
-  values: PropTypes.array,
 }
 
 export default filter(Card)

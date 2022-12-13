@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import immer from 'immer'
 import { addResizeObserver } from '../utils/dom/element'
 import { PureComponent } from '../component'
@@ -8,10 +7,35 @@ import icons from '../icons'
 import Tab from './Tab'
 import { tabsClass } from './styles'
 import { isRTL } from '../config'
+import { HeaderProps, TabsChildProps } from './Props'
+
+interface HeaderState {
+  attribute: number
+  overflow: boolean
+  attributeString?: string
+}
 
 const REDUNDANT = 30
-class Header extends PureComponent {
-  constructor(props) {
+class Header extends PureComponent<HeaderProps, HeaderState> {
+  bindInner: (e: HTMLDivElement) => void
+
+  bindWrapper: (e: HTMLDivElement) => void
+
+  bindScroll: (e: HTMLDivElement) => void
+
+  handlePrevClick: any
+
+  handleNextClick: any
+
+  removeObserver: () => void
+
+  innerElement: HTMLElement
+
+  scrollElement: HTMLElement
+
+  ignoreNextCollapse: boolean
+
+  constructor(props: HeaderProps) {
     super(props)
 
     this.state = {
@@ -51,7 +75,7 @@ class Header extends PureComponent {
     }
   }
 
-  setPosition(isVertical) {
+  setPosition(isVertical?: boolean) {
     const attributeString = isVertical ? 'Height' : 'Width'
     if (!this.innerElement) return
     const innerAttribute = this.innerElement[`client${attributeString}`]
@@ -60,20 +84,20 @@ class Header extends PureComponent {
     this.setState({ overflow: scrollAttribute > domAttribute + innerAttribute, attributeString })
   }
 
-  handleResize(entry, { x, y }) {
+  handleResize(_entry: HTMLElement, { x, y }: { x: boolean; y: boolean }) {
     const { isVertical } = this.props
     const isResize = isVertical ? y : x
     if (isResize) this.setPosition(isVertical)
   }
 
-  bindElement(name, el) {
+  bindElement(name: keyof this, el: any) {
     this[name] = el
   }
 
-  handleMove(lt) {
+  handleMove(lt: boolean) {
     const { attributeString, attribute: a } = this.state
-    const innerAttribute = this.innerElement[`client${attributeString}`]
-    const scrollAttribute = this.scrollElement[`client${attributeString}`]
+    const innerAttribute = this.innerElement[`client${attributeString}` as keyof HTMLElement] as number
+    const scrollAttribute = this.scrollElement[`client${attributeString}` as keyof HTMLElement] as number
     let attribute = a + (lt ? -innerAttribute : innerAttribute)
     if (attribute < 0) attribute = 0
     if (attribute + innerAttribute > scrollAttribute) attribute = scrollAttribute - innerAttribute
@@ -81,9 +105,9 @@ class Header extends PureComponent {
     this.setState({ attribute })
   }
 
-  moveToCenter(tabRect, last, first) {
+  moveToCenter(tabRect: DOMRect, last: boolean, first: boolean) {
     const { isVertical } = this.props
-    const positions = isVertical ? ['top', 'bottom'] : ['left', 'right']
+    const positions: ['top', 'bottom'] | ['left', 'right'] = isVertical ? ['top', 'bottom'] : ['left', 'right']
     const rect = this.innerElement.getBoundingClientRect()
     const d = isRTL() && !isVertical ? -1 : 1
     if (tabRect[positions[0]] < rect[positions[0]]) {
@@ -103,7 +127,7 @@ class Header extends PureComponent {
     }
   }
 
-  handleClick(id, isActive) {
+  handleClick(id: string | number, isActive: boolean) {
     if (!isActive) {
       if (this.props.onChange) this.props.onChange(id)
       this.ignoreNextCollapse = true
@@ -111,7 +135,7 @@ class Header extends PureComponent {
     }
   }
 
-  handleCollapse(e) {
+  handleCollapse(e: React.MouseEvent<HTMLDivElement> | boolean) {
     const { onCollapse, collapsed } = this.props
     if (!onCollapse) return
 
@@ -128,7 +152,7 @@ class Header extends PureComponent {
     onCollapse(!collapsed)
   }
 
-  renderTab({ tab, id, ...other }) {
+  renderTab({ tab, id, ...other }: TabsChildProps) {
     return (
       <Tab {...other} key={id} id={id} moveToCenter={this.moveToCenter} onClick={this.handleClick}>
         {tab}
@@ -192,19 +216,6 @@ class Header extends PureComponent {
       </div>
     )
   }
-}
-
-Header.propTypes = {
-  border: PropTypes.string,
-  collapsed: PropTypes.bool,
-  isVertical: PropTypes.bool,
-  onChange: PropTypes.func,
-  onCollapse: PropTypes.func,
-  shape: PropTypes.string,
-  tabs: PropTypes.array,
-  tabBarExtraContent: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
-  tabBarStyle: PropTypes.object,
-  hideSplit: PropTypes.bool,
 }
 
 export default Header

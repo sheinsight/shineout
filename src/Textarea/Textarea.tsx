@@ -1,5 +1,4 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { ChangeEvent, KeyboardEvent, FocusEvent } from 'react'
 import classnames from 'classnames'
 import { isRTL } from '../config'
 import { PureComponent } from '../component'
@@ -7,9 +6,22 @@ import { inputClass } from '../Input/styles'
 import cleanProps from '../utils/cleanProps'
 import InputTitle from '../InputTitle'
 import { inputTitleClass } from '../InputTitle/styles'
+import { OriginTextareaProps } from './props'
 
-class Textarea extends PureComponent {
-  constructor(props) {
+interface TextareaState {
+  height: number
+}
+
+const DefaultProps = {
+  rows: 4,
+  resize: false,
+}
+class Textarea extends PureComponent<OriginTextareaProps, TextareaState> {
+  shadow: HTMLTextAreaElement
+
+  static defaultProps = DefaultProps
+
+  constructor(props: OriginTextareaProps) {
     super(props)
 
     this.state = {
@@ -29,29 +41,29 @@ class Textarea extends PureComponent {
     if (this.props.autosize) this.resize()
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: OriginTextareaProps) {
     if (this.props.autosize && prevProps.value !== this.props.value) this.resize(this.props.value)
   }
 
-  defaultInfo = value => {
+  defaultInfo = (value?: string) => {
     if (!value || value.length === 0) return null
     const { info } = this.props
     const text = `${value.length} / ${info}`
-    if (value.length <= info) return text
+    if (value.length <= (info as number)) return text
     return new Error(text)
   }
 
-  bindShadow(el) {
+  bindShadow(el: HTMLTextAreaElement) {
     this.shadow = el
   }
 
-  resize(value) {
+  resize(value?: string) {
     if (value || value === '') this.shadow.value = value
     const height = this.shadow ? this.shadow.scrollHeight : 0
     this.setState({ height })
   }
 
-  handleChange(e) {
+  handleChange(e: ChangeEvent<HTMLTextAreaElement>) {
     this.props.onChange(e.target.value)
 
     if (this.props.autosize) {
@@ -59,14 +71,14 @@ class Textarea extends PureComponent {
     }
   }
 
-  handleKeyUp(e) {
+  handleKeyUp(e: KeyboardEvent<HTMLTextAreaElement>) {
     const { onEnterPress } = this.props
     if (e.keyCode === 13 && onEnterPress) {
-      onEnterPress(e.target.value, e)
+      onEnterPress((e.target as HTMLTextAreaElement).value, e)
     }
   }
 
-  handleBlur(e) {
+  handleBlur(e: FocusEvent<HTMLTextAreaElement>) {
     const { value } = e.target
     const { forceChange, onBlur } = this.props
     if (onBlur) onBlur(e)
@@ -154,28 +166,6 @@ class Textarea extends PureComponent {
       </InputTitle>
     )
   }
-}
-
-Textarea.propTypes = {
-  autosize: PropTypes.bool,
-  forceChange: PropTypes.func,
-  info: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
-  maxHeight: PropTypes.number,
-  onBlur: PropTypes.func,
-  onChange: PropTypes.func.isRequired,
-  onEnterPress: PropTypes.func,
-  rows: PropTypes.number,
-  value: PropTypes.string,
-  resize: PropTypes.bool,
-  renderFooter: PropTypes.func,
-  innerTitle: PropTypes.node,
-  inputFocus: PropTypes.bool,
-  placeTitle: PropTypes.node,
-}
-
-Textarea.defaultProps = {
-  rows: 4,
-  resize: false,
 }
 
 export default Textarea

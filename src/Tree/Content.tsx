@@ -1,11 +1,11 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { PureComponent } from '../component'
 import { treeClass } from './styles'
 import Spin from '../Spin'
 import Checkbox from './Checkbox'
 import { CHANGE_TOPIC } from '../Datum/types'
+import { ContentProps } from './Props'
 
 const loading = (
   <span className={treeClass('icon-loading')}>
@@ -13,8 +13,8 @@ const loading = (
   </span>
 )
 
-class Content extends PureComponent {
-  constructor(props) {
+class Content<DataItem, Value extends any[]> extends PureComponent<ContentProps<DataItem, Value>> {
+  constructor(props: ContentProps<DataItem, Value>) {
     super(props)
 
     this.handleNodeClick = this.handleNodeClick.bind(this)
@@ -37,7 +37,7 @@ class Content extends PureComponent {
 
   handleNodeClick() {
     const { data, id, parentClickExpand, childrenKey } = this.props
-    const children = data[childrenKey]
+    const children = (data[childrenKey] as unknown) as DataItem[]
     const hasChildren = children && children.length > 0
     if (hasChildren && parentClickExpand) {
       this.handleIndicatorClick()
@@ -53,7 +53,7 @@ class Content extends PureComponent {
   handleNodeExpand() {
     const { data, childrenKey, doubleClickExpand } = this.props
     if (!doubleClickExpand) return
-    const children = data[childrenKey]
+    const children = (data[childrenKey] as unknown) as DataItem[]
     const hasChildren = children && children.length > 0
     if (hasChildren) this.handleIndicatorClick()
   }
@@ -66,18 +66,19 @@ class Content extends PureComponent {
     if (data[childrenKey] !== undefined) return
 
     setFetching(true)
-    loader(id, data)
+    if (loader) loader(id, data)
   }
 
   renderNode() {
     const { id, active, data, renderItem, expanded } = this.props
-    const render = typeof renderItem === 'function' ? renderItem : d => d[renderItem]
+    const render = typeof renderItem === 'function' ? renderItem : (d: DataItem) => d[renderItem]
     return render(data, expanded, active, id)
   }
 
   renderIndicator() {
     const { data, expanded, expandIcons, loader, childrenKey, fetching, iconClass } = this.props
-    const children = data[childrenKey]
+    const children = (data[childrenKey] as unknown) as DataItem[]
+    // @ts-ignore
     const icon = expandIcons ? expandIcons[expanded + 0] : <span className={treeClass('default-icon')} />
     const indicator = (
       <a
@@ -98,7 +99,7 @@ class Content extends PureComponent {
   }
 
   render() {
-    const { data, onToggle, onChange, expanded, draggable, onDragOver, onDrop, ...other } = this.props
+    const { data, onToggle, onChange, expanded, onDragOver, ...other } = this.props
 
     return (
       <div onDragOver={onDragOver}>
@@ -112,29 +113,6 @@ class Content extends PureComponent {
       </div>
     )
   }
-}
-
-Content.propTypes = {
-  active: PropTypes.bool,
-  data: PropTypes.object,
-  draggable: PropTypes.bool,
-  expanded: PropTypes.bool,
-  loader: PropTypes.func,
-  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  onChange: PropTypes.func,
-  onToggle: PropTypes.func,
-  onDragOver: PropTypes.func,
-  onDrop: PropTypes.func,
-  onNodeClick: PropTypes.func,
-  renderItem: PropTypes.oneOfType([PropTypes.func, PropTypes.string]).isRequired,
-  parentClickExpand: PropTypes.bool,
-  childrenKey: PropTypes.string,
-  expandIcons: PropTypes.array,
-  setFetching: PropTypes.func,
-  fetching: PropTypes.bool,
-  doubleClickExpand: PropTypes.bool,
-  iconClass: PropTypes.string,
-  datum: PropTypes.object,
 }
 
 export default Content
