@@ -37,4 +37,4 @@
 | loading | boolean \| ReactNode | none | Dropdown list loading state |
 | compressedBound | number | - | when compressed is True,the comptessedBound can limit the numbers of multiple selected item's label |
 | wideMatch | boolean | - | Allows all possible matching options to be choosed |
-| open | boolean | 无 | Set visible of cascader popup |
+| open | boolean | - | Set visible of cascader popup |
