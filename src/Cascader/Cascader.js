@@ -75,6 +75,7 @@ class Cascader extends PureComponent {
 
   componentDidMount() {
     super.componentDidMount()
+    this.setOpenEvent()
     this.updatePathByValue()
     if (this.props.loader && [0, 1, 2].includes(this.props.mode)) {
       console.error(
@@ -85,6 +86,7 @@ class Cascader extends PureComponent {
 
   componentDidUpdate(prevProps, prevState) {
     this.datum.mode = this.props.mode
+    this.setOpenEvent()
     const { onFilter, filterDataChange, filterText } = this.props
     if (!filterDataChange && prevProps.data !== this.props.data) this.datum.setData(this.props.data, true)
     if (prevProps.value !== this.props.value) {
@@ -92,10 +94,15 @@ class Cascader extends PureComponent {
       this.updatePathByValue()
     }
 
-    if (prevState.focus !== this.state.focus && !this.state.focus && onFilter) {
-      setTimeout(() => {
-        onFilter('')
-      }, 400)
+    if (onFilter) {
+      if (
+        (prevState.focus !== this.state.focus && !this.state.focus) ||
+        (prevProps.open !== this.props.open && !this.props.open)
+      ) {
+        setTimeout(() => {
+          onFilter('')
+        }, 400)
+      }
     }
     if (filterText !== undefined && prevProps.filterText !== filterText) {
       this.updatePath()
@@ -105,6 +112,23 @@ class Cascader extends PureComponent {
   componentWillUnmount() {
     super.componentWillUnmount()
     this.clearClickAway()
+  }
+
+  get focus() {
+    if ('open' in this.props) {
+      return this.props.open
+    }
+    return this.state.focus
+  }
+
+  setOpenEvent() {
+    if (this.lastFoucs !== this.focus)
+      if (this.focus) {
+        this.bindClickAway()
+      } else if (this.lastFoucs !== undefined) {
+        this.clearClickAway()
+      }
+    this.lastFoucs = this.focus
   }
 
   bindRef(el) {
@@ -169,8 +193,7 @@ class Cascader extends PureComponent {
   handleClickAway(e) {
     const desc = isDescendent(e.target, this.selectId)
     if (!desc) {
-      this.clearClickAway()
-      this.props.onBlur()
+      if (this.props.inputFocus) this.props.onBlur()
       this.handleState(false)
     }
   }
@@ -192,7 +215,6 @@ class Cascader extends PureComponent {
   handleFocus(e) {
     if (!this.shouldFocus(e.target)) return
     this.props.onFocus(e)
-    this.bindClickAway()
   }
 
   handleClear() {
@@ -213,7 +235,7 @@ class Cascader extends PureComponent {
 
   handleState(focus, e) {
     if (this.props.disabled === true) return
-    if (focus === this.state.focus) return
+    if (focus === this.focus) return
 
     // click close icon
     if (focus && e && e.target.classList.contains(cascaderClass('close'))) return
@@ -234,28 +256,21 @@ class Cascader extends PureComponent {
 
     if (focus) {
       this.renderPending = false
-      this.bindClickAway()
     }
-    // } else if (blur) {
-    //   this.clearClickAway()
-    //   onBlur()
-    // }
   }
 
   handleKeyDown(e) {
     if (e.keyCode === 13) {
       e.preventDefault()
-      this.handleState(!this.state.focus)
+      this.handleState(!this.focus)
     }
 
     // fot close the list
     if (e.keyCode === 9) {
       this.props.onBlur()
       // e.preventDefault()
-      if (this.state.focus) {
+      if (this.focus) {
         this.handleState(false)
-      } else {
-        this.clearClickAway()
       }
     }
   }
@@ -330,10 +345,15 @@ class Cascader extends PureComponent {
 
   renderAbsoluteList() {
     const { absolute, zIndex } = this.props
-    const { focus, position } = this.state
+    const { position } = this.state
+    const { focus } = this
     const className = classnames(selectClass('options'), cascaderClass('options'))
     const rootClass = classnames(cascaderClass(focus && 'focus', isRTL() && 'rtl'), selectClass(this.state.position))
     if (!focus && !this.isRendered) return null
+    if (!this.element) {
+      this.shouldUpdateAfterRef = true
+      return null
+    }
     this.isRendered = true
     return (
       <OptionList
@@ -367,7 +387,8 @@ class Cascader extends PureComponent {
       height,
       loading,
     } = this.props
-    const { focus, position } = this.state
+    const { position } = this.state
+    const { focus } = this
     const className = classnames(cascaderClass(focus && 'focus', isRTL() && 'rtl'), selectClass(this.state.position))
 
     return (
@@ -406,7 +427,7 @@ class Cascader extends PureComponent {
 
   render() {
     const { placeholder, disabled, size, ...other } = this.props
-    const { focus } = this.state
+    const { focus } = this
     const className = classnames(
       cascaderClass(
         '_',
@@ -430,6 +451,10 @@ class Cascader extends PureComponent {
         onKeyDown={this.handleKeyDown}
         ref={el => {
           this.element = el
+          if (el && this.shouldUpdateAfterRef) {
+            this.shouldUpdateAfterRef = false
+            this.forceUpdate()
+          }
         }}
       >
         <Result
@@ -488,6 +513,8 @@ Cascader.propTypes = {
   showArrow: PropTypes.bool,
   loading: PropTypes.oneOfType([PropTypes.bool, PropTypes.node]),
   wideMatch: PropTypes.bool,
+  open: PropTypes.bool,
+  inputFocus: PropTypes.bool,
 }
 
 Cascader.defaultProps = {
