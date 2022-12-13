@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react'
-import { keyType, LiteralUnion, StandardProps, RegularAttributes, keygenType, ObjectType } from '../@types/common'
+import { keyType, LiteralUnion, StandardProps, RegularAttributes, KeygenType, ObjectType } from '../@types/common'
 import { GetInputableProps } from '../Form/Props'
 import DatumTree from '../Datum/Tree'
 import { GetInputBorderProps } from '../hoc/Props'
@@ -18,7 +18,7 @@ export interface FilterProps<DataItem> {
   childrenKey?: LiteralUnion<DataItem>
   data: DataItem[]
   filterDelay: number
-  keygen: keygenType<DataItem>
+  keygen: KeygenType<DataItem>
   mode: 0 | 1 | 2 | 3 | 4
   onFilter?: (text: string) => ((data: DataItem) => boolean) | undefined | void
 }
