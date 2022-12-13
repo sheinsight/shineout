@@ -128,7 +128,7 @@ export { default as Table } from './Table'
 import { TableRef as __TableRef, ColumnFix as __ColumnFix, ColumnType as __ColumnType, ColumnOrder as __ColumnOrder, SummaryItem as __SummaryItem, renderSorterParam as __renderSorterParam, ColumnItem as __ColumnItem, TableProps as __TableProps } from './Table/interface'
 
 export { default as Tabs } from './Tabs'
-import { TabsProps as __TabsProps, TabsLinkProps as __TabsLinkProps, TabsPanelProps as __TabsPanelProps,  } from './Tabs'
+import { TabsProps as __TabsProps, TabsLinkProps as __TabsLinkProps, TabsPanelProps as __TabsPanelProps } from './Tabs/interface'
 
 export { default as Tag } from './Tag'
 import { TagProps as __TagProps, TagInputProps as __TagInputProps,  } from './Tag/interface'
@@ -332,6 +332,7 @@ export namespace TYPE {
     export type Props<DataItem, Value> = __TableProps<DataItem, Value>
   }
   export namespace Tabs {
+  
     export type Props = __TabsProps
     export type LinkProps = __TabsLinkProps
     export type PanelProps = __TabsPanelProps

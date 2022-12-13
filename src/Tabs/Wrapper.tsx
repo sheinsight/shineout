@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import Panel from './Panel'
 import { Provider } from '../Sticky/context'
+import { WrapperProps } from './Props'
 
-class Wrapper extends PureComponent {
+class Wrapper extends PureComponent<WrapperProps> {
   render() {
     const { active, id, ...other } = this.props
     return (
@@ -12,12 +12,6 @@ class Wrapper extends PureComponent {
       </Provider>
     )
   }
-}
-
-Wrapper.propTypes = {
-  active: PropTypes.any,
-  children: PropTypes.any,
-  id: PropTypes.any,
 }
 
 export default Wrapper
