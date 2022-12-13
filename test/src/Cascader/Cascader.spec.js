@@ -4,6 +4,7 @@ import { Cascader } from 'shineout'
 import Tree from 'shineout/Datum/Tree'
 import { cascader as data } from 'doc/data/tree'
 import CascaderLazyload from '../../../site/pages/components/Cascader/example-05-lazyload'
+import CascaderOpen from '../../../site/pages/components/Cascader/test-003-open'
 
 /* global SO_PREFIX */
 const userData = [
@@ -510,5 +511,39 @@ describe('Cascader[value onChange, filterSameChange]', () => {
       .first()
       .simulate('click')
     expect(onChangeHandler.mock.calls.length).toBe(1)
+  })
+})
+
+describe('Cascader[onCollapse and open]', () => {
+  it('onCollpase should called when show or hide List', async () => {
+    const addListener = jest.fn(document.addEventListener)
+    const rmListener = jest.fn(document.removeEventListener)
+    document.addEventListener = addListener
+    document.removeEventListener = rmListener
+
+    const wrapper = mount(<CascaderOpen />)
+    expect(wrapper.render().find(`.${SO_PREFIX}-select-options`).length).toBe(0)
+    // 点击打开
+    wrapper.find(`.${SO_PREFIX}-cascader`).simulate('click')
+    expect(wrapper.render().find(`.${SO_PREFIX}-select-options`).length).toBe(1)
+    expect(addListener.mock.calls.length).toBe(1)
+    // 模拟点击关闭
+    addListener.mock.calls[0][1]({ target: document.body })
+    expect(wrapper.render().find(`.${SO_PREFIX}-select-options`).length).toBe(0)
+
+    // 受控打开
+    wrapper
+      .find(`.${SO_PREFIX}-button`)
+      .at(0)
+      .simulate('click')
+    expect(wrapper.render().find(`.${SO_PREFIX}-select-options`).length).toBe(1)
+    expect(addListener.mock.calls.length).toBe(2)
+    // 受控关闭
+    wrapper
+      .find(`.${SO_PREFIX}-button`)
+      .at(1)
+      .simulate('click')
+    expect(wrapper.render().find(`.${SO_PREFIX}-select-options`).length).toBe(0)
+    expect(rmListener.mock.calls.length).toBe(2)
   })
 })

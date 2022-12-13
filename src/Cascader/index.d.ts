@@ -211,6 +211,15 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
    * default: -
    */
    wideMatch?: boolean;
+
+  /**
+   * Set visible of cascader popup
+   *
+   * 控制浮层显隐
+   *
+   * default: -
+   */
+  open?: boolean;
 }
 
 interface componentRef  {
