@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import immer from 'immer'
 import Datum from '../Datum/Tree'
 import { curry } from '../utils/func'
@@ -7,26 +6,24 @@ import { mergeFilteredTree } from '../utils/tree'
 import { treeClass } from '../Tree/styles'
 import { treeSelectClass } from './styles'
 import { Component } from '../component'
+import { TiledProps } from './Props'
+
+interface TiledState {
+  tileds: string[]
+}
 
 export default curry((options, Origin) => {
   const { dataKey = 'data' } = options
-  class Tiled extends Component {
-    static propTypes = {
-      rawData: PropTypes.array,
-      keygen: PropTypes.any,
-      onFilter: PropTypes.func,
-      childrenKey: PropTypes.string,
-      filterText: PropTypes.string,
-      data: PropTypes.array,
-      expanded: PropTypes.array,
-      onAdvancedFilter: PropTypes.bool,
-    }
-
+  class Tiled<Item, Value> extends Component<TiledProps<Item, Value>, TiledState> {
     static defaultProps = {
       childrenKey: 'children',
     }
 
-    constructor(props) {
+    rawDatum: any
+
+    filteredDatum: Datum<Item, any[]>
+
+    constructor(props: TiledProps<Item, Value>) {
       super(props)
       this.state = {
         tileds: [],
@@ -36,7 +33,7 @@ export default curry((options, Origin) => {
       if (props.onAdvancedFilter) this.genRawDatum()
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps: TiledProps<Item, Value>) {
       if (prevProps.rawData !== this.props.rawData && this.props.onAdvancedFilter) {
         if (this.rawDatum) this.rawDatum.setData(this.props.rawData)
         else this.genRawDatum()
@@ -46,7 +43,7 @@ export default curry((options, Origin) => {
 
     getFilteredDatum() {
       const { keygen, childrenKey } = this.props
-      const data = this.props[dataKey]
+      const data = this.props[dataKey as keyof typeof this.props] as TiledProps<Item, Value>['data']
       if (this.filteredDatum && this.filteredDatum.data === data) return this.filteredDatum
       this.filteredDatum = new Datum({
         data,
@@ -56,14 +53,16 @@ export default curry((options, Origin) => {
       return this.filteredDatum
     }
 
-    getIcon(data) {
+    getIcon(data: Item) {
       const { childrenKey, expanded = [] } = this.props
       const originIcon = <span className={treeClass('default-icon')} />
       const key = this.rawDatum.getKey(data)
       const rawData = this.rawDatum.getDataById(key)
       if (!data || !rawData) return originIcon
       const sameCount =
-        data[childrenKey] && rawData[childrenKey] && data[childrenKey].length === rawData[childrenKey].length
+        data[childrenKey as keyof Item] &&
+        rawData[childrenKey] &&
+        ((data[childrenKey as keyof Item] as unknown) as Item[]).length === rawData[childrenKey].length
       if (expanded.indexOf(key) === -1) return originIcon
       return (
         <span className={treeSelectClass('match', sameCount && 'full')} onClick={this.handleToggle.bind(this, key)}>
@@ -72,7 +71,7 @@ export default curry((options, Origin) => {
       )
     }
 
-    handleFilter(text, from) {
+    handleFilter(text: string, from: string) {
       const { onFilter } = this.props
       if (!text) this.setState({ tileds: [] })
       if (onFilter) onFilter(text, from)

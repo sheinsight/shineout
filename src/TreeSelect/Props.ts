@@ -115,7 +115,7 @@ export interface BaseTreeSelectProps<Item, Value>
    *
    * default: index
    */
-  keygen: KeygenType<Item>
+  keygen: ((data: Item) => string) | string | true
 
   /**
    * Expanded node key (controlled)
@@ -351,4 +351,14 @@ export interface ResultProps<Item, Value>
   compressed?: boolean
   compressedBound?: number
   data: Item[]
+}
+
+export interface TiledProps<Item, Value> extends Pick<BaseTreeSelectProps<Item, Value>, 'keygen'> {
+  rawData: Item[]
+  onFilter: (text: string, from?: string) => void
+  childrenKey: string
+  filterText: string
+  data: Item[]
+  expanded: string[]
+  onAdvancedFilter: boolean
 }
