@@ -60,7 +60,7 @@ export default Origin =>
       return result
     }
 
-    handleFilter(text, from = 'edit') {
+    handleFilter(text: string, from = 'edit') {
       const { filterDelay, onFilter } = this.props
 
       // not filter

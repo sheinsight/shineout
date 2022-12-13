@@ -1,10 +1,23 @@
 import React, { Component, isValidElement, cloneElement } from 'react'
-import PropTypes from 'prop-types'
 import { focusElement, preventPasteFile } from '../utils/dom/element'
 import { treeSelectClass } from './styles'
+import { InputProps } from './Props'
 
-class FilterInput extends Component {
-  constructor(props) {
+const DefaultValue = {
+  text: '',
+  updatAble: false,
+}
+
+class FilterInput<Item, Value> extends Component<InputProps<Item, Value>> {
+  static defaultProps = DefaultValue
+
+  editElement: HTMLSpanElement
+
+  blurTimer: NodeJS.Timer
+
+  handleBlur: React.FocusEventHandler<HTMLSpanElement> | undefined
+
+  constructor(props: InputProps<Item, Value>) {
     super(props)
 
     this.bindElement = this.bindElement.bind(this)
@@ -24,7 +37,7 @@ class FilterInput extends Component {
     return this.props.updatAble
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: InputProps<Item, Value>) {
     if (this.props.focus === prevProps.focus || !this.props.focus) return
     this.focus()
   }
@@ -40,12 +53,12 @@ class FilterInput extends Component {
     })
   }
 
-  bindElement(el) {
+  bindElement(el: HTMLSpanElement) {
     this.editElement = el
   }
 
-  handleInput(e) {
-    this.props.onFilter(e.target.innerText.replace('\feff ', '').trim())
+  handleInput(e: React.FormEvent<HTMLSpanElement>) {
+    this.props.onFilter!((e.target as HTMLElement).innerText.replace('\feff ', '').trim())
   }
 
   render() {
@@ -54,6 +67,7 @@ class FilterInput extends Component {
 
     if (isValidElement(value)) {
       return cloneElement(value, {
+        // @ts-ignore
         className: treeSelectClass('input'),
         ref: this.bindElement,
         key: 'input',
@@ -71,24 +85,11 @@ class FilterInput extends Component {
         onPaste={preventPasteFile}
         onInput={this.handleInput}
         onBlur={this.handleBlur}
+        // @ts-ignore
         dangerouslySetInnerHTML={{ __html: value }}
       />
     )
   }
-}
-
-FilterInput.propTypes = {
-  focus: PropTypes.bool.isRequired,
-  multiple: PropTypes.bool,
-  onFilter: PropTypes.func.isRequired,
-  updatAble: PropTypes.bool,
-  setInputReset: PropTypes.func.isRequired,
-  text: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
-}
-
-FilterInput.defaultProps = {
-  text: '',
-  updatAble: false,
 }
 
 export default FilterInput

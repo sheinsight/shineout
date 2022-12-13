@@ -1,18 +1,24 @@
 import * as React from 'react'
-import { CommonProps, KeygenType, StandardProps, FormItemStandardProps, StructDataStandardProps } from "../@types/common"
+import Item from 'src/Form/Item'
+import {
+  CommonProps,
+  KeygenType,
+  StandardProps,
+  FormItemStandardProps,
+  StructDataStandardProps,
+} from '../@types/common'
 
-type ReactNode = React.ReactNode;
+type ReactNode = React.ReactNode
 
 export interface ComponentRef<Item, Value> {
-  getDataByValues: (values: Value) =>  Value extends any[] ? Item[] : Item
+  getDataByValues: (values: Value) => Value extends any[] ? Item[] : Item
 }
 
-
-export interface TreeSelectProps<Item, Value> extends StandardProps,
-  FormItemStandardProps<Value>,
-  StructDataStandardProps<Item>,
-  Pick<CommonProps, 'absolute'>
-{
+export interface BaseTreeSelectProps<Item, Value>
+  extends StandardProps,
+    FormItemStandardProps<Value>,
+    StructDataStandardProps<Item>,
+    Pick<CommonProps, 'absolute'> {
   /**
    * show border bottom
    *
@@ -20,7 +26,7 @@ export interface TreeSelectProps<Item, Value> extends StandardProps,
    *
    * default: false
    */
-   underline?: boolean;
+  underline?: boolean
 
   /**
    * width
@@ -29,7 +35,7 @@ export interface TreeSelectProps<Item, Value> extends StandardProps,
    *
    * default: -
    */
-  width?: number;
+  width?: number
 
   /**
    * If clearable is true, show clear value icon
@@ -38,7 +44,7 @@ export interface TreeSelectProps<Item, Value> extends StandardProps,
    *
    * default: false
    */
-  clearable?: boolean;
+  clearable?: boolean
 
   /**
    * if it is true, it will be multiple selection
@@ -47,7 +53,7 @@ export interface TreeSelectProps<Item, Value> extends StandardProps,
    *
    * default: false
    */
-  multiple?: boolean;
+  multiple?: boolean
 
   /**
    * In the Form, the value will be taken over by the form and the value will be invalid.
@@ -56,7 +62,7 @@ export interface TreeSelectProps<Item, Value> extends StandardProps,
    *
    * default:
    */
-  value?: Value;
+  value?: Value
 
   /**
    * Initial value
@@ -65,7 +71,7 @@ export interface TreeSelectProps<Item, Value> extends StandardProps,
    *
    * default:
    */
-  defaultValue?: Value;
+  defaultValue?: Value
 
   /**
    * Default expanded node key.
@@ -74,7 +80,7 @@ export interface TreeSelectProps<Item, Value> extends StandardProps,
    *
    * default: -
    */
-  defaultExpanded?: Value extends Array<any> ? Value: Value[];
+  defaultExpanded?: Value extends Array<any> ? Value : Value[]
 
   /**
    * When it is true, all nodes disable the selection; when it is a function, it determines whether it is disabled according to the return result of the function.
@@ -83,7 +89,7 @@ export interface TreeSelectProps<Item, Value> extends StandardProps,
    *
    * default: false
    */
-  disabled?: ((data: Item) => boolean) | boolean;
+  disabled?: ((data: Item) => boolean) | boolean
 
   /**
    * ms. The delay of user input triggering filter events
@@ -92,7 +98,7 @@ export interface TreeSelectProps<Item, Value> extends StandardProps,
    *
    * default: 400
    */
-  filterDelay?: number;
+  filterDelay?: number
 
   /**
    * The name of a Form that accesses data
@@ -101,7 +107,7 @@ export interface TreeSelectProps<Item, Value> extends StandardProps,
    *
    * default: -
    */
-  name?: string;
+  name?: string
 
   /**
    * Generate a auxiliary method for each key. If not filled, index will be used(not recommended,there may be problems with more than 10 data). When it is a function, use its return value. When it is a string，ues the value of the string.For example, 'id' is the same thing as (d) => d.id.
@@ -110,7 +116,7 @@ export interface TreeSelectProps<Item, Value> extends StandardProps,
    *
    * default: index
    */
-  keygen: KeygenType<Item>;
+  keygen: KeygenType<Item>
 
   /**
    * Expanded node key (controlled)
@@ -119,7 +125,7 @@ export interface TreeSelectProps<Item, Value> extends StandardProps,
    *
    * default: -
    */
-  expanded?: Value extends Array<any> ? Value: Value[];
+  expanded?: Value extends Array<any> ? Value : Value[]
 
   /**
    * If the loader attribute is a function, the node with no children is regarded as dynamically loaded node. Click expanded button to trigger the loader event. The children property is null or its length is 0 will be regarded as a leaf node.
@@ -128,7 +134,7 @@ export interface TreeSelectProps<Item, Value> extends StandardProps,
    *
    * default: -
    */
-  loader?: (key: string) => void;
+  loader?: (key: string) => void
 
   /**
    * mode . 0: Returns only the fully selected node including the parent node.  1: Returns all selected nodes and semi-selected nodes. 2: Return only the selected child nodes. 3: If the parent node is full selected, only return the parent node.
@@ -137,7 +143,7 @@ export interface TreeSelectProps<Item, Value> extends StandardProps,
    *
    * default: 1
    */
-  mode?: 0 | 1 | 2 | 3 | 4;
+  mode?: 0 | 1 | 2 | 3 | 4
 
   /**
    * The callback function for expanding the node. The parameter is the key array of the currently expanded nodes.
@@ -146,14 +152,14 @@ export interface TreeSelectProps<Item, Value> extends StandardProps,
    *
    * default: -
    */
-  onExpand?: (expanded: Value extends Array<any> ? Value: Value[]) => void;
+  onExpand?: (expanded: Value extends Array<any> ? Value : Value[]) => void
 
   /**
    * value is your picker now
    * 参数 为 当前选中值
    * default: -
    */
-  onChange?: (value: Value) => void;
+  onChange?: (value: Value) => void
 
   /**
    * onChange additional parameters (current is the data of the clicked node, data is the currently selected data, checked is whether it is selected or canceled in the multi-select state)
@@ -162,11 +168,13 @@ export interface TreeSelectProps<Item, Value> extends StandardProps,
    *
    * default: -
    */
-  onChangeAddition?: (params: {
-    current?: Item
-    checked?: 0 | 1
-    data?: (Value extends Array<any> ? Item[]: Item) | null
-  }) => void;
+  onChangeAddition?: (
+    params: {
+      current?: Item
+      checked?: 0 | 1
+      data?: (Value extends Array<any> ? Item[] : Item) | null
+    }
+  ) => void
 
   /**
    * When the onFilter is not empty, you can filter data by input. If the onFilter returns a function, use this function as a front-end filter. If return undefined, you can do your own backend filtering.
@@ -175,7 +183,7 @@ export interface TreeSelectProps<Item, Value> extends StandardProps,
    *
    * default: -
    */
-  onFilter?: (text: string, from: 'string') => (data: Item) => boolean;
+  onFilter?: (text: string, from?: 'string') => (data: Item) => boolean
 
   /**
    * In the advanced filter mode, you can switch between the filter results and the original data for the current level by pressing the button
@@ -184,7 +192,7 @@ export interface TreeSelectProps<Item, Value> extends StandardProps,
    *
    * default: -
    */
-  onAdvancedFilter?: (text: string, from: 'edit' | 'blur') => (data: Item) => boolean;
+  onAdvancedFilter?: (text: string, from: 'edit' | 'blur') => (data: Item) => boolean
 
   /**
    * Merges selected values, valid only in multiselect mode
@@ -193,7 +201,7 @@ export interface TreeSelectProps<Item, Value> extends StandardProps,
    *
    * default: false
    */
-  compressed?: boolean | 'no-repeat';
+  compressed?: boolean | 'no-repeat'
 
   /**
    * When it is true, the pop-up layer of option append into document.body.
@@ -202,7 +210,7 @@ export interface TreeSelectProps<Item, Value> extends StandardProps,
    *
    * default: false
    */
-  absolute?: boolean;
+  absolute?: boolean
 
   /**
    * options z-index
@@ -211,7 +219,7 @@ export interface TreeSelectProps<Item, Value> extends StandardProps,
    *
    * default: 1000
    */
-  zIndex?: number;
+  zIndex?: number
 
   /**
    * the key of the children data name
@@ -220,7 +228,7 @@ export interface TreeSelectProps<Item, Value> extends StandardProps,
    *
    * default: 'children'
    */
-  childrenKey?: string;
+  childrenKey?: string
 
   /**
    * default expand all node
@@ -229,7 +237,7 @@ export interface TreeSelectProps<Item, Value> extends StandardProps,
    *
    * default: false
    */
-  defaultExpandAll?: boolean;
+  defaultExpandAll?: boolean
 
   /**
    * Whether to show the descendant nodes of the hit node after filtering
@@ -238,7 +246,7 @@ export interface TreeSelectProps<Item, Value> extends StandardProps,
    *
    * default: false
    */
-  showHitDescendants?: boolean;
+  showHitDescendants?: boolean
 
   /**
    * render unmatched value
@@ -247,7 +255,7 @@ export interface TreeSelectProps<Item, Value> extends StandardProps,
    *
    * default: none
    */
-  renderUnmatched?: (data: Item) => ReactNode;
+  renderUnmatched?: (data: Item) => ReactNode
 
   /**
    * option collapse callback
@@ -256,7 +264,7 @@ export interface TreeSelectProps<Item, Value> extends StandardProps,
    *
    * default: none
    */
-  onCollapse?: (collapse: boolean) => void;
+  onCollapse?: (collapse: boolean) => void
 
   /**
    * render unmatch value
@@ -265,7 +273,7 @@ export interface TreeSelectProps<Item, Value> extends StandardProps,
    *
    * default: -
    */
-  unmatch?: boolean;
+  unmatch?: boolean
 
   /**
    * inner title
@@ -274,7 +282,7 @@ export interface TreeSelectProps<Item, Value> extends StandardProps,
    *
    * default: -
    */
-  innerTitle?: ReactNode;
+  innerTitle?: ReactNode
 
   /**
    * 点击父节点后展开节点
@@ -283,7 +291,7 @@ export interface TreeSelectProps<Item, Value> extends StandardProps,
    *
    * default: -
    */
-  parentClickExpand?: boolean,
+  parentClickExpand?: boolean
 
   /**
    * when compressed is True,the comptessedBound can limit the numbers of multiple selected item's label
@@ -292,7 +300,7 @@ export interface TreeSelectProps<Item, Value> extends StandardProps,
    *
    * default: -
    */
-   compressedBound?: number;
+  compressedBound?: number
 
   /**
    * Some methods of getting components Currently only support getDataByValue
@@ -301,15 +309,38 @@ export interface TreeSelectProps<Item, Value> extends StandardProps,
    *
    * default: -
    */
-  getComponentRef?: ((ref: ComponentRef<Item, any>) => void)  | {current?: ComponentRef<Item, any>}
+  getComponentRef?: ((ref: ComponentRef<Item, any>) => void) | { current?: ComponentRef<Item, any> }
 }
 
-
-
-declare class TreeSelect<Item = any, Value = any> extends React.Component<TreeSelectProps<Item, Value>, {}> {
-
-  render(): JSX.Element;
+export interface InputProps<Item, Value> extends Pick<BaseTreeSelectProps<Item, Value>, 'onFilter'> {
+  focus: boolean
+  multiple?: boolean
+  updatAble: boolean
+  setInputReset: (fn: () => void) => void
+  text: React.ReactNode
 }
 
+export interface UnMatchedValue<Value> {
+  IS_NOT_MATCHED_VALUE: boolean
+  value: Value
+}
 
-export default TreeSelect
+export type ResultValue<Value> = Value | UnMatchedValue<Value>
+
+export interface ResultProps<Item, Value>
+  extends Pick<
+    BaseTreeSelectProps<Item, Value>,
+    'multiple' | 'disabled' | 'onFilter' | 'renderResult' | 'placeholder' | 'renderUnmatched' | 'innerTitle' | 'keygen'
+  > {
+  datum: any
+  disabled?: ((data: Item) => boolean) | boolean
+  filterText?: string
+  focus: boolean
+  onRemove: (data: Item) => void
+  onClear?: () => void
+  result: ResultValue<Value>[]
+  setInputReset: (fn: () => void) => void
+  compressed?: boolean
+  compressedBound?: number
+  data: Item[]
+}
