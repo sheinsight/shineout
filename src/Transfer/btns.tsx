@@ -1,14 +1,18 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { getKey } from '../utils/uid'
 import Button from '../Button'
 import { Component } from '../component'
 import { transferClass } from './styles'
 import icons from '../icons'
 import { isRTL } from '../config'
+import { BtnProps, IndexType } from './Props'
 
-class Btns extends Component {
-  constructor(props) {
+class Btns<DataItem, Value extends any[]> extends Component<BtnProps<DataItem, Value>> {
+  toSource: () => void
+
+  toTarget: () => void
+
+  constructor(props: BtnProps<DataItem, Value>) {
     super(props)
     this.toSource = this.change.bind(this, 0)
     this.toTarget = this.change.bind(this, 1)
@@ -23,7 +27,7 @@ class Btns extends Component {
     return dataMap
   }
 
-  change(index) {
+  change(index: IndexType) {
     const { setSelecteds, selecteds, datum } = this.props
 
     const dataMap = this.getDataMap()
@@ -31,7 +35,7 @@ class Btns extends Component {
     const newValue = selecteds[1 - index].map(c => dataMap.get(c))
     // const newValue = selecteds[1 - index].map(c => data.find((d, i) => getKey(d, keygen, i) === c))
 
-    setSelecteds(1 - index, [])
+    setSelecteds((1 - index) as IndexType, [])
 
     datum[index ? 'add' : 'remove'](newValue, undefined, undefined, true)
   }
@@ -85,17 +89,6 @@ class Btns extends Component {
       </div>
     )
   }
-}
-
-Btns.propTypes = {
-  datum: PropTypes.object,
-  selecteds: PropTypes.array,
-  data: PropTypes.array,
-  setSelecteds: PropTypes.func,
-  keygen: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-  operations: PropTypes.array,
-  operationIcon: PropTypes.bool,
-  disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
 }
 
 export default Btns

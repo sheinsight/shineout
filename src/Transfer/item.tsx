@@ -1,18 +1,18 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import Checkbox from '../Checkbox'
 import { PureComponent } from '../component'
 import { transferClass } from './styles'
 import Context from './context'
+import { ItemConsumerProps, ItemProps } from './Props'
 
-class Item extends PureComponent {
-  constructor(props) {
+class Item<DataItem, Value extends any[]> extends PureComponent<ItemProps<DataItem, Value>> {
+  constructor(props: ItemProps<DataItem, Value>) {
     super(props)
     this.check = this.check.bind(this)
   }
 
-  check(c) {
+  check(c: boolean | undefined) {
     const { index, selecteds, checkKey, setSelecteds } = this.props
     if (c) {
       setSelecteds(index, [...selecteds[index], checkKey])
@@ -38,18 +38,10 @@ class Item extends PureComponent {
   }
 }
 
-Item.propTypes = {
-  index: PropTypes.number,
-  selecteds: PropTypes.array,
-  checkKey: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  setSelecteds: PropTypes.func,
-  content: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
-  itemClass: PropTypes.string,
-}
-
-export default prop => (
+export default <DataItem, Value extends any[]>(prop: ItemConsumerProps<DataItem, Value>) => (
   <Context.Consumer>
-    {value => <Item {...prop} selecteds={value.selecteds} setSelecteds={value.setSelecteds} />}
+    {value => (
+      <Item {...prop} selecteds={value.selecteds} setSelecteds={value.setSelecteds} itemClass={value.itemClass} />
+    )}
   </Context.Consumer>
 )
