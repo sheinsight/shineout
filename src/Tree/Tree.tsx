@@ -1,13 +1,39 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import immer from 'immer'
 import { PureComponent } from '../component'
-import { getProps } from '../utils/proptypes'
-import DatumTree from '../Datum/Tree'
+import DatumTree, { TreeModeType } from '../Datum/Tree'
 import Root from './Root'
+import { TreeProps, UpdateFunc } from './Props'
+import { keyType } from '../@types/common'
 
-class Tree extends PureComponent {
-  constructor(props) {
+interface TreeState {
+  active: null | keyType
+}
+
+const DefaultProps = {
+  data: [],
+  defaultExpanded: [],
+  defaultValue: [],
+  mode: 0 as TreeModeType,
+  dataUpdate: true,
+  childrenKey: 'children',
+  dragImageStyle: {},
+}
+
+class Tree<DataItem, Value extends any[]> extends PureComponent<TreeProps<DataItem, Value>, TreeState> {
+  handleDragImageSelector: () => string | undefined
+
+  handleClidrenClass: () => string | undefined
+
+  handleLeafClass: () => string | undefined
+
+  nodes: Map<keyType, UpdateFunc>
+
+  datum: DatumTree<DataItem, Value>
+
+  static defaultProps = DefaultProps as any
+
+  constructor(props: TreeProps<DataItem, Value>) {
     super(props)
 
     this.state = { active: null }
@@ -23,7 +49,7 @@ class Tree extends PureComponent {
         onChange: props.onChange,
         value: props.value || props.defaultValue,
         disabled: typeof props.disabled === 'function' ? props.disabled : undefined,
-        childrenKey: props.childrenKey,
+        childrenKey: props.childrenKey || DefaultProps.childrenKey,
         unmatch: props.unmatch,
       })
     this.handleDrop = this.handleDrop.bind(this)
@@ -37,7 +63,7 @@ class Tree extends PureComponent {
     this.bindDatum()
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: TreeProps<DataItem, Value>) {
     if (prevProps.expanded !== this.props.expanded) {
       this.handleExpanded(this.props.expanded)
     }
@@ -47,7 +73,7 @@ class Tree extends PureComponent {
 
     if (this.props.onChange || this.props.onDrop || this.props.radioUpdate) {
       this.datum.mode = this.props.mode
-      if (prevProps.value !== this.props.value) this.datum.setValue(this.props.value || [])
+      if (prevProps.value !== this.props.value) this.datum.setValue(this.props.value || ([] as any))
       if (prevProps.data !== this.props.data && this.props.dataUpdate) this.datum.setData(this.props.data)
     }
   }
@@ -62,7 +88,7 @@ class Tree extends PureComponent {
     if (bindDatum) bindDatum(this.datum)
   }
 
-  bindNode(id, update) {
+  bindNode(id: keyType, update: UpdateFunc) {
     /*
     if (this.nodes.has(id)) {
       console.error(`Node with '${id}' key has already been added. Tree node's key must be unique.`)
@@ -77,27 +103,27 @@ class Tree extends PureComponent {
       return { active, expanded: true }
     }
 
-    return { active, expanded: expanded && expanded.indexOf(id) >= 0 }
+    return { active, expanded: !!(expanded && expanded.indexOf(id) >= 0) }
   }
 
-  unbindNode(id) {
+  unbindNode(id: keyType) {
     this.nodes.delete(id)
   }
 
-  handleExpanded(expanded) {
+  handleExpanded(expanded?: keyType[]) {
     const temp = new Set(expanded)
     for (const [id, update] of this.nodes) {
       update('expanded', temp.has(id))
     }
   }
 
-  handleActive(active) {
+  handleActive(active?: keyType) {
     for (const [id, update] of this.nodes) {
       update('active', id === active)
     }
   }
 
-  handleNodeClick(node, id) {
+  handleNodeClick(node: DataItem, id: keyType) {
     const { active, onClick } = this.props
     if (active === undefined) {
       this.setState({ active: id }, () => {
@@ -109,7 +135,7 @@ class Tree extends PureComponent {
     }
   }
 
-  handleToggle(id) {
+  handleToggle(id: keyType) {
     const { expanded, onExpand } = this.props
     let newExpanded
 
@@ -117,27 +143,27 @@ class Tree extends PureComponent {
       onExpand([id])
       return
     }
-
-    if (expanded.indexOf(id) >= 0) {
-      newExpanded = expanded.filter(e => e !== id)
+    const expandedArr = expanded!
+    if (expandedArr.indexOf(id) >= 0) {
+      newExpanded = expandedArr.filter(e => e !== id)
     } else {
-      newExpanded = [...expanded, id]
+      newExpanded = [...expandedArr, id]
     }
     if (onExpand) onExpand(newExpanded)
   }
 
-  handleDrop(id, targetId, position) {
+  handleDrop(id: keyType, targetId: keyType, position: number) {
     const { childrenKey } = this.props
     const current = this.datum.getPath(id)
     const target = this.datum.getPath(targetId)
     const data = immer(this.props.data, draft => {
-      let node = draft
-      let temp
-      let removeNode
+      let node: any = draft
+      let temp: DataItem[]
+      let removeNode: () => void
       let offset = 0
       current.indexPath.forEach((p, i) => {
         if (i < current.indexPath.length - 1) {
-          node = node[p][childrenKey]
+          node = node[p][childrenKey] as DataItem[]
         } else {
           temp = node
           removeNode = () => temp.splice(p, 1)[0]
@@ -145,7 +171,7 @@ class Tree extends PureComponent {
         }
       })
 
-      let tnode = draft
+      let tnode: any = draft
       target.indexPath.forEach((p, i) => {
         if (i < target.indexPath.length - 1) {
           tnode = tnode[p][childrenKey]
@@ -171,12 +197,15 @@ class Tree extends PureComponent {
         targetId = target.path[target.path.length - 1]
       }
 
+      // @ts-ignore
       removeNode()
     })
-    this.props.onDrop(data, id, targetId, position)
+    if (this.props.onDrop) {
+      this.props.onDrop(data, id, targetId, position)
+    }
   }
 
-  handleProps(key) {
+  handleProps(key: 'dragImageSelector' | 'childrenClass' | 'leafClass') {
     return this.props[key]
   }
 
@@ -191,13 +220,13 @@ class Tree extends PureComponent {
       onExpand,
       onChange,
       renderItem,
-      mode,
+      mode = DefaultProps.mode,
       onDrop,
       loader,
       parentClickExpand,
       childrenKey,
       expandIcons,
-      dragImageStyle,
+      dragImageStyle = DefaultProps.dragImageStyle,
       dragImageSelector,
       childrenClass,
       leafClass,
@@ -214,7 +243,7 @@ class Tree extends PureComponent {
         className={className}
         data={data}
         datum={this.datum}
-        disabled={typeof disabled !== 'function' && disabled}
+        disabled={typeof disabled !== 'function' && !!disabled}
         bindNode={this.bindNode}
         keygen={keygen}
         line={line}
@@ -228,7 +257,7 @@ class Tree extends PureComponent {
         renderItem={renderItem}
         style={style}
         parentClickExpand={parentClickExpand}
-        childrenKey={childrenKey}
+        childrenKey={childrenKey!}
         expandIcons={expandIcons}
         dragImageStyle={dragImageStyle}
         dragImageSelector={typeof dragImageSelector === 'function' ? dragImageSelector : this.handleDragImageSelector}
@@ -242,46 +271,6 @@ class Tree extends PureComponent {
       />
     )
   }
-}
-
-Tree.propTypes = {
-  ...getProps(PropTypes),
-  active: PropTypes.any,
-  data: PropTypes.array,
-  defaultExpanded: PropTypes.arrayOf(PropTypes.string),
-  defaultValue: PropTypes.arrayOf(PropTypes.string),
-  disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
-  expanded: PropTypes.arrayOf(PropTypes.string),
-  line: PropTypes.bool,
-  loader: PropTypes.func,
-  mode: PropTypes.oneOf([0, 1, 2, 3, 4]),
-  onChange: PropTypes.func,
-  onClick: PropTypes.func,
-  onExpand: PropTypes.func,
-  onDrop: PropTypes.func,
-  value: PropTypes.array,
-  datum: PropTypes.object,
-  parentClickExpand: PropTypes.bool,
-  defaultExpandAll: PropTypes.bool,
-  dataUpdate: PropTypes.bool,
-  childrenKey: PropTypes.string,
-  expandIcons: PropTypes.array,
-  dragImageStyle: PropTypes.object,
-  radioUpdate: PropTypes.bool,
-  doubleClickExpand: PropTypes.bool,
-  dragSibling: PropTypes.bool,
-  nodeClass: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-  unmatch: PropTypes.bool,
-}
-
-Tree.defaultProps = {
-  data: [],
-  defaultExpanded: [],
-  defaultValue: [],
-  mode: 0,
-  dataUpdate: true,
-  childrenKey: 'children',
-  dragImageStyle: {},
 }
 
 export default Tree

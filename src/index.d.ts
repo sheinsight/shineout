@@ -143,7 +143,7 @@ export { default as Transfer } from './Transfer'
 import { TransferProps as __TransferProps,  } from './Transfer'
 
 export { default as Tree } from './Tree'
-import { TreeProps as __TreeProps,  } from './Tree'
+import { TreeProps as __TreeProps,  } from './Tree/interface'
 
 export { default as TreeSelect } from './TreeSelect'
 import { TreeSelectProps as __TreeSelectProps, ComponentRef as __ComponentRef,  } from './TreeSelect'
@@ -168,12 +168,12 @@ export namespace TYPE {
   }
   export namespace Button {
     export type Props = __ButtonProps
-    export type GroupProps = __ButtonGroupProps  
+    export type GroupProps = __ButtonGroupProps
     export type Type = __ButtonType
     export type Shape = __ButtonShape
   }
   export namespace Card {
-  
+
     export type Props = __CardProps
     export type BodyProps = __CardBodyProps
     export type HeaderProps = __CardHeaderProps
@@ -182,7 +182,7 @@ export namespace TYPE {
     export type AccordionProps<T> = __CardAccordionProps<T>
   }
   export namespace CardGroup {
-  
+
     export type Props = __CardGroupProps
     export type ItemProps<T> = __CardGroupItemProps<T>
   }
@@ -190,18 +190,18 @@ export namespace TYPE {
     export type Props = __CarouselProps
   }
   export namespace Cascader {
-  
+
     export type BaseValue = __BaseValue
     export type Props<Item, Value extends BaseValue> = __CascaderProps<Item, Value>
   }
   export namespace Checkbox {
-  
+
     export type Props<Value> = __CheckboxProps<Value>
     export type GroupProps<DataItem, Value> = __GroupProps<DataItem, Value>
   }
   export namespace DatePicker {
     export type Props<T = __DatePickerValue> = __DatePickerProps<T>
-    export type QuickSelect = __QuickSelect  
+    export type QuickSelect = __QuickSelect
     export type AreaType = __AreaType
     export type DateTimeType = __DateTimeType
     export type Value = __DatePickerValue
@@ -213,7 +213,7 @@ export namespace TYPE {
     export type Props = __DrawerProps
   }
   export namespace Dropdown {
-    export type Props = __DropdownProps  
+    export type Props = __DropdownProps
     export type Item = __DropdownItem
   }
   export namespace EditableArea {
@@ -235,7 +235,7 @@ export namespace TYPE {
     export type Props = __GapProps
   }
   export namespace Grid {
-    export type Props = __GridProps  
+    export type Props = __GridProps
     export type responsiveType = __responsiveType
   }
   export namespace Icon {
@@ -247,7 +247,7 @@ export namespace TYPE {
     export type GroupProps = __ImageGroupProps
   }
   export namespace Input {
-  
+
     export type Props = __InputProps
     export type GroupProps = __InputGroupProps
     export type NumberProps = __InputNumberProps
@@ -268,7 +268,7 @@ export namespace TYPE {
     export type Props = __PaginationProps
   }
   export namespace Popover {
-  
+
     export type Props = __PopoverProps
     export type ConfirmProps = __PopoverConfirmProps
     export type ContentProps = __PopoverContentProps
@@ -277,12 +277,12 @@ export namespace TYPE {
     export type Props = __ProgressProps
   }
   export namespace Radio {
-  
+
     export type Props = __RadioProps
     export type GroupProps<Value, Item> = __RadioGroupProps<Value, Item>
   }
   export namespace Rate {
-  
+
     export type Props = __RateProps
   }
   export namespace Rule {
@@ -296,7 +296,7 @@ export namespace TYPE {
     export type paramFunc = __paramFunc
     export type Params = __RuleParams
     export type Result = __RuleResult
-    export type RegExpParams = __RegExpParams  
+    export type RegExpParams = __RegExpParams
     export type Common = __RuleCommon
     export type ItemResult = __RuleItemResult
     export type CommonValue = __RuleCommonValue
@@ -310,18 +310,18 @@ export namespace TYPE {
     export type Props<Value> = __SliderProps<Value>
   }
   export namespace Spin {
-  
+
     export type Props = __SpinProps
   }
   export namespace Sticky {
     export type Props = __StickyProps
   }
   export namespace Switch {
-  
+
     export type Props = __SwitchProps
   }
   export namespace Table {
-  
+
     export type Ref = __TableRef
     export type ColumnFix = __ColumnFix
     export type ColumnType = __ColumnType
@@ -344,7 +344,7 @@ export namespace TYPE {
     export type Props = __TextareaProps
   }
   export namespace Tooltip {
-  
+
     export type Props = __TooltipProps
   }
   export namespace Transfer {
