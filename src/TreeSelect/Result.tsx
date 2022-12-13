@@ -11,7 +11,7 @@ import More, { getResetMore } from '../Select/More'
 import InputTitle from '../InputTitle'
 import { getKey } from '../utils/uid'
 import { getDirectionClass } from '../utils/classname'
-import { ResultProps, ResultValue, UnMatchedValue } from './Props'
+import { ResultProps, ResultValue } from './Props'
 
 export const IS_NOT_MATCHED_VALUE = 'IS_NOT_MATCHED_VALUE'
 
@@ -20,15 +20,27 @@ const getResultContent = <Item, Value>(
   renderResult: ResultProps<Item, Value>['renderResult'],
   renderUnmatched: ResultProps<Item, Value>['renderUnmatched']
 ) => {
-  if (isObject(data) && (data as UnMatchedValue<Value>).IS_NOT_MATCHED_VALUE) {
+  if (isObject(data) && data.IS_NOT_MATCHED_VALUE) {
     if (typeof renderUnmatched === 'function') return renderUnmatched(data.value)
-    return isObject(data.value) ? renderResult(data.value) : data.value
+    return isObject(data.value) ? renderResult!(data.value) : data.value
   }
-  return renderResult(data)
+  return renderResult!(data as Value)
 }
 
 // eslint-disable-next-line
-function Item({ content, data, disabled, onClick, only }) {
+function Item<Value>({
+  content,
+  data,
+  disabled,
+  onClick,
+  only,
+}: {
+  content: React.ReactNode | string
+  data: ResultValue<Value>
+  disabled: boolean
+  onClick: (value: ResultValue<Value>) => void
+  only: boolean
+}) {
   const value = data
   const click = disabled || !onClick ? undefined : () => onClick(value)
   const synDisabled = disabled || !click
@@ -109,7 +121,8 @@ class Result<Item, Value> extends PureComponent<ResultProps<Item, Value>, Result
       } else if (preProps.result !== result) {
         let i = preProps.result.length - 1
         while (i >= 0) {
-          const getUnMatchKey = (d, k) => (d && d.IS_NOT_MATCHED_VALUE ? d.value : getKey(d, k))
+          const getUnMatchKey = (d: ResultValue<Value>, k: ResultProps<Item, Value>['keygen']) =>
+            d && isObject(d) && d.IS_NOT_MATCHED_VALUE ? d.value : getKey(d, k as any)
           const isSameData = (
             data1: ResultValue<Value>,
             data2: ResultValue<Value>,
@@ -146,8 +159,9 @@ class Result<Item, Value> extends PureComponent<ResultProps<Item, Value>, Result
     this.forceUpdate()
   }
 
-  handleRemove(...args) {
+  handleRemove(...args: any) {
     const { onRemove } = this.props
+    // @ts-ignore
     onRemove(...args)
   }
 
@@ -208,7 +222,7 @@ class Result<Item, Value> extends PureComponent<ResultProps<Item, Value>, Result
     )
   }
 
-  renderMore(items: Item[]) {
+  renderMore(items: React.ReactNode[]) {
     const { compressed } = this.props
     const more = this.getCompressedBound()
     return [

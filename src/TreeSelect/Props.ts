@@ -1,5 +1,4 @@
 import * as React from 'react'
-import Item from 'src/Form/Item'
 import {
   CommonProps,
   KeygenType,
@@ -17,7 +16,7 @@ export interface ComponentRef<Item, Value> {
 export interface BaseTreeSelectProps<Item, Value>
   extends StandardProps,
     FormItemStandardProps<Value>,
-    StructDataStandardProps<Item>,
+    Omit<StructDataStandardProps<Item>, 'renderResult'>,
     Pick<CommonProps, 'absolute'> {
   /**
    * show border bottom
@@ -255,7 +254,7 @@ export interface BaseTreeSelectProps<Item, Value>
    *
    * default: none
    */
-  renderUnmatched?: (data: Item) => ReactNode
+  renderUnmatched?: (data: Item | Value) => ReactNode
 
   /**
    * option collapse callback
@@ -310,6 +309,15 @@ export interface BaseTreeSelectProps<Item, Value>
    * default: -
    */
   getComponentRef?: ((ref: ComponentRef<Item, any>) => void) | { current?: ComponentRef<Item, any> }
+
+  /**
+   * The content displayed in the result after selecting, if not set, use renderItem. not show while return null, result is current selected
+   *
+   * 选中后在结果中显示的内容，默认和 renderItem 相同
+   *
+   * default: renderItem
+   */
+  renderResult?: (data: Item | Value) => React.ReactNode
 }
 
 export interface InputProps<Item, Value> extends Pick<BaseTreeSelectProps<Item, Value>, 'onFilter'> {
