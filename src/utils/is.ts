@@ -1,4 +1,4 @@
-import { isValidElement, ReactElement } from 'react'
+import React from 'react'
 import { curry } from './func'
 
 const nameIs = curry((name: unknown, val: unknown) => {
@@ -74,12 +74,12 @@ export const isPercent = (n: unknown): boolean => typeof n === 'string' && /\d{1
 export const isInseparable = (val: unknown): boolean =>
   Object(val) !== val || isFunc(val) || isDate(val) || isError(val) || isSet(val) || isMap(val) || isRegexp(val)
 
-export const isLink = (el: unknown): boolean => {
+export const isLink = (el: unknown): el is React.ReactElement => {
   if (typeof el === 'object') {
-    if (!isValidElement(el)) return false
+    if (!React.isValidElement(el)) return false
     if (!el.type) return false
     if (el.type === 'a') return true
-    if (el.props && (el as ReactElement).props.to) return true
+    if (el.props && (el as React.ReactElement).props.to) return true
   }
 
   return false

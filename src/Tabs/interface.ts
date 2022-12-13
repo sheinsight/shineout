@@ -1,3 +1,7 @@
-import { Props } from './Props'
+import * as T from './Props'
 
-export type TabsProps = Props
+export type TabsProps = T.Props
+
+export type TabsPanelProps = T.PanelProps
+
+export type TabsLinkProps = T.TabsLinkProps

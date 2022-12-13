@@ -159,80 +159,6 @@ export interface Props extends StandardProps {
   color?: string
 }
 
-export interface TabsPanelProps extends StandardProps {
-  /**
-   * Background color, override the Tab's background
-   *
-   * 背景色，会覆盖 Tabs 的background
-   *
-   * default: -
-   */
-  background?: string
-
-  /**
-   * Border color, override the Tab's border
-   *
-   * 边框颜色，会覆盖 Tabs 的border
-   *
-   * default: -
-   */
-  border?: string
-
-  /**
-   * Specifies the Panel should be disabled
-   *
-   * 是否禁用
-   *
-   * default: false
-   */
-  disabled?: boolean
-
-  /**
-   * The default is index
-   *
-   * 选填，默认为 index
-   *
-   * default: -
-   */
-  id?: string | number
-
-  /**
-   * Tab content
-   *
-   * 标签标题内容
-   *
-   * default: required
-   */
-  tab?: string | ReactNode
-
-  /**
-   * content
-   *
-   * 内容
-   *
-   * default: -
-   */
-  children: ReactNode
-
-  /**
-   * default collapse state, effective when collapsible is set to true
-   *
-   * 默认折叠状态,当 collapsible 设置为 true 时生效
-   *
-   * default: -
-   */
-  defaultCollapsed?: boolean
-
-  /**
-   * auto fill the panel
-   *
-   * 自动填充内容区域
-   *
-   * default: false
-   */
-  autoFill?: boolean
-}
-
 export interface TabsLinkProps extends AnchorHTMLAttributes<any> {
   /**
    * Link content
@@ -241,7 +167,7 @@ export interface TabsLinkProps extends AnchorHTMLAttributes<any> {
    *
    * default: required
    */
-  children: React.ReactElement
+  children: React.ReactNode
 
   onClick?: () => void
 }
