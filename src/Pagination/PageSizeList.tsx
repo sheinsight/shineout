@@ -1,17 +1,23 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import Select from '../Select'
 import { paginationClass } from './styles'
 import { getDirectionClass } from '../utils/classname'
+import { PageSizeListProps } from './Props'
 
-class PageSizeList extends PureComponent {
-  constructor(props) {
+const DefaultValue = {
+  pageSizeList: [10, 20, 30, 50, 100],
+}
+
+class PageSizeList extends PureComponent<PageSizeListProps> {
+  static defaultProps = DefaultValue
+
+  constructor(props: PageSizeListProps) {
     super(props)
 
     this.handleChange = this.handleChange.bind(this)
   }
 
-  handleChange(pageSize) {
+  handleChange(pageSize: number) {
     const { current, onChange } = this.props
     const start = (current - 1) * this.props.pageSize + 1
 
@@ -19,7 +25,7 @@ class PageSizeList extends PureComponent {
   }
 
   render() {
-    const { pageSize, pageSizeList, text, disabled, size, sizeListProps = {} } = this.props
+    const { pageSize, pageSizeList = DefaultValue.pageSizeList, text, disabled, size, sizeListProps = {} } = this.props
 
     return (
       <Select
@@ -37,21 +43,6 @@ class PageSizeList extends PureComponent {
       />
     )
   }
-}
-
-PageSizeList.propTypes = {
-  current: PropTypes.number.isRequired,
-  disabled: PropTypes.bool,
-  onChange: PropTypes.func.isRequired,
-  pageSize: PropTypes.number.isRequired,
-  pageSizeList: PropTypes.array,
-  text: PropTypes.object.isRequired,
-  size: PropTypes.string,
-  sizeListProps: PropTypes.object,
-}
-
-PageSizeList.defaultProps = {
-  pageSizeList: [10, 20, 30, 50, 100],
 }
 
 export default PageSizeList

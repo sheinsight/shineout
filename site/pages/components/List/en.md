@@ -28,6 +28,7 @@
 | lineHeight | number | 32 | false | height of item |
 | colNum | number | 1 | false | Multi-column display |
 | size | small \| default \| large | default | false | Size of list |
+| pagination | object | - | - | See Pagination |
 
 ### List.BaseItem
 

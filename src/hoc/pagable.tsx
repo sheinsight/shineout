@@ -1,7 +1,7 @@
 import React from 'react'
 import { PureComponent } from '../component'
 import Pagination from '../Pagination'
-import { PaginationProps } from '../Pagination'
+import { PaginationProps } from '../Pagination/Props'
 import { GetPagableProps } from './Props'
 
 interface PagableProps {
