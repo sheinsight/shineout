@@ -1,0 +1,57 @@
+.so-chasing-dots {
+  position: relative;
+  margin: auto;
+  -webkit-animation: so-chasing-dots-rotate 2s infinite linear;
+          animation: so-chasing-dots-rotate 2s infinite linear;
+  text-align: center;
+}
+@-webkit-keyframes so-chasing-dots-rotate {
+  100% {
+    -webkit-transform: rotateZ(360deg);
+            transform: rotateZ(360deg);
+  }
+}
+@keyframes so-chasing-dots-rotate {
+  100% {
+    -webkit-transform: rotateZ(360deg);
+            transform: rotateZ(360deg);
+  }
+}
+@-webkit-keyframes so-chasing-dots-bounce {
+  0%,
+  100% {
+    -webkit-transform: scale3d(0, 0, 1);
+            transform: scale3d(0, 0, 1);
+  }
+  50% {
+    -webkit-transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1);
+  }
+}
+@keyframes so-chasing-dots-bounce {
+  0%,
+  100% {
+    -webkit-transform: scale3d(0, 0, 1);
+            transform: scale3d(0, 0, 1);
+  }
+  50% {
+    -webkit-transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1);
+  }
+}
+.so-chasing-dots-item {
+  position: absolute;
+  top: 0;
+  display: inline-block;
+  width: 60%;
+  height: 60%;
+  -webkit-animation: so-chasing-dots-bounce 2s infinite ease-in-out;
+          animation: so-chasing-dots-bounce 2s infinite ease-in-out;
+  border-radius: 100%;
+}
+.so-chasing-dots-item:last-child {
+  top: auto;
+  bottom: 0;
+  -webkit-animation-delay: -1s;
+          animation-delay: -1s;
+}

@@ -1,0 +1,48 @@
+.so-hidable-fade-animation-240 {
+  -webkit-transition: height 0.24s ease-in-out, opacity 0.24s ease-in-out;
+  transition: height 0.24s ease-in-out, opacity 0.24s ease-in-out;
+}
+.so-hidable-fade-animation-360 {
+  -webkit-transition: height 0.36s ease-in-out, opacity 0.36s ease-in-out;
+  transition: height 0.36s ease-in-out, opacity 0.36s ease-in-out;
+}
+.so-hidable-fade-animation-480 {
+  -webkit-transition: height 0.48s ease-in-out, opacity 0.48s ease-in-out;
+  transition: height 0.48s ease-in-out, opacity 0.48s ease-in-out;
+}
+.so-hidable-animation-240 {
+  -webkit-transition: height 0.24s ease-in-out, opacity 0.24s ease-in-out, -webkit-transform 0.24s ease-in-out;
+  transition: height 0.24s ease-in-out, opacity 0.24s ease-in-out, -webkit-transform 0.24s ease-in-out;
+  transition: height 0.24s ease-in-out, opacity 0.24s ease-in-out, transform 0.24s ease-in-out;
+  transition: height 0.24s ease-in-out, opacity 0.24s ease-in-out, transform 0.24s ease-in-out, -webkit-transform 0.24s ease-in-out;
+}
+.so-hidable-animation-360 {
+  -webkit-transition: height 0.36s ease-in-out, opacity 0.36s ease-in-out, -webkit-transform 0.36s ease-in-out;
+  transition: height 0.36s ease-in-out, opacity 0.36s ease-in-out, -webkit-transform 0.36s ease-in-out;
+  transition: height 0.36s ease-in-out, opacity 0.36s ease-in-out, transform 0.36s ease-in-out;
+  transition: height 0.36s ease-in-out, opacity 0.36s ease-in-out, transform 0.36s ease-in-out, -webkit-transform 0.36s ease-in-out;
+}
+.so-hidable-animation-480 {
+  -webkit-transition: height 0.48s ease-in-out, opacity 0.48s ease-in-out, -webkit-transform 0.48s ease-in-out;
+  transition: height 0.48s ease-in-out, opacity 0.48s ease-in-out, -webkit-transform 0.48s ease-in-out;
+  transition: height 0.48s ease-in-out, opacity 0.48s ease-in-out, transform 0.48s ease-in-out;
+  transition: height 0.48s ease-in-out, opacity 0.48s ease-in-out, transform 0.48s ease-in-out, -webkit-transform 0.48s ease-in-out;
+}
+.so-hidable-scale-y {
+  -webkit-transform: scaleY(0);
+      -ms-transform: scaleY(0);
+          transform: scaleY(0);
+}
+.so-hidable-scale-y.so-hidable-show {
+  -webkit-transform: scaleY(1);
+      -ms-transform: scaleY(1);
+          transform: scaleY(1);
+}
+.so-hidable-fade,
+.so-hidable-collapse-fade {
+  opacity: 0;
+}
+.so-hidable-fade.so-hidable-show,
+.so-hidable-collapse-fade.so-hidable-show {
+  opacity: 1;
+}

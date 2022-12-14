@@ -1,0 +1,113 @@
+.so-progress-rtl {
+  direction: rtl;
+  text-align: right;
+}
+.so-progress-line {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.so-progress-line .so-progress-background {
+  position: relative;
+  overflow: hidden;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  background: var(--progress-bgc, var(--gray-200, #e9ecef));
+}
+.so-progress-line .so-progress-content {
+  margin-left: 8px;
+}
+.so-progress-rtl.so-progress-line .so-progress-content {
+  margin-right: 8px;
+  margin-left: 0;
+}
+.so-progress-line .so-progress-front {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: var(--primary-color, #3399ff);
+  -webkit-transition: width 0.32s linear;
+  transition: width 0.32s linear;
+}
+.so-progress-rtl.so-progress-line .so-progress-front {
+  left: auto;
+  right: 0;
+}
+.so-progress-line-popup {
+  padding-top: 38px;
+  position: relative;
+}
+.so-progress-line .so-progress-popup {
+  display: inline-block;
+  position: absolute;
+  -webkit-transition: all 0.32s linear;
+  transition: all 0.32s linear;
+  top: 0;
+  background: #fff;
+  padding: 4px 8px;
+  border-radius: 2px;
+  -webkit-box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
+          box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
+}
+.so-progress-line .so-progress-popup .so-progress-arrow {
+  background: #fff;
+  position: absolute;
+  display: block;
+  width: 6px;
+  height: 6px;
+  left: 50%;
+  bottom: 0;
+  -webkit-transform: translateX(-50%) translateY(50%) rotate(45deg);
+      -ms-transform: translateX(-50%) translateY(50%) rotate(45deg);
+          transform: translateX(-50%) translateY(50%) rotate(45deg);
+}
+.so-progress-circle {
+  position: relative;
+  display: inline-block;
+}
+.so-progress-circle svg {
+  -webkit-transform: rotate(270deg);
+      -ms-transform: rotate(270deg);
+          transform: rotate(270deg);
+}
+.so-progress-circle .so-progress-background {
+  stroke: var(--progress-bgc, var(--gray-200, #e9ecef));
+}
+.so-progress-circle .so-progress-front {
+  stroke: var(--primary-color, #3399ff);
+  -webkit-transition: stroke-dashoffset 0.32s ease 0s, stroke-dasharray 0.32s ease 0s, stroke 0.32s, stroke-width 0.06s ease 0.32s;
+  transition: stroke-dashoffset 0.32s ease 0s, stroke-dasharray 0.32s ease 0s, stroke 0.32s, stroke-width 0.06s ease 0.32s;
+}
+.so-progress-circle .so-progress-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+.so-progress-success .so-progress-front {
+  background: var(--success-color, #00cc66);
+  stroke: var(--success-color, #00cc66);
+}
+.so-progress-success .so-progress-content {
+  color: var(--success-color, #00cc66);
+}
+.so-progress-info .so-progress-front {
+  background: var(--info-color, #17a2b8);
+  stroke: var(--info-color, #17a2b8);
+}
+.so-progress-warning .so-progress-front {
+  background: var(--warning-color, #ff9900);
+  stroke: var(--warning-color, #ff9900);
+}
+.so-progress-error .so-progress-front,
+.so-progress-danger .so-progress-front {
+  background: var(--danger-color, #f85555);
+  stroke: var(--danger-color, #f85555);
+}

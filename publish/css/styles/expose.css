@@ -1,0 +1,482 @@
+.so-expose-location-primary {
+  color: var(--primary-color, #3399ff);
+  display: none;
+  position: absolute;
+}
+.so-expose-location-warning {
+  color: var(--warning-color, #ff9900);
+  display: none;
+  position: absolute;
+}
+.so-expose-location-danger {
+  color: var(--danger-color, #f85555);
+  display: none;
+  position: absolute;
+}
+.so-expose-location-success {
+  color: var(--success-color, #00cc66);
+  display: none;
+  position: absolute;
+}
+.so-expose-location-secondary {
+  color: var(--secondary-color, #999999);
+  display: none;
+  position: absolute;
+}
+.so-expose-primary-background {
+  background-color: var(--primary-color, #3399ff);
+}
+.so-expose-primary-color {
+  color: var(--primary-color, #3399ff);
+}
+.so-expose-primary-border {
+  border-color: var(--primary-color, #3399ff);
+}
+.so-expose-warning-background {
+  background-color: var(--warning-color, #ff9900);
+}
+.so-expose-warning-color {
+  color: var(--warning-color, #ff9900);
+}
+.so-expose-warning-border {
+  border-color: var(--warning-color, #ff9900);
+}
+.so-expose-danger-background {
+  background-color: var(--danger-color, #f85555);
+}
+.so-expose-danger-color {
+  color: var(--danger-color, #f85555);
+}
+.so-expose-danger-border {
+  border-color: var(--danger-color, #f85555);
+}
+.so-expose-success-background {
+  background-color: var(--success-color, #00cc66);
+}
+.so-expose-success-color {
+  color: var(--success-color, #00cc66);
+}
+.so-expose-success-border {
+  border-color: var(--success-color, #00cc66);
+}
+.so-expose-secondary-background {
+  background-color: var(--secondary-color, #999999);
+}
+.so-expose-secondary-color {
+  color: var(--secondary-color, #999999);
+}
+.so-expose-secondary-border {
+  border-color: var(--secondary-color, #999999);
+}
+.so-expose-table {
+  color: var(--table-color, #6c757d);
+  margin-bottom: var(--table-margin-bottom, 20px);
+}
+.so-expose-table-head {
+  font-weight: var(--table-head-font-weight, bold);
+  background: var(--table-head-bg, #fafafa);
+  border-radius: var(--table-border-radius-top, 0) var(--table-border-radius-top, 0) 0 0;
+  color: var(--table-head-color, var(--gray-900, #212529));
+  border-color: var(--table-border-color, #ddd);
+  padding: var(--table-header-cell-padding, 5px 10px);
+}
+.so-expose-table-head-hover {
+  background: var(--table-hover-bg, #f5f5f5);
+}
+.so-expose-table-head-top {
+  border-width: var(--table-header-top-divider-width, 0);
+}
+.so-expose-table-spacing {
+  height: var(--table-row-spacing, 0);
+  border-radius: var(--table-row-border-radius, 0);
+}
+.so-expose-table-cell {
+  padding: var(--table-cell-padding-vertical, 8px) var(--table-cell-padding-horizontal, 8px);
+}
+.so-expose-table-small {
+  padding: var(--table-small-cell-padding, var(--table-header-cell-padding, 5px 10px));
+}
+.so-expose-table-fixed-start {
+  background: var(--table-fixed-start-color, rgba(0, 0, 0, 0.15));
+}
+.so-expose-table-fixed-end {
+  background: var(--table-fixed-end-color, rgba(0, 0, 0, 0));
+}
+.so-expose-table-scroll-ratio {
+  width: var(--table-scroll-ratio, 100px);
+}
+.so-expose-table-selected {
+  background: var(--table-selected-row-bg, #fff);
+}
+.so-expose-table-tree-expand {
+  margin-right: var(--table-tree-expand-icon-margin-right, 8px);
+}
+.so-expose-table-body {
+  background: var(--table-body-bg, #ffffff);
+}
+.so-expose-table-even {
+  background-color: var(--table-even-td-bgc, #f9f9f9);
+}
+.so-expose-table-odd {
+  background-color: var(--table-odd-td-bgc, #fff);
+}
+.so-expose-dropdown-button {
+  border: var(--dropdown-border-width, 1px) solid #000;
+}
+.so-expose-dropdown-options-hover {
+  background-color: var(--dropdown-options-hover-bgc, #f5f5f5);
+  color: var(--dropdown-options-hover-color, var(--gray-800-darken-5, #292d32));
+}
+.so-expose-select-result-item {
+  background: var(--gray-100, #f8f9fa);
+  padding: var(--select-result-padding-vertical, 0) var(--select-result-padding-horizontal-16, 20px) var(--select-result-padding-vertical, 0) var(--select-result-padding-horizontal, 4px);
+}
+.so-expose-select-option-hover {
+  background: var(--select-option-hover-bg, #f5f5f5);
+  color: var(--select-option-hover-color, #3399ff);
+}
+.so-expose-select-close {
+  background: var(--select-clear-bg-color, #94a1ae);
+}
+.so-expose-select-compressed {
+  background: var(--select-compressed-hover-bg, rgba(51, 153, 255, 0.6));
+}
+.so-expose-select-tree {
+  color: var(--select-tree-content-color, var(--gray-600, #6c757d));
+}
+.so-expose-select-tree-icon-hover {
+  background: var(--select-tree-icon-hover-bg-color, var(--gray-100, #f8f9fa));
+}
+.so-expose-select-tree-node-selected {
+  background: var(--select-tree-node-selected-bg, var(--primary-color-fade-10, rgba(51, 153, 255, 0.1)));
+  color: var(--select-tree-node-selected-color, var(--primary-color, #3399ff));
+}
+.so-expose-select-tree-node-hover {
+  background: var(--select-tree-node-hover-bg, var(--primary-color-fade-10, rgba(51, 153, 255, 0.1)));
+  color: var(--select-tree-node-hover-color, var(--gray-600, #6c757d));
+}
+.so-expose-select-tree-disabled {
+  background: var(--select-tree-disabled-bg-color, #e9ecef);
+  color: var(--select-tree-disabled-content-color, var(--gray-600, #6c757d));
+}
+.so-expose-datepicker-month-item {
+  border-radius: 2px;
+}
+.so-expose-datepicker-day-hover-bgc {
+  background-color: var(--datepicker-day-hover-bgc, var(--gray-100, #f8f9fa));
+}
+.so-expose-slider-bar {
+  background: var(--slider-bar-color, #ced4da);
+}
+.so-expose-slider-bar-disabled {
+  background: var(--slider-disabled-bar-bg, #adb5bd);
+}
+.so-expose-slider-indicator {
+  background: var(--slider-indicator-bg, #fff);
+  width: var(--slider-indicator-size, 14px);
+}
+.so-expose-slider-indicator-disabled {
+  background: var(--slider-disbaled-indicator-bg, var(--slider-indicator-bg, #fff));
+  border-color: var(--slider-disbaled-indicator-border-color, var(--slider-disabled-bar-bg, #adb5bd));
+}
+.so-expose-slider-value {
+  height: var(--slider-value-bottom, 14px);
+}
+.so-expose-menu-text {
+  color: var(--menu-item-color, #212529);
+}
+.so-expose-menu-dark {
+  background: var(--menu-dark-bg, #001529);
+  color: var(--menu-dark-color, #bfbfbf);
+}
+.so-expose-menu-dark-active {
+  background: var(--menu-dark-acitve-bg, #3399ff);
+}
+.so-expose-menu-dark-hover {
+  color: var(--menu-item-dark-hover-color, #fff);
+  background-color: var(--menu-item-dark-hover-bgc, rgba(51, 153, 255, 0.5));
+}
+.so-expose-menu-dark-bar {
+  background-color: var(--menu-dark-item-active-indicator, var(--primary-color, #3399ff));
+}
+.so-expose-menu-dark-root {
+  background-color: var(--menu-root-node-bgc, transparent);
+}
+.so-expose-menu-dark-seg {
+  border-top-color: var(--menu-children-segmentation, transparent);
+}
+.so-expose-menu-dark-vertical {
+  background-color: var(--menu-vertical-dark-parent-active-bgc, #020B18);
+}
+.so-expose-menu-dark-vertical-children {
+  background-color: var(--menu-item-has-children-active-bgc, var(--primary-color, #3399ff));
+  color: var(--menu-item-has-children-active-color, #fff);
+}
+.so-expose-menu-dark-vertical-bar {
+  width: var(--menu-vertical-in-path-bar-width, 4px);
+}
+.so-expose-menu-bar {
+  background-color: var(--menu-item-active-indicator, var(--primary-color, #3399ff));
+  width: var(--menu-active-bar, 3px);
+}
+.so-expose-menu-active {
+  background: var(--menu-item-active-bg, #3399ff);
+  color: var(--menu-item-active-color, #fff);
+  border-radius: var(--menu-active-border-radius, 0);
+  padding: var(--menu-active-padding-vertical, 0) var(--menu-active-padding-horizontal, 0);
+}
+.so-expose-menu-light-hover {
+  color: var(--menu-item-light-hover-color, var(--primary-color, #3399ff));
+  background-color: var(--menu-item-light-hover-bgc, rgba(51, 153, 255, 0.05));
+}
+.so-expose-form-inline {
+  margin-right: var(--form-item-margin-right, 20px);
+}
+.so-expose-form-tip {
+  color: var(--form-tip-color, #7e8b98);
+  font-size: var(--form-tip-font-size, 13px);
+}
+.so-expose-form-label {
+  text-align: var(--form-item-label-align, start);
+}
+.so-expose-form-error {
+  line-height: var(--form-item-error-line-height, var(--common-line-height, 1.42857143));
+  margin-top: var(--form-item-error-margin-top, 5px);
+  margin-bottom: var(--form-item-error-margin-bottom, 8px);
+}
+.so-expose-form-keep-error {
+  min-height: var(--form-Item-min-keep-height, 24px);
+}
+.so-expose-gray-100 {
+  color: var(--gray-100, #f8f9fa);
+}
+.so-expose-gray-200 {
+  color: var(--gray-200, #e9ecef);
+}
+.so-expose-gray-300 {
+  color: var(--gray-300, #dee2e6);
+}
+.so-expose-gray-400 {
+  color: var(--gray-400, #ced4da);
+}
+.so-expose-gray-500 {
+  color: var(--gray-500, #adb5bd);
+}
+.so-expose-gray-600 {
+  color: var(--gray-600, #6c757d);
+}
+.so-expose-gray-700 {
+  color: var(--gray-700, #495057);
+}
+.so-expose-gray-800 {
+  color: var(--gray-800, #343a40);
+}
+.so-expose-gray-900 {
+  color: var(--gray-900, #212529);
+}
+.so-expose-button {
+  margin-left: var(--button-margin-left, 12px);
+}
+.so-expose-button-disabled-delimiter {
+  border-color: var(--button-disabled-delimiter, #d9d9d9);
+}
+.so-expose-input-focus {
+  border-color: var(--input-border-focus-color, #80bdff);
+}
+.so-expose-input-placeholder {
+  font-size: var(--input-placeholder-size, 14px);
+  color: var(--input-placeholder-color, #999);
+}
+.so-expose-input-clear {
+  background-color: var(--input-clear-bg-color, #ced4da);
+}
+.so-expose-input-clear-hover {
+  background-color: var(--input-clear-bg-hover-color, #3399ff);
+}
+.so-expose-alert-close {
+  color: var(--alert-close-color, rgba(0, 0, 0, 0.3));
+}
+.so-expose-alert-close-hover {
+  color: var(--alert-close-hover-color, rgba(0, 0, 0, 0.8));
+}
+.so-expose-radio {
+  width: var(--radio-width, 16px);
+  border: var(--radio-border-width, 1px) solid #fff;
+  color: var(--radio-text-color, var(--checkinput-color, var(--gray-900, #212529)));
+}
+.so-expose-radio-inner {
+  width: var(--radio-inner-width, 8px);
+}
+.so-expose-radio-uncheck {
+  width: var(--radio-border-uncheck-width, 1px);
+}
+.so-expose-radio-group-default {
+  color: var(--radio-button-group-color, var(--button-default-text-color, #333));
+  background-color: var(--radio-button-group-bgc, #fff);
+  border-color: var(--radio-button-group-border-color, var(--button-default-border, #dee2e6));
+  border-radius: var(--radio-button-group-border-radius, var(--button-border-radius, 3px));
+}
+.so-expose-radio-group-active {
+  color: var(--radio-button-group-active-color, #fff);
+  background-color: var(--radio-button-group-active-bgc, var(--primary-color, #3399ff));
+  border-color: var(--radio-button-group-active-border-color, var(--primary-color-dark-5, #198cff));
+}
+.so-expose-pagination {
+  font-size: var(--pagination-font-size, var(--font-size-base, 14px));
+}
+.so-expose-pagination-hover {
+  border-color: var(--pagination-hover-border, #ddd);
+  color: var(--pagination-hover-color, #3399ff);
+  background-color: var(--pagination-hover-bg, #f8f9fa);
+}
+.so-expose-pagination-default {
+  width: var(--pagination-size, 34px);
+}
+.so-expose-pagination-small {
+  width: var(--pagination-size-small, 30px);
+}
+.so-expose-pagination-large {
+  width: var(--pagination-size-large, 42px);
+}
+.so-expose-modal-icon {
+  width: var(--modal-icon-size, 24px);
+  margin-left: var(--modal-icon-left, 32px);
+  margin-top: var(--modal-icon-top, 40px);
+}
+.so-expose-modal-icon-body {
+  padding-top: var(--modal-icon-body-padding-top, 40px);
+  padding-right: var(--modal-icon-body-padding-right, 40px);
+  padding-bottom: var(--modal-icon-body-padding-bottom, 20px);
+  padding-left: var(--modal-icon-body-padding-left, 70px);
+}
+.so-expose-modal-close {
+  color: var(--modal-close-icon-color, #000);
+  margin-top: var(--modal-close-top-margin, 18px);
+  margin-right: var(--modal-close-right-margin, 24px);
+}
+.so-expose-modal-close-hover {
+  color: var(--modal-close-icon-hover-color, #000);
+}
+.so-expose-modal-card {
+  font-size: var(--modal-font-size, inherit);
+  border-radius: var(--modal-border-radius, 4px);
+  border: var(--modal-border-width, 1px) solid var(--modal-border-color, #ddd);
+  -webkit-box-shadow: var(--modal-box-shadow, 0 2px 8px rgba(0, 0, 0, 0.1));
+          box-shadow: var(--modal-box-shadow, 0 2px 8px rgba(0, 0, 0, 0.1));
+  color: var(--modal-color, inherit);
+}
+.so-expose-modal-card-header {
+  padding-top: var(--modal-header-padding-top, 16px);
+  padding-right: var(--modal-header-padding-right, 36px);
+  padding-bottom: var(--modal-header-padding-bottom, 16px);
+  padding-left: var(--modal-header-padding-left, 24px);
+  background: var(--modal-header-bg, #fff);
+}
+.so-expose-modal-card-body {
+  padding-top: var(--modal-body-padding-top, 16px);
+  padding-right: var(--modal-body-padding-right, 24px);
+  padding-bottom: var(--modal-body-padding-bottom, 16px);
+  padding-left: var(--modal-body-padding-left, 24px);
+}
+.so-expose-modal-card-footer {
+  padding: var(--modal-footer-padding, 16px 24px);
+  background: var(--modal-footer-bg, #fff);
+  color: var(--modal-footer-color, 'inherit');
+}
+.so-expose-modal-divider {
+  height: var(--modal-divider-height, 1px);
+  background: var(--modal-divider-color, #ddd);
+}
+.so-expose-tag-close {
+  color: var(--tag-close-color, '#000');
+}
+.so-expose-tag-close-hover {
+  color: var(--tag-close-hover-color, '#000');
+}
+.so-expose-card-divider {
+  height: var(--card-divider-height, 1px);
+  width: var(--card-divider-width, 100%);
+  background: var(--card-divider-color, #ddd);
+}
+.so-expose-tree-indent {
+  width: var(--tree-level-indent, 0);
+}
+.so-expose-tree-node {
+  margin-bottom: var(--tree-node-margin-bottom, 4px);
+}
+.so-expose-tree-default-icon {
+  border-left-color: var(--tree-indicator-color, var(--gray-600, #6c757d));
+}
+.so-expose-tree-line {
+  color: var(--tree-line-color, var(--gray-500, #adb5bd));
+}
+.so-expose-checkbox-indicator {
+  border-color: var(--checkbox-border-color, #ced4da);
+  width: var(--checkbox-border-width, 1px);
+  border-radius: var(--checkbox-indicator-border-radius, 2px);
+}
+.so-expose-checkbox-text {
+  padding: 0 var(--checkbox-text-padding-x, 8px);
+}
+.so-expose-checkbox-disabled {
+  background-color: var(--checkbox-disabled-bgc, #E8EBF0);
+}
+.so-expose-checkbox-checked-disabled {
+  background-color: var(--checkbox-checked-disabled-bgc, var(--checkbox-border-color, #ced4da));
+}
+.so-expose-switch-type {
+  -webkit-animation-name: outter;
+          animation-name: outter;
+}
+.so-expose-msg-close {
+  color: var(--message-close-color, rgba(0, 0, 0, 0.3));
+}
+.so-expose-msg-icon {
+  margin-top: var(--message-icon-margin-top, var(--alert-icon-margin-top, 2px));
+}
+.so-expose-tabs {
+  margin-left: var(--tabs-tab-spacing, 4px);
+}
+.so-expose-tabs-tab {
+  padding: var(--tabs-tab-padding-y, 10px) var(--tabs-tab-padding-x, 15px);
+  font-size: var(--tabs-tab-font-size, inherit);
+  color: var(--tabs-tab-color, initial);
+  border-color: var(--tabs-tab-border-color, transparent);
+  background: var(--tabs-tab-background, transparent);
+}
+.so-expose-tabs-tab-active {
+  color: var(--tabs-tab-active-color, #333);
+  border-color: var(--tabs-tab-active-border-color, #ddd);
+  background: var(--tabs-tab-active-background, #fff);
+}
+.so-expose-tabs-line-active {
+  color: var(--tabs-line-active-color, var(--primary-color, #3399ff));
+}
+.so-expose-cascader-active {
+  background-color: var(--cascader-active-background-color, var(--select-item-active-bg, #f5f5f5));
+  color: var(--cascader-active-color, var(--select-item-active-color, #292d32));
+}
+.so-expose-list-item {
+  background-color: var(--list-item-hover-bgc, rgba(25, 122, 250, 0.1));
+  width: var(--list-item-bottom-border-width, 1px);
+}
+.so-expose-progress {
+  background-color: var(--progress-bgc, var(--gray-200, #e9ecef));
+}
+.so-expose-common-base {
+  font-size: var(--font-size-base, 14px);
+}
+.so-expose-common-input-delay {
+  width: var(--common-input-delay, 400px);
+}
+.so-expose-common-input-trim {
+  opacity: var(--common-input-trim, 0);
+}
+.so-expose-common-spin-default {
+  -webkit-animation-name: var(--common-spin-default-name, default);
+          animation-name: var(--common-spin-default-name, default);
+}
+.so-expose-common-caret {
+  -webkit-animation-name: var(--common-caret-style, fill);
+          animation-name: var(--common-caret-style, fill);
+}

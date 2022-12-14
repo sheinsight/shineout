@@ -1,0 +1,28 @@
+.so-spin-pulse {
+  margin: auto;
+  -webkit-animation: so-spin-pulse-scale 1s infinite ease-in-out;
+          animation: so-spin-pulse-scale 1s infinite ease-in-out;
+  border-radius: 100%;
+}
+@-webkit-keyframes so-spin-pulse-scale {
+  0% {
+    -webkit-transform: scale3d(0, 0, 1);
+            transform: scale3d(0, 0, 1);
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1);
+  }
+}
+@keyframes so-spin-pulse-scale {
+  0% {
+    -webkit-transform: scale3d(0, 0, 1);
+            transform: scale3d(0, 0, 1);
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1);
+  }
+}

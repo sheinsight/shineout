@@ -1,0 +1,107 @@
+@import '../../styles/variables.less';
+@import '../../styles/themes/@{so-theme}.less';
+
+@tag-prefix: ~'@{so-prefix}-tag';
+
+//
+// Alerts
+// --------------------------------------------------
+
+// Base styles
+// -------------------------
+
+.@{tag-prefix} {
+  position: relative;
+  display: inline-block;
+  padding: @tag-padding-y @tag-padding-x;
+  margin: 0 @tag-space;
+  border: 1px solid transparent;
+  background: @tag-bg-color;
+  border-radius: @tag-border-radius;
+  color: @tag-color;
+  cursor: pointer;
+  font-size: @tag-font-size;
+  font-weight: @tag-font-weight;
+  line-height: @tag-default-line-height;
+  transition: all 0.3s;
+
+  .@{tag-prefix}-inline {
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  &.@{tag-prefix}-disabled {
+    cursor: not-allowed;
+  }
+
+  &-input {
+    display: inline-block;
+    width: 100px;
+    height: @tag-input-height;
+    margin: 0 0 0 @tag-space;
+    font-size: @tag-font-size;
+    vertical-align: middle;
+
+    input {
+      padding: @tag-input-padding-y @tag-input-padding-x;
+      line-height: 18px;
+    }
+  }
+
+  .@{tag-prefix}-close-icon {
+    display: inline-block;
+    width: @tag-icon-width;
+    margin: 0 0 0 @tag-close-left;
+    .@{tag-prefix}-rtl& {
+      margin: 0  @tag-close-left 0 0;
+    }
+
+    &:hover svg{
+      fill: @tag-close-hover-color;
+    }
+
+    svg {
+      fill: @tag-close-color;
+      width: @tag-icon-width;
+      margin-bottom: 1px;
+    }
+  }
+
+  .@{tag-prefix}-close-loading {
+    display: inline-block;
+    margin: 0 0 0 @tag-close-left;
+    .@{tag-prefix}-rtl& {
+      margin: 0  @tag-close-left 0 0;
+    }
+  }
+
+  &-default {
+    border-color: @tag-border-color;
+  }
+
+  &-success {
+    .tag-variant(@tag-success-bg);
+    color: @tag-success-color;
+  }
+
+  &-info {
+    .tag-variant(@tag-info-bg);
+    color: @tag-info-color;
+  }
+
+  &-warning {
+    .tag-variant(@tag-warning-bg);
+    color: @tag-warning-color;
+  }
+
+  &-danger, &-error {
+    .tag-variant(@tag-danger-bg);
+    color: @tag-danger-color;
+  }
+
+
+  &.@{tag-prefix}-rtl {
+    direction: rtl;
+    text-align: right;
+  }
+}

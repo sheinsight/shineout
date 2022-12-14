@@ -1,0 +1,105 @@
+@import '../../styles/variables.less';
+@import '../../styles/themes/@{so-theme}.less';
+
+@rate-prefix: ~'@{so-prefix}-rate';
+
+.@{rate-prefix} {
+  &-rtl {
+    direction: rtl;
+    text-align: right;
+  }
+  @kf-highlight: ~'@{rate-prefix}-highlight';
+
+  @keyframes @kf-highlight {
+    0% {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    100% {
+      opacity: 0;
+      transform: scale(1.6);
+    }
+  }
+
+  position: relative;
+  white-space: nowrap;
+  display: inline-block;
+
+  &-background {
+    position: relative;
+    z-index: 0;
+
+    & > span {
+      color: @rate-bg-color;
+    }
+  }
+
+  &-front,
+  &-static {
+    position: absolute;
+    z-index: 1;
+
+    & > span {
+      position: relative;
+      color: @rate-active-color;
+    }
+  }
+
+  &-front,
+  &-background {
+    span {
+      cursor: pointer;
+    }
+  }
+
+  &-front,
+  &-background,
+  &-static {
+    top: 0;
+    left: 0;
+    .@{rate-prefix}-rtl & {
+      left: auto;
+      right: 0;
+    }
+
+
+    & > span {
+      display: inline-block;
+      margin-right: @rate-space;
+      vertical-align: middle;
+      .@{rate-prefix}-rtl & {
+        margin-right: 0;
+        margin-left: @rate-space;
+      }
+      &:last-child {
+        margin-right: 0;
+        .@{rate-prefix}-rtl & {
+          margin-left: 0;
+        }
+      }
+    }
+  }
+
+  &-highlight {
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: @kf-highlight 0.3s ease-out;
+    font-style: normal;
+    .@{rate-prefix}-rtl & {
+      left: auto;
+      right: 0;
+    }
+  }
+
+  span&-text {
+    margin-left: 4px;
+    color: @gray-600;
+    font-size: 14px;
+    .@{rate-prefix}-rtl & {
+      margin-right: 4px;
+      margin-left: 0;
+    }
+  }
+}

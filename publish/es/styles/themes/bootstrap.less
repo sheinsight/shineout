@@ -1,0 +1,290 @@
+@import './base.less';
+
+@link-decoration: none;
+@link-hover-decoration: none;
+@link-disabled-color: @gray-600;
+
+@font-family-sans-serif: 'Chinese Quote', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC',
+  'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+@font-family-serif: Georgia, 'Times New Roman', Times, serif;
+@font-size-base: 14px;
+
+@caret-width: 4px;
+@menu-caret-solid-width: 4px;
+@menu-caret-solid-height: 4px;
+@ease-in-out: 0.3s;
+
+@padding-large-vertical: 8px;
+
+// alert
+@alert-default-text: #333;
+@alert-default-bg: #fff;
+@alert-default-border: @gray-200;
+@alert-padding-y-value: 8px;
+
+@btn-padding-x: @padding-base-horizontal;
+@btn-padding-y: @padding-base-vertical;
+@btn-padding-large-x: @padding-large-horizontal;
+@btn-padding-large-y: @padding-large-vertical;
+@btn-padding-small-x: @padding-small-horizontal;
+@btn-padding-small-y: @padding-small-vertical;
+@btn-focus-width: 0.8em;
+@btn-hover-darken: 10%;
+@btn-secondary-color: #fff;
+@btn-secondary-bg: @colors-secondary;
+@btn-secondary-border: @secondary-color-dark-5;
+
+@dropdown-padding-x: @padding-base-horizontal;
+@dropdown-padding-y: 6px;
+@dropdown-item-padding-y: @dropdown-padding-y;
+@dropdown-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+@dropup-box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.175);
+@dropdown-link-active-color: @gray-800-darken-5;
+@dropdown-link-active-bg: #f5f5f5;
+
+@message-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+
+// table
+@table-bg: #ffffff;
+@table-cell-padding: 10px;
+@table-head-border: 2px;
+@table-head-bg: #fafafa;
+@table-head-color: @text-color;
+@table-color: @gray-600;
+@table-condensed-cell-padding: 5px 10px;
+
+// scrollbar
+@scrollbar-width: 16px;
+@scrollbar-bg: #fafafa;
+@scrollbar-color: rgba(0, 0, 0, 0.3);
+@scrollbar-hover-border: rgba(0, 0, 0, 0.1);
+@scrollbar-hover-color: rgba(127, 127, 127, 0.9);
+
+// pagination
+@pagination-width: @input-height-base;
+@pagination-small-width: @input-height-small;
+@pagination-large-width: @input-height-large;
+@pagination-color: @gray-600;
+@pagination-font-size: 14px;
+@pagination-border-radius: @border-radius-base;
+@pagination-padding: 0 2px;
+@pagination-margin: 8px;
+@pagination-hover-color: @colors-primary;
+@pagination-hover-bg: @gray-100;
+@pagination-hover-border: @pagination-border;
+@pagination-active-color: #fff;
+@pagination-active-bg: @colors-primary;
+@pagination-active-border: @colors-primary;
+
+//breadcrumb
+@breadcrumb-a-color: @colors-blue;
+
+//icon
+@icon-default: rgba(0, 0, 0, 0.85);
+@icon-primary: @colors-primary;
+@icon-secondary: @colors-secondary;
+@icon-success: @colors-success;
+@icon-info: @colors-info;
+@icon-warning: @colors-warning;
+@icon-danger: @colors-danger;
+@icon-small: 12px;
+@icon-large: 20px;
+
+//menu
+@menu-box-shadow-base: 0 2px 8px rgba(0, 0, 0, 0.15);
+@menu-inline-toplevel-item-height: 40px;
+@menu-collapsed-width: 80px;
+@menu-border-color: #e8e8e8;
+@menu-border-width-base: 0px;
+@menu-bottom-color: transparent;
+@menu-bg: #fff;
+@menu-item-color: @gray-900;
+@menu-item-height: 40px;
+@menu-item-group-title-color: @colors-secondary;
+@menu-item-active-color: #fff;
+@menu-item-active-indicator: @colors-primary;
+@menu-disabled-color: rgba(0, 0, 0, 0.25);
+@menu-highlight-color: @colors-primary;
+@menu-highlight-border-color: none;
+@menu-select-transform: scaleY(0);
+@menu-title-transform-origin: 50% 50%;
+@menu-title-transform: translateY(-50%) rotate(0deg);
+@menu-title-open-transform: translateY(-50%) rotate(180deg);
+@menu-title-vertical-transform: translateY(-50%) rotate(270deg);
+@menu-title-vertical-transform-rtl: translateY(-50%) rotate(180deg);
+
+@menu-dark-bg: #001529;
+@menu-dark-item: #bfbfbf;
+@menu-dark-active-color: #fff;
+@menu-dark-active-bg: @colors-primary;
+
+// checkbox
+@checkbox-size: @font-size-base-value;
+@checkbox-hover-color: @colors-primary;
+@checkbox-active-color: @colors-primary;
+@checkbox-border-radius: 2px;
+@checkbox-margin-right: 24px;
+
+// input
+@input-border: @gray-400;
+@input-focus-width: 3px;
+@input-border-focus: #80bdff;
+@input-padding-horizontal: 12px;
+@input-padding-vertical: 8px;
+
+// form
+@form-item-padding-x: 6px;
+@form-group-margin-bottom: 20px;
+@form-inline-margin-bottom: 12px;
+@form-inline-margin-right: 20px;
+@form-help-font-size: 13px;
+@form-feedback-invalid-color: @colors-danger;
+
+// select
+@select-result-bg: @gray-100;
+@select-result-border-radius: 3px;
+@select-result-space: 4px;
+@select-option-hover-color: @dropdown-link-hover-color;
+@select-option-hover-bg: @dropdown-link-hover-bg;
+@select-group-color: @gray-500;
+@select-split-color: #ddd;
+
+// card
+@panel-heading-padding: 16px 24px;
+@panel-body-padding: 16px 24px;
+@panel-footer-padding: 16px 24px;
+@panel-indicator-size: 10px;
+
+@panel-header-bg: #fff;
+@panel-footer-bg: #fff;
+@panel-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+// datepicker
+@datepicker-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+@datepicker-box-shadow-up: 0 -2px 12px rgba(0, 0, 0, 0.175);
+// @datepicker-day-hover-bg: @gray-100;
+@datepicker-day-hover-bgc-value: @gray-100;
+@datepicker-time-height: 30px;
+
+// rate
+@rate-size: 20px;
+@rate-space: 6px;
+@rate-bg-color: @gray-400;
+@rate-active-color: #fadb14;
+
+// thumbnail
+@thumbnail-padding: 3px;
+@thumbnail-bg: #fff;
+@thumbnail-border-color: @gray-300;
+@thumbnail-border-radius: 2px;
+@thumbnail-box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.075);
+
+// tooltip
+@tooltip-margin: 3px;
+
+@popover-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+@popover-arrow-width: 6px;
+@popover-arrow-margin: 10px;
+@popover-arrow-outer-color: @gray-300;
+
+// tree
+@tree-indicator-size: 24px;
+// @tree-indicator-color: @gray-600;
+@tree-line-color: var(--tree-line-color, @gray-500);
+
+// slider
+@slider-height: 6px;
+@slider-indicator-size: 14px;
+@slider-active-color: @colors-primary;
+@slider-bg-color: @colors-primary;
+@slider-bar-color: @gray-400;
+
+// switch
+@switch-type: outter;
+@switch-indicator-size-value: 24px;
+@switch-bg-height-value: 16px;
+
+@switch-checked-bg: var(--switch-checked-bg, @primary-color-fade-50);
+@switch-indicator-uncheck-bg: #fff;
+@switch-indicator-checked-bg:  var(--switch-indicator-checked-bg, @colors-primary);
+@switch-checked-box-shadow: var(--switch-checked-box-shadow, 0 1px 4px @primary-color-fade-50);
+@switch-uncheck-box-shadow: 0 1px 4px @gray-500;
+@switch-indicator-padding-horizontal: var(--switch-indicator-padding-horizontal, 0px);
+@switch-indicator-padding-horizontal-negative: var(--switch-indicator-padding-horizontal-negative, 0px);
+@switch-indicator-size: var(--switch-indicator-size, @switch-indicator-size-value);
+@switch-bg-width: 44px;
+@switch-bg-border-radius: (@switch-bg-width / 2);
+@switch-bg-height: var(--switch-bg-height, @switch-bg-height-value);
+@switch-font-size: 12px;
+@switch-indicator-top: var(--switch-indicator-top, -((@switch-indicator-size-value / 2) - (@switch-bg-height-value / 2)));
+
+@switch-small-indicator-size: var(--switch-small-indicator-size, 16px);
+@switch-small-bg-width: 28px;
+@switch-small-bg-border-radius: (@switch-small-bg-width / 2);
+@switch-small-bg-height: var(--switch-small-bg-height, 10px);
+@switch-small-indicator-top: var(--switch-small-indicator-top, -3px);
+@switch-small-indicator-padding: @checkinput-text-padding-x;
+
+@switch-large-indicator-size: var(--switch-large-indicator-size, 32px);
+@switch-large-bg-width: 60px;
+@switch-large-bg-border-radius: (@switch-large-bg-width / 2);
+@switch-large-bg-height: var(--switch-large-bg-height, 22px);
+@switch-large-indicator-top: var(--switch-large-indicator-top, -5px);
+
+// tabs
+@tabs-link-border-radius: 4px;
+
+@tabs-border-color: #ddd;
+@tabs-line-active-color: var(--tabs-line-active-color, @colors-primary);
+@tabs-header-margin:              0;
+@tabs-button-spacing: 0px;
+
+// progress
+@progress-bg-color: @gray-200;
+
+// upload
+@upload-image-border: @gray-400;
+@upload-image-bg: #fff;
+@upload-image-space: 4px;
+
+// carousel
+@carousel-duration: 0.4s;
+@carousel-indicator-size: 10px;
+@carousel-indicator-number-size: 14px;
+@carousel-indicator-line-width: 14px;
+@carousel-indicator-line-height: 3px;
+@carousel-indicator-line-bg: rgba(255, 255, 255, 0.3);
+@carousel-indicator-line-active-bg: rgba(255, 255, 255, 1);
+@carousel-indicator-font-size: 12px;
+@carousel-indicator-bg: rgba(0, 0, 0, 0.25);
+@carousel-indicator-border: #fff;
+@carousel-indicator-color: #fff;
+@carousel-indicator-active-bg: rgba(255, 255, 255, 0.8);
+@carousel-indicator-active-color: #000;
+@carousel-indicator-opacity: 0.8;
+@carousel-indicator-position: 10px;
+@carousel-indicator-margin: 4px;
+
+// tag
+@tag-bg-color: #fafafa;
+@tag-space: 4px;
+@tag-padding-x: 8px;
+@tag-padding-y: 2px;
+@tag-border-radius: 3px;
+@tag-border-color: #d9d9d9;
+@tag-close-left: 8px;
+@tag-color: #595959;
+@tag-input-height: 24px;
+@tag-font-size: 75%;
+@tag-input-padding-x: 4px;
+@tag-input-padding-y: 2px;
+@tag-icon-width: 6px;
+@tag-default-line-height: 1.5;
+
+// dropdown
+@dropdown-arrow-vertical: middle;
+
+@color-rgba: @input-border-focus-fade-25;
+
+@datepicker-margin:        8px;
+@datepicker-radius:        50px;

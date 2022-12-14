@@ -1,0 +1,10 @@
+// WebKit-style focus
+
+.tab-focus() {
+  // WebKit-specific. Other browsers will keep their default outline style.
+  // (Initially tried to also force default via `outline: initial`,
+  // but that seems to erroneously remove the outline in Firefox altogether.)
+  // box-shadow: 0 0 0 0.2em rgba(0,123,255,.5);
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}

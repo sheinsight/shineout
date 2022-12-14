@@ -1,0 +1,35 @@
+.so-resizable {
+  position: relative;
+  overflow: hidden;
+  min-height: 100px;
+  min-width: 100px;
+}
+.so-resizable-handler {
+  z-index: 11;
+  position: absolute;
+  -ms-touch-action: none;
+      touch-action: none;
+  background: transparent;
+}
+.so-resizable-handler-xy {
+  cursor: se-resize;
+  width: 10px;
+  height: 10px;
+  bottom: 0;
+  right: 0;
+  z-index: 12;
+}
+.so-resizable-handler-x {
+  cursor: e-resize;
+  width: 6px;
+  right: -4px;
+  top: 0;
+  bottom: 0;
+}
+.so-resizable-handler-y {
+  cursor: s-resize;
+  height: 6px;
+  left: 0;
+  bottom: -4px;
+  right: 0;
+}

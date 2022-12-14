@@ -1,0 +1,48 @@
+@import '../../styles/variables.less';
+
+@spin-wave-prefix: ~'@{so-prefix}-spin-wave';
+
+.@{spin-wave-prefix} {
+  @itemCount: 5;
+  @animationDuration: 1.2s;
+  @delayRange: 0.4s;
+  @keyframesName: ~'@{spin-wave-prefix}-scale';
+
+  margin: auto;
+  font-size: 10px;
+  text-align: center;
+  white-space: nowrap;
+
+  @keyframes @keyframesName {
+    0%,
+    40%,
+    100% {
+      transform: scale3d(1, 0.4, 1);
+    }
+
+    20% {
+      transform: scale3d(1, 1, 1);
+    }
+  }
+
+  &-item {
+    display: inline-block;
+    height: 100%;
+    margin-right: 2px;
+    animation: @keyframesName @animationDuration infinite ease-in-out;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  .loop(@i) when (@i > 1) {
+    .loop(@i - 1);
+
+    .@{spin-wave-prefix}-item:nth-child(@{i}) {
+      animation-delay: -@animationDuration + ((@delayRange / (@itemCount - 1)) * (@i - 1));
+    }
+  }
+
+  .loop(@itemCount);
+}

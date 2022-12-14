@@ -1,0 +1,178 @@
+.so-message {
+  position: fixed;
+  z-index: 1060;
+  left: 50%;
+  max-width: 50%;
+}
+@media (max-width: 992px) {
+  .so-message {
+    max-width: none;
+  }
+}
+@-webkit-keyframes so-message-left-in {
+  0% {
+    -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
+  }
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+}
+@keyframes so-message-left-in {
+  0% {
+    -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
+  }
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+}
+@-webkit-keyframes so-message-right-in {
+  0% {
+    -webkit-transform: translateX(100%);
+            transform: translateX(100%);
+  }
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+}
+@keyframes so-message-right-in {
+  0% {
+    -webkit-transform: translateX(100%);
+            transform: translateX(100%);
+  }
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+}
+.so-message-top {
+  top: 20px;
+  -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+.so-message-middle {
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+.so-message-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+  z-index: 1;
+}
+.so-message-item-show-top,
+.so-message-item-show-middle {
+  -webkit-animation-name: MoveUpShow;
+          animation-name: MoveUpShow;
+  -webkit-animation-duration: 0.2s;
+          animation-duration: 0.2s;
+}
+.so-message-item-dismissed-bottom-right {
+  opacity: 0;
+  z-index: -1;
+  -webkit-transform: translateX(100%);
+      -ms-transform: translateX(100%);
+          transform: translateX(100%);
+}
+.so-message-item-dismissed-bottom-left {
+  opacity: 0;
+  z-index: -1;
+  -webkit-transform: translateX(-100%);
+      -ms-transform: translateX(-100%);
+          transform: translateX(-100%);
+}
+.so-message-msg {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  margin: 0 auto 20px;
+  border-color: var(--message-border-color, var(--gray-200, #e9ecef));
+  background: #fff;
+  -webkit-box-shadow: var(--message-box-shadow, 0 6px 12px rgba(0, 0, 0, 0.175));
+          box-shadow: var(--message-box-shadow, 0 6px 12px rgba(0, 0, 0, 0.175));
+  color: var(--message-text-color, #333);
+  font-weight: var(--message-font-weight, 400);
+}
+.so-message-msg .so-alert-icon {
+  margin-top: var(--message-icon-margin-top, var(--alert-icon-margin-top, 2px));
+}
+.so-message-top-right,
+.so-message-top-bottom {
+  right: 20px;
+  left: auto;
+}
+.so-message-top-right .so-message-msg,
+.so-message-top-bottom .so-message-msg {
+  min-width: 340px;
+  padding: 20px;
+  -webkit-animation: so-message-right-in 0.2s ease-out;
+          animation: so-message-right-in 0.2s ease-out;
+}
+.so-message-top-right,
+.so-message-top-left {
+  top: 20px;
+}
+.so-message-bottom-right,
+.so-message-bottom-left {
+  top: auto;
+  bottom: 0px;
+}
+.so-message-top-right,
+.so-message-bottom-right {
+  right: 20px;
+  left: auto;
+}
+.so-message-top-right .so-message-msg,
+.so-message-bottom-right .so-message-msg {
+  min-width: 340px;
+  padding: 20px;
+  -webkit-animation: so-message-right-in 0.2s ease-out;
+          animation: so-message-right-in 0.2s ease-out;
+}
+.so-message-top-left,
+.so-message-bottom-left {
+  left: 20px;
+}
+.so-message-top-left .so-message-msg,
+.so-message-bottom-left .so-message-msg {
+  min-width: 340px;
+  padding: 20px;
+  -webkit-animation: so-message-left-in 0.2s ease-out;
+          animation: so-message-left-in 0.2s ease-out;
+}
+.so-message .so-alert-close svg path {
+  fill: var(--message-close-color, rgba(0, 0, 0, 0.3));
+}
+@-webkit-keyframes MoveUpShow {
+  0% {
+    -webkit-transform: translateY(-25px);
+            transform: translateY(-25px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes MoveUpShow {
+  0% {
+    -webkit-transform: translateY(-25px);
+            transform: translateY(-25px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    opacity: 1;
+  }
+}

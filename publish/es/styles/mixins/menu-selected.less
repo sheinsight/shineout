@@ -1,0 +1,36 @@
+//  menu-selected
+
+.menu-select(@mode : inline) {
+  & when (@so-theme = antd) {
+    border-bottom-color: @menu-highlight-border-color;
+    background-color: @menu-item-active-bg;
+    color: @menu-highlight-color;
+    & when (@mode = inline) {
+      border-bottom: none;
+
+      &:after {
+        opacity: 1 !important;
+        transform: @menu-select-transform !important;
+        transition: transform 0.1s ease-in, opacity 0.1s ease-in;
+      }
+    }
+    & when (@mode = horizontal) {
+      border-bottom-color: transparent;
+    }
+    & when (@mode = vertical) {
+      border-bottom: none;
+    }
+  }
+  & when (@so-theme = default) {
+    border-bottom: transparent;
+    background-color: @colors-blue !important;
+    color: #fff;
+
+    > div {
+      color: #fff;
+    }
+    & when not (@mode = horizontal) {
+      border-radius: 0;
+    }
+  }
+}

@@ -1,0 +1,143 @@
+@import '../../styles/variables.less';
+@import '../../styles/themes/@{so-theme}.less';
+
+@alert-prefix: ~'@{so-prefix}-alert';
+
+//
+// Alerts
+// --------------------------------------------------
+
+// Base styles
+// -------------------------
+
+.@{alert-prefix} {
+  position: relative;
+  display: flex;
+  padding: @alert-padding-y @alert-padding-x;
+  margin-bottom: @line-height-computed;
+  border: @alert-border-width solid transparent;
+  border-radius: @alert-border-radius;
+  transform-origin: 0 0;
+  transition: transform 0.216s, opacity 0.216s ease-out;
+  font-size: @alert-font-size;
+  &-rtl{
+    direction: rtl;
+    text-align: right;
+  }
+
+  // Headings for larger alerts
+  h2,
+  h3,
+  h4 {
+    margin-top: 0.3em;
+    // Specified for the h4 to prevent conflicts of changing @headings-color
+    color: inherit;
+  }
+
+  &-with-close {
+    &:not(.@{alert-prefix}-rtl) {
+      padding-right: calc(~'@{alert-padding-x} + 20px');
+    }
+    .@{alert-prefix}-rtl& {
+      padding-left: calc(~'@{alert-padding-x} + 20px');
+    }
+  }
+
+  // Provide class for links that match alerts
+  &-link {
+    font-weight: @alert-link-font-weight;
+  }
+
+  &-close {
+    position: absolute;
+    // line-height: 1;
+    top: @alert-padding-y;
+    right: 12px;
+    display: block;
+    .@{alert-prefix}-rtl & {
+      right: auto;
+      left: 12px;
+    }
+    svg {
+      width: 10px;
+      height: 10px;
+
+      path {
+        fill: @alert-close-color;
+      }
+    }
+
+    &:hover svg path {
+      fill: @alert-close-hover-color;
+    }
+  }
+
+  &-dismissed {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+
+  &-icon {
+    display: block;
+    margin-top: @alert-icon-margin-top;
+  }
+
+  &-content {
+    flex: 1;
+    word-break: break-all;
+  }
+
+  // Improve alignment and spacing of inner content
+  > p,
+  > ul {
+    margin-bottom: 0;
+  }
+
+  > p + p {
+    margin-top: 5px;
+  }
+
+  h2,
+  h3,
+  h4 {
+    margin-top: 0;
+  }
+
+  &-default {
+    .alert-variant(@alert-default-bg; @alert-default-border; @alert-default-text; @alert-box-shadow);
+  }
+
+  &-info {
+    .alert-variant(@alert-info-bg; @alert-info-border; @alert-info-text; @alert-info-box-shadow);
+
+    .@{alert-prefix}-icon path {
+      fill: @colors-info;
+    }
+  }
+
+  &-warning {
+    .alert-variant(@alert-warning-bg; @alert-warning-border; @alert-warning-text; @alert-warning-box-shadow);
+
+    .@{alert-prefix}-icon path {
+      fill: @colors-warning;
+    }
+  }
+
+  &-success {
+    .alert-variant(@alert-success-bg; @alert-success-border; @alert-success-text; @alert-success-box-shadow);
+
+    .@{alert-prefix}-icon path {
+      fill: @colors-success;
+    }
+  }
+
+  &-danger,
+  &-error,
+  &-confirmwarning{
+    .alert-variant(@alert-danger-bg; @alert-danger-border; @alert-danger-text; @alert-danger-box-shadow);
+
+    .@{alert-prefix}-icon path {
+      fill: @colors-danger;
+    }
+  }
+}

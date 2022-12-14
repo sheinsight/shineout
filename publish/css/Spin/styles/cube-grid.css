@@ -1,0 +1,70 @@
+.so-cube-grid {
+  margin: auto;
+}
+.so-cube-grid-item {
+  width: 33.33333%;
+  height: 33.3333%;
+  -webkit-animation: so-cube-grid-spin 1.3s infinite ease-in-out;
+          animation: so-cube-grid-spin 1.3s infinite ease-in-out;
+  float: left;
+}
+@-webkit-keyframes so-cube-grid-spin {
+  0%,
+  70%,
+  100% {
+    -webkit-transform: scale3D(1, 1, 1);
+            transform: scale3D(1, 1, 1);
+  }
+  35% {
+    -webkit-transform: scale3D(0, 0, 1);
+            transform: scale3D(0, 0, 1);
+  }
+}
+@keyframes so-cube-grid-spin {
+  0%,
+  70%,
+  100% {
+    -webkit-transform: scale3D(1, 1, 1);
+            transform: scale3D(1, 1, 1);
+  }
+  35% {
+    -webkit-transform: scale3D(0, 0, 1);
+            transform: scale3D(0, 0, 1);
+  }
+}
+.so-cube-grid-item:nth-child(1) {
+  -webkit-animation-delay: 0.2s;
+          animation-delay: 0.2s;
+}
+.so-cube-grid-item:nth-child(2) {
+  -webkit-animation-delay: 0.3s;
+          animation-delay: 0.3s;
+}
+.so-cube-grid-item:nth-child(3) {
+  -webkit-animation-delay: 0.4s;
+          animation-delay: 0.4s;
+}
+.so-cube-grid-item:nth-child(4) {
+  -webkit-animation-delay: 0.1s;
+          animation-delay: 0.1s;
+}
+.so-cube-grid-item:nth-child(5) {
+  -webkit-animation-delay: 0.2s;
+          animation-delay: 0.2s;
+}
+.so-cube-grid-item:nth-child(6) {
+  -webkit-animation-delay: 0.3s;
+          animation-delay: 0.3s;
+}
+.so-cube-grid-item:nth-child(7) {
+  -webkit-animation-delay: 0s;
+          animation-delay: 0s;
+}
+.so-cube-grid-item:nth-child(8) {
+  -webkit-animation-delay: 0.1s;
+          animation-delay: 0.1s;
+}
+.so-cube-grid-item:nth-child(9) {
+  -webkit-animation-delay: 0.2s;
+          animation-delay: 0.2s;
+}

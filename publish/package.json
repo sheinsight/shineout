@@ -1,0 +1,60 @@
+{
+  "name": "shineout",
+  "version": "1.11.6",
+  "description": "Shein 前端组件库",
+  "main": "./lib/index.js",
+  "module": "./es/index.js",
+  "typings": "./lib/index.d.ts",
+  "author": "lobos841@gmail.com",
+  "license": "MIT",
+  "scripts": {
+    "test": "cross-env NODE_ENV=test jest --config jest.config.js",
+    "test:silent": "cross-env NODE_ENV=test jest --silent",
+    "test:cover": "cross-env NODE_ENV=test jest --coverage",
+    "test:update": "jest -u",
+    "lint": "eslint src/",
+    "stylelint": "stylelint site/**/*.less --fix && stylelint src/**/*.less --fix",
+    "start": "cross-env NODE_ENV=development LOG_ENV=rc CASE_ENV=test node dev-server.js",
+    "start-site": "cross-env NODE_ENV=development node dev-server.js",
+    "css-module": "cross-env NODE_ENV=development LOCAL_IDENT_NAME=[local]-[hash:base64:5] node dev-server.js",
+    "docs-build-clean": "node scripts/gh-clean.js",
+    "docs-build-features": "node scripts/build-features.js",
+    "docs-build-chunk": "cross-env NODE_ENV=production node scripts/dev-site.js",
+    "docs-build-js": "cross-env NODE_ENV=production webpack --config webpack/config.doc.js",
+    "docs-build-html": "node scripts/build-html.js",
+    "docs-build": "npm-run-all docs-build-*",
+    "docs-rc-build": "cross-env LOG_ENV=rc npm-run-all docs-build-*",
+    "build-clean": "rm -rf publish/es publish/dist publish/lib publish/css",
+    "build-index": "node scripts/src-index.js",
+    "build-index-d": "node scripts/src-index.d.js",
+    "build-package": "node scripts/build-package.js",
+    "build-dist-dev": "cross-env NODE_ENV=development webpack --config webpack/config.dist.dev.js",
+    "build-dist": "cross-env NODE_ENV=production webpack --config webpack/config.dist.js",
+    "build-readme": "cp README.md publish/README.md",
+    "build-esm": "node scripts/build-esm.js",
+    "build-less": "mkdir publish/lib && cp -R src/styles publish/lib/styles",
+    "build-es5": "node scripts/build-es5.js",
+    "build-ts": "node scripts/build-ts.js",
+    "build-css": "node scripts/build-css.js",
+    "build": "npm-run-all build-*",
+    "cypress:open": "cross-env NODE_ENV=development cypress open",
+    "cypress:run": "cross-env NODE_ENV=development cypress run --browser chrome"
+  },
+  "sideEffects": [
+    "*.less"
+  ],
+  "peerDependencies": {
+    "prop-types": "^15.6.0",
+    "react": ">=16.0.0",
+    "react-dom": ">=16.0.0"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.14.6",
+    "classnames": "^2.3.1",
+    "date-fns": "2.28.0",
+    "date-fns-tz": "1.3.6",
+    "dayjs": "1.11.3",
+    "deep-eql": "^4.0.0",
+    "immer": "^4.0.0"
+  }
+}

@@ -1,0 +1,36 @@
+@import '../../styles/variables.less';
+
+@double-bounce-prefix: ~'@{so-prefix}-double-bounce';
+
+.@{double-bounce-prefix} {
+  @keyframesName: ~'@{double-bounce-prefix}-spin';
+
+  position: relative;
+  margin: auto;
+
+  @keyframes @keyframesName {
+    0%,
+    100% {
+      transform: scale3d(0, 0, 1);
+    }
+
+    50% {
+      transform: scale3d(1, 1, 1);
+    }
+  }
+
+  &-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    animation: @keyframesName 2s infinite ease-in-out;
+    border-radius: 50%;
+    opacity: 0.6;
+
+    &:last-child {
+      animation-delay: -1s;
+    }
+  }
+}

@@ -1,0 +1,44 @@
+// Alerts
+
+.alert-variant(@background; @border; @text-color; @box-shadow) {
+  border-color: @border;
+  background-color: @background;
+  color: @text-color;
+  box-shadow: @box-shadow;
+
+  hr {
+    & when (%('%s', @border) = %('%s', @alert-default-border)) {
+      border-top-color: @gray-200-darken-5;
+    }
+    & when (%('%s', @border) = %('%s', @alert-success-border)) {
+      border-top-color: @alert-success-border-darken-5;
+    }
+    & when (%('%s', @border) = %('%s', @alert-info-border)) {
+      border-top-color: @alert-info-border-darken-5;
+    }
+    & when (%('%s', @border) = %('%s', @alert-warning-border)) {
+      border-top-color: @alert-warning-border-darken-5;
+    }
+    & when (%('%s', @border) = %('%s', @alert-danger-border)) {
+      border-top-color: @alert-danger-border-darken-5;
+    }
+  }
+
+  .alert-link {
+    & when (%('%s', @text-color) = %('%s', @alert-default-text)) {
+      color: darken(@alert-default-text, 10%);
+    }
+    & when (%('%s', @text-color) = %('%s', @alert-success-text)) {
+      color: @alert-success-text-darken-10;
+    }
+    & when (%('%s', @text-color) = %('%s', @alert-info-text)) {
+      color: @alert-info-text-darken-10;
+    }
+    & when (%('%s', @text-color) = %('%s', @alert-warning-text)) {
+      color: @alert-warning-text-darken-10;
+    }
+    & when (%('%s', @text-color) = %('%s', @alert-danger-text)) {
+      color: @alert-danger-text-darken-10;
+    }
+  }
+}

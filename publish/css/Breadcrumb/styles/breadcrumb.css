@@ -1,0 +1,35 @@
+.so-breadcrumb {
+  background-color: transparent;
+  border-radius: 4px;
+  font-size: var(--font-size-base, 14px);
+  list-style: none;
+}
+.so-breadcrumb-separator {
+  margin: 0 8px;
+}
+.so-breadcrumb a,
+.so-breadcrumb b {
+  display: inline-block;
+}
+.so-breadcrumb a {
+  color: #3399ff;
+}
+.so-breadcrumb b {
+  font-weight: normal;
+}
+.so-breadcrumb a:hover {
+  color: var(--primary-color, #3399ff);
+}
+.so-breadcrumb-down {
+  display: inline-block;
+  width: 10px;
+  margin-left: 8px;
+}
+.so-breadcrumb-dropdown-item a {
+  display: block;
+  padding: 6px 20px;
+  min-width: 100px;
+}
+.so-breadcrumb-dropdown-item a:hover {
+  background: rgba(0, 0, 0, 0.05);
+}

@@ -1,0 +1,120 @@
+.caret-solid(@direction, @width) {
+  & when not (@direction = left) {
+    &:after {
+      display: inline-block;
+      width: 0;
+      height: 0;
+      margin-left: @width;
+      content: '';
+
+      & when (@direction = down) {
+        border-top: @width solid;
+        border-right: @width solid transparent;
+        border-bottom: 0;
+        border-left: @width solid transparent;
+        vertical-align: @width * 0.85;
+      }
+
+      & when (@direction = up) {
+        border-top: 0;
+        border-right: @width solid transparent;
+        border-bottom: @width solid;
+        border-left: @width solid transparent;
+        vertical-align: @width * 0.85;
+      }
+
+      & when (@direction = right) {
+        border-top: @width solid transparent;
+        border-bottom: @width solid transparent;
+        border-left: @width solid;
+      }
+    }
+  }
+
+  & when (@direction = left) {
+    &:before {
+      display: inline-block;
+      width: 0;
+      height: 0;
+      margin-right: @width;
+      border-top: @width solid transparent;
+      border-right: @width solid;
+      border-bottom: @width solid transparent;
+      content: '';
+    }
+  }
+}
+
+.caret-outline(@direction, @width) {
+  & when not (@direction = left) {
+    &:after {
+      position: relative;
+      display: inline-block;
+      width: @width;
+      height: @width;
+      margin-left: @width;
+      border-width: 0 1px 1px 0;
+      border-style: solid;
+      content: '';
+
+      & when (@direction = down) {
+        transform: rotate(45deg);
+        vertical-align: 3px;
+      }
+
+      & when (@direction = up) {
+        transform: rotate(225deg);
+      }
+
+      & when (@direction = right) {
+        transform: rotate(315deg);
+        vertical-align: 2px;
+      }
+    }
+  }
+
+  & when (@direction = left) {
+    &:before {
+      position: relative;
+      display: inline-block;
+      width: @width;
+      height: @width;
+      margin-right: @width;
+      border-width: 0 1px 1px 0;
+      border-style: solid;
+      content: '';
+      transform: rotate(135deg);
+      vertical-align: 2px;
+    }
+  }
+}
+
+.caret(@direction, @width: @caret-width) {
+  & when (@so-theme = antd) {
+    .caret-outline(@direction; @width);
+  }
+  & when (@so-theme = antd2) {
+    .caret-outline(@direction; @width);
+  }
+  & when (@so-theme = default) {
+    .caret-solid(@direction; @width);
+  }
+  & when(@so-theme = shineout) {
+    .caret-outline(@direction; @width);
+  }
+}
+
+.caretColor(@color) {
+  & when (@so-theme = antd) {
+    &:after {border-color: @color;}
+  }
+  & when (@so-theme = antd2) {
+    &:after {border-color: @color;}
+  }
+  & when (@so-theme = default) {
+    &:after {border-top-color: @color;}
+  }
+  & when(@so-theme = shineout) {
+    &:after {border-color: @color;}
+  }
+}

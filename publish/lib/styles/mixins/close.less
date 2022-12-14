@@ -1,0 +1,35 @@
+.close(@size, @color, @width: 1px) {
+  background: @color;
+  border-radius: (@size / 2);
+
+  &:hover {
+    background: @input-clear-bg-hover-color;
+  }
+
+  &:after,
+  &:before {
+    position: absolute;
+    top: (@size / 2) - @width;
+    left: 3px;
+    display: block;
+    width: @size - 6;
+    height: @width;
+    background: #fff;
+    content: ' ';
+  }
+
+  &:after {
+    transform: rotate(45deg);
+  }
+
+  &:before {
+    transform: rotate(315deg);
+  }
+}
+.closeRtl() {
+  &:after,
+  &:before {
+    left: auto;
+    right: 3px;
+  }
+}

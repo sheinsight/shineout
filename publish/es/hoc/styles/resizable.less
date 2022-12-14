@@ -1,0 +1,43 @@
+@import '../../styles/variables.less';
+
+@resizable-prefix: ~'@{so-prefix}-resizable';
+
+@handler-size: 10px;
+@min-size: 100px;
+
+.@{resizable-prefix} {
+    position: relative;
+    overflow: hidden;
+    min-height: @min-size;
+    min-width: @min-size;
+    &-handler {
+        z-index: 11;
+        position: absolute;
+        touch-action: none;
+        background: transparent;
+        &-xy {
+            cursor: se-resize;
+            width: @handler-size;
+            height: @handler-size;
+            bottom: 0;
+            right: 0;
+            z-index: 12;
+        }
+
+        &-x {
+            cursor: e-resize;
+            width: 6px;
+            right: -4px;
+            top: 0;
+            bottom: 0;
+        }
+
+        &-y {
+            cursor: s-resize;
+            height: 6px;
+            left: 0;
+            bottom: -4px;
+            right: 0;
+        }
+    }
+}

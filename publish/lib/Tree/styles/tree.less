@@ -1,0 +1,263 @@
+@import '../../styles/variables.less';
+@import '../../styles/themes/@{so-theme}.less';
+
+@tree-prefix: ~'@{so-prefix}-tree';
+@tree-line-value: 2px;
+@tree-transparent-value: 3px;
+@tree-rtl: ~'@{so-prefix}-rtl';
+
+.@{tree-prefix} {
+  position: relative;
+
+  &-node {
+    position: relative;
+    &-ltr {
+      padding-left: @tree-indicator-size;
+      > .@{tree-prefix}-children {
+        margin-left: @tree-level-indent;
+      }
+    }
+    &-rtl {
+      padding-right: @tree-indicator-size;
+      > .@{tree-prefix}-children {
+        margin-right: @tree-level-indent;
+      }
+    }
+    line-height: @line-height-base;
+
+    & > div {
+      margin-bottom: @tree-node-margin-bottom;
+    }
+
+    &:last-child > div {
+      padding-bottom: 0;
+    }
+  }
+
+  &-with-line {
+    > .@{tree-prefix}-node:only-child:before {
+      display: none;
+    }
+    .@{tree-prefix}-node {
+      &:before {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 6px;
+        width: 1px;
+        background: linear-gradient(to bottom, @tree-line-color, @tree-line-color @tree-line-value, transparent @tree-transparent-value, transparent);
+        background-size: 100% @tree-line-value * @tree-transparent-value;
+        content: ' ';
+        .@{tree-prefix}-rtl& {
+          left: auto;
+          right: 6px
+        }
+      }
+
+      &:after {
+        position: absolute;
+        top: 11px;
+        left: 7px;
+        width: 14px;
+        height: 1px;
+        background: linear-gradient(to right, @tree-line-color, @tree-line-color @tree-line-value, transparent @tree-transparent-value, transparent);
+        background-size: @tree-line-value * @tree-transparent-value 100%;
+        content: ' ';
+        .@{tree-prefix}-rtl& {
+          left: auto;
+          right: 7px
+        }
+      }
+
+      &:last-child:before {
+        top: -4px;
+        bottom: auto;
+        height: 14px;
+      }
+
+      &:first-child:before {
+        top: -4px;
+      }
+    }
+
+    &.@{tree-prefix} > .@{tree-prefix}-node:first-child:before {
+      top: 9px;
+    }
+
+    .@{tree-prefix}-icon-plus,
+    .@{tree-prefix}-icon-sub {
+      position: absolute;
+      z-index: 10;
+      top: 3px;
+      left: 0px;
+      .@{tree-prefix}-rtl& {
+        left: auto;
+        right: 0px;
+      }
+
+      &:hover span.@{tree-prefix}-default-icon {
+        border-color: @colors-primary;
+      }
+
+      &:focus span.@{tree-prefix}-default-icon {
+        .input-focus()
+      }
+
+      span.@{tree-prefix}-default-icon {
+        position: relative;
+        display: inline-block;
+        width: 13px;
+        height: 13px;
+        border: solid 1px @tree-indicator-color;
+        background: #fff;
+        border-radius: 2px;
+
+        &:before {
+          position: absolute;
+          top: 5px;
+          left: 2px;
+          display: block;
+          width: 7px;
+          height: 0;
+          border-bottom: solid 1px transparent;
+          border-color: inherit;
+          content: ' ';
+        }
+      }
+    }
+
+    .@{tree-prefix}-icon-plus span.@{tree-prefix}-default-icon {
+      &:after {
+        position: absolute;
+        top: 2px;
+        left: 5px;
+        display: block;
+        width: 0;
+        height: 7px;
+        border-right: solid 1px transparent;
+        border-color: inherit;
+        content: ' ';
+      }
+    }
+  }
+
+  &-no-line {
+    .@{tree-prefix}-icon-plus,
+    .@{tree-prefix}-icon-sub {
+      position: absolute;
+      z-index: 10;
+      top: 0px;
+      left: 0px;
+      width: 16px;
+      .@{tree-prefix}-rtl&{
+        left: auto;
+        right: 0px;
+      }
+
+      &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: inline-block;
+        padding: 12px;
+        transition: all .2s;
+        z-index: -1;
+        .@{tree-prefix}-rtl&{
+          left: auto;
+          right: 0;
+        }
+      }
+
+      &:hover {
+        &::after {
+          background: @gray-100;
+        }
+      }
+
+      .@{tree-prefix}-default-icon {
+        border-left-color: @gray-600;
+      }
+
+      span.@{tree-prefix}-default-icon {
+        position: absolute;
+        top: 8px;
+        left: 10px;
+        display: inline-block;
+        width: 0;
+        height: 0;
+        border-width: 4px 5px;
+        border-style: solid;
+        border-color: transparent transparent transparent @tree-indicator-color;
+        transform-origin: 2px 4px;
+        transition: transform 0.2s linear;
+        .@{tree-prefix}-rtl&{
+          left: auto;
+          right: 10px;
+          border-color: transparent @tree-indicator-color transparent transparent;
+          transform-origin: 8px 4px;
+        }
+      }
+    }
+
+    .@{tree-prefix}-icon-sub span.@{tree-prefix}-default-icon {
+      transform: rotate(90deg);
+      .@{tree-prefix}-rtl&{
+        transform: rotate(-90deg);
+      }
+    }
+  }
+
+  &-icon-loading {
+    position: absolute;
+    z-index: 10;
+    top: 3px;
+    left: 0px;
+    width: 12px;
+    height: 12px;
+    background: #fff;
+    .@{tree-prefix}-rtl &{
+      right: 0px;
+      left: auto;
+    }
+  }
+
+  &-content {
+    z-index: 10;
+    display: flex;
+    line-height: 24px;
+
+    .@{tree-prefix}-text {
+      flex: 1;
+    }
+  }
+
+  &-checkbox {
+    z-index: 10;
+    &-ltr{
+      margin-right: 6px;
+    }
+    font-size: 0;
+    &-rtl {
+      margin-left: 6px;
+    }
+  }
+
+  &-drag-place {
+    position: relative;
+    z-index: 0;
+    width: 100%;
+    height: 0;
+
+    div {
+      border: dashed 1px #ddd;
+      background: @gray-100;
+    }
+  }
+
+
+  &.@{tree-prefix}-rtl {
+    direction: rtl;
+    text-align: right;
+  }
+}

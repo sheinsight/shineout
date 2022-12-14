@@ -1,0 +1,643 @@
+.so-checkinput {
+  color: var(--checkinput-color, var(--gray-900, #212529));
+  position: relative;
+  display: inline-block;
+  margin-right: var(--checkbox-margin-right, 24px);
+  margin-bottom: 0;
+  cursor: pointer;
+  vertical-align: middle;
+}
+.so-checkinput-rtl.so-checkinput {
+  margin-left: var(--checkbox-margin-right, 24px);
+  margin-right: 0;
+}
+.so-checkinput input[type='checkbox'],
+.so-checkinput input[type='radio'] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  clip: rect(0, 0, 0, 0);
+  visibility: hidden;
+}
+.so-checkinput-rtl.so-checkinput input[type='checkbox'],
+.so-checkinput-rtl.so-checkinput input[type='radio'] {
+  left: auto;
+  right: 0;
+}
+@-webkit-keyframes so-checkinput-focus {
+  0% {
+    -webkit-box-shadow: 0 0 0 0 var(--primary-color-fade-50, rgba(51, 153, 255, 0.5));
+            box-shadow: 0 0 0 0 var(--primary-color-fade-50, rgba(51, 153, 255, 0.5));
+  }
+  50% {
+    -webkit-box-shadow: 0 0 0 4px var(--primary-color-fade-0, rgba(51, 153, 255, 0));
+            box-shadow: 0 0 0 4px var(--primary-color-fade-0, rgba(51, 153, 255, 0));
+  }
+  100% {
+    -webkit-box-shadow: 0 0 0 8px var(--primary-color-fade-0, rgba(51, 153, 255, 0));
+            box-shadow: 0 0 0 8px var(--primary-color-fade-0, rgba(51, 153, 255, 0));
+  }
+}
+@keyframes so-checkinput-focus {
+  0% {
+    -webkit-box-shadow: 0 0 0 0 var(--primary-color-fade-50, rgba(51, 153, 255, 0.5));
+            box-shadow: 0 0 0 0 var(--primary-color-fade-50, rgba(51, 153, 255, 0.5));
+  }
+  50% {
+    -webkit-box-shadow: 0 0 0 4px var(--primary-color-fade-0, rgba(51, 153, 255, 0));
+            box-shadow: 0 0 0 4px var(--primary-color-fade-0, rgba(51, 153, 255, 0));
+  }
+  100% {
+    -webkit-box-shadow: 0 0 0 8px var(--primary-color-fade-0, rgba(51, 153, 255, 0));
+            box-shadow: 0 0 0 8px var(--primary-color-fade-0, rgba(51, 153, 255, 0));
+  }
+}
+.so-checkinput-button > .so-checkinput.so-checkinput-disabled.so-checkinput {
+  background: var(--button-disabled-bg, #f5f5f5);
+  color: var(--button-disabled-color, rgba(0, 0, 0, 0.45));
+}
+.so-checkinput-button > .so-checkinput.so-checkinput-disabled.so-checkinput:hover {
+  background: var(--button-disabled-bg, #f5f5f5);
+  color: var(--button-disabled-color, rgba(0, 0, 0, 0.45));
+}
+.so-checkinput-button > .so-checkinput.so-checkinput-disabled.so-checkinput:not(:first-child)::before {
+  background-color: var(--button-disabled-delimiter, #d9d9d9);
+}
+.so-checkinput-button > .so-checkinput.so-checkinput-disabled.so-checkinput:not(:last-child)::after {
+  background-color: var(--button-disabled-delimiter, #d9d9d9);
+}
+.so-checkinput-button.so-checkinput-small .so-checkinput {
+  padding: var(--button-padding-small-vertical, 5px) var(--button-padding-small-horizontal, 10px);
+  border-radius: 0px;
+  font-size: var(--button-font-size-small, var(--font-size-small, 12px));
+  line-height: 1.5;
+}
+.so-checkinput-button.so-checkinput-large .so-checkinput {
+  padding: var(--button-padding-large-vertical, 8px) var(--button-padding-large-horizontal, 16px);
+  border-radius: 0px;
+  font-size: var(--button-font-size-large, var(--font-size-large, 18px));
+  line-height: var(--common-line-height, 1.42857143);
+}
+.so-checkinput-button .so-checkinput {
+  position: relative;
+  margin-right: 0;
+  border: 1px solid var(--gray-300, #dee2e6);
+  font-weight: normal;
+  outline: none;
+  text-align: center;
+  -ms-touch-action: manipulation;
+      touch-action: manipulation;
+  vertical-align: middle;
+  white-space: nowrap;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  padding: var(--button-padding-base-vertical, 6px) var(--button-padding-base-horizontal, 12px);
+  border-radius: var(--button-border-radius, 3px);
+  font-size: var(--button-font-size-base, var(--font-size-base, 14px));
+  line-height: var(--common-line-height, 1.42857143);
+  border-color: var(--button-default-border, #dee2e6);
+  background-color: #fff;
+  color: var(--button-default-text-color, #333);
+  fill: var(--button-default-text-color, #333);
+  -webkit-transition: all 0.15s ease-in-out;
+  transition: all 0.15s ease-in-out;
+  border-radius: 0px;
+}
+.so-checkinput-rtl.so-checkinput-button .so-checkinput {
+  margin-left: 0;
+}
+.so-checkinput-button .so-checkinput:focus,
+.so-checkinput-button .so-checkinput:hover,
+.so-checkinput-button .so-checkinput:active {
+  border-color: var(--primary-color, #3399ff);
+  color: var(--primary-color, #3399ff);
+}
+.so-checkinput-button .so-checkinput:focus .so-checkinput-desc,
+.so-checkinput-button .so-checkinput:hover .so-checkinput-desc,
+.so-checkinput-button .so-checkinput:active .so-checkinput-desc {
+  color: inherit;
+}
+.so-checkinput-button .so-checkinput:active {
+  background-image: none;
+}
+.so-checkinput-button .so-checkinput[disabled]:hover,
+fieldset[disabled] .so-checkinput-button .so-checkinput:hover,
+.so-checkinput-button .so-checkinput[disabled]:focus,
+fieldset[disabled] .so-checkinput-button .so-checkinput:focus {
+  border-color: var(--button-default-border, #dee2e6);
+  background-color: #fff;
+}
+.so-checkinput-button .so-checkinput[disabled]:active,
+fieldset[disabled] .so-checkinput-button .so-checkinput:active {
+  -webkit-animation: none;
+          animation: none;
+}
+.so-checkinput-button .so-checkinput > .so-checkinput-indicator,
+.so-checkinput-button .so-checkinput > input {
+  display: none;
+}
+.so-checkinput-button .so-checkinput:not(:first-child) {
+  border-left-width: 0;
+}
+.so-checkinput-rtl.so-checkinput-button .so-checkinput:not(:first-child) {
+  border-left-width: 1px;
+  border-right-width: 0;
+}
+.so-checkinput-button .so-checkinput:not(:first-child):before {
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  display: block;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+  width: 1px;
+  height: 100%;
+  padding: 1px 0;
+  background-color: var(--gray-300, #dee2e6);
+  content: '';
+  -webkit-transition: background-color 0.15s ease-in-out;
+  transition: background-color 0.15s ease-in-out;
+}
+.so-checkinput-rtl.so-checkinput-button .so-checkinput:not(:first-child):before {
+  left: auto;
+  right: -1px;
+}
+.so-checkinput-button .so-checkinput:not(:last-child)::after {
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  display: block;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+  width: 1px;
+  height: 100%;
+  padding: 1px 0;
+  background-color: transparent;
+  content: '';
+  z-index: 100;
+  -webkit-transition: background-color 0.15s ease-in-out;
+  transition: background-color 0.15s ease-in-out;
+}
+.so-checkinput-rtl.so-checkinput-button .so-checkinput:not(:last-child)::after {
+  right: auto;
+  left: -1px;
+}
+.so-checkinput-button .so-checkinput:hover:not(.so-checkinput-disabled)::before,
+.so-checkinput-button .so-checkinput:active:not(.so-checkinput-disabled)::before,
+.so-checkinput-button .so-checkinput:focus:not(.so-checkinput-disabled)::before {
+  background-color: var(--primary-color, #3399ff);
+}
+.so-checkinput-button .so-checkinput:hover:not(.so-checkinput-disabled):not(:last-child)::after,
+.so-checkinput-button .so-checkinput:focus:not(.so-checkinput-disabled):not(:last-child)::after,
+.so-checkinput-button .so-checkinput:active:not(.so-checkinput-disabled):not(:last-child)::after {
+  background-color: var(--primary-color, #3399ff);
+}
+.so-checkinput-button .so-checkinput.so-checkinput-radio {
+  border-color: var(--radio-button-group-border-color, var(--button-default-border, #dee2e6));
+  background-color: var(--radio-button-group-bgc, #fff);
+  color: var(--radio-button-group-color, var(--button-default-text-color, #333));
+  fill: var(--radio-button-group-color, var(--button-default-text-color, #333));
+  -webkit-transition: all 0.15s ease-in-out;
+  transition: all 0.15s ease-in-out;
+}
+.so-checkinput-button .so-checkinput.so-checkinput-radio:focus,
+.so-checkinput-button .so-checkinput.so-checkinput-radio:hover {
+  color: var(--radio-button-group-color, var(--button-default-text-color, #333));
+}
+.so-checkinput-button .so-checkinput.so-checkinput-radio:active {
+  -webkit-animation: btn-focus-default 0.4s ease-out;
+          animation: btn-focus-default 0.4s ease-out;
+  color: var(--radio-button-group-color, var(--button-default-text-color, #333));
+}
+.so-checkinput-button .so-checkinput.so-checkinput-radio:active {
+  background-image: none;
+}
+.so-checkinput-button .so-checkinput.so-checkinput-radio[disabled]:hover,
+fieldset[disabled] .so-checkinput-button .so-checkinput.so-checkinput-radio:hover,
+.so-checkinput-button .so-checkinput.so-checkinput-radio[disabled]:focus,
+fieldset[disabled] .so-checkinput-button .so-checkinput.so-checkinput-radio:focus {
+  border-color: var(--radio-button-group-border-color, var(--button-default-border, #dee2e6));
+  background-color: var(--radio-button-group-bgc, #fff);
+}
+.so-checkinput-button .so-checkinput.so-checkinput-radio[disabled]:active,
+fieldset[disabled] .so-checkinput-button .so-checkinput.so-checkinput-radio:active {
+  -webkit-animation: none;
+          animation: none;
+}
+.so-checkinput-button .so-checkinput.so-checkinput-checked {
+  border-color: transparent;
+  background-color: var(--primary-color, #3399ff);
+  color: #fff;
+  fill: #fff;
+  -webkit-transition: all 0.15s ease-in-out;
+  transition: all 0.15s ease-in-out;
+}
+.so-checkinput-button .so-checkinput.so-checkinput-checked:not(.so-checkinput-disabled) {
+  z-index: 1;
+}
+@-webkit-keyframes btn-focus-primary {
+  0% {
+    -webkit-box-shadow: 0 0 0 0 var(--primary-color-dark-5_fade-60, rgba(25, 140, 255, 0.6));
+            box-shadow: 0 0 0 0 var(--primary-color-dark-5_fade-60, rgba(25, 140, 255, 0.6));
+  }
+  50% {
+    -webkit-box-shadow: 0 0 0 0.4em var(--primary-color-dark-5_fade-0, rgba(25, 140, 255, 0));
+            box-shadow: 0 0 0 0.4em var(--primary-color-dark-5_fade-0, rgba(25, 140, 255, 0));
+  }
+  100% {
+    -webkit-box-shadow: 0 0 0 0.8em var(--primary-color-dark-5_fade-0, rgba(25, 140, 255, 0));
+            box-shadow: 0 0 0 0.8em var(--primary-color-dark-5_fade-0, rgba(25, 140, 255, 0));
+  }
+}
+@keyframes btn-focus-primary {
+  0% {
+    -webkit-box-shadow: 0 0 0 0 var(--primary-color-dark-5_fade-60, rgba(25, 140, 255, 0.6));
+            box-shadow: 0 0 0 0 var(--primary-color-dark-5_fade-60, rgba(25, 140, 255, 0.6));
+  }
+  50% {
+    -webkit-box-shadow: 0 0 0 0.4em var(--primary-color-dark-5_fade-0, rgba(25, 140, 255, 0));
+            box-shadow: 0 0 0 0.4em var(--primary-color-dark-5_fade-0, rgba(25, 140, 255, 0));
+  }
+  100% {
+    -webkit-box-shadow: 0 0 0 0.8em var(--primary-color-dark-5_fade-0, rgba(25, 140, 255, 0));
+            box-shadow: 0 0 0 0.8em var(--primary-color-dark-5_fade-0, rgba(25, 140, 255, 0));
+  }
+}
+.so-checkinput-button .so-checkinput.so-checkinput-checked:focus,
+.so-checkinput-button .so-checkinput.so-checkinput-checked:hover {
+  border-color: var(--primary-color, #3399ff);
+  background-color: var(--primary-color-dark-btn-hover, #007fff);
+  color: #fff;
+}
+.so-checkinput-button .so-checkinput.so-checkinput-checked:active {
+  border-color: var(--primary-color, #3399ff);
+  -webkit-animation: btn-focus-primary 0.4s ease-out;
+          animation: btn-focus-primary 0.4s ease-out;
+  background-color: var(--primary-color-dark-btn-hover, #007fff);
+  color: #fff;
+}
+.so-checkinput-button .so-checkinput.so-checkinput-checked:active {
+  background-image: none;
+}
+.so-checkinput-button .so-checkinput.so-checkinput-checked[disabled]:hover,
+fieldset[disabled] .so-checkinput-button .so-checkinput.so-checkinput-checked:hover,
+.so-checkinput-button .so-checkinput.so-checkinput-checked[disabled]:focus,
+fieldset[disabled] .so-checkinput-button .so-checkinput.so-checkinput-checked:focus {
+  border-color: transparent;
+  background-color: var(--primary-color, #3399ff);
+}
+.so-checkinput-button .so-checkinput.so-checkinput-checked[disabled]:active,
+fieldset[disabled] .so-checkinput-button .so-checkinput.so-checkinput-checked:active {
+  -webkit-animation: none;
+          animation: none;
+}
+.so-checkinput-button .so-checkinput.so-checkinput-checked[disabled]:hover,
+fieldset[disabled] .so-checkinput-button .so-checkinput.so-checkinput-checked:hover,
+.so-checkinput-button .so-checkinput.so-checkinput-checked[disabled]:focus,
+fieldset[disabled] .so-checkinput-button .so-checkinput.so-checkinput-checked:focus {
+  background: var(--button-disabled-bg, #f5f5f5);
+  color: var(--button-disabled-color, rgba(0, 0, 0, 0.45));
+}
+.so-checkinput-button .so-checkinput.so-checkinput-checked[disabled]:active,
+fieldset[disabled] .so-checkinput-button .so-checkinput.so-checkinput-checked:active {
+  -webkit-animation: none;
+          animation: none;
+}
+.so-checkinput-button .so-checkinput.so-checkinput-checked:before {
+  background: var(--primary-color, #3399ff);
+}
+.so-checkinput-button .so-checkinput.so-checkinput-checked .so-checkinput-desc {
+  color: #fff;
+}
+.so-checkinput-button .so-checkinput:first-child {
+  border-top-left-radius: var(--radio-button-group-border-radius, var(--button-border-radius, 3px));
+  border-bottom-left-radius: var(--radio-button-group-border-radius, var(--button-border-radius, 3px));
+}
+.so-checkinput-rtl.so-checkinput-button .so-checkinput:first-child {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: var(--radio-button-group-border-radius, var(--button-border-radius, 3px));
+  border-bottom-right-radius: var(--radio-button-group-border-radius, var(--button-border-radius, 3px));
+}
+.so-checkinput-button .so-checkinput:last-child {
+  border-top-right-radius: var(--radio-button-group-border-radius, var(--button-border-radius, 3px));
+  border-bottom-right-radius: var(--radio-button-group-border-radius, var(--button-border-radius, 3px));
+}
+.so-checkinput-rtl.so-checkinput-button .so-checkinput:last-child {
+  border-top-left-radius: var(--radio-button-group-border-radius, var(--button-border-radius, 3px));
+  border-bottom-left-radius: var(--radio-button-group-border-radius, var(--button-border-radius, 3px));
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.so-checkinput-button.so-checkinput-outline .so-checkinput.so-checkinput-checked {
+  border-color: var(--primary-color, #3399ff);
+  background-color: #fff;
+  color: var(--primary-color, #3399ff);
+}
+.so-checkinput-button.so-checkinput-outline .so-checkinput.so-checkinput-checked:hover,
+.so-checkinput-button.so-checkinput-outline .so-checkinput.so-checkinput-checked:active,
+.so-checkinput-button.so-checkinput-outline .so-checkinput.so-checkinput-checked:focus {
+  border-color: var(--primary-color, #3399ff);
+  background-color: #fff;
+  color: var(--primary-color, #3399ff);
+}
+.so-checkinput-button.so-checkinput-outline .so-checkinput.so-checkinput-checked .so-checkinput-desc {
+  color: var(--primary-color, #3399ff);
+}
+.so-checkinput-button.so-checkinput-group span {
+  vertical-align: baseline;
+}
+.so-checkinput-switch {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  text-align: center;
+  margin: 8px 0;
+  min-width: 44px;
+  height: var(--switch-bg-height, 16px);
+  line-height: var(--switch-bg-height, 16px);
+  border-radius: 22px;
+  padding-left: var(--switch-indicator-size, 24px);
+  padding-right: 4px;
+  background: var(--switch-unchecked-bg, #ced4da);
+  position: relative;
+  -webkit-transition: all 0.36s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+  transition: all 0.36s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+}
+.so-checkinput-rtl.so-checkinput-switch {
+  padding-left: 4px;
+  padding-right: var(--switch-indicator-size, 24px);
+}
+.so-checkinput-switch input {
+  width: 0;
+  height: 0;
+}
+.so-checkinput-switch .so-checkinput-indicator {
+  display: none;
+}
+.so-checkinput-switch-indicator {
+  position: absolute;
+  left: var(--switch-indicator-padding-horizontal, 0px);
+  -webkit-transition: all 0.36s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+  transition: all 0.36s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+  width: var(--switch-indicator-size, 24px);
+  height: var(--switch-indicator-size, 24px);
+  top: var(--switch-indicator-top, -4px);
+  background: #fff;
+  display: inline-block;
+  border-radius: 50%;
+  -webkit-box-shadow: 0 1px 4px var(--gray-500, #adb5bd);
+          box-shadow: 0 1px 4px var(--gray-500, #adb5bd);
+}
+.so-checkinput-rtl .so-checkinput-switch-indicator {
+  left: auto;
+  right: var(--switch-indicator-padding-horizontal, 0px);
+}
+.so-checkinput-switch-children {
+  font-size: 12px;
+  color: #fff;
+  padding: 0 4px;
+}
+.so-checkinput-checked.so-checkinput-switch {
+  padding-right: var(--switch-indicator-size, 24px);
+  padding-left: 4px;
+  background: var(--switch-checked-bg, var(--primary-color-fade-50, rgba(51, 153, 255, 0.5)));
+}
+.so-checkinput-rtl.so-checkinput-checked.so-checkinput-switch {
+  padding-left: var(--switch-indicator-size, 24px);
+  padding-right: 4px;
+}
+.so-checkinput-checked.so-checkinput-switch .so-checkinput-switch-indicator {
+  -webkit-box-shadow: var(--switch-checked-box-shadow, 0 1px 4px var(--primary-color-fade-50, rgba(51, 153, 255, 0.5)));
+          box-shadow: var(--switch-checked-box-shadow, 0 1px 4px var(--primary-color-fade-50, rgba(51, 153, 255, 0.5)));
+  background: var(--switch-indicator-checked-bg, var(--primary-color, #3399ff));
+}
+.so-checkinput-checked.so-checkinput-switch .so-checkinput-switch-indicator-ltr {
+  left: 100%;
+  margin-left: var(--switch-indicator-padding-horizontal-negative, 0px);
+  -webkit-transform: translateX(-100%);
+      -ms-transform: translateX(-100%);
+          transform: translateX(-100%);
+}
+.so-checkinput-checked.so-checkinput-switch .so-checkinput-switch-indicator-rtl {
+  right: 100%;
+  margin-right: var(--switch-indicator-padding-horizontal-negative, 0px);
+  -webkit-transform: translateX(100%);
+      -ms-transform: translateX(100%);
+          transform: translateX(100%);
+}
+.so-checkinput-checked.so-checkinput-small.so-checkinput-switch {
+  padding-left: 0;
+  padding-right: var(--switch-small-indicator-size, 16px);
+}
+.so-checkinput-rtl.so-checkinput-checked.so-checkinput-small.so-checkinput-switch {
+  padding-left: var(--switch-small-indicator-size, 16px);
+  padding-right: 0;
+}
+.so-checkinput-checked.so-checkinput-large.so-checkinput-switch {
+  padding-left: 0;
+  padding-right: var(--switch-large-indicator-size, 32px);
+}
+.so-checkinput-rtl.so-checkinput-checked.so-checkinput-large.so-checkinput-switch {
+  padding-left: var(--switch-large-indicator-size, 32px);
+  padding-right: 0;
+}
+.so-checkinput-small.so-checkinput-switch {
+  min-width: 28px;
+  height: var(--switch-small-bg-height, 10px);
+  line-height: var(--switch-small-bg-height, 10px);
+  border-radius: 14px;
+  padding-left: var(--switch-small-indicator-size, 16px);
+  padding-right: 0;
+}
+.so-checkinput-rtl.so-checkinput-small.so-checkinput-switch {
+  padding-right: var(--switch-small-indicator-size, 16px);
+  padding-left: 0;
+}
+.so-checkinput-small.so-checkinput-switch .so-checkinput-switch-indicator {
+  width: var(--switch-small-indicator-size, 16px);
+  height: var(--switch-small-indicator-size, 16px);
+  top: var(--switch-small-indicator-top, -3px);
+  padding-left: 8px;
+  padding-right: 8px;
+}
+.so-checkinput-large.so-checkinput-switch {
+  min-width: 60px;
+  height: var(--switch-large-bg-height, 22px);
+  line-height: var(--switch-large-bg-height, 22px);
+  border-radius: 30px;
+  padding-left: var(--switch-large-indicator-size, 32px);
+  padding-right: 0;
+}
+.so-checkinput-rtl.so-checkinput-large.so-checkinput-switch {
+  padding-right: var(--switch-large-indicator-size, 32px);
+  padding-left: 0;
+}
+.so-checkinput-large.so-checkinput-switch .so-checkinput-switch-indicator {
+  width: var(--switch-large-indicator-size, 32px);
+  height: var(--switch-large-indicator-size, 32px);
+  top: var(--switch-large-indicator-top, -5px);
+}
+.so-checkinput-disabled.so-checkinput-switch {
+  opacity: 0.4;
+}
+.so-checkinput-checked i.so-checkinput-indicator,
+.so-checkinput-indeterminate i.so-checkinput-indicator {
+  -webkit-animation: so-checkinput-focus 0.6s ease-out;
+          animation: so-checkinput-focus 0.6s ease-out;
+}
+i.so-checkinput-indicator {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  width: 16px;
+  height: 16px;
+  border: solid var(--checkbox-border-width, 1px) var(--checkbox-border-color, #ced4da);
+  border-radius: var(--checkbox-indicator-border-radius, 2px);
+  vertical-align: middle;
+}
+i.so-checkinput-indicator + span {
+  padding: 0 8px;
+  vertical-align: middle;
+}
+i.so-checkinput-indicator:after {
+  position: absolute;
+  z-index: 10;
+  display: block;
+  content: ' ';
+}
+i.so-checkinput-indicator.so-checkinput-radio {
+  background-color: #fff;
+}
+i.so-checkinput-indicator.so-checkinput-checkbox + span {
+  padding: 0 var(--checkbox-text-padding-x, 8px);
+}
+i.so-checkinput-checkbox.so-checkinput-indicator {
+  background: #fff;
+}
+i.so-checkinput-checkbox.so-checkinput-indicator:after {
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 5px;
+  border: solid 2px transparent;
+  border-width: 0 0 2px 2px;
+}
+.so-checkinput:not(.so-checkinput-checked) i.so-checkinput-radio.so-checkinput-indicator {
+  border-width: var(--radio-border-uncheck-width, 1px);
+}
+i.so-checkinput-radio.so-checkinput-indicator {
+  border-radius: 50%;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  width: var(--radio-width, 16px);
+  height: var(--radio-width, 16px);
+  border-width: var(--radio-border-width, 1px);
+}
+i.so-checkinput-radio.so-checkinput-indicator:after {
+  margin: auto;
+  position: static;
+  width: var(--radio-inner-width, 8px);
+  height: var(--radio-inner-width, 8px);
+  border-radius: 50%;
+}
+.so-checkinput .so-checkinput-text {
+  display: inline-block;
+  width: auto;
+}
+.so-checkinput-group {
+  padding: 6px 0;
+}
+.so-checkinput-block .so-checkinput {
+  display: block;
+  margin-bottom: 8px;
+}
+.so-checkinput-no-block .so-checkinput {
+  display: inline-block;
+  margin-bottom: 0;
+}
+.so-checkinput:focus {
+  outline: none;
+}
+.so-checkinput:focus i.so-checkinput-indicator {
+  -webkit-box-shadow: 0 0 0 var(--input-focus-width, 3px) var(--input-border-focus-color-fade-25, rgba(128, 189, 255, 0.25));
+          box-shadow: 0 0 0 var(--input-focus-width, 3px) var(--input-border-focus-color-fade-25, rgba(128, 189, 255, 0.25));
+}
+.so-checkinput:hover i.so-checkinput-indicator,
+.so-checkinput:focus i.so-checkinput-indicator {
+  border-color: var(--primary-color, #3399ff);
+}
+.so-checkinput-checked i.so-checkinput-checkbox.so-checkinput-indicator {
+  border-color: var(--primary-color, #3399ff);
+  background: var(--primary-color, #3399ff);
+}
+.so-checkinput-checked i.so-checkinput-checkbox.so-checkinput-indicator:after {
+  border-color: #fff;
+  -webkit-transform: translate(-50%, -65%) rotate(-45deg);
+      -ms-transform: translate(-50%, -65%) rotate(-45deg);
+          transform: translate(-50%, -65%) rotate(-45deg);
+}
+.so-checkinput-checked i.so-checkinput-radio.so-checkinput-indicator {
+  border-color: var(--primary-color, #3399ff);
+}
+.so-checkinput-checked i.so-checkinput-radio.so-checkinput-indicator:after {
+  background: var(--primary-color, #3399ff);
+}
+.so-checkinput-indeterminate i.so-checkinput-indicator {
+  border-color: var(--primary-color, #3399ff);
+  background: var(--primary-color, #3399ff);
+}
+.so-checkinput-indeterminate i.so-checkinput-indicator:after {
+  border-color: #fff;
+  border-left-width: 0;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  height: 2px;
+}
+.so-checkinput-disabled {
+  cursor: not-allowed;
+}
+.so-checkinput-disabled i.so-checkinput-indicator,
+.so-checkinput-disabled:hover i.so-checkinput-indicator,
+.so-checkinput-disable:focus i.so-checkinput-indicator,
+.so-checkinput-disabled.so-checkinput-checked i.so-checkinput-indicator {
+  border-color: var(--checkbox-border-color, #ced4da);
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  background-color: var(--checkbox-disabled-bgc, #E8EBF0);
+}
+.so-checkinput-disabled.so-checkinput-checked i.so-checkinput-indicator.so-checkinput-checkbox,
+.so-checkinput-disabled.so-checkinput-indeterminate i.so-checkinput-indicator.so-checkinput-checkbox {
+  border-color: var(--checkbox-checked-disabled-bgc, var(--checkbox-border-color, #ced4da));
+  background-color: var(--checkbox-checked-disabled-bgc, var(--checkbox-border-color, #ced4da));
+}
+.so-checkinput-disabled.so-checkinput-checked i.so-checkinput-indicator.so-checkinput-checkbox::after,
+.so-checkinput-disabled.so-checkinput-indeterminate i.so-checkinput-indicator.so-checkinput-checkbox::after {
+  border-color: #fff;
+}
+.so-checkinput-disabled.so-checkinput-checked i.so-checkinput-indicator.so-checkinput-radio,
+.so-checkinput-disabled.so-checkinput-indeterminate i.so-checkinput-indicator.so-checkinput-radio {
+  border-color: var(--checkbox-checked-disabled-bgc, var(--checkbox-border-color, #ced4da));
+  background-color: #fff;
+}
+.so-checkinput-disabled.so-checkinput-checked i.so-checkinput-radio:after {
+  background-color: var(--gray-500, #adb5bd);
+}
+.so-checkinput-disabled.so-checkinput-checked i.so-checkinput-indicator:after,
+.so-checkinput-disabled.so-checkinput-indeterminate i.so-checkinput-indicator:after {
+  border-color: var(--checkbox-border-color, #ced4da);
+}
+.so-checkinput-radio-container:not(.so-checkinput-disabled) .so-checkinput-desc {
+  color: var(--radio-text-color, var(--checkinput-color, var(--gray-900, #212529)));
+}
+.so-checkinput-rtl {
+  direction: rtl;
+  text-align: right;
+}

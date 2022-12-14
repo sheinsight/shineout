@@ -1,0 +1,337 @@
+.so-carousel {
+  position: relative;
+  overflow: hidden;
+}
+@-webkit-keyframes so-carousel-r2c {
+  0% {
+    -webkit-transform: translateX(100%);
+            transform: translateX(100%);
+  }
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+}
+@keyframes so-carousel-r2c {
+  0% {
+    -webkit-transform: translateX(100%);
+            transform: translateX(100%);
+  }
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+}
+@-webkit-keyframes so-carousel-c2r {
+  0% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+  100% {
+    -webkit-transform: translateX(100%);
+            transform: translateX(100%);
+  }
+}
+@keyframes so-carousel-c2r {
+  0% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+  100% {
+    -webkit-transform: translateX(100%);
+            transform: translateX(100%);
+  }
+}
+@-webkit-keyframes so-carousel-l2c {
+  0% {
+    -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
+  }
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+}
+@keyframes so-carousel-l2c {
+  0% {
+    -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
+  }
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+}
+@-webkit-keyframes so-carousel-c2l {
+  0% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+  100% {
+    -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
+  }
+}
+@keyframes so-carousel-c2l {
+  0% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+  100% {
+    -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
+  }
+}
+@-webkit-keyframes so-carousel-t2c {
+  0% {
+    -webkit-transform: translateY(-100%);
+            transform: translateY(-100%);
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+}
+@keyframes so-carousel-t2c {
+  0% {
+    -webkit-transform: translateY(-100%);
+            transform: translateY(-100%);
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+}
+@-webkit-keyframes so-carousel-c2t {
+  0% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+  100% {
+    -webkit-transform: translateY(-100%);
+            transform: translateY(-100%);
+  }
+}
+@keyframes so-carousel-c2t {
+  0% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+  100% {
+    -webkit-transform: translateY(-100%);
+            transform: translateY(-100%);
+  }
+}
+@-webkit-keyframes so-carousel-b2c {
+  0% {
+    -webkit-transform: translateY(100%);
+            transform: translateY(100%);
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+}
+@keyframes so-carousel-b2c {
+  0% {
+    -webkit-transform: translateY(100%);
+            transform: translateY(100%);
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+}
+@-webkit-keyframes so-carousel-c2b {
+  0% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+  100% {
+    -webkit-transform: translateY(100%);
+            transform: translateY(100%);
+  }
+}
+@keyframes so-carousel-c2b {
+  0% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+  100% {
+    -webkit-transform: translateY(100%);
+            transform: translateY(100%);
+  }
+}
+@-webkit-keyframes so-carousel-fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes so-carousel-fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes so-carousel-fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes so-carousel-fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.so-carousel-rtl {
+  direction: rtl;
+  text-align: right;
+}
+.so-carousel-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.so-carousel-item > * {
+  width: 100%;
+  height: 100%;
+}
+.so-carousel-item-current {
+  z-index: 10;
+}
+.so-carousel-item-pre {
+  z-index: 9;
+}
+.so-carousel-slide.so-carousel-forward .so-carousel-item-current {
+  -webkit-animation: so-carousel-r2c 0.4s ease-in-out;
+          animation: so-carousel-r2c 0.4s ease-in-out;
+}
+.so-carousel-slide.so-carousel-forward .so-carousel-item-pre {
+  -webkit-animation: so-carousel-c2l 0.4s ease-in-out;
+          animation: so-carousel-c2l 0.4s ease-in-out;
+}
+.so-carousel-slide.so-carousel-backward .so-carousel-item-current {
+  -webkit-animation: so-carousel-l2c 0.4s ease-in-out;
+          animation: so-carousel-l2c 0.4s ease-in-out;
+}
+.so-carousel-slide.so-carousel-backward .so-carousel-item-pre {
+  -webkit-animation: so-carousel-c2r 0.4s ease-in-out;
+          animation: so-carousel-c2r 0.4s ease-in-out;
+}
+.so-carousel-slide-y.so-carousel-forward .so-carousel-item-current {
+  -webkit-animation: so-carousel-b2c 0.4s ease-in-out;
+          animation: so-carousel-b2c 0.4s ease-in-out;
+}
+.so-carousel-slide-y.so-carousel-forward .so-carousel-item-pre {
+  -webkit-animation: so-carousel-c2t 0.4s ease-in-out;
+          animation: so-carousel-c2t 0.4s ease-in-out;
+}
+.so-carousel-slide-y.so-carousel-backward .so-carousel-item-current {
+  -webkit-animation: so-carousel-t2c 0.4s ease-in-out;
+          animation: so-carousel-t2c 0.4s ease-in-out;
+}
+.so-carousel-slide-y.so-carousel-backward .so-carousel-item-pre {
+  -webkit-animation: so-carousel-c2b 0.4s ease-in-out;
+          animation: so-carousel-c2b 0.4s ease-in-out;
+}
+.so-carousel-fade .so-carousel-item-current {
+  -webkit-animation: so-carousel-fade-in 0.4s ease-in-out;
+          animation: so-carousel-fade-in 0.4s ease-in-out;
+}
+.so-carousel-indicator {
+  position: absolute;
+  z-index: 100;
+  bottom: var(--carousel-indicator-position, 10px);
+}
+.so-carousel-indicator a {
+  display: block;
+  width: 10px;
+  height: 10px;
+  margin-right: 4px;
+  border: solid 1px #fff;
+  background-color: rgba(0, 0, 0, 0.25);
+  border-radius: 50%;
+  color: #fff;
+  float: left;
+}
+.so-carousel-indicator a:last-child {
+  margin-right: 0;
+}
+.so-carousel-indicator a:hover,
+.so-carousel-indicator a:focus {
+  text-decoration: none;
+}
+.so-carousel-indicator.so-carousel-indicator-left {
+  left: var(--carousel-indicator-position, 10px);
+}
+.so-carousel-indicator.so-carousel-indicator-center {
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+.so-carousel-indicator.so-carousel-indicator-right {
+  right: var(--carousel-indicator-position, 10px);
+}
+a.so-carousel-indicator-active {
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #000;
+}
+.so-carousel-indicator-number a {
+  width: 14px;
+  height: 14px;
+  border-radius: 1px;
+  font-size: 12px;
+  line-height: 14px;
+  text-align: center;
+}
+.so-carousel-indicator-line a {
+  width: 14px;
+  height: 3px;
+  border-width: 0;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 0;
+}
+.so-carousel-indicator-line a.so-carousel-indicator-active {
+  width: 18px;
+  background-color: #ffffff;
+}
+.so-carousel-slide-y .so-carousel-indicator.so-carousel-indicator-left,
+.so-carousel-slide-y .so-carousel-indicator.so-carousel-indicator-right {
+  bottom: 50%;
+  -webkit-transform: translate(0, 50%);
+      -ms-transform: translate(0, 50%);
+          transform: translate(0, 50%);
+}
+.so-carousel-slide-y .so-carousel-indicator.so-carousel-indicator-left a,
+.so-carousel-slide-y .so-carousel-indicator.so-carousel-indicator-right a {
+  margin-right: 0;
+  margin-bottom: 4px;
+  clear: both;
+}
+.so-carousel-slide-y .so-carousel-indicator.so-carousel-indicator-left a:last-child,
+.so-carousel-slide-y .so-carousel-indicator.so-carousel-indicator-right a:last-child {
+  margin: 0;
+}
+.so-carousel-slide-y .so-carousel-indicator.so-carousel-indicator-left.so-carousel-indicator-line a,
+.so-carousel-slide-y .so-carousel-indicator.so-carousel-indicator-right.so-carousel-indicator-line a {
+  width: 3px;
+  height: 14px;
+}
+.so-carousel-slide-y .so-carousel-indicator.so-carousel-indicator-left.so-carousel-indicator-line a.so-carousel-indicator-active,
+.so-carousel-slide-y .so-carousel-indicator.so-carousel-indicator-right.so-carousel-indicator-line a.so-carousel-indicator-active {
+  height: 18px;
+}

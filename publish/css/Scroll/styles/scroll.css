@@ -1,0 +1,140 @@
+.so-scroll {
+  position: relative;
+  overflow: hidden;
+}
+.so-scroll-inner {
+  position: relative;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
+.so-scroll-iframe {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: transparent;
+}
+.so-scroll-dragging {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.so-scroll-bar {
+  position: absolute;
+  z-index: 90;
+  border: 1px solid transparent;
+  background: #fafafa;
+}
+.so-scroll-bar:hover .so-scroll-handle,
+.so-scroll-bar.so-scroll-dragging .so-scroll-handle {
+  background: rgba(127, 127, 127, 0.9);
+}
+.so-scroll-bar .so-scroll-handle {
+  position: absolute;
+  z-index: 2;
+  display: none;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 6px;
+  cursor: default;
+}
+.so-scroll-bar .so-scroll-handle:focus {
+  background: rgba(127, 127, 127, 0.9);
+}
+.so-scroll-bar.so-scroll-y {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 16px;
+  border-width: 0 1px;
+}
+.so-scroll-bar.so-scroll-y .so-scroll-handle {
+  left: 2px;
+  width: 10px;
+  min-height: 20px;
+}
+.so-scroll-bar.so-scroll-y.so-scroll-padding-y:after {
+  position: absolute;
+  z-index: 1;
+  top: 100%;
+  left: -1px;
+  width: 16px;
+  height: 16px;
+  background: #fafafa;
+  content: ' ';
+}
+.so-scroll-bar.so-scroll-x {
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 16px;
+  border-width: 1px 0;
+}
+.so-scroll-bar.so-scroll-x .so-scroll-handle {
+  top: 2px;
+  min-width: 20px;
+  height: 10px;
+}
+.so-scroll-bar.so-scroll-show .so-scroll-handle {
+  display: block;
+}
+.so-scroll-show-x {
+  padding-bottom: 16px;
+}
+.so-scroll-show-x .so-scroll-y {
+  bottom: 16px;
+}
+.so-scroll-show-y {
+  padding-right: 16px;
+}
+.so-scroll-show-y .so-scroll-x {
+  right: 16px;
+}
+.so-scroll-show-x .so-scroll-inner {
+  right: 16px;
+}
+.so-scroll-show-y .so-scroll-inner {
+  bottom: 16px;
+}
+.so-scroll.so-scroll-rtl {
+  direction: rtl;
+}
+.so-scroll.so-scroll-rtl .so-scroll-inner {
+  left: auto;
+  right: 0;
+}
+.so-scroll.so-scroll-rtl .so-scroll-bar.so-scroll-y {
+  right: auto;
+  left: 0;
+}
+.so-scroll.so-scroll-rtl .so-scroll-bar.so-scroll-y .so-scroll-handle {
+  right: 2px;
+  left: auto;
+}
+.so-scroll.so-scroll-rtl .so-scroll-bar.so-scroll-y.so-scroll-padding-y:after {
+  right: -1px;
+  left: auto;
+}
+.so-scroll.so-scroll-rtl.so-scroll-show-y {
+  padding-right: 0;
+  padding-left: 16px;
+}
+.so-scroll.so-scroll-rtl.so-scroll-show-y .so-scroll-x {
+  right: 0;
+  left: 16px;
+}
+.so-scroll-show-x .so-scroll.so-scroll-rtl-inner {
+  right: 0;
+  left: 16px;
+}
+.so-scroll.so-scroll-rtl .so-scroll-bar.so-scroll-y {
+  right: auto;
+  left: 0;
+}

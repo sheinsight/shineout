@@ -1,0 +1,65 @@
+@import '../../styles/variables.less';
+
+@cube-grid-prefix: ~'@{so-prefix}-cube-grid';
+
+.@{cube-grid-prefix} {
+  @delayRange: 0.4s;
+  @keyframesName: ~'@{cube-grid-prefix}-spin';
+
+  margin: auto;
+
+  &-item {
+    width: 33.33333%;
+    height: 33.3333%;
+    animation: @keyframesName 1.3s infinite ease-in-out;
+    float: left;
+  }
+
+  @keyframes @keyframesName {
+    0%,
+    70%,
+    100% {
+      transform: scale3D(1, 1, 1);
+    }
+
+    35% {
+      transform: scale3D(0, 0, 1);
+    }
+  }
+
+  &-item:nth-child(1) {
+    animation-delay: @delayRange * 0.5;
+  }
+
+  &-item:nth-child(2) {
+    animation-delay: @delayRange * 0.75;
+  }
+
+  &-item:nth-child(3) {
+    animation-delay: @delayRange;
+  }
+
+  &-item:nth-child(4) {
+    animation-delay: @delayRange * 0.25;
+  }
+
+  &-item:nth-child(5) {
+    animation-delay: @delayRange * 0.5;
+  }
+
+  &-item:nth-child(6) {
+    animation-delay: @delayRange * 0.75;
+  }
+
+  &-item:nth-child(7) {
+    animation-delay: 0s;
+  }
+
+  &-item:nth-child(8) {
+    animation-delay: @delayRange * 0.25;
+  }
+
+  &-item:nth-child(9) {
+    animation-delay: @delayRange * 0.5;
+  }
+}

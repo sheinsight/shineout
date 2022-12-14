@@ -1,0 +1,90 @@
+.so-tag {
+  position: relative;
+  display: inline-block;
+  padding: var(--tag-padding-vertical, 2px) var(--tag-padding-horizontal, 8px);
+  margin: 0 4px;
+  border: 1px solid transparent;
+  background: var(--tag-bg, #fafafa);
+  border-radius: var(--tag-border-radius, 3px);
+  color: var(--tag-color, #595959);
+  cursor: pointer;
+  font-size: 75%;
+  font-weight: var(--tag-font-weight, 600);
+  line-height: 1.5;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.so-tag .so-tag-inline {
+  display: inline-block;
+  vertical-align: top;
+}
+.so-tag.so-tag-disabled {
+  cursor: not-allowed;
+}
+.so-tag-input {
+  display: inline-block;
+  width: 100px;
+  height: 24px;
+  margin: 0 0 0 4px;
+  font-size: 75%;
+  vertical-align: middle;
+}
+.so-tag-input input {
+  padding: 2px 4px;
+  line-height: 18px;
+}
+.so-tag .so-tag-close-icon {
+  display: inline-block;
+  width: 6px;
+  margin: 0 0 0 8px;
+}
+.so-tag-rtl.so-tag .so-tag-close-icon {
+  margin: 0 8px 0 0;
+}
+.so-tag .so-tag-close-icon:hover svg {
+  fill: var(--tag-close-hover-color, '#000');
+}
+.so-tag .so-tag-close-icon svg {
+  fill: var(--tag-close-color, '#000');
+  width: 6px;
+  margin-bottom: 1px;
+}
+.so-tag .so-tag-close-loading {
+  display: inline-block;
+  margin: 0 0 0 8px;
+}
+.so-tag-rtl.so-tag .so-tag-close-loading {
+  margin: 0 8px 0 0;
+}
+.so-tag-default {
+  border-color: var(--tag-border-color, #d9d9d9);
+}
+.so-tag-success {
+  border-color: transparent;
+  background-color: var(--tag-success-bg, var(--success-color, #00cc66));
+  color: #fff;
+  color: var(--tag-success-color, #fff);
+}
+.so-tag-info {
+  border-color: transparent;
+  background-color: var(--tag-info-bg, var(--info-color, #17a2b8));
+  color: #fff;
+  color: var(--tag-info-color, #fff);
+}
+.so-tag-warning {
+  border-color: transparent;
+  background-color: var(--tag-warning-bg, var(--warning-color, #ff9900));
+  color: #fff;
+  color: var(--tag-warning-color, #fff);
+}
+.so-tag-danger,
+.so-tag-error {
+  border-color: transparent;
+  background-color: var(--tag-danger-bg, var(--danger-color, #f85555));
+  color: #fff;
+  color: var(--tag-danger-color, #fff);
+}
+.so-tag.so-tag-rtl {
+  direction: rtl;
+  text-align: right;
+}

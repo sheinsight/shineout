@@ -1,0 +1,57 @@
+@import '../../styles/variables.less';
+@import '../../styles/themes/@{so-theme}.less';
+
+@spin-prefix: ~'@{so-prefix}-spin';
+
+.@{spin-prefix} {
+  margin: auto;
+  line-height: 1.5715;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  > div {
+    margin: unset;
+  }
+  &-tip {
+    margin: auto;
+    text-align: center;
+    padding-top: 5px;
+  }
+  &-container {
+    position: relative;
+    .@{spin-prefix}-loading {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 4;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .@{spin-prefix}-content {
+      position: relative;
+      // z-index: 2;
+      &:after {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 3;
+        width: 100%;
+        height: 100%;
+        background: #fff;
+        opacity: 0;
+        transition: all .3s;
+        content: '';
+        pointer-events: none;
+      }
+    }
+  }
+  &-show &-content:after {
+    opacity: .5;
+  }
+}

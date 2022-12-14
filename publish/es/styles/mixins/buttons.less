@@ -1,0 +1,434 @@
+// Button variants
+//
+// Easily pump out default styles, as well as :hover, :focus, :active,
+// and disabled options for all buttons
+
+.button-case-box-shadow(@color, @width, @fade) {
+  & when (%('%s', @color) = %('%s', @btn-primary-border)) {
+    & when (@so-theme = antd), (@so-theme = shineout) {
+      & when (@fade = 60%) {
+        box-shadow: 0 0 0 @width @primary-color-fade-60;
+      }
+      & when (@fade = 0%) {
+        box-shadow: 0 0 0 @width @primary-color-fade-0;
+      }
+    }
+    & when (@so-theme = default) {
+      & when (@fade = 60%) {
+        box-shadow: 0 0 0 @width @primary-color-dark-5_fade-60;
+      }
+      & when (@fade = 0%) {
+        box-shadow: 0 0 0 @width @primary-color-dark-5_fade-0;
+      }
+    }
+  }
+  & when (%('%s', @color) = %('%s', @btn-success-border)) {
+    & when (@so-theme = antd), (@so-theme = shineout) {
+      & when (@fade = 60%) {
+        box-shadow: 0 0 0 @width @success-color-fade-60;
+      }
+      & when (@fade = 0%) {
+        box-shadow: 0 0 0 @width @success-color-fade-0;
+      }
+    }
+    & when (@so-theme = default) {
+      & when (@fade = 60%) {
+        box-shadow: 0 0 0 @width @success-color-dark-5_fade-60;
+      }
+      & when (@fade = 0%) {
+        box-shadow: 0 0 0 @width @success-color-dark-5_fade-0;
+      }
+    }
+  }
+  & when (%('%s', @color) = %('%s', @btn-info-border)) {
+    & when (@so-theme = antd), (@so-theme = shineout) {
+      & when (@fade = 60%) {
+        box-shadow: 0 0 0 @width @info-color-fade-60;
+      }
+      & when (@fade = 0%) {
+        box-shadow: 0 0 0 @width @info-color-fade-0;
+      }
+    }
+    & when (@so-theme = default) {
+      & when (@fade = 60%) {
+        box-shadow: 0 0 0 @width @info-color-dark-5_fade-60;
+      }
+      & when (@fade = 0%) {
+        box-shadow: 0 0 0 @width @info-color-dark-5_fade-0;
+      }
+    }
+  }
+  & when (%('%s', @color) = %('%s', @btn-warning-border)) {
+    & when (@so-theme = antd), (@so-theme = shineout) {
+      & when (@fade = 60%) {
+        box-shadow: 0 0 0 @width @warning-color-fade-60;
+      }
+      & when (@fade = 0%) {
+        box-shadow: 0 0 0 @width @warning-color-fade-0;
+      }
+    }
+    & when (@so-theme = default) {
+      & when (@fade = 60%) {
+        box-shadow: 0 0 0 @width @warning-color-dark-5_fade-60;
+      }
+      & when (@fade = 0%) {
+        box-shadow: 0 0 0 @width @warning-color-dark-5_fade-0;
+      }
+    }
+  }
+  & when (%('%s', @color) = %('%s', @btn-danger-border)) {
+    & when (@so-theme = antd), (@so-theme = shineout) {
+      & when (@fade = 60%) {
+        box-shadow: 0 0 0 @width @danger-color-fade-60;
+      }
+      & when (@fade = 0%) {
+        box-shadow: 0 0 0 @width @danger-color-fade-0;
+      }
+    }
+    & when (@so-theme = default) {
+      & when (@fade = 60%) {
+        box-shadow: 0 0 0 @width @danger-color-dark-5_fade-60;
+      }
+      & when (@fade = 0%) {
+        box-shadow: 0 0 0 @width @danger-color-dark-5_fade-0;
+      }
+    }
+  }
+  & when (%('%s', @color) = %('%s', @btn-secondary-border)) {
+    & when (@fade = 60%) {
+      box-shadow: 0 0 0 @width @secondary-color-dark-5_fade-60;
+    }
+    & when (@fade = 0%) {
+      box-shadow: 0 0 0 @width @secondary-color-dark-5_fade-0;
+    }
+  }
+  & when (%('%s', @color) = %('%s', @btn-default-border)) {
+      & when (@fade = 60%) {
+        box-shadow: 0 0 0 @width @button-default-border-fade-60;
+      }
+      & when (@fade = 0%) {
+        box-shadow: 0 0 0 @width @button-default-border-fade-0;
+      }
+  }
+}
+
+.button-case-background(@bg) when(%('%s', @bg) = %('%s', @btn-primary-bg)) {
+  background-color: @primary-color-dark-btn-hover;
+}
+.button-case-background(@bg) when(%('%s', @bg) = %('%s', @btn-secondary-bg)) {
+  background-color: @secondary-color-dark-btn-hover;
+}
+.button-case-background(@bg) when(%('%s', @bg) = %('%s', @btn-success-bg)) {
+  background-color: @success-color-dark-btn-hover;
+}
+.button-case-background(@bg) when(%('%s', @bg) = %('%s', @btn-info-bg)) {
+  background-color: @info-color-dark-btn-hover;
+}
+.button-case-background(@bg) when(%('%s', @bg) = %('%s', @btn-warning-bg)) {
+  background-color: @warning-color-dark-btn-hover;
+}
+.button-case-background(@bg) when(%('%s', @bg) = %('%s', @btn-danger-bg)) {
+  background-color: @danger-color-dark-btn-hover;
+}
+.button-case-background(@bg) when (%('%s', @bg) = %('%s', @btn-default-bg)) {
+  background-color: @bg;
+}
+
+
+.button-case-border-color(@color) {
+  & when (%('%s', @color) = %('%s', @btn-primary-border)) {
+    & when (@so-theme = antd) {
+      border-color: @primary-color-dark-btn-hover;
+    }
+    & when (@so-theme = default) {
+      border-color: @colors-primary;
+    }
+    & when (@so-theme = shineout) {
+      border-color: @colors-primary;
+    }
+  }
+  & when (%('%s', @color) = %('%s', @btn-secondary-border)) {
+    & when (@so-theme = antd) {
+      border-color: @secondary-color-dark-btn-hover;
+    }
+    & when (@so-theme = default) {
+      border-color: @colors-secondary;
+    }
+    & when (@so-theme = shineout) {
+      border-color: @colors-secondary;
+    }
+  }
+  & when (%('%s', @color) = %('%s', @btn-success-border)) {
+    & when (@so-theme = antd) {
+      border-color: @success-color-dark-btn-hover;
+    }
+    & when (@so-theme = default) {
+      border-color: @colors-success;
+    }
+    & when (@so-theme = shineout) {
+      border-color: @colors-success;
+    }
+  }
+  & when (%('%s', @color) = %('%s', @btn-info-border)) {
+    & when (@so-theme = antd) {
+      border-color: @info-color-dark-btn-hover;
+    }
+    & when (@so-theme = default) {
+      border-color: @colors-info;
+    }
+    & when (@so-theme = shineout) {
+      border-color: @colors-info;
+    }
+  }
+  & when (%('%s', @color) = %('%s', @btn-warning-border)) {
+    & when (@so-theme = antd) {
+      border-color: @warning-color-dark-btn-hover;
+    }
+    & when (@so-theme = default) {
+      border-color: @colors-warning;
+    }
+    & when (@so-theme = shineout) {
+      border-color: @colors-warning;
+    }
+  }
+  & when (%('%s', @color) = %('%s', @btn-danger-border)) {
+    & when (@so-theme = antd) {
+      border-color: @danger-color-dark-btn-hover;
+    }
+    & when (@so-theme = default) {
+      border-color: @colors-danger;
+    }
+    & when (@so-theme = shineout) {
+      border-color: @colors-danger;
+    }
+  }
+  & when (%('%s', @color) = %('%s', @btn-default-border)) {
+    & when (@so-theme = antd) {
+      // border-color: darken(@color, @btn-hover-darken);
+      border-color: @primary-color-dark-btn-hover;
+    }
+    & when (@so-theme = default) {
+      // border-color: @gray-300-darken-hover;
+      border-color: @colors-primary;
+    }
+    & when (@so-theme = shineout) {
+      border-color: @colors-primary;
+    }
+  }
+}
+
+.button-variant(@color; @background; @outline; @name; @border:transparent) {
+  border-color: @border;
+  background-color: @background;
+  color: @color;
+  fill: @color;
+  transition: all 0.15s ease-in-out;
+
+  @keyname: ~'btn-focus-@{name}';
+
+  @keyframes @keyname {
+    0% {
+      .button-case-box-shadow(@outline, 0, 60%);
+    }
+
+    50% {
+      .button-case-box-shadow(@outline, (@btn-focus-width / 2), 0%);
+    }
+
+    100% {
+      .button-case-box-shadow(@outline, @btn-focus-width, 0%);
+    }
+  }
+
+  // &:focus {
+  //   // color: @color;
+  //   // box-shadow: 0 0 0 @btn-focus-width fade(@border, 50%);
+  // }
+
+  &:focus,
+  &:hover {
+    .button-case-border-color(@outline);
+    .button-case-background(@background);
+    color: @color;
+  }
+
+  &:active {
+    .button-case-border-color(@outline);
+    animation: @keyname 0.4s ease-out;
+    .button-case-background(@background);
+    color: @color;
+  }
+
+  &:active {
+    background-image: none;
+  }
+
+  &[disabled],
+  fieldset[disabled] & {
+    &:hover,
+    &:focus {
+      border-color: @border;
+      background-color: @background;
+    }
+
+    &:active {
+      animation: none;
+    }
+  }
+}
+
+.button-outline(@color; @background; @border;) {
+  border-color: @border;
+  background: transparent;
+  color: @border;
+  fill: @border;
+
+  &:focus,
+  &:hover {
+    background-color: @background;
+    color: @color;
+  }
+
+  &:active {
+    animation: @keyname 0.4s ease-out;
+    background-color: @background;
+    color: @color;
+  }
+
+  &[disabled],
+  fieldset[disabled] & {
+    &:hover,
+    &:focus {
+      border-color: @border;
+      background: transparent;
+      color: @border;
+    }
+
+    &:active {
+      animation: none;
+    }
+  }
+}
+
+// Button sizes
+.button-size(@padding-vertical; @padding-horizontal; @font-size; @line-height; @border-radius) {
+  padding: @padding-vertical @padding-horizontal;
+  border-radius: @border-radius;
+  font-size: @font-size;
+  line-height: @line-height;
+}
+
+
+@dropdown-prefix: ~'@{so-prefix}-dropdown';
+
+.button-group-border () {
+  &:before {
+    border-left-color: #d9d9d9;
+    transition: all .2s;
+  }
+  // not outline
+  &:not(.@{button-prefix}-outline):not(.@{button-prefix}-default):not(.@{button-prefix}-disabled):before {
+    border-left-color: white;
+  }
+  // outline
+  &.@{button-prefix}-outline:not(.@{button-prefix}-default):before {
+    border-left-color: inherit;
+  }
+
+
+  // disabled
+  // default
+  &.@{button-prefix}-disabled:before {
+    border-left-color: white;
+  }
+
+  &.@{button-prefix}-disabled.@{button-prefix}-default:before,
+  &.@{button-prefix}-disabled.@{button-prefix}-outline:before
+    {
+    border-left-color: @button-disabled-delimiter;
+  }
+
+  // disabled + default
+  &.@{button-prefix}-disabled + .@{button-prefix}:not(.@{button-prefix}-disabled) {
+    &:before {
+      border-left-color: transparent;
+    }
+      &.@{button-prefix}-outline:not(.@{button-prefix}-default) {
+        &:before {
+          height: 100%;
+          border-left-color: @colors-primary;
+        }
+      }
+  }
+  // default + disabled
+  &:not(.@{button-prefix}-disabled) + .@{button-prefix}-disabled {
+    &:before {
+      border-left-color: transparent;
+    }
+
+      &.@{button-prefix}-outline:not(.@{button-prefix}-default) {
+        &:before {
+          height: 100%;
+          border-left-color: @colors-primary;
+        }
+      }
+  }
+
+  // animation
+  // default
+  // -->  default -> increase weight
+  &.@{button-prefix}-default:not(.@{button-prefix}-disabled):hover,
+  &.@{button-prefix}-default:not(.@{button-prefix}-disabled):active,
+  &.@{button-prefix}-default:not(.@{button-prefix}-disabled):focus,
+  &.@{button-prefix}-default:not(.@{button-prefix}-disabled):hover + .@{button-prefix},
+  &.@{button-prefix}-default:not(.@{button-prefix}-disabled):active + .@{button-prefix},
+  &.@{button-prefix}-default:not(.@{button-prefix}-disabled):focus + .@{button-prefix} {
+    &:before {
+      border-left-color: @colors-primary;
+      height: 100%;
+    }
+  }
+
+  // for dropdown
+  &.@{button-prefix}-default:not(.@{button-prefix}-disabled):hover + .@{dropdown-prefix}-split-dropdown,
+  &.@{button-prefix}-default:not(.@{button-prefix}-disabled):active + .@{dropdown-prefix}-split-dropdown,
+  &.@{button-prefix}-default:not(.@{button-prefix}-disabled):focus + .@{dropdown-prefix}-split-dropdown {
+    > .@{dropdown-prefix}-button.@{dropdown-prefix}-split-button {
+      &:before {
+        border-left-color: @colors-primary;
+        height: 100%;
+      }
+    }
+  }
+
+  // outline
+  &.@{button-prefix}-outline:not(.@{button-prefix}-disabled):hover,
+  &.@{button-prefix}-outline:not(.@{button-prefix}-disabled):active,
+  &.@{button-prefix}-outline:not(.@{button-prefix}-disabled):focus {
+    &:before  {
+      border-left-color: inherit;
+    }
+  }
+  &.@{button-prefix}-outline:not(.@{button-prefix}-disabled):hover + .@{button-prefix},
+  &.@{button-prefix}-outline:not(.@{button-prefix}-disabled):active+ .@{button-prefix},
+  &.@{button-prefix}-outline:not(.@{button-prefix}-disabled):focus+ .@{button-prefix} {
+
+    & when (@so-theme = shineout) {
+      &:before {
+        height: 0;
+        transition: none;
+      }
+    }
+  }
+
+  & when (@so-theme = antd), (@so-theme = default) {
+    &.@{button-prefix}-outline:not(.@{button-prefix}-disabled):hover + .@{button-prefix}:not(.@{button-prefix}-disabled),
+    &.@{button-prefix}-outline:not(.@{button-prefix}-disabled):active+ .@{button-prefix}:not(.@{button-prefix}-disabled),
+    &.@{button-prefix}-outline:not(.@{button-prefix}-disabled):focus+ .@{button-prefix}:not(.@{button-prefix}-disabled) {
+      &:before {
+        height: 0;
+        transition: none;
+      }
+    }
+  }
+}

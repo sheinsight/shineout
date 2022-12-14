@@ -1,0 +1,139 @@
+@import '../../styles/variables.less';
+@import '../../styles/themes/@{so-theme}.less';
+
+@input-title-prefix: ~'@{so-prefix}-input-title-box';
+@input-prefix: ~'@{so-prefix}-input';
+@select-prefix: ~'@{so-prefix}-select';
+@datepicker-prefix: ~'@{so-prefix}-datepicker';
+@move-time: 150ms;
+@move-offset: -10px;
+
+
+
+.@{input-title-prefix} {
+  position: relative;
+  width: 100%;
+  input.@{input-title-prefix}-item,
+  textarea.@{input-title-prefix}-item{
+    line-height: inherit;
+  }
+
+  &:not(&-open) &-hidable {
+    opacity: 0;
+  }
+  &-title {
+    color: @input-color-placeholder;
+    font-size: @input-size-placeholder;
+    padding: @title-padding-base-vertical @title-padding-base-horizontal;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  &-top{
+    position: relative;
+    padding-bottom: 0!important;
+    opacity: 0;
+    user-select: none;
+    pointer-events: none;
+  }
+  &-place {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    pointer-events:none;
+    opacity: 1;
+    > div {
+      flex-grow: 1;
+      width: 0;
+    }
+    .@{input-title-prefix}-title {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  }
+  &-animation {
+    .@{input-title-prefix}-top {
+      transition: opacity 0s ease-in @move-time;
+      animation: moveout @move-time ease-in;
+    }
+    .@{input-title-prefix}-place {
+      transition: opacity 0s ease-in @move-time;
+    }
+    @keyframes moveout {
+      0% { bottom: 0px}
+      100% {bottom: @move-offset}
+    }
+  }
+  &:not(&-open) &-hideable {opacity: 0;}
+  &:hover + .@{input-prefix}-clear-wrapper {display: block;}
+  &-content > &-item
+  {padding: @title-padding-base-vertical @title-padding-base-horizontal;}
+  & &-item {padding-top: 0!important;}
+  & &-item-scroll {padding-bottom: 0!important; padding-top: 0!important;}
+}
+.@{input-title-prefix}-open {
+  .@{input-title-prefix}-top.@{input-title-prefix}-title {
+    opacity: 1;
+    transition: none;
+    user-select: initial;
+    pointer-events: initial;
+  }
+  &.@{input-title-prefix}-animation {
+    .@{input-title-prefix}-top.@{input-title-prefix}-title {
+      animation: movein @move-time ease;
+    }
+    @keyframes movein {
+      from {
+        bottom: @move-offset;
+      }
+      to {
+        bottom: 0;
+      }
+    }
+  }
+  .@{input-title-prefix}-place {
+    opacity: 0;
+    transition: none;
+    user-select: none;
+    pointer-events: none;
+  }
+
+}
+
+.@{input-prefix}-small {
+    .@{input-title-prefix}-title {
+      padding: @title-padding-small-vertical @title-padding-small-horizontal;
+      font-size: @font-size-small;
+    }
+
+  *.@{input-title-prefix}-item{
+      padding: @title-padding-small-vertical @title-padding-small-horizontal;
+    }
+}
+.@{input-prefix}-large {
+  .@{input-title-prefix} {
+    line-height: 24px;
+  }
+
+  .@{input-title-prefix}-title {
+    padding: @title-padding-large-vertical @title-padding-large-horizontal;
+    font-size: @font-size-large;
+  }
+  *.@{input-title-prefix}-item{
+    padding: @title-padding-large-vertical @title-padding-large-horizontal;
+  }
+}
+.@{datepicker-prefix}-inner-title {
+  .@{input-title-prefix} {
+    &-title {
+      padding: 0!important;
+    }
+  }
+}
+
+
+

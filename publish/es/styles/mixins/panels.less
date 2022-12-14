@@ -1,0 +1,26 @@
+// Panels
+
+.panel-variant(@border; @heading-text-color; @heading-bg-color; @heading-border) {
+  border-color: @border;
+
+  & > .panel-heading {
+    border-color: @heading-border;
+    background-color: @heading-bg-color;
+    color: @heading-text-color;
+
+    + .panel-collapse > .panel-body {
+      border-top-color: @border;
+    }
+
+    .badge {
+      background-color: @heading-text-color;
+      color: @heading-bg-color;
+    }
+  }
+
+  & > .panel-footer {
+    + .panel-collapse > .panel-body {
+      border-bottom-color: @border;
+    }
+  }
+}
