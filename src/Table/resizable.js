@@ -45,6 +45,8 @@ export default Table =>
     }
 
     handleResize(index, width, colgroup) {
+      if (colgroup === undefined) return
+
       const { onColumnResize } = this.props
       const changed = immer(this.state, draft => {
         const column = draft.columns[index]
