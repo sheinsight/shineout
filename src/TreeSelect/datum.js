@@ -27,6 +27,7 @@ export default function datum(Origin) {
     static defaultProps = {
       mode: 1,
       childrenKey: 'children',
+      unmatch: true,
     }
 
     constructor(props) {
