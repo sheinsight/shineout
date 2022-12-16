@@ -9,6 +9,7 @@ import Item from './Item'
 import { docSize } from '../utils/dom/document'
 import absoluteList from '../AnimationList/AbsoluteList'
 import { getUidStr } from '../utils/uid'
+import { isFunc } from '../utils/is'
 import absoluteComsumer from '../Table/context'
 import Caret from '../icons/Caret'
 import { isRTL } from '../config'
@@ -212,7 +213,6 @@ class Dropdown<Item> extends PureComponent<DropdownProps<Item>, DropDownState> {
     if (['left-bottom', 'left-top'].includes(position!)) {
       childs.reverse()
     }
-
     if (isSub) {
       return (
         <a
@@ -268,12 +268,23 @@ class Dropdown<Item> extends PureComponent<DropdownProps<Item>, DropDownState> {
             !width && 'no-width',
             childPosition.indexOf('left') === 0 && 'item-left'
           )
+
+          let renderPlaceholder
+
+          if (renderItem) {
+            renderPlaceholder = isFunc(renderItem)
+              ? renderItem((d as unknown) as Item)
+              : d[renderItem as keyof DropdownNode]
+          } else {
+            renderPlaceholder = d.content
+          }
+
           return d.children ? (
             <Dropdown
               style={{ width: '100%' }}
               data={d.children}
               disabled={!!d.disabled}
-              placeholder={d.content}
+              placeholder={renderPlaceholder}
               type="link"
               key={index}
               position={childPosition as DropdownProps<Item>['position']}
