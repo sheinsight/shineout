@@ -149,10 +149,11 @@ class Item extends Component<ItemProps, ItemState> {
   }
 
   renderHelp(errors: Error[]) {
-    if (errors.length > 0) {
+    const realErrors = errors.filter(e => e.message)
+    if (realErrors.length > 0) {
       return (
         <div className={formClass('error')}>
-          {errors.map((e, i) => (
+          {realErrors.map((e, i) => (
             <div key={i}>{e.message}</div>
           ))}
         </div>

@@ -1,18 +1,17 @@
-import React, { Children, cloneElement } from "react"
+import React, { Children, cloneElement } from 'react'
 import classnames from 'classnames'
 import { PureComponent } from '../component'
 import { cardClass } from './styles'
 import { isRTL } from '../config'
-import { CardAccordionProps} from './interface'
+import { CardAccordionProps } from './Props'
 
-const getChildId = <T extends {props: {[name: string]: any}}>(child: T, i: number) => {
+const getChildId = <T extends { props: { [name: string]: any } }>(child: T, i: number) => {
   if (child && child.props && child.props.id !== undefined) return child.props.id
   return i
 }
 
-class Accordion<T = string> extends PureComponent<CardAccordionProps<T>, {active?: T | null}> {
-
-  static  defaultProps = {
+class Accordion<T = string> extends PureComponent<CardAccordionProps<T>, { active?: T | null }> {
+  static defaultProps = {
     defaultActive: 0,
   }
 

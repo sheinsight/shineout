@@ -107,7 +107,7 @@ const App: React.FC = () => {
     setValues(checked ? data.map(v => v.title) : [])
   }
 
-  const handleChange = (checked: boolean, v: any) => {
+  const handleChange = (checked: boolean, v: string) => {
     console.log(checked, v)
     setValues(checked ? values.concat(v) : values.filter(item => item !== v))
   }

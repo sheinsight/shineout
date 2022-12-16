@@ -4,15 +4,14 @@ import { docSize } from '../utils/dom/document'
 import { moveableClass } from './styles'
 import { getUidStr } from '../utils/uid'
 import { curry } from '../utils/func'
+import { MovableType } from './Props'
 
 const DIS_LIMIT = 50
 
-interface MovableProps {
-  style: React.CSSProperties
-  className: string
-  moveable: boolean
+interface BaseProps {
+  style?: React.CSSProperties
+  className?: string
 }
-type filterProps = 'moveable'
 
 interface MovableState {
   x: number
@@ -20,8 +19,8 @@ interface MovableState {
   draging: boolean
 }
 export default curry(
-  <U extends MovableProps>(handler: string, Origin: React.ComponentType<Omit<U, filterProps>>) =>
-    class Moveable extends React.Component<U, MovableState> {
+  <U extends BaseProps>(handler: string, Origin: React.ComponentType<U>) =>
+    class Moveable extends React.Component<MovableType<U>, MovableState> {
       moveabledId: string
 
       el: HTMLElement
@@ -113,13 +112,13 @@ export default curry(
 
       render() {
         const { moveable, ...others } = this.props
-        if (!moveable) return <Origin {...others} />
+        if (!moveable) return <Origin {...others as U} />
         const ms = Object.assign({}, this.props.style, this.getStyle())
         const mc = classnames(
           this.props.className,
           moveableClass('_', this.moveabledId, this.state.draging && 'draging')
         )
-        return <Origin {...others} style={ms} className={mc} />
+        return <Origin {...others as U} style={ms} className={mc} />
       }
     }
 )

@@ -20,7 +20,6 @@ const names: string[] = [
   'autoSelect',
   'autoFix',
   'numType',
-  'forceValidate',
 ]
 
 /**
