@@ -1,18 +1,49 @@
 import React from 'react'
-import { StandardProps, RegularAttributes, CommonProps, StructDataStandardProps } from '../@types/common'
+import { StandardProps, RegularAttributes, CommonProps, StructDataStandardProps, ObjectType } from '../@types/common'
+import { getTableConsumerProps } from '../Table/Props'
 
 export type TriggerType = 'click' | 'hover'
 
-export type DropdownItem = DropdownNode | React.ReactNode
+export type DropdownItem = DropdownNode | React.ReactNode | ObjectType
 
 export interface DropdownNode {
+  /**
+   * url属性不为空时，render为一个链接
+   *
+   * When the url is not empty, a url will be rendered.
+   *
+   * default: -
+   */
   url?: string
+
+  /**
+   * url 不为空时有效
+   *
+   * It is valid when the url is not empty.
+   *
+   * default: -
+   */
   target?: string
+
+  /**
+   * 默认从content获取内容
+   *
+   * element
+   *
+   * default: -
+   */
+
+  /**
+   * 禁用
+   *
+   * Disabled
+   *
+   * default: -
+   */
   disabled?: boolean
   content?: React.ReactNode
   children?: DropdownItem[]
   onClick?: (data: DropdownNode) => void
-  renderItem?: (data: DropdownNode) => void
 }
 
 export interface DropdownProps
@@ -140,8 +171,8 @@ export interface DropdownProps
     | 'auto'
 }
 
-export class DropdownClass extends React.Component<DropdownProps, {}> {
-  // @ts-ignore
+export type GetDropDownProps<Props> = getTableConsumerProps<Props>
+export declare class DropdownClass extends React.Component<GetDropDownProps<DropdownProps>, {}> {
   render(): JSX.Element
 }
 

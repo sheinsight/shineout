@@ -14,7 +14,7 @@ import Caret from '../icons/Caret'
 import { isRTL } from '../config'
 import { getDirectionClass } from '../utils/classname'
 import getDataset from '../utils/dom/getDataset'
-import { DropdownProps, DropdownNode } from './Props'
+import { DropdownProps, DropdownNode, DropdownType } from './Props'
 
 const positionMap = {
   'left-top': 'left-top',
@@ -323,4 +323,6 @@ class Dropdown extends PureComponent<DropdownProps, DropDownState> {
 
 Dropdown.displayName = 'ShineoutDropdown'
 
-export default absoluteComsumer(Dropdown)
+const exports = absoluteComsumer(Dropdown)
+
+export default (exports as unknown) as DropdownType
