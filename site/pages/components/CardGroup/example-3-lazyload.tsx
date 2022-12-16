@@ -10,7 +10,7 @@ import React from 'react'
 import { CardGroup, Spin, TYPE } from 'shineout'
 import Icon from '../Icon/Shineout'
 
-type CardGroupProps = TYPE.CardGroup.Props
+type CardGroupItemProps = TYPE.CardGroup.ItemProps<any>
 
 interface ItemData {
   title: string
@@ -91,7 +91,7 @@ function Item({ title, icon, color }: ItemData) {
   )
 }
 
-const placeholder: CardGroupProps['placeholder'] = (
+const placeholder: CardGroupItemProps['placeholder'] = (
   <div style={{ width: '100%', height: 200, display: 'flex' }}>
     <Spin style={{ margin: 'auto' }} />
   </div>

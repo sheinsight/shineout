@@ -1,4 +1,4 @@
-import React, { Children, ComponentType } from "react"
+import React, { Children, ComponentType } from 'react'
 import classnames from 'classnames'
 import { PureComponent } from '../component'
 import { range } from '../utils/numbers'
@@ -6,12 +6,12 @@ import { carouselClass } from './styles'
 import Item from './Item'
 import getDataset from '../utils/dom/getDataset'
 import { isRTL } from '../config'
-import {CarouselProps} from  './interface'
+import { CarouselProps } from './interface'
 
 interface CarouselState {
-  current: number,
-  direction: 'forward' | 'stop' | 'backward',
-  pre: number,
+  current: number
+  direction: 'forward' | 'stop' | 'backward'
+  pre: number
 }
 
 const CarouselDefaultProps = {
@@ -26,7 +26,6 @@ const CarouselDefaultProps = {
 type CarouselPropsWithDefault = CarouselProps & Required<Pick<CarouselProps, keyof typeof CarouselDefaultProps>>
 
 class Carousel extends PureComponent<CarouselPropsWithDefault, CarouselState> {
-
   static defaultProps = CarouselDefaultProps
 
   static displayName = 'ShineoutCarousel'
@@ -36,7 +35,6 @@ class Carousel extends PureComponent<CarouselPropsWithDefault, CarouselState> {
   $timeout: NodeJS.Timeout | null
 
   mouseInView: boolean
-
 
   constructor(props: CarouselPropsWithDefault) {
     super(props)
@@ -166,6 +164,5 @@ class Carousel extends PureComponent<CarouselPropsWithDefault, CarouselState> {
     )
   }
 }
-
 
 export default Carousel as ComponentType<CarouselProps>

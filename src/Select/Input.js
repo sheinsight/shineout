@@ -203,14 +203,18 @@ class FilterInput extends Component {
       onCompositionStart: this.handleCompositionStart,
       onCompositionEnd: this.handleCompositionEnd,
     }
-
     if (isValidElement(value)) {
+      if (value.type.toString() === 'Symbol(react.fragment)') {
+        return cloneElement(<span>{value}</span>, {
+          ...props,
+          suppressContentEditableWarning: true,
+        })
+      }
       return cloneElement(value, {
         ...props,
         suppressContentEditableWarning: true,
       })
     }
-
     return <span dangerouslySetInnerHTML={{ __html: value }} {...props} onPaste={this.handlePaste} />
   }
 }

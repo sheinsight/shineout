@@ -28,14 +28,9 @@ import genaration from 'src/utils/classname'
 const alertClass = genaration(require('src/styles/alert.less'), 'alert', 'shineout')
 
 isShow = true
-alertClass('_', 'success', isShow ? 'show' : 'hide') 
+alertClass('_', 'success', isShow ? 'show' : 'hide')
 // 未使用 CSS Module
 >>> 'shineout-alert shineout-alert-success shine-alert-show'
 // 使用 CSS Module, localIdentName = '[local]-[hash:base64:5]'
 >>> 'shineout-alert-xxxxx shineout-alert-success-xxxxx shine-alert-show-xxxxx'
-```
-
-为了方便管理，所有的 class 放在了 src/styles/index.js 文件内，需要的时候引用即可
-```
-import { alertClass, dropdownClass } from 'src/styles'
 ```

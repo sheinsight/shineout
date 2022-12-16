@@ -118,7 +118,7 @@ export function addStack<T extends HTMLElement>(obj: Component<T>) {
 
 export function throttleWrapper(cb: Function) {
   let timer: Timer = null
-  return (...args: Function[]) => {
+  return (...args: any[]) => {
     const ctx = this
     if (!timer) {
       timer = setTimeout(() => {

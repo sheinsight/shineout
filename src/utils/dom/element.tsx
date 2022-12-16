@@ -109,7 +109,7 @@ export function getCursorOffset(length: number) {
   return null
 }
 
-function end(element: HTMLTextAreaElement) {
+function end<T extends HTMLElement & { selectionStart?: number }>(element: T) {
   if (!element) return
   element.focus()
   if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
@@ -163,7 +163,7 @@ interface IEWindow extends Window {
   }
 }
 export const preventPasteFile = (
-  e: React.ClipboardEvent<HTMLInputElement>,
+  e: React.ClipboardEvent,
   beforeHandler?: Function,
   { noLineBreak = true, convertBr = ' ' }: { noLineBreak?: boolean; convertBr?: string | Function } = {}
 ) => {
@@ -186,13 +186,13 @@ export const preventPasteFile = (
 export const parsePxToNumber = (str: string) => Number(str.replace(/\s+|px/gi, ''))
 
 interface ResizeOption {
-  direction?: 'x' | 'y'
+  direction?: 'x' | 'y' | boolean
   timer?: number
 }
 
 type Handler = (this: Window, ev: UIEvent) => any
 
-export const addResizeObserver = (el: HTMLElement, handler: Handler, options: ResizeOption = {}) => {
+export const addResizeObserver = (el: HTMLElement, handler: any, options: ResizeOption = {}) => {
   const { direction, timer } = options
   const [throttleHandler, cleanTimer] = throttle(handler, timer)
   let h = throttleHandler

@@ -32,7 +32,7 @@ const App: React.FC = () => {
   const [pageSize, setPageSize] = useState(5)
   const [loading, setLoading] = useState(false)
   const [data, setData] = useState<TableRowData[]>([])
-  const [selectedValue, setSelectedValue] = useState('')
+  const [selectedValue, setSelectedValue] = useState<string[]>([])
 
   const fetchData = () => {
     setLoading(true)
@@ -81,7 +81,7 @@ const App: React.FC = () => {
         data={data}
         loading={loading}
         columns={columns}
-        onRowSelect={value => setSelectedValue(value)}
+        onRowSelect={(value: string[]) => setSelectedValue(value)}
         pagination={{
           total,
           current,

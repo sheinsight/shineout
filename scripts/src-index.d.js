@@ -48,7 +48,7 @@ const getArgs = (types, withDefault) => {
   }
   const result = matches[0]
     .split(',')
-    .map(item => item.split('=')[0].trim())
+    .map(item => item.split(/(=)|(extends)/)[0].trim())
     .join(', ')
   return `<${result}>`
 }

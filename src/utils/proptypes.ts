@@ -1,8 +1,9 @@
 import React from 'react'
+import { RegularAttributes } from '../@types/common'
 
 export interface defaultProptypes {
   className: string
-  size: string
+  size: RegularAttributes.Size
   style: React.CSSProperties
   type: string
 }

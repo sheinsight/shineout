@@ -51,7 +51,7 @@ const App: React.FC = () => {
         <Input
           digits={0}
           type="number"
-          defaultValue={0}
+          defaultValue="0"
           name="account.age"
           style={{ width: 100 }}
           rules={[rules.required]}
