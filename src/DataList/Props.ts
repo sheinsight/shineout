@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react'
-import { PaginationProps } from '../Pagination'
+import { PaginationProps } from '../Pagination/Props'
 import { StandardProps, StructDataStandardProps, ListItemStandardProps, RegularAttributes } from '../@types/common'
 
 export interface ListProps<Item, Value>
@@ -39,6 +39,7 @@ export class BaseItemClass extends React.Component<ListBaseItemProps, {}> {
 
 export class ListClass<Item, Value> extends React.Component<ListProps<Item, Value>, {}> {
   static BaseItem: typeof BaseItemClass
+
   // @ts-ignore
   render(): JSX.Element
 }
