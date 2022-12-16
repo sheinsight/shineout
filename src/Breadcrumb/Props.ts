@@ -1,11 +1,9 @@
 import * as React from 'react'
-import { StandardProps , KeygenType} from '../@types/common'
+import { StandardProps, KeygenType } from '../@types/common'
 
-type ReactNode = React.ReactNode;
+type ReactNode = React.ReactNode
 
-export interface BreadcrumbData  {
-
-
+export interface BreadcrumbData {
   /**
    * The click event
    *
@@ -13,8 +11,7 @@ export interface BreadcrumbData  {
    *
    * default: (event)=>void
    */
-  onClick?: (event: Event)=>void;
-
+  onClick?: React.MouseEventHandler<HTMLAnchorElement>
 
   /**
    * Displayed content
@@ -23,8 +20,7 @@ export interface BreadcrumbData  {
    *
    * default: null
    */
-  title?: string| ReactNode;
-
+  title?: string | ReactNode
 
   /**
    * Link address
@@ -33,8 +29,7 @@ export interface BreadcrumbData  {
    *
    * default: null
    */
-  url?: string;
-
+  url?: string
 
   /**
    * Custom render
@@ -43,8 +38,7 @@ export interface BreadcrumbData  {
    *
    * default: -
    */
-  renderItem?: (value:BreadcrumbData)=>ReactNode;
-
+  renderItem?: (value: BreadcrumbData) => ReactNode
 
   /**
    * Custom icon
@@ -53,14 +47,12 @@ export interface BreadcrumbData  {
    *
    * default: -
    */
-  icon?:ReactNode
+  icon?: ReactNode
 }
 
-type StructureArray<T> =  Array<T | StructureArray<T>>
+export type StructureArray<T> = Array<T | StructureArray<T>>
 
-
-export interface BreadcrumbProps<Item = BreadcrumbData> extends StandardProps  {
-
+export interface BreadcrumbProps<Item = BreadcrumbData> extends StandardProps {
   /**
    * The array of breadcrumb objects, see data
    *
@@ -68,8 +60,7 @@ export interface BreadcrumbProps<Item = BreadcrumbData> extends StandardProps  {
    *
    * default: []
    */
-  data?: StructureArray<Item>;
-
+  data?: StructureArray<Item>
 
   /**
    * A breadcrumb separator which can be strings or custom elements
@@ -78,8 +69,7 @@ export interface BreadcrumbProps<Item = BreadcrumbData> extends StandardProps  {
    *
    * default: "/"
    */
-  separator?: string|ReactNode;
-
+  separator?: string | ReactNode
 
   /**
    * Key generator.When it is true, the data itself is used as the key equivalent to (d => d);When it is a function, use its return value;When it is a string，ues the value of the string.For example, 'id' is the same thing as (d) => d.id.
@@ -90,12 +80,12 @@ export interface BreadcrumbProps<Item = BreadcrumbData> extends StandardProps  {
    */
   keygen?: KeygenType<Item>
 
+  /**
+   * Custom render
+   *
+   * 自定义渲染
+   *
+   * default: -
+   */
+  renderItem?: (value: BreadcrumbData) => ReactNode
 }
-
-
-declare class Breadcrumb<Item> extends React.PureComponent<BreadcrumbProps<Item>, {}> {
-  render(): JSX.Element
-}
-
-
-export default Breadcrumb
