@@ -6,7 +6,7 @@ import { mergeFilteredTree } from '../utils/tree'
 import { treeClass } from '../Tree/styles'
 import { treeSelectClass } from './styles'
 import { Component } from '../component'
-import { TiledProps } from './Props'
+import { TiledProps, AdvancedFilterHOCProps, GetAdvancedFilterHOCProps } from './Props'
 
 interface TiledState {
   tileds: string[]
@@ -77,7 +77,7 @@ export default curry((options, Origin) => {
       if (onFilter) onFilter(text, from)
     }
 
-    handleToggle(key, e) {
+    handleToggle(key: string, e: React.MouseEvent) {
       e.stopPropagation()
       this.setState(
         immer(draft => {
@@ -90,7 +90,7 @@ export default curry((options, Origin) => {
 
     genRawDatum() {
       const { rawData, childrenKey, keygen } = this.props
-      this.rawDatum = new Datum({ data: rawData, childrenKey, keygen })
+      this.rawDatum = new Datum({ data: rawData, childrenKey, keygen: keygen as any })
     }
 
     render() {
@@ -99,7 +99,7 @@ export default curry((options, Origin) => {
       if (!filterText || !onAdvancedFilter) return <Origin {...this.props} />
       const expandIcons = [this.getIcon, this.getIcon]
       const filterDatum = this.getFilteredDatum()
-      const data = mergeFilteredTree(filterDatum, this.rawDatum, tileds)
+      const data = mergeFilteredTree(filterDatum as any, this.rawDatum, tileds)
       const props = {
         ...this.props,
         onFilter: this.handleFilter,
@@ -112,8 +112,9 @@ export default curry((options, Origin) => {
   return Tiled
 })
 
-export const advancedFilterHOC = Origin => props => {
-  // eslint-disable-next-line react/prop-types
+export const advancedFilterHOC = <Props, Item, Value>(
+  Origin: React.ComponentType<GetAdvancedFilterHOCProps<Props, Item, Value>>
+) => (props: AdvancedFilterHOCProps<Item, Value>) => {
   const { onAdvancedFilter, onFilter } = props
-  return <Origin {...props} onFilter={onAdvancedFilter || onFilter} onAdvancedFilter={!!onAdvancedFilter} />
+  return <Origin {...props as any} onFilter={onAdvancedFilter || onFilter} onAdvancedFilter={!!onAdvancedFilter} />
 }

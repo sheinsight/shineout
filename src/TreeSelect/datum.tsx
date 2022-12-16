@@ -1,35 +1,26 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import DatumTree from '../Datum/Tree'
 import shallowEqual from '../utils/shallowEqual'
+import { TreeDatumProps, GetTreeDatumProps } from './Props'
 
-function toArray(value) {
+function toArray<Value>(value: Value) {
   if (!value) return []
   if (!Array.isArray(value)) return [value]
   return value
 }
 
-export default function datum(Origin) {
-  return class TreeDatum extends React.Component {
-    static propTypes = {
-      loader: PropTypes.func,
-      data: PropTypes.array,
-      disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
-      mode: PropTypes.oneOf([0, 1, 2, 3, 4]),
-      onChange: PropTypes.func,
-      value: PropTypes.oneOfType([PropTypes.array, PropTypes.any]),
-      keygen: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
-      multiple: PropTypes.bool,
-      childrenKey: PropTypes.string,
-      unmatch: PropTypes.bool,
-    }
-
+export default function datum<Item, Value>(
+  Origin: React.ComponentType<GetTreeDatumProps<TreeDatumProps<Item, Value>, Item>>
+) {
+  return class TreeDatum extends React.Component<TreeDatumProps<Item, Value>> {
     static defaultProps = {
       mode: 1,
       childrenKey: 'children',
     }
 
-    constructor(props) {
+    datum: DatumTree<Item, any[]>
+
+    constructor(props: TreeDatumProps<Item, Value>) {
       super(props)
 
       this.datum = new DatumTree({
@@ -38,14 +29,14 @@ export default function datum(Origin) {
         keygen: props.keygen,
         mode: props.mode,
         value: toArray(props.value),
-        onChange: props.onChange,
+        onChange: props.onChange as any,
         disabled: typeof props.disabled === 'function' ? props.disabled : undefined,
-        childrenKey: props.childrenKey,
+        childrenKey: props.childrenKey || 'children',
         unmatch: props.unmatch,
       })
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps: TreeDatumProps<Item, Value>) {
       if (!shallowEqual(prevProps.data, this.props.data)) {
         const { disabled } = this.props
         this.datum.updateDisabled(typeof disabled === 'function' ? disabled : undefined)

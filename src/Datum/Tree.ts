@@ -1,5 +1,5 @@
 import { CHANGE_TOPIC } from './types'
-import { keyType, LiteralUnion, ObjectType } from '../@types/common'
+import { keyType, ObjectType, KeygenType } from '../@types/common'
 
 const IS_NOT_MATCHED_VALUE = 'IS_NOT_MATCHED_VALUE'
 
@@ -20,7 +20,7 @@ export const CheckedMode = {
   Freedom: 4,
 }
 
-type IdType = string | number
+export type IdType = string | number
 type CheckedStatus = 0 | 1 | 2
 
 // check status stack
@@ -36,7 +36,7 @@ const checkStatusStack = (stack: CheckedStatus[], defaultStatus: CheckedStatus) 
 
 export interface TreeDatumOptions<Item, Value> {
   data?: Item[]
-  keygen?: LiteralUnion<Item> | ((data: Item, parentId?: string | number) => keyType)
+  keygen?: KeygenType<Item>
   value?: Value
   mode?: 0 | 1 | 2 | 3 | 4
   disabled?: ((data: Item, ...rest: any) => boolean) | boolean
@@ -269,8 +269,8 @@ export default class<Item, Value extends any[]> {
   }
 
   getKey(data: Item, id: IdType = '', index?: number): IdType {
-    if (typeof this.keygen === 'function') return this.keygen(data, id)
-    if (this.keygen) return (data[this.keygen] as unknown) as IdType
+    if (typeof this.keygen === 'function') return this.keygen(data, id as any)
+    if (this.keygen) return (data[this.keygen as keyof Item] as unknown) as IdType
     return id + (id ? ',' : '') + index
   }
 
