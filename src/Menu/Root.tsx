@@ -2,7 +2,6 @@ import React from 'react'
 import classnames from 'classnames'
 import immer from 'immer'
 import { getKey } from '../utils/uid'
-import { defaultProps } from '../utils/proptypes'
 import normalizeWheel from '../utils/dom/normalizeWheel'
 import ScrollBar from '../Scroll/Bar'
 import { menuClass } from './styles'
@@ -22,7 +21,6 @@ interface State {
 }
 
 export const DefaultProps = {
-  ...defaultProps,
   data: [],
   level: 0,
   keygen: 'id',
