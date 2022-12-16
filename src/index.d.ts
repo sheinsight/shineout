@@ -215,7 +215,7 @@ export namespace TYPE {
   export namespace Dropdown {
   
     export type Item = __DropdownItem
-    export type Props = __DropdownProps
+    export type Props<Item> = __DropdownProps<Item>
   }
   export namespace EditableArea {
     export type Props = __EditableAreaProps

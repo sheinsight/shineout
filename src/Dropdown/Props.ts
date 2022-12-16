@@ -1,10 +1,10 @@
 import React from 'react'
-import { StandardProps, RegularAttributes, CommonProps, StructDataStandardProps, ObjectType } from '../@types/common'
+import { StandardProps, RegularAttributes, CommonProps } from '../@types/common'
 import { getTableConsumerProps } from '../Table/Props'
 
 export type TriggerType = 'click' | 'hover'
 
-export type DropdownItem = DropdownNode | React.ReactNode | ObjectType
+export type DropdownItem = DropdownNode | React.ReactNode
 
 export interface DropdownNode {
   /**
@@ -26,14 +26,6 @@ export interface DropdownNode {
   target?: string
 
   /**
-   * 默认从content获取内容
-   *
-   * element
-   *
-   * default: -
-   */
-
-  /**
    * 禁用
    *
    * Disabled
@@ -41,16 +33,30 @@ export interface DropdownNode {
    * default: -
    */
   disabled?: boolean
+
+  /**
+   * 默认从content获取内容
+   *
+   * element
+   *
+   * default: -
+   */
   content?: React.ReactNode
-  children?: DropdownItem[]
+  children?: DropdownNode[]
   onClick?: (data: DropdownNode) => void
 }
 
-export interface DropdownProps
-  extends StandardProps,
-    Pick<StructDataStandardProps<DropdownNode>, 'renderItem'>,
-    Pick<CommonProps, 'absolute'> {
-  hover?: boolean
+export interface ItemProps<Item> {
+  data: DropdownNode
+  itemClassName: string
+  width: DropdownProps<Item>['width']
+  onClick: DropdownProps<Item>['onClick']
+  columns: DropdownProps<Item>['columns']
+  renderItem: ((data: Item) => React.ReactNode) | string
+}
+
+export interface DropdownProps<Item extends DropdownItem> extends StandardProps, Pick<CommonProps, 'absolute'> {
+  // hover?: boolean
   isSub?: boolean
 
   /**
@@ -96,7 +102,7 @@ export interface DropdownProps
    *
    * default: []
    */
-  data: DropdownItem[]
+  data: Item[]
 
   /**
    * Toggle mode
@@ -169,10 +175,20 @@ export interface DropdownProps
     | 'bottom-right'
     | 'bottom-left'
     | 'auto'
+
+  /**
+   * Set the displayed content. If it is a string,  the corresponding value will be displayed.
+   * If it is a function, the return value will be displayed and its parameter is the current data.
+   *
+   * 设置显示的内容,如果是字符串,则为对应的值。如果是函数,则返回值为显示的内容,参数为当条数据
+   *
+   * default: 'auto'
+   */
+  renderItem?: ((data: Item) => React.ReactNode) | string
 }
 
 export type GetDropDownProps<Props> = getTableConsumerProps<Props>
-export declare class DropdownClass extends React.Component<GetDropDownProps<DropdownProps>, {}> {
+export declare class DropdownClass<Item> extends React.Component<GetDropDownProps<DropdownProps<Item>>, {}> {
   render(): JSX.Element
 }
 

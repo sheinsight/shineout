@@ -1,21 +1,11 @@
 import React, { isValidElement, cloneElement } from 'react'
 import { defaultProps } from '../utils/proptypes'
-import { DropdownNode, DropdownProps } from './Props'
+import { ItemProps } from './Props'
 
 const DefaultProps = {
   ...defaultProps,
   data: {},
   renderItem: 'content',
-}
-
-interface ItemProps {
-  data: DropdownNode
-  itemClassName: string
-  width: DropdownProps['width']
-  onClick: DropdownProps['onClick']
-  columns: DropdownProps['columns']
-  // renderItem: ((data: DropdownNode) => ReactNode) | string
-  renderItem: DropdownProps['renderItem']
 }
 
 interface ItemLinkProps {
@@ -27,10 +17,10 @@ interface ItemLinkProps {
   style?: React.CSSProperties
 }
 
-class Item extends React.PureComponent<ItemProps> {
+class Item<Item> extends React.PureComponent<ItemProps<Item>> {
   static defaultProps = DefaultProps
 
-  constructor(props: ItemProps) {
+  constructor(props: ItemProps<Item>) {
     super(props)
     this.handleClick = this.handleClick.bind(this)
   }

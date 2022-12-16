@@ -41,7 +41,7 @@ interface DropDownState {
   show: boolean
 }
 
-class Dropdown extends PureComponent<DropdownProps, DropDownState> {
+class Dropdown<Item> extends PureComponent<DropdownProps<Item>, DropDownState> {
   static defaultProps: any = DefaultProps
 
   dropdownId: string
@@ -58,13 +58,14 @@ class Dropdown extends PureComponent<DropdownProps, DropDownState> {
 
   static displayName: string
 
-  constructor(props: DropdownProps) {
+  constructor(props: DropdownProps<Item>) {
     super(props)
 
     this.state = {
       show: false,
     }
 
+    // @ts-ignore
     if (props.hover !== undefined) {
       console.warn('The "hover" property is not recommend, use trigger="hover" instead.')
     }
@@ -89,6 +90,7 @@ class Dropdown extends PureComponent<DropdownProps, DropDownState> {
   }
 
   getTrigger() {
+    // @ts-ignore
     if (this.props.hover === true) return 'hover'
     return this.props.trigger
   }
@@ -103,7 +105,7 @@ class Dropdown extends PureComponent<DropdownProps, DropDownState> {
     const rect = this.element.getBoundingClientRect()
     const prefix = rect.bottom > windowHeight / 2 ? 'top-' : 'bottom-'
     const suffix = rect.right > windowWidth / 2 ? 'right' : 'left'
-    position = (prefix + suffix) as keyof DropdownProps['position']
+    position = (prefix + suffix) as keyof DropdownProps<Item>['position']
 
     return position
   }
@@ -239,7 +241,7 @@ class Dropdown extends PureComponent<DropdownProps, DropDownState> {
     )
   }
 
-  renderList(data: DropdownProps['data'], placeholder: DropdownProps['placeholder'], position?: string) {
+  renderList(data: DropdownProps<Item>['data'], placeholder: DropdownProps<Item>['placeholder'], position?: string) {
     const { width, onClick, columns, renderItem, absolute } = this.props
     if (!Array.isArray(data) || data.length === 0) return null
     const { DropdownList } = this
@@ -274,7 +276,7 @@ class Dropdown extends PureComponent<DropdownProps, DropDownState> {
               placeholder={d.content}
               type="link"
               key={index}
-              position={childPosition as DropdownProps['position']}
+              position={childPosition as DropdownProps<Item>['position']}
               onClick={onClick}
               renderItem={renderItem}
               trigger={this.getTrigger()}
