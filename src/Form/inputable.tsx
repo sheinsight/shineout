@@ -13,7 +13,7 @@ import { itemConsumer } from './Item'
 import { fieldSetConsumer } from './FieldSet'
 import ListDatum from '../Datum/List'
 import { ObjectType } from '../@types/common'
-import { RuleParamsType } from '../Rule/index'
+import { FormItemRule } from '../Rule/interface'
 import { InputableProps, BaseInputProps, GetInputableProps } from './Props'
 
 interface CustomValidateType {
@@ -41,7 +41,7 @@ interface InputableState<Value> {
 export default <Value, U extends BaseInputProps, Item = any>(Origin: ComponentType<U>) => {
   class InputableInner extends Component<InputableProps<Value>, InputableState<Value>> {
     static defaultProps: any = {
-      rules: [] as RuleParamsType<Value>,
+      rules: [] as FormItemRule<Value>,
       scuSkip: ['onChange', 'rules'],
     }
 

@@ -4,7 +4,7 @@ import { fastClone, deepClone } from '../utils/clone'
 import { deepGet, deepSet, deepRemove, objectValues, deepHas } from '../utils/objects'
 import { isObject, isArray } from '../utils/is'
 import { promiseAll, FormError } from '../utils/errors'
-import { RuleParamsType } from '../Rule'
+import { FormItemRule } from '../Rule/interface'
 import {
   updateSubscribe,
   errorSubscribe,
@@ -18,7 +18,7 @@ import {
   ValidType,
   PublishType,
 } from './types'
-import { FormDatumOptions, ValidFunc } from './Props'
+import { FormDatumOptions, FormValid } from './Props'
 import { ObjectType } from '../@types/common'
 
 export default class<V extends ObjectType> {
@@ -34,7 +34,7 @@ export default class<V extends ObjectType> {
 
   $values: Partial<V>
 
-  $validator: ObjectType<ValidFunc>
+  $validator: ObjectType<FormValid>
 
   $events: ObjectType<((...args: any) => void)[]>
 
@@ -243,9 +243,9 @@ export default class<V extends ObjectType> {
       })
   }
 
-  getRule(name: string): RuleParamsType<any> {
+  getRule(name: string): FormItemRule<any> {
     if (!this.rules) return []
-    const a = deepGet(this.rules, name) as RuleParamsType<any>
+    const a = deepGet(this.rules, name) as FormItemRule<any>
     return a || []
   }
 
@@ -276,7 +276,7 @@ export default class<V extends ObjectType> {
     })
   }
 
-  bind(name: string, fn: (...args: any) => void, value: any, validate: ValidFunc) {
+  bind(name: string, fn: (...args: any) => void, value: any, validate: FormValid) {
     if (this.$inputNames[name]) {
       console.warn(`There is already an item with name "${name}" exists. The name props must be unique.`)
     }

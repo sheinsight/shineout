@@ -1,16 +1,12 @@
 import * as React from 'react'
 import { StandardProps } from '../@types/common'
 import { ButtonProps } from '../Button/interface'
-import { RuleParamsType } from '../Rule'
+import { FormItemRule } from '../Rule/interface'
 
 type ReactNode = React.ReactNode;
 
 interface Base {
   [formItemName: string]: any;
-}
-
-interface RuleParams<Value = {}> {
-  [propName: string]: RuleParamsType<Value>
 }
 
 export interface FieldSetChildrenFunc<Value = any> {
@@ -213,6 +209,8 @@ export interface FormProps<Value> extends StandardProps {
    */
   formRef?: ((form: FormRef<Value>) => void) | { current?: FormRef<Value> };
 
+  error?: any
+
 }
 
 export interface FormItemProps extends StandardProps {
@@ -317,7 +315,7 @@ export interface FormFieldProps<Value> {
    *
    * default: none
    */
-  rules?: RuleParamsType<Value>;
+  rules?: FormItemRule<Value>;
 
   /**
    * Validation rules
@@ -406,7 +404,7 @@ export interface FormFieldSetProps<Value> {
    *
    * default: none
    */
-  rules?: RuleParamsType<Value>;
+  rules?: FormItemRule<Value>;
 
 }
 

@@ -2,7 +2,7 @@ import React from 'react'
 import { FormError } from '../utils/errors'
 import FormDatum from '../Datum/Form'
 import { ForceAdd, ObjectType } from '../@types/common'
-import { RuleParamsType } from '../Rule'
+import { FormItemRule } from '../Rule/interface'
 
 export interface FieldSetProviderValueType {
   path?: string
@@ -15,7 +15,7 @@ export interface FieldSetProps<Value extends any[]> {
   formDatum: FormDatum<ObjectType>
   name: string
   onError: (error?: Error) => void
-  rules: RuleParamsType<any>
+  rules: FormItemRule<any>
 }
 
 export type GetFieldSetConsumerProps<U> = Omit<U, 'innerFormNamePath' | 'fieldSetValidate'>
@@ -28,7 +28,7 @@ export interface FormContextValue {
   labelVerticalAlign?: 'top' | 'middle' | 'bottom'
   size?: 'small' | 'default' | 'large'
   labelWidth?: string | number
-  combineRules: <U>(name: string, rule: RuleParamsType<U>) => RuleParamsType<U>
+  combineRules: <U>(name: string, rule: FormItemRule<U>) => FormItemRule<U>
   keepErrorHeight: boolean
 }
 export interface FormProviderProps<V extends ObjectType> {
@@ -40,7 +40,7 @@ export interface FormProviderProps<V extends ObjectType> {
   labelWidth?: number | string
   mode?: string
   pending?: boolean
-  rules?: RuleParamsType<unknown>
+  rules?: FormItemRule<any>
   keepErrorHeight: boolean
 }
 
@@ -77,7 +77,7 @@ export interface InputableProps<Value> {
   // readOnly?: boolean
   disabled?: boolean
   filterSameChange?: boolean
-  combineRules?: (name: string, rules?: RuleParamsType<Value>) => RuleParamsType<Value>
+  combineRules?: (name: string, rules?: FormItemRule<Value>) => FormItemRule<Value>
   required?: boolean
   bind?: string[]
   onItemError?: (id: string, error?: Error) => void
@@ -86,7 +86,7 @@ export interface InputableProps<Value> {
   scuSkip?: string[]
   defaultValue?: Value
   reserveAble?: boolean
-  rules?: RuleParamsType<Value>
+  rules?: FormItemRule<Value>
   formDatum?: FormDatum<ObjectType>
   fieldSetValidate?: (validator: boolean) => void
   name?: string | string[]

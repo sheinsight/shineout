@@ -1,11 +1,11 @@
-import { RuleParamsType } from '../Rule'
+import { FormItemRule } from '../Rule/interface'
 import { ForceAdd, LiteralUnion, ObjectType } from '../@types/common'
 import { ValidType } from './types'
 
 interface RuleObject {
-  [name: string]: RuleParamsType<any> | RuleObject
+  [name: string]: FormItemRule<any> | RuleObject
 }
-export interface ValidFunc {
+export interface FormValid {
   (v: any, formValue: ObjectType, type: ValidType): Promise<any>
   (type: ValidType): Promise<any>
 }

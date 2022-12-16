@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { RuleParamsType } from '../Rule'
+import { FormItemRule } from '../Rule/interface'
 
 export interface StandardProps {
   /**
@@ -97,7 +97,7 @@ export interface FormItemStandardProps<Value = any> {
    *
    * default: -
    */
-  rules?: RuleParamsType<Value>
+  rules?: FormItemRule<Value>
 
   /**
    * Binding validation field name. When the value changes, the bound field validation is triggered.
