@@ -4,11 +4,14 @@ import createReactContext from '../context'
 import { PureComponent } from '../component'
 import { getUidStr } from '../utils/uid'
 import { hidableClass } from './styles'
+import { GetHidableConsumerProps } from './Props'
 
-const context = createReactContext<any>(undefined)
+const context = createReactContext<{ visible?: boolean }>({})
 
-export const consumer = <U extends {}>(Origin: React.ComponentType<U>) => (props: U) => (
-  <context.Consumer>{(value: unknown) => <Origin {...value} {...props} />}</context.Consumer>
+export const consumer = <U extends {}>(
+  Origin: React.ComponentType<U>
+): React.FC<GetHidableConsumerProps<U>> => props => (
+  <context.Consumer>{value => <Origin {...value} {...props} />}</context.Consumer>
 )
 
 interface HideableProps {
