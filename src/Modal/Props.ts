@@ -282,7 +282,7 @@ export interface ModalPanelProps
 }
 
 export type Options = BaseProps & {
-  id: string
+  id?: string
   from?: string
   content?: React.ReactNode
   onCancel?: () => void

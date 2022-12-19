@@ -49,7 +49,7 @@ export function destroy(id: string, unmount: boolean) {
 
 export function close(props: Options, callback?: Function) {
   const { id } = props
-  const modal = containers[props.id]
+  const modal = containers[props.id!]
 
   if (!modal || modal.visible === false) return
   modal.visible = false
@@ -61,7 +61,7 @@ export function close(props: Options, callback?: Function) {
   setTimeout(() => {
     div.style.display = 'none'
     div.classList.remove(modalClass('end'))
-    if (props.destroy) destroy(id, !props.usePortal)
+    if (props.destroy) destroy(id!, !props.usePortal)
 
     if (!hasVisible()) {
       const doc = document.body.parentNode as HTMLElement
@@ -85,7 +85,7 @@ export function createDiv(props: Options) {
     props.rootClassName
   )
 
-  containers[id] = { div, container: parent, props }
+  containers[id!] = { div, container: parent, props }
 
   return div
 }
@@ -109,10 +109,10 @@ export function open(props: Options, isPortal?: boolean) {
   }
 
   const opacityDefault = props.maskOpacity === undefined ? 0.25 : props.maskOpacity
-  const maskOpacity = isMask(props.id) || forceMask ? opacityDefault : 0.01
+  const maskOpacity = isMask(props.id!) || forceMask ? opacityDefault : 0.01
   div.style.background = props.maskBackground || `rgba(0,0,0,${maskOpacity})`
 
-  containers[props.id].visible = true
+  containers[props.id!].visible = true
 
   const panel = (
     <Panel {...otherProps} onClose={handleClose} container={div}>
