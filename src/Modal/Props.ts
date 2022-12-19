@@ -247,6 +247,8 @@ export interface BaseProps extends StandardProps {
    * default: -
    */
   noPadding?: boolean
+
+  height?: string | number
 }
 
 export interface ModalProps extends BaseProps {}
