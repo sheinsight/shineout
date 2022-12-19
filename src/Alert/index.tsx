@@ -13,19 +13,16 @@ const DefaultProps = {
   duration: 200,
   type: 'warning',
 }
-
-type Props = AlertProps & Required<Pick<AlertProps, keyof typeof DefaultProps>>
-
 interface State {
   dismiss: number
 }
 
-class Alert extends PureComponent<Props, State> {
+class Alert extends PureComponent<AlertProps, State> {
   static defaultProps = DefaultProps
 
   static displayName: string
 
-  constructor(props: Props) {
+  constructor(props: AlertProps) {
     super(props)
     this.state = {
       dismiss: 0,
@@ -59,7 +56,7 @@ class Alert extends PureComponent<Props, State> {
 
   handleClose() {
     if (this.state.dismiss > 0) return
-    const { duration, outAnimation, onClose } = this.props
+    const { duration = DefaultProps.duration, outAnimation, onClose } = this.props
 
     // outer animation
     if (outAnimation) {
@@ -80,7 +77,7 @@ class Alert extends PureComponent<Props, State> {
 
   renderIcon() {
     let { icon } = this.props
-    const { type, iconSize } = this.props
+    const { type = DefaultProps.type, iconSize = DefaultProps.iconSize } = this.props
 
     if (typeof icon === 'boolean' && icon) {
       icon = icons[capitalize(type) as keyof typeof icons]
@@ -142,4 +139,4 @@ class Alert extends PureComponent<Props, State> {
 
 Alert.displayName = 'ShineoutAlert'
 
-export default Alert as React.ComponentClass<AlertProps>
+export default Alert

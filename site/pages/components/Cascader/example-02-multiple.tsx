@@ -23,7 +23,6 @@ interface DataItem {
   children?: DataItem[]
 }
 type CascaderProps = TYPE.Cascader.Props<DataItem, string[]>
-type CascaderData = CascaderProps['data']
 type CascaderMode = CascaderProps['mode']
 type CascaderRenderItem = CascaderProps['renderItem']
 
@@ -44,7 +43,7 @@ const getValue = (list: any, value: any) => {
 
 const App: React.FC = () => {
   const [mode, setMode] = useState<CascaderMode>(1)
-  const [value, setValue] = useState<CascaderData>(getValue(data, []))
+  const [value, setValue] = useState<string[]>(getValue(data, []))
 
   const renderItem: CascaderRenderItem = node => `node ${node.id}`
 
@@ -56,7 +55,10 @@ const App: React.FC = () => {
         format="value"
         data={modeList}
         renderItem="text"
-        onChange={v => setMode(v)}
+        onChange={v => {
+          setMode(v)
+          setValue([])
+        }}
       />
 
       <br />

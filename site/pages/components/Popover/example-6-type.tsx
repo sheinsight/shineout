@@ -5,9 +5,11 @@
  *    -- Four styles are built in.
  */
 import React from 'react'
-import { Popover } from 'shineout'
+import { Popover, TYPE } from 'shineout'
 
-const types = ['success', 'info', 'warning', 'danger']
+type PopoverProps = TYPE.Popover.Props
+
+const types: PopoverProps['type'][] = ['success', 'info', 'warning', 'danger']
 
 const style: React.CSSProperties = {
   margin: 4,

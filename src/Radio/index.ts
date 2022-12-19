@@ -4,7 +4,7 @@ import Datum from '../Datum'
 import { consumer } from '../Checkbox/context'
 import Group from './Group'
 import Radio from './Radio'
-import { RadioType } from "./Props"
+import { RadioType } from './Props'
 
 const exports: any = consumer(Radio)
 exports.Group = compose(

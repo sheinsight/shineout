@@ -69,7 +69,7 @@ export type InnerRuleFunc<U> =  U & {isInnerValidator: true}
 
 export type RuleCommon =  {
   [key: string]: paramFunc
- } & RuleResult
+ } | RuleResult
 
 export interface RuleResult {
   required: InnerRuleFunc<(message?: MessageType) => Required>;

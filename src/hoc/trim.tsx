@@ -1,17 +1,10 @@
-import React, { PureComponent } from 'react'
+import React, { ComponentType, PureComponent } from 'react'
 import config from '../config'
+import { GetTrimProps, TrimProps } from './Props'
 
-export interface BaseProps {
-  value?: string
-  onBlur?: (e: any) => void
-  onChange?: (v: string) => void
-}
-
-export type GetTrimProps<U> = U & { trim?: boolean }
-
-export default <T extends BaseProps>(Origin: React.ComponentType<T>) =>
-  class extends PureComponent<GetTrimProps<T>> {
-    constructor(props: GetTrimProps<T>) {
+export default <T extends {}>(Origin: ComponentType<T>) =>
+  (class Trim extends PureComponent<TrimProps> {
+    constructor(props: TrimProps) {
       super(props)
       this.handleBlur = this.handleBlur.bind(this)
     }
@@ -23,7 +16,7 @@ export default <T extends BaseProps>(Origin: React.ComponentType<T>) =>
       return false
     }
 
-    handleBlur(e: React.MouseEvent<HTMLInputElement>) {
+    handleBlur(e: React.FocusEvent<HTMLInputElement>) {
       const { value, onBlur, onChange } = this.props
       const trim = this.getTrim()
       if (trim) {
@@ -34,6 +27,6 @@ export default <T extends BaseProps>(Origin: React.ComponentType<T>) =>
     }
 
     render() {
-      return <Origin {...this.props} onBlur={this.handleBlur} />
+      return <Origin {...this.props as T} onBlur={this.handleBlur} />
     }
-  }
+  } as unknown) as ComponentType<GetTrimProps<T>>
