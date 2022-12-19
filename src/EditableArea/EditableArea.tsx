@@ -30,7 +30,7 @@ function formatShowValue(value: unknown) {
 }
 
 class Editable extends React.PureComponent<EditableAreaProps, EditableareaState> {
-  static defaultProps :any= DefaultProps
+  static defaultProps = DefaultProps
 
   bindContainer: (type: HTMLDivElement) => void
 
@@ -80,7 +80,7 @@ class Editable extends React.PureComponent<EditableAreaProps, EditableareaState>
     if (typeof onChange === 'function') onChange(value)
   }
 
-  onBlur(e: MouseEvent) {
+  onBlur(e: React.FocusEvent) {
     const { onBlur } = this.props
     this.hidePop()
     if (typeof onBlur === 'function') onBlur(e)
@@ -102,7 +102,7 @@ class Editable extends React.PureComponent<EditableAreaProps, EditableareaState>
     }
   }
 
-  handleFocus(e: MouseEvent) {
+  handleFocus(e: React.FocusEvent) {
     const { onFocus } = this.props
     if (typeof onFocus === 'function') onFocus(e)
   }
@@ -123,14 +123,13 @@ class Editable extends React.PureComponent<EditableAreaProps, EditableareaState>
     const { showTextarea } = this.state
     const { placeholder, maxHeight, value, innerTitle, placeTitle, renderFooter } = this.props
     if (!showTextarea) return null
-
+    const addTitleProps = { innerTitle, placeTitle }
     return (
       <div ref={this.bindContainer}>
         <Textarea
           className={editableAreaClass('text-area')}
           autosize
-          innerTitle={innerTitle}
-          placeTitle={placeTitle}
+          {...addTitleProps}
           value={value}
           rows={1}
           delay={0}
