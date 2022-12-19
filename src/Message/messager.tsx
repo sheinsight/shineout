@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { messageClass } from './styles'
 import Container from './Container'
+import { PositionType } from './Props'
 
 const elements: {
   [type: string]: HTMLElement
@@ -10,7 +11,7 @@ const components: {
   [type: string]: Container | null
 } = {}
 
-function getElement(type: string) {
+function getElement(type: PositionType) {
   const div = document.createElement('div')
   div.className = messageClass('_', type)
 
@@ -19,7 +20,7 @@ function getElement(type: string) {
   return div
 }
 
-export function destroy(type: string) {
+export function destroy(type: PositionType) {
   if (elements[type]) {
     ReactDOM.unmountComponentAtNode(elements[type])
     document.body.removeChild(elements[type])
@@ -30,7 +31,7 @@ export function destroy(type: string) {
   }
 }
 
-export function getComponent(type: string): Promise<{ addMessage: (message: any) => void }> {
+export function getComponent(type: PositionType): Promise<{ addMessage: (message: any) => void }> {
   return new Promise(resolve => {
     const component = components[type!]
     if (component) {

@@ -1,10 +1,11 @@
 import { destroy, getComponent } from './messager'
-import { MessageType, MessageOptions } from './Props'
+import { MessageType, MessageOptions, PositionType } from './Props'
 
 let defaultOptions: MessageOptions & {
   duration?: number
   top?: string
 } = {}
+
 const create = (type: MessageType) => (content: React.ReactNode, duration?: number, options?: MessageOptions) => {
   const mo = Object.assign({}, defaultOptions, options)
   duration = [duration, defaultOptions.duration, 3].find(d => typeof d === 'number')!
@@ -32,10 +33,10 @@ export default {
   warning: create('warning'),
   danger: create('danger'),
   error: create('danger'),
-  close: (key?: string) => {
+  close: (key?: PositionType) => {
     if (key) destroy(key)
     else {
-      ;['top', 'middle', 'top-left', 'top-right', 'bottom-left', 'bottom-right'].forEach(k => {
+      ;(['top', 'middle', 'top-left', 'top-right', 'bottom-left', 'bottom-right'] as PositionType[]).forEach(k => {
         destroy(k)
       })
     }

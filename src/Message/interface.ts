@@ -1,3 +1,3 @@
-import { MessageOptions } from './Props'
+import { MessageOptions as __MessageOptions } from './Props'
 
-export type MessageProps = MessageOptions
+export type MessageOptions = __MessageOptions

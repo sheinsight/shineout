@@ -1,4 +1,6 @@
 export type MessageType = 'default' | 'success' | 'info' | 'warning' | 'danger'
+
+export type PositionType = 'top' | 'middle' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'
 export interface MessageOptions {
   /**
    * extend className
@@ -41,6 +43,15 @@ export interface MessageOptions {
    * default: false
    */
   hideClose?: boolean
+
+  /**
+   * Distance from the top
+   *
+   * 距离顶部的距离
+   *
+   * default: -
+   */
+  top?: string
 }
 
 export interface MessageProps {

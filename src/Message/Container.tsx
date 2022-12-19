@@ -24,7 +24,7 @@ interface MessageState {
 }
 
 class Container extends PureComponent<MessageProps, MessageState> {
-  handleClassName: (position: string | undefined, closeMsg: any) => string
+  handleClassName: (position: string | undefined, closeMsg: boolean) => string
 
   handleStyle: (closeMsg: boolean, h: number, position?: string) => React.CSSProperties | null
 
@@ -108,8 +108,7 @@ class Container extends PureComponent<MessageProps, MessageState> {
     if (callback) (callback as Function)()
   }
 
-  closeMessageForAnimation(...args: any[]) {
-    const [id, duration, msgHeight] = args
+  closeMessageForAnimation(id: string, duration?: number, msgHeight?: number) {
     if (!duration) {
       this.removeMessage(id)
       return
@@ -121,7 +120,7 @@ class Container extends PureComponent<MessageProps, MessageState> {
         state.messages.forEach((m: Message) => {
           if (m.id === id) {
             m.dismiss = true
-            m.h = msgHeight + 20 // messageHeight + messageMargin
+            m.h = msgHeight! + 20 // messageHeight + messageMargin
           }
         })
       })
