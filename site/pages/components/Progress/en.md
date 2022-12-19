@@ -2,7 +2,7 @@
 
 <example />
 
-## API 
+## API
 
 | Property | Type | Default | Description | version |
 | --- | --- | --- | --- | --- |
@@ -17,4 +17,4 @@
 | type | string | - | Built-in color, options: \['success', 'info', 'warning', 'danger'] | |
 | value | number | 0 | Percentage, 0 <= value <= 100 | |
 | popup | boolean | false | show children with popup | |
-| strokeLinecap | "round" \| "inherit" \| "butt" \| "square" | - | The shape to be used at the end of open subpaths when they are stroked | |
+| strokeLinecap | "round" \| "inherit" \| "butt" \| "square" | - | The stroke shape at both ends of the circular progress bar | |

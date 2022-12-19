@@ -107,7 +107,7 @@ export interface ProgressProps extends StandardProps {
    *
    * default: -
    */
-  strokeLinecap?: 'round' | 'inherit' | 'butt' | 'square'
+  strokeLinecap?: React.SVGAttributes<any>['strokeLinecap']
 }
 
 export interface PopupProps {
