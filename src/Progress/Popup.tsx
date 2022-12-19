@@ -1,16 +1,16 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { progressClass } from './styles'
 import { isRTL } from '../config'
+import { PopupProps } from './Props'
 
 const ROTATE_MAX_ANGLE = 15
 const PROGRESS_CENTER = 60
-export default class Popup extends React.Component {
+export default class Popup extends React.Component<PopupProps> {
   getStyle() {
     const { value } = this.props
     let rotate = 0
-    if (value <= PROGRESS_CENTER) rotate = ROTATE_MAX_ANGLE * (value / PROGRESS_CENTER)
-    else rotate = (1 - value / 100) * ROTATE_MAX_ANGLE
+    if (value! <= PROGRESS_CENTER) rotate = ROTATE_MAX_ANGLE * (value! / PROGRESS_CENTER)
+    else rotate = (1 - value! / 100) * ROTATE_MAX_ANGLE
     return {
       [isRTL() ? 'right' : 'left']: `${value}%`,
       transform: `translateX(${isRTL() ? '50%' : '-50%'}) rotate(${rotate}deg)`,
@@ -26,9 +26,4 @@ export default class Popup extends React.Component {
       </div>
     )
   }
-}
-
-Popup.propTypes = {
-  value: PropTypes.number,
-  children: PropTypes.any,
 }

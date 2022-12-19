@@ -96,7 +96,7 @@ export { default as Popover } from './Popover'
 import { PopoverProps as __PopoverProps, PopoverConfirmProps as __PopoverConfirmProps, PopoverContentProps as __PopoverContentProps } from './Popover/interface'
 
 export { default as Progress } from './Progress'
-import { ProgressProps as __ProgressProps,  } from './Progress'
+import { ProgressProps as __ProgressProps } from './Progress/interface'
 
 export { default as Radio } from './Radio'
 import { RadioProps as __RadioProps, RadioGroupProps as __RadioGroupProps } from './Radio/interface'
@@ -277,6 +277,7 @@ export namespace TYPE {
     export type ContentProps = __PopoverContentProps
   }
   export namespace Progress {
+  
     export type Props = __ProgressProps
   }
   export namespace Radio {
