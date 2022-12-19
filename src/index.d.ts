@@ -26,7 +26,7 @@ export { default as Breadcrumb } from './Breadcrumb'
 import { BreadcrumbData as __BreadcrumbData, BreadcrumbProps as __BreadcrumbProps } from './Breadcrumb/interface'
 
 export { default as Button } from './Button'
-import { ButtonType as __ButtonType, ButtonShape as __ButtonShape, ButtonProps as __ButtonProps, ButtonGroupProps as __ButtonGroupProps } from './Button/interface'
+import { ButtonProps as __ButtonProps, ButtonGroupProps as __ButtonGroupProps, ButtonType as __ButtonType, ButtonShape as __ButtonShape } from './Button/interface'
 
 export { default as Card } from './Card'
 import { CardProps as __CardProps, CardBodyProps as __CardBodyProps, CardHeaderProps as __CardHeaderProps, CardFooterProps as __CardFooterProps, CardSubmitProps as __CardSubmitProps, CardAccordionProps as __CardAccordionProps } from './Card/interface'
@@ -84,7 +84,7 @@ export { default as Menu } from './Menu'
 import { MenuProps as __MenuProps,  } from './Menu'
 
 export { default as Message } from './Message'
-import { MessageProps as __MessageProps, MessageOptions as __MessageOptions,  } from './Message'
+import { MessageOptions as __MessageOptions } from './Message/interface'
 
 export { default as Modal } from './Modal'
 import { ModalProps as __ModalProps, ModalFunctionOptions as __ModalFunctionOptions,  } from './Modal'
@@ -96,7 +96,7 @@ export { default as Popover } from './Popover'
 import { PopoverProps as __PopoverProps, PopoverConfirmProps as __PopoverConfirmProps, PopoverContentProps as __PopoverContentProps } from './Popover/interface'
 
 export { default as Progress } from './Progress'
-import { ProgressProps as __ProgressProps,  } from './Progress'
+import { ProgressProps as __ProgressProps } from './Progress/interface'
 
 export { default as Radio } from './Radio'
 import { RadioProps as __RadioProps, RadioGroupProps as __RadioGroupProps } from './Radio/interface'
@@ -168,11 +168,10 @@ export namespace TYPE {
     export type Props<Data = __BreadcrumbData> = __BreadcrumbProps<Data>
   }
   export namespace Button {
-  
+    export type Props = __ButtonProps
+    export type GroupProps = __ButtonGroupProps  
     export type Type = __ButtonType
     export type Shape = __ButtonShape
-    export type Props = __ButtonProps
-    export type GroupProps = __ButtonGroupProps
   }
   export namespace Card {
   
@@ -259,7 +258,7 @@ export namespace TYPE {
     export type Props<Item, Value> = __MenuProps<Item, Value>
   }
   export namespace Message {
-    export type Props = __MessageProps
+  
     export type Options = __MessageOptions
   }
   export namespace Modal {
@@ -278,6 +277,7 @@ export namespace TYPE {
     export type ContentProps = __PopoverContentProps
   }
   export namespace Progress {
+  
     export type Props = __ProgressProps
   }
   export namespace Radio {

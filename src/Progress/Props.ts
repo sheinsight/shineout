@@ -1,16 +1,15 @@
 import React from 'react'
-import {StandardProps} from '../@types/common'
+import { StandardProps } from '../@types/common'
 
-type ReactNode = React.ReactNode;
+type ReactNode = React.ReactNode
 
-interface ColorStep {
-  form?: string;
-  to?: string;
+export interface ColorStep {
+  form?: string
+  to?: string
   [key: string]: string | undefined
 }
 
 export interface ProgressProps extends StandardProps {
-
   /**
    * popup to show children
    *
@@ -18,7 +17,7 @@ export interface ProgressProps extends StandardProps {
    *
    * default: -
    */
-  popup?: boolean;
+  popup?: boolean
 
   /**
    * Background color
@@ -27,7 +26,7 @@ export interface ProgressProps extends StandardProps {
    *
    * default: '#e9ecef'
    */
-  background?: string;
+  background?: string
 
   /**
    * Content
@@ -36,7 +35,7 @@ export interface ProgressProps extends StandardProps {
    *
    * default: -
    */
-  children?: string | ReactNode;
+  children?: string | ReactNode
 
   /**
    * The foreground color can be set to the object to become a gradient
@@ -45,7 +44,7 @@ export interface ProgressProps extends StandardProps {
    *
    * default: primary
    */
-  color?: string | ColorStep;
+  color?: string | ColorStep
 
   /**
    * Options: ['line', 'circle']
@@ -54,7 +53,7 @@ export interface ProgressProps extends StandardProps {
    *
    * default: 'line'
    */
-  shape?: 'line' | 'circle';
+  shape?: 'line' | 'circle'
 
   /**
    * The width and height of 'circle' shape
@@ -63,7 +62,7 @@ export interface ProgressProps extends StandardProps {
    *
    * default: 100
    */
-  size?: number;
+  size?: number
 
   /**
    * The width of the stroke
@@ -72,7 +71,7 @@ export interface ProgressProps extends StandardProps {
    *
    * default: 8
    */
-  strokeWidth?: number;
+  strokeWidth?: number
 
   /**
    * Container element style
@@ -81,7 +80,7 @@ export interface ProgressProps extends StandardProps {
    *
    * default: -
    */
-  style?: React.CSSProperties;
+  style?: React.CSSProperties
 
   /**
    * Built-in color, options: ['success', 'info', 'warning', 'danger']
@@ -90,7 +89,7 @@ export interface ProgressProps extends StandardProps {
    *
    * default: -
    */
-  type?: 'success' | 'info' | 'warning' | 'danger';
+  type?: 'success' | 'info' | 'warning' | 'danger'
 
   /**
    * Percentage, 0 <= value <= 100
@@ -99,12 +98,19 @@ export interface ProgressProps extends StandardProps {
    *
    * default: 0
    */
-  value?: number;
+  value?: number
+
+  /**
+   * The shape to be used at the end of open subpaths when they are stroked
+   *
+   * 进度条两端的描边形状
+   *
+   * default: -
+   */
+  strokeLinecap?: React.SVGAttributes<any>['strokeLinecap']
 }
 
-
-declare class Progress extends React.Component<ProgressProps, {}> {
-  render(): JSX.Element
+export interface PopupProps {
+  value?: number
+  children?: ReactNode
 }
-
-export default Progress

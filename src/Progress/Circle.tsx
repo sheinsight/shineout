@@ -1,18 +1,34 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { progressClass } from './styles'
 import analyzeColor from './analyzeColor'
 import { isRTL } from '../config'
+import { ProgressProps } from './Props'
 
-function Circle(props) {
-  const { children, strokeWidth, type, color, size, value, background, strokeLinecap } = props
+const DefaultValue = {
+  strokeLinecap: 'round',
+  strokeWidth: 8,
+  size: 100,
+  value: 0,
+}
+
+function Circle(props: ProgressProps) {
+  const {
+    children,
+    strokeWidth = DefaultValue.strokeWidth,
+    type,
+    color,
+    size = DefaultValue.size,
+    value,
+    background,
+    strokeLinecap,
+  } = props
   const className = classnames(progressClass('circle', type, isRTL() && 'rtl'), props.className)
 
   const r = 100 - Math.ceil((strokeWidth / size) * 100)
 
   const p = Math.PI * 2 * r
-  const dasharray = [p * (value / 100), p * (1 - value / 100)]
+  const dasharray = [p * (value! / 100), p * (1 - value! / 100)]
   const style = Object.assign({ width: size, height: size }, props.style)
   const width = value === 0 && strokeLinecap === 'round' ? 0 : strokeWidth * 2
   const objColor = color && typeof color === 'object'
@@ -45,7 +61,7 @@ function Circle(props) {
           r={r}
           fill="transparent"
           style={{ stroke: objColor ? "url('#progress-linear')" : color }}
-          strokeDasharray={dasharray}
+          strokeDasharray={dasharray as any}
           strokeLinecap={strokeLinecap}
           strokeWidth={width}
         />
@@ -55,23 +71,6 @@ function Circle(props) {
   )
 }
 
-Circle.propTypes = {
-  background: PropTypes.string,
-  children: PropTypes.any,
-  className: PropTypes.string,
-  color: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  strokeLinecap: PropTypes.string,
-  strokeWidth: PropTypes.number,
-  size: PropTypes.number,
-  style: PropTypes.object,
-  type: PropTypes.oneOf(['success', 'info', 'warning', 'error', 'danger']),
-  value: PropTypes.number,
-}
-
-Circle.defaultProps = {
-  strokeLinecap: 'round',
-  strokeWidth: 8,
-  size: 100,
-}
+Circle.defaultProps = DefaultValue
 
 export default Circle
