@@ -120,7 +120,7 @@ class Container extends PureComponent<MessageProps, MessageState> {
         state.messages.forEach((m: Message) => {
           if (m.id === id) {
             m.dismiss = true
-            m.h = msgHeight! + 20 // messageHeight + messageMargin
+            m.h = (msgHeight || 0) + 20 // messageHeight + messageMargin
           }
         })
       })
