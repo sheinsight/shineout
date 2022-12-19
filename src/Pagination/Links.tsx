@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import icons from '../icons'
 import { paginationClass } from './styles'
 import Item from './Item'
@@ -7,8 +6,14 @@ import Prev from './Prev'
 import Next from './Next'
 import { isRTL } from '../config'
 import { getDirectionClass } from '../utils/classname'
+import { LinksProps } from './Props'
 
-const renderIcon = isPrev => {
+const DefaultValue = {
+  span: 5,
+  text: {},
+}
+
+const renderIcon = (isPrev: boolean) => {
   const rtl = isRTL()
   if ((isPrev && rtl) || (!isPrev && !rtl)) {
     return icons.AngleDoubleRight
@@ -16,9 +21,11 @@ const renderIcon = isPrev => {
   return icons.AngleDoubleLeft
 }
 
-class Links extends PureComponent {
+class Links extends PureComponent<LinksProps> {
+  static defaultProps = DefaultValue
+
   getLinks() {
-    const { current, total, pageSize, span } = this.props
+    const { current, total, pageSize, span = DefaultValue.span } = this.props
 
     if (total === 0) return { links: [], max: 0 }
 
@@ -67,7 +74,7 @@ class Links extends PureComponent {
   }
 
   render() {
-    const { current, onChange, span, disabled } = this.props
+    const { current, onChange, span = DefaultValue.span, disabled } = this.props
     const { links, max } = this.getLinks()
 
     return (
@@ -101,21 +108,6 @@ class Links extends PureComponent {
       </div>
     )
   }
-}
-
-Links.propTypes = {
-  current: PropTypes.number.isRequired,
-  disabled: PropTypes.bool,
-  onChange: PropTypes.func.isRequired,
-  pageSize: PropTypes.number.isRequired,
-  span: PropTypes.number,
-  text: PropTypes.object,
-  total: PropTypes.number.isRequired,
-}
-
-Links.defaultProps = {
-  span: 5,
-  text: {},
 }
 
 export default Links

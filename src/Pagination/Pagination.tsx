@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import { getProps, defaultProps } from '../utils/proptypes'
+import { defaultProps } from '../utils/proptypes'
 import { paginationClass } from './styles'
 import Links from './Links'
 import Jumper from './Jumper'
@@ -10,8 +9,18 @@ import PageSizeList from './PageSizeList'
 import { isRTL } from '../config'
 import getDataset from '../utils/dom/getDataset'
 import { getDirectionClass } from '../utils/classname'
+import { PaginationProps, LinksProps, PageSizeListProps, JumperProps } from './Props'
 
-class Pagination extends PureComponent {
+const DefaultValue = {
+  ...defaultProps,
+  layout: ['links'],
+  span: 5,
+  text: {},
+}
+
+class Pagination extends PureComponent<PaginationProps> {
+  static defaultProps = DefaultValue
+
   render() {
     const { align, layout, size, style } = this.props
 
@@ -23,14 +32,14 @@ class Pagination extends PureComponent {
 
     return (
       <div className={className} style={style} {...getDataset(this.props)}>
-        {layout.map((section, i) => {
+        {layout!.map((section, i) => {
           switch (section) {
             case 'links':
-              return <Links key={section} {...this.props} />
+              return <Links key={section} {...this.props as LinksProps} />
             case 'list':
-              return <PageSizeList key={section} {...this.props} />
+              return <PageSizeList key={section} {...this.props as PageSizeListProps} />
             case 'jumper':
-              return <Jumper key={section} {...this.props} />
+              return <Jumper key={section} {...this.props as JumperProps} />
             case 'simple':
               return <Simple key={section} {...this.props} />
             default:
@@ -47,25 +56,6 @@ class Pagination extends PureComponent {
       </div>
     )
   }
-}
-
-Pagination.propTypes = {
-  ...getProps(PropTypes, 'size', 'type'),
-  align: PropTypes.string,
-  current: PropTypes.number.isRequired,
-  layout: PropTypes.array,
-  onChange: PropTypes.func.isRequired,
-  pageSize: PropTypes.number.isRequired,
-  span: PropTypes.number,
-  text: PropTypes.object,
-  total: PropTypes.number.isRequired,
-}
-
-Pagination.defaultProps = {
-  ...defaultProps,
-  layout: ['links'],
-  span: 5,
-  text: {},
 }
 
 export default Pagination

@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react'
 import { ForceAdd, PartialKeys, RegularAttributes } from '../@types/common'
 import { PopoverProps } from '../Popover/interface'
-import { PaginationProps } from '../Pagination'
+import { PaginationProps } from '../Pagination/Props'
 
 export type MovableType<U> = U & {
   moveable?: boolean
