@@ -26,7 +26,7 @@ export { default as Breadcrumb } from './Breadcrumb'
 import { BreadcrumbData as __BreadcrumbData, BreadcrumbProps as __BreadcrumbProps } from './Breadcrumb/interface'
 
 export { default as Button } from './Button'
-import { ButtonProps as __ButtonProps, ButtonGroupProps as __ButtonGroupProps, ButtonType as __ButtonType, ButtonShape as __ButtonShape } from './Button/interface'
+import { ButtonType as __ButtonType, ButtonShape as __ButtonShape, ButtonProps as __ButtonProps, ButtonGroupProps as __ButtonGroupProps } from './Button/interface'
 
 export { default as Card } from './Card'
 import { CardProps as __CardProps, CardBodyProps as __CardBodyProps, CardHeaderProps as __CardHeaderProps, CardFooterProps as __CardFooterProps, CardSubmitProps as __CardSubmitProps, CardAccordionProps as __CardAccordionProps } from './Card/interface'
@@ -168,10 +168,11 @@ export namespace TYPE {
     export type Props<Data = __BreadcrumbData> = __BreadcrumbProps<Data>
   }
   export namespace Button {
-    export type Props = __ButtonProps
-    export type GroupProps = __ButtonGroupProps  
+  
     export type Type = __ButtonType
     export type Shape = __ButtonShape
+    export type Props = __ButtonProps
+    export type GroupProps = __ButtonGroupProps
   }
   export namespace Card {
   

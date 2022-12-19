@@ -5,7 +5,7 @@ import Alert from '../Alert'
 import { Component } from '../component'
 import { popoverClass } from './styles'
 import { getLocale } from '../locale'
-import { ConfirmProps } from './Props'
+import { PopoverConfirmProps } from './Props'
 
 interface ConfirmState {
   ok: boolean
@@ -17,14 +17,14 @@ const DefaultProps: any = {
   icon: true,
   okType: 'danger',
 }
-export default class Confirm extends Component<ConfirmProps, ConfirmState> {
+export default class Confirm extends Component<PopoverConfirmProps, ConfirmState> {
   static defaultProps = DefaultProps
 
   handleCancel: (close: Function) => void
 
   handleOk: (close: Function) => void
 
-  constructor(props: ConfirmProps) {
+  constructor(props: PopoverConfirmProps) {
     super(props)
     this.state = {
       ok: false,
