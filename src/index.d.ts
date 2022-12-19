@@ -55,7 +55,7 @@ export { default as Drawer } from './Drawer'
 import { DrawerProps as __DrawerProps,  } from './Drawer'
 
 export { default as Dropdown } from './Dropdown'
-import { DropdownProps as __DropdownProps, DropdownItem as __DropdownItem } from './Dropdown'
+import { DropdownItem as __DropdownItem, DropdownProps as __DropdownProps } from './Dropdown/interface'
 
 export { default as EditableArea } from './EditableArea'
 import { EditableAreaProps as __EditableAreaProps,  } from './EditableArea'
@@ -215,8 +215,9 @@ export namespace TYPE {
     export type Props = __DrawerProps
   }
   export namespace Dropdown {
-    export type Props = __DropdownProps  
+  
     export type Item = __DropdownItem
+    export type Props<Item> = __DropdownProps<Item>
   }
   export namespace EditableArea {
     export type Props = __EditableAreaProps
