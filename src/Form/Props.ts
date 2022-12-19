@@ -64,7 +64,7 @@ export type GetFormItemConsumerProps<U> = Omit<U, keyof FormItemContextValue>
 
 export interface BaseInputProps {
   value?: any
-  onChange: any
+  onChange?: any
 }
 
 export interface InputableProps<Value> {
@@ -74,7 +74,7 @@ export interface InputableProps<Value> {
   popover?: string
   value?: Value
   error?: Error
-  readOnly?: boolean
+  // readOnly?: boolean
   disabled?: boolean
   filterSameChange?: boolean
   combineRules?: (name: string, rules?: RuleParamsType<Value>) => RuleParamsType<Value>
@@ -92,15 +92,15 @@ export interface InputableProps<Value> {
   name?: string | string[]
   forceChangeOnValueSet?: boolean
 }
-export type InputableFilterType =
-  | 'required'
-  | 'bind'
-  | 'onItemError'
-  | 'bindInputToItem'
-  | 'unbindInputFromItem'
-  | 'scuSkip'
-  | 'defaultValue'
-  | 'reserveAble'
+// export type InputableFilterType =
+//   | 'required'
+//   | 'bind'
+//   | 'onItemError'
+//   | 'bindInputToItem'
+//   | 'unbindInputFromItem'
+//   | 'scuSkip'
+//   | 'defaultValue'
+//   | 'reserveAble'
 
 // 过滤掉原生属性required
 type InputablePropsFiltered<Value> = Omit<InputableProps<Value>, 'required'>
@@ -114,5 +114,5 @@ type AddInputProps<Props extends BaseInputProps, Value> = ForceAdd<
 >
 // consumer
 export type GetInputableProps<Props extends BaseInputProps, Value> = GetFormItemConsumerProps<
-  GetFieldSetConsumerProps<AddInputProps<Props, Value>>
+  GetFieldSetConsumerProps<GetFormProviderConsumerProps<AddInputProps<Props, Value>>>
 >
