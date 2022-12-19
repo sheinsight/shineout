@@ -1,5 +1,5 @@
 import React from 'react'
-import { StandardProps, RegularAttributes, CommonProps } from '../@types/common'
+import { StandardProps, RegularAttributes, CommonProps, LiteralUnion } from '../@types/common'
 import { getTableConsumerProps } from '../Table/Props'
 
 export type TriggerType = 'click' | 'hover'
@@ -52,10 +52,10 @@ export interface ItemProps<Item> {
   width: DropdownProps<Item>['width']
   onClick: DropdownProps<Item>['onClick']
   columns: DropdownProps<Item>['columns']
-  renderItem: ((data: Item) => React.ReactNode) | string
+  renderItem: ((data: Item) => React.ReactNode) | LiteralUnion<Item>
 }
 
-export interface DropdownProps<Item extends DropdownItem> extends StandardProps, Pick<CommonProps, 'absolute'> {
+export interface SimpleDropdownProps<Item extends DropdownItem> extends StandardProps, Pick<CommonProps, 'absolute'> {
   // hover?: boolean
   isSub?: boolean
 
@@ -184,11 +184,12 @@ export interface DropdownProps<Item extends DropdownItem> extends StandardProps,
    *
    * default: 'auto'
    */
-  renderItem?: ((data: Item) => React.ReactNode) | string
+  renderItem?: ((data: Item) => React.ReactNode) | LiteralUnion<Item>
 }
 
-export type GetDropDownProps<Props> = getTableConsumerProps<Props>
-export declare class DropdownClass<Item> extends React.Component<GetDropDownProps<DropdownProps<Item>>, {}> {
+export type DropdownProps<Item extends DropdownItem> = getTableConsumerProps<SimpleDropdownProps<Item>>
+
+export declare class DropdownClass<Item> extends React.Component<DropdownProps<Item>, {}> {
   render(): JSX.Element
 }
 
