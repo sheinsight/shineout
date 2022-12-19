@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import Button from './Button'
-import { ButtonProps } from './interface'
+import { ButtonProps } from './Props'
 
 class OnceButton extends PureComponent<ButtonProps, { loading?: boolean }> {
   constructor(props: ButtonProps) {

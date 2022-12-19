@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { StandardProps } from '../@types/common'
-import { ButtonProps } from '../Button/interface'
+import { ButtonProps } from '../Button/Props'
 import { RuleParamsType } from '../Rule'
 
 type ReactNode = React.ReactNode;
