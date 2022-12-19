@@ -4,7 +4,7 @@ import { StandardProps } from '../@types/common'
 export type GetZIndexConsumerProps<Props> = Props
 export type Methods = 'success' | 'info' | 'warning' | 'error' | 'confirm' | 'normal'
 
-export interface Props extends StandardProps {
+export interface BaseProps extends StandardProps {
   /**
    * Whether to force the mask transparency (in multi-layer Modal, the transparency of other Modal masks except the first layer will be adjusted to 0.01)
    *
@@ -201,7 +201,7 @@ export interface Props extends StandardProps {
    *
    * default: null
    */
-  type?: 'info' | 'success' | 'warning' | 'error' | 'normal'
+  type?: 'info' | 'success' | 'warning' | 'error' | 'normal' | 'default'
 
   /**
    * toggle zoom animation
@@ -238,59 +238,129 @@ export interface Props extends StandardProps {
    * default: false
    */
   resizable?: boolean
-}
 
-export interface ModalProps extends Props {
-  content?: React.ReactNode
-  onOk?: () => void | Promise<any>
-  onCancel?: () => void
-  onClose?: () => void
-  text?: { ok?: string; cancel?: string }
-  autoFocusButton?: string
+  /**
+   * When the theme is antd, Set the content style padding to 0
+   *
+   * 当Sheinout采用 antd 主题时，取消内容区域的padding
+   *
+   * default: -
+   */
   noPadding?: boolean
-  height?: number | string
-  drawer?: boolean
-  children?: React.ReactNode
 }
 
-export interface ModalPanelProps extends StandardProps {
+export interface ModalProps extends BaseProps {}
+
+export interface ModalPanelProps
+  extends StandardProps,
+    Pick<
+      BaseProps,
+      | 'footer'
+      | 'maskCloseAble'
+      | 'noPadding'
+      | 'onClose'
+      | 'padding'
+      | 'position'
+      | 'title'
+      | 'type'
+      | 'width'
+      | 'moveable'
+      | 'resizable'
+      | 'hideClose'
+      | 'zoom'
+      | 'events'
+      | 'fullScreen'
+      | 'top'
+      | 'bodyStyle'
+    > {
   id?: string
-  footer?: ReactNode
-  maskCloseAble?: boolean | null
-  noPadding?: boolean
-  onClose?: () => void
-  padding?: string | number
-  position?: 'left' | 'top' | 'right' | 'bottom'
-  title?: ReactNode
-  type?: string
-  width?: number | string
-  moveable?: boolean
-  resizable?: boolean
-  hideClose?: boolean
   from?: string
-  zoom?: boolean
   container?: Element
-  events: Object
-  fullScreen?: boolean
   drawer?: boolean
   autoFocusButton?: string
-  top?: string | number
   height?: string | number
-  bodyStyle?: React.CSSProperties
 }
 
-export type Options = Omit<Props, 'usePortal' | 'destory'> & {
+export type Options = BaseProps & {
   id: string
-  autoFocusButton?: string
+  from?: string
   content?: React.ReactNode
   onCancel?: () => void
-  onClose?: () => void
   onOk?: () => void | Promise<any>
   text?: { ok?: string; cancel?: string }
-  title?: React.ReactNode
-  width?: number | string
-  esc?: boolean
   isPortal?: boolean
-  usePortal?: boolean
-  from?: string
+}
+
+export interface ModalFunctionOptions {
+  /**
+   * Content body
+   *
+   * 提示内容主体
+   *
+   * default: null
+   */
+  content?: ReactNode | string
+
+  /**
+   * title
+   *
+   * 标题
+   *
+   * default: null
+   */
+  title?: string
+
+  /**
+   * The event is triggered when the cancel button is clicked.
+   *
+   * 点击取消按钮时触发事件，仅在 confirm 方法中有效
+   *
+   * default: null
+   */
+  onCancel?: () => void
+
+  /**
+   * The event is triggered when the modal is closed.
+   *
+   * 关闭Modal时触发
+   *
+   * default: null
+   */
+  onClose?: () => void
+
+  /**
+   * The event is triggered when the ok button is clicked.
+   *
+   * 点击确定按钮时触发事件，返回 Promise 时，会在 Promise resolve 后关闭Modal
+   *
+   * default: null
+   */
+  onOk?: () => void | Promise<any>
+
+  /**
+   * The text of button
+   *
+   * 按钮文字
+   *
+   * default: { ok: 'Ok', cancel: 'Cancel' }
+   */
+  text?: { ok?: string; cancel?: string }
+
+  /**
+   * auto focus button, one of ['ok', 'cancel']
+   *
+   * 默认聚焦的按钮, 可选值 ['ok', 'cancel']
+   *
+   * default: null
+   */
+  autoFocusButton?: string
+
+  /**
+   * When the theme is antd, Set the content style padding to 0
+   *
+   * 当Sheinout采用 antd 主题时，取消内容区域的padding
+   *
+   * default: -
+   */
+  noPadding?: boolean
 }

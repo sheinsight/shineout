@@ -4,7 +4,7 @@ import shallowEqual from '../utils/shallowEqual'
 import { getUidStr } from '../utils/uid'
 import { open, close, destroy } from './events'
 import Card from '../Card'
-import { ModalProps, Options } from './Props'
+import { ModalProps, Options, ModalFunctionOptions } from './Props'
 
 const DefaultValue = {
   ...defaultProps,
@@ -22,17 +22,17 @@ class Modal extends Component<ModalProps> {
 
   static displayName: string
 
-  static info: (option: ModalProps) => () => void
+  static info: (option: ModalFunctionOptions) => () => void
 
-  static warn: (option: ModalProps) => () => void
+  static warn: (option: ModalFunctionOptions) => () => void
 
-  static error: (option: ModalProps) => () => void
+  static error: (option: ModalFunctionOptions) => () => void
 
-  static confirm: (option: ModalProps) => () => void
+  static confirm: (option: ModalFunctionOptions) => () => void
 
-  static show: (option: ModalProps) => () => void
+  static show: (option: ModalFunctionOptions) => () => void
 
-  static success: (option: ModalProps) => () => void
+  static success: (option: ModalFunctionOptions) => () => void
 
   static closeAll: () => void
 
