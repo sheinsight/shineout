@@ -107,7 +107,7 @@ export interface ProgressProps extends StandardProps {
    *
    * default: -
    */
-  strokeLinecap?: string
+  strokeLinecap?: 'round' | 'inherit' | 'butt' | 'square'
 }
 
 export interface PopupProps {

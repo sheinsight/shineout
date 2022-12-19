@@ -9,6 +9,7 @@ const DefaultValue = {
   strokeLinecap: 'round',
   strokeWidth: 8,
   size: 100,
+  value: 0,
 }
 
 function Circle(props: ProgressProps) {
@@ -61,7 +62,7 @@ function Circle(props: ProgressProps) {
           fill="transparent"
           style={{ stroke: objColor ? "url('#progress-linear')" : color }}
           strokeDasharray={dasharray as any}
-          strokeLinecap={strokeLinecap as any}
+          strokeLinecap={strokeLinecap}
           strokeWidth={width}
         />
       </svg>
