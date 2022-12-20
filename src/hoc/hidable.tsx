@@ -5,6 +5,7 @@ import { PureComponent } from '../component'
 import { getUidStr } from '../utils/uid'
 import { hidableClass } from './styles'
 import { GetHidableConsumerProps } from './Props'
+import { ListAnimationType } from '../AnimationList/Props'
 
 const context = createReactContext<{ visible?: boolean }>({})
 
@@ -20,9 +21,9 @@ interface HideableProps {
 }
 
 interface HidableConfig {
-  type: ('fade' | 'collapse' | 'scale-y')[]
+  type: ListAnimationType[]
   duration: number
-  display: string
+  display?: string
 }
 
 /**

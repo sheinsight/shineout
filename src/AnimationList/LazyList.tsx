@@ -1,12 +1,31 @@
 import React, { Fragment } from 'react'
-import PropType from 'prop-types'
 import { PureComponent } from '../component'
 import Scroll from '../Scroll'
 import { getKey } from '../utils/uid'
 import { setTranslate } from '../utils/dom/translate'
+import { lazyListProps } from './Props'
+import { ScrollFixedType } from '../Scroll/Props'
 
-class LazyList extends PureComponent {
-  constructor(props) {
+interface LazyListState {
+  currentIndex: number
+  scrollTop: number
+  fixed: ScrollFixedType | ''
+}
+const DefaultProps = {
+  itemsInView: 10,
+  lineHeight: 32,
+  data: [],
+  colNum: 1,
+}
+
+class LazyList<DataItem> extends PureComponent<lazyListProps<DataItem>, LazyListState> {
+  static defaultProps = DefaultProps
+
+  optionInner: HTMLDivElement
+
+  lastScrollTop: number
+
+  constructor(props: lazyListProps<DataItem>) {
     super(props)
 
     this.state = {
@@ -17,14 +36,14 @@ class LazyList extends PureComponent {
     this.handleScroll = this.handleScroll.bind(this)
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: lazyListProps<DataItem>) {
     if (!this.props.stay && prevProps.data.length !== this.props.data.length) {
       this.resetScrollTop()
     }
   }
 
   getScrollHeight() {
-    const { lineHeight, data, colNum } = this.props
+    const { lineHeight = DefaultProps.lineHeight, data, colNum = DefaultProps.colNum } = this.props
     const rows = Math.ceil(data.length / colNum)
     return rows * lineHeight
   }
@@ -39,10 +58,19 @@ class LazyList extends PureComponent {
     this.lastScrollTop = 0
   }
 
-  handleScroll(x, y, max, bar, v, h, pixelX, pixelY) {
+  handleScroll(
+    _x: number,
+    y: number,
+    _max: number,
+    _bar: HTMLElement,
+    _v: number,
+    h: number,
+    _pixelX?: number,
+    pixelY?: number
+  ) {
     if (!this.optionInner) return
     const scrollHeight = this.getScrollHeight()
-    const { data, itemsInView, lineHeight } = this.props
+    const { data, itemsInView = DefaultProps.itemsInView, lineHeight = DefaultProps.lineHeight } = this.props
     const fullHeight = itemsInView * lineHeight
     const contentHeight = scrollHeight - h
     let scrollTop = h > fullHeight ? 0 : y
@@ -71,7 +99,17 @@ class LazyList extends PureComponent {
   }
 
   render() {
-    const { className, style, height, lineHeight, data, itemsInView, renderItem, keygen, colNum } = this.props
+    const {
+      className,
+      style,
+      height,
+      lineHeight = DefaultProps.lineHeight,
+      data,
+      itemsInView = DefaultProps.itemsInView,
+      renderItem,
+      keygen,
+      colNum = DefaultProps.colNum,
+    } = this.props
     const { currentIndex, fixed } = this.state
     const scrollHeight = this.getScrollHeight()
     const ms = Object.assign({}, style, height && { height })
@@ -87,14 +125,14 @@ class LazyList extends PureComponent {
         stable
         className={className}
         style={ms}
-        scroll={fixed}
+        scroll={fixed as ScrollFixedType}
         onScroll={this.handleScroll}
         scrollHeight={scrollHeight}
         scrollTop={this.state.scrollTop}
       >
         <div
           ref={el => {
-            this.optionInner = el
+            this.optionInner = el!
           }}
           style={gridStyle}
         >
@@ -104,26 +142,6 @@ class LazyList extends PureComponent {
       </Scroll>
     )
   }
-}
-
-LazyList.defaultProps = {
-  itemsInView: 10,
-  lineHeight: 32,
-  data: [],
-  colNum: 1,
-}
-
-LazyList.propTypes = {
-  data: PropType.array,
-  colNum: PropType.number,
-  itemsInView: PropType.number,
-  lineHeight: PropType.number,
-  height: PropType.oneOfType([PropType.number, PropType.string]),
-  renderItem: PropType.func.isRequired,
-  stay: PropType.bool,
-  className: PropType.string,
-  style: PropType.object,
-  keygen: PropType.oneOfType([PropType.string, PropType.func, PropType.bool]),
 }
 
 export default LazyList

@@ -1,7 +1,8 @@
 import L from './List'
 import hidable from '../hoc/hidable'
+import { ListDurationType, ListAnimationType } from './Props'
 
-const List = function(type, duration, display) {
+const List = function(type: ListAnimationType | ListAnimationType[], duration: ListDurationType, display?: string) {
   switch (duration) {
     case 'fast':
       duration = 240
