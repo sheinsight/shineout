@@ -31,6 +31,7 @@ export const DefaultProps = {
   onClick: () => true,
   toggleDuration: 200,
   frontCaretType: 'solid',
+  style: {},
   disabled: (d: { disabled: boolean }) => d.disabled,
 }
 
@@ -372,14 +373,7 @@ class Root<U, T extends string> extends Component<RootProps<U, T>, State> {
       parentSelectable,
     } = this.props
     const isVertical = mode.indexOf('vertical') === 0
-    let defaultHeight = style && style.height
-
-    // 如果配置 height 则使用配置的高度
-    if (height !== undefined) {
-      defaultHeight = height
-    }
-
-    const showScroll = (defaultHeight && isVertical) || mode === 'horizontal'
+    const showScroll = (((style && style.height) || height) && isVertical) || mode === 'horizontal'
 
     const rtl = isRTL()
 
@@ -407,7 +401,7 @@ class Root<U, T extends string> extends Component<RootProps<U, T>, State> {
     }
 
     return (
-      <div className={className} ref={this.bindRootElement} style={style}>
+      <div className={className} ref={this.bindRootElement} style={{ ...style, height }}>
         <div className={menuClass('wrapper')}>
           <Provider value={this.providerValue}>
             <List
