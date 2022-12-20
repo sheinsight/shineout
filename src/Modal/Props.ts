@@ -249,6 +249,10 @@ export interface BaseProps extends StandardProps {
   noPadding?: boolean
 
   height?: string | number
+
+  drawer?: boolean
+
+  children?: ReactNode
 }
 
 export interface ModalProps extends BaseProps {}
