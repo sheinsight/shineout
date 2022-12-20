@@ -1,5 +1,5 @@
 import React from 'react'
-import { keygenType } from '../@types/common'
+import { KeygenType, LiteralUnion } from '../@types/common'
 
 export type Direction = 'X' | 'Y'
 
@@ -18,7 +18,7 @@ export type MenuProviderProps<U> = Omit<U, 'bindItem' | 'unbindItem'>
 
 export interface RootProps<Item, Value> {
   mode: Mode
-  data?: Item[]
+  data: Item[]
   theme?: 'dark'
   height?: number
   openKeys?: Value[]
@@ -28,7 +28,7 @@ export interface RootProps<Item, Value> {
   inlineIndent?: number
   toggleDuration?: number
   looseChildren?: boolean
-  keygen: keygenType<Item>
+  keygen: KeygenType<Item>
   defaultOpenKeys?: Value[]
   parentSelectable?: boolean
   style?: React.CSSProperties
@@ -38,13 +38,13 @@ export interface RootProps<Item, Value> {
   frontCaretType?: 'hollow' | 'solid'
   onOpenChange?: (keys: Value[]) => void
   linkKey?: ((d: Item) => string) | string
-  renderItem: ((data: Item, index: number) => React.ReactElement | React.ReactNode) | string
+  renderItem: ((data: Item, index: number) => React.ReactElement | React.ReactNode) | LiteralUnion
 }
 
 export interface ListProps<Item> {
   mode: Mode
   path: string
-  data?: Item[]
+  data: Item[]
   level: number
   open?: boolean
   topLine?: number
@@ -59,11 +59,11 @@ export interface ListProps<Item> {
   style?: React.CSSProperties
   disabled?: (data: Item) => boolean
   frontCaretType?: 'hollow' | 'solid'
-  linkKey?: ((d: Item) => string) | string
+  linkKey?: ((d: Item) => string) | LiteralUnion
   onClick?: (id: string, data: Item) => void
   toggleOpenKeys: (id: string, open: boolean) => void
-  keygen: keygenType<Item>
-  renderItem: ((data: Item, index: number) => React.ReactElement | React.ReactNode)
+  keygen: KeygenType<Item>
+  renderItem: ((data: Item, index: number) => React.ReactNode)
 }
 
 export interface BaseItemProps<Item> {
@@ -75,6 +75,6 @@ export interface ItemProps<Item> extends Omit<ListProps<Item>, 'data' | 'renderI
   data: Item
   index: number
   unbindItem: (id: string) => void
-  renderItem: ((data: Item, index: number) => React.ReactElement | React.ReactNode)
+  renderItem: ((data: Item, index: number) => React.ReactNode)
   bindItem: <Active, Open, InPath>(id: string, active: Active, open: Open, inPath: InPath) => [Active, Open, InPath]
 }

@@ -372,7 +372,14 @@ class Root<U, T extends string> extends Component<RootProps<U, T>, State> {
       parentSelectable,
     } = this.props
     const isVertical = mode.indexOf('vertical') === 0
-    const showScroll = (((style && style.height) || height) && isVertical) || mode === 'horizontal'
+    let defaultHeight = style && style.height
+
+    // 如果配置 height 则使用配置的高度
+    if (height !== undefined) {
+      defaultHeight = height
+    }
+
+    const showScroll = (defaultHeight && isVertical) || mode === 'horizontal'
 
     const rtl = isRTL()
 

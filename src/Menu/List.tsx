@@ -35,7 +35,7 @@ class List<U> extends PureComponent<ListProps<U>> {
 
     return (
       <ul className={className} style={style}>
-        {data!.map((d, i) => (
+        {data.map((d, i) => (
           <Item
             data={d}
             index={i}

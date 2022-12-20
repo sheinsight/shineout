@@ -177,7 +177,7 @@ class Item<U extends BaseItemProps<U>> extends PureComponent<ItemProps<U>, State
     const { linkKey } = this.props
     if (!linkKey) return null
     if (typeof linkKey === 'function') return linkKey(data)
-    return data[linkKey as keyof typeof data]
+    return (data[linkKey as keyof U] as unknown) as string
   }
 
   renderItem(hasChilds = false, style: React.CSSProperties) {
@@ -190,7 +190,7 @@ class Item<U extends BaseItemProps<U>> extends PureComponent<ItemProps<U>, State
       return cloneElement(item, { className: mergeClass, style: mergeStyle, onClick: this.handleSwitch })
     }
 
-    const props: React.ReactElement['props'] & { href?: string } = {
+    const props: React.AnchorHTMLAttributes<HTMLAnchorElement> = {
       className: menuClass('title'),
       style,
       onClick: this.handleClick,
