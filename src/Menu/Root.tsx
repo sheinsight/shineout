@@ -400,8 +400,11 @@ class Root<U, T extends string> extends Component<RootProps<U, T>, State> {
       topLine = rect.top
     }
 
+    const outStyle: React.CSSProperties = { ...style }
+    if (height !== undefined) outStyle.height = height
+
     return (
-      <div className={className} ref={this.bindRootElement} style={{ ...style, height }}>
+      <div className={className} ref={this.bindRootElement} style={outStyle}>
         <div className={menuClass('wrapper')}>
           <Provider value={this.providerValue}>
             <List
