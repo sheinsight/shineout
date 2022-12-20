@@ -1,8 +1,8 @@
 import React from 'react'
-import { StandardProps, FormItemStandardProps } from '../@types/common'
+import { StandardProps } from '../@types/common'
 import { GetInputableProps } from '../Form/Props'
 
-export interface EditableAreaProps extends StandardProps, FormItemStandardProps<string> {
+export interface EditableAreaProps extends StandardProps {
   error?: Error
   bordered?: boolean
   disabled?: boolean
@@ -18,11 +18,13 @@ export interface EditableAreaProps extends StandardProps, FormItemStandardProps<
   onShowTextareaChange?: (value: boolean) => void
   renderFooter?: (value: string) => React.ReactNode
   renderResult?: (value: string) => React.ReactNode
+  onChange?: (value: string) => void
+  value?: string
 }
 
 export type Props = GetInputableProps<EditableAreaProps, string>
 
-export declare class EditableAreaClass extends React.Component<Props, {}> {
+export declare class EditableAreaClass extends React.Component<Omit<Props, 'innerTitle' | 'placeTitle'>, {}> {
   render(): JSX.Element
 }
 
