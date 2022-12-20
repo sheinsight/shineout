@@ -69,6 +69,7 @@ class Item extends Component<ItemProps, ItemState> {
       inputs: {},
       errors: {},
     }
+    
     this.events = {
       bindInputToItem: this.bind.bind(this),
       unbindInputFromItem: this.unbind.bind(this),
