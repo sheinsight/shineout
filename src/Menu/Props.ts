@@ -37,8 +37,8 @@ export interface RootProps<Item, Value> {
   disabled?: (data: Item) => boolean
   frontCaretType?: 'hollow' | 'solid'
   onOpenChange?: (keys: Value[]) => void
-  linkKey?: ((d: Item) => string) | string
-  renderItem: ((data: Item, index: number) => React.ReactElement | React.ReactNode) | LiteralUnion
+  linkKey?: ((d: Item) => string) | LiteralUnion<Item>
+  renderItem: ((data: Item, index: number) => React.ReactElement | React.ReactNode) | LiteralUnion<Item>
 }
 
 export interface ListProps<Item> {
@@ -59,7 +59,7 @@ export interface ListProps<Item> {
   style?: React.CSSProperties
   disabled?: (data: Item) => boolean
   frontCaretType?: 'hollow' | 'solid'
-  linkKey?: ((d: Item) => string) | LiteralUnion
+  linkKey?: ((d: Item) => string) | LiteralUnion<Item>
   onClick?: (id: string, data: Item) => void
   toggleOpenKeys: (id: string, open: boolean) => void
   keygen: KeygenType<Item>
