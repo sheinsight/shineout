@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import { formClass } from './styles'
+import { FieldErrorProps } from './Props'
 
-class FieldError extends PureComponent {
+class FieldError extends PureComponent<FieldErrorProps> {
   render() {
     let { error } = this.props
 
@@ -11,17 +11,8 @@ class FieldError extends PureComponent {
 
     if (!(error instanceof Error)) return null
 
-    return (
-      <div className={formClass('error')}>{error.message}</div>
-    )
+    return <div className={formClass('error')}>{error.message}</div>
   }
-}
-
-FieldError.propTypes = {
-  error: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.object,
-  ]),
 }
 
 export default FieldError

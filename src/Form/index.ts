@@ -10,14 +10,31 @@ import FieldSet from './FieldSet'
 import formButton from './formButton'
 import { formProvider, formConsumer } from './formContext'
 import useMode from './mode'
+import {
+  FormCardConsumerKey,
+  FormCompType,
+  FormDatumKey,
+  FormItemWithFormConsumerKeys,
+  FormFlowWithFormConsumerKeys,
+} from './Props'
 
+const formCardConsumerKey: FormCardConsumerKey[] = ['setFormStatus']
+const formDatumKey: FormDatumKey[] = ['removeUndefined', 'error']
+const formItemWithFormConsumerKeys: FormItemWithFormConsumerKeys[] = [
+  'formDatum',
+  'labelWidth',
+  'labelAlign',
+  'labelVerticalAlign',
+  'keepErrorHeight',
+]
+const formFlowWithFormConsumerKeys: FormFlowWithFormConsumerKeys[] = ['formDatum']
 const exportForm = compose(
-  Datum.hoc({ type: 'form', bindProps: ['removeUndefined', 'error'] }),
+  Datum.hoc({ type: 'form', bindProps: formDatumKey }),
   formProvider
-)(cardConsumer(Form, ['setFormStatus']))
-exportForm.Item = formConsumer(['formDatum', 'labelWidth', 'labelAlign', 'labelVerticalAlign', 'keepErrorHeight'])(Item)
+)(cardConsumer(Form, formCardConsumerKey))
+exportForm.Item = formConsumer(formItemWithFormConsumerKeys)(Item)
 exportForm.Field = inputable(Field)
-exportForm.Flow = formConsumer(['formDatum'])(Flow)
+exportForm.Flow = formConsumer(formFlowWithFormConsumerKeys)(Flow)
 exportForm.FieldSet = formConsumer(['formDatum'])(FieldSet)
 
 exportForm.Submit = formButton('submit')
@@ -33,4 +50,4 @@ exportForm.Field.displayName = 'ShineoutFormField'
 exportForm.Flow.displayName = 'ShineoutFormFlow'
 exportForm.FieldSet.displayName = 'ShineoutFormFieldSet'
 
-export default exportForm
+export default exportForm as FormCompType

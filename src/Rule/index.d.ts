@@ -63,7 +63,7 @@ export interface RuleParams {
 // rules: RuleParamsType = []
 export type RuleCommonValue = ValueOf<RuleCommon>
 
-export type RuleParamsType<Value, FormData = any, Props = any> = Array<RuleCommonValue | RuleItemResult  | ((value: Value, formData: FormData, callback: ((cbArgs: true | Error) => void), props?: Props) => void) >
+export type RuleParamsType<Value, FormData = any, Props = any> = Array<RuleCommonValue | RuleItemResult  | ((value: Value, formData: FormData, callback: ((cbArgs: boolean | Error) => void), props?: Props) => void) >
 
 export type InnerRuleFunc<U> =  U & {isInnerValidator: true}
 

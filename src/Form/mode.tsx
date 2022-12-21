@@ -1,12 +1,13 @@
 import { formConsumer } from './formContext'
 import { memoize } from '../utils/func'
+import { FormModeProps } from './Props'
 
-const createMode = memoize(mode =>
-  formConsumer(['formMode'], props => {
+const createMode = memoize((mode: string) =>
+  formConsumer(['formMode'], (props: FormModeProps) => {
     let isMatch = mode === props.formMode
     if (props.reverse) isMatch = !isMatch
     return isMatch ? props.children : true
   })
 )
 
-export default (...args) => args.map(createMode)
+export default (...args: string[]) => args.map(createMode)

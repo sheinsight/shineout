@@ -1,19 +1,43 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { getUidStr } from '../utils/uid'
 import { formClass } from './styles'
 import { FormError } from '../utils/errors'
-import { getProps, defaultProps } from '../utils/proptypes'
+import { defaultProps } from '../utils/proptypes'
 import { docScroll } from '../utils/dom/document'
 import { IGNORE_BIND } from '../Datum/types'
 import { FieldSetProvider } from './FieldSet'
 import { isRTL } from '../config'
+import { formStatus, SimpleFormProps } from './Props'
 
 const emptyValue = { path: '' }
+const DefaultProps = {
+  ...defaultProps,
+  scrollToError: false,
+  throttle: 1000,
+}
+class Form<Value> extends Component<SimpleFormProps<Value>> {
+  static defaultProps = (DefaultProps as unknown) as SimpleFormProps<any>
 
-class Form extends Component {
-  constructor(props) {
+  locked: boolean
+
+  id: string
+
+  element: HTMLFormElement
+
+  validating: boolean
+
+  form: {
+    getValue: () => Value
+    validate: () => Promise<unknown>
+    validateFields: (fields: string[]) => Promise<unknown>
+    validateFieldsWithError: (fields: string[]) => Promise<unknown>
+    clearValidate: () => void
+    submit: (withValidate: boolean) => void
+    reset: () => void
+  }
+
+  constructor(props: SimpleFormProps<Value>) {
     super(props)
 
     this.bindElement = this.bindElement.bind(this)
@@ -34,11 +58,11 @@ class Form extends Component {
       submit: (withValidate = true) => {
         if (withValidate) this.handleSubmit()
         else {
-          const { activeElement } = document
-          if (activeElement) activeElement.blur()
+          const activeEl = document.activeElement as HTMLDivElement
+          if (activeEl) activeEl.blur()
 
           if (this.props.onSubmit) this.props.onSubmit(this.props.datum.getValue())
-          if (activeElement) activeElement.focus()
+          if (activeEl) activeEl.focus()
         }
       },
       reset: () => {
@@ -62,7 +86,7 @@ class Form extends Component {
     }
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: SimpleFormProps<Value>) {
     this.setStatus()
     if (prevProps.error !== this.props.error) this.props.datum.resetFormError(this.props.error)
   }
@@ -77,19 +101,19 @@ class Form extends Component {
   setStatus() {
     const { disabled, pending, setFormStatus } = this.props
     if (!setFormStatus) return
-    let status = disabled === true ? 'disabled' : ''
+    let status: formStatus = disabled === true ? 'disabled' : ''
     if (pending === true) status = 'pending'
     setFormStatus(status)
   }
 
-  bindElement(el) {
+  bindElement(el: HTMLFormElement) {
     this.element = el
   }
 
-  scrollToError(err) {
+  scrollToError(err: Error) {
     const { scrollToError, onError } = this.props
     if (scrollToError !== false) {
-      const el = this.element.querySelector(`.${formClass('invalid')}`)
+      const el = this.element.querySelector(`.${formClass('invalid')}`) as HTMLElement
       if (el) {
         el.scrollIntoView()
         if (el.focus) el.focus()
@@ -103,11 +127,11 @@ class Form extends Component {
     if (!(err instanceof FormError)) throw err
   }
 
-  handleSubmit(e) {
+  handleSubmit(e?: Event) {
     if (e) {
       e.preventDefault()
     }
-    if (e && e.target.getAttribute('id') !== this.id) return
+    if (e && (e.target as HTMLElement).getAttribute('id') !== this.id) return
     if (this.validating || this.locked) return
 
     this.validating = true
@@ -120,16 +144,18 @@ class Form extends Component {
 
     const { datum, onSubmit } = this.props
 
-    const { activeElement } = document
-    if (activeElement) activeElement.blur()
+    const activeEl = document.activeElement as HTMLElement
+    if (activeEl) activeEl.blur()
 
     setTimeout(() => {
       datum
         .validate(IGNORE_BIND)
         .then(() => {
           this.validating = false
-          if (onSubmit) onSubmit(datum.getValue(), e && e.nativeEvent && e.nativeEvent.detail, e)
-          if (activeElement) activeElement.focus()
+          // @ts-ignore
+          const detail = e && e.nativeEvent && e.nativeEvent.detail
+          if (onSubmit) onSubmit(datum.getValue(), detail, e)
+          if (activeEl) activeEl.focus()
         })
         .catch(err => {
           this.validating = false
@@ -163,28 +189,6 @@ class Form extends Component {
       </form>
     )
   }
-}
-
-Form.propTypes = {
-  ...getProps(PropTypes, 'disabled'),
-  datum: PropTypes.object,
-  disabled: PropTypes.bool,
-  inline: PropTypes.bool,
-  layout: PropTypes.string,
-  pending: PropTypes.bool,
-  onError: PropTypes.func,
-  onReset: PropTypes.func,
-  onSubmit: PropTypes.func,
-  rules: PropTypes.object,
-  scrollToError: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
-  setFormStatus: PropTypes.func,
-  throttle: PropTypes.number,
-}
-
-Form.defaultProps = {
-  ...defaultProps,
-  scrollToError: false,
-  throttle: 1000,
 }
 
 export default Form

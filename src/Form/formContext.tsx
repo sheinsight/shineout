@@ -4,7 +4,13 @@ import { deepGet } from '../utils/objects'
 import { isObject, isArray } from '../utils/is'
 import { RuleParamsType } from '../Rule'
 import { ObjectType } from '../@types/common'
-import { FormContextValue, FormProviderProps, GetFormProviderConsumerProps } from './Props'
+import {
+  FormContextKey,
+  FormContextValue,
+  FormProviderProps,
+  GetFormConsumerProps,
+  GetFormProviderProps,
+} from './Props'
 import { curry3 } from '../utils/func'
 
 // 去掉独有的属性
@@ -17,9 +23,9 @@ export const Consumer = context.Consumer
 
 export const formProvider = <FormValue, U extends FormProviderProps<FormValue>>(
   Origin: React.ComponentType<U>
-): ComponentType<U> => {
-  class FormProvider extends PureComponent<U> {
-    constructor(props: U) {
+): ComponentType<GetFormProviderProps<U, FormValue>> => {
+  class FormProvider extends PureComponent<GetFormProviderProps<U, FormValue>> {
+    constructor(props: GetFormProviderProps<U, FormValue>) {
       super(props)
       this.combineRules = this.combineRules.bind(this)
       // this.groupValidate = this.groupValidate.bind(this)
@@ -86,10 +92,10 @@ export interface FormConsumerProps {
 }
 
 export const formConsumer = curry3(
-  <U extends FormConsumerProps>(
-    keys: (keyof FormContextValue)[],
+  <U extends FormConsumerProps, Keys extends FormContextKey>(
+    keys: Keys[],
     Origin: ComponentType<U>,
-    props: GetFormProviderConsumerProps<U>
+    props: GetFormConsumerProps<U, Keys>
   ) => {
     const filterProps = (value?: ObjectType) => {
       const cps: ObjectType = {}
@@ -107,7 +113,7 @@ export const formConsumer = curry3(
       <Consumer>
         {value => {
           const formProps = filterProps(value)
-          return <Origin {...formProps as U} {...props} disabled={formProps.disabled || props.disabled} />
+          return <Origin {...formProps as U} {...props} disabled={formProps.disabled || (props as any).disabled} />
         }}
       </Consumer>
     )
