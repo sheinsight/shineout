@@ -397,6 +397,8 @@ export interface UploadProps<T> extends StandardProps, OmitFormProps<T[]> {
 
 
 export interface UploadImageProps<T> extends UploadProps<T>{
+  width?: number;
+  height?: number;
 
   /**
    * The content of the upload button. It can be empty.

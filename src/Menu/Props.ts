@@ -41,7 +41,7 @@ export interface RootProps<Item, Value> {
   renderItem: ((data: Item, index: number) => React.ReactElement | React.ReactNode) | LiteralUnion<Item>
 }
 
-export interface ListProps<Item> {
+export interface ListProps<Item extends BaseItemProps<Item>> {
   mode: Mode
   path: string
   data: Item[]
@@ -67,11 +67,11 @@ export interface ListProps<Item> {
 }
 
 export interface BaseItemProps<Item> {
-  children?: []
-  disabled?: (data: Item) => boolean
+  children?: Item[]
+  disabled?: boolean
   onClick?: boolean | ((id: string, data: Item) => void)
 }
-export interface ItemProps<Item> extends Omit<ListProps<Item>, 'data' | 'renderItem'> {
+export interface ItemProps<Item extends BaseItemProps<Item>> extends Omit<ListProps<Item>, 'data' | 'renderItem'> {
   data: Item
   index: number
   unbindItem: (id: string) => void

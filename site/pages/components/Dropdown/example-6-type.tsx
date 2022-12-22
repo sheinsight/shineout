@@ -10,7 +10,7 @@ import { Dropdown, Message, Select, Checkbox, TYPE } from 'shineout'
 type SelectProps = TYPE.Select.Props<string, string>
 type SelectData = SelectProps['data']
 
-type DropdownProps = TYPE.Dropdown.Props<any>
+type DropdownProps = TYPE.Dropdown.Props
 type DropdownItem = TYPE.Dropdown.Item
 type DropdownSize = DropdownProps['size']
 type DropdownType = DropdownProps['type']

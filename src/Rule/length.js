@@ -34,6 +34,6 @@ export default (key, { message } = {}) => (len, msg) => {
   return deepMerge(
     { message: lengthMessage[key] },
     deepMerge({ message, [key]: len }, { message: msg }, options),
-    options,
+    options
   )
 }

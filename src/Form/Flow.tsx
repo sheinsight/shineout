@@ -1,10 +1,14 @@
-import PropTypes from 'prop-types'
 import { Component } from '../component'
 import { changeSubscribe, CHANGE_TOPIC } from '../Datum/types'
 import { isFunc } from '../utils/is'
+import { FlowProps } from './Props'
 
-class Flow extends Component {
-  constructor(props) {
+class Flow extends Component<FlowProps> {
+  update: () => void
+
+  events: string[]
+
+  constructor(props: FlowProps) {
     super(props)
 
     this.update = this.forceUpdate.bind(this)
@@ -36,12 +40,6 @@ class Flow extends Component {
 
     return children
   }
-}
-
-Flow.propTypes = {
-  children: PropTypes.any,
-  formDatum: PropTypes.object.isRequired,
-  names: PropTypes.array,
 }
 
 export default Flow

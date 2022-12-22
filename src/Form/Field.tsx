@@ -1,22 +1,26 @@
-import { cloneElement, isValidElement, Component } from 'react'
-import PropTypes from 'prop-types'
+import * as React from 'react'
 import shallowEqual from '../utils/shallowEqual'
+import { FieldProps } from './Props'
 
-class Field extends Component {
-  constructor(props) {
+class Field<Value> extends React.Component<FieldProps<Value>> {
+  static defaultProps = {
+    cache: false,
+  }
+
+  constructor(props: FieldProps<Value>) {
     super(props)
     this.handleChange = this.handleChange.bind(this)
 
-    this.cacheChildren = undefined
-    this.cacheElement = null
+    // this.cacheChildren = undefined
+    // this.cacheElement = null
   }
 
-  shouldComponentUpdate(nextProps) {
+  shouldComponentUpdate(nextProps: FieldProps<Value>) {
     const options = this.props.cache ? { skip: ['children'] } : {}
     return !shallowEqual(this.props, nextProps, options)
   }
 
-  handleChange(value) {
+  handleChange(value: any) {
     if (value && value.nativeEvent) {
       // eslint-disable-next-line
       value = value.target.value
@@ -31,8 +35,8 @@ class Field extends Component {
     if (typeof children === 'function') {
       return children({ value, error, onChange: this.handleChange, disabled })
     }
-    if (isValidElement(children)) {
-      return cloneElement(children, {
+    if (React.isValidElement(children)) {
+      return React.cloneElement(children, {
         value,
         error,
         onChange: this.handleChange,
@@ -43,19 +47,6 @@ class Field extends Component {
     console.error(new Error('Form.Field expect a single ReactElement or a function.'))
     return null
   }
-}
-
-Field.propTypes = {
-  cache: PropTypes.bool,
-  children: PropTypes.oneOfType([PropTypes.func, PropTypes.element]).isRequired,
-  error: PropTypes.object,
-  onChange: PropTypes.func.isRequired,
-  value: PropTypes.any,
-  disabled: PropTypes.bool,
-}
-
-Field.defaultProps = {
-  cache: false,
 }
 
 export default Field

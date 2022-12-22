@@ -3,11 +3,14 @@ import PropTypes from 'prop-types'
 import Button from '../Button'
 import { getParent, dispatchEvent } from '../utils/dom/element'
 import { formConsumer } from './formContext'
+import { FormButtonProps } from './Props'
 
-export default htmlType =>
+export default (htmlType: 'submit' | 'button' | 'reset') =>
   formConsumer(
     ['disabled'],
-    class FormButton extends PureComponent {
+    class FormButton extends PureComponent<FormButtonProps> {
+      button: HTMLElement
+
       static propTypes = {
         children: PropTypes.any,
         disabled: PropTypes.bool,
@@ -16,20 +19,20 @@ export default htmlType =>
         type: PropTypes.string,
       }
 
-      constructor(props) {
+      constructor(props: FormButtonProps) {
         super(props)
 
         this.bindElement = this.bindElement.bind(this)
         this.handleClick = this.handleClick.bind(this)
       }
 
-      bindElement(el) {
+      bindElement(el: HTMLElement) {
         this.button = el
       }
 
-      handleClick(e) {
+      handleClick(e: React.MouseEvent) {
         if (htmlType === 'button') {
-          const form = getParent(this.button, 'form')
+          const form = getParent(this.button, 'form') as HTMLFormElement
           dispatchEvent(form, 'submit', e.target)
         }
 

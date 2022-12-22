@@ -3,9 +3,9 @@ import classnames from 'classnames'
 import { getKey } from '../utils/uid'
 import { menuClass } from './styles'
 import Item from './Item'
-import { ListProps } from './Props'
+import { BaseItemProps, ListProps } from './Props'
 
-class List<U> extends PureComponent<ListProps<U>> {
+class List<U extends BaseItemProps<U>> extends PureComponent<ListProps<U>> {
   render() {
     const {
       data,

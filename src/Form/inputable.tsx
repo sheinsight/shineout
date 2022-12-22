@@ -14,13 +14,13 @@ import { fieldSetConsumer } from './FieldSet'
 import ListDatum from '../Datum/List'
 import { ObjectType } from '../@types/common'
 import { RuleParamsType } from '../Rule/index'
-import { InputableProps, BaseInputProps, GetInputableProps } from './Props'
+import { InputableProps, BaseInputProps, GetInputableProps, InputableFormConsumerKey } from './Props'
 
 interface CustomValidateType {
   (...args: any): Promise<any>
 }
 
-const types: ('formDatum' | 'disabled' | 'combineRules' | 'size')[] = ['formDatum', 'disabled', 'combineRules', 'size']
+const types: InputableFormConsumerKey[] = ['formDatum', 'disabled', 'combineRules', 'size']
 
 const tryValue = (val: unknown, def: unknown) => (val === undefined ? def : val)
 

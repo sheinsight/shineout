@@ -61,7 +61,7 @@ export { default as EditableArea } from './EditableArea'
 import { EditableAreaProps as __EditableAreaProps,  } from './EditableArea'
 
 export { default as Form } from './Form'
-import { FormProps as __FormProps, FormItemProps as __FormItemProps, FormFlowProps as __FormFlowProps, FormRef as __FormRef, FormResetProps as __FormResetProps, FormSubmitProps as __FormSubmitProps, FormFieldProps as __FormFieldProps, FormFieldSetProps as __FormFieldSetProps, FieldChildrenFunc as __FieldChildrenFunc, FieldSetChildrenFunc as __FieldSetChildrenFunc,  } from './Form'
+import { FormItemProps as __FormItemProps, FormRef as __FormRef, FormResetProps as __FormResetProps, FormSubmitProps as __FormSubmitProps, FormProps as __FormProps, FormFieldProps as __FormFieldProps, FormFieldSetProps as __FormFieldSetProps, FieldChildrenFunc as __FieldChildrenFunc, FieldSetChildrenFunc as __FieldSetChildrenFunc } from './Form/interface'
 
 export { default as Gap } from './Gap'
 import { GapProps as __GapProps,  } from './Gap/interface'
@@ -81,7 +81,7 @@ import { InputProps as __InputProps, InputGroupProps as __InputGroupProps, Input
 export { default as Lazyload } from './Lazyload'
 
 export { default as Menu } from './Menu'
-import { MenuProps as __MenuProps,  } from './Menu/Interface'
+import { MenuListProps as __MenuListProps, MenuItemProps as __MenuItemProps, MenuProps as __MenuProps } from './Menu/interface'
 
 export { default as Message } from './Message'
 import { MessageOptions as __MessageOptions } from './Message/interface'
@@ -217,18 +217,18 @@ export namespace TYPE {
   export namespace Dropdown {
   
     export type Item = __DropdownItem
-    export type Props<Item> = __DropdownProps<Item>
+    export type Props = __DropdownProps
   }
   export namespace EditableArea {
     export type Props = __EditableAreaProps
   }
   export namespace Form {
-    export type Props<Value> = __FormProps<Value>
+  
     export type ItemProps = __FormItemProps
-    export type FlowProps = __FormFlowProps
     export type Ref<Value> = __FormRef<Value>
     export type ResetProps = __FormResetProps
     export type SubmitProps = __FormSubmitProps
+    export type Props<Value> = __FormProps<Value>
     export type FieldProps<Value> = __FormFieldProps<Value>
     export type FieldSetProps<Value> = __FormFieldSetProps<Value>
     export type FieldChildrenFunc<Value = any> = __FieldChildrenFunc<Value>
@@ -257,6 +257,9 @@ export namespace TYPE {
     export type PasswordProps = __InputPasswordProps
   }
   export namespace Menu {
+  
+    export type ListProps<Item> = __MenuListProps<Item>
+    export type ItemProps<Item> = __MenuItemProps<Item>
     export type Props<Item, Value> = __MenuProps<Item, Value>
   }
   export namespace Message {

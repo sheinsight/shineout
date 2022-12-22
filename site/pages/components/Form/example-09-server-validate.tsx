@@ -24,7 +24,7 @@ const App: React.FC = () => {
   }
 
   return (
-    <Form disabled={loading} error={() => error} style={{ maxWidth: 500 }} scrollToError={30} onSubmit={handleSubmit}>
+    <Form disabled={loading} error={error} style={{ maxWidth: 500 }} scrollToError={30} onSubmit={handleSubmit}>
       <Form.Item required label="Email">
         <Input name="email" title="Email" rules={[rules.required, rules.email]} />
       </Form.Item>

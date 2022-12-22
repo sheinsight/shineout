@@ -42,7 +42,7 @@ interface DropDownState {
   show: boolean
 }
 
-class Dropdown<Item> extends PureComponent<DropdownProps<Item>, DropDownState> {
+class Dropdown extends PureComponent<DropdownProps, DropDownState> {
   static defaultProps: any = DefaultProps
 
   dropdownId: string
@@ -59,7 +59,7 @@ class Dropdown<Item> extends PureComponent<DropdownProps<Item>, DropDownState> {
 
   static displayName: string
 
-  constructor(props: DropdownProps<Item>) {
+  constructor(props: DropdownProps) {
     super(props)
 
     this.state = {
@@ -106,7 +106,7 @@ class Dropdown<Item> extends PureComponent<DropdownProps<Item>, DropDownState> {
     const rect = this.element.getBoundingClientRect()
     const prefix = rect.bottom > windowHeight / 2 ? 'top-' : 'bottom-'
     const suffix = rect.right > windowWidth / 2 ? 'right' : 'left'
-    position = (prefix + suffix) as keyof DropdownProps<Item>['position']
+    position = (prefix + suffix) as keyof DropdownProps['position']
 
     return position
   }
@@ -241,7 +241,7 @@ class Dropdown<Item> extends PureComponent<DropdownProps<Item>, DropDownState> {
     )
   }
 
-  renderList(data: DropdownProps<Item>['data'], placeholder: DropdownProps<Item>['placeholder'], position?: string) {
+  renderList(data: DropdownProps['data'], placeholder: DropdownProps['placeholder'], position?: string) {
     const { width, onClick, columns, renderItem, absolute } = this.props
     if (!Array.isArray(data) || data.length === 0) return null
     const { DropdownList } = this
@@ -261,7 +261,7 @@ class Dropdown<Item> extends PureComponent<DropdownProps<Item>, DropDownState> {
         data-id={this.dropdownId}
         fixed="min"
       >
-        {data.map((d: DropdownNode, index) => {
+        {data.map((d, index) => {
           const childPosition = positionMap[position as keyof typeof positionMap]
           const itemClassName = dropdownClass(
             'item',
@@ -272,22 +272,20 @@ class Dropdown<Item> extends PureComponent<DropdownProps<Item>, DropDownState> {
           let renderPlaceholder
 
           if (renderItem) {
-            renderPlaceholder = isFunc(renderItem)
-              ? renderItem((d as unknown) as Item)
-              : d[renderItem as keyof DropdownNode]
+            renderPlaceholder = isFunc(renderItem) ? renderItem(d) : (d as any)[renderItem]
           } else {
-            renderPlaceholder = d.content
+            renderPlaceholder = (d as DropdownNode).content
           }
-
-          return d.children ? (
+          const children = (d as DropdownNode).childrem
+          return children ? (
             <Dropdown
               style={{ width: '100%' }}
-              data={d.children}
-              disabled={!!d.disabled}
+              data={children}
+              disabled={!!(d as DropdownNode).disabled}
               placeholder={renderPlaceholder}
               type="link"
               key={index}
-              position={childPosition as DropdownProps<Item>['position']}
+              position={childPosition as DropdownProps['position']}
               onClick={onClick}
               renderItem={renderItem}
               trigger={this.getTrigger()}
@@ -297,7 +295,7 @@ class Dropdown<Item> extends PureComponent<DropdownProps<Item>, DropDownState> {
             <Item
               data={d}
               key={index}
-              onClick={d.onClick || onClick}
+              onClick={(d as DropdownNode).onClick || onClick}
               itemClassName={itemClassName}
               renderItem={renderItem}
               columns={columns}

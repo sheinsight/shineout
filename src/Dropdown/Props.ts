@@ -1,5 +1,5 @@
 import React from 'react'
-import { StandardProps, RegularAttributes, CommonProps, LiteralUnion } from '../@types/common'
+import { StandardProps, RegularAttributes, CommonProps } from '../@types/common'
 import { getTableConsumerProps } from '../Table/Props'
 
 export type TriggerType = 'click' | 'hover'
@@ -44,18 +44,19 @@ export interface DropdownNode {
   content?: React.ReactNode
   children?: DropdownNode[]
   onClick?: (data: DropdownNode) => void
+  [key: string]: any
 }
 
-export interface ItemProps<Item> {
-  data: DropdownNode
+export interface ItemProps {
+  data: DropdownItem
   itemClassName: string
-  width: DropdownProps<Item>['width']
-  onClick: DropdownProps<Item>['onClick']
-  columns: DropdownProps<Item>['columns']
-  renderItem: ((data: Item) => React.ReactNode) | LiteralUnion<Item>
+  width: DropdownProps['width']
+  onClick: DropdownProps['onClick']
+  columns: DropdownProps['columns']
+  renderItem: ((data: any) => React.ReactNode) | string
 }
 
-export interface SimpleDropdownProps<Item extends DropdownItem> extends StandardProps, Pick<CommonProps, 'absolute'> {
+export interface SimpleDropdownProps extends StandardProps, Pick<CommonProps, 'absolute'> {
   // hover?: boolean
   isSub?: boolean
 
@@ -102,7 +103,7 @@ export interface SimpleDropdownProps<Item extends DropdownItem> extends Standard
    *
    * default: []
    */
-  data: Item[]
+  data: DropdownItem[]
 
   /**
    * Toggle mode
@@ -147,7 +148,7 @@ export interface SimpleDropdownProps<Item extends DropdownItem> extends Standard
    *
    * default: -
    */
-  onClick?: (data: DropdownNode) => void
+  onClick?: (data: any) => void
 
   /**
    * The width of the pop-up option layer
@@ -184,12 +185,12 @@ export interface SimpleDropdownProps<Item extends DropdownItem> extends Standard
    *
    * default: 'auto'
    */
-  renderItem?: ((data: Item) => React.ReactNode) | LiteralUnion<Item>
+  renderItem?: ((data: any) => React.ReactNode) | string
 }
 
-export type DropdownProps<Item extends DropdownItem> = getTableConsumerProps<SimpleDropdownProps<Item>>
+export type DropdownProps = getTableConsumerProps<SimpleDropdownProps>
 
-export declare class DropdownClass<Item> extends React.Component<DropdownProps<Item>, {}> {
+export declare class DropdownClass extends React.Component<DropdownProps, {}> {
   render(): JSX.Element
 }
 
