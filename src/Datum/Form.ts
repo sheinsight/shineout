@@ -340,7 +340,7 @@ export default class<V extends ObjectType> {
     else delete this.$events[name]
   }
 
-  validate(type: ValidType) {
+  validate(type?: ValidType) {
     return new Promise((resolve, reject) => {
       const keys = Object.keys(this.$validator)
       const values = this.getValue()
@@ -362,7 +362,7 @@ export default class<V extends ObjectType> {
     })
   }
 
-  validateFieldsByName(name: string, type: ValidType) {
+  validateFieldsByName(name: string, type?: ValidType) {
     if (!name || typeof name !== 'string') {
       return Promise.reject(new Error(`Name expect a string, get "${name}"`))
     }
@@ -378,7 +378,7 @@ export default class<V extends ObjectType> {
     return promiseAll(validations)
   }
 
-  validateFields(names: string[], type: ValidType) {
+  validateFields(names: string[], type?: ValidType) {
     if (!Array.isArray(names)) names = [names]
     const validates = names.map(n => this.validateFieldsByName(n, type))
     return promiseAll(validates)

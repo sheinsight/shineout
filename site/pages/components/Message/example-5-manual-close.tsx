@@ -5,13 +5,10 @@
  *    -- Message return close func async
  */
 import React from 'react'
-import { Button, Message, TYPE } from 'shineout'
-
-type MessageProps = TYPE.Message.Props
-type MessageClose = MessageProps['onClose']
+import { Button, Message } from 'shineout'
 
 const App: React.FC = () => {
-  const msg: MessageClose = async () => {
+  const msg = async () => {
     const close: any = await Message.success(
       <div>
         I will always show until

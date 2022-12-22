@@ -423,6 +423,7 @@ export interface SelectProps<Item, Value> extends
    * default: -
    */
   renderOptionList?: (list: ReactElement, info: {loading: boolean})=> ReactElement;
+  [key: string]: any
 }
 
 declare class Select<Item = any, Value = any> extends React.Component<SelectProps<Item, Value>, {}> {

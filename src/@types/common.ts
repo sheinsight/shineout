@@ -179,7 +179,7 @@ export interface StructDataStandardProps<Item = any> {
    *
    * default: empty data
    */
-  data: Item[]
+  data?: Item[]
 }
 
 export interface CommonProps {
@@ -223,4 +223,4 @@ export type ValueOf<T> = T[keyof T]
 
 export type ForceAdd<U extends {}, V> = U & Omit<V, keyof U>
 
-export type PartialKeys<U, keys extends string> = Omit<U, keys> & (keys extends keyof U ? Partial<Pick<U, keys>> : {})
+export type PartialKeys<U, keys extends keyof U> = Omit<U, keys> & Partial<Pick<U, keys>>

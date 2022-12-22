@@ -5,6 +5,8 @@ import { StandardProps } from '../@types/common'
 type ReactNode = React.ReactNode;
 
 export interface ModalProps extends StandardProps {
+  noPadding?: boolean
+  height?: number
 
   /**
    * Whether to force the mask transparency (in multi-layer Modal, the transparency of other Modal masks except the first layer will be adjusted to 0.01)
