@@ -94,7 +94,7 @@ export type FormItemObjectRule = Type &
 export type FormItemRule<Value, FormData = any, Props = any> = Array<
   | RuleResultValue
   | FormItemObjectRule
-  | ((value: Value, formData: FormData, callback: ((cbArgs: true | Error) => void), props?: Props) => void)
+  | ((value: Value, formData: FormData, callback: ((cbArgs: boolean | Error) => void), props?: Props) => void)
 >
 
 // Rule 构造函数的参数

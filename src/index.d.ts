@@ -299,13 +299,6 @@ export namespace TYPE {
     export type validFunc = __validFunc
     export type Params = __RuleParams
     export type FormItemRule<Value, FormData = any, Props = any> = __FormItemRule<Value, FormData, Props>
-    export type Result = __RuleResult
-    export type RegExpParams = __RegExpParams
-    export type Common = __RuleCommon
-    export type ItemResult = __RuleItemResult
-    export type CommonValue = __RuleCommonValue
-    export type Func<U> = __InnerRuleFunc<U>
-    export type ParamsType<Value, FormData = any, Props = any> = __RuleParamsType<Value, FormData, Props>
   }
   export namespace Select {
     export type Props<Item, Value> = __SelectProps<Item, Value>
