@@ -57,7 +57,7 @@ export interface ListDatumOptions<Item, Value> {
    *
    * default: d => d
    */
-  format?: LiteralUnion<Item> | ((data: Item) => Value)
+  format?: LiteralUnion<Item> | ((data: Item) => Value extends (infer U)[] ? U : Value)
 }
 
 export interface DatumHocOptions<Props> {

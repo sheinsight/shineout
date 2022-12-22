@@ -92,7 +92,7 @@ export interface FormConsumerProps {
 }
 
 export const formConsumer = curry3(
-  <U extends FormConsumerProps, Keys extends FormContextKey>(
+  <U extends FormConsumerProps, Keys extends (keyof U) & FormContextKey>(
     keys: Keys[],
     Origin: ComponentType<U>,
     props: GetFormConsumerProps<U, Keys>

@@ -106,7 +106,7 @@ export interface FormContextValue {
   disabled?: any
   labelAlign?: 'top' | 'left' | 'right'
   labelVerticalAlign?: 'top' | 'middle' | 'bottom'
-  size?: 'small' | 'default' | 'large'
+  size?: RegularAttributes.Size
   labelWidth?: string | number
   combineRules: <U>(name: string, rule: RuleParamsType<U>) => RuleParamsType<U>
   keepErrorHeight?: boolean
@@ -161,7 +161,7 @@ export interface FormProviderProps<V extends ObjectType> {
 
 export type FormContextKey = keyof FormContextValue
 
-export type GetFormConsumerProps<U, Keys extends FormContextKey> = PartialKeys<U, Keys>
+export type GetFormConsumerProps<U, Keys extends (keyof U) & FormContextKey> = PartialKeys<U, Keys>
 export type GetFormProviderProps<U, Value> = ForceAdd<U, FormProviderProps<Value>>
 
 /** ----------------formItemContext-----------------------* */
@@ -218,6 +218,7 @@ type AddInputProps<Props extends BaseInputProps, Value> = ForceAdd<
 
 type InputWidthFieldSet<Props, Value> = GetFieldSetConsumerProps<AddInputProps<Props, Value>>
 type InputWidthItem<Props, Value> = GetFormItemConsumerProps<InputWidthFieldSet<Props, Value>>
+// @ts-ignore
 type InputWidthForm<Props, Value> = GetFormConsumerProps<InputWidthItem<Props, Value>, InputableFormConsumerKey>
 // consumer
 export type GetInputableProps<Props extends BaseInputProps, Value> = InputWidthForm<Props, Value>

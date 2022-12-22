@@ -81,6 +81,7 @@ import { InputProps as __InputProps, InputGroupProps as __InputGroupProps, Input
 export { default as Lazyload } from './Lazyload'
 
 export { default as Menu } from './Menu'
+import { MenuListProps as __MenuListProps, MenuItemProps as __MenuItemProps, MenuProps as __MenuProps } from './Menu/interface'
 
 export { default as Message } from './Message'
 import { MessageOptions as __MessageOptions } from './Message/interface'
@@ -216,7 +217,7 @@ export namespace TYPE {
   export namespace Dropdown {
   
     export type Item = __DropdownItem
-    export type Props<Item> = __DropdownProps<Item>
+    export type Props = __DropdownProps
   }
   export namespace EditableArea {
     export type Props = __EditableAreaProps
@@ -254,6 +255,12 @@ export namespace TYPE {
     export type GroupProps = __InputGroupProps
     export type NumberProps = __InputNumberProps
     export type PasswordProps = __InputPasswordProps
+  }
+  export namespace Menu {
+  
+    export type ListProps<Item> = __MenuListProps<Item>
+    export type ItemProps<Item> = __MenuItemProps<Item>
+    export type Props<Item, Value> = __MenuProps<Item, Value>
   }
   export namespace Message {
   

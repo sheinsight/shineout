@@ -1,6 +1,6 @@
 import React, { isValidElement, cloneElement } from 'react'
 import { defaultProps } from '../utils/proptypes'
-import { ItemProps } from './Props'
+import { DropdownNode, ItemProps } from './Props'
 
 const DefaultProps = {
   ...defaultProps,
@@ -17,10 +17,10 @@ interface ItemLinkProps {
   style?: React.CSSProperties
 }
 
-class Item<Item> extends React.PureComponent<ItemProps<Item>> {
+class Item extends React.PureComponent<ItemProps> {
   static defaultProps = DefaultProps
 
-  constructor(props: ItemProps<Item>) {
+  constructor(props: ItemProps) {
     super(props)
     this.handleClick = this.handleClick.bind(this)
   }
@@ -34,13 +34,13 @@ class Item<Item> extends React.PureComponent<ItemProps<Item>> {
     const { data, itemClassName, renderItem, width, columns } = this.props
     const aWidth = width && columns ? (width - 2) / columns : undefined
     const props: ItemLinkProps = {
-      disabled: data.disabled,
+      disabled: (data as DropdownNode).disabled,
       onClick: this.handleClick,
       className: itemClassName,
-      target: data.target,
+      target: (data as DropdownNode).target,
       style: (aWidth ? { display: 'inline-block', width: aWidth } : null) as React.CSSProperties,
     }
-    if (data.url) props.href = data.url
+    if ((data as DropdownNode).url) props.href = (data as DropdownNode).url
 
     let content
     if (isValidElement(data)) {
