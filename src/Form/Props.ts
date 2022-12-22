@@ -2,13 +2,13 @@ import React, { ReactNode } from 'react'
 import { FormError } from '../utils/errors'
 import FormDatum from '../Datum/Form'
 import { ForceAdd, ObjectType, StandardProps, RegularAttributes, PartialKeys } from '../@types/common'
-import { RuleParamsType } from '../Rule'
+import { FormItemRule } from '../Rule/Props'
 import { ButtonProps } from '../Button/Props'
 import { CardConsumerType } from '../Card/Props'
 import { GetDatumFormProps } from '../Datum/Props'
 
 export interface RuleObject {
-  [name: string]: RuleParamsType<any> | RuleObject
+  [name: string]: FormItemRule<any> | RuleObject
 }
 export interface FormRef<Value> {
   getValue: () => Value
@@ -54,7 +54,7 @@ export interface FieldSetProps<Value = any> {
    *
    * default: none
    */
-  rules?: RuleParamsType<any>
+  rules?: FormItemRule<any>
   /**
    * When children type is not function, handle a set data type of object
    *
@@ -108,7 +108,7 @@ export interface FormContextValue {
   labelVerticalAlign?: 'top' | 'middle' | 'bottom'
   size?: RegularAttributes.Size
   labelWidth?: string | number
-  combineRules: <U>(name: string, rule: RuleParamsType<U>) => RuleParamsType<U>
+  combineRules: <U>(name: string, rule: FormItemRule<U>) => FormItemRule<U>
   keepErrorHeight?: boolean
 }
 export interface FormProviderProps<V extends ObjectType> {
@@ -189,7 +189,7 @@ export interface InputableProps<Value> {
   // readOnly?: boolean
   disabled?: boolean
   filterSameChange?: boolean
-  combineRules?: (name: string, rules?: RuleParamsType<Value>) => RuleParamsType<Value>
+  combineRules?: (name: string, rules?: FormItemRule<Value>) => FormItemRule<Value>
   required?: boolean
   bind?: string[]
   onItemError?: (id: string, error?: Error) => void
@@ -198,7 +198,7 @@ export interface InputableProps<Value> {
   scuSkip?: string[]
   defaultValue?: Value
   reserveAble?: boolean
-  rules?: RuleParamsType<Value>
+  rules?: FormItemRule<Value>
   formDatum?: FormDatum<ObjectType>
   fieldSetValidate?: (validator: boolean) => void
   name?: string | string[]

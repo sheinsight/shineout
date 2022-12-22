@@ -105,7 +105,7 @@ export { default as Rate } from './Rate'
 import { RateProps as __RateProps } from './Rate/interface'
 
 export { default as Rule } from './Rule'
-import { Max as __Max, Min as __Min, Type as __Type, Range as __Range, Required as __Required, validFunc as __validFunc, paramFunc as __paramFunc, RuleParams as __RuleParams, RuleResult as __RuleResult, RegExpParams as __RegExpParams, RuleCommon as __RuleCommon, RuleItemResult as __RuleItemResult, RuleCommonValue as __RuleCommonValue, InnerRuleFunc as __InnerRuleFunc, RuleParamsType as __RuleParamsType } from './Rule'
+import { validFunc as __validFunc, RuleParams as __RuleParams, FormItemRule as __FormItemRule } from './Rule/interface'
 
 export { default as Scroll } from './Scroll'
 
@@ -163,19 +163,19 @@ export namespace TYPE {
     export type Props = __AlertProps
   }
   export namespace Breadcrumb {
-  
+
     export type Data = __BreadcrumbData
     export type Props<Data = __BreadcrumbData> = __BreadcrumbProps<Data>
   }
   export namespace Button {
-  
+
     export type Type = __ButtonType
     export type Shape = __ButtonShape
     export type Props = __ButtonProps
     export type GroupProps = __ButtonGroupProps
   }
   export namespace Card {
-  
+
     export type Props = __CardProps
     export type BodyProps = __CardBodyProps
     export type HeaderProps = __CardHeaderProps
@@ -184,7 +184,7 @@ export namespace TYPE {
     export type AccordionProps<T> = __CardAccordionProps<T>
   }
   export namespace CardGroup {
-  
+
     export type Props = __CardGroupProps
     export type ItemProps<T> = __CardGroupItemProps<T>
   }
@@ -192,18 +192,18 @@ export namespace TYPE {
     export type Props = __CarouselProps
   }
   export namespace Cascader {
-  
+
     export type BaseValue = __BaseValue
     export type Props<Item, Value extends BaseValue> = __CascaderProps<Item, Value>
   }
   export namespace Checkbox {
-  
+
     export type Props<Value> = __CheckboxProps<Value>
     export type GroupProps<DataItem, Value> = __GroupProps<DataItem, Value>
   }
   export namespace DatePicker {
     export type Props<T = __DatePickerValue> = __DatePickerProps<T>
-    export type QuickSelect = __QuickSelect  
+    export type QuickSelect = __QuickSelect
     export type AreaType = __AreaType
     export type DateTimeType = __DateTimeType
     export type Value = __DatePickerValue
@@ -215,7 +215,7 @@ export namespace TYPE {
     export type Props = __DrawerProps
   }
   export namespace Dropdown {
-  
+
     export type Item = __DropdownItem
     export type Props = __DropdownProps
   }
@@ -223,7 +223,7 @@ export namespace TYPE {
     export type Props = __EditableAreaProps
   }
   export namespace Form {
-  
+
     export type ItemProps = __FormItemProps
     export type Ref<Value> = __FormRef<Value>
     export type ResetProps = __FormResetProps
@@ -238,7 +238,7 @@ export namespace TYPE {
     export type Props = __GapProps
   }
   export namespace Grid {
-    export type Props = __GridProps  
+    export type Props = __GridProps
     export type responsiveType = __responsiveType
   }
   export namespace Icon {
@@ -250,20 +250,20 @@ export namespace TYPE {
     export type GroupProps = __ImageGroupProps
   }
   export namespace Input {
-  
+
     export type Props = __InputProps
     export type GroupProps = __InputGroupProps
     export type NumberProps = __InputNumberProps
     export type PasswordProps = __InputPasswordProps
   }
   export namespace Menu {
-  
+
     export type ListProps<Item> = __MenuListProps<Item>
     export type ItemProps<Item> = __MenuItemProps<Item>
     export type Props<Item, Value> = __MenuProps<Item, Value>
   }
   export namespace Message {
-  
+
     export type Options = __MessageOptions
   }
   export namespace Modal {
@@ -271,46 +271,34 @@ export namespace TYPE {
     export type FunctionOptions = __ModalFunctionOptions
   }
   export namespace Pagination {
-  
+
     export type TextParams = __TextParams
     export type Props = __PaginationProps
   }
   export namespace Popover {
-  
+
     export type Props = __PopoverProps
     export type ConfirmProps = __PopoverConfirmProps
     export type ContentProps = __PopoverContentProps
   }
   export namespace Progress {
-  
+
     export type Props = __ProgressProps
   }
   export namespace Radio {
-  
+
     export type Props = __RadioProps
     export type GroupProps<Value, Item> = __RadioGroupProps<Value, Item>
   }
   export namespace Rate {
-  
+
     export type Props = __RateProps
   }
   export namespace Rule {
 
-    export type Max = __Max
-    export type Min = __Min
-    export type Type = __Type
-    export type Range = __Range
-    export type Required = __Required
     export type validFunc = __validFunc
-    export type paramFunc = __paramFunc
     export type Params = __RuleParams
-    export type Result = __RuleResult
-    export type RegExpParams = __RegExpParams  
-    export type Common = __RuleCommon
-    export type ItemResult = __RuleItemResult
-    export type CommonValue = __RuleCommonValue
-    export type Func<U> = __InnerRuleFunc<U>
-    export type ParamsType<Value, FormData = any, Props = any> = __RuleParamsType<Value, FormData, Props>
+    export type FormItemRule<Value, FormData = any, Props = any> = __FormItemRule<Value, FormData, Props>
   }
   export namespace Select {
     export type Props<Item, Value> = __SelectProps<Item, Value>
@@ -319,18 +307,18 @@ export namespace TYPE {
     export type Props<Value> = __SliderProps<Value>
   }
   export namespace Spin {
-  
+
     export type Props = __SpinProps
   }
   export namespace Sticky {
     export type Props = __StickyProps
   }
   export namespace Switch {
-  
+
     export type Props = __SwitchProps
   }
   export namespace Table {
-  
+
     export type Ref = __TableRef
     export type ColumnFix = __ColumnFix
     export type ColumnType = __ColumnType
@@ -341,7 +329,7 @@ export namespace TYPE {
     export type Props<DataItem, Value> = __TableProps<DataItem, Value>
   }
   export namespace Tabs {
-  
+
     export type Props = __TabsProps
     export type LinkProps = __TabsLinkProps
     export type PanelProps = __TabsPanelProps
@@ -351,19 +339,19 @@ export namespace TYPE {
     export type InputProps = __TagInputProps
   }
   export namespace Textarea {
-  
+
     export type Props = __TextareaProps
   }
   export namespace Tooltip {
-  
+
     export type Props = __TooltipProps
   }
   export namespace Transfer {
-  
+
     export type Props<Item, Value extends any[]> = __TransferProps<Item, Value>
   }
   export namespace Tree {
-  
+
     export type Props<DataItem, Value extends any[]> = __TreeProps<DataItem, Value>
     export type FieldProps<DataItem, Value extends any[]> = __TreeFieldProps<DataItem, Value>
   }

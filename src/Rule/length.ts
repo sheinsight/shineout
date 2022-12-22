@@ -1,8 +1,10 @@
 import { deepMerge } from '../utils/objects'
 import { substitute } from '../utils/strings'
 import { getLocale } from '../locale'
+import { ObjectType } from '../@types/common'
+import { MessageType } from './Props'
 
-const createMessage = key => (props) => {
+const createMessage = (key: 'min' | 'max') => (props: ObjectType) => {
   let lt = ''
   switch (props.type) {
     case 'integer':
@@ -26,7 +28,10 @@ export const lengthMessage = {
   min: createMessage('min'),
 }
 
-export default (key, { message } = {}) => (len, msg) => {
+export default (key: 'min' | 'max', { message }: { message?: MessageType } = {}) => (
+  len: number,
+  msg?: MessageType
+) => {
   if (typeof len !== 'number') {
     console.error(new Error(`Rule "${key}" param expect a number, get ${typeof len}`))
     return null

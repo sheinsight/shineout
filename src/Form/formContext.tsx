@@ -2,7 +2,7 @@ import React, { ComponentType, PureComponent } from 'react'
 import createReactContext from '../context'
 import { deepGet } from '../utils/objects'
 import { isObject, isArray } from '../utils/is'
-import { RuleParamsType } from '../Rule'
+import { FormItemRule } from '../Rule/interface'
 import { ObjectType } from '../@types/common'
 import {
   FormContextKey,
@@ -31,11 +31,11 @@ export const formProvider = <FormValue, U extends FormProviderProps<FormValue>>(
       // this.groupValidate = this.groupValidate.bind(this)
     }
 
-    combineRules<ItemValue>(name: string, propRules: RuleParamsType<ItemValue>) {
+    combineRules<ItemValue>(name: string, propRules: FormItemRule<ItemValue>) {
       const { rules } = this.props
-      let newRules: RuleParamsType<ItemValue> = []
+      let newRules: FormItemRule<ItemValue> = []
       if (isObject(rules) && name) {
-        newRules = (deepGet(rules as ObjectType, name) || []) as RuleParamsType<ItemValue>
+        newRules = (deepGet(rules as ObjectType, name) || []) as FormItemRule<ItemValue>
       } else if (isArray(rules)) {
         newRules = rules
       }

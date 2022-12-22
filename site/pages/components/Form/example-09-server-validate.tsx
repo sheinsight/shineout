@@ -5,11 +5,9 @@
  *    -- By setting an error on the Form, the back-end validation data is presented. After the form value is changed, the corresponding back-end validation data is cleared. <br /> front-end validation priority is greater than back-end validation.
  */
 import React, { useState } from 'react'
-import { Form, Input, Rule, TYPE } from 'shineout'
+import { Form, Input, Rule } from 'shineout'
 
-type RuleResult = TYPE.Rule.Result
-
-const rules: RuleResult = Rule()
+const rules = Rule()
 
 const App: React.FC = () => {
   const [loading, setLoading] = useState(false)
