@@ -4,7 +4,7 @@ import { StandardProps } from '../@types/common'
 export type GetZIndexConsumerProps<Props> = Props
 export type Methods = 'success' | 'info' | 'warning' | 'error' | 'confirm' | 'normal'
 
-export interface BaseProps extends StandardProps {
+export interface ModalProps extends StandardProps {
   /**
    * Whether to force the mask transparency (in multi-layer Modal, the transparency of other Modal masks except the first layer will be adjusted to 0.01)
    *
@@ -255,12 +255,10 @@ export interface BaseProps extends StandardProps {
   children?: ReactNode
 }
 
-export interface ModalProps extends BaseProps {}
-
 export interface ModalPanelProps
   extends StandardProps,
     Pick<
-      BaseProps,
+      ModalProps,
       | 'footer'
       | 'maskCloseAble'
       | 'noPadding'
@@ -287,17 +285,7 @@ export interface ModalPanelProps
   height?: string | number
 }
 
-export type Options = BaseProps & {
-  id?: string
-  from?: string
-  content?: React.ReactNode
-  onCancel?: () => void
-  onOk?: () => void | Promise<any>
-  text?: { ok?: string; cancel?: string }
-  isPortal?: boolean
-}
-
-export interface ModalFunctionOptions {
+export interface ModalFunctionOptions extends Omit<ModalProps, 'usePortal' | 'destroy'> {
   /**
    * Content body
    *
@@ -305,16 +293,7 @@ export interface ModalFunctionOptions {
    *
    * default: null
    */
-  content?: ReactNode | string
-
-  /**
-   * title
-   *
-   * 标题
-   *
-   * default: null
-   */
-  title?: string
+  content?: ReactNode
 
   /**
    * The event is triggered when the cancel button is clicked.
@@ -369,4 +348,12 @@ export interface ModalFunctionOptions {
    * default: -
    */
   noPadding?: boolean
+}
+
+// innerOptions
+export type Options = ModalFunctionOptions & {
+  id: string
+  from?: string
+  usePortal?: ModalProps['usePortal']
+  destroy?: ModalProps['destroy']
 }

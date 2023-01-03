@@ -93,7 +93,8 @@ export function createDiv(props: Options) {
 // eslint-disable-next-line
 export function open(props: Options, isPortal?: boolean) {
   const { content, onClose, zIndex, forceMask, ...otherProps } = props
-  const div = createDiv(props)
+  const options = { ...props, usePortal: isPortal }
+  const div = createDiv(options)
   div.style.display = 'block'
   const parsed = parseInt(String(zIndex), 10)
   if (!Number.isNaN(parsed)) div.style.zIndex = (parsed as unknown) as string
@@ -105,7 +106,7 @@ export function open(props: Options, isPortal?: boolean) {
   }
   const handleClose = () => {
     if (onClose) onClose()
-    if (!isPortal) close(props)
+    if (!isPortal) close(options)
   }
 
   const opacityDefault = props.maskOpacity === undefined ? 0.25 : props.maskOpacity
@@ -147,7 +148,6 @@ const closeCallback = <T extends Function>(fn: T, option: Options, setLoading?: 
     close(option)
   }
 }
-// eslint-disable-next-line react/prop-types
 interface LoadingOkProps {
   option: Options
 }
@@ -168,7 +168,6 @@ class LoadingOk extends PureComponent<LoadingOkProps, LoadingOkState> {
   }
 
   render() {
-    // eslint-disable-next-line react/prop-types
     const { option } = this.props
     const { loading } = this.state
     const onClick = closeCallback(option.onOk!, option, this.setLoading)
@@ -238,6 +237,7 @@ ready(() => {
     const opened = ids.find(id => containers[id].visible && containers[id].props.esc)
     if (!opened) return
     const { props } = containers[opened]
+    // @ts-ignore may be always true
     const { onClose, isPortal } = props
     if (onClose) onClose()
     if (!isPortal) close(props)
