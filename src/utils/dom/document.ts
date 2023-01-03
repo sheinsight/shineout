@@ -23,9 +23,8 @@ export const docSize = {
     return document.documentElement.clientHeight || document.body.clientHeight
   },
 }
-
 export function addEventListener<K extends keyof HTMLElementEventMap>(
-  target: HTMLElement,
+  target: HTMLElement | Document,
   eventType: keyof HTMLElementEventMap,
   cb: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
   option?: boolean | AddEventListenerOptions

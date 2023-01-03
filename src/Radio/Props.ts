@@ -3,13 +3,13 @@ import { GetInputableProps } from '../Form/Props'
 import { GetDatumListProps } from '../Datum/Props'
 import { RegularAttributes } from '../@types/common'
 import { SimpleRadioProps } from '../Checkbox/Props'
-import { keygenType, StandardProps, StructDataStandardProps } from '../@types/common'
+import { KeygenType, StandardProps, StructDataStandardProps } from '../@types/common'
 import ListDatum from '../Datum/List'
 
 export interface RadioGroupProps<DataItem, Value>
   extends StandardProps,
     Pick<StructDataStandardProps<DataItem>, 'renderItem'> {
-  keygen: keygenType<DataItem>
+  keygen: KeygenType<DataItem>
   block?: boolean
   button?: boolean | 'outline'
   datum: ListDatum<DataItem, Value>

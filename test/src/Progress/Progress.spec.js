@@ -123,7 +123,7 @@ describe('Progress[strokeWidth]', () => {
 
   test('should set circle strokeWidth', () => {
     const strokeWidth = 10
-    const wrapper = mount(<Progress strokeWidth={strokeWidth} shape="circle" />)
+    const wrapper = mount(<Progress value={10} strokeWidth={strokeWidth} shape="circle" />)
     expect(wrapper.find(`.${SO_PREFIX}-progress-circle`).length).toBe(1)
     wrapper.find('circle').forEach(i => {
       expect(i.html().indexOf(`stroke-width="${strokeWidth * 2}"`) > -1).toBe(true)

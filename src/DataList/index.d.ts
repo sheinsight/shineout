@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { StandardProps, StructDataStandardProps, ListItemStandardProps, RegularAttributes} from '../@types/common'
+import { PaginationProps } from '../Pagination/interface'
 
 type ReactNode = React.ReactNode;
 
@@ -7,6 +8,7 @@ type ReactNode = React.ReactNode;
 export interface ListProps<Item, Value> extends StandardProps,
   StructDataStandardProps<Item>,
   ListItemStandardProps<Item, Value> {
+  height?: number
 
 
   /**
@@ -127,6 +129,15 @@ export interface ListProps<Item, Value> extends StandardProps,
    * default: 'default'
    */
   size?: RegularAttributes.Size;
+
+  /**
+   * See Pagination
+   *
+   * 分页，详见 Pagination
+   *
+   * default: -
+   */
+   pagination?: PaginationProps;
 }
 
 export interface ListBaseItemProps{
@@ -199,6 +210,14 @@ export interface ListBaseItemProps{
    */
   colNum?: number;
 
+  /**
+   * See Pagination
+   *
+   * 分页，详见 Pagination
+   *
+   * default: -
+   */
+   pagination?: PaginationProps;
 
 }
 

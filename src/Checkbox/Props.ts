@@ -1,5 +1,5 @@
 import React, { PropsWithChildren, ReactNode } from 'react'
-import { keygenType, StandardProps, StructDataStandardProps } from '../@types/common'
+import { KeygenType, StandardProps, StructDataStandardProps } from '../@types/common'
 import ListDatum from '../Datum/List'
 import { GetInputableProps } from '../Form/Props'
 import { GetDatumListProps } from '../Datum/Props'
@@ -12,7 +12,7 @@ export interface CheckItemProps extends StandardProps {
   inputable?: boolean
   htmlValue?: any
   index?: number
-  onChange: ((value: any, checked?: CheckValueType, index?: number) => void)
+  onChange?: ((value: any, checked?: CheckValueType, index?: number) => void)
   onRawChange?: (value: any, checked: CheckValueType) => void
   value?: any
   onClick?: React.MouseEventHandler<HTMLInputElement>
@@ -21,15 +21,15 @@ export interface CheckItemProps extends StandardProps {
 }
 
 export type SimpleCheckProps = Omit<CheckItemProps, 'content' | 'onChange'> & {
-  onChange: ((value: any, checked: CheckValueType, index?: number) => void)
+  onChange?: ((value: any, checked: CheckValueType, index?: number) => void)
 }
 export type SimpleRadioProps = Omit<CheckItemProps, 'content' | 'onChange' | 'onRawChange' | 'inputable' | 'value'> & {
   checked?: boolean | ((htmlValue: any) => boolean)
-  onChange: ((value: any, checked: CheckValueType, index?: number) => void)
+  onChange?: ((value: any, checked: CheckValueType, index?: number) => void)
 }
 export type SimpleSwitchProps = Omit<CheckItemProps, 'onChange' | 'onRawChange' | 'inputable' | 'value'> & {
   checked?: boolean | ((htmlValue: any) => boolean)
-  onChange: ((value: boolean) => void)
+  onChange?: ((value: boolean) => void)
 }
 
 export interface CheckboxContextProvider {
@@ -42,7 +42,7 @@ export type CheckboxProviderProps<U> = Omit<U, 'onRawChange'>
 export interface CheckboxGroupProps<DataItem, Value>
   extends StandardProps,
     Pick<StructDataStandardProps<DataItem>, 'renderItem'> {
-  keygen: keygenType<DataItem>
+  keygen: KeygenType<DataItem>
   block?: boolean
   datum: ListDatum<DataItem, Value>
   value?: Value

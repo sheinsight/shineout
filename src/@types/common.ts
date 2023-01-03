@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { RuleParamsType } from '../Rule'
+import { FormItemRule } from '../Rule/interface'
 
 export interface StandardProps {
   /**
@@ -23,7 +23,8 @@ export interface StandardProps {
 
 export type keyType = string | number
 
-export type keygenType<Item> = LiteralUnion<Item> | ((data: Item, index?: number) => keyType) | true
+export type KeygenType<Item> = LiteralUnion<Item> | ((data: Item, index?: number) => keyType) | true
+export type StructKeygenType<Item> = LiteralUnion<Item> | ((data: Item, index?: number) => keyType)
 
 export interface FormItemStandardProps<Value = any> {
   /**
@@ -96,7 +97,7 @@ export interface FormItemStandardProps<Value = any> {
    *
    * default: -
    */
-  rules?: RuleParamsType<Value>
+  rules?: FormItemRule<Value>
 
   /**
    * Binding validation field name. When the value changes, the bound field validation is triggered.
@@ -112,7 +113,7 @@ export interface FormItemStandardProps<Value = any> {
  * 目前已知的最为简短的写法: @see https://github.com/Microsoft/TypeScript/issues/29729#issuecomment-1082546550
  * 在类型守卫中会存在问题: @see https://github.com/Microsoft/TypeScript/issues/29729#issuecomment-1082791844
  */
-export type LiteralUnion<T = any> = T extends Record<any, any> ? keyof T : never
+export type LiteralUnion<T = any> = T extends ObjectType ? (keyof T & string) : never
 
 export interface ListItemStandardProps<Item = any, Value = any> {
   /**
@@ -122,7 +123,7 @@ export interface ListItemStandardProps<Item = any, Value = any> {
    *
    * default: index
    */
-  keygen: keygenType<Item>
+  keygen: KeygenType<Item>
 
   /**
    * When the value is true, disabled all checkboxes; When the value is function, disable the checkbox that this function returns true.
@@ -178,7 +179,7 @@ export interface StructDataStandardProps<Item = any> {
    *
    * default: empty data
    */
-  data: Item[]
+  data?: Item[]
 }
 
 export interface CommonProps {
@@ -223,4 +224,4 @@ export type ValueOf<T> = T[keyof T]
 
 export type ForceAdd<U extends {}, V> = U & Omit<V, keyof U>
 
-export type PartialKeys<U, keys extends string> = Omit<U, keys> & (keys extends keyof U ? Partial<Pick<U, keys>> : {})
+export type PartialKeys<U, keys extends keyof U> = Omit<U, keys> & Partial<Pick<U, keys>>

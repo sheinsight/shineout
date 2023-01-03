@@ -7,6 +7,8 @@ export interface ScrollContextProviderValue {
   top?: number
 }
 
+export type ScrollFixedType = 'x' | 'y' | 'both'
+
 export type GetScrollContextConsumerValue<U> = Omit<U, 'scrollElement' | 'scrollLeft' | 'scrollTop'>
 
 /** ------ scroll ------ */
@@ -54,5 +56,5 @@ export interface FixedLengthProps extends Omit<BarProps, 'barLength'> {}
 export interface ScrollIndexProps extends Omit<ScrollProps, 'left' | 'top' | 'scrollX' | 'scrollY'> {
   scrollLeft?: number
   scrollTop?: number
-  scroll?: 'x' | 'y' | 'both'
+  scroll?: ScrollFixedType
 }

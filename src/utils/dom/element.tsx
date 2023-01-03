@@ -186,13 +186,13 @@ export const preventPasteFile = (
 export const parsePxToNumber = (str: string) => Number(str.replace(/\s+|px/gi, ''))
 
 interface ResizeOption {
-  direction?: 'x' | 'y'
+  direction?: 'x' | 'y' | boolean
   timer?: number
 }
 
 type Handler = (this: Window, ev: UIEvent) => any
 
-export const addResizeObserver = (el: HTMLElement, handler: Handler, options: ResizeOption = {}) => {
+export const addResizeObserver = (el: HTMLElement, handler: any, options: ResizeOption = {}) => {
   const { direction, timer } = options
   const [throttleHandler, cleanTimer] = throttle(handler, timer)
   let h = throttleHandler

@@ -23,7 +23,7 @@ const renderItem = (value: BreadcrumbData) => {
   let BreadcrumbItem: ReactNode = value.title
 
   if (value.onClick || value.url) {
-    const props: BreadcrumbProps = {
+    const props: React.AreaHTMLAttributes<HTMLAnchorElement> = {
       onClick: value.onClick,
     }
 

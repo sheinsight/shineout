@@ -1,5 +1,6 @@
 import { isObject, isMergeable } from './is'
 import { insertPoint } from './flat'
+import { ObjectType } from '../@types/common'
 
 const { hasOwnProperty } = Object.prototype
 const PATH_MODE = {
@@ -7,10 +8,6 @@ const PATH_MODE = {
   strict: '!',
   insert: '^',
   append: '$',
-}
-
-interface ObjectProps {
-  [prop: string]: any
 }
 
 interface deepOptions {
@@ -22,7 +19,7 @@ interface deepOptions {
   removeUndefined?: boolean
 }
 
-export function filterProps<T extends ObjectProps>(obj: T, props: (keyof T)[] | ((prop: any) => boolean) = []) {
+export function filterProps<T extends ObjectType>(obj: T, props: (keyof T)[] | ((prop: any) => boolean) = []) {
   if (!isObject(obj)) return obj
 
   if (typeof props === 'function') {
@@ -43,17 +40,17 @@ export function filterProps<T extends ObjectProps>(obj: T, props: (keyof T)[] | 
 }
 
 // Object.values()
-export const objectValues = (obj: ObjectProps) => {
+export const objectValues = (obj: ObjectType) => {
   if (!obj) return []
   return Object.keys(obj).map(k => obj[k])
 }
 
 // object only, not handle array.
-export const deepMerge = (target: ObjectProps = {}, source: ObjectProps, options: deepOptions = {}) => {
+export const deepMerge = (target: ObjectType = {}, source: ObjectType, options: deepOptions = {}) => {
   const { clone, removeUndefined, skipUndefined } = options
   if (!isMergeable(source)) return source
 
-  const dest: ObjectProps = {}
+  const dest: ObjectType = {}
   if (isMergeable(target)) {
     Object.keys(target).forEach(k => {
       dest[k] = clone ? deepMerge({}, target[k], options) : target[k]
@@ -104,7 +101,7 @@ export function pathGenerator(raw: string) {
   return results
 }
 
-export const deepSet = (target: ObjectProps, path: string, value: any, options: deepOptions = {}) => {
+export const deepSet = (target: ObjectType, path: string, value: any, options: deepOptions = {}) => {
   if (!isObject(target)) throw new Error('Target must be an object.')
   if (typeof path !== 'string') throw new Error('Path must be a string.')
 
@@ -152,7 +149,7 @@ export const deepSet = (target: ObjectProps, path: string, value: any, options: 
   return target
 }
 
-export const deepGet = (target: ObjectProps, path: string, options: deepOptions = {}) => {
+export const deepGet = (target: ObjectType, path: string, options: deepOptions = {}) => {
   if (!isObject(target)) throw new Error('Target must be an object.')
   if (typeof path !== 'string') throw new Error('Path must be a string.')
 
@@ -164,7 +161,7 @@ export const deepGet = (target: ObjectProps, path: string, options: deepOptions 
   for (const [prop, , mode] of pathGenerator(path)) {
     const isStrict = mode === PATH_MODE.strict || (strictMode && defaultValue === undefined && mode !== PATH_MODE.loose)
     if (current != null && hasOwnProperty.call(current, prop)) {
-      current = (current as ObjectProps)[prop]
+      current = (current as ObjectType)[prop]
     } else if (isStrict) {
       throw new Error(`Path ${path} is not exist.`)
     } else {
@@ -176,7 +173,7 @@ export const deepGet = (target: ObjectProps, path: string, options: deepOptions 
   return current
 }
 
-export const deepRemove = (target: ObjectProps, path: string) => {
+export const deepRemove = (target: ObjectType, path: string) => {
   if (!isObject(target)) throw new Error('Target must be an object.')
   if (typeof path !== 'string' || !path) throw new Error('Path must be a string.')
 
@@ -201,7 +198,7 @@ export const deepRemove = (target: ObjectProps, path: string) => {
   return target
 }
 
-export const deepHas = (target: ObjectProps, path: string) => {
+export const deepHas = (target: ObjectType, path: string) => {
   if (!isObject(target)) throw new Error('Target must be an object.')
   if (typeof path !== 'string') throw new Error('Path must be a string.')
 
@@ -216,7 +213,7 @@ export const deepHas = (target: ObjectProps, path: string) => {
   return true
 }
 
-export const entries = (obj: ObjectProps) => {
+export const entries = (obj: ObjectType) => {
   if (!obj) return []
   const keys = Object.keys(obj)
   return keys.map(key => [key, obj[key]])

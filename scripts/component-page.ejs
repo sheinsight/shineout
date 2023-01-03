@@ -11,11 +11,12 @@ import cn from 'doc/pages/components/<%= name %>/cn.md'
 import en from 'doc/pages/components/<%= name %>/en.md'
 
 const source = locate(cn, en)
+<% const fileReg = /\.[jt]sx?$/ -%>
 
 const examples = [
 <% examples.forEach(function (exam, i) { -%>
   {
-    name: '<%= exam.path.replace("example-", "").replace(/\.[jt]sx?$/, "") %>',
+    name: '<%= exam.path.replace("example-", "").replace(fileReg, "") %>',
     isTs: <%= exam.path.endsWith(".tsx") %>,
     isTest: <%= exam.path.startsWith("test-") %>,
     title: locate(
@@ -35,17 +36,17 @@ const examples = [
 <% if (codes.length > 0) { -%>
 log.start()
 <% codes.forEach(function (code, i) { -%>
-log.setType('<%= code %>')
-require('doc/pages/components/<%= name %>/code-<%= code %>.js')
+log.setType('<%= code.replace(fileReg, "") %>')
+require('doc/pages/components/<%= name %>/code-<%= code %>')
 <% }) -%>
 
 const logs = log.end()
 
 const codes = {
 <% codes.forEach(function (code, i) { -%>
-  '<%= code %>': {
-    text: require('!raw-loader!doc/pages/components/<%= name %>/code-<%= code %>.js'),
-    log: logs['<%= code %>'],
+  '<%= code.replace(fileReg, "") %>': {
+    text: require('!raw-loader!doc/pages/components/<%= name %>/code-<%= code %>'),
+    log: logs['<%= code.replace(fileReg, "") %>'],
   },
 <% }) -%>
 }

@@ -1,6 +1,5 @@
 import React, { PureComponent, isValidElement, ReactNode } from 'react'
 import classnames from 'classnames'
-import { defaultProps } from '../utils/proptypes'
 import Spin from '../Spin'
 import Group from './Group'
 import Once from './Once'
@@ -9,8 +8,14 @@ import { buttonClass } from './styles'
 import { isRTL } from '../config'
 import { getDirectionClass } from '../utils/classname'
 
-import { ButtonProps } from './interface'
+import { ButtonProps } from './Props'
 
+const DefaultProps = {
+  size: 'default',
+  htmlType: 'button' as 'button',
+  outline: false,
+  type: 'default',
+}
 class Button extends PureComponent<ButtonProps> {
   static displayName = 'ShineoutButton'
 
@@ -18,12 +23,7 @@ class Button extends PureComponent<ButtonProps> {
 
   static Once = Once
 
-  static defaultProps = {
-    ...defaultProps,
-    htmlType: 'button',
-    outline: false,
-    type: 'default',
-  }
+  static defaultProps = DefaultProps as ButtonProps
 
   getChildren() {
     const { children, loading, space } = this.props
@@ -77,7 +77,7 @@ class Button extends PureComponent<ButtonProps> {
 
     const children = this.getChildren()
     return (
-      // eslint-disable-next-line
+      // eslint-disable-next-line react/button-has-type
       <button {...others} ref={onRef} disabled={disabled || loading} type={htmlType} className={className}>
         {loading && (
           <span className={buttonClass(getDirectionClass('spin'))}>

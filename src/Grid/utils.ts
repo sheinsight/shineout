@@ -67,7 +67,7 @@ function generate(w: number | string, type: 'grid' | 'offset', res: Responsive) 
 }
 
 export function getGrid(
-  opt:
+  opt?:
     | number
     | {
         width?: number
