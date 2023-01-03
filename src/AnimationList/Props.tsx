@@ -40,7 +40,7 @@ export interface ListProps extends StandardProps {
 }
 
 /** -----------lazyList----------* */
-export interface lazyListProps<DataItem> extends StandardProps {
+export interface LazyListProps<DataItem> extends StandardProps {
   stay?: boolean
   data: DataItem[]
   lineHeight?: number

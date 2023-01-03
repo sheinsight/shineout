@@ -3,7 +3,7 @@ import { PureComponent } from '../component'
 import Scroll from '../Scroll'
 import { getKey } from '../utils/uid'
 import { setTranslate } from '../utils/dom/translate'
-import { lazyListProps } from './Props'
+import { LazyListProps } from './Props'
 import { ScrollFixedType } from '../Scroll/Props'
 
 interface LazyListState {
@@ -18,14 +18,14 @@ const DefaultProps = {
   colNum: 1,
 }
 
-class LazyList<DataItem> extends PureComponent<lazyListProps<DataItem>, LazyListState> {
+class LazyList<DataItem> extends PureComponent<LazyListProps<DataItem>, LazyListState> {
   static defaultProps = DefaultProps
 
   optionInner: HTMLDivElement
 
   lastScrollTop: number
 
-  constructor(props: lazyListProps<DataItem>) {
+  constructor(props: LazyListProps<DataItem>) {
     super(props)
 
     this.state = {
@@ -36,7 +36,7 @@ class LazyList<DataItem> extends PureComponent<lazyListProps<DataItem>, LazyList
     this.handleScroll = this.handleScroll.bind(this)
   }
 
-  componentDidUpdate(prevProps: lazyListProps<DataItem>) {
+  componentDidUpdate(prevProps: LazyListProps<DataItem>) {
     if (!this.props.stay && prevProps.data.length !== this.props.data.length) {
       this.resetScrollTop()
     }
