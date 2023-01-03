@@ -19,7 +19,7 @@ export interface BaseProps extends StandardProps {
    *
    * 模态框距离顶部距离
    *
-   * defualt: 10vh
+   * default: 10vh
    */
   top?: number | string
 
