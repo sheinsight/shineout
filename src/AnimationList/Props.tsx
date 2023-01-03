@@ -34,8 +34,8 @@ export type GetAbsoluteProps<Props> = GetZIndexConsumerProps<GetScrollContextCon
 
 /** -----------List----------* */
 export interface ListProps extends StandardProps {
-  show: boolean
-  getRef: (el: HTMLDivElement) => void
+  show?: boolean
+  getRef?: (el: HTMLDivElement) => void
   children?: React.ReactNode
 }
 
