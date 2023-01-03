@@ -1,20 +1,30 @@
-import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
+import React, { CSSProperties, PureComponent } from 'react'
 import classnames from 'classnames'
 import Icons from '../icons'
 import Card from '../Card'
-import { defaultProps, getProps } from '../utils/proptypes'
+import { defaultProps } from '../utils/proptypes'
 import { modalClass } from './styles'
 import { Provider } from '../Scroll/context'
 import { Provider as ZProvider } from './context'
+import { ModalPanelProps } from './Props'
 
-function setTransformOrigin(node, value) {
-  const { style } = node
+const DefaultValue = {
+  ...defaultProps,
+  top: '10vh',
+  maskCloseAble: true,
+  width: 500,
+  events: {},
+  drawer: false,
+}
+
+function setTransformOrigin(node: HTMLDivElement | null, value: string) {
+  const { style } = node!
   style.transformOrigin = value
 }
 
-let mousePosition = null
-const getClickPosition = e => {
+let mousePosition: { x: number; y: number } | null = null
+
+const getClickPosition: EventListener = (e: any) => {
   mousePosition = {
     x: e.clientX,
     y: e.clientY,
@@ -26,10 +36,22 @@ const getClickPosition = e => {
 
 document.addEventListener('click', getClickPosition, true)
 
-export default class Panel extends PureComponent {
-  panel = null
+export default class Panel extends PureComponent<ModalPanelProps> {
+  static defaultProps = DefaultValue
 
-  constructor(props) {
+  static displayName: string
+
+  panel: HTMLDivElement | null
+
+  handleMaskDown: () => void
+
+  handleMaskUp: () => void
+
+  maskDownTarget: EventTarget | null
+
+  maskUpTarget: EventTarget | null
+
+  constructor(props: ModalPanelProps) {
     super(props)
     this.handleClose = this.handleClose.bind(this)
     this.handleMaskDown = this.handleMaskClick.bind(this, 'maskDownTarget')
@@ -43,9 +65,9 @@ export default class Panel extends PureComponent {
 
     const { autoFocusButton, id } = this.props
     if (!autoFocusButton) return
-    const el = container.querySelector(`#${id}-${autoFocusButton}`)
+    const el = container!.querySelector(`#${id}-${autoFocusButton}`)
     if (!el) return
-    el.focus()
+    ;(el as HTMLElement).focus()
   }
 
   componentDidUpdate() {
@@ -56,7 +78,7 @@ export default class Panel extends PureComponent {
 
   getShow() {
     const { container } = this.props
-    if (container.classList.contains(modalClass('show'))) return true
+    if (container!.classList.contains(modalClass('show'))) return true
     return false
   }
 
@@ -84,15 +106,15 @@ export default class Panel extends PureComponent {
     )
   }
 
-  savePanel = node => {
+  savePanel = (node: HTMLDivElement) => {
     this.panel = node
   }
 
   animate() {
     const { container, position } = this.props
     setTimeout(() => {
-      container.classList.add(modalClass('show'))
-      if (!position) container.classList.add(modalClass('start'))
+      container!.classList.add(modalClass('show'))
+      if (!position) container!.classList.add(modalClass('start'))
     })
   }
 
@@ -114,15 +136,15 @@ export default class Panel extends PureComponent {
   }
 
   // eslint-disable-next-line
-  lockWheel(event) {
-    event.preventDefault()
-  }
+  // lockWheel(event) {
+  //   event.preventDefault()
+  // }
 
-  handleMaskClick(type, e) {
+  handleMaskClick(type: 'maskDownTarget' | 'maskUpTarget', e: Event) {
     this[type] = e.target
   }
 
-  handleClose(e) {
+  handleClose(e: any) {
     e.stopPropagation()
     const { maskCloseAble, onClose } = this.props
     const { target } = e
@@ -134,8 +156,8 @@ export default class Panel extends PureComponent {
   renderIcon() {
     const { type } = this.props
     if (type === 'default') return null
-    const iconType = type.charAt(0).toUpperCase() + type.slice(1)
-    return Icons[iconType]
+    const iconType = type!.charAt(0).toUpperCase() + type!.slice(1)
+    return Icons[iconType as keyof typeof Icons]
   }
 
   renderTitle(justRenderClassComponent = false) {
@@ -164,7 +186,7 @@ export default class Panel extends PureComponent {
   renderContent() {
     const { children, noPadding, padding, position, bodyStyle, from = null } = this.props
 
-    let style = { padding: noPadding === true ? 0 : padding }
+    let style: CSSProperties = { padding: noPadding === true ? 0 : padding }
     if (position) style.overflow = 'auto'
 
     if (bodyStyle) style = Object.assign(style, bodyStyle)
@@ -241,35 +263,3 @@ export default class Panel extends PureComponent {
 }
 
 Panel.displayName = 'ShineoutModalPanel'
-
-Panel.propTypes = {
-  ...getProps(PropTypes),
-  footer: PropTypes.any,
-  maskCloseAble: PropTypes.bool,
-  noPadding: PropTypes.bool,
-  onClose: PropTypes.func,
-  padding: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  position: PropTypes.oneOf(['left', 'top', 'right', 'bottom']),
-  title: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
-  type: PropTypes.string,
-  width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  moveable: PropTypes.bool,
-  resizable: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
-  hideClose: PropTypes.bool,
-  from: PropTypes.string,
-  zoom: PropTypes.bool,
-  container: PropTypes.any,
-  events: PropTypes.object,
-  fullScreen: PropTypes.bool,
-  // is use in drawer
-  drawer: PropTypes.bool,
-}
-
-Panel.defaultProps = {
-  ...defaultProps,
-  top: '10vh',
-  maskCloseAble: true,
-  width: 500,
-  events: {},
-  drawer: false,
-}

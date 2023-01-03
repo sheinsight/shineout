@@ -276,7 +276,7 @@ class Dropdown extends PureComponent<DropdownProps, DropDownState> {
           } else {
             renderPlaceholder = (d as DropdownNode).content
           }
-          const children = (d as DropdownNode).childrem
+          const { children } = d as DropdownNode
           return children ? (
             <Dropdown
               style={{ width: '100%' }}

@@ -52,7 +52,7 @@ export { default as Divider } from './Divider'
 import { DividerProps as __DividerProps,  } from './Divider/interface'
 
 export { default as Drawer } from './Drawer'
-import { DrawerProps as __DrawerProps,  } from './Drawer'
+import { DrawerProps as __DrawerProps } from './Drawer/interface'
 
 export { default as Dropdown } from './Dropdown'
 import { DropdownItem as __DropdownItem, DropdownProps as __DropdownProps } from './Dropdown/interface'
@@ -87,7 +87,7 @@ export { default as Message } from './Message'
 import { MessageOptions as __MessageOptions } from './Message/interface'
 
 export { default as Modal } from './Modal'
-import { ModalProps as __ModalProps, ModalFunctionOptions as __ModalFunctionOptions,  } from './Modal'
+import { ModalProps as __ModalProps } from './Modal/interface'
 
 export { default as Pagination } from './Pagination'
 import { TextParams as __TextParams, PaginationProps as __PaginationProps } from './Pagination/interface'
@@ -212,6 +212,7 @@ export namespace TYPE {
     export type Props = __DividerProps
   }
   export namespace Drawer {
+  
     export type Props = __DrawerProps
   }
   export namespace Dropdown {
@@ -267,8 +268,8 @@ export namespace TYPE {
     export type Options = __MessageOptions
   }
   export namespace Modal {
+  
     export type Props = __ModalProps
-    export type FunctionOptions = __ModalFunctionOptions
   }
   export namespace Pagination {
 

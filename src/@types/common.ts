@@ -210,6 +210,7 @@ export interface CommonProps {
    */
   zIndex?: number
 }
+
 export declare namespace RegularAttributes {
   type Size = 'small' | 'default' | 'large'
   type Type = 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger'
