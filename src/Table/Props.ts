@@ -245,7 +245,7 @@ export interface CommonColumn<T> {
 export type ColumnItem<T> = CommonColumn<T>
 
 /** ------ context ---------- */
-export type getTableConsumerProps<Props> = Props
+export type GetTableConsumerProps<Props> = Props
 
 /** ------ tableIndex ---------- */
 export type TablePropsWithPagable<DataItem, Value> = GetPagableProps<TableProps<DataItem, Value>>

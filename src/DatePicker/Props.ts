@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react'
+import { GetTableConsumerProps } from '../Table/Props'
 import { GetInputBorderProps } from '../hoc/Props'
-import { GetInputableProps } from 'src/Form/Props'
-import { GetAbsoluteProps } from 'src/Table/context'
+import { GetInputableProps } from '../Form/Props'
 import { StandardProps, FormItemStandardProps, CommonProps } from '../@types/common'
 
 export type DateTimeType = Date | number | string | undefined
@@ -98,7 +98,7 @@ export interface DatePickerValueProps extends FormItemStandardProps {
 export type GetDatePickerValueProps<Props> = Omit<Props, 'onChange' | 'Value'> & BaseDatePickerValueProps
 
 export type ContainerProp<Value> = GetInputableProps<
-  GetInputBorderProps<GetDatePickerValueProps<GetAbsoluteProps<DatePickerProps>>>,
+  GetInputBorderProps<GetDatePickerValueProps<GetTableConsumerProps<DatePickerProps>>>,
   Value
 >
 
