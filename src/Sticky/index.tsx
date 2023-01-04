@@ -136,16 +136,13 @@ class Sticky extends PureComponent<StickyProps, StickyState> {
 
     let style
     let placeholder
-    let limitTop = top!
-    let limitBottom = viewHeight - bottom!
-
-    if (this.targetElement) {
-      const { paddingTop, paddingBottom } = getComputedStyle(scrollElement)
-      limitTop += scrollRect.top + parseInt(paddingTop, 10)
-      limitBottom = scrollRect.bottom - bottom! - parseInt(paddingBottom, 10)
-    }
 
     if (top !== undefined && mode !== 'bottom') {
+      let limitTop = top
+      if (this.targetElement) {
+        const { paddingTop } = getComputedStyle(scrollElement)
+        limitTop += scrollRect.top + parseInt(paddingTop, 10)
+      }
       if (Math.ceil(selfRect.top) < limitTop) {
         this.setState({ scrollWidth: scrollRect.width, mode: 'top' })
         style = this.getStyle('top', top, selfRect.left, selfRect.width)
@@ -171,6 +168,13 @@ class Sticky extends PureComponent<StickyProps, StickyState> {
     }
 
     if (bottom !== undefined && mode !== 'top') {
+      let limitBottom = viewHeight - bottom
+
+      if (this.targetElement) {
+        const { paddingBottom } = getComputedStyle(scrollElement)
+        limitBottom = scrollRect.bottom - bottom! - parseInt(paddingBottom, 10)
+      }
+
       if (selfRect.bottom > limitBottom) {
         this.setState({ scrollWidth: scrollRect.width, mode: 'bottom' })
         style = this.getStyle('bottom', bottom, selfRect.left, selfRect.width)

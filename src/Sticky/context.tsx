@@ -7,6 +7,6 @@ const context = createReactContext({})
 // eslint-disable-next-line
 export const Provider = context.Provider
 
-export const consumer = (Origin: React.ComponentType) => (props: StickyProps) => (
+export const consumer = (Origin: React.ComponentType<StickyProps>) => (props: StickyProps) => (
   <context.Consumer>{value => <Origin {...props} {...value} />}</context.Consumer>
 )
