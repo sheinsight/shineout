@@ -2,8 +2,8 @@ import React from 'react'
 import { Component } from '../component'
 import { getFilterTree } from '../utils/tree'
 import { IS_NOT_MATCHED_VALUE } from './Result'
+import { keyType } from '../@types/common'
 import { FilterProps, GetFilterProps, ResultValue, UnMatchedValue } from './Props'
-import { IdType } from '../Datum/Tree'
 
 const DefaultValue = {
   data: [],
@@ -21,7 +21,7 @@ export default <Item, Value>(Origin: React.ComponentType<GetFilterProps<FilterPr
   class Filter extends Component<FilterProps<Item, Value>, FilterState<Item>> {
     static defaultProps = DefaultValue
 
-    resultCache: Map<IdType, ResultValue<Value>>
+    resultCache: Map<keyType, ResultValue<Value>>
 
     timer: NodeJS.Timer
 
@@ -84,7 +84,13 @@ export default <Item, Value>(Origin: React.ComponentType<GetFilterProps<FilterPr
     }
 
     render() {
-      const { data, onFilter, expanded, showHitDescendants = DefaultValue.showHitDescendants, ...other } = this.props
+      const {
+        data = DefaultValue.data,
+        onFilter,
+        expanded,
+        showHitDescendants = DefaultValue.showHitDescendants,
+        ...other
+      } = this.props
       const { innerFilter, filterText } = this.state
       const filterFn = onFilter ? this.handleFilter : undefined
       let newData = data

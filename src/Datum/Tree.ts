@@ -268,8 +268,8 @@ export default class<Item, Value extends any[]> {
   }
 
   getKey(data: Item, id: keyType = '', index?: number): keyType {
-    if (typeof this.keygen === 'function') return this.keygen(data, id)
-    if (this.keygen) return (data[this.keygen] as unknown) as keyType
+    if (typeof this.keygen === 'function') return this.keygen(data, id as number)
+    if (this.keygen) return (data[this.keygen as keyof Item] as unknown) as keyType
     return id + (id ? ',' : '') + index
   }
 

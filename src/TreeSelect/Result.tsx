@@ -11,7 +11,7 @@ import More, { getResetMore } from '../Select/More'
 import InputTitle from '../InputTitle'
 import { getKey } from '../utils/uid'
 import { getDirectionClass } from '../utils/classname'
-import { ResultProps, ResultValue } from './Props'
+import { ResultProps, ResultValue, UnMatchedValue } from './Props'
 
 export const IS_NOT_MATCHED_VALUE = 'IS_NOT_MATCHED_VALUE'
 
@@ -20,9 +20,11 @@ const getResultContent = <Item, Value>(
   renderResult: ResultProps<Item, Value>['renderResult'],
   renderUnmatched: ResultProps<Item, Value>['renderUnmatched']
 ) => {
-  if (isObject(data) && data.IS_NOT_MATCHED_VALUE) {
-    if (typeof renderUnmatched === 'function') return renderUnmatched(data.value)
-    return isObject(data.value) ? renderResult!(data.value) : data.value
+  const unMatchedData: UnMatchedValue<Value> = data as UnMatchedValue<Value>
+
+  if (isObject(unMatchedData) && unMatchedData.IS_NOT_MATCHED_VALUE) {
+    if (typeof renderUnmatched === 'function') return renderUnmatched(unMatchedData.value)
+    return isObject(unMatchedData.value) ? renderResult!(unMatchedData.value) : unMatchedData.value
   }
   return renderResult!(data as Value)
 }
@@ -38,11 +40,11 @@ function Item<Value>({
   content: React.ReactNode | string
   data: ResultValue<Value>
   disabled: boolean
-  onClick: (value: ResultValue<Value>) => void
+  onClick: (value: Value) => void
   only: boolean
 }) {
   const value = data
-  const click = disabled || !onClick ? undefined : () => onClick(value)
+  const click = disabled || !onClick ? undefined : () => onClick(value as Value)
   const synDisabled = disabled || !click
   return (
     <a
@@ -121,8 +123,13 @@ class Result<Item, Value> extends PureComponent<ResultProps<Item, Value>, Result
       } else if (preProps.result !== result) {
         let i = preProps.result.length - 1
         while (i >= 0) {
-          const getUnMatchKey = (d: ResultValue<Value>, k: ResultProps<Item, Value>['keygen']) =>
-            d && isObject(d) && d.IS_NOT_MATCHED_VALUE ? d.value : getKey(d, k as any)
+          const getUnMatchKey = (d: ResultValue<Value>, k: ResultProps<Item, Value>['keygen']) => {
+            const unMatchedData = d as UnMatchedValue<Value>
+
+            return unMatchedData && isObject(unMatchedData) && unMatchedData.IS_NOT_MATCHED_VALUE
+              ? unMatchedData.value
+              : getKey(unMatchedData, k as any)
+          }
           const isSameData = (
             data1: ResultValue<Value>,
             data2: ResultValue<Value>,
@@ -159,7 +166,7 @@ class Result<Item, Value> extends PureComponent<ResultProps<Item, Value>, Result
     this.forceUpdate()
   }
 
-  handleRemove(...args: [Item]) {
+  handleRemove(...args: [Value]) {
     const { onRemove } = this.props
     onRemove(...args)
   }

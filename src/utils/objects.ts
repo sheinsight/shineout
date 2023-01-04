@@ -112,12 +112,12 @@ export const deepSet = (target: ObjectType, path: string, value: any, options: d
   if (path === '') {
     const dest = deepMerge(target, value, mergeOptions)
     Object.keys(dest).forEach(k => {
-      target[k] = dest[k]
+      ;((target as unknown) as ObjectType)[k] = dest[k]
     })
     return target
   }
 
-  let current = target
+  let current: any = target
   for (const [prop, next, mode] of pathGenerator(path)) {
     if (next) {
       const nextIsArray = /^\[\d+\]/.test(next)
@@ -177,7 +177,7 @@ export const deepRemove = (target: ObjectType, path: string) => {
   if (!isObject(target)) throw new Error('Target must be an object.')
   if (typeof path !== 'string' || !path) throw new Error('Path must be a string.')
 
-  let current = target
+  let current: any = target
   let nextIsArray = false
   for (const [prop, next] of pathGenerator(path)) {
     if (current == null || !hasOwnProperty.call(current, prop)) {
@@ -188,7 +188,7 @@ export const deepRemove = (target: ObjectType, path: string) => {
       nextIsArray = /^\[\d+\]/.test(next)
     } else if (isObject(current)) {
       if (nextIsArray) throw new Error('Target is an object, expect array')
-      delete current[prop]
+      delete (current as ObjectType)[prop]
     } else {
       if (!nextIsArray) throw new Error('Target is an array, expect object')
       current.splice(prop, 1)
@@ -204,7 +204,7 @@ export const deepHas = (target: ObjectType, path: string) => {
 
   if (path === '') return true
 
-  let current = target
+  let current: any = target
   for (const [prop, ,] of pathGenerator(path)) {
     if (!current || !hasOwnProperty.call(current, prop)) return false
     current = current[prop]

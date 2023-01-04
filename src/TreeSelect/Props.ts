@@ -346,7 +346,8 @@ export interface BaseTreeSelectProps<Item, Value>
   renderItem?: ((data: Item, expanded: string[], active?: any, id?: string) => React.ReactNode) | LiteralUnion<Item>
 }
 
-export interface InputProps<Item, Value> extends Pick<BaseTreeSelectProps<Item, Value>, 'onFilter'> {
+export interface InputProps {
+  onFilter?: (text: string, from?: string) => void
   focus: boolean
   multiple?: boolean
   updatAble: boolean
@@ -370,7 +371,7 @@ export interface ResultProps<Item, Value>
   disabled?: ((data: Item) => boolean) | boolean
   filterText?: string
   focus: boolean
-  onRemove: (data: Item) => void
+  onRemove: (data: Item | Value) => void
   onClear?: () => void
   result: ResultValue<Value>[]
   setInputReset: (fn: () => void) => void
@@ -463,14 +464,19 @@ export type TreeSelectPropsWidthDatum<Item, Value> = GetTreeDatumProps<
 >
 
 export type TreeSelectPropsWidthInputBorder<Item, Value> = GetInputBorderProps<
-  TreeSelectPropsWidthDatum<Item, Value>
+  TreeSelectPropsWidthDatum<Item, Value> & {
+    onBlur: (e?: any) => void
+    onFocus: (e?: any) => void
+  }
 > & {
   onBlur: (e?: any) => void
   onFocus: (e?: any) => void
 }
 
 export type TreeSelectPropsWidthInputable<Item, Value> = GetInputableProps<
-  TreeSelectPropsWidthInputBorder<Item, Value>,
+  TreeSelectPropsWidthInputBorder<Item, Value> & {
+    onChange: (value: Value) => void
+  },
   Value
 >
 

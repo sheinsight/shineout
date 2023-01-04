@@ -8,7 +8,7 @@ const DefaultValue = {
   updatAble: false,
 }
 
-class FilterInput<Item, Value> extends Component<InputProps<Item, Value>> {
+class FilterInput extends Component<InputProps> {
   static defaultProps = DefaultValue
 
   editElement: HTMLSpanElement
@@ -17,7 +17,7 @@ class FilterInput<Item, Value> extends Component<InputProps<Item, Value>> {
 
   handleBlur: React.FocusEventHandler<HTMLSpanElement> | undefined
 
-  constructor(props: InputProps<Item, Value>) {
+  constructor(props: InputProps) {
     super(props)
 
     this.bindElement = this.bindElement.bind(this)
@@ -37,7 +37,7 @@ class FilterInput<Item, Value> extends Component<InputProps<Item, Value>> {
     return this.props.updatAble
   }
 
-  componentDidUpdate(prevProps: InputProps<Item, Value>) {
+  componentDidUpdate(prevProps: InputProps) {
     if (this.props.focus === prevProps.focus || !this.props.focus) return
     this.focus()
   }

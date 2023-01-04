@@ -13,9 +13,9 @@ interface DataItem {
   children?: DataItem[]
 }
 
-type TreeSelectProps = TYPE.TreeSelect.Props<DataItem, string[]>
+type TreeSelectProps = TYPE.TreeSelect.Props<DataItem, DataItem[]>
 
-type TreeSelectRef = TYPE.TreeSelect.ComponentRef<DataItem, string[]>
+type TreeSelectRef = TYPE.TreeSelect.ComponentRef<DataItem>
 
 const data: TreeSelectProps['data'] = [
   {

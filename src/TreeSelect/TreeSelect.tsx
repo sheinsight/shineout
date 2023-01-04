@@ -12,7 +12,7 @@ import List from '../AnimationList'
 import { getLocale } from '../locale'
 import { isRTL } from '../config'
 import { getDirectionClass } from '../utils/classname'
-import { TreeSelectProps, UnMatchedValue } from './Props'
+import { ResultValue, TreeSelectProps, UnMatchedValue } from './Props'
 
 const DefaultValue = {
   clearable: false,
@@ -239,7 +239,7 @@ export default class TreeSelect<Item, Value extends string> extends PureComponen
     }
   }
 
-  handleRemove(data: Item | UnMatchedValue<Value>) {
+  handleRemove(data: Item | ResultValue<Value>) {
     const { datum } = this.props
     const dataKey = data && datum.isUnMatch(data) ? (data as UnMatchedValue<Value>).value : datum.getKey(data as Item)
     datum.set(dataKey as string, 0)
@@ -282,7 +282,7 @@ export default class TreeSelect<Item, Value extends string> extends PureComponen
 
   renderItem(data: Item, index: number) {
     const { renderItem } = this.props
-    return typeof renderItem === 'function' ? renderItem(data, index) : data[renderItem as keyof Item]
+    return typeof renderItem === 'function' ? renderItem(data, index as any) : data[renderItem as keyof Item]
   }
 
   renderActive(data: Item, expanded: string[], active: boolean, id: string) {
