@@ -51,7 +51,6 @@ export default Origin =>
         if (!res) {
           res = datum.getDataById(v)
           if (res && !noCache && !res[IS_NOT_MATCHED_VALUE]) this.resultCache.set(v, res)
-          else if (!res) res = { [IS_NOT_MATCHED_VALUE]: true, value: v }
         }
         if (res) {
           result.push(res)
