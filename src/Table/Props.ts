@@ -261,7 +261,7 @@ export interface TableIndexProps<DataItem, Value>
     | 'externalExpandRender'
     | 'externalExpandClick'
   > {
-  columns: ColumnItem<DataItem>[]
+  columns?: ColumnItem<DataItem>[]
   /**
    * Select row. Rows is the selected data.
    *

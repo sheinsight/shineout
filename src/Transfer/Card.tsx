@@ -107,7 +107,7 @@ class Card<DataItem, Value extends any[]> extends PureComponent<CardProps<DataIt
   }
 
   renderLazyList() {
-    const { filterText, data, rowsInView, lineHeight } = this.props
+    const { filterText, data, rowsInView, lineHeight, keygen } = this.props
     const { mounted, listHeight } = this.state
     if (!mounted) return null
     return (
@@ -117,7 +117,8 @@ class Card<DataItem, Value extends any[]> extends PureComponent<CardProps<DataIt
         itemsInView={rowsInView}
         lineHeight={lineHeight}
         height={listHeight}
-        scrollHeight={lineHeight * data.length}
+        keygen={keygen}
+        // scrollHeight={lineHeight * data.length}
         renderItem={this.handleRenderItem}
       />
     )

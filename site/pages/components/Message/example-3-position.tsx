@@ -7,11 +7,10 @@
 import React, { useState } from 'react'
 import { Button, Message, Select, TYPE } from 'shineout'
 
-type MessageProps = TYPE.Message.Props
-type MessagePosition = MessageProps['position']
+type MessageOptions = TYPE.Message.Options
 
 const App: React.FC = () => {
-  const [position, setPosition] = useState<MessagePosition>('top-right')
+  const [position, setPosition] = useState<MessageOptions['position']>('top-right')
 
   const show = () => {
     Message.info(<div style={{ width: 240 }}>some message.</div>, 3, {

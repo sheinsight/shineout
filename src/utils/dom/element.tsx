@@ -17,12 +17,12 @@ if (Element && !Element.prototype.matches) {
     proto.webkitMatchesSelector
 }
 
-export function getParent(el: HTMLElement, target: string | HTMLElement) {
+export function getParent(el: HTMLElement | Element, target: string | HTMLElement) {
   if (!target) {
     return null
   }
 
-  let temp: HTMLElement | null = el
+  let temp: HTMLElement | Element | null = el
   while (temp) {
     if (typeof target === 'string') {
       if (temp.matches && temp.matches(target)) {

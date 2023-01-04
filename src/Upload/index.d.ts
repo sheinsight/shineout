@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { StandardProps, FormItemStandardProps } from "../@types/common"
-import { PopoverConfirmProps } from '../Popover'
-import {GapProps} from '../Gap/index.d.js'
+import { PopoverConfirmProps } from '../Popover/Props'
+import {GapProps} from '../Gap/interface'
 
-import { ButtonType } from '../Button/interface'
+import { ButtonType } from '../Button/Props'
 
 type ReactNode = React.ReactNode;
 
@@ -397,6 +397,8 @@ export interface UploadProps<T> extends StandardProps, OmitFormProps<T[]> {
 
 
 export interface UploadImageProps<T> extends UploadProps<T>{
+  width?: number;
+  height?: number;
 
   /**
    * The content of the upload button. It can be empty.

@@ -112,11 +112,11 @@ const App: React.FC = () => {
             <Select
               keygen="id"
               name="city"
+              format="id"
               data={citys}
               renderItem="city"
               style={{ width: 200 }}
               rules={[rule.required]}
-              datum={{ format: 'id' }}
             />
           </Form.Item>
         </Form.FieldSet>
