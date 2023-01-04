@@ -13,14 +13,14 @@ import { itemConsumer } from './Item'
 import { fieldSetConsumer } from './FieldSet'
 import ListDatum from '../Datum/List'
 import { ObjectType } from '../@types/common'
-import { RuleParamsType } from '../Rule/index'
-import { InputableProps, BaseInputProps, GetInputableProps } from './Props'
+import { FormItemRule } from '../Rule/interface'
+import { InputableProps, BaseInputProps, GetInputableProps, InputableFormConsumerKey } from './Props'
 
 interface CustomValidateType {
   (...args: any): Promise<any>
 }
 
-const types: ('formDatum' | 'disabled' | 'combineRules' | 'size')[] = ['formDatum', 'disabled', 'combineRules', 'size']
+const types: InputableFormConsumerKey[] = ['formDatum', 'disabled', 'combineRules', 'size']
 
 const tryValue = (val: unknown, def: unknown) => (val === undefined ? def : val)
 
@@ -41,7 +41,7 @@ interface InputableState<Value> {
 export default <Value, U extends BaseInputProps, Item = any>(Origin: ComponentType<U>) => {
   class InputableInner extends Component<InputableProps<Value>, InputableState<Value>> {
     static defaultProps: any = {
-      rules: [] as RuleParamsType<Value>,
+      rules: [] as FormItemRule<Value>,
       scuSkip: ['onChange', 'rules'],
     }
 

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { RuleParamsType } from '../Rule'
+import { FormItemRule } from '../Rule/interface'
 
 export interface StandardProps {
   /**
@@ -97,7 +97,7 @@ export interface FormItemStandardProps<Value = any> {
    *
    * default: -
    */
-  rules?: RuleParamsType<Value>
+  rules?: FormItemRule<Value>
 
   /**
    * Binding validation field name. When the value changes, the bound field validation is triggered.
@@ -179,7 +179,7 @@ export interface StructDataStandardProps<Item = any> {
    *
    * default: empty data
    */
-  data: Item[]
+  data?: Item[]
 }
 
 export interface CommonProps {
@@ -210,6 +210,7 @@ export interface CommonProps {
    */
   zIndex?: number
 }
+
 export declare namespace RegularAttributes {
   type Size = 'small' | 'default' | 'large'
   type Type = 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger'
@@ -223,4 +224,4 @@ export type ValueOf<T> = T[keyof T]
 
 export type ForceAdd<U extends {}, V> = U & Omit<V, keyof U>
 
-export type PartialKeys<U, keys extends string> = Omit<U, keys> & (keys extends keyof U ? Partial<Pick<U, keys>> : {})
+export type PartialKeys<U, keys extends keyof U> = Omit<U, keys> & Partial<Pick<U, keys>>

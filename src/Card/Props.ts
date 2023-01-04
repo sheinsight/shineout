@@ -1,5 +1,5 @@
 import { ReactNode, Component } from 'react'
-import { ButtonProps } from '../Button/interface'
+import { ButtonProps } from '../Button/Props'
 import { RegularAttributes, StandardProps } from '../@types/common'
 import { ResizableType, MovableType } from '../hoc/Props'
 

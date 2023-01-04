@@ -1,16 +1,23 @@
-import { RuleParamsType } from '../Rule'
+import { FormItemRule } from '../Rule/interface'
 import { ForceAdd, LiteralUnion, ObjectType } from '../@types/common'
 import { ValidType } from './types'
 
 interface RuleObject {
-  [name: string]: RuleParamsType<any> | RuleObject
+  [name: string]: FormItemRule<any> | RuleObject
 }
-export interface ValidFunc {
-  (v: any, formValue: ObjectType, type: ValidType): Promise<any>
-  (type: ValidType): Promise<any>
+export interface FormValid {
+  (v: any, formValue: ObjectType, type?: ValidType): Promise<any>
+  (type?: ValidType): Promise<any>
 }
 
 export interface FormDatumOptions<V extends {}> {
+  /**
+   * When removeUndefined is true, remove undefined value on submit.
+   *
+   * 是否删除值为 undefined 的字段，默认值为删除
+   *
+   * default: true
+   */
   removeUndefined?: boolean
   rules?: RuleObject
   onChange?: (value: V) => void
@@ -50,7 +57,7 @@ export interface ListDatumOptions<Item, Value> {
    *
    * default: d => d
    */
-  format?: LiteralUnion<Item> | ((data: Item) => Value)
+  format?: LiteralUnion<Item> | ((data: Item) => Value extends (infer U)[] ? U : Value)
 }
 
 export interface DatumHocOptions<Props> {
@@ -83,3 +90,9 @@ export type GetDatumListProps<
   Keys extends keyof ListDatumOptions<DataItem, Value>
 > = DatumAddProps &
   Omit<ForceAdd<U, Pick<ListDatumOptions<DataItem, Value>, Keys | 'onChange' | 'value'>>, keyof DatumAddProps>
+
+export type GetDatumFormProps<U, Value, Keys extends keyof FormDatumOptions<Value>> = DatumAddProps &
+  Omit<
+    ForceAdd<U, Pick<FormDatumOptions<Value>, Keys | 'onChange' | 'value' | 'initValidate' | 'defaultValue'>>,
+    keyof DatumAddProps
+  >
