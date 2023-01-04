@@ -159,9 +159,8 @@ class Result<Item, Value> extends PureComponent<ResultProps<Item, Value>, Result
     this.forceUpdate()
   }
 
-  handleRemove(...args: any) {
+  handleRemove(...args: [Item]) {
     const { onRemove } = this.props
-    // @ts-ignore
     onRemove(...args)
   }
 

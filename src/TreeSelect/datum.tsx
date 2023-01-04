@@ -10,7 +10,7 @@ function toArray<Value>(value: Value) {
 }
 
 export default function datum<Item, Value>(
-  Origin: React.ComponentType<GetTreeDatumProps<TreeDatumProps<Item, Value>, Item>>
+  Origin: React.ComponentType<GetTreeDatumProps<TreeDatumProps<Item, Value>, Item, Value>>
 ) {
   return class TreeDatum extends React.Component<TreeDatumProps<Item, Value>> {
     static defaultProps = {

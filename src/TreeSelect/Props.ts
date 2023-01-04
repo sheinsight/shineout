@@ -2,6 +2,7 @@ import * as React from 'react'
 import {
   CommonProps,
   KeygenType,
+  LiteralUnion,
   StandardProps,
   FormItemStandardProps,
   StructDataStandardProps,
@@ -12,15 +13,17 @@ import { GetInputableProps } from '../Form/Props'
 
 type ReactNode = React.ReactNode
 
-export interface ComponentRef<Item, Value> {
-  getDataByValues: (values: Value) => Value extends any[] ? Item[] : Item
+export interface ComponentRef<Value> {
+  getDataByValues: (values: Value[]) => Value
 }
 
-export interface BaseTreeSelectProps<Item, Value = string | string[]>
+export interface BaseTreeSelectProps<Item, Value>
   extends StandardProps,
     FormItemStandardProps<Value>,
-    Omit<StructDataStandardProps<Item>, 'renderResult'>,
+    Omit<StructDataStandardProps<Item>, 'renderResult' | 'renderItem'>,
     Pick<CommonProps, 'absolute'> {
+  position?: 'drop-up' | 'drop-down'
+  empty?: string
   /**
    * show border bottom
    *
@@ -55,7 +58,7 @@ export interface BaseTreeSelectProps<Item, Value = string | string[]>
    *
    * default: -
    */
-  onEnterExpand?: (e: Event) => boolean
+  onEnterExpand?: (e: React.KeyboardEvent<HTMLDivElement>) => boolean
 
   /**
    * If clearable is true, show clear value icon
@@ -179,7 +182,7 @@ export interface BaseTreeSelectProps<Item, Value = string | string[]>
    * 参数 为 当前选中值
    * default: -
    */
-  onChange?: (value: Value, selected?: Item) => void
+  onChange?: (value: Value, selected?: Item, path?: string[]) => void
 
   /**
    * onChange additional parameters (current is the data of the clicked node, data is the currently selected data, checked is whether it is selected or canceled in the multi-select state)
@@ -191,8 +194,8 @@ export interface BaseTreeSelectProps<Item, Value = string | string[]>
   onChangeAddition?: (
     params: {
       current?: Item
-      checked?: 0 | 1
-      data?: (Value extends Array<any> ? Item[] : Item) | null
+      checked?: 0 | 1 | 2
+      data?: Item[] | Item | null
     }
   ) => void
 
@@ -329,7 +332,7 @@ export interface BaseTreeSelectProps<Item, Value = string | string[]>
    *
    * default: -
    */
-  getComponentRef?: ((ref: ComponentRef<Item, any>) => void) | { current?: ComponentRef<Item, any> }
+  getComponentRef?: ((ref: ComponentRef<any>) => void) | { current?: ComponentRef<any> }
 
   /**
    * The content displayed in the result after selecting, if not set, use renderItem. not show while return null, result is current selected
@@ -338,7 +341,9 @@ export interface BaseTreeSelectProps<Item, Value = string | string[]>
    *
    * default: renderItem
    */
-  renderResult?: (data: Item | Value) => React.ReactNode
+  renderResult?: (data: Item | Value, index?: number) => React.ReactNode
+
+  renderItem?: ((data: Item, expanded: string[], active?: any, id?: string) => React.ReactNode) | LiteralUnion<Item>
 }
 
 export interface InputProps<Item, Value> extends Pick<BaseTreeSelectProps<Item, Value>, 'onFilter'> {
@@ -369,7 +374,7 @@ export interface ResultProps<Item, Value>
   onClear?: () => void
   result: ResultValue<Value>[]
   setInputReset: (fn: () => void) => void
-  compressed?: boolean
+  compressed?: boolean | 'no-repeat'
   compressedBound?: number
   data: Item[]
   onFilter?: (text: string, from?: string) => void
@@ -401,8 +406,8 @@ export interface TreeDatumProps<Item, Value>
     'loader' | 'data' | 'disabled' | 'mode' | 'onChange' | 'value' | 'keygen' | 'multiple' | 'childrenKey' | 'unmatch'
   > {}
 
-export type GetTreeDatumProps<Props, Item> = Omit<Props, 'datum'> & {
-  datum: DatumTree<Item, any[]>
+export type GetTreeDatumProps<Props, Item, Value> = Omit<Props, 'datum'> & {
+  datum: DatumTree<Item, Value[]>
 }
 
 export interface FilterProps<Item, Value>
@@ -418,7 +423,7 @@ export interface FilterProps<Item, Value>
     | 'renderUnmatched'
     | 'childrenKey'
   > {
-  datum: DatumTree<Item, any[]>
+  datum: DatumTree<Item, Value[]>
   noCache: boolean
   onAdvancedFilter: boolean
 }
@@ -453,7 +458,8 @@ export type TreeSelectPropsWidthAdvancedFilterHOC<Item, Value> = GetAdvancedFilt
 
 export type TreeSelectPropsWidthDatum<Item, Value> = GetTreeDatumProps<
   TreeSelectPropsWidthAdvancedFilterHOC<Item, Value>,
-  Item
+  Item,
+  Value
 >
 
 export type TreeSelectPropsWidthInputBorder<Item, Value> = GetInputBorderProps<
@@ -470,4 +476,16 @@ export type TreeSelectPropsWidthInputable<Item, Value> = GetInputableProps<
 
 export type TreeSelectProps<Item, Value> = TreeSelectPropsWidthInputable<Item, Value>
 
-// const a: TreeSelectPropsWidthAdvancedFilterHOC<any, any>
+export type GetTreeSelectProps<Item, Value> = Omit<
+  TreeSelectProps<Item, Value>,
+  'onFocus' | 'onBlur' | 'datum' | 'filterText' | 'result' | 'rawData'
+>
+
+export declare class TreeSelectClass<Item = any, Value = any> extends React.Component<
+  GetTreeSelectProps<Item, Value>,
+  {}
+> {
+  render(): JSX.Element
+}
+
+export type TreeSelectType = typeof TreeSelectClass

@@ -12,7 +12,7 @@ import List from '../AnimationList'
 import { getLocale } from '../locale'
 import { isRTL } from '../config'
 import { getDirectionClass } from '../utils/classname'
-import { TreeSelectProps } from './Props'
+import { TreeSelectProps, UnMatchedValue } from './Props'
 
 const DefaultValue = {
   clearable: false,
@@ -20,16 +20,16 @@ const DefaultValue = {
   absolute: false,
   multiple: false,
   line: false,
-  renderItem: e => e,
+  renderItem: <Item extends {}>(e: Item) => e,
   height: 300,
   data: [],
   defaultExpanded: [],
 }
 
 const ScaleList = List(['fade', 'scale-y'], 'fast')
-const OptionList = absoluteList(({ focus, ...other }) => <ScaleList show={focus} {...other} />)
+const OptionList = absoluteList(({ focus, ...other }: { focus: boolean }) => <ScaleList show={focus} {...other} />)
 
-const isDescendent = (el, id) => {
+const isDescendent = (el: Element, id: string): boolean => {
   if (el.getAttribute('data-id') === id) return true
   if (!el.parentElement) return false
   return isDescendent(el.parentElement, id)
@@ -40,7 +40,7 @@ interface TreeSelectState {
   position: string
 }
 
-export default class TreeSelect<Item, Value = string | string[]> extends PureComponent<
+export default class TreeSelect<Item, Value extends string> extends PureComponent<
   TreeSelectProps<Item, Value>,
   TreeSelectState
 > {
@@ -134,11 +134,11 @@ export default class TreeSelect<Item, Value = string | string[]> extends PureCom
   getValue() {
     const { datum, multiple } = this.props
     const value = datum.getValue()
-    if (multiple) return value
-    return value.length ? value[0] : ''
+    if (multiple) return (value as unknown) as Value
+    return ((value.length ? value[0] : '') as unknown) as Value
   }
 
-  getDataByValue(value: string | string[]) {
+  getDataByValue(value: Value | Value[]) {
     if (value === null || value === undefined) return value
     const { datum, multiple } = this.props
     if (multiple && Array.isArray(value)) {
@@ -177,7 +177,7 @@ export default class TreeSelect<Item, Value = string | string[]> extends PureCom
     document.removeEventListener('mousedown', this.handleClickAway)
   }
 
-  handleClickAway(e: MouseEvent) {
+  handleClickAway(e: any) {
     const desc = isDescendent(e.target, this.treeSelectId)
     if (!desc) {
       this.clearClickAway()
@@ -186,7 +186,7 @@ export default class TreeSelect<Item, Value = string | string[]> extends PureCom
     }
   }
 
-  handleState(focus: boolean, e?: React.MouseEvent<HTMLDivElement>) {
+  handleState(focus: boolean, e?: any) {
     if (this.props.disabled === true) return
     if (focus === this.state.focus) return
     // click close icon
@@ -213,7 +213,7 @@ export default class TreeSelect<Item, Value = string | string[]> extends PureCom
     this.bindClickAway()
   }
 
-  handleKeyDown(e) {
+  handleKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
     const { onEnterExpand } = this.props
     if (e.keyCode === 13) {
       e.preventDefault()
@@ -232,34 +232,35 @@ export default class TreeSelect<Item, Value = string | string[]> extends PureCom
       this.props.onBlur()
       // e.preventDefault()
       if (this.state.focus) {
-        this.handleState(false, e, true)
+        this.handleState(false, e)
       } else {
         this.clearClickAway()
       }
     }
   }
 
-  handleRemove(data) {
+  handleRemove(data: Item | UnMatchedValue<Value>) {
     const { datum } = this.props
-    const dataKey = data && datum.isUnMatch(data) ? data.value : datum.getKey(data)
-    datum.set(dataKey, 0)
-    this.handleChange(data, datum.getKey(data))
+    const dataKey = data && datum.isUnMatch(data) ? (data as UnMatchedValue<Value>).value : datum.getKey(data as Item)
+    datum.set(dataKey as string, 0)
+    this.handleChange(data as Item, datum.getKey(data as Item))
   }
 
-  handleChange(data, id) {
+  handleChange(data: Item, id: string | number) {
     const { datum, multiple, disabled, onChange, onChangeAddition } = this.props
     if (disabled === true || datum.isDisabled(id)) return
-    const current = datum.getDataById(id)
+    const current = datum.getDataById(id) as Item
     if (!multiple) {
       datum.setValue([])
       datum.set(datum.getKey(data), 1)
       this.handleState(false)
     }
     const value = this.getValue()
-    onChange(value, current, id && datum.getPath(id).path)
+    if (onChange) onChange(value, current, id && (datum.getPath(id)!.path as any))
+
     if (typeof onChangeAddition === 'function') {
       onChangeAddition({
-        data: this.getDataByValue(value),
+        data: this.getDataByValue(value) as Item,
         checked: multiple ? datum.get(id) : undefined,
         current,
       })
@@ -269,7 +270,7 @@ export default class TreeSelect<Item, Value = string | string[]> extends PureCom
   handleClear() {
     const { multiple, onChangeAddition } = this.props
     this.props.datum.setValue([])
-    this.props.onChange(multiple ? [] : '')
+    this.props.onChange!(((multiple ? [] : '') as unknown) as Value)
     if (typeof onChangeAddition === 'function') {
       onChangeAddition({
         data: multiple ? [] : null,
@@ -279,14 +280,15 @@ export default class TreeSelect<Item, Value = string | string[]> extends PureCom
     this.element.focus()
   }
 
-  renderItem(data, index) {
+  renderItem(data: Item, index: number) {
     const { renderItem } = this.props
-    return typeof renderItem === 'function' ? renderItem(data, index) : data[renderItem]
+    return typeof renderItem === 'function' ? renderItem(data, index) : data[renderItem as keyof Item]
   }
 
-  renderActive(data, expanded, active, id) {
+  renderActive(data: Item, expanded: string[], active: boolean, id: string) {
     const { renderItem, datum } = this.props
-    const item = typeof renderItem === 'function' ? renderItem(data, expanded, active, id) : data[renderItem]
+    const item =
+      typeof renderItem === 'function' ? renderItem(data, expanded, active, id) : data[renderItem as keyof Item]
 
     return (
       <span
@@ -305,7 +307,7 @@ export default class TreeSelect<Item, Value = string | string[]> extends PureCom
   renderTreeOptions() {
     const { focus, position } = this.state
     const { multiple, datum, data, absolute, height, zIndex, compressed, value } = this.props
-    const props = {}
+    const props: any = {}
     ;[
       'mode',
       'data',
@@ -323,14 +325,14 @@ export default class TreeSelect<Item, Value = string | string[]> extends PureCom
       'childrenKey',
       'expandIcons',
     ].forEach(k => {
-      props[k] = this.props[k]
+      props[k] = this.props[k as keyof TreeSelectProps<Item, Value>]
     })
     props.value = datum.getValue()
     if (multiple) {
       props.onChange = this.handleChange
     } else {
       props.onClick = this.handleChange
-      props.renderItem = this.renderActive
+      props.renderActive = this.renderActive
       props.active = props.value.length ? props.value[0] : null
     }
     const content =
@@ -428,42 +430,3 @@ export default class TreeSelect<Item, Value = string | string[]> extends PureCom
     )
   }
 }
-
-// TreeSelect.propTypes = {
-//   ...getProps(PropTypes, 'placehodler', 'keygen'),
-//   value: PropTypes.oneOfType([PropTypes.array, PropTypes.any]),
-//   getComponentRef: PropTypes.func,
-//   clearable: PropTypes.bool,
-//   data: PropTypes.array,
-//   datum: PropTypes.object,
-//   disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
-//   filterText: PropTypes.string,
-//   renderResult: PropTypes.func,
-//   height: PropTypes.number,
-//   multiple: PropTypes.bool,
-//   position: PropTypes.string,
-//   renderItem: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-//   result: PropTypes.array,
-//   size: PropTypes.string,
-//   defaultExpanded: PropTypes.arrayOf(PropTypes.string),
-//   expanded: PropTypes.arrayOf(PropTypes.string),
-//   loader: PropTypes.func,
-//   mode: PropTypes.oneOf([0, 1, 2, 3, 4]),
-//   line: PropTypes.bool,
-//   onChange: PropTypes.func,
-//   onSelect: PropTypes.func,
-//   onExpand: PropTypes.func,
-//   onBlur: PropTypes.func,
-//   onFilter: PropTypes.func,
-//   onFocus: PropTypes.func,
-//   empty: PropTypes.string,
-//   compressed: PropTypes.bool,
-//   compressedBound: PropTypes.number,
-//   absolute: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
-//   parentClickExpand: PropTypes.bool,
-//   zIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-//   renderUnmatched: PropTypes.func,
-//   onCollapse: PropTypes.func,
-//   onChangeAddition: PropTypes.func,
-//   innerTitle: PropTypes.node,
-// }
