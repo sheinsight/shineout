@@ -683,7 +683,12 @@ export type SelectPropsWidthLimitWrap<Item, Value> = GetLimitWrapProps<SelectPro
 export type SelectPropsWidthDatum<Item, Value> = GetDatumProps<SelectPropsWidthLimitWrap<Item, Value>> & {
   datum: List<Item, Value>
 }
-export type SelectPropsWidthInputBorder<Item, Value> = GetInputBorderProps<SelectPropsWidthDatum<Item, Value>> & {
+export type SelectPropsWidthInputBorder<Item, Value> = GetInputBorderProps<
+  SelectPropsWidthDatum<Item, Value> & {
+    onBlur: (e?: any) => void
+    onFocus: (e?: any) => void
+  }
+> & {
   onBlur: (e?: any) => void
   onFocus: (e?: any) => void
 }

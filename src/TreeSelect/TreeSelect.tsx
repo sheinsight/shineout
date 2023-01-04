@@ -1,9 +1,7 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { isFunc, isArray } from '../utils/is'
 import Tree from '../Tree'
 import { PureComponent } from '../component'
-import { getProps } from '../utils/proptypes'
 import { getUidStr } from '../utils/uid'
 import { treeSelectClass } from './styles'
 import Result from './Result'
@@ -14,18 +12,53 @@ import List from '../AnimationList'
 import { getLocale } from '../locale'
 import { isRTL } from '../config'
 import { getDirectionClass } from '../utils/classname'
+import { ResultValue, TreeSelectProps, UnMatchedValue } from './Props'
+
+const DefaultValue = {
+  clearable: false,
+  compressed: false,
+  absolute: false,
+  multiple: false,
+  line: false,
+  renderItem: <Item extends {}>(e: Item) => e,
+  height: 300,
+  data: [],
+  defaultExpanded: [],
+}
 
 const ScaleList = List(['fade', 'scale-y'], 'fast')
-const OptionList = absoluteList(({ focus, ...other }) => <ScaleList show={focus} {...other} />)
+const OptionList = absoluteList(({ focus, ...other }: { focus: boolean }) => <ScaleList show={focus} {...other} />)
 
-const isDescendent = (el, id) => {
+const isDescendent = (el: Element, id: string): boolean => {
   if (el.getAttribute('data-id') === id) return true
   if (!el.parentElement) return false
   return isDescendent(el.parentElement, id)
 }
 
-export default class TreeSelect extends PureComponent {
-  constructor(props) {
+interface TreeSelectState {
+  focus: boolean
+  position: string
+}
+
+export default class TreeSelect<Item, Value extends string> extends PureComponent<
+  TreeSelectProps<Item, Value>,
+  TreeSelectState
+> {
+  static defaultProps = DefaultValue
+
+  treeSelectId: string
+
+  handleClick: any
+
+  handleBlur: any
+
+  resetAbsoluteListPosition: (clean?: boolean) => void
+
+  inputReset: (fn: () => void) => void
+
+  element: HTMLDivElement
+
+  constructor(props: TreeSelectProps<Item, Value>) {
     super(props)
     this.state = {
       focus: false,
@@ -61,7 +94,7 @@ export default class TreeSelect extends PureComponent {
     }
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(_prevProps: TreeSelectProps<Item, Value>, prevState: TreeSelectState) {
     const { onFilter, datum, mode } = this.props
 
     datum.mode = mode
@@ -79,7 +112,7 @@ export default class TreeSelect extends PureComponent {
     this.clearClickAway()
   }
 
-  onExpandHandler(...args) {
+  onExpandHandler(...args: [any]) {
     if (this.resetAbsoluteListPosition) {
       setTimeout(() => {
         this.resetAbsoluteListPosition(true)
@@ -90,31 +123,31 @@ export default class TreeSelect extends PureComponent {
     }
   }
 
-  getText(key) {
+  getText(key: string) {
     return this.props.empty || getLocale(key)
   }
 
-  setInputReset(fn) {
+  setInputReset(fn: (fn: () => void) => void) {
     this.inputReset = fn
   }
 
   getValue() {
     const { datum, multiple } = this.props
     const value = datum.getValue()
-    if (multiple) return value
-    return value.length ? value[0] : ''
+    if (multiple) return (value as unknown) as Value
+    return ((value.length ? value[0] : '') as unknown) as Value
   }
 
-  getDataByValue(value) {
+  getDataByValue(value: Value | Value[]) {
     if (value === null || value === undefined) return value
     const { datum, multiple } = this.props
-    if (multiple) {
+    if (multiple && Array.isArray(value)) {
       return value.map(id => datum.getDataById(id))
     }
-    return datum.getDataById(value)
+    return datum.getDataById(value as string)
   }
 
-  getDataByValues(values) {
+  getDataByValues(values: Value[]) {
     const { datum } = this.props
     if (isArray(values)) {
       return values.map(id => datum.getDataById(id))
@@ -122,15 +155,15 @@ export default class TreeSelect extends PureComponent {
     return datum.getDataById(values)
   }
 
-  getResetPosition(update) {
+  getResetPosition(update: (clean?: boolean) => void) {
     this.resetAbsoluteListPosition = update
   }
 
-  bindElement(el) {
+  bindElement(el: HTMLDivElement) {
     this.element = el
   }
 
-  shouldFocus(el) {
+  shouldFocus(el: HTMLDivElement) {
     if (el.getAttribute('data-id') === this.treeSelectId) return true
     if (getParent(el, `.${treeSelectClass(getDirectionClass('result'))}`)) return true
     return false
@@ -144,7 +177,7 @@ export default class TreeSelect extends PureComponent {
     document.removeEventListener('mousedown', this.handleClickAway)
   }
 
-  handleClickAway(e) {
+  handleClickAway(e: any) {
     const desc = isDescendent(e.target, this.treeSelectId)
     if (!desc) {
       this.clearClickAway()
@@ -153,13 +186,13 @@ export default class TreeSelect extends PureComponent {
     }
   }
 
-  handleState(focus, e) {
+  handleState(focus: boolean, e?: any) {
     if (this.props.disabled === true) return
     if (focus === this.state.focus) return
     // click close icon
-    if (focus && e && e.target.classList.contains(treeSelectClass('close'))) return
+    if (focus && e && (e.target as HTMLDivElement).classList.contains(treeSelectClass('close'))) return
 
-    const { height, onCollapse } = this.props
+    const { height = DefaultValue.height, onCollapse } = this.props
     let { position } = this.props
     const windowHeight = docSize.height
     const bottom = height + this.element.getBoundingClientRect().bottom
@@ -174,13 +207,13 @@ export default class TreeSelect extends PureComponent {
     }
   }
 
-  handleFocus(e) {
+  handleFocus(e: React.FocusEvent<HTMLDivElement>) {
     if (!this.shouldFocus(e.target)) return
     this.props.onFocus(e)
     this.bindClickAway()
   }
 
-  handleKeyDown(e) {
+  handleKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
     const { onEnterExpand } = this.props
     if (e.keyCode === 13) {
       e.preventDefault()
@@ -199,34 +232,35 @@ export default class TreeSelect extends PureComponent {
       this.props.onBlur()
       // e.preventDefault()
       if (this.state.focus) {
-        this.handleState(false, e, true)
+        this.handleState(false, e)
       } else {
         this.clearClickAway()
       }
     }
   }
 
-  handleRemove(data) {
+  handleRemove(data: Item | ResultValue<Value>) {
     const { datum } = this.props
-    const dataKey = data && datum.isUnMatch(data) ? data.value : datum.getKey(data)
-    datum.set(dataKey, 0)
-    this.handleChange(data, datum.getKey(data))
+    const dataKey = data && datum.isUnMatch(data) ? (data as UnMatchedValue<Value>).value : datum.getKey(data as Item)
+    datum.set(dataKey as string, 0)
+    this.handleChange(data as Item, datum.getKey(data as Item))
   }
 
-  handleChange(data, id) {
+  handleChange(data: Item, id: string | number) {
     const { datum, multiple, disabled, onChange, onChangeAddition } = this.props
     if (disabled === true || datum.isDisabled(id)) return
-    const current = datum.getDataById(id)
+    const current = datum.getDataById(id) as Item
     if (!multiple) {
       datum.setValue([])
       datum.set(datum.getKey(data), 1)
       this.handleState(false)
     }
     const value = this.getValue()
-    onChange(value, current, id && datum.getPath(id).path)
+    if (onChange) onChange(value, current, id && (datum.getPath(id)!.path as any))
+
     if (typeof onChangeAddition === 'function') {
       onChangeAddition({
-        data: this.getDataByValue(value),
+        data: this.getDataByValue(value) as Item,
         checked: multiple ? datum.get(id) : undefined,
         current,
       })
@@ -236,7 +270,7 @@ export default class TreeSelect extends PureComponent {
   handleClear() {
     const { multiple, onChangeAddition } = this.props
     this.props.datum.setValue([])
-    this.props.onChange(multiple ? [] : '')
+    this.props.onChange!(((multiple ? [] : '') as unknown) as Value)
     if (typeof onChangeAddition === 'function') {
       onChangeAddition({
         data: multiple ? [] : null,
@@ -246,14 +280,15 @@ export default class TreeSelect extends PureComponent {
     this.element.focus()
   }
 
-  renderItem(data, index) {
+  renderItem(data: Item, index: number) {
     const { renderItem } = this.props
-    return typeof renderItem === 'function' ? renderItem(data, index) : data[renderItem]
+    return typeof renderItem === 'function' ? renderItem(data, index as any) : data[renderItem as keyof Item]
   }
 
-  renderActive(data, expanded, active, id) {
+  renderActive(data: Item, expanded: string[], active: boolean, id: string) {
     const { renderItem, datum } = this.props
-    const item = typeof renderItem === 'function' ? renderItem(data, expanded, active, id) : data[renderItem]
+    const item =
+      typeof renderItem === 'function' ? renderItem(data, expanded, active, id) : data[renderItem as keyof Item]
 
     return (
       <span
@@ -272,7 +307,7 @@ export default class TreeSelect extends PureComponent {
   renderTreeOptions() {
     const { focus, position } = this.state
     const { multiple, datum, data, absolute, height, zIndex, compressed, value } = this.props
-    const props = {}
+    const props: any = {}
     ;[
       'mode',
       'data',
@@ -290,14 +325,14 @@ export default class TreeSelect extends PureComponent {
       'childrenKey',
       'expandIcons',
     ].forEach(k => {
-      props[k] = this.props[k]
+      props[k] = this.props[k as keyof TreeSelectProps<Item, Value>]
     })
     props.value = datum.getValue()
     if (multiple) {
       props.onChange = this.handleChange
     } else {
       props.onClick = this.handleChange
-      props.renderItem = this.renderActive
+      props.renderActive = this.renderActive
       props.active = props.value.length ? props.value[0] : null
     }
     const content =
@@ -362,7 +397,7 @@ export default class TreeSelect extends PureComponent {
     return (
       <div
         // eslint-disable-next-line
-        tabIndex={ disabled === true ? -1 : 0}
+        tabIndex={disabled === true ? -1 : 0}
         ref={this.bindElement}
         className={className}
         data-id={this.treeSelectId}
@@ -394,55 +429,4 @@ export default class TreeSelect extends PureComponent {
       </div>
     )
   }
-}
-
-TreeSelect.propTypes = {
-  ...getProps(PropTypes, 'placehodler', 'keygen'),
-  value: PropTypes.oneOfType([PropTypes.array, PropTypes.any]),
-  getComponentRef: PropTypes.func,
-  clearable: PropTypes.bool,
-  data: PropTypes.array,
-  datum: PropTypes.object,
-  disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
-  filterText: PropTypes.string,
-  renderResult: PropTypes.func,
-  height: PropTypes.number,
-  multiple: PropTypes.bool,
-  position: PropTypes.string,
-  renderItem: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-  result: PropTypes.array,
-  size: PropTypes.string,
-  defaultExpanded: PropTypes.arrayOf(PropTypes.string),
-  expanded: PropTypes.arrayOf(PropTypes.string),
-  loader: PropTypes.func,
-  mode: PropTypes.oneOf([0, 1, 2, 3, 4]),
-  line: PropTypes.bool,
-  onChange: PropTypes.func,
-  onSelect: PropTypes.func,
-  onExpand: PropTypes.func,
-  onBlur: PropTypes.func,
-  onFilter: PropTypes.func,
-  onFocus: PropTypes.func,
-  empty: PropTypes.string,
-  compressed: PropTypes.bool,
-  compressedBound: PropTypes.number,
-  absolute: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
-  parentClickExpand: PropTypes.bool,
-  zIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  renderUnmatched: PropTypes.func,
-  onCollapse: PropTypes.func,
-  onChangeAddition: PropTypes.func,
-  innerTitle: PropTypes.node,
-}
-
-TreeSelect.defaultProps = {
-  clearable: false,
-  compressed: false,
-  absolute: false,
-  multiple: false,
-  line: false,
-  renderItem: e => e,
-  height: 300,
-  data: [],
-  defaultExpanded: [],
 }

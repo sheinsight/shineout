@@ -12,7 +12,7 @@ export const getFilterTree = <T, K extends Function>(
   keyFunc: K,
   childrenKey = 'children' as keyof T,
   showHitDescendants: boolean,
-  firstMatchNode: ((node: T) => void) | undefined,
+  firstMatchNode?: (node: T) => void,
   { advanced }: Conf = {}
 ) => {
   const mapFilteredNodeToData = (node: T): T | null => {

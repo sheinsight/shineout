@@ -44,7 +44,7 @@ class Tree<DataItem, Value extends any[]> extends PureComponent<TreeProps<DataIt
       new DatumTree({
         data: props.data,
         loader: props.loader,
-        keygen: props.keygen,
+        keygen: props.keygen as any,
         mode: props.mode,
         onChange: props.onChange,
         value: props.value || props.defaultValue,

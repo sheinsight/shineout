@@ -1,5 +1,5 @@
 import { CHANGE_TOPIC } from './types'
-import { keyType, LiteralUnion, ObjectType } from '../@types/common'
+import { keyType, ObjectType, KeygenType } from '../@types/common'
 
 const IS_NOT_MATCHED_VALUE = 'IS_NOT_MATCHED_VALUE'
 
@@ -44,7 +44,7 @@ export interface TreePathType {
 }
 export interface TreeDatumOptions<Item, Value> {
   data?: Item[]
-  keygen?: LiteralUnion<Item> | ((data: Item, parentId?: string | number) => keyType)
+  keygen?: KeygenType<Item>
   value?: Value
   mode?: TreeModeType
   disabled?: ((data: Item, ...rest: any) => boolean) | boolean
@@ -268,8 +268,8 @@ export default class<Item, Value extends any[]> {
   }
 
   getKey(data: Item, id: keyType = '', index?: number): keyType {
-    if (typeof this.keygen === 'function') return this.keygen(data, id)
-    if (this.keygen) return (data[this.keygen] as unknown) as keyType
+    if (typeof this.keygen === 'function') return this.keygen(data, id as number)
+    if (this.keygen) return (data[this.keygen as keyof Item] as unknown) as keyType
     return id + (id ? ',' : '') + index
   }
 

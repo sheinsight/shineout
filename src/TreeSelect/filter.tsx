@@ -1,32 +1,31 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { Component } from '../component'
 import { getFilterTree } from '../utils/tree'
 import { IS_NOT_MATCHED_VALUE } from './Result'
+import { keyType } from '../@types/common'
+import { FilterProps, GetFilterProps, ResultValue, UnMatchedValue } from './Props'
 
-export default Origin =>
-  class extends Component {
-    static propTypes = {
-      datum: PropTypes.object,
-      data: PropTypes.array,
-      filterDelay: PropTypes.number,
-      keygen: PropTypes.any,
-      onFilter: PropTypes.func,
-      value: PropTypes.any,
-      noCache: PropTypes.bool,
-      expanded: PropTypes.arrayOf(PropTypes.string),
-      showHitDescendants: PropTypes.bool,
-      renderUnmatched: PropTypes.func,
-      onAdvancedFilter: PropTypes.bool,
-    }
+const DefaultValue = {
+  data: [],
+  filterDelay: 300,
+  showHitDescendants: false,
+}
 
-    static defaultProps = {
-      data: [],
-      filterDelay: 300,
-      showHitDescendants: false,
-    }
+interface FilterState<Item> {
+  innerFilter?: (data: Item) => boolean
+  innerData?: Item[]
+  filterText: string
+}
 
-    constructor(props) {
+export default <Item, Value>(Origin: React.ComponentType<GetFilterProps<FilterProps<Item, Value>, Item, Value>>) =>
+  class Filter extends Component<FilterProps<Item, Value>, FilterState<Item>> {
+    static defaultProps = DefaultValue
+
+    resultCache: Map<keyType, ResultValue<Value>>
+
+    timer: NodeJS.Timer
+
+    constructor(props: FilterProps<Item, Value>) {
       super(props)
       this.state = {
         innerFilter: undefined,
@@ -43,15 +42,15 @@ export default Origin =>
       const { datum, noCache, renderUnmatched } = this.props
       let value = datum.getValue() || []
       if (renderUnmatched) {
-        value = value.concat([].concat(this.props.value).filter(v => v && value.indexOf(v) === -1))
+        value = value.concat([].concat(this.props.value as any).filter(v => v && value.indexOf(v) === -1))
       }
-      const result = []
+      const result: ResultValue<Value>[] = []
       value.forEach(v => {
         let res = noCache ? undefined : this.resultCache.get(v)
         if (!res) {
-          res = datum.getDataById(v)
-          if (res && !noCache && !res[IS_NOT_MATCHED_VALUE]) this.resultCache.set(v, res)
-          else if (!res) res = { [IS_NOT_MATCHED_VALUE]: true, value: v }
+          res = (datum.getDataById(v) as unknown) as ResultValue<Value>
+          if (res && !noCache && !(res as UnMatchedValue<Value>)[IS_NOT_MATCHED_VALUE]) this.resultCache.set(v, res)
+          else if (!res) res = { [IS_NOT_MATCHED_VALUE]: true, value: (v as unknown) as Value }
         }
         if (res) {
           result.push(res)
@@ -60,7 +59,7 @@ export default Origin =>
       return result
     }
 
-    handleFilter(text, from = 'edit') {
+    handleFilter(text: string, from = 'edit') {
       const { filterDelay, onFilter } = this.props
 
       // not filter
@@ -85,26 +84,31 @@ export default Origin =>
     }
 
     render() {
-      const { data, onFilter, expanded, showHitDescendants, ...other } = this.props
+      const {
+        data = DefaultValue.data,
+        onFilter,
+        expanded,
+        showHitDescendants = DefaultValue.showHitDescendants,
+        ...other
+      } = this.props
       const { innerFilter, filterText } = this.state
       const filterFn = onFilter ? this.handleFilter : undefined
       let newData = data
       let newExpanded = expanded
       if (innerFilter) {
-        const filterExpandedKeys = []
+        const filterExpandedKeys: string[] = []
         newData = getFilterTree(
           data,
           innerFilter,
           filterExpandedKeys,
-          node => this.props.datum.getKey(node),
+          (node: Item) => this.props.datum.getKey(node),
           other.childrenKey,
           showHitDescendants,
           undefined,
           { advanced: other.onAdvancedFilter }
-        )
-        newExpanded = filterExpandedKeys
+        ) as Item[]
+        newExpanded = filterExpandedKeys as any
       }
-
       return (
         <Origin
           {...other}
