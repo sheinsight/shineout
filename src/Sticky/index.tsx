@@ -1,19 +1,50 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { PureComponent } from '../component'
 import { getParent } from '../utils/dom/element'
 import { eventPassive } from '../utils/dom/detect'
-import { getProps, defaultProps } from '../utils/proptypes'
+import { defaultProps } from '../utils/proptypes'
 import { compose } from '../utils/func'
 import { cssSupport, copyBoundingClientRect } from '../utils/dom/element'
 import { docSize } from '../utils/dom/document'
 import { consumer } from './context'
+import { StickyProps, Mode } from './Props'
 
 const events = ['scroll', 'pageshow', 'load']
 const supportSticky = cssSupport('position', 'sticky')
+const DefaultValue = {
+  ...defaultProps,
+  css: true,
+}
 
-class Sticky extends PureComponent {
-  constructor(props) {
+interface StickyState {
+  mode?: Mode
+  scrollWidth?: number
+  placeholder?: React.CSSProperties
+  style?: React.CSSProperties
+}
+
+class Sticky extends PureComponent<StickyProps, StickyState> {
+  static displayName = 'ShineoutSticky'
+
+  static defaultProps = DefaultValue
+
+  style: React.CSSProperties
+
+  targetElement: Element | null
+
+  element: HTMLDivElement
+
+  scrollTimer: NodeJS.Timer
+
+  placeholder: HTMLDivElement
+
+  origin: HTMLDivElement
+
+  locked: boolean
+
+  scrollCount: number
+
+  constructor(props: StickyProps) {
     super(props)
 
     this.state = {}
@@ -33,7 +64,7 @@ class Sticky extends PureComponent {
     this.bindScroll()
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: StickyProps) {
     if (!prevProps.needResetPostion && this.props.needResetPostion) {
       this.setPosition()
     }
@@ -45,11 +76,11 @@ class Sticky extends PureComponent {
     if (this.scrollTimer) clearTimeout(this.scrollTimer)
   }
 
-  getStyle(mode, offset, left, width) {
-    const { zIndex = 900 } = this.props.style
+  getStyle(mode: Mode, offset: number, left?: number, width?: number) {
+    const { zIndex = 900 } = this.props.style!
     const { css } = this.props
 
-    const style = {
+    const style: React.CSSProperties = {
       position: 'fixed',
       left,
       width,
@@ -82,6 +113,7 @@ class Sticky extends PureComponent {
     if (needResetPostion === false) return
 
     const selfRect = copyBoundingClientRect(this.element)
+    if (selfRect === null) return
     const { marginBottom, marginTop } = getComputedStyle(this.element)
     selfRect.height += parseFloat(marginBottom) + parseFloat(marginTop)
     const scrollElement = this.targetElement || document.body
@@ -104,13 +136,13 @@ class Sticky extends PureComponent {
 
     let style
     let placeholder
-    let limitTop = top
-    let limitBottom = viewHeight - bottom
+    let limitTop = top!
+    let limitBottom = viewHeight - bottom!
 
     if (this.targetElement) {
       const { paddingTop, paddingBottom } = getComputedStyle(scrollElement)
       limitTop += scrollRect.top + parseInt(paddingTop, 10)
-      limitBottom = scrollRect.bottom - bottom - parseInt(paddingBottom, 10)
+      limitBottom = scrollRect.bottom - bottom! - parseInt(paddingBottom, 10)
     }
 
     if (top !== undefined && mode !== 'bottom') {
@@ -170,12 +202,12 @@ class Sticky extends PureComponent {
       this.setState({ placeholder })
     }
     if (style) {
-      this.style = style
+      this.style = style as React.CSSProperties
       this.setState({ style })
     }
   }
 
-  triggerChange(flag, style) {
+  triggerChange(flag: boolean, style: React.CSSProperties) {
     const { onChange } = this.props
     if (style.position === this.style.position) return
     if (typeof onChange === 'function') onChange(flag)
@@ -200,15 +232,15 @@ class Sticky extends PureComponent {
     }, 48)
   }
 
-  bindElement(el) {
+  bindElement(el: HTMLDivElement) {
     this.element = el
   }
 
-  bindOrigin(el) {
+  bindOrigin(el: HTMLDivElement) {
     this.origin = el
   }
 
-  bindPlaceholder(el) {
+  bindPlaceholder(el: HTMLDivElement) {
     this.placeholder = el
   }
 
@@ -256,22 +288,5 @@ class Sticky extends PureComponent {
     )
   }
 }
-
-Sticky.propTypes = {
-  ...getProps(PropTypes),
-  bottom: PropTypes.number,
-  children: PropTypes.any.isRequired,
-  target: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  top: PropTypes.number,
-  css: PropTypes.bool,
-  onChange: PropTypes.func,
-}
-
-Sticky.defaultProps = {
-  ...defaultProps,
-  css: true,
-}
-
-Sticky.displayName = 'ShineoutSticky'
 
 export default compose(consumer)(Sticky)
