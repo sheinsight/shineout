@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react'
 import { ForceAdd, PartialKeys, RegularAttributes } from '../@types/common'
 import { PopoverProps } from '../Popover/interface'
-import { PaginationProps } from '../Pagination'
+import { PaginationProps } from '../Pagination/Props'
 
 export type MovableType<U> = U & {
   moveable?: boolean
@@ -46,7 +46,7 @@ export interface InputBorderProps {
   size?: RegularAttributes.Size
 }
 
-export type GetInputBorderProps<Props extends {}> = ForceAdd<
+export type GetInputBorderProps<Props extends { onFocus?: any; onBlur?: any }> = ForceAdd<
   Omit<PartialKeys<Props, 'onFocus' | 'onBlur'>, 'inputFocus'>,
   InputBorderProps
 >
@@ -84,7 +84,10 @@ export interface CoinProps {
    */
   coin?: boolean
 }
-export type GetCoinProps<Props> = ForceAdd<PartialKeys<Props, 'onFocus' | 'onBlur'>, CoinProps>
+export type GetCoinProps<Props extends { onFocus?: any; onBlur?: any }> = ForceAdd<
+  PartialKeys<Props, 'onFocus' | 'onBlur'>,
+  CoinProps
+>
 
 /** ------ trim ------ * */
 export interface TrimProps {

@@ -1,7 +1,7 @@
-import { PopoverProps as _PopoverProps, ConfirmProps, PopoverContentProps as ContentProps } from './Props'
+import * as T from './Props'
 
-export type PopoverProps = _PopoverProps
+export type PopoverProps = T.PopoverProps
 
-export type PopoverConfirmProps = ConfirmProps
+export type PopoverConfirmProps = T.PopoverConfirmProps
 
-export type PopoverContentProps = ContentProps
+export type PopoverContentProps = T.PopoverContentProps

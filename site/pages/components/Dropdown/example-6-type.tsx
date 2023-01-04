@@ -11,13 +11,13 @@ type SelectProps = TYPE.Select.Props<string, string>
 type SelectData = SelectProps['data']
 
 type DropdownProps = TYPE.Dropdown.Props
-type DropdownData = DropdownProps['data']
+type DropdownItem = TYPE.Dropdown.Item
 type DropdownSize = DropdownProps['size']
 type DropdownType = DropdownProps['type']
 type DropdownOutline = DropdownProps['outline']
 type DropdownDisabled = DropdownProps['disabled']
 
-const menu: DropdownData = [
+const menu: DropdownItem[] = [
   {
     content: 'Submenu',
     children: [
