@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import React, { ReactNode } from 'react'
 import { StandardProps } from '../@types/common'
 
 export type Mode = 'top' | 'bottom'
@@ -66,3 +66,9 @@ export interface StickyProps extends StandardProps {
    */
   needResetPostion?: boolean
 }
+
+export declare class Sticky extends React.Component<StickyProps, {}> {
+  render(): JSX.Element
+}
+
+export type StickyType = typeof Sticky

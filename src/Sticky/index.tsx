@@ -7,7 +7,7 @@ import { compose } from '../utils/func'
 import { cssSupport, copyBoundingClientRect } from '../utils/dom/element'
 import { docSize } from '../utils/dom/document'
 import { consumer } from './context'
-import { StickyProps, Mode } from './Props'
+import { StickyProps, Mode, StickyType } from './Props'
 
 const events = ['scroll', 'pageshow', 'load']
 const supportSticky = cssSupport('position', 'sticky')
@@ -289,4 +289,4 @@ class Sticky extends PureComponent<StickyProps, StickyState> {
   }
 }
 
-export default compose(consumer)(Sticky)
+export default compose(consumer)(Sticky) as StickyType
