@@ -1,7 +1,7 @@
 import React, { CSSProperties, ReactComponentElement, ReactNode } from 'react'
 import { keyType, LiteralUnion, ObjectType, RegularAttributes, StructKeygenType } from '../@types/common'
 import ListDatum from '../Datum/List'
-import { StickyProps } from '../Sticky'
+import { StickyProps } from '../Sticky/Props'
 import { GetHidableConsumerProps, GetPagableProps } from '../hoc/Props'
 import { GetDatumListProps } from '../Datum/Props'
 
