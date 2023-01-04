@@ -1,25 +1,37 @@
 import deepEqual from 'deep-eql'
 import shallowEqual from '../utils/shallowEqual'
-import { CHANGE_TOPIC, ChangeType, WITH_OUT_DISPATCH } from "./types"
-import {ObjectType} from '../@types/common'
+import { CHANGE_TOPIC, ChangeType, WITH_OUT_DISPATCH } from './types'
+import { ObjectType } from '../@types/common'
 
-import {ListDatumOptions} from './Props'
-
+import { ListDatumOptions } from './Props'
 
 export default class<Item, Value> {
   distinct: ListDatumOptions<Item, Value>['distinct']
+
   prediction: ListDatumOptions<Item, Value>['prediction']
+
   onChange: ListDatumOptions<Item, Value>['onChange']
+
   limit: ListDatumOptions<Item, Value>['limit']
+
   separator?: ListDatumOptions<Item, Value>['separator']
+
   $events: ObjectType<Function[]>
+
   $cachedDisabled: ListDatumOptions<Item, Value>['disabled'] | {}
+
   $cachedFlatten: Map<any, any>
+
   valueMap: Map<any, boolean>
+
   disabled: (...args: any) => boolean
-  format:  (...args: any) => unknown
+
+  format: (...args: any) => unknown
+
   $values: any[]
+
   $cachedValue: Value
+
   updateLock: boolean
 
   constructor(args: ListDatumOptions<Item, Value> = {}) {
@@ -75,12 +87,12 @@ export default class<Item, Value> {
     if (this.$cachedDisabled === disabled) return
     this.$cachedDisabled = disabled
 
-    this.disabled = (data: Item,...obj) => {
+    this.disabled = (data: Item, ...obj) => {
       switch (typeof disabled) {
         case 'boolean':
           return disabled
         case 'function':
-          return disabled(data,...obj)
+          return disabled(data, ...obj)
         default:
           return false
       }
@@ -107,10 +119,10 @@ export default class<Item, Value> {
     const deepAdd = (items: Item[]) => {
       items.forEach(item => {
         const exist = flatten.find(raw =>
-          this.prediction ? this.prediction(raw as any , item) : this.format(raw) === this.format(item)
+          this.prediction ? this.prediction(raw as any, item) : this.format(raw) === this.format(item)
         )
         if (!exist) flatten.push(item)
-        if (item[childrenKey]) deepAdd((item[childrenKey]) as unknown as Item[])
+        if (item[childrenKey]) deepAdd((item[childrenKey] as unknown) as Item[])
       })
     }
     deepAdd(data)
@@ -122,7 +134,7 @@ export default class<Item, Value> {
     this.updateLock = lock
   }
 
-  add(data: Item, _?: any, childrenKey?: keyof Item, unshift?: boolean) {
+  add(data: Item | Item[], _?: any, childrenKey?: keyof Item, unshift?: boolean) {
     if (data === undefined || data === null) return
 
     // clear value
@@ -203,7 +215,7 @@ export default class<Item, Value> {
     return value === this.format(data)
   }
 
-  remove(value: Item | {IS_NOT_MATCHED_VALUE: boolean, value: any}, _?: unknown, childrenKey?: string) {
+  remove(value: Item | Item[] | { IS_NOT_MATCHED_VALUE: boolean; value: any }, _?: unknown, childrenKey?: string) {
     if (value === undefined || value === null) return
 
     let raws: any = Array.isArray(value) ? value : [value]
@@ -299,7 +311,8 @@ export default class<Item, Value> {
     console.error(new Error('Select values is not valid.'))
     return []
   }
-  setValue(values: Value = ([] as unknown as Value), type?: ChangeType ) {
+
+  setValue(values: Value = ([] as unknown) as Value, type?: ChangeType) {
     if (deepEqual(values, this.$values)) return
     if (type === WITH_OUT_DISPATCH) {
       this.$values = this.formatValue(values)

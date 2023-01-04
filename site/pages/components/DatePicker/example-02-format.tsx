@@ -11,7 +11,7 @@ type DatePickerProps = TYPE.DatePicker.Props<DatePickerValue>
 type DatePickerValue = TYPE.DatePicker.Value
 type DatePickerFormat = DatePickerProps['format']
 
-type InputProps = TYPE.Input.Props<string>
+type InputProps = TYPE.Input.Props
 type InputOnChange = InputProps['onChange']
 
 const App: React.FC = () => {

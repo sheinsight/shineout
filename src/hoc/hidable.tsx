@@ -1,27 +1,29 @@
-import React, { ComponentType } from "react"
+import React, { ComponentType } from 'react'
 import classnames from 'classnames'
 import createReactContext from '../context'
 import { PureComponent } from '../component'
 import { getUidStr } from '../utils/uid'
 import { hidableClass } from './styles'
+import { GetHidableConsumerProps } from './Props'
+import { ListAnimationType } from '../AnimationList/Props'
 
-const context = createReactContext<any>(undefined)
+const context = createReactContext<{ visible?: boolean }>({})
 
-export const consumer = <U, >(Origin: React.ComponentType<U> ) => (props: U) => (
-  <context.Consumer>{(value: unknown) => <Origin {...value} {...props} />}</context.Consumer>
+export const consumer = <U extends {}>(
+  Origin: React.ComponentType<U>
+): React.FC<GetHidableConsumerProps<U>> => props => (
+  <context.Consumer>{value => <Origin {...value} {...props} />}</context.Consumer>
 )
-
 
 interface HideableProps {
   show?: boolean
   className?: string
-
 }
 
 interface HidableConfig {
-  type: ('fade' | 'collapse' | 'scale-y')[],
-  duration: number,
-  display: string
+  type: ListAnimationType[]
+  duration: number
+  display?: string
 }
 
 /**
@@ -30,11 +32,14 @@ interface HidableConfig {
  * @param {*} type - fade, collapse, tranlate
  */
 
-export default function<U extends HideableProps>(Component: React.ComponentType<U>, { type = ['fade'], duration = 360, display = 'block' }: HidableConfig) {
+export default function<U extends HideableProps>(
+  Component: React.ComponentType<U>,
+  { type = ['fade'], duration = 360, display = 'block' }: HidableConfig
+) {
   const hasCollapse = type.indexOf('collapse') >= 0
   const needTransform = type.indexOf('scale-y') >= 0
 
-  class Hidable extends PureComponent<U, {show?: boolean}> {
+  class Hidable extends PureComponent<U, { show?: boolean }> {
     static defaultProps = {
       className: '',
       show: false,
@@ -140,5 +145,5 @@ export default function<U extends HideableProps>(Component: React.ComponentType<
     }
   }
 
-  return Hidable as unknown as ComponentType<U>
+  return (Hidable as unknown) as ComponentType<U>
 }

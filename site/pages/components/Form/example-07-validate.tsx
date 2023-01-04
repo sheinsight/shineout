@@ -19,10 +19,9 @@ interface Value {
 type FormProps = TYPE.Form.Props<Value>
 type FormValue = FormProps['value']
 type FormRef = TYPE.Form.Ref<any>
-type RuleParams = TYPE.Rule.Params
 type RuleFunc = TYPE.Rule.validFunc
 
-const password: RuleParams = {
+const password = {
   func: (value: string, _formData: any, _cb: any, props: { message: string; title: string }) =>
     new Promise((resolve, reject) => {
       if (!/\d+/.test(value) || !/[a-z]+/i.test(value)) {
@@ -115,7 +114,6 @@ const App: React.FC = () => {
           keygen={d => d}
           data={['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']}
           defaultValue={[]}
-          title="Favorite Colors"
           rules={[rules.required('At least select one favorite color'), rules.min(2), rules.max(3)]}
         />
       </Form.Item>

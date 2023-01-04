@@ -4,7 +4,7 @@ import { fastClone, deepClone } from '../utils/clone'
 import { deepGet, deepSet, deepRemove, objectValues, deepHas } from '../utils/objects'
 import { isObject, isArray } from '../utils/is'
 import { promiseAll, FormError } from '../utils/errors'
-import { RuleParamsType } from "../Rule"
+import { FormItemRule } from '../Rule/interface'
 import {
   updateSubscribe,
   errorSubscribe,
@@ -15,26 +15,38 @@ import {
   FORCE_PASS,
   ERROR_TYPE,
   IGNORE_VALIDATE,
-  ValidType, PublishType
-} from "./types"
-import {FormDatumOptions, ValidFunc} from './Props'
-import {ObjectType} from '../@types/common'
-
+  ValidType,
+  PublishType,
+} from './types'
+import { FormDatumOptions, FormValid } from './Props'
+import { ObjectType } from '../@types/common'
 
 export default class<V extends ObjectType> {
   rules: FormDatumOptions<V>['rules']
+
   onChange: FormDatumOptions<V>['onChange']
+
   removeUndefined: FormDatumOptions<V>['removeUndefined']
+
   $defaultValues: V
-  $inputNames: {[name: string]: boolean}
+
+  $inputNames: { [name: string]: boolean }
+
   $values: Partial<V>
-  $validator:ObjectType<ValidFunc>
-  $events:ObjectType<((...args: any)=> void)[]>
-  $errors:ObjectType
+
+  $validator: ObjectType<FormValid>
+
+  $events: ObjectType<((...args: any) => void)[]>
+
+  $errors: ObjectType
+
   updateLock: boolean
-  deepSetOptions: {removeUndefined: boolean, forceSet: boolean}
+
+  deepSetOptions: { removeUndefined: boolean; forceSet: boolean }
+
   formUnmount: boolean
-  constructor(options:FormDatumOptions<V> = {}) {
+
+  constructor(options: FormDatumOptions<V> = {}) {
     const { removeUndefined = true, rules, onChange, value, error, initValidate, defaultValue } = options
     this.rules = rules
     this.onChange = onChange
@@ -78,8 +90,11 @@ export default class<V extends ObjectType> {
     if (Array.isArray(name)) return name.map(n => this.get(n))
     return deepGet(this.$values, name)
   }
+
   set(value: ObjectType): void
-  set(name: string| string[] , value: any, pub?: boolean) : void
+
+  set(name: string | string[], value: any, pub?: boolean): void
+
   set(name: string | string[] | ObjectType, value?: any, pub?: boolean) {
     if (isObject(name)) {
       value = objectValues(name as ObjectType)
@@ -105,7 +120,6 @@ export default class<V extends ObjectType> {
       this.dispatch(CHANGE_TOPIC)
       this.handleChange()
     }
-
   }
 
   setArrayValue(names: string[], values: any[]) {
@@ -171,15 +185,21 @@ export default class<V extends ObjectType> {
     if (!this.$errors['']) this.$errors[''] = {}
     let items: ObjectType
     if (Object.keys(error).length) {
-      items = Object.keys(error).reduce((data, item) => {
-        data[item] = error[item] instanceof Error ? (error[item] as Error) : new Error(error[item] as string)
-        return data
-      }, {} as ObjectType<Error>)
+      items = Object.keys(error).reduce(
+        (data, item) => {
+          data[item] = error[item] instanceof Error ? (error[item] as Error) : new Error(error[item] as string)
+          return data
+        },
+        {} as ObjectType<Error>
+      )
     } else {
-      items = Object.keys(this.$errors['']).reduce((data, name) => {
-        data[name] = undefined
-        return data
-      }, {} as ObjectType)
+      items = Object.keys(this.$errors['']).reduce(
+        (data, name) => {
+          data[name] = undefined
+          return data
+        },
+        {} as ObjectType
+      )
     }
     Object.keys(items).map(n => this.setFormError(n, items[n]))
   }
@@ -223,9 +243,9 @@ export default class<V extends ObjectType> {
       })
   }
 
-  getRule(name: string): RuleParamsType<any> {
+  getRule(name: string): FormItemRule<any> {
     if (!this.rules) return []
-    const a  = deepGet(this.rules, name) as RuleParamsType<any>
+    const a = deepGet(this.rules, name) as FormItemRule<any>
     return a || []
   }
 
@@ -256,7 +276,7 @@ export default class<V extends ObjectType> {
     })
   }
 
-  bind(name: string, fn:  (...args: any)=> void, value: any, validate: ValidFunc ) {
+  bind(name: string, fn: (...args: any) => void, value: any, validate: FormValid) {
     if (this.$inputNames[name]) {
       console.warn(`There is already an item with name "${name}" exists. The name props must be unique.`)
     }
@@ -275,7 +295,7 @@ export default class<V extends ObjectType> {
     this.subscribe(errorSubscribe(name), fn)
   }
 
-  unbind(name: string| string[], _cb?: any, reserveAble?: boolean) {
+  unbind(name: string | string[], _cb?: any, reserveAble?: boolean) {
     if (Array.isArray(name)) {
       name.forEach(n => this.unbind(n))
       return
@@ -306,21 +326,21 @@ export default class<V extends ObjectType> {
     event.forEach(fn => fn(...args))
   }
 
-  subscribe(name: string, fn: (...args: any)=> void) {
+  subscribe(name: string, fn: (...args: any) => void) {
     if (!this.$events[name]) this.$events[name] = []
     const events = this.$events[name]
     if (events.includes(fn)) return
     events.push(fn)
   }
 
-  unsubscribe(name: string, fn?:  (...args: any)=> void) {
+  unsubscribe(name: string, fn?: (...args: any) => void) {
     if (!this.$events[name]) return
 
     if (fn) this.$events[name] = this.$events[name].filter(e => e !== fn)
     else delete this.$events[name]
   }
 
-  validate(type: ValidType) {
+  validate(type?: ValidType) {
     return new Promise((resolve, reject) => {
       const keys = Object.keys(this.$validator)
       const values = this.getValue()
@@ -342,12 +362,12 @@ export default class<V extends ObjectType> {
     })
   }
 
-  validateFieldsByName(name: string, type: ValidType) {
+  validateFieldsByName(name: string, type?: ValidType) {
     if (!name || typeof name !== 'string') {
       return Promise.reject(new Error(`Name expect a string, get "${name}"`))
     }
 
-    const validations: Promise<any>[]  = []
+    const validations: Promise<any>[] = []
     const values = this.getValue()
     Object.keys(this.$validator).forEach(n => {
       if (n === name || n.indexOf(name) === 0) {
@@ -358,7 +378,7 @@ export default class<V extends ObjectType> {
     return promiseAll(validations)
   }
 
-  validateFields(names: string[], type: ValidType) {
+  validateFields(names: string[], type?: ValidType) {
     if (!Array.isArray(names)) names = [names]
     const validates = names.map(n => this.validateFieldsByName(n, type))
     return promiseAll(validates)

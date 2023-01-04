@@ -48,7 +48,7 @@ describe('Rule', () => {
   test('should options be object', () => {
     console.error = jest.fn()
     Rule('test')
-    expect(console.error.mock.calls[0][0].message).toBe('rules expect an object, got undefined')
+    expect(console.error.mock.calls[0][0].message).toBe('rules expect an object, got string')
   })
   test('should rule item be a  function or object', () => {
     console.error = jest.fn()

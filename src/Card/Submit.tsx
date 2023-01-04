@@ -1,7 +1,6 @@
-import React, { PureComponent } from "react"
+import React, { PureComponent } from 'react'
 import Button from '../Button'
 import { OriginCardSubmitProps } from './Props'
-
 
 class Submit extends PureComponent<OriginCardSubmitProps> {
   constructor(props: OriginCardSubmitProps) {
@@ -11,10 +10,9 @@ class Submit extends PureComponent<OriginCardSubmitProps> {
 
   handleClick(e: React.MouseEvent) {
     e.persist()
-      setTimeout(() => {
-        if (this.props.onSubmit) this.props.onSubmit(e.target)
-
-      }, 50)
+    setTimeout(() => {
+      if (this.props.onSubmit) this.props.onSubmit(e.target)
+    }, 50)
   }
 
   render() {

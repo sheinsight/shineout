@@ -1,4 +1,4 @@
-import { isValidElement, ReactElement } from 'react'
+import React from 'react'
 import { curry } from './func'
 
 const nameIs = curry((name: unknown, val: unknown) => {
@@ -14,7 +14,7 @@ export const isNotUndef = (v: unknown): boolean => v != null
 // eslint-disable-next-line
 export const isNan = (a: unknown): boolean => a !== a
 export const isFunc = (f: unknown): f is Function => typeof f === 'function'
-export const isNumber = (n: unknown): boolean => typeof n === 'number'
+export const isNumber = (n: unknown): n is number => typeof n === 'number'
 export const isObject = (val: unknown): boolean => !!val && typeof val === 'object' && !isArray(val)
 export const isString = (s: unknown): boolean => typeof s === 'string'
 export const isDate = (val: unknown): boolean => val instanceof Date
@@ -23,7 +23,8 @@ export const isRegexp = (val: unknown): boolean => val instanceof RegExp
 export const isMap = nameIs('Map')
 export const isSet = nameIs('Set')
 export const isSymbol = nameIs('Symbol')
-export const isPromise = (p: unknown): p is Promise<any> => p && (nameIs('Promise', p) || isFunc((p as Promise<unknown>).then))
+export const isPromise = (p: unknown): p is Promise<any> =>
+  p && (nameIs('Promise', p) || isFunc((p as Promise<unknown>).then))
 
 export const isValidKey = (key: string | number | symbol, object: object): key is keyof typeof object => key in object
 
@@ -73,12 +74,12 @@ export const isPercent = (n: unknown): boolean => typeof n === 'string' && /\d{1
 export const isInseparable = (val: unknown): boolean =>
   Object(val) !== val || isFunc(val) || isDate(val) || isError(val) || isSet(val) || isMap(val) || isRegexp(val)
 
-export const isLink = (el: unknown): boolean => {
+export const isLink = (el: unknown): el is React.ReactElement => {
   if (typeof el === 'object') {
-    if (!isValidElement(el)) return false
+    if (!React.isValidElement(el)) return false
     if (!el.type) return false
     if (el.type === 'a') return true
-    if (el.props && (el as ReactElement).props.to) return true
+    if (el.props && (el as React.ReactElement).props.to) return true
   }
 
   return false

@@ -1,7 +1,7 @@
 import React from 'react'
 import { PureComponent } from '../component'
 import Input from './Input'
-import {  defaultProps } from '../utils/proptypes'
+import { defaultProps } from '../utils/proptypes'
 import Spin from '../Spin'
 import icons from '../icons'
 import { wrapSpan } from '../utils/dom/element'
@@ -10,7 +10,7 @@ import { isDark } from '../utils/color'
 import { tagClass } from './styles'
 import { isRTL } from '../config'
 import getDataset from '../utils/dom/getDataset'
-import {TagProps} from './interface'
+import { TagProps } from './interface'
 
 const hideInput = 0
 const showInput = 1
@@ -21,9 +21,9 @@ interface TagState {
   value: null | string
 }
 
-type ReactMouseEvent =  React.MouseEvent<HTMLDivElement> & {defaultPrevented: boolean}
+type ReactMouseEvent = React.MouseEvent<HTMLDivElement> & { defaultPrevented: boolean }
 
-class Tag extends PureComponent<TagProps,TagState> {
+class Tag extends PureComponent<TagProps, TagState> {
   static defaultProps = {
     ...defaultProps,
     type: 'default',
@@ -59,7 +59,7 @@ class Tag extends PureComponent<TagProps,TagState> {
     this.setState({ dismiss })
   }
 
-  dismiss(e:ReactMouseEvent) {
+  dismiss(e: ReactMouseEvent) {
     const { onClose } = this.props
     let callback
     if (onClose === true) {

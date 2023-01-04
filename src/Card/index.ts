@@ -5,7 +5,7 @@ import Header from './Header'
 import Body from './Body'
 import Footer from './Footer'
 import Accordion from './Accordion'
-import { CardType } from "./Props"
+import { CardType } from './Props'
 
 const Card: any = _Card
 Card.Header = consumer(Header, ['collapsed', 'onCollapse'])
@@ -18,4 +18,4 @@ Card.Body.displayName = 'ShineoutCardBody'
 Card.Header.displayName = 'ShineoutCardHeader'
 Card.displayName = 'ShineoutCard'
 
-export default  Card as CardType
+export default Card as CardType

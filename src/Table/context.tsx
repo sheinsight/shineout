@@ -1,23 +1,19 @@
-import React from 'react'
+import React, { ComponentType } from 'react'
 import createReactContext from '../context'
+import { getTableConsumerProps } from './Props'
 
-const context = createReactContext({})
+const context = createReactContext<boolean | undefined>(undefined)
 
 // eslint-disable-next-line
 export const Provider = context.Provider
 
-interface AbsoluteProps {
-  absolute?: boolean
-}
-
-export type GetAbsoluteProps<P> = Omit<P, 'absolute'> & AbsoluteProps
-
-const consumer = <T, >(Origin: React.ComponentType<T>): React.FC<T> => (props:T & AbsoluteProps) => (
+const consumer = <Props extends { absolute?: any }>(
+  Origin: ComponentType<Props>
+): React.FC<getTableConsumerProps<Props>> => props => (
   <context.Consumer>
     {value => {
-      // eslint-disable-next-line react/prop-types
       const mp = Object.assign({}, props, value && props.absolute === undefined && { absolute: true })
-      return <Origin {...mp as T} />
+      return <Origin {...mp} />
     }}
   </context.Consumer>
 )

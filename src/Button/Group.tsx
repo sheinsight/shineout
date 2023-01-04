@@ -3,7 +3,7 @@ import classnames from 'classnames'
 
 import { buttonClass } from './styles'
 import { isRTL } from '../config'
-import { ButtonGroupProps } from './interface'
+import { ButtonGroupProps } from './Props'
 
 class ButtonGroup extends PureComponent<ButtonGroupProps> {
   static defaultProps = {

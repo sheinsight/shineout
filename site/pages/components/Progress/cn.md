@@ -2,7 +2,7 @@
 
 <example />
 
-## API 
+## API
 
 | 属性 | 类型 | 默认值 | 说明 | 可用版本 |
 | --- | --- | --- | --- | --- |
@@ -17,3 +17,4 @@
 | type | string | 无 | 内置配色，可选值为，\['success', 'info', 'warning', 'danger'] | |
 | value | number | 0 | 百分比值，0 <= value <= 100 | |
 | popup | boolean | false | 通过弹出框展示 children | |
+| strokeLinecap | "round" \| "inherit" \| "butt" \| "square" | - | 环形进度条两端的描边形状 | |

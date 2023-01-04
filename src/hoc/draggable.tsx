@@ -1,25 +1,22 @@
 import React, { PureComponent } from 'react'
 import { curry } from '../utils/func'
 
-
 interface DragProps {
-  client?: {x: number, y: number, [name: string]: any}
-  onDragStart?: ()=> void
-  onDrag?: (mx: number, my: number, clientX: number, clientY: number)=> void
-  onDragEnd?: ()=> void
+  client?: { x: number; y: number; [name: string]: any }
+  onDragStart?: () => void
+  onDrag?: (mx: number, my: number, clientX: number, clientY: number) => void
+  onDragEnd?: () => void
 }
 
 const defaultProps: DragProps = {
   client: undefined,
-  onDragStart(){},
+  onDragStart() {},
   onDrag() {},
   onDragEnd() {},
 }
 
 export default curry(<U extends DragProps>(OriginComponent: React.ComponentType<U>) => {
-
   class Drag extends PureComponent<U> {
-
     static defaultProps = defaultProps
 
     clientX?: number
@@ -28,7 +25,7 @@ export default curry(<U extends DragProps>(OriginComponent: React.ComponentType<
 
     dragging?: boolean
 
-    constructor(props:  U) {
+    constructor(props: U) {
       super(props)
 
       this.handleDragStart = this.handleDragStart.bind(this)
@@ -43,7 +40,7 @@ export default curry(<U extends DragProps>(OriginComponent: React.ComponentType<
         this.clientY = client.y
         this.dragging = true
         this.addEvents()
-        if(this.props.onDragStart) this.props.onDragStart()
+        if (this.props.onDragStart) this.props.onDragStart()
       }
     }
 
@@ -69,7 +66,7 @@ export default curry(<U extends DragProps>(OriginComponent: React.ComponentType<
       this.clientY = e.clientY
       this.dragging = true
       this.addEvents()
-      if(this.props.onDragStart) this.props.onDragStart()
+      if (this.props.onDragStart) this.props.onDragStart()
     }
 
     handleDrag(e: MouseEvent) {
@@ -90,15 +87,13 @@ export default curry(<U extends DragProps>(OriginComponent: React.ComponentType<
       if (!this.dragging) return
       this.dragging = false
       this.removeEvents()
-      if(this.props.onDragEnd) this.props.onDragEnd()
+      if (this.props.onDragEnd) this.props.onDragEnd()
     }
 
     render() {
       return <OriginComponent {...this.props} onDragStart={this.handleDragStart} />
     }
   }
-
-
 
   return Drag
 })

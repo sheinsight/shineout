@@ -7,16 +7,13 @@
 import React from 'react'
 import { Dropdown, TYPE } from 'shineout'
 
-type DropdownProps = TYPE.Dropdown.Props
-type DropdownData = DropdownProps['data']
+type DropdownItem = TYPE.Dropdown.Item
 
-const menu: DropdownData = [
+const menu: DropdownItem[] = [
   {
     content: 'First',
-    id: '1',
     children: [
       {
-        id: '3',
         content: 'optic 1',
       },
     ],
@@ -24,14 +21,11 @@ const menu: DropdownData = [
   {
     content: 'Second',
     url: 'http://www.google.com',
-    id: '2',
     children: [
       {
         content: 'topic 2',
-        id: 4,
         children: [
           {
-            id: '6',
             content: 'topic 3',
           },
         ],

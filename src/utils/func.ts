@@ -22,13 +22,13 @@ export function curry<U extends AnyFunction>(f: U, ...args: any) {
   return (...next: any) => curry(f.bind(f, ...args), ...next)
 }
 
-export function empty(e: Event) {
+export function empty(e: { preventDefault: () => void }) {
   e.preventDefault()
 }
 
 export function memoize<T extends Function>(
   fn: T & {
-    cache: {
+    cache?: {
       [name: string]: any
     }
   }
@@ -44,7 +44,7 @@ export function memoize<T extends Function>(
   }
 }
 
-export function createFunc(func: Function) {
+export function createFunc(func?: Function | string) {
   if (typeof func === 'function') return func
   return (data: { [x: string]: any }) => (func ? data[func] : data)
 }

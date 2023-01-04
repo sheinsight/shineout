@@ -4,14 +4,13 @@ import { capitalize } from '../utils/strings'
 import { IGNORE_VALIDATE, WITH_OUT_DISPATCH } from './types'
 import List from './List'
 import Form from './Form'
-import { ObjectType } from "../@types/common"
-import { DatumBaseProps, DatumHocOptions, GetDatumProps } from "./Props"
+import { ObjectType } from '../@types/common'
+import { DatumBaseProps, DatumHocOptions, GetDatumProps } from './Props'
 
 const types = {
   form: Form,
   list: List,
 }
-
 
 export default curry(<U extends DatumBaseProps>(options: DatumHocOptions<U>, Origin: React.ComponentType<U>) => {
   const { type = 'list', key = 'value', limit = 0, bindProps = [], ignoreUndefined, pure = true } = options || {}
@@ -77,7 +76,7 @@ export default curry(<U extends DatumBaseProps>(options: DatumHocOptions<U>, Ori
     render() {
       const { onDatumBind, ...props } = this.props
       if (onDatumBind) onDatumBind(this.datum)
-      if ((bindProps).includes('disabled')) {
+      if (bindProps.includes('disabled')) {
         this.datum.setDisabled(props.disabled)
       }
       const values = this.props[key as keyof GetDatumProps<U>]
@@ -90,9 +89,7 @@ export default curry(<U extends DatumBaseProps>(options: DatumHocOptions<U>, Ori
       if (type === 'list') this.setValue(WITH_OUT_DISPATCH)
       // delete props[key]
 
-      return (
-        <Origin {...props as U} datum={this.datum} />
-      )
+      return <Origin {...props as U} datum={this.datum} />
     }
   }
 })

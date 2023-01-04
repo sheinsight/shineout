@@ -5,12 +5,12 @@
  *    -- Set columns property can make the option multi-column tiled.
  */
 import React from 'react'
-import { Dropdown, TYPE } from 'shineout'
+import { Dropdown } from 'shineout'
 
-type DropdownProps = TYPE.Dropdown.Props
-type DropdownData = DropdownProps['data']
-
-const menu: DropdownData = []
+const menu: {
+  id: string
+  content: string
+}[] = []
 
 for (let i = 1; i <= 30; i++) {
   menu.push({
@@ -19,6 +19,8 @@ for (let i = 1; i <= 30; i++) {
   })
 }
 
-const App: React.FC = () => <Dropdown placeholder="Dropdown" width={500} columns={5} data={menu} />
+const App: React.FC = () => (
+  <Dropdown placeholder="Dropdown" width={500} columns={5} data={menu} renderItem={d => d.id} />
+)
 
 export default App

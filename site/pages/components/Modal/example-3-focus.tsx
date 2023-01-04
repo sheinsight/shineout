@@ -5,13 +5,10 @@
  *    -- Setting autoFocusButton can focus on a button by default when you open it, and then press Enter to trigger the click event of the button, which is convenient for the user to perform keyboard operation. This property only takes effect in Modal methods
  */
 import React from 'react'
-import { Modal, Button, Message, TYPE } from 'shineout'
-
-type ModalProps = TYPE.Modal.FunctionOptions
-type ModalAutoFocusButton = ModalProps['autoFocusButton']
+import { Modal, Button, Message } from 'shineout'
 
 const App: React.FC = () => {
-  const confirm = (type: ModalAutoFocusButton) => {
+  const confirm = (type: string) => {
     Modal.confirm({
       title: 'This is a confirm message',
       content: `the ${type} button will be focus`,

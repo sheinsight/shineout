@@ -1,4 +1,4 @@
-import React, { ComponentType } from "react"
+import React, { ComponentType } from 'react'
 import immer from 'immer'
 import { Component } from '../component'
 import { promiseAll, isSameError } from '../utils/errors'
@@ -7,48 +7,41 @@ import { filterProps } from '../utils/objects'
 import { getUidStr } from '../utils/uid'
 import { isArray } from '../utils/is'
 import validate from '../utils/validate'
-import { FORCE_PASS, ERROR_TYPE, IGNORE_VALIDATE, errorSubscribe, IGNORE_BIND, ValidType } from "../Datum/types"
+import { FORCE_PASS, ERROR_TYPE, IGNORE_VALIDATE, errorSubscribe, IGNORE_BIND, ValidType } from '../Datum/types'
 import { formConsumer } from './formContext'
 import { itemConsumer } from './Item'
 import { fieldSetConsumer } from './FieldSet'
-import ListDatum from "../Datum/List"
-import { ObjectType } from "../@types/common"
-import {RuleParamsType} from '../Rule/index'
-import { InputableProps, BaseInputProps, GetInputableProps } from "./Props"
+import ListDatum from '../Datum/List'
+import { ObjectType } from '../@types/common'
+import { FormItemRule } from '../Rule/interface'
+import { InputableProps, BaseInputProps, GetInputableProps, InputableFormConsumerKey } from './Props'
 
-
-
-
-interface CustomValidateType{
-  (...args: any) : Promise<any>
+interface CustomValidateType {
+  (...args: any): Promise<any>
 }
 
-const types: ('formDatum' | 'disabled'| 'combineRules' | 'size')[] = ['formDatum', 'disabled', 'combineRules', 'size']
-
-
-// const consumer = compose(
-//   // formConsumer(types),
-//   itemConsumer,
-//   fieldSetConsumer
-// )
-
+const types: InputableFormConsumerKey[] = ['formDatum', 'disabled', 'combineRules', 'size']
 
 const tryValue = (val: unknown, def: unknown) => (val === undefined ? def : val)
 
-const beforeValueChange =  <Value, >(fn: InputableProps<Value>["onChange"]) => (value: InputableProps<Value>["value"], datum: InputableProps<Value>["formDatum"]) => {
+const beforeValueChange = <Value extends any>(fn: InputableProps<Value>['onChange']) => (
+  value: InputableProps<Value>['value'],
+  datum: InputableProps<Value>['formDatum']
+) => {
   if (!fn) return value
   const newValue = fn(value, datum)
   return newValue === undefined ? value : newValue
 }
 
+interface InputableState<Value> {
+  value?: Value
+  error: any
+}
 
-interface InputableState<Value> {value?: Value, error: any}
-
-export default<Value,  U extends BaseInputProps, Item = any >(Origin: ComponentType<U>) => {
+export default <Value, U extends BaseInputProps, Item = any>(Origin: ComponentType<U>) => {
   class InputableInner extends Component<InputableProps<Value>, InputableState<Value>> {
-
     static defaultProps: any = {
-      rules: [] as RuleParamsType<Value>,
+      rules: [] as FormItemRule<Value>,
       scuSkip: ['onChange', 'rules'],
     }
 
@@ -66,8 +59,7 @@ export default<Value,  U extends BaseInputProps, Item = any >(Origin: ComponentT
 
     customValidate: CustomValidateType
 
-
-    constructor(props:InputableProps<Value>) {
+    constructor(props: InputableProps<Value>) {
       super(props)
 
       const { formDatum, name, defaultValue } = props
@@ -79,21 +71,21 @@ export default<Value,  U extends BaseInputProps, Item = any >(Origin: ComponentT
 
       this.itemName = getUidStr()
 
-
       this.handleChange = this.handleChange.bind(this)
       this.handleUpdate = this.handleUpdate.bind(this)
       this.handleDatumBind = this.handleDatumBind.bind(this)
       this.handleError = this.handleError.bind(this)
       this.validate = this.validate.bind(this)
       this.validateHook = this.validateHook.bind(this)
-      this.forceValidate = this.forceValidate.bind(this)
 
       this.lastValue = formDatum && name ? formDatum.get(name) || {} : {}
     }
 
     componentDidMount() {
       super.componentDidMount()
-      const { onChange, readOnly, disabled } = this.props
+      // @ts-ignore
+      const { readOnly } = this.props
+      const { onChange, disabled } = this.props
       if ('value' in this.props && !onChange && disabled !== true && readOnly !== true) {
         console.error(
           'warning: You provided a `value` prop to a form field without an `onChange` handler. This will render a read-only field. If the field should be mutable use `defaultValue`. Otherwise, set either `onChange` or `readOnly` or `disabled`'
@@ -103,7 +95,7 @@ export default<Value,  U extends BaseInputProps, Item = any >(Origin: ComponentT
 
       if (formDatum && name) {
         if (Array.isArray(name)) {
-          const dv  = (defaultValue || []) as unknown as Value extends any[] ? Value : any[]
+          const dv = ((defaultValue || []) as unknown) as Value extends any[] ? Value : any[]
 
           name.forEach((n, i) => formDatum.bind(n, this.handleUpdate, dv[i], this.validate))
 
@@ -119,11 +111,10 @@ export default<Value,  U extends BaseInputProps, Item = any >(Origin: ComponentT
       }
 
       if (bindInputToItem && name && !popover) bindInputToItem(this.errorName!)
-
     }
 
     shouldComponentUpdate(nextProps: InputableProps<Value>, nextState: InputableState<Value>) {
-      const skip = [...(this.props.scuSkip! || []), 'formDatum']
+      const skip = [...(this.props.scuSkip || []), 'formDatum']
       const isFormDatum = this.props.formDatum && this.props.name
       if (isFormDatum) skip.push('value')
       const options = { skip, deep: ['data', 'defaultValue', 'datum', 'name', 'rule', 'style'] }
@@ -156,7 +147,7 @@ export default<Value,  U extends BaseInputProps, Item = any >(Origin: ComponentT
       const { formDatum, name, value, defaultValue } = this.props
       if (formDatum && name) {
         if (Array.isArray(name)) {
-          const dv = (defaultValue || []) as unknown as  Value extends any[] ? Value : any[]
+          const dv = ((defaultValue || []) as unknown) as Value extends any[] ? Value : any[]
           return name.map((n, i) => tryValue(formDatum.get(n), dv[i]))
         }
         return tryValue(formDatum.get(name), defaultValue)
@@ -181,7 +172,7 @@ export default<Value,  U extends BaseInputProps, Item = any >(Origin: ComponentT
       this.datum = datum
     }
 
-    handleError(error?:Error) {
+    handleError(error?: Error) {
       const { formDatum, name, onItemError, onError } = this.props
       if (formDatum && name) {
         if (!isSameError(error, formDatum.getError(this.errorName!, true))) {
@@ -207,7 +198,7 @@ export default<Value,  U extends BaseInputProps, Item = any >(Origin: ComponentT
 
     validate(value: any, data: ObjectType | undefined, type?: ValidType): Promise<any>
 
-    validate(value: any  , data?: ObjectType, type?: ValidType) {
+    validate(value: any, data?: ObjectType, type?: ValidType) {
       const { name, formDatum, combineRules, bind } = this.props
       const names = Array.isArray(name) ? name : [name]
 
@@ -257,7 +248,7 @@ export default<Value,  U extends BaseInputProps, Item = any >(Origin: ComponentT
         })
     }
 
-    handleChange(value: Value | undefined , ...args: any) {
+    handleChange(value: Value | undefined, ...args: any) {
       const { formDatum, name, fieldSetValidate, onChange, filterSameChange } = this.props
       const currentValue = this.getValue()
       if ((args.length === 0 || filterSameChange) && shallowEqual(value, currentValue)) {
@@ -279,10 +270,6 @@ export default<Value,  U extends BaseInputProps, Item = any >(Origin: ComponentT
       if (fieldSetValidate) fieldSetValidate(true)
     }
 
-    forceValidate() {
-      this.validate(this.props.value)
-    }
-
     handleUpdate(value: Value, sn: string, type?: typeof ERROR_TYPE | typeof FORCE_PASS | typeof IGNORE_VALIDATE) {
       if (type === ERROR_TYPE) {
         if (!isSameError(value, this.state.error)) this.setState({ error: value })
@@ -292,11 +279,11 @@ export default<Value,  U extends BaseInputProps, Item = any >(Origin: ComponentT
       const { name, onChange, forceChangeOnValueSet } = this.props
       const newValue = !Array.isArray(name)
         ? value
-        : immer(this.getValue(), (draft: any) => {
-          name.forEach((n, i) => {
-            if (n === sn) draft[i] = value
-          })
-        }) as Value
+        : (immer(this.getValue(), (draft: any) => {
+            name.forEach((n, i) => {
+              if (n === sn) draft[i] = value
+            })
+          }) as Value)
 
       if (!this.errorChange && shallowEqual(newValue, this.lastValue)) return
       this.lastValue = newValue
@@ -342,14 +329,13 @@ export default<Value,  U extends BaseInputProps, Item = any >(Origin: ComponentT
           onChange={this.handleChange}
           onDatumBind={this.handleDatumBind}
           validateHook={this.validateHook}
-          forceValidate={this.forceValidate}
         />
       )
     }
   }
 
-  const WithFiledSetConsumer  = fieldSetConsumer(InputableInner)
+  const WithFiledSetConsumer = fieldSetConsumer(InputableInner)
   const WidthItemConsumer = itemConsumer(WithFiledSetConsumer)
   const WidthFormConsumer = formConsumer(types)(WidthItemConsumer)
-  return  WidthFormConsumer as ComponentType<GetInputableProps<U, Value>>
+  return WidthFormConsumer as ComponentType<GetInputableProps<U, Value>>
 }

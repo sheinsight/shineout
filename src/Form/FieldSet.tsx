@@ -6,27 +6,24 @@ import validate from '../utils/validate'
 import { FormError, isSameError } from '../utils/errors'
 import { ERROR_TYPE, FORCE_PASS, IGNORE_VALIDATE } from '../Datum/types'
 import FieldError from './FieldError'
-import {FieldSetProviderValueType, FieldSetProps, GetFieldSetConsumerProps} from './Props'
-
+import { FieldSetProviderValueType, FieldSetProps, GetFieldSetConsumerProps } from './Props'
 
 const { Provider, Consumer } = createReactContext<FieldSetProviderValueType | undefined>(undefined)
 
-function extendName (path: string | undefined, name: string): string
-function extendName (path: string | undefined, name: undefined): undefined
-function extendName (path: string | undefined, name: string[]): string[]
+function extendName(path: string | undefined, name: string): string
+function extendName(path: string | undefined, name: undefined): undefined
+function extendName(path: string | undefined, name: string[]): string[]
 
-function  extendName (path:string = '', name: string | undefined | string[]): string | string[] | undefined {
+function extendName(path: string = '', name: string | undefined | string[]): string | string[] | undefined {
   if (name === undefined) return undefined
   if (name === '') return path
   if (Array.isArray(name)) {
-    return name.map((n) => extendName(path, n))
+    return name.map(n => extendName(path, n))
   }
   return `${path}${path.length > 0 ? '.' : ''}${name}`
 }
 
-
-class FieldSet<Value  extends any[]> extends Component<FieldSetProps<Value>, {}> {
-
+class FieldSet<Value extends any[]> extends Component<FieldSetProps<Value>, {}> {
   updateTimer: NodeJS.Timeout
 
   static defaultProps = {
@@ -52,14 +49,14 @@ class FieldSet<Value  extends any[]> extends Component<FieldSetProps<Value>, {}>
     formDatum.unbind(name, this.handleUpdate)
   }
 
-  validate():Promise<FormError | true> {
+  validate(): Promise<FormError | true> {
     const { formDatum, name } = this.props
     const value = formDatum.get(name)
     const data = formDatum.getValue()
     const validateProps = filterProps(this.props, v => typeof v === 'string' || typeof v === 'number')
     // @ts-ignore
     validateProps.type = 'array'
-    let rules = [...this.props.rules]
+    let rules = [...(this.props.rules || [])]
     rules = rules.concat(formDatum.getRule(name))
 
     if (rules.length === 0) return Promise.resolve(true)
@@ -166,7 +163,9 @@ class FieldSet<Value  extends any[]> extends Component<FieldSetProps<Value>, {}>
   }
 }
 
-export const fieldSetConsumer = <U extends {name?: string | string[] | undefined}, >(Origin: React.ComponentType<U>) : React.FC<GetFieldSetConsumerProps<U>> =>  props => (
+export const fieldSetConsumer = <U extends { name?: string | string[] }>(
+  Origin: React.ComponentType<U>
+): React.FC<GetFieldSetConsumerProps<U>> => props => (
   <Consumer>
     {({ path, val } = {}) => (
       <Origin
