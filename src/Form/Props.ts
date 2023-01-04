@@ -207,8 +207,8 @@ export interface InputableProps<Value> {
 export type InputableFormConsumerKey = 'formDatum' | 'disabled' | 'combineRules' | 'size'
 // 过滤掉原生属性required
 type InputablePropsFiltered<Value> = Omit<InputableProps<Value>, 'required'>
-// value 和 onChange 变为可选属性
-type HandleValueProps<Props extends BaseInputProps> = Omit<Props, 'value' | 'onChange'> &
+// value 和 onChange 变为可选属性 并去掉validateHook属性
+type HandleValueProps<Props extends BaseInputProps> = Omit<Props, 'value' | 'onChange' | 'validateHook'> &
   Partial<Pick<Props, 'value' | 'onChange'>>
 // inputable 中增加了一些属性
 type AddInputProps<Props extends BaseInputProps, Value> = ForceAdd<

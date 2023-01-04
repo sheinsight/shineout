@@ -3,8 +3,12 @@ import PropType from 'prop-types'
 import classnames from 'classnames'
 import { uploadClass } from './styles'
 import { accept as fileAccept } from '../utils'
+import { DropProps } from './Props'
 
-export default class Drop extends React.Component {
+interface DropState {
+  drop: boolean
+}
+export default class Drop<ValueItem> extends React.Component<DropProps<ValueItem>, DropState> {
   static propTypes = {
     disabled: PropType.bool,
     accept: PropType.string,
@@ -20,7 +24,7 @@ export default class Drop extends React.Component {
     drop: false,
   }
 
-  constructor(props) {
+  constructor(props: DropProps<ValueItem>) {
     super(props)
     this.state = {
       drop: false,
@@ -29,15 +33,15 @@ export default class Drop extends React.Component {
     this.handleFileDrop = this.handleFileDrop.bind(this)
   }
 
-  handleFileDrop(e) {
+  handleFileDrop(e: React.DragEvent) {
     const { files } = e.dataTransfer
     const { accept, multiple, onDrop, dropData } = this.props
-    const filter = accept ? Array.prototype.filter.call(files, f => fileAccept(f, accept)) : files
+    const filter = accept ? Array.prototype.filter.call(files, (f: File) => fileAccept(f, accept)) : files
     if (!filter || filter.length === 0) return
     if (onDrop) onDrop(multiple ? filter : [filter[0]], dropData)
   }
 
-  handleDrag(e) {
+  handleDrag(e: React.DragEvent) {
     const { disabled } = this.props
     if (disabled) return
     e.preventDefault()

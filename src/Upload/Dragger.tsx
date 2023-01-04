@@ -1,23 +1,30 @@
 // obsolete code
 import React from 'react'
-import PropTypes from 'prop-types'
 import { PureComponent } from '../component'
 import { uploadClass } from './styles'
 import Drop from './Drop'
 import { accept as attrAccept } from '../utils'
 
-class Dragger extends PureComponent {
-  constructor(props) {
+interface DraggerProps {
+  children: any
+  multiple: boolean
+  addFile: (...args: any) => void
+  accept: string
+  disabled: boolean
+  limit: number
+}
+class Dragger extends PureComponent<DraggerProps> {
+  constructor(props: DraggerProps) {
     super(props)
     this.handleDrop = this.handleDrop.bind(this)
   }
 
   getMatchedFile(files = []) {
     const { accept } = this.props
-    return Array.prototype.slice.call(files).filter(file => attrAccept(file, accept))
+    return Array.prototype.slice.call(files).filter((file: File) => attrAccept(file, accept))
   }
 
-  handleDrop(files) {
+  handleDrop(files: File[]) {
     const { addFile } = this.props
     addFile({ files, fromDragger: true })
   }
@@ -37,15 +44,6 @@ class Dragger extends PureComponent {
       </Drop>
     )
   }
-}
-
-Dragger.propTypes = {
-  children: PropTypes.any,
-  multiple: PropTypes.bool,
-  addFile: PropTypes.func,
-  accept: PropTypes.string,
-  disabled: PropTypes.bool,
-  limit: PropTypes.number,
 }
 
 export default Dragger

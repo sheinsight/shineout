@@ -1,12 +1,12 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import Progress from '../Progress'
 import { uploadClass } from './styles'
 import Image from '../Image'
 import { ERROR } from './request'
+import { ImageFileProps } from './Props'
 
-class ImageFile extends PureComponent {
-  constructor(props) {
+class ImageFile extends PureComponent<ImageFileProps> {
+  constructor(props: ImageFileProps) {
     super(props)
     this.handleRemove = this.handleRemove.bind(this)
   }
@@ -39,16 +39,6 @@ class ImageFile extends PureComponent {
       </div>
     )
   }
-}
-
-ImageFile.propTypes = {
-  id: PropTypes.string,
-  message: PropTypes.string,
-  onRemove: PropTypes.func,
-  process: PropTypes.number,
-  status: PropTypes.number,
-  style: PropTypes.object,
-  data: PropTypes.string,
 }
 
 export default ImageFile

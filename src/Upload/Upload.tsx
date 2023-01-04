@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import immer from 'immer'
 import Gap from '../Gap'
@@ -9,7 +8,7 @@ import { FormError } from '../utils/errors'
 import { uploadClass } from './styles'
 import defaultRequest, { ERROR, UPLOADING } from './request'
 import FileInput from './FileInput'
-import File from './File'
+import FileContent from './File'
 import ImageFile from './ImageFile'
 import Result from './Result'
 import ImageResult from './ImageResult'
@@ -21,20 +20,21 @@ import { getLocale } from '../locale'
 import acceptHOC from './accept'
 import getDataset from '../utils/dom/getDataset'
 import { isRTL } from '../config'
+import { FileRecord, UploadOptions, SimpleUploadProps, XhrType } from './Props'
 
-const VALIDATORITEMS = [
-  { key: 'size', param: blob => blob.size },
+const VALIDATORITEMS: { key: 'size' | 'ext' | 'customValidator'; param: (blob: File) => any }[] = [
+  { key: 'size', param: (blob: File) => blob.size },
   {
     key: 'ext',
-    param: blob => {
+    param: (blob: File) => {
       const exts = blob.name.split('.')
       return exts[exts.length - 1]
     },
   },
-  { key: 'customValidator', param: blob => blob },
+  { key: 'customValidator', param: (blob: File) => blob },
 ]
 
-const promised = (action, ...args) => {
+const promised = (action: Function, ...args: any) => {
   const res = action(...args)
   if (res && typeof res.then === 'function') return res
   return new Promise((resolve, reject) => {
@@ -43,8 +43,32 @@ const promised = (action, ...args) => {
   })
 }
 
-class Upload extends PureComponent {
-  constructor(props) {
+interface UploadState {
+  files: {
+    [id: string]: FileRecord
+  }
+  recycle: []
+}
+
+const DefaultProps = {
+  cors: false,
+  limit: 100,
+  recoverAble: false,
+  validator: {},
+  value: [],
+  withCredentials: false,
+  showUploadList: true,
+  validatorHandle: true,
+  canDelete: true,
+  GapProps: { column: 12, row: 12 },
+}
+
+class Upload<ValueItem> extends PureComponent<SimpleUploadProps<ValueItem>, UploadState> {
+  static defaultProps = DefaultProps
+
+  input: FileInput
+
+  constructor(props: SimpleUploadProps<ValueItem>) {
     super(props)
 
     this.state = {
@@ -66,7 +90,7 @@ class Upload extends PureComponent {
     props.validateHook(this.validate.bind(this))
   }
 
-  getCanDelete(item, index) {
+  getCanDelete(item: ValueItem, index: number) {
     const { canDelete } = this.props
     if (isFunc(canDelete)) {
       return canDelete(item, index)
@@ -74,22 +98,22 @@ class Upload extends PureComponent {
     return canDelete
   }
 
-  getAction(file) {
+  getAction(file: File) {
     const { action } = this.props
     if (typeof action === 'string') return action
     if (typeof action === 'function') return action(file)
     return ''
   }
 
-  validatorHandle(error, file) {
+  validatorHandle(error: Error, file: File) {
     const { validatorHandle: vth } = this.props
 
     if (typeof vth === 'function') return vth(error, file)
 
-    return vth
+    return !!vth
   }
 
-  bindElement(input) {
+  bindElement(input: FileInput) {
     this.input = input
   }
 
@@ -107,7 +131,7 @@ class Upload extends PureComponent {
     })
   }
 
-  removeFile(id) {
+  removeFile(id: string) {
     const { beforeCancel, onErrorRemove } = this.props
     const file = this.state.files[id]
 
@@ -121,14 +145,14 @@ class Upload extends PureComponent {
         }),
         () => {
           if (file.status === ERROR && onErrorRemove) {
-            onErrorRemove(file.xhr, file.blob, file)
+            onErrorRemove(file.xhr!, file.blob, file)
           }
         }
       )
     }
   }
 
-  removeValue(index) {
+  removeValue(index: number) {
     const { recoverAble, disabled, beforeRemove } = this.props
     if (disabled) return
     const current = this.props.value[index]
@@ -151,11 +175,11 @@ class Upload extends PureComponent {
       .catch(() => {})
   }
 
-  recoverValue(index, value) {
+  recoverValue(index: number, value: ValueItem) {
     const { disabled } = this.props
     if (disabled) return
     this.props.onChange(
-      immer(this.props.value, draft => {
+      immer(this.props.value, (draft: ValueItem[]) => {
         draft.push(value)
       })
     )
@@ -166,7 +190,7 @@ class Upload extends PureComponent {
     )
   }
 
-  async useValidator(blob) {
+  async useValidator(blob: File) {
     const { validator, accept, forceAccept, forceAcceptErrorMsg } = this.props
     const { files } = this.state
     let error = null
@@ -179,10 +203,10 @@ class Upload extends PureComponent {
 
     while (VALIDATORITEMS[i]) {
       const item = VALIDATORITEMS[i]
-      if (typeof validator[item.key] === 'function') {
+      if (typeof validator![item.key] === 'function') {
         try {
           // eslint-disable-next-line no-await-in-loop
-          await promised(validator[item.key], item.param(blob), files)
+          await promised(validator![item.key]!, item.param(blob), files)
         } catch (err) {
           error = err instanceof Error ? err : new Error(err)
         }
@@ -194,12 +218,12 @@ class Upload extends PureComponent {
     return null
   }
 
-  async addFile(e) {
-    const { beforeUpload, value, limit, filesFilter } = this.props
+  async addFile(e: { target?: { files: File[] }; fromDragger?: boolean; files?: File[] }) {
+    const { beforeUpload, value, limit = DefaultProps.limit, filesFilter } = this.props
     // eslint-disable-next-line
     const files = { ...this.state.files }
     let finishedCode = false
-    let fileList = e.fromDragger && e.files ? e.files : e.target.files
+    let fileList = (e.fromDragger && e.files ? e.files : e.target && e.target.files) || []
     if (filesFilter) fileList = filesFilter(Array.from(fileList)) || []
     const addLength = limit - value.length - Object.keys(this.state.files).length
     if (addLength <= 0) return
@@ -207,7 +231,7 @@ class Upload extends PureComponent {
     for (let i = 0; i < list.length; i++) {
       const blob = fileList[i]
       const id = getUidStr()
-      const file = {
+      const file: FileRecord = {
         name: blob.name,
         process: -1,
         status: UPLOADING,
@@ -280,7 +304,7 @@ class Upload extends PureComponent {
     this.setState({ files })
   }
 
-  uploadFile(id, file, data) {
+  uploadFile(id: string, file: File, data?: any) {
     const {
       onSuccess,
       name,
@@ -298,9 +322,9 @@ class Upload extends PureComponent {
     const req = request || defaultRequest
     let throttle = false
 
-    const options = {
+    const options: UploadOptions<ValueItem> = {
       url: this.getAction(file),
-      name: htmlName || name,
+      name: (htmlName || name) as string,
       cors,
       params,
       withCredentials,
@@ -310,7 +334,7 @@ class Upload extends PureComponent {
 
       onStart,
 
-      onProgress: (e, msg) => {
+      onProgress: (e: ProgressEvent<XMLHttpRequestEventTarget> & { percent?: number }, msg?: string) => {
         const percent = typeof e.percent === 'number' ? e.percent : (e.loaded / e.total) * 100
         if (throttle) return
         throttle = true
@@ -336,13 +360,13 @@ class Upload extends PureComponent {
 
       onSuccess,
 
-      onLoad: xhr => {
-        if (!/^2|1223/.test(xhr.status)) {
+      onLoad: (xhr: XMLHttpRequest) => {
+        if (!/^2|1223/.test(`${xhr.status}`)) {
           this.handleError(id, xhr, file)
           return
         }
 
-        let value
+        let value: any
         if (xhr.responseType === 'text' || !xhr.responseType) value = xhr.responseText
         if (!value) value = xhr.response
 
@@ -372,27 +396,27 @@ class Upload extends PureComponent {
         }
       },
 
-      onError: xhr => this.handleError(id, xhr, file),
+      onError: (xhr: XhrType) => this.handleError(id, xhr, file),
     }
     if (onProgress === false || onProgress === null) {
-      delete options.onProgress
+      options.onProgress = () => {}
     }
 
     return req(options)
   }
 
-  handleFileDrop(files) {
+  handleFileDrop(files: File[]) {
     this.addFile({ files, fromDragger: true })
   }
 
-  handleReplace(files, index) {
+  handleReplace(files: File[], index: number) {
     this.removeValue(index)
     setTimeout(() => {
       this.addFile({ files, fromDragger: true })
     })
   }
 
-  handleError(id, xhr, file) {
+  handleError(id: string, xhr: XhrType, file: File) {
     const { onError, onHttpError } = this.props
 
     let message = xhr.statusText
@@ -409,7 +433,16 @@ class Upload extends PureComponent {
   }
 
   renderHandle() {
-    const { limit, value, children, accept, multiple, disabled, webkitdirectory, drop } = this.props
+    const {
+      limit = DefaultProps.limit,
+      value,
+      children,
+      accept,
+      multiple,
+      disabled,
+      webkitdirectory,
+      drop,
+    } = this.props
     const count = value.length + Object.keys(this.state.files).length
     if (limit > 0 && limit <= count) return null
 
@@ -427,7 +460,7 @@ class Upload extends PureComponent {
         accept={accept}
         disabled={disabled}
         onDrop={this.handleFileDrop}
-        multiple={multiple || limit > 1}
+        multiple={!!multiple || limit > 1}
       >
         <span className={uploadClass('handle', disabled && 'disabled')} onClick={this.handleAddClick}>
           <Provider value={dragProps}>{children}</Provider>
@@ -445,7 +478,7 @@ class Upload extends PureComponent {
 
   render() {
     const {
-      limit,
+      limit = DefaultProps.limit,
       value,
       renderResult,
       style,
@@ -460,7 +493,7 @@ class Upload extends PureComponent {
       leftHandler,
       onPreview,
       removeConfirm,
-      GapProps,
+      gapProps,
     } = this.props
     const { files, recycle } = this.state
     const fileDrop = drop && !imageStyle
@@ -475,7 +508,7 @@ class Upload extends PureComponent {
       ),
       this.props.className
     )
-    const FileComponent = imageStyle ? ImageFile : File
+    const FileComponent = imageStyle ? ImageFile : FileContent
     const ResultComponent = imageStyle ? ImageResult : Result
 
     if (CustomResult) {
@@ -491,7 +524,7 @@ class Upload extends PureComponent {
 
     return (
       <div className={className} style={style} {...getDataset(this.props)}>
-        <Wrapper {...(imageStyle ? GapProps : null)}>
+        <Wrapper {...(imageStyle ? gapProps : null)}>
           {!imageStyle && this.renderHandle()}
           {imageStyle && leftHandler && this.renderHandle()}
           {showUploadList &&
@@ -545,68 +578,6 @@ class Upload extends PureComponent {
       </div>
     )
   }
-}
-
-Upload.propTypes = {
-  accept: PropTypes.string,
-  action: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-  beforeUpload: PropTypes.func,
-  children: PropTypes.any,
-  className: PropTypes.string,
-  cors: PropTypes.bool,
-  imageStyle: PropTypes.object,
-  headers: PropTypes.object,
-  htmlName: PropTypes.string,
-  limit: PropTypes.number,
-  multiple: PropTypes.bool,
-  name: PropTypes.string,
-  onChange: PropTypes.func,
-  onProgress: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
-  onSuccess: PropTypes.func,
-  onError: PropTypes.func,
-  onHttpError: PropTypes.func,
-  beforeCancel: PropTypes.func,
-  params: PropTypes.object,
-  recoverAble: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
-  renderResult: PropTypes.func,
-  request: PropTypes.func,
-  validateHook: PropTypes.func,
-  validator: PropTypes.object,
-  value: PropTypes.array,
-  customResult: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
-  style: PropTypes.object,
-  withCredentials: PropTypes.bool,
-  onStart: PropTypes.func,
-  showUploadList: PropTypes.bool,
-  validatorHandle: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
-  disabled: PropTypes.bool,
-  webkitdirectory: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-  renderContent: PropTypes.func,
-  drop: PropTypes.bool,
-  filesFilter: PropTypes.func,
-  onErrorRemove: PropTypes.func,
-  forceAccept: PropTypes.bool,
-  leftHandler: PropTypes.bool,
-  onPreview: PropTypes.func,
-  removeConfirm: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  beforeRemove: PropTypes.func,
-  forceAcceptErrorMsg: PropTypes.string,
-  canDelete: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
-  GapProps: PropTypes.shape({}),
-  responseType: PropTypes.string,
-}
-
-Upload.defaultProps = {
-  cors: false,
-  limit: 100,
-  recoverAble: false,
-  validator: {},
-  value: [],
-  withCredentials: false,
-  showUploadList: true,
-  validatorHandle: true,
-  canDelete: true,
-  GapProps: { column: 12, row: 12 },
 }
 
 export default acceptHOC(Upload)

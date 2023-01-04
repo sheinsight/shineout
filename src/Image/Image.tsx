@@ -226,8 +226,4 @@ export const IMAGE = {}
 
 Image.symbolType = IMAGE
 
-interface Export extends React.ComponentClass<ImageProps> {
-  Group: typeof Group
-}
-
-export default Image as Export
+export default Image

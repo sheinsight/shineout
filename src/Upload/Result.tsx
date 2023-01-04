@@ -1,12 +1,22 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import { uploadClass } from './styles'
 import icons from '../icons'
 import RemoveConfirm from './RemoveConfirm'
 import { getDirectionClass } from '../utils/classname'
+import { UploadResultProps } from './Props'
 
-class Result extends PureComponent {
-  constructor(props) {
+interface UploadResultState {
+  confirm: boolean
+}
+
+const DefaultProps = {
+  renderResult: (a: any) => a,
+  recoverAble: false,
+}
+class Result extends PureComponent<UploadResultProps, UploadResultState> {
+  static defaultProps = DefaultProps
+
+  constructor(props: UploadResultProps) {
     super(props)
     this.state = {
       confirm: false,
@@ -17,21 +27,21 @@ class Result extends PureComponent {
   }
 
   handleRemove() {
-    this.props.onRemove(this.props.index)
+    if (this.props.onRemove) this.props.onRemove(this.props.index)
   }
 
   handleRecover() {
     const { onRecover, value, index } = this.props
-    onRecover(index, value)
+    if (onRecover) onRecover(index, value)
   }
 
-  handleConfirmChange(confirm) {
+  handleConfirmChange(confirm: boolean) {
     this.setState({ confirm })
   }
 
   render() {
     const { confirm } = this.state
-    const { renderResult, value, recoverAble, showRecover, removeConfirm } = this.props
+    const { renderResult = DefaultProps.renderResult, value, recoverAble, showRecover, removeConfirm } = this.props
     const className = uploadClass('view-value', recoverAble && 'to-be-delete', confirm && 'view-active')
 
     return (
@@ -57,22 +67,6 @@ class Result extends PureComponent {
       </div>
     )
   }
-}
-
-Result.propTypes = {
-  index: PropTypes.number,
-  onRemove: PropTypes.func,
-  onRecover: PropTypes.func,
-  recoverAble: PropTypes.bool,
-  renderResult: PropTypes.func,
-  showRecover: PropTypes.bool,
-  value: PropTypes.any,
-  removeConfirm: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-}
-
-Result.defaultProps = {
-  renderResult: a => a,
-  recoverAble: false,
 }
 
 export default Result

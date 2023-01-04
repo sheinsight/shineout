@@ -1,9 +1,13 @@
+import { UploadOptions } from './Props'
+
 export const UPLOADING = 1
 export const SUCCESS = 2
 export const ERROR = 3
 
-function createCORSRequest(method, url) {
-  let xhr = new XMLHttpRequest()
+declare class XDomainRequest extends XMLHttpRequest {}
+
+function createCORSRequest(method: string, url: string) {
+  let xhr: XMLHttpRequest | null = new XMLHttpRequest()
   if ('withCredentials' in xhr) {
     // XHR for Chrome/Firefox/Opera/Safari.
     xhr.open(method, url, true)
@@ -18,7 +22,7 @@ function createCORSRequest(method, url) {
   return xhr
 }
 
-export default function(args) {
+export default function(args: UploadOptions<any>) {
   const {
     url,
     name,
@@ -46,13 +50,16 @@ export default function(args) {
 
   data.append(name, file)
 
+  // @ts-ignore
   const xhr = createCORSRequest('post', url, cors)
-  xhr.withCredentials = withCredentials
+  if (!xhr) return undefined
+  xhr.withCredentials = !!withCredentials
   if (responseType) {
     xhr.responseType = responseType
   }
   if (onProgress) xhr.upload.addEventListener('progress', onProgress, false)
-  xhr.onload = e => onLoad(e.currentTarget)
+  xhr.onload = e => onLoad(e.currentTarget as any)
+  // @ts-ignore
   xhr.onerror = onError
 
   Object.keys(headers).forEach(k => {
