@@ -28,7 +28,7 @@ export function empty(e: { preventDefault: () => void }) {
 
 export function memoize<T extends Function>(
   fn: T & {
-    cache: {
+    cache?: {
       [name: string]: any
     }
   }

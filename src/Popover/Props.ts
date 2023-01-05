@@ -1,6 +1,6 @@
 import { ComponentType, ReactNode } from 'react'
 import { StandardProps } from '../@types/common'
-import { ButtonType } from '../Button/interface'
+import { ButtonType } from '../Button/Props'
 import { AlertProps } from '../Alert/interface'
 
 export interface PopoverContextValue {
@@ -193,7 +193,7 @@ export interface PanelProps extends StandardProps, PopoverProviderProps {
   useTextStyle?: boolean
 }
 
-export interface ConfirmProps extends Omit<PopoverProps, 'children' | 'type'> {
+export interface PopoverConfirmProps extends Omit<PopoverProps, 'children' | 'type'> {
   /**
    * button text
    *
@@ -251,6 +251,6 @@ export type PopoverProps = GetPopoverConsumerProps<PanelProps>
 export interface PopoverContentProps extends Omit<PopoverProps, 'useTextStyle'> {}
 
 export type PopoverType = ComponentType<PopoverProps> & {
-  Confirm: ComponentType<ConfirmProps>
+  Confirm: ComponentType<PopoverConfirmProps>
   Content: ComponentType<PopoverContentProps>
 }

@@ -85,7 +85,7 @@ function getComponentPage(name, file) {
       } else if (e.indexOf('test-') === 0) {
         page.examples.push(exam)
       } else {
-        page.codes.push(exam.path.replace('code-', '').replace('.js', ''))
+        page.codes.push(exam.path.replace('code-', ''))
       }
     })
 

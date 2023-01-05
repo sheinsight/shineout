@@ -7,48 +7,39 @@
 import React from 'react'
 import { Dropdown, TYPE } from 'shineout'
 
-type DropdownProps = TYPE.Dropdown.Props
-type DropdownData = DropdownProps['data']
+type DropdownItem = TYPE.Dropdown.Item
 
 const style = { marginInlineEnd: 12, marginBottom: 12 }
 
-const menu: DropdownData = [
+const menu: DropdownItem[] = [
   {
     content: 'First',
-    id: '1',
     children: [
       {
         content: 'link1',
-        id: '4',
       },
       {
         content: 'link2',
-        id: '5',
       },
     ],
   },
   {
     content: 'Second',
     url: 'http://www.google.com',
-    id: '2',
     children: [
       {
         content: 'link3',
-        id: 6,
         onClick: () => {
           console.log('this is special')
         },
       },
       {
         content: 'link4',
-        id: 7,
         children: [
           {
-            id: '8',
             content: 'link5',
           },
           {
-            id: '9',
             content: 'link6',
           },
         ],

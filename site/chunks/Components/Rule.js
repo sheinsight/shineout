@@ -15,63 +15,64 @@ const source = locate(cn, en)
 const examples = [
   {
     name: 'locale',
-    isTs: false,
+    isTs: true,
     isTest: false,
     title: locate(
       '',
       ''
     ),
-    component: require('doc/pages/components/Rule/example-locale.js').default,
-    rawText: require('!raw-loader!doc/pages/components/Rule/example-locale.js'),
+    component: require('doc/pages/components/Rule/example-locale.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Rule/example-locale.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Rule/example-locale.tsx'),
 
   },
 ]
 
 log.start()
 log.setType('custom')
-require('doc/pages/components/Rule/code-custom.js')
+require('doc/pages/components/Rule/code-custom.ts')
 log.setType('max')
-require('doc/pages/components/Rule/code-max.js')
+require('doc/pages/components/Rule/code-max.ts')
 log.setType('min')
-require('doc/pages/components/Rule/code-min.js')
+require('doc/pages/components/Rule/code-min.ts')
 log.setType('range')
-require('doc/pages/components/Rule/code-range.js')
+require('doc/pages/components/Rule/code-range.ts')
 log.setType('regExp')
-require('doc/pages/components/Rule/code-regExp.js')
+require('doc/pages/components/Rule/code-regExp.ts')
 log.setType('required')
-require('doc/pages/components/Rule/code-required.js')
+require('doc/pages/components/Rule/code-required.ts')
 log.setType('type')
-require('doc/pages/components/Rule/code-type.js')
+require('doc/pages/components/Rule/code-type.ts')
 
 const logs = log.end()
 
 const codes = {
   'custom': {
-    text: require('!raw-loader!doc/pages/components/Rule/code-custom.js'),
+    text: require('!raw-loader!doc/pages/components/Rule/code-custom.ts'),
     log: logs['custom'],
   },
   'max': {
-    text: require('!raw-loader!doc/pages/components/Rule/code-max.js'),
+    text: require('!raw-loader!doc/pages/components/Rule/code-max.ts'),
     log: logs['max'],
   },
   'min': {
-    text: require('!raw-loader!doc/pages/components/Rule/code-min.js'),
+    text: require('!raw-loader!doc/pages/components/Rule/code-min.ts'),
     log: logs['min'],
   },
   'range': {
-    text: require('!raw-loader!doc/pages/components/Rule/code-range.js'),
+    text: require('!raw-loader!doc/pages/components/Rule/code-range.ts'),
     log: logs['range'],
   },
   'regExp': {
-    text: require('!raw-loader!doc/pages/components/Rule/code-regExp.js'),
+    text: require('!raw-loader!doc/pages/components/Rule/code-regExp.ts'),
     log: logs['regExp'],
   },
   'required': {
-    text: require('!raw-loader!doc/pages/components/Rule/code-required.js'),
+    text: require('!raw-loader!doc/pages/components/Rule/code-required.ts'),
     log: logs['required'],
   },
   'type': {
-    text: require('!raw-loader!doc/pages/components/Rule/code-type.js'),
+    text: require('!raw-loader!doc/pages/components/Rule/code-type.ts'),
     log: logs['type'],
   },
 }
