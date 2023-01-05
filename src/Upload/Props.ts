@@ -118,7 +118,6 @@ export interface SimpleUploadProps<ValueItem> extends StandardProps {
    * default: required
    */
   action?: string | ((file: File) => string)
-  // 暂时屏蔽该类型
   /**
    *  The callback of before upload
    *

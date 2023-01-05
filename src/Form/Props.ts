@@ -161,7 +161,10 @@ export interface FormProviderProps<V extends ObjectType> {
 
 export type FormContextKey = keyof FormContextValue
 
-export type GetFormConsumerProps<U, Keys extends (keyof U) & FormContextKey> = PartialKeys<U, Keys>
+export type GetFormConsumerProps<U, Keys extends FormContextKey> = Omit<
+  PartialKeys<U, Keys>,
+  'formDatum' | 'combineRules'
+>
 export type GetFormProviderProps<U, Value> = ForceAdd<U, FormProviderProps<Value>>
 
 /** ----------------formItemContext-----------------------* */
@@ -199,6 +202,9 @@ export interface InputableProps<Value> {
   defaultValue?: Value
   reserveAble?: boolean
   rules?: FormItemRule<Value>
+  /**
+   * 内部属性
+   */
   formDatum?: FormDatum<ObjectType>
   fieldSetValidate?: (validator: boolean) => void
   name?: string | string[]
@@ -218,7 +224,7 @@ type AddInputProps<Props extends BaseInputProps, Value> = ForceAdd<
 
 type InputWidthFieldSet<Props, Value> = GetFieldSetConsumerProps<AddInputProps<Props, Value>>
 type InputWidthItem<Props, Value> = GetFormItemConsumerProps<InputWidthFieldSet<Props, Value>>
-// @ts-ignore
+
 type InputWidthForm<Props, Value> = GetFormConsumerProps<InputWidthItem<Props, Value>, InputableFormConsumerKey>
 // consumer
 export type GetInputableProps<Props extends BaseInputProps, Value> = InputWidthForm<Props, Value>
