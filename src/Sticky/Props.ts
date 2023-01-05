@@ -1,8 +1,7 @@
-import * as React from 'react'
-
-// type ReactNode = React.ReactNode
+import React, { ReactNode } from 'react'
 import { StandardProps } from '../@types/common'
-import { ReactNode } from "react"
+
+export type Mode = 'top' | 'bottom'
 
 export interface StickyProps extends StandardProps {
   /**
@@ -12,7 +11,7 @@ export interface StickyProps extends StandardProps {
    *
    * default: -
    */
-  bottom?: number;
+  bottom?: number
 
   /**
    * Attached target. the default is the document.body. You can pass in an HTMLElement or css selector, and the target must be an ancestor node of the Sticky component.
@@ -21,7 +20,7 @@ export interface StickyProps extends StandardProps {
    *
    * default: none
    */
-  target?: string | HTMLElement;
+  target?: string | HTMLElement
 
   /**
    * Offsets from the top.
@@ -30,7 +29,7 @@ export interface StickyProps extends StandardProps {
    *
    * default: none
    */
-  top?: number;
+  top?: number
 
   /**
    * use css position:sticky while target is ordered
@@ -39,7 +38,7 @@ export interface StickyProps extends StandardProps {
    *
    * default: true
    */
-  css?: boolean;
+  css?: boolean
   /**
    * When the adsorption effect, trigger the callback
    *
@@ -47,7 +46,7 @@ export interface StickyProps extends StandardProps {
    *
    * default: null
    */
-  onChange?: (isSticky: boolean) => void;
+  onChange?: (isSticky: boolean) => void
 
   /**
    * children
@@ -56,11 +55,20 @@ export interface StickyProps extends StandardProps {
    *
    * default: -
    */
-  children?: ReactNode;
+  children?: ReactNode
+
+  /**
+   * -
+   *
+   * 内部使用
+   *
+   * default: -
+   */
+  needResetPostion?: boolean
 }
 
-declare class Sticky extends React.Component<StickyProps, {}> {
+export declare class Sticky extends React.Component<StickyProps, {}> {
   render(): JSX.Element
 }
 
-export default Sticky
+export type StickyType = typeof Sticky

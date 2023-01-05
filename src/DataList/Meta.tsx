@@ -1,13 +1,20 @@
-import React, { Component, isValidElement } from 'react'
-import PropTypes from 'prop-types'
+import React, { Component, isValidElement, ReactNode } from 'react'
 import classnames from 'classnames'
 import { isFunc, isString } from '../utils/is'
 import { listClass } from './styles'
 import Image from '../Image'
 
-const metaClass = (...a) => listClass(...a.map(v => `meta-${v}`))
+const metaClass = (...a: (string | boolean)[]) => listClass(...a.map(v => `meta-${v}`))
 
-class Meta extends Component {
+interface MetaProps {
+  avatar: ReactNode | (() => ReactNode)
+  title?: string
+  desc: string
+  content?: ReactNode | (() => ReactNode)
+  className?: string
+}
+
+class Meta extends Component<MetaProps> {
   renderAvatar() {
     const { avatar } = this.props
     if (!avatar) return null
@@ -80,14 +87,6 @@ class Meta extends Component {
       </div>
     )
   }
-}
-
-Meta.propTypes = {
-  avatar: PropTypes.oneOfType([PropTypes.string, PropTypes.node, PropTypes.func]),
-  title: PropTypes.string,
-  desc: PropTypes.string,
-  content: PropTypes.oneOfType([PropTypes.string, PropTypes.node, PropTypes.func]),
-  className: PropTypes.string,
 }
 
 export default Meta

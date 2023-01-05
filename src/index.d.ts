@@ -15,7 +15,7 @@ export { default as config, setConfig, isRTL } from './config'
 export { default as LazyList } from './AnimationList/LazyList'
 
 export { default as List } from './DataList'
-import { ListProps as __ListProps , ListBaseItemProps as __ListBaseItemProps } from './DataList'
+import { ListProps as __ListProps , ListBaseItemProps as __ListBaseItemProps } from './DataList/interface'
 
 export { default as Alert } from './Alert'
 import { AlertProps as __AlertProps,  } from './Alert/interface'
@@ -73,7 +73,7 @@ export { default as Icon } from './Icon'
 import { IconProps as __IconProps, IconComProps as __IconComProps,  } from './Icon/interface'
 
 export { default as Image } from './Image'
-import { ImageProps as __ImageProps, ImageGroupProps as __ImageGroupProps,  } from './Image/interface'
+import { ImageProps as __ImageProps, ImageGroupProps as __ImageGroupProps } from './Image/interface'
 
 export { default as Input } from './Input'
 import { InputProps as __InputProps, InputGroupProps as __InputGroupProps, InputNumberProps as __InputNumberProps, InputPasswordProps as __InputPasswordProps } from './Input/interface'
@@ -87,7 +87,7 @@ export { default as Message } from './Message'
 import { MessageOptions as __MessageOptions } from './Message/interface'
 
 export { default as Modal } from './Modal'
-import { ModalProps as __ModalProps } from './Modal/interface'
+import { ModalProps as __ModalProps, ModalFunctionOptions as __ModalFunctionOptions } from './Modal/interface'
 
 export { default as Pagination } from './Pagination'
 import { TextParams as __TextParams, PaginationProps as __PaginationProps } from './Pagination/interface'
@@ -119,7 +119,7 @@ export { default as Spin } from './Spin'
 import { SpinProps as __SpinProps } from './Spin/interface'
 
 export { default as Sticky } from './Sticky'
-import { StickyProps as __StickyProps,  } from './Sticky'
+import { StickyProps as __StickyProps } from './Sticky/interface'
 
 export { default as Switch } from './Switch'
 import { SwitchProps as __SwitchProps } from './Switch/interface'
@@ -247,6 +247,7 @@ export namespace TYPE {
     export type ComProps = __IconComProps
   }
   export namespace Image {
+  
     export type Props = __ImageProps
     export type GroupProps = __ImageGroupProps
   }
@@ -270,6 +271,7 @@ export namespace TYPE {
   export namespace Modal {
   
     export type Props = __ModalProps
+    export type FunctionOptions = __ModalFunctionOptions
   }
   export namespace Pagination {
   
@@ -312,6 +314,7 @@ export namespace TYPE {
     export type Props = __SpinProps
   }
   export namespace Sticky {
+  
     export type Props = __StickyProps
   }
   export namespace Switch {
