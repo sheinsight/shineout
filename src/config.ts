@@ -6,16 +6,16 @@ import { CartType } from './icons/Props'
 export const noti = new Notification()
 
 interface ConfigOption {
-  cssModule?: boolean
-  prefix?: string
-  locale?: LanType
-  autoSSL?: boolean
+  cssModule: boolean
+  prefix: string
+  locale: LanType
+  autoSSL: boolean
   delay?: number
-  scrollRatio?: number
+  scrollRatio: number
   trim?: boolean
   spin?: string
   caret?: CartType
-  direction?: Direction
+  direction: Direction
 }
 
 const config: ConfigOption = {
@@ -38,7 +38,7 @@ export function set<Key extends keyof ConfigOption>(name: Key, value: ConfigOpti
   noti.dispatch(name)
 }
 
-export function setConfig(conf: ConfigOption) {
+export function setConfig(conf: Partial<ConfigOption>) {
   for (const [key, value] of entries(conf)) {
     set(key, value)
   }

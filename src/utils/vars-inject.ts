@@ -20,6 +20,7 @@ import { tooltipClass } from '../Tooltip/styles'
 import { sliderClass } from '../Slider/styles'
 import { tagClass } from '../Tag/styles'
 import { exposeClass } from '../styles/expose'
+import { CartType } from '../icons/Props'
 
 const computedCache: { [x: string]: any } = {}
 let injectType = 'body'
@@ -62,7 +63,7 @@ function getProperty(name = '--btn-hover-darken', cache = true) {
   return computedCache[name]
 }
 
-function setBodyProperty(colors: { [x: string]: any }, value?: string) {
+function setBodyProperty(colors: { [x: string]: any }, value?: string | number) {
   for (const [cssVar, cssValue] of entries(colors)) {
     if (injectType === 'body') {
       if (value === undefined) {
@@ -2049,11 +2050,12 @@ const injects = {
         desc: '无边框表格头部边框线',
       },
     ],
-    set scrollRatio(v: string) {
-      configSet('scrollRatio', v)
+    set scrollRatio(v: number | string) {
+      const rate = typeof v === 'number' ? v : parseInt(v, 10)
+      configSet('scrollRatio', rate)
       setBodyProperty(
         {
-          '--table-scroll-ratio': `${parseInt(v, 10)}px`,
+          '--table-scroll-ratio': `${rate}px`,
         },
         v
       )
@@ -5080,7 +5082,7 @@ const injects = {
       )
     },
     set caret(v: string) {
-      configSet('caret', v)
+      configSet('caret', v as CartType)
       setBodyProperty(
         {
           '--common-caret-style': v,
@@ -5089,7 +5091,7 @@ const injects = {
       )
     },
     set inputDelay(v: string) {
-      configSet('delay', v)
+      configSet('delay', parseInt(v, 10))
       setBodyProperty(
         {
           '--common-input-delay': `${parseInt(v, 10)}px`,
