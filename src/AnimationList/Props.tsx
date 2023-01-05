@@ -49,4 +49,6 @@ export interface LazyListProps<DataItem> extends StandardProps {
   height?: number
   renderItem: (d: DataItem, i: number) => React.ReactNode
   keygen: KeygenType<DataItem>
+  // 强制触发更新
+  force?: any
 }

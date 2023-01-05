@@ -15,7 +15,7 @@ export { default as config, setConfig, isRTL } from './config'
 export { default as LazyList } from './AnimationList/LazyList'
 
 export { default as List } from './DataList'
-import { ListProps as __ListProps , ListBaseItemProps as __ListBaseItemProps } from './DataList'
+import { ListProps as __ListProps , ListBaseItemProps as __ListBaseItemProps } from './DataList/interface'
 
 export { default as Alert } from './Alert'
 import { AlertProps as __AlertProps,  } from './Alert/interface'
@@ -73,7 +73,7 @@ export { default as Icon } from './Icon'
 import { IconProps as __IconProps, IconComProps as __IconComProps,  } from './Icon/interface'
 
 export { default as Image } from './Image'
-import { ImageProps as __ImageProps, ImageGroupProps as __ImageGroupProps,  } from './Image/interface'
+import { ImageProps as __ImageProps, ImageGroupProps as __ImageGroupProps } from './Image/interface'
 
 export { default as Input } from './Input'
 import { InputProps as __InputProps, InputGroupProps as __InputGroupProps, InputNumberProps as __InputNumberProps, InputPasswordProps as __InputPasswordProps } from './Input/interface'
@@ -247,6 +247,7 @@ export namespace TYPE {
     export type ComProps = __IconComProps
   }
   export namespace Image {
+  
     export type Props = __ImageProps
     export type GroupProps = __ImageGroupProps
   }
