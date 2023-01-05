@@ -50,7 +50,7 @@ export default function(args: UploadOptions<any>) {
 
   data.append(name, file)
 
-  // @ts-ignore
+  // @ts-ignore 多传了一个参数
   const xhr = createCORSRequest('post', url, cors)
   if (!xhr) return undefined
   xhr.withCredentials = !!withCredentials
@@ -59,7 +59,6 @@ export default function(args: UploadOptions<any>) {
   }
   if (onProgress) xhr.upload.addEventListener('progress', onProgress, false)
   xhr.onload = e => onLoad(e.currentTarget as any)
-  // @ts-ignore
   xhr.onerror = onError
 
   Object.keys(headers).forEach(k => {
