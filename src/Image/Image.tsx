@@ -8,7 +8,7 @@ import { getLocale } from '../locale'
 import config from '../config'
 import { removeProtocol } from '../utils/strings'
 import getDataset from '../utils/dom/getDataset'
-import { ImageProps } from './interface'
+import { ImageProps } from './Props'
 import Group from './Group'
 
 interface State {

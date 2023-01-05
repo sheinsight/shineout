@@ -3,7 +3,6 @@ import classnames from 'classnames'
 import { getLocale } from '../locale'
 import LazyList from '../AnimationList/LazyList'
 import { listClass } from './styles'
-import Datum from '../Datum/List'
 import { isFunc, isArray, isString } from '../utils/is'
 import { getKey } from '../utils/uid'
 import { removeStack, addStack } from '../utils/lazyload'
@@ -12,12 +11,7 @@ import getDataset from '../utils/dom/getDataset'
 import Checkbox from '../Table/Checkbox'
 import { isRTL } from '../config'
 
-import { ListProps, ListBaseItemProps } from './Props'
-
-interface DataListProps<U, T> extends ListProps<U, T>, ListBaseItemProps {
-  datum: Datum<U, T>
-  height: number
-}
+import { BaseListProps } from './Props'
 
 const DefaultProps = {
   colNum: 1,
@@ -25,9 +19,7 @@ const DefaultProps = {
   size: 'default',
 }
 
-type Props<U, T> = DataListProps<U, T> & Required<Pick<DataListProps<U, T>, keyof typeof DefaultProps>>
-
-class Index<U, T> extends Component<Props<U, T>> {
+class Index<U, T> extends Component<BaseListProps<U, T>> {
   static defaultProps = DefaultProps
 
   id: string | null
@@ -38,7 +30,7 @@ class Index<U, T> extends Component<Props<U, T>> {
 
   static displayName: string
 
-  constructor(props: Props<U, T>) {
+  constructor(props: BaseListProps<U, T>) {
     super(props)
 
     this.bindNode = this.bindNode.bind(this)
