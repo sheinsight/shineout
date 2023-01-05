@@ -1,8 +1,11 @@
-import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
+import React, { PureComponent, ReactNode } from 'react'
 import { listClass } from './styles'
 
-class Extra extends PureComponent {
+interface ExtraProps {
+  extra: ReactNode[]
+}
+
+class Extra extends PureComponent<ExtraProps> {
   render() {
     const render = this.props.extra.map((value, index) => (
       <React.Fragment key={index}>
@@ -13,10 +16,6 @@ class Extra extends PureComponent {
 
     return <div className={listClass('extra')}>{render}</div>
   }
-}
-
-Extra.propTypes = {
-  extra: PropTypes.oneOfType([PropTypes.node, PropTypes.array]),
 }
 
 export default Extra

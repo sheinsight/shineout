@@ -8,7 +8,7 @@ import { getLocale } from '../locale'
 import config from '../config'
 import { removeProtocol } from '../utils/strings'
 import getDataset from '../utils/dom/getDataset'
-import { ImageProps } from './interface'
+import { ImageProps } from './Props'
 import Group from './Group'
 
 interface State {
@@ -22,14 +22,12 @@ const DefaultProps = {
   height: '100%',
 }
 
-type Props = ImageProps & Required<Pick<ImageProps, keyof typeof DefaultProps>>
-
 const PLACEHOLDER = 0
 const SRC = 1
 const ALT = 2
 const ERROR = 3
 
-class Image extends PureComponent<Props, State> {
+class Image extends PureComponent<ImageProps, State> {
   static defaultProps = DefaultProps
 
   static displayName: string
@@ -44,7 +42,7 @@ class Image extends PureComponent<Props, State> {
 
   element: HTMLElement | null
 
-  constructor(props: Props) {
+  constructor(props: ImageProps) {
     super(props)
 
     this.state = {
@@ -62,7 +60,7 @@ class Image extends PureComponent<Props, State> {
     this.fetchImage()
   }
 
-  componentDidUpdate(prevProps: Props) {
+  componentDidUpdate(prevProps: ImageProps) {
     const { src, alt } = this.props
     if (prevProps.src !== src || prevProps.alt !== alt) {
       this.fetchImage()
@@ -226,8 +224,4 @@ export const IMAGE = {}
 
 Image.symbolType = IMAGE
 
-interface Export extends React.ComponentClass<ImageProps> {
-  Group: typeof Group
-}
-
-export default Image as Export
+export default Image

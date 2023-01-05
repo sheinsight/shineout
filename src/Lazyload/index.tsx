@@ -1,21 +1,31 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { PureComponent } from '../component'
 import { lazyloadClass } from './styles'
 import { addStack, removeStack } from '../utils/lazyload'
+import { LazyloadProps } from './Props'
 
-class Lazyload extends PureComponent {
-  constructor(props) {
+interface LazyloadState {
+  ready: boolean
+}
+
+const DefaultProps = {
+  offset: 0,
+}
+
+class Lazyload extends PureComponent<LazyloadProps, LazyloadState> {
+  static defaultProps = DefaultProps
+
+  placeholder: HTMLSpanElement
+
+  lazyId: string | null
+
+  constructor(props: LazyloadProps) {
     super(props)
     this.state = { ready: false }
-
-    this.placeholderRef = el => {
-      this.placeholder = el
-    }
   }
 
   componentDidMount() {
-    const { container, offset } = this.props
+    const { container, offset = DefaultProps.offset } = this.props
     this.lazyId = addStack({
       offset,
       container,
@@ -26,6 +36,10 @@ class Lazyload extends PureComponent {
 
   componentWillUnmount() {
     removeStack(this.lazyId)
+  }
+
+  placeholderRef = (el: HTMLSpanElement) => {
+    this.placeholder = el
   }
 
   render() {
@@ -39,17 +53,6 @@ class Lazyload extends PureComponent {
       </span>
     )
   }
-}
-
-Lazyload.propTypes = {
-  children: PropTypes.any,
-  placeholder: PropTypes.element,
-  container: PropTypes.oneOfType([PropTypes.element, PropTypes.object]),
-  offset: PropTypes.number,
-}
-
-Lazyload.defaultProps = {
-  offset: 0,
 }
 
 export default Lazyload
