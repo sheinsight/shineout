@@ -58,7 +58,18 @@ exports[`Form[snapshot] Snapshot test: Form[site/pages/components/Form/example-0
     <div>
       
     </div>
-    <div />
+    <div>
+      <button>
+        <span>
+          Submit
+        </span>
+      </button>
+      <button>
+        <span>
+          Reset
+        </span>
+      </button>
+    </div>
   </div>
 </form>
 `;
@@ -89,7 +100,13 @@ exports[`Form[snapshot] Snapshot test: Form[site/pages/components/Form/example-0
     <div>
       
     </div>
-    <div />
+    <div>
+      <button>
+        <span>
+          Submit
+        </span>
+      </button>
+    </div>
   </div>
 </form>
 `;
@@ -116,6 +133,11 @@ exports[`Form[snapshot] Snapshot test: Form[site/pages/components/Form/example-0
       </label>
     </div>
   </div>
+  <button>
+    <span>
+      Submit
+    </span>
+  </button>
 </form>
 `;
 
@@ -145,7 +167,13 @@ exports[`Form[snapshot] Snapshot test: Form[site/pages/components/Form/example-0
     <div>
       
     </div>
-    <div />
+    <div>
+      <button>
+        <span>
+          Submit
+        </span>
+      </button>
+    </div>
   </div>
 </form>
 `;
@@ -172,6 +200,11 @@ exports[`Form[snapshot] Snapshot test: Form[site/pages/components/Form/example-0
       Remember
     </span>
   </label>
+  <button>
+    <span>
+      Submit
+    </span>
+  </button>
 </form>
 `;
 
@@ -285,6 +318,11 @@ exports[`Form[snapshot] Snapshot test: Form[site/pages/components/Form/example-0
       Remember
     </span>
   </label>
+  <button>
+    <span>
+      Submit
+    </span>
+  </button>
 </form>
 `;
 
@@ -424,6 +462,16 @@ exports[`Form[snapshot] Snapshot test: Form[site/pages/components/Form/example-0
     <div>
       <button>
         <span>
+          Sumbit
+        </span>
+      </button>
+      <button>
+        <span>
+          Reset
+        </span>
+      </button>
+      <button>
+        <span>
           校验部分字段
         </span>
       </button>
@@ -522,7 +570,18 @@ exports[`Form[snapshot] Snapshot test: Form[site/pages/components/Form/example-0
     <div>
       
     </div>
-    <div />
+    <div>
+      <button>
+        <span>
+          Sumbit
+        </span>
+      </button>
+      <button>
+        <span>
+          Reset
+        </span>
+      </button>
+    </div>
   </div>
 </form>
 `;
@@ -553,7 +612,18 @@ exports[`Form[snapshot] Snapshot test: Form[site/pages/components/Form/example-0
     <div>
       
     </div>
-    <div />
+    <div>
+      <button>
+        <span>
+          Sumbit
+        </span>
+      </button>
+      <button>
+        <span>
+          Reset
+        </span>
+      </button>
+    </div>
   </div>
 </form>
 `;
@@ -584,7 +654,18 @@ exports[`Form[snapshot] Snapshot test: Form[site/pages/components/Form/example-0
     <div>
       
     </div>
-    <div />
+    <div>
+      <button>
+        <span>
+          Sumbit
+        </span>
+      </button>
+      <button>
+        <span>
+          Reset
+        </span>
+      </button>
+    </div>
   </div>
 </form>
 `;
@@ -628,7 +709,18 @@ exports[`Form[snapshot] Snapshot test: Form[site/pages/components/Form/example-0
     <div>
       
     </div>
-    <div />
+    <div>
+      <button>
+        <span>
+          Sumbit
+        </span>
+      </button>
+      <button>
+        <span>
+          Reset
+        </span>
+      </button>
+    </div>
   </div>
 </form>
 `;
@@ -745,7 +837,21 @@ exports[`Form[snapshot] Snapshot test: Form[site/pages/components/Form/example-1
     <div>
       
     </div>
-    <div />
+    <div>
+      <button>
+        <span>
+          <div />
+        </span>
+        <span>
+          Submit
+        </span>
+      </button>
+      <button>
+        <span>
+          Reset
+        </span>
+      </button>
+    </div>
   </div>
 </form>
 `;
@@ -775,7 +881,13 @@ exports[`Form[snapshot] Snapshot test: Form[site/pages/components/Form/example-1
     <div>
       
     </div>
-    <div />
+    <div>
+      <button>
+        <span>
+          Submit
+        </span>
+      </button>
+    </div>
   </div>
 </form>
 `;
@@ -799,7 +911,13 @@ exports[`Form[snapshot] Snapshot test: Form[site/pages/components/Form/example-1
     <div>
       
     </div>
-    <div />
+    <div>
+      <button>
+        <span>
+          Submit
+        </span>
+      </button>
+    </div>
   </div>
 </form>
 `;
@@ -1051,7 +1169,18 @@ exports[`Form[snapshot] Snapshot test: Form[site/pages/components/Form/example-1
     <div>
       
     </div>
-    <div />
+    <div>
+      <button>
+        <span>
+          Submit
+        </span>
+      </button>
+      <button>
+        <span>
+          Reset
+        </span>
+      </button>
+    </div>
   </div>
 </form>
 `;
@@ -1105,7 +1234,18 @@ exports[`Form[snapshot] Snapshot test: Form[site/pages/components/Form/example-1
     <div>
       
     </div>
-    <div />
+    <div>
+      <button>
+        <span>
+          Submit
+        </span>
+      </button>
+      <button>
+        <span>
+          Reset
+        </span>
+      </button>
+    </div>
   </div>
 </form>
 `;
@@ -1331,7 +1471,18 @@ exports[`Form[snapshot] Snapshot test: Form[site/pages/components/Form/example-1
     <div>
       
     </div>
-    <div />
+    <div>
+      <button>
+        <span>
+          Submit
+        </span>
+      </button>
+      <button>
+        <span>
+          Reset
+        </span>
+      </button>
+    </div>
   </div>
 </form>
 `;
@@ -1363,6 +1514,20 @@ exports[`Form[snapshot] Snapshot test: Form[site/pages/components/Form/example-2
       </label>
     </div>
   </div>
-  <form />
+  <form>
+    <div>
+      <div>
+        name
+      </div>
+      <div>
+        <label>
+          <input />
+        </label>
+        <div>
+          Current mode is 'edit', can not change name.
+        </div>
+      </div>
+    </div>
+  </form>
 </div>
 `;
