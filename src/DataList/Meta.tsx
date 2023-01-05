@@ -1,5 +1,6 @@
 import React, { Component, isValidElement, ReactNode } from 'react'
 import classnames from 'classnames'
+import { isFunc, isString } from '../utils/is'
 import { listClass } from './styles'
 import Image from '../Image'
 
@@ -20,10 +21,10 @@ class Meta extends Component<MetaProps> {
     if (isValidElement(avatar)) {
       return <div className={metaClass('avatar')}>{avatar}</div>
     }
-    if (typeof avatar === 'function') {
+    if (isFunc(avatar)) {
       return <div className={metaClass('avatar')}>{avatar()}</div>
     }
-    if (typeof avatar === 'string')
+    if (isString(avatar))
       return (
         <div className={metaClass('avatar')}>
           <Image lazy src={avatar} />
@@ -50,7 +51,7 @@ class Meta extends Component<MetaProps> {
   renderContent() {
     const { content } = this.props
     if (!content) return null
-    if (typeof content === 'function') return <div className={metaClass('content')}>{content()}</div>
+    if (isFunc(content)) return <div className={metaClass('content')}>{content()}</div>
     return <div className={metaClass('content')}>{content}</div>
   }
 
