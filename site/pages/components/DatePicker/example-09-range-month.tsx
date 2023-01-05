@@ -7,7 +7,7 @@
 import React from 'react'
 import { DatePicker, TYPE } from 'shineout'
 
-type DatePickerProps = TYPE.DatePicker.Props<Date>
+type DatePickerProps = TYPE.DatePicker.Props
 type DatePickerDefaultRangeMonth = DatePickerProps['defaultRangeMonth']
 
 const today = new Date()

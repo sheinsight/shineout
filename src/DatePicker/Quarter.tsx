@@ -4,16 +4,17 @@ import utils from './utils'
 import paramUtils from './paramUtils'
 import { datepickerClass } from './styles'
 import { getLocale } from '../locale'
+import { isArray } from '../utils/is'
 import { UnionPannelProps } from './Props'
 
 const Quarters = ['Q1', 'Q2', 'Q3', 'Q4']
 
-class Quarter<Value> extends PureComponent<UnionPannelProps<Value>> {
+class Quarter extends PureComponent<UnionPannelProps> {
   handleNextYear: any
 
   handlePrevYear: any
 
-  constructor(props: UnionPannelProps<Value>) {
+  constructor(props: UnionPannelProps) {
     super(props)
     this.handleNextYear = this.handleYearChange.bind(this, 1)
     this.handlePrevYear = this.handleYearChange.bind(this, -1)
@@ -54,7 +55,7 @@ class Quarter<Value> extends PureComponent<UnionPannelProps<Value>> {
       isDisabled = disabled(date)
     }
 
-    if (!isDisabled && index === 0) {
+    if (!isDisabled && index === 0 && isArray(rangeDate)) {
       if (
         rangeDate[1] &&
         utils.compareQuarter(
@@ -68,7 +69,7 @@ class Quarter<Value> extends PureComponent<UnionPannelProps<Value>> {
       }
     }
 
-    if (!isDisabled && index === 1) {
+    if (!isDisabled && index === 1 && isArray(rangeDate)) {
       if (
         rangeDate[0] &&
         utils.compareQuarter(

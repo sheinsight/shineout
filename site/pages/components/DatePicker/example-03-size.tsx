@@ -8,7 +8,7 @@ import React from 'react'
 import { DatePicker, TYPE } from 'shineout'
 
 type DatePickerSize = DatePickerProps['size']
-type DatePickerProps = TYPE.DatePicker.Props<Date>
+type DatePickerProps = TYPE.DatePicker.Props
 
 const Now = Date.now()
 const Size: DatePickerSize[] = ['small', 'default', 'large']

@@ -16,12 +16,12 @@ const DefaultValue = {
   total: 60,
 }
 
-class TimeScroll<Value> extends PureComponent<TimeScrollProps<Value>> {
+class TimeScroll extends PureComponent<TimeScrollProps> {
   static defaultProps = DefaultValue
 
   element: HTMLDivElement
 
-  constructor(props: TimeScrollProps<Value>) {
+  constructor(props: TimeScrollProps) {
     super(props)
 
     this.bindElement = this.bindElement.bind(this)

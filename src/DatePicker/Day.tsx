@@ -6,6 +6,7 @@ import Icon from './Icon'
 import { getLocale } from '../locale'
 import { PureComponent } from '../component'
 import Time from './Time'
+import { isArray } from '../utils/is'
 import { UnionPannelProps, PickMouseEvent } from './Props'
 
 const minStr = 'yyyy-MM-dd 00:00:00'
@@ -15,7 +16,7 @@ interface DayState {
   hover: Date | null
 }
 
-class Day<Value> extends PureComponent<UnionPannelProps<Value>, DayState> {
+class Day extends PureComponent<UnionPannelProps, DayState> {
   handleNextMonth: PickMouseEvent
 
   handlePrevMonth: PickMouseEvent
@@ -36,7 +37,7 @@ class Day<Value> extends PureComponent<UnionPannelProps<Value>, DayState> {
 
   today: Date
 
-  constructor(props: UnionPannelProps<Value>) {
+  constructor(props: UnionPannelProps) {
     super(props)
 
     this.state = {
@@ -92,9 +93,10 @@ class Day<Value> extends PureComponent<UnionPannelProps<Value>, DayState> {
   }
 
   handleDayClick(date: Date, sync: number) {
-    const { type, allowSingle, rangeDate, min, max, index, value } = this.props
+    const { type, allowSingle, rangeDate, min, max, index, value, onChangeSync } = this.props
     const current = (index === sync && value) || this.formatWithDefaultTime(sync)
-    const onChange = typeof sync === 'number' ? this.props.onChangeSync.bind(this.props, sync) : this.props.onChange
+    const onChange =
+      typeof sync === 'number' && onChangeSync ? onChangeSync.bind(this.props, sync) : this.props.onChange
     if (type === 'week') {
       onChange(...paramUtils.weekHandleChangeParams(date, true, true))
     } else {
@@ -104,9 +106,11 @@ class Day<Value> extends PureComponent<UnionPannelProps<Value>, DayState> {
       if (max && utils.compareAsc(newDate, max) > 0) utils.setTime(newDate, max as Date)
       if (
         allowSingle &&
-        rangeDate[index!] &&
+        isArray(rangeDate) &&
+        index !== undefined &&
+        rangeDate[index] &&
         utils.clearHMS(newDate, this.getOptions()).getTime() ===
-          utils.clearHMS(rangeDate[index!], this.getOptions()).getTime()
+          utils.clearHMS(rangeDate[index], this.getOptions()).getTime()
       )
         newDate = ''
       onChange(...paramUtils.dayHandleChangeParams(newDate as Date, true, type !== 'datetime'))
@@ -124,9 +128,7 @@ class Day<Value> extends PureComponent<UnionPannelProps<Value>, DayState> {
   handleMonth(month: number) {
     const { current, onChange } = this.props
     // warning: month === 12 || month === -12, this is statement is year mode.
-    console.log('month', month)
     if (month === -12 || month === 12) {
-      console.log('month', [...paramUtils.yearHandleChangeParams(utils.addMonths(current, month, this.getOptions()))])
       onChange(...paramUtils.yearHandleChangeParams(utils.addMonths(current, month, this.getOptions())))
       return
     }
@@ -138,7 +140,9 @@ class Day<Value> extends PureComponent<UnionPannelProps<Value>, DayState> {
   }
 
   handleDayHover(date: Date) {
-    this.props.onDayHover(date)
+    const { onDayHover } = this.props
+
+    if (onDayHover) onDayHover(date)
   }
 
   handleDisabled(date: Date, minDate?: Date, maxDate?: Date) {

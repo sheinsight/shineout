@@ -8,8 +8,8 @@ import paramUtils from './paramUtils'
 import Picker from './Picker'
 import { datepickerClass } from './styles'
 import Quick from './Quick'
-import { DatePickerProps, DateTimeType, AreaType } from './Props'
-import { RangeProps, DisabledType } from './Props'
+import { DateTimeType, AreaType } from './Props'
+import { RangeProps, DisabledType, DatePickerValue } from './Props'
 
 interface RangeState {
   rangeDate: Date[]
@@ -18,7 +18,7 @@ interface RangeState {
 const DefaultValue = {
   value: [],
 }
-class Range<Value> extends PureComponent<RangeProps<Value>, RangeState> {
+class Range extends PureComponent<RangeProps, RangeState> {
   static defaultProps = DefaultValue
 
   pickers: Picker[]
@@ -31,11 +31,11 @@ class Range<Value> extends PureComponent<RangeProps<Value>, RangeState> {
 
   bindSecondPicker: (picker: Picker) => void
 
-  handleDisabledStart: any
+  handleDisabledStart: ((date: Date, type?: DisabledType, value?: DatePickerValue) => boolean)
 
-  handleDisabledEnd: any
+  handleDisabledEnd: ((date: Date, type?: DisabledType, value?: DatePickerValue) => boolean)
 
-  constructor(props: RangeProps<Value>) {
+  constructor(props: RangeProps) {
     super(props)
 
     this.state = {
@@ -56,7 +56,7 @@ class Range<Value> extends PureComponent<RangeProps<Value>, RangeState> {
     this.handleQuick = this.handleQuick.bind(this)
   }
 
-  componentDidUpdate(prevProps: RangeProps<Value>) {
+  componentDidUpdate(prevProps: RangeProps) {
     const { rangeDate } = this.state
     if (
       Array.isArray(rangeDate) &&
@@ -78,7 +78,7 @@ class Range<Value> extends PureComponent<RangeProps<Value>, RangeState> {
     this.pickers[index] = el
   }
 
-  resetRange(rangeDate: DatePickerProps['value']) {
+  resetRange(rangeDate: DatePickerValue) {
     this.setState({ rangeDate })
   }
 

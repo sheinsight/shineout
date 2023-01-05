@@ -3,11 +3,11 @@ import React, { Component } from 'react'
 import shallowEqual from '../utils/shallowEqual'
 import utils from './utils'
 import { getLocale } from '../locale'
-import { DatePickerValueProps, DatePickerValue as DatePickerValueType } from './Props'
+import { DatePickerValueProps, DatePickerValue as DatePickerValueType, QuickSelect } from './Props'
 
 interface DatePickerState {
   value: DatePickerValueType
-  quickSelect?: null | boolean
+  quickSelect?: QuickSelect | null
 }
 
 export default <Props extends DatePickerValueProps>(Origin: React.ComponentType<Props>) =>
@@ -70,7 +70,7 @@ export default <Props extends DatePickerValueProps>(Origin: React.ComponentType<
     }
 
     convertValue(value: DatePickerValueType) {
-      const { range } = this.props
+      const { range, onChange } = this.props
       if (!value) {
         this.setState({ value })
         return undefined
@@ -83,14 +83,13 @@ export default <Props extends DatePickerValueProps>(Origin: React.ComponentType<
           format as string,
           this.getOptions()
         )
-        if (newValue !== value) this.props.onChange!(newValue)
+        if (newValue !== value && onChange) onChange(newValue)
         else if (newValue !== this.state.value) this.setState({ value: newValue })
         return newValue
       }
 
       // expand
       const { quickSelect } = this.state
-
       const newValue: Date[] = (value as Date[]).map(v => {
         if (!v) return undefined
         return utils.format(
@@ -101,7 +100,7 @@ export default <Props extends DatePickerValueProps>(Origin: React.ComponentType<
       })
 
       if (!shallowEqual(newValue, value)) {
-        this.props.onChange!(newValue, quickSelect)
+        if (onChange) onChange(newValue, quickSelect)
       } else if (!shallowEqual(newValue, this.state.value)) {
         // reset quickSelect if newValue !== this.state.value
         this.setState({ value: newValue, quickSelect: null })
@@ -118,9 +117,9 @@ export default <Props extends DatePickerValueProps>(Origin: React.ComponentType<
       return newValue
     }
 
-    handleChange(value: DatePickerValueType, callback?: () => void, quickSelect?: boolean) {
+    handleChange(value: DatePickerValueType, callback?: () => void, quickSelect?: QuickSelect) {
       const { range } = this.props
-      const newState: { value: DatePickerValueType; quickSelect?: boolean } = { value }
+      const newState: { value: DatePickerValueType; quickSelect?: QuickSelect } = { value }
       if (range) {
         newState.quickSelect = quickSelect
       }
@@ -128,22 +127,15 @@ export default <Props extends DatePickerValueProps>(Origin: React.ComponentType<
     }
 
     handleBlur() {
+      const { onChange } = this.props
       if (this.rangeWithSingle()) {
         this.setState({ value: this.props.value })
-      } else if (this.state.value !== this.props.value) this.props.onChange!(this.state.value, this.state.quickSelect)
+      } else if (this.state.value !== this.props.value && onChange) onChange(this.state.value, this.state.quickSelect)
     }
 
     render() {
       const { value } = this.state
 
-      return (
-        <Origin
-          {...this.props}
-          onChange={this.handleChange}
-          onValueBlur={this.handleBlur}
-          onBlur={this.props.onBlur}
-          value={value}
-        />
-      )
+      return <Origin {...this.props} onChange={this.handleChange} onValueBlur={this.handleBlur} value={value} />
     }
   }

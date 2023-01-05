@@ -7,7 +7,7 @@ import paramUtils from './paramUtils'
 import { getLocale } from '../locale'
 import { UnionPannelProps } from './Props'
 
-class Time<Value> extends PureComponent<UnionPannelProps<Value>> {
+class Time extends PureComponent<UnionPannelProps> {
   defaultValue: Date
 
   handleMinuteChange: any
@@ -18,7 +18,7 @@ class Time<Value> extends PureComponent<UnionPannelProps<Value>> {
 
   handleAMPMChange: any
 
-  constructor(props: UnionPannelProps<Value>) {
+  constructor(props: UnionPannelProps) {
     super(props)
 
     this.defaultValue = this.getDefaultTime()

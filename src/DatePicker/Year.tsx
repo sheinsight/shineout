@@ -5,16 +5,17 @@ import Icon from './Icon'
 import { getLocale } from '../locale'
 import utils from './utils'
 import paramUtils from './paramUtils'
+import { isArray } from '../utils/is'
 import { UnionPannelProps, Mode } from './Props'
 
 const MONTHBASE = '2019-01-01 00:00:00'
 
-class Year<Value> extends PureComponent<UnionPannelProps<Value>> {
+class Year extends PureComponent<UnionPannelProps> {
   handlePrevRange: (year: number) => void
 
   handleNextRange: (year: number) => void
 
-  constructor(props: UnionPannelProps<Value>) {
+  constructor(props: UnionPannelProps) {
     super(props)
 
     this.handlePrevRange = this.handleRangeChange.bind(this, -15)
@@ -59,13 +60,13 @@ class Year<Value> extends PureComponent<UnionPannelProps<Value>> {
       isDisabled = disabled(date)
     }
 
-    if (!isDisabled && index === 0) {
+    if (!isDisabled && index === 0 && isArray(rangeDate)) {
       if (rangeDate[1] && utils.compareAsc(date, utils.addSeconds(rangeDate[1], -range!, this.getOptions())) < 0) {
         isDisabled = true
       }
     }
 
-    if (!isDisabled && index === 1) {
+    if (!isDisabled && index === 1 && isArray(rangeDate)) {
       if (
         rangeDate[0] &&
         utils.compareAsc(date, utils.addSeconds(rangeDate[0], range as number, this.getOptions())) > 0

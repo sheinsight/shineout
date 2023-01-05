@@ -79,8 +79,7 @@ class Picker extends PureComponent<PickerProps, PickerState> {
     e.stopPropagation()
 
     const { index, handleHover } = this.props
-
-    if (handleHover) handleHover(index, isEnter)
+    if (handleHover && index !== undefined) handleHover(index, isEnter)
   }
 
   handleModeChange(mode: Mode) {

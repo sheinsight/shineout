@@ -7,7 +7,7 @@
 import React, { useState } from 'react'
 import { DatePicker, Input, TYPE } from 'shineout'
 
-type DatePickerProps = TYPE.DatePicker.Props<DatePickerValue>
+type DatePickerProps = TYPE.DatePicker.Props
 type DatePickerValue = TYPE.DatePicker.Value
 type DatePickerFormat = DatePickerProps['format']
 

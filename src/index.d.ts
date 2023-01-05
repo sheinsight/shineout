@@ -44,7 +44,7 @@ export { default as Checkbox } from './Checkbox'
 import { CheckboxProps as __CheckboxProps, GroupProps as __GroupProps } from './Checkbox/interface'
 
 export { default as DatePicker } from './DatePicker'
-import { DatePickerValue as __DatePickerValue, DatePickerProps as __DatePickerProps } from './DatePicker/interface'
+import { AreaType as __AreaType, QuickSelect as __QuickSelect, DateTimeType as __DateTimeType, DisabledType as __DisabledType, DatePickerProps as __DatePickerProps, DatePickerValue as __DatePickerValue } from './DatePicker/interface'
 
 export { default as Datum } from './Datum'
 
@@ -203,8 +203,12 @@ export namespace TYPE {
   }
   export namespace DatePicker {
   
+    export type AreaType = __AreaType
+    export type QuickSelect = __QuickSelect
+    export type DateTimeType = __DateTimeType
+    export type DisabledType = __DisabledType
+    export type Props = __DatePickerProps
     export type Value = __DatePickerValue
-    export type Props<Value> = __DatePickerProps<Value>
   }
   export namespace Divider {
     export type Props = __DividerProps

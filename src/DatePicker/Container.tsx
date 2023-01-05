@@ -22,11 +22,11 @@ import { isRTL } from '../config'
 import InputTitle from '../InputTitle'
 import { inputTitleClass } from '../InputTitle/styles'
 import { getDirectionClass } from '../utils/classname'
-import { AreaType, DatePickerProps, DateTimeType, ContainerProp, vaildFn, vaildFns, Quick } from './Props'
+import { AreaType, BaseProps, DateTimeType, ContainerProps, vaildFn, vaildFns, Quick } from './Props'
 
 const FadeList = List(['fade'], 'fast')
 const OptionList = absoluteList(({ focus, ...other }: any) => <FadeList show={focus} {...other} />)
-const getCurrentPosition = (position: DatePickerProps['position']) => {
+const getCurrentPosition = (position: BaseProps['position']) => {
   if (isRTL()) {
     return getRTLPosition(position!)
   }
@@ -36,7 +36,7 @@ const getCurrentPosition = (position: DatePickerProps['position']) => {
 interface ContainerState {
   focus: boolean
   current: Date[] | Date
-  position: DatePickerProps['position']
+  position: BaseProps['position']
   picker0: boolean
   picker1: boolean
 }
@@ -47,7 +47,7 @@ const DefaultValue = {
   allowSingle: false,
   placeholder: <span>&nbsp;</span>,
 }
-class Container<Value> extends PureComponent<ContainerProp<Value>, ContainerState> {
+class Container extends PureComponent<ContainerProps, ContainerState> {
   static defaultProps = DefaultValue
 
   handleClick: any
@@ -71,13 +71,13 @@ class Container<Value> extends PureComponent<ContainerProp<Value>, ContainerStat
 
   element: HTMLSpanElement
 
-  picker: Range<Value> | Picker
+  picker: Range | Picker
 
   pickerContainer: HTMLDivElement
 
   textSpan: HTMLSpanElement
 
-  constructor(props: ContainerProp<Value>) {
+  constructor(props: ContainerProps) {
     super(props)
 
     this.state = {
@@ -205,7 +205,7 @@ class Container<Value> extends PureComponent<ContainerProp<Value>, ContainerStat
     this.element = el
   }
 
-  bindPicker(picker: Range<Value> | Picker) {
+  bindPicker(picker: Range | Picker) {
     this.picker = picker
   }
 
@@ -242,13 +242,13 @@ class Container<Value> extends PureComponent<ContainerProp<Value>, ContainerStat
       if (this.props.inputable && this.textSpan) this.textSpan.blur()
       this.clearClickAway()
       this.handleToggle(false)
-      this.props.onBlur!()
+      if (this.props.onBlur) this.props.onBlur()
     }
   }
 
   handleFocus(e: FocusEvent<HTMLDivElement>) {
     if (!this.shouldFocus(e.target)) return
-    this.props.onFocus!(e)
+    if (this.props.onFocus) this.props.onFocus(e)
     this.bindClickAway()
   }
 
@@ -305,7 +305,7 @@ class Container<Value> extends PureComponent<ContainerProp<Value>, ContainerStat
       // this.props.onFocus()
       this.bindClickAway()
     } else {
-      this.props.onValueBlur!()
+      this.props.onValueBlur()
     }
   }
 
@@ -315,7 +315,7 @@ class Container<Value> extends PureComponent<ContainerProp<Value>, ContainerStat
     if (cb && typeof cb === 'function') cb()
     // OnChange is not triggered when handling copy and paste
     if (inputable && focus === false) {
-      this.props.onValueBlur!()
+      this.props.onValueBlur()
     }
   }
 
@@ -435,7 +435,7 @@ class Container<Value> extends PureComponent<ContainerProp<Value>, ContainerStat
     if (onPickerChange) onPickerChange(value, isQuickSelect, areaType)
     if (change) {
       this.setState({ current: newCurrent })
-      this.props.onChange!(value, callback, isQuickSelect)
+      this.props.onChange(value, callback, isQuickSelect)
     } else {
       this.setState({ current: newCurrent }, callback)
     }
@@ -447,7 +447,7 @@ class Container<Value> extends PureComponent<ContainerProp<Value>, ContainerStat
     const empty = clearWithUndefined ? undefined : ''
     const value = this.props.range ? [empty, empty] : empty
     this.props.onChange!(value, () => {
-      this.props.onValueBlur!()
+      this.props.onValueBlur()
       this.handleToggle(false)
       this.element.focus()
     })

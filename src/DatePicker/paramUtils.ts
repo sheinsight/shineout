@@ -1,6 +1,6 @@
 import utils from './utils'
 import { isNumber } from '../utils/is'
-import { AreaType, DatePickerValue, DatePickerProps } from './Props'
+import { AreaType, DatePickerValue, BaseProps } from './Props'
 import { DisabledType, Quick } from './Props'
 
 const { TIME_FORMAT, compareAsc, addSeconds, format } = utils
@@ -30,7 +30,7 @@ const weekHandleChangeParams = handleOnChangeParams('week')
 const timeHandleChangeParams = handleOnChangeParams('time')
 const quickHandleChangeParams = handleOnChangeParams('quick')
 
-function handleTimeDisabled(date: Date, disabledTime: DatePickerProps['disabledTime'], options?: any) {
+function handleTimeDisabled(date: Date, disabledTime: BaseProps['disabledTime'], options?: any) {
   if (typeof disabledTime === 'string') return format(date, TIME_FORMAT, options) === disabledTime
   if (typeof disabledTime === 'function') return disabledTime(format(date, TIME_FORMAT, options))
   return undefined
@@ -41,9 +41,9 @@ function handleDisabled(
     Date,
     Date | undefined | null,
     Date | undefined | null,
-    DatePickerProps['range'],
+    BaseProps['range'],
     ((date: Date, type?: DisabledType, value?: DatePickerValue) => boolean) | boolean | undefined,
-    DatePickerProps['disabledTime'],
+    BaseProps['disabledTime'],
     any
   ]
 ) {
@@ -70,9 +70,9 @@ function judgeTimeByRange(
     'H' | 'h' | 'm' | 'minute' | 's' | 'second' | 'ampm',
     Date | null | undefined,
     Date | null | undefined,
-    DatePickerProps['range'],
+    BaseProps['range'],
     ((date: Date, type?: DisabledType, value?: DatePickerValue) => boolean) | boolean | undefined,
-    DatePickerProps['disabledTime'],
+    BaseProps['disabledTime'],
     any
   ]
 ) {
