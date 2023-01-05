@@ -1,4 +1,4 @@
-import React, { ComponentType, PureComponent } from "react"
+import React, { ComponentType, PureComponent } from 'react'
 import classnames from 'classnames'
 import immer from 'immer'
 import createReactContext from '../context'
@@ -7,11 +7,8 @@ import { errorSubscribe, RESET_TOPIC } from '../Datum/types'
 import { getGrid } from '../Grid/utils'
 import { objectValues } from '../utils/objects'
 import { formClass } from './styles'
-import { ObjectType } from "../@types/common"
-import FormDatum from '../Datum/Form'
-import { FormItemContextValue, GetFormItemConsumerProps } from "./Props"
-
-
+import { ObjectType } from '../@types/common'
+import { FormItemContextValue, GetFormItemConsumerProps, ItemProps } from './Props'
 
 const { Provider, Consumer } = createReactContext<FormItemContextValue>({} as FormItemContextValue)
 
@@ -31,19 +28,6 @@ class Label extends PureComponent<{
   }
 }
 
-interface ItemProps {
-  grid?: number | {width: number, offset: number, response: 'sm' | 'md' | 'lg' | 'xl'},
-  className?: string,
-  keepErrorHeight?: boolean,
-  label?: string,
-  labelAlign?: 'top'|'left'|'right',
-  labelWidth?: string | number,
-  required?: boolean,
-  tip?: React.ReactNode,
-  formDatum?: FormDatum<any>
-  labelVerticalAlign?: 'top' | 'middle' | 'bottom'
-  style: React.CSSProperties
-}
 interface ItemState {
   inputs: ObjectType<Boolean>
   errors: ObjectType<Error>
@@ -56,7 +40,7 @@ class Item extends Component<ItemProps, ItemState> {
     style: {},
     formItemErrors: [],
     keepErrorHeight: false,
-}
+  }
 
   events: FormItemContextValue
 
@@ -205,7 +189,6 @@ class Item extends Component<ItemProps, ItemState> {
     )
   }
 }
-
 
 export default Item
 

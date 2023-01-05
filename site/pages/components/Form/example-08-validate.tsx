@@ -7,7 +7,6 @@
 import React from 'react'
 import { Form, Input, Rule, Checkbox, TYPE } from 'shineout'
 
-type RuleParams = TYPE.Rule.Params
 type RuleFunc = TYPE.Rule.validFunc
 
 const isExist: RuleFunc = (value, _, callback) => {
@@ -15,7 +14,7 @@ const isExist: RuleFunc = (value, _, callback) => {
   else callback(true)
 }
 
-const password: RuleParams = {
+const password = {
   func: (value: string, _formData: any, _cb: any, props: { message: string; title: string }) =>
     new Promise((resolve, reject) => {
       if (!/\d+/.test(value) || !/[a-z]+/i.test(value)) {

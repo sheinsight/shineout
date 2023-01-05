@@ -17,12 +17,12 @@ if (Element && !Element.prototype.matches) {
     proto.webkitMatchesSelector
 }
 
-export function getParent(el: HTMLElement, target: string | HTMLElement) {
+export function getParent(el: HTMLElement | Element, target?: string | HTMLElement) {
   if (!target) {
     return null
   }
 
-  let temp: HTMLElement | null = el
+  let temp: HTMLElement | Element | null = el
   while (temp) {
     if (typeof target === 'string') {
       if (temp.matches && temp.matches(target)) {
@@ -186,13 +186,13 @@ export const preventPasteFile = (
 export const parsePxToNumber = (str: string) => Number(str.replace(/\s+|px/gi, ''))
 
 interface ResizeOption {
-  direction?: 'x' | 'y'
+  direction?: 'x' | 'y' | boolean
   timer?: number
 }
 
 type Handler = (this: Window, ev: UIEvent) => any
 
-export const addResizeObserver = (el: HTMLElement, handler: Handler, options: ResizeOption = {}) => {
+export const addResizeObserver = (el: HTMLElement, handler: any, options: ResizeOption = {}) => {
   const { direction, timer } = options
   const [throttleHandler, cleanTimer] = throttle(handler, timer)
   let h = throttleHandler
