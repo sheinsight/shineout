@@ -4,9 +4,9 @@ import { docSize } from './dom/document'
 
 type Timer = NodeJS.Timeout | null
 
-type Component<T extends HTMLElement> = {
-  container: T | null
-  element: T
+type LazyConfig = {
+  container?: Element | null
+  element: Element
   render: Function
   offset: number
   noRemove?: boolean
@@ -14,7 +14,7 @@ type Component<T extends HTMLElement> = {
 }
 
 const throttle = 80
-const components: { [x: string]: Component<HTMLElement> } = {}
+const components: { [x: string]: LazyConfig } = {}
 
 let timeout: Timer = null
 let isLock = false
@@ -31,12 +31,12 @@ const getRect = (el: Element) => {
   return el.getBoundingClientRect()
 }
 
-export function dispatch<K extends keyof Component<HTMLElement>>() {
+export function dispatch() {
   if (isLock) return
   isLock = true
 
   // handle
-  Object.keys(components).forEach((k: K) => {
+  Object.keys(components).forEach(k => {
     const { element, render, container, offset, noRemove } = components[k]
     const rect = element.getBoundingClientRect()
     const containerRect = getRect(container!)
@@ -69,7 +69,7 @@ export function removeStack(id?: string | null, removeListener?: boolean) {
   delete components[id]
 }
 
-function getObserver<T extends HTMLElement>(obj: Component<T>, id: string) {
+function getObserver(obj: LazyConfig, id: string) {
   const { container = null, offset, render, noRemove } = obj
   const observer = new IntersectionObserver(
     entries => {
@@ -89,7 +89,7 @@ function getObserver<T extends HTMLElement>(obj: Component<T>, id: string) {
   return observer
 }
 
-export function addStack<T extends HTMLElement>(obj: Component<T>) {
+export function addStack(obj: LazyConfig) {
   const id = getUidStr()
   const scrollEl = obj.container || document
   obj.offset = obj.offset || 0

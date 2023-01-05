@@ -203,4 +203,3 @@ export interface ImageGroupProps extends StandardProps {
    */
   children?: ReactNode
 }
-export default Image
