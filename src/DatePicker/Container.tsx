@@ -242,7 +242,7 @@ class Container extends PureComponent<ContainerProps, ContainerState> {
       if (this.props.inputable && this.textSpan) this.textSpan.blur()
       this.clearClickAway()
       this.handleToggle(false)
-      if (this.props.onBlur) this.props.onBlur()
+      if (this.props.onBlur) this.props.onBlur(e)
     }
   }
 
@@ -260,7 +260,7 @@ class Container extends PureComponent<ContainerProps, ContainerState> {
 
     // fot close the list
     if (e.keyCode === 9) {
-      this.props.onBlur!(e)
+      this.props.onBlur(e)
       // e.preventDefault()
       if (this.state.focus) this.handleToggle(false)
       else this.clearClickAway()
@@ -459,11 +459,11 @@ class Container extends PureComponent<ContainerProps, ContainerState> {
     })
   }
 
-  renderText(value: Date, placeholder: string, key?: number) {
+  renderText(value: Date, placeholder: string, key?: 0 | 1) {
     const { inputable, formatResult, disabled } = this.props
     const date = this.parseDate(value)
     const className = classnames(
-      datepickerClass('txt', this.state[`picker${key}` as keyof typeof this.state] && 'text-focus'),
+      datepickerClass('txt', key !== undefined && this.state[`picker${key}`] && 'text-focus'),
       utils.isInvalid(date) && inputClass('placeholder')
     )
     const resultFormat = formatResult || this.getFormat()

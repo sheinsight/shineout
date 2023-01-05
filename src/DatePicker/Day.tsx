@@ -188,8 +188,8 @@ class Day extends PureComponent<UnionPannelProps, DayState> {
 
     let hoverClass
     const hoverProps: {
-      onMouseEnter?: typeof this.handleWeek
-      onMouseLeave?: typeof this.handleWeekLeave
+      onMouseEnter?: PickMouseEvent
+      onMouseLeave?: PickMouseEvent
     } = {}
     const weekStart = getLocale('startOfWeek')
     const weekEnd = weekStart ? 0 : 6

@@ -381,7 +381,7 @@ export interface ContainerProps
    *
    * -
    */
-  onBlur: <U>(e?: U) => void
+  onBlur: (e: any) => void
 
   /**
    * -
@@ -390,7 +390,7 @@ export interface ContainerProps
    *
    * -
    */
-  onFocus: <U>(e?: U) => void
+  onFocus: (e: any) => void
   onChange: (value: DatePickerValue, callback?: () => void, quickSelect?: boolean) => void
 }
 
