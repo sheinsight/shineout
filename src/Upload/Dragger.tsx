@@ -4,15 +4,8 @@ import { PureComponent } from '../component'
 import { uploadClass } from './styles'
 import Drop from './Drop'
 import { accept as attrAccept } from '../utils'
+import { DraggerProps } from './Props'
 
-interface DraggerProps {
-  children: any
-  multiple: boolean
-  addFile: (...args: any) => void
-  accept: string
-  disabled: boolean
-  limit: number
-}
 class Dragger extends PureComponent<DraggerProps> {
   constructor(props: DraggerProps) {
     super(props)

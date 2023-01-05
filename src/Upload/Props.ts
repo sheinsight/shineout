@@ -435,6 +435,15 @@ export interface AcceptUpload<ValueItem> extends Omit<SimpleUploadProps<ValueIte
   forceAccept?: string
 }
 
+export interface DraggerProps {
+  children: React.ReactNode
+  multiple: boolean
+  addFile: (...args: any) => void
+  accept: string
+  disabled?: boolean
+  limit: number
+}
+
 export interface DropProps<ValueItem> extends Pick<AcceptUpload<ValueItem>, 'drop' | 'accept' | 'disabled'> {
   multiple?: boolean
   dropData?: any
@@ -484,7 +493,7 @@ export interface UploadImageHandlerProps {
   height?: number
   onKeyDown?: React.KeyboardEventHandler
   onMouseDown?: React.MouseEventHandler
-  [key: string]: any
+  // [key: string]: any
 }
 
 export interface UploadImageResultProps {

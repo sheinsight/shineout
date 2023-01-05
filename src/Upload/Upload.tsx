@@ -203,7 +203,7 @@ class Upload<ValueItem> extends PureComponent<SimpleUploadProps<ValueItem>, Uplo
 
     while (VALIDATORITEMS[i]) {
       const item = VALIDATORITEMS[i]
-      if (typeof validator![item.key] === 'function') {
+      if (validator && typeof validator[item.key] === 'function') {
         try {
           // eslint-disable-next-line no-await-in-loop
           await promised(validator![item.key]!, item.param(blob), files)
