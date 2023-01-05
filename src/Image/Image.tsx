@@ -29,7 +29,7 @@ const ERROR = 3
 
 export const IMAGE = {}
 
-export class Image extends PureComponent<ImageProps, State> {
+export default class Image extends PureComponent<ImageProps, State> {
   static symbolType = IMAGE
 
   static defaultProps = DefaultProps
