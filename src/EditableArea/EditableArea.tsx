@@ -9,7 +9,7 @@ import { focusElement, getParent } from '../utils/dom/element'
 import { inputClass } from '../Input/styles'
 import InputTitle from '../InputTitle'
 import { inputTitleClass } from '../InputTitle/styles'
-import { EditableAreaProps } from './Props'
+import { BaseProps } from './Props'
 
 interface EditableareaState {
   showTextarea: boolean
@@ -29,7 +29,7 @@ function formatShowValue(value: unknown) {
   return String(value)
 }
 
-class Editable extends React.PureComponent<EditableAreaProps, EditableareaState> {
+class Editable extends React.PureComponent<BaseProps, EditableareaState> {
   static defaultProps = DefaultProps
 
   bindContainer: (type: HTMLDivElement) => void
@@ -48,7 +48,7 @@ class Editable extends React.PureComponent<EditableAreaProps, EditableareaState>
 
   width: number
 
-  constructor(props: EditableAreaProps) {
+  constructor(props: BaseProps) {
     super(props)
     this.state = {
       showTextarea: false,
@@ -68,7 +68,7 @@ class Editable extends React.PureComponent<EditableAreaProps, EditableareaState>
     this.handleClear = this.onChange.bind(this, '')
   }
 
-  componentDidUpdate(_prevProps: EditableAreaProps, prevState: EditableareaState) {
+  componentDidUpdate(_prevProps: BaseProps, prevState: EditableareaState) {
     const { showTextarea } = this.state
     if (prevState.showTextarea !== showTextarea && showTextarea) {
       this.autoFocus()
@@ -94,7 +94,7 @@ class Editable extends React.PureComponent<EditableAreaProps, EditableareaState>
 
   updateShowTextarea(flag: boolean) {
     if (flag && this.input) {
-      this.width = getParent(this.input, `.${editableAreaClass('input')}`)!.offsetWidth
+      this.width = (getParent(this.input, `.${editableAreaClass('input')}`) as HTMLElement).offsetWidth
     }
     this.setState({ showTextarea: flag })
     if (this.props.onShowTextareaChange) {
