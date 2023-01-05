@@ -14,7 +14,7 @@ const DefaultProps = {
 class ImageResult extends PureComponent<UploadImageResultProps, UploadImageResultState> {
   static defaultProps = DefaultProps
 
-  image: Image
+  image: { preview: () => void }
 
   constructor(props: UploadImageResultProps) {
     super(props)
@@ -34,7 +34,7 @@ class ImageResult extends PureComponent<UploadImageResultProps, UploadImageResul
     return onRemove && renderContent
   }
 
-  bindImage(image: Image) {
+  bindImage(image: any) {
     this.image = image
   }
 
