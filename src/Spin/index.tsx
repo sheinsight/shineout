@@ -53,7 +53,7 @@ function getName(name?: SpinName) {
 const Spin: React.FC<SpinProps> = (props: SpinProps) => {
   const { children, style, className, size = 40, color = '#6c757d', tip, ...rest } = props
   const name = getName(props.name)
-  const Component = spins[name]
+  const Component = spins[name as keyof typeof spins]
   if (!Component) {
     console.warn(`Spin type '${name}' not existed.`)
     return null

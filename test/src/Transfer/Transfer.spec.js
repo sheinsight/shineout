@@ -402,6 +402,7 @@ describe('Transfer[change]', () => {
       .simulate('change', { target: { checked: true } })
 
     sourceButton.simulate('click')
+    wrapper.update()
     expect(source.html().match(/class="so-transfer-item"/g)).toBe(null)
     expect(target.html().match(/class="so-transfer-item"/g).length).toBe(3)
   })

@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { AnchorHTMLAttributes } from 'react'
 import { StandardProps } from '../@types/common'
-import { StickyProps } from '../Sticky'
+import { StickyProps } from '../Sticky/Props'
 
 type ReactNode = React.ReactNode
 export interface Props extends StandardProps {
