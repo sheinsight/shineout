@@ -10,7 +10,7 @@ import { Upload, Button } from 'shineout'
 import FontAwesome from '../Icon/FontAwesome'
 
 const App: React.FC = () => {
-  const [value, setValue] = React.useState([])
+  const [value, setValue] = React.useState<string[]>([])
 
   return (
     <Upload

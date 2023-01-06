@@ -1,11 +1,11 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import { uploadClass } from './styles'
 import Progress from '../Progress'
 import Spin from '../Spin'
 import icons from '../icons'
 import { ERROR, UPLOADING } from './request'
 import { getDirectionClass } from '../utils/classname'
+import { FileProps } from './Props'
 
 const SPIN = (
   <span style={{ display: 'inline-block', marginRight: 8 }}>
@@ -13,8 +13,8 @@ const SPIN = (
   </span>
 )
 
-class File extends PureComponent {
-  constructor(props) {
+class File extends PureComponent<FileProps> {
+  constructor(props: FileProps) {
     super(props)
     this.handleRemove = this.handleRemove.bind(this)
   }
@@ -30,6 +30,7 @@ class File extends PureComponent {
     return (
       <div className={className}>
         <div className={uploadClass(getDirectionClass('text'))}>
+          {/* eslint-disable-next-line react/jsx-one-expression-per-line */}
           {status === UPLOADING && SPIN} {name} {message && <span>({message}) </span>}
         </div>
         <a className={uploadClass('delete')} onClick={this.handleRemove}>
@@ -47,14 +48,4 @@ class File extends PureComponent {
     )
   }
 }
-
-File.propTypes = {
-  id: PropTypes.string,
-  message: PropTypes.string,
-  name: PropTypes.string,
-  onRemove: PropTypes.func,
-  process: PropTypes.number,
-  status: PropTypes.number,
-}
-
 export default File

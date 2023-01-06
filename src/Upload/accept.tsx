@@ -1,8 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { AcceptUpload, SimpleUploadProps } from './Props'
 
-export default Component =>
-  class extends React.PureComponent {
+export default (Component: React.ComponentType<SimpleUploadProps<any>>) =>
+  class<ValueItem> extends React.PureComponent<AcceptUpload<ValueItem>> {
     static propTypes = {
       accept: PropTypes.string,
       forceAccept: PropTypes.string,
