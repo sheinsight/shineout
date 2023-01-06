@@ -673,9 +673,9 @@ export type GetAdvancedFilterHOC<Props, Item> = Omit<Props, 'onAdvancedFilter'> 
 
 export type GetTiledProps<Props> = Omit<Props, 'expandIcons'>
 
-export type GetGroupProps<Props, Item, Value> = Omit<Props, 'groupKey'> & Pick<BaseSelectProps<Item, Value>, 'groupBy'>
+export type GetGroupProps<Props> = Omit<Props, 'groupKey'>
 
-export type SelectPropsWidthGroup<Item, Value> = GetGroupProps<SelectProps<Item, Value>, Item, Value>
+export type SelectPropsWidthGroup<Item, Value> = GetGroupProps<SelectProps<Item, Value>>
 export type SelectPropsWidthTiled<Item, Value> = GetTiledProps<SelectPropsWidthGroup<Item, Value>>
 export type SelectPropsWidthFilter<Item, Value> = GetFilterProps<SelectPropsWidthTiled<Item, Value>, Item, Value>
 export type SelectPropsWidthAdvancedFilter<Item, Value> = GetAdvancedFilterHOC<
@@ -701,48 +701,51 @@ export declare class SelectClass<Item = any, Value = any> extends React.Componen
 }
 
 export interface SelectProps<Item, Value>
-  extends StandardProps,
-    Pick<CommonProps, 'absolute' | 'clearable'>,
-    Pick<
-      BaseSelectProps<Item, Value>,
-      | 'columns'
-      | 'treeData'
-      | 'disabled'
-      | 'height'
-      | 'itemsInView'
-      | 'lineHeight'
-      | 'loading'
-      | 'multiple'
-      | 'onCreate'
-      | 'onFilter'
-      | 'position'
-      | 'renderItem'
-      | 'size'
-      | 'compressed'
-      | 'compressedBound'
-      | 'trim'
-      | 'autoAdapt'
-      | 'filterSingleSelect'
-      | 'renderUnmatched'
-      | 'emptyAfterSelect'
-      | 'showArrow'
-      | 'focusSelected'
-      | 'compressedClassName'
-      | 'onCollapse'
-      | 'resultClassName'
-      | 'reFocus'
-      | 'header'
-      | 'maxLength'
-      | 'innerTitle'
-      | 'convertBr'
-      | 'renderOptionList'
-      | 'onEnterExpand'
-      | 'hideCreateOption'
-      | 'optionWidth'
-      | 'placeholder'
-      | 'keygen'
-      | 'columnWidth'
-    > {
+  extends Pick<
+    BaseSelectProps<Item, Value>,
+    | 'style'
+    | 'className'
+    | 'columns'
+    | 'absolute'
+    | 'clearable'
+    | 'treeData'
+    | 'disabled'
+    | 'height'
+    | 'itemsInView'
+    | 'lineHeight'
+    | 'loading'
+    | 'multiple'
+    | 'onCreate'
+    | 'onFilter'
+    | 'position'
+    | 'renderItem'
+    | 'size'
+    | 'compressed'
+    | 'compressedBound'
+    | 'trim'
+    | 'autoAdapt'
+    | 'filterSingleSelect'
+    | 'renderUnmatched'
+    | 'emptyAfterSelect'
+    | 'showArrow'
+    | 'focusSelected'
+    | 'compressedClassName'
+    | 'onCollapse'
+    | 'resultClassName'
+    | 'reFocus'
+    | 'header'
+    | 'maxLength'
+    | 'innerTitle'
+    | 'convertBr'
+    | 'renderOptionList'
+    | 'onEnterExpand'
+    | 'hideCreateOption'
+    | 'optionWidth'
+    | 'placeholder'
+    | 'keygen'
+    | 'columnWidth'
+    | 'groupBy'
+  > {
   data: Item[]
   value: Value
   defaultValue?: Value

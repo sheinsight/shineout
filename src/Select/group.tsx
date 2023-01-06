@@ -7,14 +7,14 @@ interface GroupState<Item> {
 }
 
 export default <Item, Value, Props extends GroupProps<Item, Value>>(Origin: React.ComponentType<Props>) =>
-  class Group extends React.Component<GetGroupProps<Props, Item, Value>, GroupState<Item>> {
+  class Group extends React.Component<GetGroupProps<Props>, GroupState<Item>> {
     static defaultProps = {
       data: [],
     }
 
     groupKey: string
 
-    constructor(props: GetGroupProps<Props, Item, Value>) {
+    constructor(props: GetGroupProps<Props>) {
       super(props)
       this.state = {
         data: [],
@@ -27,7 +27,7 @@ export default <Item, Value, Props extends GroupProps<Item, Value>>(Origin: Reac
       this.groupByData()
     }
 
-    componentDidUpdate(prevProps: GetGroupProps<Props, Item, Value>) {
+    componentDidUpdate(prevProps: GetGroupProps<Props>) {
       if (prevProps.data !== this.props.data) this.groupByData()
     }
 
