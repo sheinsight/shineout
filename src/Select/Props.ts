@@ -6,6 +6,7 @@ import {
   FormItemStandardProps,
   ListItemStandardProps,
   CommonProps,
+  LiteralUnion,
 } from '../@types/common'
 import List from '../Datum/List'
 import { GetInputableProps } from '../Form/Props'
@@ -261,7 +262,7 @@ export interface BaseSelectProps<Item, Value>
    *
    * default: 'children'
    */
-  childrenKey?: string
+  childrenKey?: LiteralUnion<Item>
 
   /**
    * expand all node, only in can be use in treeData
@@ -693,7 +694,7 @@ export type SelectPropsWidthDatum<Item, Value> = GetDatumListProps<
 export type SelectPropsWidthInputBorder<Item, Value> = GetInputBorderProps<SelectPropsWidthDatum<Item, Value>>
 export type SelectPropsWidthInputable<Item, Value> = GetInputableProps<SelectPropsWidthInputBorder<Item, Value>, Value>
 
-export type GetSelectProps<Item, Value> = Omit<SelectPropsWidthInputable<Item, Value>, ''>
+export type GetSelectProps<Item, Value> = SelectPropsWidthInputable<Item, Value>
 
 export declare class SelectClass<Item = any, Value = any> extends React.Component<GetSelectProps<Item, Value>, {}> {
   render(): JSX.Element

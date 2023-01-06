@@ -130,7 +130,7 @@ export interface TreeProps<DataItem, Value extends any[]> extends StandardProps 
    *
    * default: children
    */
-  childrenKey?: string
+  childrenKey?: LiteralUnion<DataItem>
 
   /**
    * desc: DIY icon when expanded
