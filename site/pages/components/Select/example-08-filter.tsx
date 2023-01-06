@@ -42,6 +42,7 @@ const highlight = (Component: any) => (props: SelectProps) => {
 
   const handleReset = (...args: string[]) => {
     const { beforeChange } = props
+    // @ts-ignore
     if (beforeChange) beforeChange(...args)
     setFilterText('')
   }

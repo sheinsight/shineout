@@ -10,7 +10,7 @@ import {
 import List from '../Datum/List'
 import { GetInputableProps } from '../Form/Props'
 import { GetInputBorderProps } from '../hoc/Props'
-import { GetDatumProps } from '../Datum/Props'
+import { GetDatumListProps } from '../Datum/Props'
 
 type ReactNode = React.ReactNode
 type ReactElement = React.ReactElement
@@ -571,7 +571,7 @@ export interface InputProps<Item, Value>
   onInputFocus: () => void
   updatAble: boolean
   setInputReset: (fn: () => void) => void
-  text: React.ReactNode
+  text?: React.ReactNode
   bindFocusInputFunc: (fn: (flag?: boolean) => void) => void
   // collapse: PropTypes.func,
 }
@@ -596,7 +596,21 @@ export interface BoxOptionProps<Item, Value>
 }
 
 /** ---------- filter ---------- */
-export interface FilterProps<Item, Value> extends Omit<BaseSelectProps<Item, Value>, 'onAdvancedFilter' | 'onFilter'> {
+export interface FilterProps<Item, Value>
+  extends Pick<
+    BaseSelectProps<Item, Value>,
+    | 'onFilter'
+    | 'noCache'
+    | 'onCreate'
+    | 'treeData'
+    | 'data'
+    | 'showHitDescendants'
+    | 'hideCreateOption'
+    | 'keygen'
+    | 'childrenKey'
+    | 'multiple'
+    | 'filterDelay'
+  > {
   filterText: string
   inputText: string
   result: ResultValue<Value>[]
@@ -628,21 +642,11 @@ export interface GroupProps<Item, Value> extends Omit<BaseSelectProps<Item, Valu
   groupKey: string
 }
 
-export type GetFilterProps<Props, Item, Value> = Omit<Props, 'onFilter' | 'result'> & {
-  /**
-   * onFilter 不为空时，可以输入过滤数据。onFilter 如果返回一个函数，使用这个函数做前端过滤。如果不返回，可以自行做后端过滤
-   *
-   * default: -
-   */
-  onFilter?: (text: string, from?: string) => ((data: Item) => boolean) | void
-  inputText: string
-  innerData: Item
-  filterText: string
-  inputable: boolean
-  result: (ResultValue<Value>)[]
-  datum: List<Item, Value>
-  expanded?: string[]
-}
+export type GetFilterProps<Props, Item, Value> = Omit<
+  Props,
+  'filterText' | 'result' | 'onCreate' | 'onFilter' | 'innerData' | 'data'
+> &
+  Pick<BaseSelectProps<Item, Value>, 'onCreate' | 'onFilter' | 'data' | 'showHitDescendants' | 'filterDelay'>
 
 export type GetLimitWrapProps<Props> = Omit<Props, 'limit'> & {
   /**
@@ -668,54 +672,90 @@ export type GetAdvancedFilterHOC<Props, Item> = Omit<Props, 'onAdvancedFilter'> 
 
 export type GetTiledProps<Props> = Omit<Props, 'expandIcons'>
 
-export type GetGroupProps<Props> = Props & {
-  groupKey: string
-}
+export type GetGroupProps<Props, Item, Value> = Omit<Props, 'groupKey'> & Pick<BaseSelectProps<Item, Value>, 'groupBy'>
 
-export type SelectPropsWidthGroup<Item, Value> = GetGroupProps<BaseSelectProps<Item, Value>>
+export type SelectPropsWidthGroup<Item, Value> = GetGroupProps<SelectProps<Item, Value>, Item, Value>
 export type SelectPropsWidthTiled<Item, Value> = GetTiledProps<SelectPropsWidthGroup<Item, Value>>
 export type SelectPropsWidthFilter<Item, Value> = GetFilterProps<SelectPropsWidthTiled<Item, Value>, Item, Value>
 export type SelectPropsWidthAdvancedFilter<Item, Value> = GetAdvancedFilterHOC<
   SelectPropsWidthFilter<Item, Value>,
   Item
 >
-export type SelectPropsWidthLimitWrap<Item, Value> = GetLimitWrapProps<SelectPropsWidthAdvancedFilter<Item, Value>>
-export type SelectPropsWidthDatum<Item, Value> = GetDatumProps<SelectPropsWidthLimitWrap<Item, Value>> & {
-  datum: List<Item, Value>
-}
-export type SelectPropsWidthInputBorder<Item, Value> = GetInputBorderProps<
-  SelectPropsWidthDatum<Item, Value> & {
-    onBlur: (e?: any) => void
-    onFocus: (e?: any) => void
-  }
-> & {
-  onBlur: (e?: any) => void
-  onFocus: (e?: any) => void
-}
-export type SelectPropsWidthInputable<Item, Value> = GetInputableProps<SelectPropsWidthInputBorder<Item, Value>, Value>
-export type SelectProps<Item, Value> = SelectPropsWidthInputable<Item, Value> & {
-  data: Item[]
-}
 
-export type GetSelectProps<Item, Value> = Omit<
-  SelectProps<Item, Value>,
-  | 'datum'
-  | 'groupKey'
-  | 'filterText'
-  | 'result'
-  | 'onFocus'
-  | 'inputText'
-  | 'innerData'
-  | 'inputable'
-  | 'onBlur'
-  | 'data'
-> & {
-  // 原先开放 datum 属性，现在不开放了，弱化该类型提示
-  datum?: any
-  data?: Item[]
-}
+export type SelectPropsWidthLimitWrap<Item, Value> = GetLimitWrapProps<SelectPropsWidthAdvancedFilter<Item, Value>>
+type DataListDatumKey = 'disabled' | 'limit' | 'format' | 'prediction' | 'separator'
+export type SelectPropsWidthDatum<Item, Value> = GetDatumListProps<
+  SelectPropsWidthLimitWrap<Item, Value>,
+  Item,
+  Value,
+  DataListDatumKey
+>
+export type SelectPropsWidthInputBorder<Item, Value> = GetInputBorderProps<SelectPropsWidthDatum<Item, Value>>
+export type SelectPropsWidthInputable<Item, Value> = GetInputableProps<SelectPropsWidthInputBorder<Item, Value>, Value>
+
+export type GetSelectProps<Item, Value> = Omit<SelectPropsWidthInputable<Item, Value>, ''>
+
 export declare class SelectClass<Item = any, Value = any> extends React.Component<GetSelectProps<Item, Value>, {}> {
   render(): JSX.Element
+}
+
+export interface SelectProps<Item, Value>
+  extends StandardProps,
+    Pick<CommonProps, 'absolute' | 'clearable'>,
+    Pick<
+      BaseSelectProps<Item, Value>,
+      | 'columns'
+      | 'treeData'
+      | 'disabled'
+      | 'height'
+      | 'itemsInView'
+      | 'lineHeight'
+      | 'loading'
+      | 'multiple'
+      | 'onCreate'
+      | 'onFilter'
+      | 'position'
+      | 'renderItem'
+      | 'size'
+      | 'compressed'
+      | 'compressedBound'
+      | 'trim'
+      | 'autoAdapt'
+      | 'filterSingleSelect'
+      | 'renderUnmatched'
+      | 'emptyAfterSelect'
+      | 'showArrow'
+      | 'focusSelected'
+      | 'compressedClassName'
+      | 'onCollapse'
+      | 'resultClassName'
+      | 'reFocus'
+      | 'header'
+      | 'maxLength'
+      | 'innerTitle'
+      | 'convertBr'
+      | 'renderOptionList'
+      | 'onEnterExpand'
+      | 'hideCreateOption'
+      | 'optionWidth'
+      | 'placeholder'
+      | 'keygen'
+      | 'columnWidth'
+    > {
+  data: Item[]
+  value: Value
+  defaultValue?: Value
+  datum: List<Item, Value>
+  filterText: string
+  onBlur: (e?: any) => void
+  onFocus: (e?: any) => void
+  result: (ResultValue<Value>)[]
+  text?: Object
+  inputText?: string
+  groupKey: string
+  innerData: Item
+  renderResult?: ((data: Item, index?: number) => ReactNode)
+  inputable?: boolean
 }
 
 export type SelectType = typeof SelectClass

@@ -2,7 +2,7 @@ import React from 'react'
 import { getKey } from '../utils/uid'
 import { getFilterTree } from '../utils/tree'
 import { IS_NOT_MATCHED_VALUE } from './Result'
-import { BaseSelectProps, ResultValue, GetFilterProps } from './Props'
+import { ResultValue, FilterProps } from './Props'
 
 interface FilterState {
   innerFilter: any
@@ -11,8 +11,8 @@ interface FilterState {
   text: string
 }
 
-export default <Props extends BaseSelectProps<Item, Value>, Item, Value>(Origin: React.ComponentType<Props>) =>
-  class Filter extends React.Component<GetFilterProps<Props, Item, Value>, FilterState> {
+export default <Props extends FilterProps<Item, Value>, Item, Value>(Origin: React.ComponentType<Props>) =>
+  class Filter extends React.Component<Props, FilterState> {
     static defaultProps = {
       data: [],
       filterDelay: 300,
@@ -23,7 +23,7 @@ export default <Props extends BaseSelectProps<Item, Value>, Item, Value>(Origin:
 
     timer: NodeJS.Timer
 
-    constructor(props: GetFilterProps<Props, Item, Value>) {
+    constructor(props: Props) {
       super(props)
       this.state = {
         innerFilter: undefined,
@@ -38,7 +38,7 @@ export default <Props extends BaseSelectProps<Item, Value>, Item, Value>(Origin:
       this.resultCache = new Map()
     }
 
-    componentDidUpdate(prevProps: GetFilterProps<Props, Item, Value>) {
+    componentDidUpdate(prevProps: Props) {
       const { datum, multiple } = this.props
       if (prevProps.multiple !== multiple) {
         datum.limit = multiple ? 0 : 1
