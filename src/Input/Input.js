@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import config from 'shineout/config'
 import { inputTitleClass } from '../InputTitle/styles'
 import cleanProps from '../utils/cleanProps'
 import Clear from './clear'
@@ -141,6 +142,13 @@ class Input extends PureComponent {
     if (onKeyDown) onKeyDown(e)
   }
 
+  getTrim() {
+    const { trim } = this.props
+    if (trim !== undefined) return trim
+    if (config.trim !== undefined) return config.trim
+    return false
+  }
+
   handleKeyUp(e) {
     const { onKeyUp, onEnterPress } = this.props
     if (this.enterPress && e.keyCode === 13 && onEnterPress) {
@@ -152,11 +160,15 @@ class Input extends PureComponent {
 
   handleBlur(e) {
     const { value } = e.target
-    const { forceChange, onBlur, clearToUndefined, cancelChange } = this.props
-    if (cancelChange) cancelChange()
-    const newVal = this.fixValue(value)
-    const isChange = !(clearToUndefined && newVal === '' && this.props.value === undefined)
-    if (isChange && forceChange && !this.invalidNumber(newVal)) forceChange(newVal)
+    const { forceChange, onChange, onBlur, clearToUndefined } = this.props
+    let newVal = this.fixValue(value)
+    const shouldKeepUndefined = clearToUndefined && newVal === '' && this.props.value === undefined
+    if (!shouldKeepUndefined && !this.invalidNumber(newVal)) {
+      if (this.getTrim()) newVal = newVal.trim()
+      const change = forceChange || onChange
+      change(newVal)
+      e.target.value = newVal
+    }
     if (onBlur) onBlur(e)
   }
 
@@ -260,7 +272,6 @@ Input.propTypes = {
   htmlName: PropTypes.string,
   onBlur: PropTypes.func,
   onChange: PropTypes.func.isRequired,
-  cancelChange: PropTypes.func,
   onEnterPress: PropTypes.func,
   type: PropTypes.string,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -275,6 +286,7 @@ Input.propTypes = {
   clearToUndefined: PropTypes.bool,
   placeholder: PropTypes.string,
   coin: PropTypes.bool,
+  trim: PropTypes.bool,
 }
 
 Input.defaultProps = {

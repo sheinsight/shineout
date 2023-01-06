@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import config from 'shineout/config'
 import Textarea from '../Textarea'
 import Input from '../Input'
 import Popover from '../Popover'
@@ -55,9 +56,22 @@ class Editable extends React.PureComponent {
   }
 
   onBlur(e) {
-    const { onBlur } = this.props
+    const { onBlur, forceChange } = this.props
     this.hidePop()
+    let newValue = e.target.value
+    if (this.getTrim()) {
+      newValue = newValue.trim()
+      e.target.value = newValue
+    }
+    forceChange(newValue)
     if (typeof onBlur === 'function') onBlur(e)
+  }
+
+  getTrim() {
+    const { trim } = this.props
+    if (trim !== undefined) return trim
+    if (config.trim !== undefined) return config.trim
+    return false
   }
 
   getErrorProps() {
@@ -218,6 +232,8 @@ Editable.propTypes = {
   renderResult: PropTypes.func,
   onShowTextareaChange: PropTypes.func,
   error: PropTypes.object,
+  trim: PropTypes.bool,
+  forceChange: PropTypes.func,
 }
 
 export default Editable

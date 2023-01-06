@@ -104,6 +104,7 @@ class Form extends Component {
   }
 
   handleSubmit(e) {
+    console.log('!!!!')
     if (e) {
       e.preventDefault()
     }
