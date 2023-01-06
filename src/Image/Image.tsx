@@ -27,12 +27,14 @@ const SRC = 1
 const ALT = 2
 const ERROR = 3
 
-class Image extends PureComponent<ImageProps, State> {
+export const IMAGE = {}
+
+export default class Image extends PureComponent<ImageProps, State> {
+  static symbolType = IMAGE
+
   static defaultProps = DefaultProps
 
   static displayName: string
-
-  static symbolType: {}
 
   static Group: typeof Group
 
@@ -219,9 +221,3 @@ class Image extends PureComponent<ImageProps, State> {
     return <Tag {...props}>{this.renderImage()}</Tag>
   }
 }
-
-export const IMAGE = {}
-
-Image.symbolType = IMAGE
-
-export default Image

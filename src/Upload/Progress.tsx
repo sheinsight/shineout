@@ -1,24 +1,39 @@
 import React, { isValidElement } from 'react'
-import PropTypes from 'prop-types'
 import Spin from '../Spin'
 import { PureComponent } from '../component'
 import { uploadClass } from './styles'
 import Button from '../Button'
 import Upload from './Upload'
 import { isRTL } from '../config'
+import { UploadProgressProps, XhrType } from './Props'
 
-const SPIN = color => (
+const SPIN = (color?: string) => (
   <span className={uploadClass('bg-spin')}>
     <Spin size={10} name="ring" color={color} />
   </span>
 )
 
-const handleKeyDown = e => {
-  if (e.keyCode === 13) e.target.click()
+const handleKeyDown = (e: React.KeyboardEvent) => {
+  if (e.keyCode === 13) (e.target as HTMLElement).click()
 }
 
-class Progress extends PureComponent {
-  constructor(props) {
+const DefaultProps = {
+  type: 'primary',
+  size: 'default',
+  outline: false,
+}
+
+interface UploadProgressState {
+  progress: number
+}
+class Progress<ValueItem> extends PureComponent<UploadProgressProps<ValueItem>, UploadProgressState> {
+  static defaultProps = DefaultProps as UploadProgressProps<any>
+
+  handleStart: () => void
+
+  handleOver: () => void
+
+  constructor(props: UploadProgressProps<ValueItem>) {
     super(props)
 
     this.state = {
@@ -32,34 +47,41 @@ class Progress extends PureComponent {
     this.handleUpload = this.handleUpload.bind(this)
   }
 
-  handleChange(p) {
+  handleChange(p: number) {
     this.setState({
       progress: p,
     })
   }
 
-  handleProgress(file) {
+  handleProgress(file: { process: number }) {
     this.handleChange(file.process)
   }
 
-  handleError(error) {
+  handleError(xhr: XhrType, file: File) {
     const { onError } = this.props
-    if (onError) onError(error)
+    let msg: any
+    if (onError) msg = onError(xhr, file)
     this.handleOver()
+    return msg
   }
 
-  handleSuccess(...args) {
+  handleSuccess(value: any, ...args: any) {
     const { onSuccess } = this.props
-    if (onSuccess) onSuccess(...args)
+    let result = value
+    if (onSuccess) {
+      // @ts-ignore
+      result = onSuccess(value, ...args)
+    }
     this.handleOver()
+    return result
   }
 
-  handleUpload(e) {
+  handleUpload(e: React.MouseEvent) {
     const uploading = this.state.progress >= 0
     if (uploading) e.stopPropagation()
   }
 
-  renderLoadingView(color) {
+  renderLoadingView(color?: string) {
     const { placeholder, loading } = this.props
     return isValidElement(loading) ? (
       <span>{loading}</span>
@@ -108,22 +130,6 @@ class Progress extends PureComponent {
       </Upload>
     )
   }
-}
-
-Progress.propTypes = {
-  type: PropTypes.oneOf(['default', 'primary', 'success', 'link', 'warning', 'error', 'danger']),
-  placeholder: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
-  loading: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
-  onSuccess: PropTypes.func,
-  onError: PropTypes.func,
-  outline: PropTypes.bool,
-  size: PropTypes.oneOf(['small', 'default', 'large']),
-}
-
-Progress.defaultProps = {
-  type: 'primary',
-  size: 'default',
-  outline: false,
 }
 
 export default Progress

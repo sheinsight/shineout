@@ -1,17 +1,21 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
+import { FileInputProps } from './Props'
 
 const inputStyle = { display: 'none' }
 
-class FileInput extends PureComponent {
-  constructor(props) {
+class FileInput extends PureComponent<FileInputProps> {
+  locked: boolean
+
+  input: HTMLInputElement
+
+  constructor(props: FileInputProps) {
     super(props)
 
     this.locked = false
     this.bindElement = this.bindElement.bind(this)
   }
 
-  bindElement(el) {
+  bindElement(el: HTMLInputElement) {
     this.input = el
   }
 
@@ -29,7 +33,7 @@ class FileInput extends PureComponent {
 
   render() {
     const { accept, onChange, multiple, webkitdirectory } = this.props
-
+    const OriginProps = { webkitdirectory }
     return (
       <input
         ref={this.bindElement}
@@ -37,18 +41,11 @@ class FileInput extends PureComponent {
         multiple={multiple}
         onChange={onChange}
         style={inputStyle}
-        webkitdirectory={webkitdirectory}
         type="file"
+        {...OriginProps}
       />
     )
   }
-}
-
-FileInput.propTypes = {
-  accept: PropTypes.string,
-  multiple: PropTypes.bool,
-  onChange: PropTypes.func.isRequired,
-  webkitdirectory: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
 }
 
 export default FileInput

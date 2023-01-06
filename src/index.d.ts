@@ -149,7 +149,7 @@ export { default as TreeSelect } from './TreeSelect'
 import { ComponentRef as __ComponentRef, TreeSelectProps as __TreeSelectProps } from './TreeSelect/interface'
 
 export { default as Upload } from './Upload'
-import { UploadProps as __UploadProps, Validator as __Validator, Options as __Options, UploadImageProps as __UploadImageProps, UploadButtonProps as __UploadButtonProps, UploadImageHandlerProps as __UploadImageHandlerProps,  } from './Upload'
+import { Validator as __Validator, UploadProps as __UploadProps, UploadImageHandlerProps as __UploadImageHandlerProps, UploadOptions as __UploadOptions, UploadImageProps as __UploadImageProps, UploadButtonProps as __UploadButtonProps } from './Upload/interface'
 
 
 export namespace TYPE {
@@ -366,11 +366,12 @@ export namespace TYPE {
     export type Props<Item, Value> = __TreeSelectProps<Item, Value>
   }
   export namespace Upload {
-    export type Props<T> = __UploadProps<T>
+  
     export type Validator = __Validator
-    export type Options<T> = __Options<T>
-    export type ImageProps<T> = __UploadImageProps<T>
-    export type ButtonProps<T> = __UploadButtonProps<T>
+    export type Props<ValueItem> = __UploadProps<ValueItem>
     export type ImageHandlerProps = __UploadImageHandlerProps
+    export type Options<ValueItem> = __UploadOptions<ValueItem>
+    export type ImageProps<ValueItem> = __UploadImageProps<ValueItem>
+    export type ButtonProps<ValueItem> = __UploadButtonProps<ValueItem>
   }
 }

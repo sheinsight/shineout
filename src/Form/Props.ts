@@ -161,7 +161,10 @@ export interface FormProviderProps<V extends ObjectType> {
 
 export type FormContextKey = keyof FormContextValue
 
-export type GetFormConsumerProps<U, Keys extends (keyof U) & FormContextKey> = PartialKeys<U, Keys>
+export type GetFormConsumerProps<U, Keys extends FormContextKey> = Omit<
+  PartialKeys<U, Keys>,
+  'formDatum' | 'combineRules'
+>
 export type GetFormProviderProps<U, Value> = ForceAdd<U, FormProviderProps<Value>>
 
 /** ----------------formItemContext-----------------------* */
@@ -199,6 +202,9 @@ export interface InputableProps<Value> {
   defaultValue?: Value
   reserveAble?: boolean
   rules?: FormItemRule<Value>
+  /**
+   * 内部属性
+   */
   formDatum?: FormDatum<ObjectType>
   fieldSetValidate?: (validator: boolean) => void
   name?: string | string[]
@@ -207,8 +213,8 @@ export interface InputableProps<Value> {
 export type InputableFormConsumerKey = 'formDatum' | 'disabled' | 'combineRules' | 'size'
 // 过滤掉原生属性required
 type InputablePropsFiltered<Value> = Omit<InputableProps<Value>, 'required'>
-// value 和 onChange 变为可选属性
-type HandleValueProps<Props extends BaseInputProps> = Omit<Props, 'value' | 'onChange'> &
+// value 和 onChange 变为可选属性 并去掉validateHook属性
+type HandleValueProps<Props extends BaseInputProps> = Omit<Props, 'value' | 'onChange' | 'validateHook'> &
   Partial<Pick<Props, 'value' | 'onChange'>>
 // inputable 中增加了一些属性
 type AddInputProps<Props extends BaseInputProps, Value> = ForceAdd<
@@ -218,7 +224,7 @@ type AddInputProps<Props extends BaseInputProps, Value> = ForceAdd<
 
 type InputWidthFieldSet<Props, Value> = GetFieldSetConsumerProps<AddInputProps<Props, Value>>
 type InputWidthItem<Props, Value> = GetFormItemConsumerProps<InputWidthFieldSet<Props, Value>>
-// @ts-ignore
+
 type InputWidthForm<Props, Value> = GetFormConsumerProps<InputWidthItem<Props, Value>, InputableFormConsumerKey>
 // consumer
 export type GetInputableProps<Props extends BaseInputProps, Value> = InputWidthForm<Props, Value>

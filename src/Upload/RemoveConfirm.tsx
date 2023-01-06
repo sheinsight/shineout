@@ -1,10 +1,13 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { Component } from '../component'
 import Popover from '../Popover'
+import { UploadRemoveConfirmProps } from './Props'
 
-export default class RemoveConfirm extends Component {
-  constructor(props) {
+interface UploadRemoveConfirmState {
+  visible: boolean
+}
+export default class RemoveConfirm extends Component<UploadRemoveConfirmProps, UploadRemoveConfirmState> {
+  constructor(props: UploadRemoveConfirmProps) {
     super(props)
     this.state = {
       visible: false,
@@ -13,7 +16,7 @@ export default class RemoveConfirm extends Component {
     this.handleRemoveLater = this.handleRemoveLater.bind(this)
   }
 
-  handleRemoveConfirm(visible) {
+  handleRemoveConfirm(visible: boolean) {
     const { onVisibleChange } = this.props
     if (onVisibleChange) onVisibleChange(visible)
     this.setState({ visible })
@@ -23,7 +26,7 @@ export default class RemoveConfirm extends Component {
     const { onRemove } = this.props
     return new Promise(resolve => {
       if (onRemove) onRemove()
-      resolve()
+      resolve(undefined)
     })
   }
 
@@ -41,10 +44,4 @@ export default class RemoveConfirm extends Component {
       />
     )
   }
-}
-
-RemoveConfirm.propTypes = {
-  confirm: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  onRemove: PropTypes.func,
-  onVisibleChange: PropTypes.func,
 }

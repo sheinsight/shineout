@@ -1,33 +1,41 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import immer from 'immer'
 import classname from 'classnames'
 import { uploadClass } from './styles'
 import Upload from './Upload'
 import { ERROR } from './request'
 import { getLocale } from '../locale'
+import { UploadImageHandlerProps, SimpleUploadImageProps } from './Props'
 
-export const Handler = ({ className, disabled, urlInvalid, children, style, width, height, ...otherProps }) => {
+export const Handler: React.FC<UploadImageHandlerProps> = ({
+  className,
+  disabled,
+  urlInvalid,
+  children,
+  style,
+  width,
+  height,
+  onKeyDown,
+  onMouseDown,
+  ...otherProps
+}) => {
   const mc = classname(
     uploadClass('image-plus', 'image-item', disabled && 'disabled', urlInvalid && 'url-invalid-border'),
     className
   )
   const ms = Object.assign({}, { width, height }, style)
   return (
-    <div {...otherProps} style={ms} tabIndex={disabled ? -1 : 0} className={mc}>
+    <div
+      {...otherProps}
+      onKeyDown={onKeyDown}
+      onMouseDown={onMouseDown}
+      style={ms}
+      tabIndex={disabled ? -1 : 0}
+      className={mc}
+    >
       {children || <div className={uploadClass('indicator', urlInvalid && 'url-invalid-indicator')} />}
     </div>
   )
-}
-
-Handler.propTypes = {
-  className: PropTypes.string,
-  disabled: PropTypes.bool,
-  urlInvalid: PropTypes.bool,
-  children: PropTypes.node,
-  style: PropTypes.object,
-  width: PropTypes.number,
-  height: PropTypes.number,
 }
 
 Handler.defaultProps = {
@@ -35,8 +43,22 @@ Handler.defaultProps = {
   height: 80,
 }
 
-class Image extends PureComponent {
-  constructor(props) {
+interface ImageState {
+  urlInvalid: boolean
+}
+
+const ImageUploadDefaultProps = {
+  accept: 'image/*',
+  height: 80,
+  validator: {},
+  width: 80,
+}
+class Image<ValueItem> extends PureComponent<SimpleUploadImageProps<ValueItem>, ImageState> {
+  timeout: NodeJS.Timeout
+
+  static defaultProps = ImageUploadDefaultProps
+
+  constructor(props: SimpleUploadImageProps<ValueItem>) {
     super(props)
     this.beforeUpload = this.beforeUpload.bind(this)
     this.handleMouseDown = this.handleMouseDown.bind(this)
@@ -44,17 +66,17 @@ class Image extends PureComponent {
     this.state = {
       urlInvalid: false,
     }
-    this.timeout = null
+    this.timeout = null as any
   }
 
-  beforeUpload(blob, validatorHandle) {
+  beforeUpload(blob: File, validatorHandle: (error: Error, file: File) => boolean) {
     return new Promise((resolve, reject) => {
-      const { imageSize } = this.props.validator
-      const file = {}
+      const { imageSize } = this.props.validator || {}
+      const file: { data?: any; status?: number; message?: string } = {}
       const reader = new FileReader()
 
       reader.onload = e => {
-        const data = e.target.result
+        const data = e.target!.result as string
         file.data = data
 
         const image = new window.Image()
@@ -86,9 +108,9 @@ class Image extends PureComponent {
     })
   }
 
-  handleKeyDown(e) {
+  handleKeyDown(e: React.KeyboardEvent) {
     this.setState({ urlInvalid: false })
-    if (e.keyCode === 13) e.target.click()
+    if (e.keyCode === 13) (e.target as HTMLElement).click()
   }
 
   handleMouseDown() {
@@ -126,28 +148,6 @@ class Image extends PureComponent {
       </Upload>
     )
   }
-}
-
-Image.propTypes = {
-  accept: PropTypes.string,
-  children: PropTypes.any,
-  height: PropTypes.number,
-  recoverAble: PropTypes.bool,
-  validator: PropTypes.shape({
-    imageSize: PropTypes.func,
-    size: PropTypes.func,
-  }),
-  width: PropTypes.number,
-  disabled: PropTypes.bool,
-  ignorePreview: PropTypes.bool,
-  GapProps: PropTypes.shape({}),
-}
-
-Image.defaultProps = {
-  accept: 'image/*',
-  height: 80,
-  validator: {},
-  width: 80,
 }
 
 export default Image

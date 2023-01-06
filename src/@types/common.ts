@@ -224,4 +224,8 @@ export type ValueOf<T> = T[keyof T]
 
 export type ForceAdd<U extends {}, V> = U & Omit<V, keyof U>
 
-export type PartialKeys<U, keys extends keyof U> = Omit<U, keys> & Partial<Pick<U, keys>>
+// 选出 U 中存在的 Keys
+export type ExistKey<U, Keys extends string> = Omit<U, keyof Omit<U, Keys>>
+
+// 将 U 中 存在的 keys 变成可选
+export type PartialKeys<U, keys extends string> = Omit<U, keys> & Partial<ExistKey<U, keys>>

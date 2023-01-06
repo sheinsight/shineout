@@ -1,12 +1,22 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import icons from '../icons'
 import Image from '../Image'
 import RemoveConfirm from './RemoveConfirm'
 import { uploadClass } from './styles'
+import { UploadImageResultProps } from './Props'
 
-class ImageResult extends PureComponent {
-  constructor(props) {
+interface UploadImageResultState {
+  confirm: boolean
+}
+const DefaultProps = {
+  renderResult: (a: any) => a,
+}
+class ImageResult extends PureComponent<UploadImageResultProps, UploadImageResultState> {
+  static defaultProps = DefaultProps
+
+  image: { preview: () => void }
+
+  constructor(props: UploadImageResultProps) {
     super(props)
     this.state = {
       confirm: false,
@@ -24,20 +34,22 @@ class ImageResult extends PureComponent {
     return onRemove && renderContent
   }
 
-  bindImage(image) {
+  bindImage(image: any) {
     this.image = image
   }
 
   handleRemove() {
-    this.props.onRemove(this.props.index)
+    if (this.props.onRemove) this.props.onRemove(this.props.index)
   }
 
   handleRecover() {
     const { onRecover, value, index } = this.props
-    onRecover(index, value)
+    if (onRecover) {
+      onRecover(index, value)
+    }
   }
 
-  handleConfirmChange(confirm) {
+  handleConfirmChange(confirm: boolean) {
     this.setState({ confirm })
   }
 
@@ -47,7 +59,7 @@ class ImageResult extends PureComponent {
   }
 
   handlePreview() {
-    const { onPreview, renderResult, value, index, values } = this.props
+    const { onPreview, renderResult = DefaultProps.renderResult, value, index, values } = this.props
     if (onPreview) {
       const url = renderResult(value)
       onPreview(url, value, index, values, {
@@ -86,7 +98,16 @@ class ImageResult extends PureComponent {
   }
 
   render() {
-    const { value, renderResult, recoverAble, renderContent, style, showRecover, index, values } = this.props
+    const {
+      value,
+      renderResult = DefaultProps.renderResult,
+      recoverAble,
+      renderContent,
+      style,
+      showRecover,
+      index,
+      values,
+    } = this.props
     const className = uploadClass('image-item', 'image-result', recoverAble && 'to-be-delete')
     const url = renderResult(value)
 
@@ -117,25 +138,6 @@ class ImageResult extends PureComponent {
       </div>
     )
   }
-}
-
-ImageResult.propTypes = {
-  index: PropTypes.number,
-  onRemove: PropTypes.func,
-  onRecover: PropTypes.func,
-  recoverAble: PropTypes.bool,
-  renderResult: PropTypes.func,
-  showRecover: PropTypes.bool,
-  style: PropTypes.object,
-  value: PropTypes.any,
-  renderContent: PropTypes.func,
-  values: PropTypes.array,
-  onPreview: PropTypes.func,
-  removeConfirm: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-}
-
-ImageResult.defaultProps = {
-  renderResult: a => a,
 }
 
 export default ImageResult

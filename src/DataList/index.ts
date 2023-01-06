@@ -3,11 +3,12 @@ import Datum from '../Datum'
 import DList from './List'
 import BaseItem from './BaseItem'
 import Pagination from './Pagination'
-import { ListType } from './Props'
+import { DataListDatumKey, ListType } from './Props'
 
+const bindKeys: DataListDatumKey[] = ['disabled', 'limit', 'format', 'prediction', 'distinct']
 const List: any = compose(
   Datum.hoc({
-    bindProps: ['disabled', 'limit', 'format', 'prediction', 'distinct'],
+    bindProps: bindKeys,
     ignoreUndefined: true,
     setValueType: null,
     pure: false,
