@@ -493,7 +493,7 @@ export interface UploadImageHandlerProps {
   height?: number
   onKeyDown?: React.KeyboardEventHandler
   onMouseDown?: React.MouseEventHandler
-  // [key: string]: any
+  [key: string]: any
 }
 
 export interface UploadImageResultProps {
