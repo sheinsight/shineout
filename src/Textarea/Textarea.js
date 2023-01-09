@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import { isRTL } from '../config'
+import config, { isRTL } from '../config'
 import { PureComponent } from '../component'
 import { inputClass } from '../Input/styles'
 import cleanProps from '../utils/cleanProps'
@@ -31,6 +31,13 @@ class Textarea extends PureComponent {
 
   componentDidUpdate(prevProps) {
     if (this.props.autosize && prevProps.value !== this.props.value) this.resize(this.props.value)
+  }
+
+  getTrim() {
+    const { trim } = this.props
+    if (trim !== undefined) return trim
+    if (config.trim !== undefined) return config.trim
+    return false
   }
 
   defaultInfo = value => {
@@ -67,10 +74,14 @@ class Textarea extends PureComponent {
   }
 
   handleBlur(e) {
-    const { value } = e.target
+    let newValue = e.target.value
     const { forceChange, onBlur } = this.props
+    if (this.getTrim()) {
+      newValue = newValue.trim()
+      e.target.value = newValue
+    }
+    forceChange(newValue)
     if (onBlur) onBlur(e)
-    forceChange(value)
   }
 
   renderFooter() {
@@ -171,6 +182,7 @@ Textarea.propTypes = {
   innerTitle: PropTypes.node,
   inputFocus: PropTypes.bool,
   placeTitle: PropTypes.node,
+  trim: PropTypes.bool,
 }
 
 Textarea.defaultProps = {

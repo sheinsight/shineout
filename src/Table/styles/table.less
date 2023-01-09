@@ -93,8 +93,8 @@
     }
   }
 
-  table&-init{
-      table-layout: auto;
+  table&-init {
+    table-layout: auto;
   }
 
   &:not(.@{table-prefix}-bordered) table > thead > tr > th {
@@ -154,9 +154,9 @@
     min-width: @table-sorter-width;
     position: relative;
     transform: translateX(6px);
-      .@{table-prefix}-rtl & {
-        transform: translateX(-6px);
-      }
+    .@{table-prefix}-rtl & {
+      transform: translateX(-6px);
+    }
   }
 
   &-sorter-asc,
@@ -165,7 +165,7 @@
     right: 0;
     width: @table-sorter-width;
     color: transparent;
-    .@{table-prefix}-rtl &{
+    .@{table-prefix}-rtl & {
       right: auto;
       left: 0;
     }
@@ -180,7 +180,7 @@
       right: 5px;
       border: solid transparent;
       content: ' ';
-      .@{table-prefix}-rtl &{
+      .@{table-prefix}-rtl & {
         right: auto;
         left: 5px;
       }
@@ -270,6 +270,9 @@
     border-left: 1px solid @table-border-color;
     border-right: 1px solid @table-border-color;
     border-top: 1px solid @table-border-color;
+    // :before 在表格可滚动的时候情况下不能完全覆盖底部边框，用个不占位的 box-shadow 长期覆盖（它俩重叠后看不出来变化），避免出现滚动条时底部边框消失的情况
+    // 但是:before不能去掉，虚拟滚动条的 dom 会遮住 box-shadow ，这时候需要:before
+    box-shadow: inset 0 -1px @table-border-color;
 
     &:before {
       position: absolute;
@@ -282,8 +285,6 @@
       background: @table-border-color;
       z-index: 100;
     }
-
-
 
     .@{table-prefix}-head {
       .@{table-prefix}-table-bordered {
@@ -300,7 +301,7 @@
           > td {
             border-right: 1px solid @table-border-color;
             border-bottom-width: 1px;
-            .@{table-prefix}-rtl&{
+            .@{table-prefix}-rtl& {
               border-left: 1px solid @table-border-color;
               border-right: none;
             }
@@ -387,14 +388,15 @@
   table > tbody > tr&-even > td {
     background-color: @table-even-td-bgc;
   }
-  table > tbody >tr&-odd > td {
+  table > tbody > tr&-odd > td {
     background-color: @table-odd-td-bgc;
   }
 
   &-simple-body {
     overflow: auto;
   }
-  &:not(&-bordered) &-simple-body:first-child, &:not(&-bordered) &-body:first-child {
+  &:not(&-bordered) &-simple-body:first-child,
+  &:not(&-bordered) &-body:first-child {
     border-top: 1px solid @table-border-color;
   }
 
@@ -463,13 +465,13 @@
 
     &.@{table-prefix}-icon-tree-plus {
       &:after {
-        content: '+'
+        content: '+';
       }
     }
 
     &.@{table-prefix}-icon-tree-sub {
       &:after {
-        content: '-'
+        content: '-';
       }
     }
   }
@@ -638,32 +640,35 @@
   }
 
   &-fixed &-empty {
-      &-ltr {
-        border-right-width: 0;
-      }
-      &-rtl {
-        border-left-width: 0;
-      }
+    &-ltr {
+      border-right-width: 0;
     }
+    &-rtl {
+      border-left-width: 0;
+    }
+  }
 
   &-expand-wrapped {
     display: inline-block;
   }
 
-  td&-align-center, th&-align-center {
+  td&-align-center,
+  th&-align-center {
     text-align: center;
     > div.@{table-prefix}-has-sorter {
       justify-content: center;
     }
   }
 
-  td&-align-center{
-    .@{table-prefix}-icon-expand-plus, .@{table-prefix}-icon-expand-sub {
+  td&-align-center {
+    .@{table-prefix}-icon-expand-plus,
+    .@{table-prefix}-icon-expand-sub {
       margin: 0 auto;
     }
   }
 
-  td&-align-right, th&-align-right {
+  td&-align-right,
+  th&-align-right {
     text-align: right;
     text-align: end;
     > div.@{table-prefix}-has-sorter {
@@ -671,7 +676,8 @@
     }
   }
 
-  td&-align-left, th&-align-left {
+  td&-align-left,
+  th&-align-left {
     text-align: left;
     text-align: start;
     > div.@{table-prefix}-has-sorter {
@@ -689,15 +695,16 @@
       width: 3px;
       background: @colors-primary;
       opacity: 0;
-      transition: opacity .3s;
+      transition: opacity 0.3s;
       cursor: ew-resize;
-      .@{table-prefix}-rtl &{
+      .@{table-prefix}-rtl & {
         left: -2px;
         right: auto;
       }
-      &:after, &:before {
+      &:after,
+      &:before {
         border-width: 3px;
-        content: " ";
+        content: ' ';
         position: absolute;
         width: 0;
         height: 0;
@@ -709,7 +716,7 @@
         border-style: dashed solid dashed dashed;
         border-color: transparent @colors-primary transparent transparent;
         right: 4px;
-        .@{table-prefix}-rtl &{
+        .@{table-prefix}-rtl & {
           right: auto;
           left: 4px;
         }
@@ -718,7 +725,7 @@
         border-style: dashed dashed dashed solid;
         border-color: transparent transparent transparent @colors-primary;
         left: 4px;
-        .@{table-prefix}-rtl &{
+        .@{table-prefix}-rtl & {
           right: 4px;
           left: auto;
         }
@@ -727,24 +734,24 @@
     thead tr th:last-child .@{table-prefix}-resize-spanner {
       display: none;
     }
-    table.@{table-prefix}-resizing span.@{table-prefix}-resize-spanner{
+    table.@{table-prefix}-resizing span.@{table-prefix}-resize-spanner {
       opacity: 0;
     }
     table th.@{table-prefix}-resizing-item .@{table-prefix}-resize-spanner {
       opacity: 1;
     }
-    th:hover .@{table-prefix}-resize-spanner{
+    th:hover .@{table-prefix}-resize-spanner {
       opacity: 1;
     }
   }
 
-  &-placeholder-tr td{
-    padding-top: 0!important;
-    padding-bottom: 0!important;
-    border-bottom-width: 0!important;
-    line-height: 0!important;
+  &-placeholder-tr td {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    border-bottom-width: 0 !important;
+    line-height: 0 !important;
     > div {
-      height: 0!important;
+      height: 0 !important;
       overflow: hidden;
     }
   }
@@ -766,14 +773,13 @@
         &.@{button-prefix}-rtl {
           margin-left: @button-margin-left;
         }
-
       }
     }
     .@{button-prefix}-group .@{button-prefix}:not(:last-child) {
       &:not(.@{button-prefix}-rtl) {
         margin-right: 0;
       }
-      &.@{button-prefix}-rtl{
+      &.@{button-prefix}-rtl {
         margin-left: 0;
       }
     }
@@ -796,10 +802,8 @@
   }
 }
 
-
-
 .@{table-prefix}-no-selection {
-  *::selection{
+  *::selection {
     background-color: transparent;
   }
 }
