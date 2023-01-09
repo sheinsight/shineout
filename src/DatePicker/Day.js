@@ -242,7 +242,7 @@ class Day extends PureComponent {
           <Icon
             name="AngleDoubleLeft"
             className="left"
-            disabled={!!(min && utils.compareYear(current, min, -1, this.getOptions()) === -1)}
+            disabled={!!(min && utils.compareYear(current, min, 1, this.getOptions()) === -1)}
             onClick={this.handlePrevYear}
           />
           <Icon
