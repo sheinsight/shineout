@@ -38,7 +38,7 @@ export { default as Carousel } from './Carousel'
 import { CarouselProps as __CarouselProps,  } from './Carousel/interface'
 
 export { default as Cascader } from './Cascader'
-import { BaseValue as __BaseValue, CascaderProps as __CascaderProps } from './Cascader/interface'
+import { CascaderProps as __CascaderProps } from './Cascader/interface'
 
 export { default as Checkbox } from './Checkbox'
 import { CheckboxProps as __CheckboxProps, GroupProps as __GroupProps } from './Checkbox/interface'
@@ -193,7 +193,6 @@ export namespace TYPE {
   }
   export namespace Cascader {
   
-    export type BaseValue = __BaseValue
     export type Props<Item, Value extends BaseValue> = __CascaderProps<Item, Value>
   }
   export namespace Checkbox {

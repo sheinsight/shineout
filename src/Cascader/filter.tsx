@@ -2,14 +2,14 @@ import React, { ComponentType } from 'react'
 import { getKey } from '../utils/uid'
 import { Component } from '../component'
 import { getFilterTree } from '../utils/tree'
-import { FilterProps, GetFilterProps } from './Props'
+import { FilterProps, GetFilterProps, BaseValue } from './Props'
 
 interface CascaderFilterState {
   filterText: string
   filter: null
 }
 
-export default <DataItem, Props>(Origin: React.ComponentType<Props>) =>
+export default <DataItem, Value extends BaseValue, Props>(Origin: React.ComponentType<Props>) =>
   (class CascaderFilter extends Component<FilterProps<DataItem>, CascaderFilterState> {
     static defaultProps = {
       filterDelay: 400,
@@ -72,4 +72,4 @@ export default <DataItem, Props>(Origin: React.ComponentType<Props>) =>
         />
       )
     }
-  } as unknown) as ComponentType<GetFilterProps<Props, DataItem>>
+  } as unknown) as ComponentType<GetFilterProps<Props, DataItem, Value>>

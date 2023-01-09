@@ -16,7 +16,7 @@ import absoluteList from '../AnimationList/AbsoluteList'
 import { isRTL } from '../config'
 import { getKey } from '../utils/uid'
 import Input from './Input'
-import { OriginCascaderProps } from './Props'
+import { BaseCascaderProps } from './Props'
 
 const OptionList = absoluteList(
   ({ focus, getRef, ...other }: { focus: boolean; getRef: (e: HTMLDivElement) => void }) =>
@@ -45,7 +45,7 @@ interface State {
 }
 
 class Cascader<DataItem, Value extends (string | number)[]> extends PureComponent<
-  OriginCascaderProps<DataItem, Value>,
+  BaseCascaderProps<DataItem, Value>,
   State
 > {
   static defaultProps = DefaultProps
@@ -72,7 +72,7 @@ class Cascader<DataItem, Value extends (string | number)[]> extends PureComponen
 
   renderPending: boolean
 
-  constructor(props: OriginCascaderProps<DataItem, Value>) {
+  constructor(props: BaseCascaderProps<DataItem, Value>) {
     super(props)
 
     this.state = {
@@ -129,7 +129,7 @@ class Cascader<DataItem, Value extends (string | number)[]> extends PureComponen
     }
   }
 
-  componentDidUpdate(prevProps: OriginCascaderProps<DataItem, Value>, prevState: State) {
+  componentDidUpdate(prevProps: BaseCascaderProps<DataItem, Value>, prevState: State) {
     this.datum.mode = this.props.mode
     const { onFilter, filterDataChange, filterText } = this.props
     if (!filterDataChange && prevProps.data !== this.props.data) this.datum.setData(this.props.data, true)
