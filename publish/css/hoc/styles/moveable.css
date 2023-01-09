@@ -1,8 +1,0 @@
-.so-moveable-draging {
-  -webkit-transition-property: -webkit-transform;
-  transition-property: -webkit-transform;
-  transition-property: transform;
-  transition-property: transform, -webkit-transform;
-  -webkit-transition-duration: 0s;
-          transition-duration: 0s;
-}
