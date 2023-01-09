@@ -18,7 +18,8 @@ function getElement(type) {
 export function destroy(type) {
   if (elements[type]) {
     ReactDOM.unmountComponentAtNode(elements[type])
-    document.body.removeChild(elements[type])
+    const el = elements[type]
+    if (el && el.parentNode) el.parentNode.removeChild(el)
     delete elements[type]
   }
   if (components[type]) {

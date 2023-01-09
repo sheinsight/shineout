@@ -41,7 +41,7 @@ export function destroy(id, unmount) {
   if (!div || !container) return
   delete containers[id]
   if (unmount) ReactDOM.unmountComponentAtNode(div)
-  container.removeChild(div)
+  if (div && div.parentNode) div.parentNode.removeChild(div)
 }
 
 export function close(props, callback) {
