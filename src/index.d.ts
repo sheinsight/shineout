@@ -3,7 +3,7 @@ import * as utils from './utils'
 
 declare const __default: {
   utils: typeof utils,
-  version: '1.11.1'
+  version: '1.12.0-rc.5'
 }
 
 export default __default
@@ -125,7 +125,7 @@ export { default as Switch } from './Switch'
 import { SwitchProps as __SwitchProps ,  } from './Switch'
 
 export { default as Table } from './Table'
-import { TableProps as __TableProps , footItem as __footItem,TableRef as __TableRef,RowEvents as __RowEvents,CheckColumn as __CheckColumn,renderSorterParam  as __renderSorterParam  , ColumnFix as __ColumnFix,ColumnType as __ColumnType,ColumnOrder as __ColumnOrder,ColumnItem as __ColumnItem } from './Table'
+import { TableProps as __TableProps , TableRef as __TableRef,RowEvents as __RowEvents,summaryItem as __summaryItem,CheckColumn as __CheckColumn,renderSorterParam  as __renderSorterParam  , ColumnFix as __ColumnFix,ColumnType as __ColumnType,ColumnOrder as __ColumnOrder,ColumnItem as __ColumnItem } from './Table'
 
 export { default as Tabs } from './Tabs'
 import { TabsProps as __TabsProps , TabsLinkProps as __TabsLinkProps,TabsPanelProps as __TabsPanelProps ,  } from './Tabs'
@@ -312,9 +312,9 @@ export namespace TYPE {
   }
   export namespace Table {
     export type Props<TRD, Value> = __TableProps<TRD, Value>
-    export type footItem = __footItem
     export type Ref = __TableRef
     export type RowEvents = __RowEvents
+    export type summaryItem = __summaryItem
     export type CheckColumn<T> = __CheckColumn<T>
     export type renderSorterParam  = __renderSorterParam   
     export type ColumnFix = __ColumnFix
