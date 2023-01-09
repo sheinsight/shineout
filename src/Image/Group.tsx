@@ -2,7 +2,7 @@ import React, { PureComponent, Children, cloneElement, ReactElement } from 'reac
 import showGallery from './events'
 import { IMAGE } from './Image'
 import { imageClass } from './styles'
-import { ImageProps, ImageGroupProps } from './interface'
+import { ImageProps, ImageGroupProps } from './Props'
 
 class Group extends PureComponent<ImageGroupProps> {
   static displayName: string

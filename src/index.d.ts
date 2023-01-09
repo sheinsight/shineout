@@ -15,7 +15,7 @@ export { default as config, setConfig, isRTL } from './config'
 export { default as LazyList } from './AnimationList/LazyList'
 
 export { default as List } from './DataList'
-import { ListProps as __ListProps , ListBaseItemProps as __ListBaseItemProps } from './DataList'
+import { ListProps as __ListProps , ListBaseItemProps as __ListBaseItemProps } from './DataList/interface'
 
 export { default as Alert } from './Alert'
 import { AlertProps as __AlertProps,  } from './Alert/interface'
@@ -58,7 +58,7 @@ export { default as Dropdown } from './Dropdown'
 import { DropdownItem as __DropdownItem, DropdownProps as __DropdownProps } from './Dropdown/interface'
 
 export { default as EditableArea } from './EditableArea'
-import { EditableAreaProps as __EditableAreaProps,  } from './EditableArea'
+import { EditableAreaProps as __EditableAreaProps,  } from './EditableArea/interface'
 
 export { default as Form } from './Form'
 import { FormItemProps as __FormItemProps, FormRef as __FormRef, FormResetProps as __FormResetProps, FormSubmitProps as __FormSubmitProps, FormProps as __FormProps, FormFieldProps as __FormFieldProps, FormFieldSetProps as __FormFieldSetProps, FieldChildrenFunc as __FieldChildrenFunc, FieldSetChildrenFunc as __FieldSetChildrenFunc } from './Form/interface'
@@ -73,7 +73,7 @@ export { default as Icon } from './Icon'
 import { IconProps as __IconProps, IconComProps as __IconComProps,  } from './Icon/interface'
 
 export { default as Image } from './Image'
-import { ImageProps as __ImageProps, ImageGroupProps as __ImageGroupProps,  } from './Image/interface'
+import { ImageProps as __ImageProps, ImageGroupProps as __ImageGroupProps } from './Image/interface'
 
 export { default as Input } from './Input'
 import { InputProps as __InputProps, InputGroupProps as __InputGroupProps, InputNumberProps as __InputNumberProps, InputPasswordProps as __InputPasswordProps } from './Input/interface'
@@ -149,7 +149,7 @@ export { default as TreeSelect } from './TreeSelect'
 import { TreeSelectProps as __TreeSelectProps, ComponentRef as __ComponentRef,  } from './TreeSelect'
 
 export { default as Upload } from './Upload'
-import { UploadProps as __UploadProps, Validator as __Validator, Options as __Options, UploadImageProps as __UploadImageProps, UploadButtonProps as __UploadButtonProps, UploadImageHandlerProps as __UploadImageHandlerProps,  } from './Upload'
+import { Validator as __Validator, UploadProps as __UploadProps, UploadImageHandlerProps as __UploadImageHandlerProps, UploadOptions as __UploadOptions, UploadImageProps as __UploadImageProps, UploadButtonProps as __UploadButtonProps } from './Upload/interface'
 
 
 export namespace TYPE {
@@ -249,6 +249,7 @@ export namespace TYPE {
     export type ComProps = __IconComProps
   }
   export namespace Image {
+  
     export type Props = __ImageProps
     export type GroupProps = __ImageGroupProps
   }
@@ -365,11 +366,12 @@ export namespace TYPE {
     export type ComponentRef<Item, Value> = __ComponentRef<Item, Value>
   }
   export namespace Upload {
-    export type Props<T> = __UploadProps<T>
+  
     export type Validator = __Validator
-    export type Options<T> = __Options<T>
-    export type ImageProps<T> = __UploadImageProps<T>
-    export type ButtonProps<T> = __UploadButtonProps<T>
+    export type Props<ValueItem> = __UploadProps<ValueItem>
     export type ImageHandlerProps = __UploadImageHandlerProps
+    export type Options<ValueItem> = __UploadOptions<ValueItem>
+    export type ImageProps<ValueItem> = __UploadImageProps<ValueItem>
+    export type ButtonProps<ValueItem> = __UploadButtonProps<ValueItem>
   }
 }

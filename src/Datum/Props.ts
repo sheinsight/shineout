@@ -83,6 +83,7 @@ export interface DatumAddProps {
 export type GetDatumProps<U> = DatumAddProps & {
   initValidate?: boolean
 } & Omit<U, keyof DatumAddProps>
+
 export type GetDatumListProps<
   U,
   DataItem,

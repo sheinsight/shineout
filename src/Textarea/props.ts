@@ -28,7 +28,7 @@ export interface OriginTextareaProps extends Pick<InputTitleProps, 'innerTitle' 
    *
    * default: -
    */
-  maxHeight?: number
+  maxHeight?: number | string
   /**
    * The callback when Textarea blur
    *
