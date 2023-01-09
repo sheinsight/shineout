@@ -4,7 +4,7 @@ import { entries } from './objects'
 
 type ObjectProps = { [x: string]: any }
 
-type Accessors = { [U in keyof typeof cssInject]: {} }
+type Accessors = { [U in keyof typeof cssInject]: ObjectProps }
 
 function setOptions(options: any, setter: any) {
   if (!options) return

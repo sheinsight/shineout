@@ -201,7 +201,7 @@ export interface PopoverConfirmProps extends Omit<PopoverProps, 'children' | 'ty
    *
    * default: { ok: 'Ok', cancel: 'Cancel' }
    */
-  text: {
+  text?: {
     ok?: string
     cancel?: string
   }
