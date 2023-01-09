@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import config from 'shineout/config'
+import config from '../config'
 import { inputTitleClass } from '../InputTitle/styles'
 import cleanProps from '../utils/cleanProps'
 import Clear from './clear'
@@ -40,6 +40,13 @@ class Input extends PureComponent {
     const text = `${value.length} / ${info}`
     if (value.length <= info) return text
     return new Error(text)
+  }
+
+  getTrim = () => {
+    const { trim } = this.props
+    if (trim !== undefined) return trim
+    if (config.trim !== undefined) return config.trim
+    return false
   }
 
   bindRef(el) {
@@ -140,13 +147,6 @@ class Input extends PureComponent {
     const { onKeyDown } = this.props
     if (e.keyCode === 13) this.enterPress = true
     if (onKeyDown) onKeyDown(e)
-  }
-
-  getTrim() {
-    const { trim } = this.props
-    if (trim !== undefined) return trim
-    if (config.trim !== undefined) return config.trim
-    return false
   }
 
   handleKeyUp(e) {
