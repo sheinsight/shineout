@@ -3,7 +3,7 @@ import { Component } from '../component'
 import { getFilterTree } from '../utils/tree'
 import { IS_NOT_MATCHED_VALUE } from './Result'
 import { keyType } from '../@types/common'
-import { FilterProps, GetFilterProps, ResultValue, UnMatchedValue } from './Props'
+import { FilterProps, ResultValue, UnMatchedValue } from './Props'
 
 const DefaultValue = {
   data: [],
@@ -17,7 +17,7 @@ interface FilterState<Item> {
   filterText: string
 }
 
-export default <Item, Value>(Origin: React.ComponentType<GetFilterProps<FilterProps<Item, Value>, Item, Value>>) =>
+export default <Item, Value>(Origin: React.ComponentType<FilterProps<Item, Value>>) =>
   class Filter extends Component<FilterProps<Item, Value>, FilterState<Item>> {
     static defaultProps = DefaultValue
 

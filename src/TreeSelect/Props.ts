@@ -4,6 +4,7 @@ import {
   KeygenType,
   LiteralUnion,
   StandardProps,
+  RegularAttributes,
   FormItemStandardProps,
   StructDataStandardProps,
 } from '../@types/common'
@@ -23,7 +24,6 @@ export interface BaseTreeSelectProps<Item, Value>
     Omit<StructDataStandardProps<Item>, 'renderResult' | 'renderItem'>,
     Pick<CommonProps, 'absolute'> {
   position?: 'drop-up' | 'drop-down'
-  empty?: string
   /**
    * show border bottom
    *
@@ -343,6 +343,15 @@ export interface BaseTreeSelectProps<Item, Value>
    */
   renderResult?: (data: Item | Value, index?: number) => React.ReactNode
 
+  /**
+   * Placeholder content when there is no data
+   *
+   * 无数据时的占位内容
+   *
+   * default: -
+   */
+  empty?: React.ReactNode
+
   renderItem?: ((data: Item, expanded: string[], active?: any, id?: string) => React.ReactNode) | LiteralUnion<Item>
 }
 
@@ -391,15 +400,14 @@ export interface TiledProps<Item, Value> extends Pick<BaseTreeSelectProps<Item, 
   onAdvancedFilter: boolean
 }
 
-export interface AdvancedFilterHOCProps<Item, Value>
-  extends Pick<BaseTreeSelectProps<Item, Value>, 'onAdvancedFilter' | 'onFilter'> {}
-
-export type GetAdvancedFilterHOCProps<Props, Item, Value> = Omit<Props, 'onAdvancedFilter' | 'onFilter'> & {
-  onAdvancedFilter: boolean
-  onFilter:
-    | Pick<BaseTreeSelectProps<Item, Value>, 'onAdvancedFilter'>
-    | Pick<BaseTreeSelectProps<Item, Value>, 'onFilter'>
+export interface AdvancedFilterHOCProps<Item, Value> {
+  onFilter: BaseTreeSelectProps<Item, Value>['onFilter']
+  onAdvancedFilter: BaseTreeSelectProps<Item, Value>['onAdvancedFilter']
 }
+
+// extends Pick<BaseTreeSelectProps<Item, Value>, 'onAdvancedFilter' | 'onFilter'>
+export type GetAdvancedFilterHOCProps<Props, Item, Value> = Omit<Props, 'onAdvancedFilter' | 'onFilter'> &
+  Pick<BaseTreeSelectProps<Item, Value>, 'onAdvancedFilter' | 'onFilter'>
 
 export interface TreeDatumProps<Item, Value>
   extends Pick<
@@ -408,84 +416,97 @@ export interface TreeDatumProps<Item, Value>
   > {}
 
 export type GetTreeDatumProps<Props, Item, Value> = Omit<Props, 'datum'> & {
-  datum: DatumTree<Item, Value[]>
+  datum?: DatumTree<Item, Value[]>
 }
 
 export interface FilterProps<Item, Value>
   extends Pick<
     BaseTreeSelectProps<Item, Value>,
-    | 'data'
-    | 'filterDelay'
-    | 'keygen'
-    | 'onFilter'
-    | 'value'
-    | 'expanded'
-    | 'showHitDescendants'
-    | 'renderUnmatched'
-    | 'childrenKey'
+    'data' | 'filterDelay' | 'keygen' | 'value' | 'expanded' | 'showHitDescendants' | 'renderUnmatched' | 'childrenKey'
   > {
+  result: ResultValue<Value>[]
+  filterText: string
+  rawData: Item[]
+  onFilter?: (text: string, from?: string) => void
   datum: DatumTree<Item, Value[]>
   noCache: boolean
   onAdvancedFilter: boolean
 }
 
-export type GetFilterProps<Props, Item, Value> = Omit<Props, 'onFilter' | 'filterText' | 'expanded' | 'result'> & {
-  onFilter?: (text: string, from?: string) => void
+export interface TreeSelectProps<Item, Value>
+  extends StandardProps,
+    Pick<
+      BaseTreeSelectProps<Item, Value>,
+      | 'value'
+      | 'getComponentRef'
+      | 'clearable'
+      | 'disabled'
+      | 'renderResult'
+      | 'height'
+      | 'multiple'
+      | 'position'
+      | 'renderItem'
+      | 'defaultExpanded'
+      | 'expanded'
+      | 'loader'
+      | 'mode'
+      | 'onChange'
+      | 'onExpand'
+      | 'compressed'
+      | 'compressedBound'
+      | 'absolute'
+      | 'parentClickExpand'
+      | 'zIndex'
+      | 'renderUnmatched'
+      | 'onCollapse'
+      | 'onChangeAddition'
+      | 'innerTitle'
+      | 'onEnterExpand'
+      | 'placeholder'
+      | 'keygen'
+      | 'empty'
+    > {
+  data: Item[]
+  datum: DatumTree<Item, Value[]>
   filterText: string
   result: ResultValue<Value>[]
-  data: Item[]
-  rawData: Item[]
-  expanded?: Value[]
+  size?: RegularAttributes.Size
+  line?: boolean
+  onBlur: (e?: any) => void
+  onFocus: (e?: any) => void
+  onFilter: (text: string, from?: string) => void
 }
 
 export type GetTiledProps<Props> = Omit<Props, 'expandIcons'>
-
+export type GetFilterProps<Props, Item, Value> = Omit<Props, 'onFilter' | 'filterText' | 'expanded' | 'result'> &
+  Pick<BaseTreeSelectProps<Item, Value>, 'onFilter' | 'expanded' | 'showHitDescendants'>
 export type GetAdvancedFilterHOC<Props, Item> = Omit<Props, 'onAdvancedFilter'> & {
   onAdvancedFilter?: (text: string) => ((data: Item) => boolean) | void
 }
 
-export type TreeSelectPropsWidthGroup<Item, Value> = GetTiledProps<BaseTreeSelectProps<Item, Value>>
-
+export type TreeSelectPropsWidthTiled<Item, Value> = GetTiledProps<TreeSelectProps<Item, Value>>
 export type TreeSelectPropsWidthFilter<Item, Value> = GetFilterProps<
-  TreeSelectPropsWidthGroup<Item, Value>,
+  TreeSelectPropsWidthTiled<Item, Value>,
   Item,
   Value
 >
-
 export type TreeSelectPropsWidthAdvancedFilterHOC<Item, Value> = GetAdvancedFilterHOC<
   TreeSelectPropsWidthFilter<Item, Value>,
   Item
 >
-
+export type TreeSelectPropsWidthGroup<Item, Value> = GetTiledProps<BaseTreeSelectProps<Item, Value>>
 export type TreeSelectPropsWidthDatum<Item, Value> = GetTreeDatumProps<
   TreeSelectPropsWidthAdvancedFilterHOC<Item, Value>,
   Item,
   Value
 >
-
-export type TreeSelectPropsWidthInputBorder<Item, Value> = GetInputBorderProps<
-  TreeSelectPropsWidthDatum<Item, Value> & {
-    onBlur: (e?: any) => void
-    onFocus: (e?: any) => void
-  }
-> & {
-  onBlur: (e?: any) => void
-  onFocus: (e?: any) => void
-}
-
+export type TreeSelectPropsWidthInputBorder<Item, Value> = GetInputBorderProps<TreeSelectPropsWidthDatum<Item, Value>>
 export type TreeSelectPropsWidthInputable<Item, Value> = GetInputableProps<
-  TreeSelectPropsWidthInputBorder<Item, Value> & {
-    onChange: (value: Value) => void
-  },
+  TreeSelectPropsWidthInputBorder<Item, Value>,
   Value
 >
 
-export type TreeSelectProps<Item, Value> = TreeSelectPropsWidthInputable<Item, Value>
-
-export type GetTreeSelectProps<Item, Value> = Omit<
-  TreeSelectProps<Item, Value>,
-  'onFocus' | 'onBlur' | 'datum' | 'filterText' | 'result' | 'rawData'
->
+export type GetTreeSelectProps<Item, Value> = Omit<TreeSelectPropsWidthInputable<Item, Value>, ''>
 
 export declare class TreeSelectClass<Item = any, Value = any> extends React.Component<
   GetTreeSelectProps<Item, Value>,

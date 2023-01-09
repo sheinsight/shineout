@@ -6,7 +6,7 @@ import { mergeFilteredTree } from '../utils/tree'
 import { treeClass } from '../Tree/styles'
 import { treeSelectClass } from './styles'
 import { Component } from '../component'
-import { TiledProps, AdvancedFilterHOCProps, GetAdvancedFilterHOCProps } from './Props'
+import { TiledProps, AdvancedFilterHOCProps } from './Props'
 
 interface TiledState {
   tileds: string[]
@@ -112,9 +112,9 @@ export default curry((options, Origin) => {
   return Tiled
 })
 
-export const advancedFilterHOC = <Props, Item, Value>(
-  Origin: React.ComponentType<GetAdvancedFilterHOCProps<Props, Item, Value>>
-) => (props: AdvancedFilterHOCProps<Item, Value>) => {
+export const advancedFilterHOC = <Props extends AdvancedFilterHOCProps<Item, Value>, Item, Value>(
+  Origin: React.ComponentType<Props>
+) => (props: Props) => {
   const { onAdvancedFilter, onFilter } = props
   return <Origin {...props as any} onFilter={onAdvancedFilter || onFilter} onAdvancedFilter={!!onAdvancedFilter} />
 }
