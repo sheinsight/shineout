@@ -10,13 +10,13 @@ import { UnionPannelProps } from './Props'
 class Time extends PureComponent<UnionPannelProps> {
   defaultValue: Date
 
-  handleMinuteChange: any
+  handleMinuteChange: (val: number) => void
 
-  handleHourChange: any
+  handleHourChange: (val: number) => void
 
-  handleSecondChange: any
+  handleSecondChange: (val: number) => void
 
-  handleAMPMChange: any
+  handleAMPMChange: (val: number) => void
 
   constructor(props: UnionPannelProps) {
     super(props)

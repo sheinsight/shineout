@@ -102,8 +102,8 @@ class Day extends PureComponent<UnionPannelProps, DayState> {
     } else {
       let newDate: Date | string = utils.setTime(utils.toDate(date), current)
       // only can select day with the same day of min/max
-      if (min && utils.compareAsc(newDate, min) < 0) utils.setTime(newDate, min as Date)
-      if (max && utils.compareAsc(newDate, max) > 0) utils.setTime(newDate, max as Date)
+      if (min && utils.compareAsc(newDate, min) < 0) utils.setTime(newDate, min)
+      if (max && utils.compareAsc(newDate, max) > 0) utils.setTime(newDate, max)
       if (
         allowSingle &&
         isArray(rangeDate) &&
@@ -113,7 +113,7 @@ class Day extends PureComponent<UnionPannelProps, DayState> {
           utils.clearHMS(rangeDate[index], this.getOptions()).getTime()
       )
         newDate = ''
-      onChange(...paramUtils.dayHandleChangeParams(newDate as Date, true, type !== 'datetime'))
+      onChange(...paramUtils.dayHandleChangeParams(newDate, true, type !== 'datetime'))
     }
   }
 
