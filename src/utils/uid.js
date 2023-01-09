@@ -1,3 +1,5 @@
+import getUUid from './uuid'
+
 let uid = Date.now()
 
 export function getUid() {
@@ -5,8 +7,8 @@ export function getUid() {
   return uid
 }
 
-export function getUidStr() {
-  return getUid().toString(36)
+export function getUidStr(...args) {
+  return getUUid(...args)
 }
 
 function $getKey(d, gen, index) {

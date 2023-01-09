@@ -85,12 +85,11 @@ class Panel extends Component {
 
     if (!this.container) return
     if (this.container === getCommonContainer()) {
-      // this.container.removeChild(this.element)
-      if (this.element && this.element.parentElement) {
-        this.element.parentElement.removeChild(this.element)
+      if (this.element && this.element.parentNode) {
+        this.element.parentNode.removeChild(this.element)
       }
     } else {
-      this.container.parentElement.removeChild(this.container)
+      this.container.parentNode.removeChild(this.container)
     }
   }
 

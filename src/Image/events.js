@@ -9,7 +9,7 @@ function close() {
   // eslint-disable-next-line
   document.removeEventListener('keydown', keyClose)
   ReactDOM.unmountComponentAtNode(container)
-  document.body.removeChild(container)
+  if (container && container.parentNode) container.parentNode.removeChild(container)
   container = null
 }
 

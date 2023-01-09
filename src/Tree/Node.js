@@ -158,8 +158,7 @@ class Node extends PureComponent {
     isDragging = false
     if (!placeElement.parentNode) return
 
-    document.body.removeChild(this.dragImage)
-
+    if (this.dragImage && this.dragImage.parentNode) this.dragImage.parentNode.removeChild(this.dragImage)
     const { id, index, onDrop } = this.props
     const position = parseInt(placeElement.getAttribute('data-position'), 10)
     const { target } = placeInfo
