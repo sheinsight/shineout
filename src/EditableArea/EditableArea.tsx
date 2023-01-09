@@ -40,11 +40,11 @@ class Editable extends React.PureComponent<BaseProps, EditableareaState> {
 
   input: HTMLElement
 
-  showPop: React.FocusEventHandler<HTMLDivElement>
+  showPop: () => void
 
-  hidePop: (flag?: boolean) => void
+  hidePop: () => void
 
-  handleClear: React.MouseEventHandler<HTMLDivElement>
+  handleClear: () => void
 
   width: number
 

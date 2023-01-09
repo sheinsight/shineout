@@ -81,6 +81,9 @@ export interface BaseProps extends StandardProps {
    */
   getPopupContainer?: () => HTMLElement
 
+  /**
+   * 内部属性
+   */
   onShowTextareaChange?: (value: boolean) => void
 
   /**
