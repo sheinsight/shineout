@@ -82,7 +82,7 @@ export interface ContainerProps<Value extends number | number[]> extends Standar
    *
    * default: -
    */
-  defaultValue?: number | number[]
+  defaultValue?: Value
 
   /**
    * Whether to be vertical
