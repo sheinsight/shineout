@@ -13,7 +13,7 @@ export interface PopoverProviderProps {
 
 export type GetPopoverConsumerProps<P> = Omit<P, keyof PopoverProviderProps>
 
-export type Position =
+export type PopoverPosition =
   | 'top-left'
   | 'top'
   | 'top-right'
@@ -27,6 +27,7 @@ export type Position =
   | 'bottom'
   | 'bottom-right'
   | 'cover'
+
 export type PopType = 'success' | 'info' | 'warning' | 'danger'
 export type PriorityDirection = 'vertical' | 'horizontal' | 'auto'
 
@@ -78,7 +79,7 @@ export interface PanelProps extends StandardProps, PopoverProviderProps {
    *
    * default: 'top'
    */
-  position?: Position
+  position?: PopoverPosition
   /**
    * type of show
    *
