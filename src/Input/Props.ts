@@ -288,7 +288,7 @@ export interface InputNumber extends Omit<Props, 'value' | 'defaultValue' | 'onC
    * default: 1
    */
   step?: number
-  value?: NumberValue
+  value?: string | number
   defaultValue?: NumberValue
   disabled?: boolean
 
