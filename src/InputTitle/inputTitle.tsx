@@ -1,7 +1,7 @@
 import React from 'react'
 import classnames from 'classnames'
 import { PureComponent } from '../component'
-import { InputTitleProps } from './props'
+import { InputTitleProps } from './Props'
 
 import { inputTitleClass } from './styles'
 

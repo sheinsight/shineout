@@ -58,19 +58,19 @@ export { default as Dropdown } from './Dropdown'
 import { DropdownItem as __DropdownItem, DropdownProps as __DropdownProps } from './Dropdown/interface'
 
 export { default as EditableArea } from './EditableArea'
-import { EditableAreaProps as __EditableAreaProps,  } from './EditableArea/interface'
+import { EditableAreaProps as __EditableAreaProps } from './EditableArea/interface'
 
 export { default as Form } from './Form'
 import { FormItemProps as __FormItemProps, FormRef as __FormRef, FormResetProps as __FormResetProps, FormSubmitProps as __FormSubmitProps, FormProps as __FormProps, FormFieldProps as __FormFieldProps, FormFieldSetProps as __FormFieldSetProps, FieldChildrenFunc as __FieldChildrenFunc, FieldSetChildrenFunc as __FieldSetChildrenFunc } from './Form/interface'
 
 export { default as Gap } from './Gap'
-import { GapProps as __GapProps,  } from './Gap/interface'
+import { GapProps as __GapProps } from './Gap/interface'
 
 export { default as Grid } from './Grid'
 import { GridProps as __GridProps, responsiveType as __responsiveType } from './Grid/interface'
 
 export { default as Icon } from './Icon'
-import { IconProps as __IconProps, IconComProps as __IconComProps,  } from './Icon/interface'
+import { IconProps as __IconProps, IconComProps as __IconComProps } from './Icon/interface'
 
 export { default as Image } from './Image'
 import { ImageProps as __ImageProps, ImageGroupProps as __ImageGroupProps } from './Image/interface'
@@ -222,6 +222,7 @@ export namespace TYPE {
     export type Props = __DropdownProps
   }
   export namespace EditableArea {
+  
     export type Props = __EditableAreaProps
   }
   export namespace Form {
@@ -237,13 +238,16 @@ export namespace TYPE {
     export type FieldSetChildrenFunc<Value = any> = __FieldSetChildrenFunc<Value>
   }
   export namespace Gap {
+  
     export type Props = __GapProps
   }
   export namespace Grid {
-    export type Props = __GridProps  
+  
+    export type Props = __GridProps
     export type responsiveType = __responsiveType
   }
   export namespace Icon {
+  
     export type Props = __IconProps
     export type ComProps = __IconComProps
   }

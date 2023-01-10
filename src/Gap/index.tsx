@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import classnames from 'classnames'
 import { gapClass } from './styles'
 import support from './support'
-import { GapProps } from './interface'
+import { GapProps } from './Props'
 
 const flexGapSupport = support()
 const DefaultProps = {

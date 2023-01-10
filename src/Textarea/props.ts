@@ -1,5 +1,5 @@
 import { ReactNode, FocusEventHandler, KeyboardEvent, TextareaHTMLAttributes } from 'react'
-import { InputTitleProps } from '../InputTitle/props'
+import { InputTitleProps } from '../InputTitle/Props'
 import { GetDelayProps, GetInputBorderProps, GetTrimProps } from '../hoc/Props'
 import { GetInputableProps } from '../Form/Props'
 import { ForceAdd } from '../@types/common'
