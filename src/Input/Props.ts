@@ -236,6 +236,13 @@ export interface Props extends StandardProps {
    *
    */
   onBlur: React.FocusEventHandler
+  /**
+   * The callback when Textarea focus
+   *
+   * 聚焦后的回调
+   *
+   * default: -
+   */
   onFocus: React.FocusEventHandler
   cancelChange?: () => void
   forceChange?: (value: unknown, ...args: unknown[]) => void
