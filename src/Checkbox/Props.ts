@@ -7,14 +7,61 @@ import { GetDatumListProps } from '../Datum/Props'
 export type CheckValueType = boolean | 'indeterminate'
 export type CheckType = 'radio' | 'switch' | 'checkbox'
 export interface CheckItemProps extends StandardProps {
+  /**
+   * disable checkbox
+   *
+   * 是否禁用
+   *
+   * default: false
+   */
   disabled?: boolean
+
+  /**
+   * if not set, use (value === htmlValue).
+   *
+   * checked 传入时为受控组件
+   *
+   * default: -
+   */
   checked?: CheckValueType | ((htmlValue: any) => CheckValueType)
+
+  /**
+   * Show input
+   *
+   * 开启后出现输入框
+   *
+   * default: false
+   */
   inputable?: boolean
+
+  /**
+   * Specifies the result
+   *
+   * 选中时返回值
+   *
+   * default: true
+   */
   htmlValue?: any
   index?: number
+
+  /**
+   * value is datum.getValue()
+   *
+   * value 为 datum.getValue()
+   *
+   * default: -
+   */
   onChange?: ((value: any, checked?: CheckValueType, index?: number) => void)
   onRawChange?: (value: any, checked: CheckValueType) => void
   value?: any
+
+  /**
+   * Checkbox click callback
+   *
+   * 勾选框点击回调
+   *
+   * default: false
+   */
   onClick?: React.MouseEventHandler<HTMLInputElement>
   size?: 'small' | 'default' | 'large'
   content?: [ReactNode, ReactNode] | []
@@ -43,8 +90,24 @@ export interface CheckboxGroupProps<DataItem, Value>
   extends StandardProps,
     Pick<StructDataStandardProps<DataItem>, 'renderItem'> {
   keygen: KeygenType<DataItem>
+
+  /**
+   * The default is horizontal layout, and setting the block property can change it to be vertical layout.
+   *
+   * 垂直布局
+   *
+   * default: false
+   */
   block?: boolean
   datum: ListDatum<DataItem, Value>
+
+  /**
+   * In the Form, the value will be taken over by the form and the value will lose efficacy.
+   *
+   * 在Form中，value会被表单接管，value无效
+   *
+   * default: -
+   */
   value?: Value
   data?: DataItem[]
   onChange: (value: Value) => void

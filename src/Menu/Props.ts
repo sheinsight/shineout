@@ -17,27 +17,178 @@ export interface MenuProvider {
 export type MenuProviderProps<U> = Omit<U, 'bindItem' | 'unbindItem'>
 
 export interface RootProps<Item, Value> {
+  /**
+   * desc: style of menu
+   *
+   * 菜单样式
+   *
+   * default: 'inline'
+   */
   mode: Mode
+
+  /**
+   * desc: Menu items data
+   *
+   * 需要渲染成菜单的数据
+   *
+   * default: []
+   */
   data: Item[]
+
+  /**
+   * theme of menu
+   *
+   * 主题
+   *
+   * default: -
+   */
   theme?: 'dark'
   height?: number
+
+  /**
+   * desc: expended menu
+   *
+   * 展开的菜单(受控)
+   *
+   * default: []
+   */
   openKeys?: Value[]
   className?: string
+
+  /**
+   * desc: triangle expansion color
+   *
+   * 三角展开符颜色
+   *
+   * default: null
+   */
   caretColor?: string
+
+  /**
+   * desc: Front solid triangle expansion
+   *
+   * 前置实心三角展开符
+   *
+   * default: null
+   */
   frontCaret?: boolean
+
+  /**
+   * desc: indent of each level
+   *
+   * 每一层缩进宽度
+   *
+   * default: 24
+   */
   inlineIndent?: number
+
+  /**
+   * The duration time of MenuItem
+   *
+   * 菜单项持续时间
+   *
+   * default: -
+   */
   toggleDuration?: number
+
+  /**
+   * menu item expandable if has children
+   *
+   * 如果 children 有设置则菜单项可展开
+   *
+   * default: false
+   */
   looseChildren?: boolean
+
+  /**
+   * Key generator. When it is true, the data itself is used as the key equivalent to (d => d). When it is a function, use its return value. When it is a string，ues the value of the string. For example, 'id' is the same thing as (d) => d.id.
+   *
+   * 生成每一项key的辅助方法。为 true 时，以数据项本身作为key，相当于 (d => d)。为函数时，使用此函数返回值。为string时，使用这个string对应的数据值。如 'id'，相当于 (d => d.id)
+   *
+   * default: true
+   */
   keygen: KeygenType<Item>
+
+  /**
+   * desc: Initial expanded menu
+   *
+   * 初始展开的菜单;如果需要设置此值,则需要设置keygen,此值为一个包含key的数组
+   *
+   * default: []
+   */
   defaultOpenKeys?: Value[]
+
+  /**
+   * parent menu Selectable
+   *
+   * 父级菜单是否可选中
+   *
+   * default: false
+   */
   parentSelectable?: boolean
   style?: React.CSSProperties
+
+  /**
+   * desc: The function will be called when the user clicks the menu item.
+   *
+   * 子菜单点击事件,参数为当条数据
+   *
+   * default: null
+   */
   onClick?: (data: Item) => void
+
+  /**
+   * desc: The item is actived when the active function return true.
+   *
+   * 验证是否激活,参数为对应的数据对象,返回true则代表该菜单激活
+   *
+   * default: d => d.disabled
+   */
   active?: (data: Item) => boolean
+
+  /**
+   * Whether to be disabled
+   *
+   * 是否禁用选项
+   *
+   * default: null
+   */
   disabled?: (data: Item) => boolean
+
+  /**
+   * desc: front triangle expansion symbol type
+   *
+   * 前置三角展开符类型
+   *
+   * default: 'solid'
+   */
   frontCaretType?: 'hollow' | 'solid'
+
+  /**
+   * desc: menu open change callback
+   *
+   * 菜单展开/收起回调
+   *
+   * default: none
+   */
   onOpenChange?: (keys: Value[]) => void
+
+  /**
+   * desc: the key of inject the link value of the submenu
+   *
+   * 需要注入子菜单的链接键值
+   *
+   * default: -
+   */
   linkKey?: ((d: Item) => string) | LiteralUnion<Item>
+
+  /**
+   * Element render mode. If it is a string, the corresponding value is taken as the display content; If it is a function, the result returned by the function is taken as the display content.
+   *
+   * 元素渲染方式,如果为字符串,则会以对应的值作为显示内容;如果为函数,则以函数返回的结果作为显示内容,函数参数为对应的数据对象
+   *
+   * default: 'title'
+   */
   renderItem: ((data: Item, index: number) => React.ReactElement | React.ReactNode) | LiteralUnion<Item>
 }
 

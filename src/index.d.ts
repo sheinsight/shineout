@@ -49,7 +49,7 @@ import { DatePickerProps as __DatePickerProps, QuickSelect as __QuickSelect, Are
 export { default as Datum } from './Datum'
 
 export { default as Divider } from './Divider'
-import { DividerProps as __DividerProps,  } from './Divider/interface'
+import { DividerProps as __DividerProps } from './Divider/interface'
 
 export { default as Drawer } from './Drawer'
 import { DrawerProps as __DrawerProps } from './Drawer/interface'
@@ -209,6 +209,7 @@ export namespace TYPE {
     export type Value = __DatePickerValue
   }
   export namespace Divider {
+  
     export type Props = __DividerProps
   }
   export namespace Drawer {
