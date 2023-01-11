@@ -4,19 +4,9 @@ import getCommonContainer from '../utils/dom/popContainer'
 import { popoverClass } from './styles'
 
 let currentProps = null
-const div = document.createElement('div')
-div.style.display = 'none'
-
-getCommonContainer().appendChild(div)
-
-const arrow = document.createElement('div')
-arrow.className = popoverClass('arrow')
-div.appendChild(arrow)
-
-const inner = document.createElement('div')
-inner.className = popoverClass('content')
-div.appendChild(inner)
-
+let div = null
+let arrow = null
+let inner = null
 let timer = null
 let currentId
 
@@ -36,20 +26,39 @@ function clickaway(e) {
   document.removeEventListener('click', clickaway)
 }
 
-div.addEventListener('mouseenter', () => {
-  if (!timer) return
-  clearTimeout(timer)
-  document.addEventListener('click', clickaway)
-})
-
-div.addEventListener('mouseleave', () => {
-  clearTimeout(timer)
-  if (currentProps && currentProps.trigger === 'click') return
-  hide()
-})
-
 export function show(props, id) {
   const { position, style, content, background, border, noArrow, type } = props
+
+  if (!div) {
+    div = document.createElement('div')
+    div.style.display = 'none'
+    getCommonContainer().appendChild(div)
+
+    div.addEventListener('mouseenter', () => {
+      if (!timer) return
+      clearTimeout(timer)
+      document.addEventListener('click', clickaway)
+    })
+
+    div.addEventListener('mouseleave', () => {
+      clearTimeout(timer)
+      if (currentProps && currentProps.trigger === 'click') return
+      hide()
+    })
+  }
+
+  if (!arrow) {
+    arrow = document.createElement('div')
+    arrow.className = popoverClass('arrow')
+    div.appendChild(arrow)
+  }
+
+  if (!inner) {
+    inner = document.createElement('div')
+    inner.className = popoverClass('content')
+    div.appendChild(inner)
+  }
+
   currentProps = props
   // set current id
   currentId = id
