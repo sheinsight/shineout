@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react'
 import { GetTableConsumerProps } from '../Table/Props'
 import { GetInputBorderProps } from '../hoc/Props'
 import { GetInputableProps } from '../Form/Props'
-import { StandardProps, CommonProps } from '../@types/common'
+import { StandardProps, CommonProps, RegularAttributes } from '../@types/common'
 
 export type DateTimeType = Date | number | string | undefined
 
@@ -11,6 +11,10 @@ export type DatePickerValue = DateTimeType | DateTimeType[]
 export type AreaType = 'year' | 'month' | 'week' | 'day' | 'time' | 'quick' | 'quarter'
 
 export type Mode = 'year' | 'month' | 'quarter' | 'time' | 'day' | 'minute' | 'second' | 'hour'
+
+export type TimeMode = 'hour' | 'minute' | 'second' | 'ampm'
+
+export type DateMode = Mode | 'date'
 
 export type vaildFn = (date: Date, ...args: any) => boolean
 
@@ -302,7 +306,7 @@ export interface BaseProps<T = DatePickerValue> extends StandardProps, Pick<Comm
    *
    * default: -
    */
-  position?: 'left-top' | 'left-bottom' | 'right-top' | 'right-bottom' | string
+  position?: 'left-top' | 'left-bottom' | 'right-top' | 'right-bottom'
 
   /**
    * There are three built-in size: small、default、large.
@@ -311,7 +315,7 @@ export interface BaseProps<T = DatePickerValue> extends StandardProps, Pick<Comm
    *
    * default: 'default'
    */
-  size?: 'small' | 'default' | 'large'
+  size?: RegularAttributes.Size
 
   /**
    * set timeZone
@@ -331,7 +335,7 @@ export interface DatePickerValueProps extends Pick<BaseProps, 'timeZone' | 'allo
   // onChange: (value: DatePickerValue, callback?: () => void, quickSelect?: boolean) => void
 }
 
-export interface ContainerProps
+export interface ContainerProps<T = DatePickerValue>
   extends Pick<
     BaseProps,
     | 'disabled'
@@ -391,7 +395,7 @@ export interface ContainerProps
    * -
    */
   onFocus: (e: any) => void
-  onChange: (value: DatePickerValue, callback?: () => void, quickSelect?: boolean) => void
+  onChange: (value: T, callback?: () => void, quickSelect?: boolean) => void
 }
 
 export interface DatePickerIconProps {
@@ -545,13 +549,16 @@ export interface UnionPannelProps
 export type GetDatePickerProps<Props> = Props
 export type GetDatePickerValueProps<Props> = Omit<Props, 'onValueBlur' | 'onChange'> & Pick<BaseProps, 'onChange'>
 
-export type DatePickerPropsWidthAbsolute = GetTableConsumerProps<ContainerProps>
-export type DatePickerPropsWidthValue = GetDatePickerValueProps<DatePickerPropsWidthAbsolute>
-export type DatePickerPropsWidthInputBorder = GetInputBorderProps<DatePickerPropsWidthValue>
-export type DatePickerPropsWidthInputable = GetInputableProps<DatePickerPropsWidthInputBorder, DatePickerValue>
-export type DatePickerProps = GetDatePickerProps<DatePickerPropsWidthInputable>
+export type DatePickerPropsWidthAbsolute<T = DatePickerValue> = GetTableConsumerProps<ContainerProps<T>>
+export type DatePickerPropsWidthValue<T = DatePickerValue> = GetDatePickerValueProps<DatePickerPropsWidthAbsolute<T>>
+export type DatePickerPropsWidthInputBorder<T = DatePickerValue> = GetInputBorderProps<DatePickerPropsWidthValue<T>>
+export type DatePickerPropsWidthInputable<T = DatePickerValue> = GetInputableProps<
+  DatePickerPropsWidthInputBorder<T>,
+  DatePickerValue
+>
+export type DatePickerProps<T = DatePickerValue> = GetDatePickerProps<DatePickerPropsWidthInputable<T>>
 
-export declare class DatePickerClass extends React.Component<DatePickerProps, {}> {
+export declare class DatePickerClass<T = DatePickerValue> extends React.Component<DatePickerProps<T>, {}> {
   render(): JSX.Element
 }
 

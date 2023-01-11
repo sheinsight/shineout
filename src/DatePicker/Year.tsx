@@ -11,9 +11,9 @@ import { UnionPannelProps, Mode } from './Props'
 const MONTHBASE = '2019-01-01 00:00:00'
 
 class Year extends PureComponent<UnionPannelProps> {
-  handlePrevRange: (year: number) => void
+  handlePrevRange: () => void
 
-  handleNextRange: (year: number) => void
+  handleNextRange: () => void
 
   constructor(props: UnionPannelProps) {
     super(props)
@@ -102,11 +102,11 @@ class Year extends PureComponent<UnionPannelProps> {
     return (
       <div className={datepickerClass('year-picker')}>
         <div className={datepickerClass('header')}>
-          <Icon name="AngleLeft" className="left" onClick={this.handlePrevRange as any} />
+          <Icon name="AngleLeft" className="left" onClick={this.handlePrevRange} />
 
           <span className={datepickerClass('ym')}>{`${years[0]} ~ ${years[years.length - 1]}`}</span>
 
-          <Icon name="AngleRight" className="right" onClick={this.handleNextRange as any} />
+          <Icon name="AngleRight" className="right" onClick={this.handleNextRange} />
         </div>
 
         <div className={datepickerClass('list')}>{years.map(this.renderYear)}</div>

@@ -46,6 +46,7 @@ class Modal extends Component<ModalProps> {
   }
 
   componentDidMount() {
+    console.log(this.props.visible)
     if (this.props.visible && !this.props.usePortal) {
       open(this.getOption(), false)
     }

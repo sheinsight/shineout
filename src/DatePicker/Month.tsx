@@ -5,14 +5,14 @@ import utils from './utils'
 import { getLocale } from '../locale'
 import paramUtils from './paramUtils'
 import { UnionPannelProps } from './Props'
-import { isArray } from '../utils/is'
+import { isArray, isNumber } from '../utils/is'
 
 const MONTHBASE = '2019-01-01 00:00:00'
 
 class Month extends PureComponent<UnionPannelProps> {
-  handleNextYear: any
+  handleNextYear: () => void
 
-  handlePrevYear: any
+  handlePrevYear: () => void
 
   constructor(props: UnionPannelProps) {
     super(props)
@@ -63,8 +63,9 @@ class Month extends PureComponent<UnionPannelProps> {
 
     if (!isDisabled && index === 0 && isArray(rangeDate)) {
       if (
+        isNumber(range) &&
         rangeDate[1] &&
-        utils.compareAsc(date, utils.addSeconds(rangeDate[1], -(range as number), this.getOptions())) < 0
+        utils.compareAsc(date, utils.addSeconds(rangeDate[1], -range, this.getOptions())) < 0
       ) {
         isDisabled = true
       }
@@ -72,8 +73,9 @@ class Month extends PureComponent<UnionPannelProps> {
 
     if (!isDisabled && index === 1 && isArray(rangeDate)) {
       if (
+        isNumber(range) &&
         rangeDate[0] &&
-        utils.compareAsc(date, utils.addSeconds(rangeDate[0], range as number, this.getOptions())) > 0
+        utils.compareAsc(date, utils.addSeconds(rangeDate[0], range, this.getOptions())) > 0
       ) {
         isDisabled = true
       }

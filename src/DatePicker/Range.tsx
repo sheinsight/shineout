@@ -8,7 +8,7 @@ import paramUtils from './paramUtils'
 import Picker from './Picker'
 import { datepickerClass } from './styles'
 import Quick from './Quick'
-import { DateTimeType, AreaType } from './Props'
+import { AreaType } from './Props'
 import { RangeProps, DisabledType, DatePickerValue } from './Props'
 
 interface RangeState {
@@ -59,8 +59,7 @@ class Range extends PureComponent<RangeProps, RangeState> {
   componentDidUpdate(prevProps: RangeProps) {
     const { rangeDate } = this.state
     if (
-      Array.isArray(rangeDate) &&
-      (rangeDate as DateTimeType[]).length !== 1 &&
+      rangeDate.length !== 1 &&
       !shallowEqual(prevProps.value, this.props.value) &&
       !shallowEqual(this.state.rangeDate, this.props.value)
     ) {
@@ -84,7 +83,7 @@ class Range extends PureComponent<RangeProps, RangeState> {
 
   handleDayHover(date: Date) {
     if (this.state.rangeDate.length === 1) {
-      utils.cloneTime(date, (this.props.value as Date[])[1], this.props.format, this.getOptions())
+      utils.cloneTime(date, this.props.value[1], this.props.format, this.getOptions())
       // this.setState({ hover: date })
     }
   }

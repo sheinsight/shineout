@@ -4,15 +4,15 @@ import utils from './utils'
 import paramUtils from './paramUtils'
 import { datepickerClass } from './styles'
 import { getLocale } from '../locale'
-import { isArray } from '../utils/is'
+import { isArray, isNumber } from '../utils/is'
 import { UnionPannelProps } from './Props'
 
 const Quarters = ['Q1', 'Q2', 'Q3', 'Q4']
 
 class Quarter extends PureComponent<UnionPannelProps> {
-  handleNextYear: any
+  handleNextYear: () => void
 
-  handlePrevYear: any
+  handlePrevYear: () => void
 
   constructor(props: UnionPannelProps) {
     super(props)
@@ -57,13 +57,9 @@ class Quarter extends PureComponent<UnionPannelProps> {
 
     if (!isDisabled && index === 0 && isArray(rangeDate)) {
       if (
+        isNumber(range) &&
         rangeDate[1] &&
-        utils.compareQuarter(
-          date,
-          utils.addSeconds(rangeDate[1], -(range as number), this.getOptions()),
-          0,
-          this.getOptions()
-        ) < 0
+        utils.compareQuarter(date, utils.addSeconds(rangeDate[1], -range, this.getOptions()), 0, this.getOptions()) < 0
       ) {
         isDisabled = true
       }
@@ -71,13 +67,9 @@ class Quarter extends PureComponent<UnionPannelProps> {
 
     if (!isDisabled && index === 1 && isArray(rangeDate)) {
       if (
+        isNumber(range) &&
         rangeDate[0] &&
-        utils.compareQuarter(
-          date,
-          utils.addSeconds(rangeDate[0], range as number, this.getOptions()),
-          0,
-          this.getOptions()
-        ) > 0
+        utils.compareQuarter(date, utils.addSeconds(rangeDate[0], range, this.getOptions()), 0, this.getOptions()) > 0
       ) {
         isDisabled = true
       }
@@ -92,8 +84,8 @@ class Quarter extends PureComponent<UnionPannelProps> {
     const isDisabled = this.handleDisabled(date)
     // let hoverClass
     const classList = [isDisabled && 'disabled']
-    if (rangeDate) {
-      if (utils.isSameQuarter(date, rangeDate[index!], this.getOptions())) {
+    if (rangeDate && index !== undefined) {
+      if (utils.isSameQuarter(date, rangeDate[index], this.getOptions())) {
         classList.push('active')
       }
       // hoverClass = datepickerClass(

@@ -7,7 +7,7 @@ import { getLocale } from '../locale'
 import { PureComponent } from '../component'
 import Time from './Time'
 import { isArray } from '../utils/is'
-import { UnionPannelProps, PickMouseEvent } from './Props'
+import { UnionPannelProps } from './Props'
 
 const minStr = 'yyyy-MM-dd 00:00:00'
 const maxStr = 'yyyy-MM-dd 23:59:59'
@@ -17,19 +17,19 @@ interface DayState {
 }
 
 class Day extends PureComponent<UnionPannelProps, DayState> {
-  handleNextMonth: PickMouseEvent
+  handleNextMonth: () => void
 
-  handlePrevMonth: PickMouseEvent
+  handlePrevMonth: () => void
 
-  handleNextYear: PickMouseEvent
+  handleNextYear: () => void
 
-  handlePrevYear: PickMouseEvent
+  handlePrevYear: () => void
 
-  handleMonthMode: PickMouseEvent
+  handleMonthMode: () => void
 
-  handleYearMode: PickMouseEvent
+  handleYearMode: () => void
 
-  handleWeekLeave: PickMouseEvent
+  handleWeekLeave: () => void
 
   cachedDays: Date[]
 
@@ -154,12 +154,12 @@ class Day extends PureComponent<UnionPannelProps, DayState> {
     if (index === undefined && !isDisabled) {
       if ((minD && utils.compareAsc(date, minD) < 0) || (maxD && utils.compareAsc(date, maxD) > 0)) isDisabled = true
     }
-    if (!isDisabled && index === 1) {
+    if (!isDisabled && index === 1 && rangeTemp) {
       if (
         (typeof range === 'number' &&
-          utils.compareAsc(date, utils.addSeconds(rangeTemp!, range, this.getOptions())) > 0) ||
-        utils.compareAsc(date, utils.clearHMS(rangeTemp!, this.getOptions())) < 0 ||
-        utils.compareAsc(date, utils.clearHMS(min!, this.getOptions())) < 0 ||
+          utils.compareAsc(date, utils.addSeconds(rangeTemp, range, this.getOptions())) > 0) ||
+        utils.compareAsc(date, utils.clearHMS(rangeTemp, this.getOptions())) < 0 ||
+        (min && utils.compareAsc(date, utils.clearHMS(min, this.getOptions())) < 0) ||
         utils.compareAsc(date, max) > 0
       ) {
         isDisabled = true
@@ -168,7 +168,10 @@ class Day extends PureComponent<UnionPannelProps, DayState> {
     }
 
     if (!isDisabled && index === 0) {
-      if (utils.compareAsc(date, utils.clearHMS(min!, this.getOptions())) < 0 || utils.compareAsc(date, max) > 0) {
+      if (
+        (min && utils.compareAsc(date, utils.clearHMS(min, this.getOptions())) < 0) ||
+        utils.compareAsc(date, max) > 0
+      ) {
         isDisabled = true
       }
     }
@@ -188,8 +191,8 @@ class Day extends PureComponent<UnionPannelProps, DayState> {
 
     let hoverClass
     const hoverProps: {
-      onMouseEnter?: PickMouseEvent
-      onMouseLeave?: PickMouseEvent
+      onMouseEnter?: () => void
+      onMouseLeave?: () => void
     } = {}
     const weekStart = getLocale('startOfWeek')
     const weekEnd = weekStart ? 0 : 6
@@ -202,17 +205,17 @@ class Day extends PureComponent<UnionPannelProps, DayState> {
       } else if (hover && utils.isSameWeek(date, hover, this.getOptions())) {
         hoverClass = datepickerClass('hover', day === weekStart && 'hover-start', day === weekEnd && 'hover-end')
       }
-    } else if (rangeDate && utils.compareMonth(current, date, 0, this.getOptions()) === 0) {
+    } else if (rangeDate && utils.compareMonth(current, date, 0, this.getOptions()) === 0 && index !== undefined) {
       hoverProps.onMouseEnter = this.handleDayHover.bind(this, date)
 
-      classList.push(utils.isSameDay(date, rangeDate[index!], this.getOptions()) && 'active')
+      classList.push(utils.isSameDay(date, rangeDate[index], this.getOptions()) && 'active')
 
       hoverClass = datepickerClass(
         utils.compareDay(rangeDate[0], date, 0, this.getOptions()) <= 0 &&
           utils.compareDay(rangeDate[1], date, 0, this.getOptions()) >= 0 &&
           'hover',
         // Datetime Picker range end datetime classname #330
-        utils.isSameDay(rangeDate[index!], date, this.getOptions()) && `hover-${index === 0 ? 'start' : 'end'} active`
+        utils.isSameDay(rangeDate[index], date, this.getOptions()) && `hover-${index === 0 ? 'start' : 'end'} active`
       )
     } else if (value) {
       classList.push(utils.isSameDay(date, value, this.getOptions()) && 'active')
@@ -245,9 +248,10 @@ class Day extends PureComponent<UnionPannelProps, DayState> {
       if (match) format = match[0]
     }
 
-    const value = rangeDate
-      ? utils.toDateWithFormat(rangeDate[index!], format, undefined, this.getOptions())
-      : this.props.value
+    const value =
+      rangeDate && index !== undefined
+        ? utils.toDateWithFormat(rangeDate[index], format, undefined, this.getOptions())
+        : this.props.value
     if (!value) return undefined
 
     return (
@@ -267,7 +271,7 @@ class Day extends PureComponent<UnionPannelProps, DayState> {
     const maxDate = max && utils.toDate(utils.format(max, maxStr, this.getOptions()), this.getOptions())
     return (
       <div className={datepickerClass('day-picker')}>
-        <div className={datepickerClass('title')}>{getLocale('pickerTitle')[index!]}</div>
+        <div className={datepickerClass('title')}>{index !== undefined && getLocale('pickerTitle')[index]}</div>
         <div className={datepickerClass('header')}>
           <Icon
             name="AngleDoubleLeft"

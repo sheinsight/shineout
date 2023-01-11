@@ -5,7 +5,7 @@ import utils from './utils'
 import { isRTL } from '../config'
 import paramUtils from './paramUtils'
 import { getLocale } from '../locale'
-import { UnionPannelProps } from './Props'
+import { UnionPannelProps, TimeMode } from './Props'
 
 class Time extends PureComponent<UnionPannelProps> {
   defaultValue: Date
@@ -41,8 +41,8 @@ class Time extends PureComponent<UnionPannelProps> {
     const current = utils.newDate()
     const { index, defaultTime, format } = this.props
     if (typeof index === 'number') idx = index
-    if (!defaultTime![idx]) return current
-    return utils.cloneTime(current, defaultTime![idx], format, this.getOptions())
+    if (!defaultTime[idx]) return current
+    return utils.cloneTime(current, defaultTime[idx], format, this.getOptions())
   }
 
   getValue() {
@@ -60,21 +60,21 @@ class Time extends PureComponent<UnionPannelProps> {
       val,
       value,
       mode,
-      min!,
-      max!,
+      min,
+      max,
       range,
-      disabled!,
+      disabled,
       disabledTime,
       this.getOptions()
     )
     return onlyVaild ? isDisabled : [isDisabled, date]
   }
 
-  handleChange(type: 'hour' | 'H' | 'h' | 'minute' | 'second' | 'ampm', val: number) {
+  handleChange(type: 'hour' | 'minute' | 'second' | 'ampm', val: number) {
     const { format } = this.props
     const value = this.getValue()
 
-    let mode = type
+    let mode: TimeMode | 'h' | 'H' = type
 
     if (type === 'hour') {
       if (format.indexOf('h') >= 0) {

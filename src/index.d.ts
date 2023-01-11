@@ -44,7 +44,7 @@ export { default as Checkbox } from './Checkbox'
 import { CheckboxProps as __CheckboxProps, GroupProps as __GroupProps } from './Checkbox/interface'
 
 export { default as DatePicker } from './DatePicker'
-import { AreaType as __AreaType, QuickSelect as __QuickSelect, DateTimeType as __DateTimeType, DisabledType as __DisabledType, DatePickerProps as __DatePickerProps, DatePickerValue as __DatePickerValue } from './DatePicker/interface'
+import { AreaType as __AreaType, QuickSelect as __QuickSelect, DateTimeType as __DateTimeType, DisabledType as __DisabledType, DatePickerValue as __DatePickerValue, DatePickerProps as __DatePickerProps } from './DatePicker/interface'
 
 export { default as Datum } from './Datum'
 
@@ -58,7 +58,7 @@ export { default as Dropdown } from './Dropdown'
 import { DropdownItem as __DropdownItem, DropdownProps as __DropdownProps } from './Dropdown/interface'
 
 export { default as EditableArea } from './EditableArea'
-import { EditableAreaProps as __EditableAreaProps,  } from './EditableArea/interface'
+import { Props as __Props } from './EditableArea/interface'
 
 export { default as Form } from './Form'
 import { FormItemProps as __FormItemProps, FormRef as __FormRef, FormResetProps as __FormResetProps, FormSubmitProps as __FormSubmitProps, FormProps as __FormProps, FormFieldProps as __FormFieldProps, FormFieldSetProps as __FormFieldSetProps, FieldChildrenFunc as __FieldChildrenFunc, FieldSetChildrenFunc as __FieldSetChildrenFunc } from './Form/interface'
@@ -207,8 +207,8 @@ export namespace TYPE {
     export type QuickSelect = __QuickSelect
     export type DateTimeType = __DateTimeType
     export type DisabledType = __DisabledType
-    export type Props = __DatePickerProps
     export type Value = __DatePickerValue
+    export type Props<T = __DatePickerValue> = __DatePickerProps<T>
   }
   export namespace Divider {
     export type Props = __DividerProps
@@ -223,7 +223,8 @@ export namespace TYPE {
     export type Props = __DropdownProps
   }
   export namespace EditableArea {
-    export type Props = __EditableAreaProps
+  
+    export type Props = __Props
   }
   export namespace Form {
   

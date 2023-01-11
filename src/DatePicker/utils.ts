@@ -11,7 +11,7 @@ import customParseFormat from 'dayjs/plugin/customParseFormat'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import enLocale from 'dayjs/locale/en'
 import { DateTimeType } from './Props'
-import { Mode } from './Props'
+import { DateMode } from './Props'
 
 interface DateOptions {
   timeZone?: string
@@ -68,7 +68,7 @@ function transDateWithZone(dd: Date, options: DateOptions = {}, back = false) {
     if (timezoneHH.test(options.timeZone)) {
       const num = +options.timeZone
       if (num <= 13 && num >= -12) {
-        return back ? zonedTimeToUtc(dd!, options.timeZone) : utcToZonedTime(dd!, options.timeZone)
+        return back ? zonedTimeToUtc(dd, options.timeZone) : utcToZonedTime(dd, options.timeZone)
       }
     }
     console.error(new Error(`timeZone is not supported: ${options.timeZone}`))
@@ -112,7 +112,7 @@ function addYears(date: Date, offset: number, options: DateOptions) {
   return ud
 }
 
-function changeDate(date: Date, type: Mode | 'date', num: number, options: DateOptions) {
+function changeDate(date: Date, type: DateMode, num: number, options: DateOptions) {
   const zd = transDateWithZone(date, options)
   // type is year month ...
   const d = (dayjs(zd) as any)[type](num).toDate()
@@ -120,7 +120,7 @@ function changeDate(date: Date, type: Mode | 'date', num: number, options: DateO
   return ud
 }
 
-function getDateInfo(date: Date, type: Mode | 'date', options: DateOptions): number {
+function getDateInfo(date: Date, type: DateMode, options: DateOptions): number {
   const zd = transDateWithZone(date, options)
   return (dayjs(zd) as any)[type]()
 }
@@ -169,7 +169,7 @@ function isValid(date: DateTimeType) {
   return dayjs(date).isValid()
 }
 
-function parse(d: DateTimeType, fmt?: string, options?: DateOptions) {
+function parse(d: string, fmt?: string, options?: DateOptions) {
   if (!d) return new Date('')
   // should clear[xxx]
   const reg = /[[]([^[^\]]+?)[\]]/g
@@ -209,7 +209,7 @@ function parse(d: DateTimeType, fmt?: string, options?: DateOptions) {
   return transDateWithZone(result, options, true)
 }
 
-function toDate(day: DateTimeType | Date, options?: DateOptions): Date {
+function toDate(day: DateTimeType, options?: DateOptions): Date {
   if (!day) return new Date('')
   if (day instanceof Date) return dayjs(day).toDate()
   if (typeof day === 'number') return new Date(day)
@@ -217,7 +217,7 @@ function toDate(day: DateTimeType | Date, options?: DateOptions): Date {
   return dayjs(day).toDate()
 }
 
-function getDaysOfMonth(dirtyDate: Date, options: DateOptions) {
+function getDaysOfMonth(dirtyDate: DateTimeType, options: DateOptions) {
   const date = toDate(dirtyDate, options)
   const temp = dayjs(transDateWithZone(date, options))
   let current = dayjs(transDateWithZone(date, options))

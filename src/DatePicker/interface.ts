@@ -11,5 +11,5 @@ export type AreaType = __AreaType
 export type QuickSelect = __QuickSelect
 export type DateTimeType = __DateTimeType
 export type DisabledType = __DisabledType
-export type DatePickerProps = __DatePickerProps
+export type DatePickerProps<T = DatePickerValue> = __DatePickerProps<T>
 export type DatePickerValue = __DatePickerValue

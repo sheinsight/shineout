@@ -37,17 +37,14 @@ function handleTimeDisabled(date: Date, disabledTime: BaseProps['disabledTime'],
 }
 
 function handleDisabled(
-  ...args: [
-    Date,
-    Date | undefined | null,
-    Date | undefined | null,
-    BaseProps['range'],
-    ((date: Date, type?: DisabledType, value?: DatePickerValue) => boolean) | boolean | undefined,
-    BaseProps['disabledTime'],
-    any
-  ]
+  date: Date,
+  min: Date | undefined | null,
+  max: Date | undefined | null,
+  range: BaseProps['range'],
+  disabled: ((date: Date, type?: DisabledType, value?: DatePickerValue) => boolean) | boolean | undefined,
+  disabledTime: BaseProps['disabledTime'],
+  options?: any
 ) {
-  const [date, min, max, range, disabled, disabledTime, options] = args
   let isDisabled
   if (disabled && typeof disabled === 'function') isDisabled = disabled(date)
   if (disabledTime) isDisabled = isDisabled || handleTimeDisabled(date, disabledTime)
@@ -64,19 +61,16 @@ function handleDisabled(
 }
 
 function judgeTimeByRange(
-  ...args: [
-    number,
-    Date,
-    'H' | 'h' | 'm' | 'minute' | 's' | 'second' | 'ampm',
-    Date | null | undefined,
-    Date | null | undefined,
-    BaseProps['range'],
-    ((date: Date, type?: DisabledType, value?: DatePickerValue) => boolean) | boolean | undefined,
-    BaseProps['disabledTime'],
-    any
-  ]
-) {
-  const [target, value, mode, min, max, range, disabled, disabledTime, options] = args
+  target: number,
+  value: Date,
+  mode: 'H' | 'h' | 'm' | 'minute' | 's' | 'second' | 'ampm',
+  min: Date | null | undefined,
+  max: Date | null | undefined,
+  range: BaseProps['range'],
+  disabled: ((date: Date, type?: DisabledType, value?: DatePickerValue) => boolean) | boolean | undefined,
+  disabledTime: BaseProps['disabledTime'],
+  options?: any
+): [boolean, Date] {
   let date = new Date(value.getTime())
   switch (mode) {
     case 'H':

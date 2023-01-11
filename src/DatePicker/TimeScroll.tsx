@@ -139,7 +139,7 @@ class TimeScroll extends PureComponent<TimeScrollProps> {
       <span
         key={num}
         className={className}
-        style={this.getItemStyle(num, isDisabled as boolean)!}
+        style={this.getItemStyle(num, isDisabled)!}
         onClick={this.handleClick.bind(this, num)}
       >
         {text}

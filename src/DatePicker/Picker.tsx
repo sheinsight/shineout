@@ -50,7 +50,7 @@ class Picker extends PureComponent<PickerProps, PickerState> {
       utils.formatDateWithDefaultTime(
         utils.newDate(undefined, this.getOptions()),
         undefined,
-        Array.isArray(props.defaultTime) ? props.defaultTime[0] : props.defaultTime,
+        props.defaultTime[0],
         format,
         this.getOptions()
       ),
