@@ -5,7 +5,7 @@ import { sliderClass } from './styles'
 import { per2value, value2per } from './utils'
 import { isRTL } from '../config'
 import { isFunc } from '../utils/is'
-import { SliderProps } from './Props'
+import { BaseSliderProps } from './Props'
 
 interface SliderState {
   dragging: boolean
@@ -16,12 +16,12 @@ const DefaultValue = {
   formatValue: (v: number) => v,
 }
 
-class Slider<Value extends number | number[]> extends PureComponent<SliderProps<Value>, SliderState> {
+class Slider<Value extends number | number[]> extends PureComponent<BaseSliderProps<Value>, SliderState> {
   static defaultProps = DefaultValue
 
   parentElement: HTMLElement
 
-  constructor(props: SliderProps<Value>) {
+  constructor(props: BaseSliderProps<Value>) {
     super(props)
 
     this.state = {
@@ -34,7 +34,7 @@ class Slider<Value extends number | number[]> extends PureComponent<SliderProps<
     this.handleDragEnd = this.handleDragEnd.bind(this)
   }
 
-  componentDidUpdate(prevProps: SliderProps<Value>) {
+  componentDidUpdate(prevProps: BaseSliderProps<Value>) {
     const { value, scale } = this.props
     const { dragging } = this.state
     const len = scale.length

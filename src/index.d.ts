@@ -309,7 +309,7 @@ export namespace TYPE {
   }
   export namespace Slider {
   
-    export type Props<Value> = __SliderProps<Value>
+    export type Props<Value extends number | number[]> = __SliderProps<Value>
   }
   export namespace Spin {
   

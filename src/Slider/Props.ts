@@ -37,7 +37,7 @@ export interface ContainerProps<Value extends number | number[]> extends Standar
    *
    * default: 200
    */
-  height?: number | string
+  height?: number
 
   /**
    * Drag over the maximum event
@@ -118,10 +118,10 @@ export interface ContainerProps<Value extends number | number[]> extends Standar
    *
    * default: -
    */
-  onIncrease?: (value?: number) => void
+  onIncrease?: () => void
 }
 
-export interface SliderProps<Value extends number | number[]>
+export interface BaseSliderProps<Value extends number | number[]>
   extends Pick<ContainerProps<Value>, 'disabled' | 'autoHide' | 'formatValue' | 'vertical' | 'onIncrease' | 'step'> {
   index: 0 | 1
   min?: number
@@ -138,9 +138,9 @@ export interface IndicatorProps {
 }
 
 export type SliderPropsWidthInputable<Value extends number | number[]> = GetInputableProps<ContainerProps<Value>, Value>
-export type GetSliderProps<Value extends number | number[]> = SliderPropsWidthInputable<Value>
+export type SliderProps<Value extends number | number[]> = SliderPropsWidthInputable<Value>
 
-export declare class SliderClass<Value extends number | number[]> extends React.Component<GetSliderProps<Value>, {}> {
+export declare class SliderClass<Value extends number | number[]> extends React.Component<SliderProps<Value>, {}> {
   render(): JSX.Element
 }
 
