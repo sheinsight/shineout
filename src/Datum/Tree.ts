@@ -42,28 +42,29 @@ export interface TreePathType {
   indexPath: number[]
   index: number
 }
-export interface TreeDatumOptions<Item, Value> {
+type Value = keyType[]
+export interface TreeDatumOptions<Item> {
   data?: Item[]
-  keygen?: KeygenType<Item>
+  keygen?: KeygenType<Item> | ((data: Item, parentKey: keyType) => keyType)
   value?: Value
   mode?: TreeModeType
   disabled?: ((data: Item, ...rest: any) => boolean) | boolean
   childrenKey: string
   unmatch?: boolean
   loader?: (key: keyType, data: Item) => void
-  onChange?: (value: Value, ...rest: any) => void
+  onChange?: (value: any, ...rest: any) => void
 }
 
-export default class<Item, Value extends any[]> {
-  keygen?: TreeDatumOptions<Item, Value>['keygen']
+export default class<Item> {
+  keygen?: TreeDatumOptions<Item>['keygen']
 
-  mode: TreeDatumOptions<Item, Value>['mode']
+  mode: TreeDatumOptions<Item>['mode']
 
-  unmatch: TreeDatumOptions<Item, Value>['unmatch']
+  unmatch: TreeDatumOptions<Item>['unmatch']
 
-  disabled: TreeDatumOptions<Item, Value>['disabled']
+  disabled: ((data: Item, ...rest: any) => boolean)
 
-  childrenKey: TreeDatumOptions<Item, Value>['childrenKey']
+  childrenKey: TreeDatumOptions<Item>['childrenKey']
 
   valueMap: Map<keyType, CheckedStatus>
 
@@ -83,7 +84,7 @@ export default class<Item, Value extends any[]> {
 
   dataMap: Map<keyType, Item>
 
-  constructor(options: TreeDatumOptions<Item, Value> = { data: [], childrenKey: '' }) {
+  constructor(options: TreeDatumOptions<Item> = { data: [], childrenKey: '' }) {
     const { data, value, keygen, mode, disabled, childrenKey = 'children', unmatch } = options
 
     this.keygen = keygen
@@ -100,7 +101,7 @@ export default class<Item, Value extends any[]> {
     this.setData(data)
   }
 
-  updateDisabled(dis: TreeDatumOptions<Item, Value>['disabled']) {
+  updateDisabled(dis: TreeDatumOptions<Item>['disabled']) {
     if (typeof dis === 'function') {
       this.disabled = dis
     } else {
@@ -177,7 +178,7 @@ export default class<Item, Value extends any[]> {
       if (unmatch && this.unmatch) value.push(id)
     })
     this.cachedValue = value
-    return value
+    return value as Value
   }
 
   setValueMap(id: keyType, checked: CheckedStatus) {

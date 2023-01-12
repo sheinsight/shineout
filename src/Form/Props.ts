@@ -183,7 +183,7 @@ export interface BaseInputProps {
 }
 
 export interface InputableProps<Value> {
-  beforeChange?: (value: Value | undefined, datum: FormDatum<ObjectType>) => Value | undefined
+  beforeChange?: (value: Value | undefined, datum: FormDatum<ObjectType>) => Value | undefined | void
   onChange?: (value: Value | undefined, ...rest: any) => void
   onError?: (e?: Error) => void
   popover?: string

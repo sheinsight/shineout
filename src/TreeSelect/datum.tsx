@@ -1,7 +1,8 @@
 import React from 'react'
 import DatumTree from '../Datum/Tree'
 import shallowEqual from '../utils/shallowEqual'
-import { TreeDatumProps, GetTreeDatumProps } from './Props'
+import { TreeSelectPropsWithAdvancedFilter, TreeSelectPropsWithDatum, TreeSelectValueType } from './Props'
+import { keyType } from '../@types/common'
 
 function toArray<Value>(value: Value) {
   if (!value) return []
@@ -9,18 +10,18 @@ function toArray<Value>(value: Value) {
   return value
 }
 
-export default function datum<Item, Value>(
-  Origin: React.ComponentType<GetTreeDatumProps<TreeDatumProps<Item, Value>, Item, Value>>
+export default function datum<Item, Value extends TreeSelectValueType>(
+  Origin: React.ComponentType<TreeSelectPropsWithAdvancedFilter<Item, Value>>
 ) {
-  return class TreeDatum extends React.Component<TreeDatumProps<Item, Value>> {
+  return class TreeDatum extends React.Component<TreeSelectPropsWithDatum<Item, Value>> {
     static defaultProps = {
       mode: 1,
       childrenKey: 'children',
     }
 
-    datum: DatumTree<Item, any[]>
+    datum: DatumTree<Item>
 
-    constructor(props: TreeDatumProps<Item, Value>) {
+    constructor(props: TreeSelectPropsWithDatum<Item, Value>) {
       super(props)
 
       this.datum = new DatumTree({
@@ -28,7 +29,7 @@ export default function datum<Item, Value>(
         loader: props.loader,
         keygen: props.keygen,
         mode: props.mode,
-        value: toArray(props.value),
+        value: toArray(props.value) as keyType[],
         onChange: props.onChange as any,
         disabled: typeof props.disabled === 'function' ? props.disabled : undefined,
         childrenKey: props.childrenKey || 'children',
@@ -36,7 +37,7 @@ export default function datum<Item, Value>(
       })
     }
 
-    componentDidUpdate(prevProps: TreeDatumProps<Item, Value>) {
+    componentDidUpdate(prevProps: TreeSelectPropsWithDatum<Item, Value>) {
       if (!shallowEqual(prevProps.data, this.props.data)) {
         const { disabled } = this.props
         this.datum.updateDisabled(typeof disabled === 'function' ? disabled : undefined)
@@ -53,7 +54,7 @@ export default function datum<Item, Value>(
       }
 
       if (!shallowEqual(toArray(value), this.datum.getValue())) {
-        this.datum.setValue(toArray(value))
+        this.datum.setValue(toArray(value) as keyType[])
       }
       return <Origin {...props} />
     }
