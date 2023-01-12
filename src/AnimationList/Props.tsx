@@ -15,11 +15,25 @@ export interface AbsoluteProps {
   fixed?: boolean | 'min' // same width with parentElement
   parentElement?: HTMLElement
   position?: ListPosition | PickerPosition | DropdownPosition
+  /**
+   * When it is true, the pop-up layer of option append into document.body.
+   *
+   * 为 true 时，选项弹出层在 DOM 中独立 render
+   *
+   * default: false
+   */
   absolute?: boolean | (() => HTMLElement)
   scrollElement?: HTMLElement
   scrollLeft?: number
   scrollTop?: number
   rootClass?: string
+  /**
+   * options z-index
+   *
+   * 选项列表 z-index 值
+   *
+   * default: 1000
+   */
   zIndex?: number
   style?: React.CSSProperties
   autoClass?: StyleSheet
