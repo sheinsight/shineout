@@ -3,7 +3,7 @@ import * as utils from './utils'
 
 declare const __default: {
   utils: typeof utils,
-  version: '1.12.0-rc.5'
+  version: '1.12.0-rc.6'
 }
 
 export default __default
@@ -125,7 +125,7 @@ export { default as Switch } from './Switch'
 import { SwitchProps as __SwitchProps ,  } from './Switch'
 
 export { default as Table } from './Table'
-import { TableProps as __TableProps , TableRef as __TableRef,RowEvents as __RowEvents,summaryItem as __summaryItem,CommonColumn as __CommonColumn, CheckColumn as __CheckColumn,renderSorterParam  as __renderSorterParam  , ColumnFix as __ColumnFix,ColumnType as __ColumnType,ColumnOrder as __ColumnOrder,ColumnItem as __ColumnItem } from './Table'
+import { TableProps as __TableProps , TableRef as __TableRef,RowEvents as __RowEvents,summaryItem as __summaryItem,CheckColumn as __CheckColumn,CommonColumn as __CommonColumn,renderSorterParam  as __renderSorterParam  , ColumnFix as __ColumnFix,ColumnType as __ColumnType,ColumnOrder as __ColumnOrder,ColumnItem as __ColumnItem } from './Table'
 
 export { default as Tabs } from './Tabs'
 import { TabsProps as __TabsProps , TabsLinkProps as __TabsLinkProps,TabsPanelProps as __TabsPanelProps ,  } from './Tabs'
@@ -164,11 +164,11 @@ export namespace TYPE {
   }
   export namespace Breadcrumb {
     export type Props<Item> = __BreadcrumbProps<Item>
-    export type Data  = __BreadcrumbData
+    export type Data  = __BreadcrumbData 
   }
   export namespace Button {
     export type Props = __ButtonProps
-    export type GroupProps = __ButtonGroupProps
+    export type GroupProps = __ButtonGroupProps  
     export type Type = __ButtonType
   }
   export namespace Card {
@@ -195,7 +195,7 @@ export namespace TYPE {
   }
   export namespace DatePicker {
     export type Props<T> = __DatePickerProps<T>
-    export type QuickSelect = __QuickSelect
+    export type QuickSelect = __QuickSelect  
     export type AreaType = __AreaType
     export type DateTimeType = __DateTimeType
     export type DisabledType = __DisabledType
@@ -208,7 +208,7 @@ export namespace TYPE {
     export type Props = __DrawerProps
   }
   export namespace Dropdown {
-    export type Props = __DropdownProps
+    export type Props = __DropdownProps  
     export type Item = __DropdownItem
   }
   export namespace EditableArea {
@@ -230,12 +230,12 @@ export namespace TYPE {
     export type Props = __GapProps
   }
   export namespace Grid {
-    export type Props = __GridProps
+    export type Props = __GridProps  
     export type responsiveType = __responsiveType
   }
   export namespace Icon {
     export type Props = __IconProps
-    export type ComProps = __IconComProps
+    export type ComProps = __IconComProps  
     export type Com = __IconCom
   }
   export namespace Image {
@@ -246,7 +246,7 @@ export namespace TYPE {
     export type Props<Value> = __InputProps<Value>
     export type NumberProps<Value> = __InputNumberProps<Value>
     export type GroupProps<Value> = __InputGroupProps<Value>
-    export type PasswordProps<Value> = __InputPasswordProps<Value>
+    export type PasswordProps<Value> = __InputPasswordProps<Value>  
     export type numType = __numType
   }
   export namespace Menu {
@@ -267,7 +267,7 @@ export namespace TYPE {
   }
   export namespace Popover {
     export type Props = __PopoverProps
-    export type ConfirmProps = __PopoverConfirmProps
+    export type ConfirmProps = __PopoverConfirmProps  
     export type ContentProps = __ContentProps
   }
   export namespace Progress {
@@ -291,7 +291,7 @@ export namespace TYPE {
     export type Params = __RuleParams
     export type Result = __RuleResult
     export type RegExpParams = __RegExpParams
-    export type paramFunc<U> = __paramFunc<U>
+    export type paramFunc<U> = __paramFunc<U>  
     export type Common<U> = __RuleCommon<U>
     export type ParamsType<Value, P> = __RuleParamsType<Value, P>
   }
@@ -317,7 +317,7 @@ export namespace TYPE {
     export type summaryItem = __summaryItem
     export type CheckColumn<T> = __CheckColumn<T>
     export type CommonColumn<T> = __CommonColumn<T>
-    export type renderSorterParam  = __renderSorterParam
+    export type renderSorterParam  = __renderSorterParam   
     export type ColumnFix = __ColumnFix
     export type ColumnType = __ColumnType
     export type ColumnOrder = __ColumnOrder
@@ -355,7 +355,7 @@ export namespace TYPE {
     export type Options<T> = __Options<T>
     export type ImageProps<T> = __UploadImageProps<T>
     export type ButtonProps<T> = __UploadButtonProps<T>
-    export type ImageHandlerProps = __UploadImageHandlerProps
+    export type ImageHandlerProps = __UploadImageHandlerProps  
     export type OmitFormProps<value> = __OmitFormProps<value>
   }
 }
