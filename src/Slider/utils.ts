@@ -1,6 +1,6 @@
 import { toPrecision } from '../utils/numbers'
 
-export function value2per(value, scale) {
+export function value2per(value: number, scale: number[]) {
   const range = scale.length - 1
   let ps = 0
   scale.forEach((s, i) => {
@@ -16,7 +16,7 @@ export function value2per(value, scale) {
   return (ps + (value - min) / (max - min)) / range
 }
 
-export function per2value(per, scale, step = 1) {
+export function per2value(per: number, scale: number[], step = 1) {
   const range = scale.length - 1
 
   if (step === 0) return scale[Math.round(per * range)]

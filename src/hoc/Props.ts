@@ -2,6 +2,7 @@ import React, { ReactNode } from 'react'
 import { ForceAdd, PartialKeys, RegularAttributes } from '../@types/common'
 import { PopoverProps } from '../Popover/interface'
 import { PaginationProps } from '../Pagination/Props'
+import { PopoverPosition } from '../Popover/Props'
 
 export type MovableType<U> = U & {
   moveable?: boolean
@@ -25,7 +26,14 @@ export interface InputBorderProps {
    * default: none
    */
   tip?: ReactNode
-  popover?: RegularAttributes.Position
+  /**
+   * The position where the text pop up
+   *
+   * 信息弹出位置
+   *
+   * default: none
+   */
+  popover?: PopoverPosition
   width?: string | number
   error?: Error
   /**

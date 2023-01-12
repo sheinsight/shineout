@@ -214,7 +214,6 @@ export interface CommonProps {
 export declare namespace RegularAttributes {
   type Size = 'small' | 'default' | 'large'
   type Type = 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger'
-  type Position = 'top-left' | 'top' | 'top-right' | 'bottom-left' | 'bottom' | 'bottom-right'
   type Align = 'left' | 'center' | 'right'
 }
 

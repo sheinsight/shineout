@@ -1,16 +1,30 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { isRTL } from '../config'
-import { getProps } from '../utils/proptypes'
 import { sliderClass } from './styles'
 import Slider from './Slider'
 import { per2value } from './utils'
 import getDataset from '../utils/dom/getDataset'
 import { getDirectionClass } from '../utils/classname'
+import { ContainerProps } from './Props'
+import { isFunc, isArray } from '../utils/is'
 
-class Container extends PureComponent {
-  constructor(props) {
+interface ContainerState {}
+
+const DefaultValue = {
+  height: 200,
+  scale: [0, 100],
+  step: 1,
+  vertical: false,
+  formatScale: (v: number) => v,
+}
+
+class Container<Value extends number | number[]> extends PureComponent<ContainerProps<Value>, ContainerState> {
+  static defaultProps = DefaultValue
+
+  innerElement: HTMLDivElement
+
+  constructor(props: ContainerProps<Value>) {
     super(props)
 
     this.state = {}
@@ -23,55 +37,57 @@ class Container extends PureComponent {
   }
 
   getValue() {
-    const { range, value, scale } = this.props
+    const { range, value, scale = DefaultValue.scale } = this.props
     const from = scale[0]
     if (!range) return value || from
 
-    let val = value
-    if (range && !Array.isArray(value)) val = [from, from]
-    if (val[0] > val[1]) val = [val[1], val[0]]
-    return val
+    let val: number | number[] | undefined = value
+    if (range && !isArray(value)) val = [from, from]
+    if (isArray(val) && val[0] > val[1]) val = [val[1], val[0]]
+    return val as number[]
   }
 
-  bindElement(el) {
+  bindElement(el: HTMLDivElement) {
     this.innerElement = el
   }
 
-  handleClick(e) {
-    if (e.target.className.indexOf(sliderClass('indicator')) >= 0) return
+  handleClick(e: React.MouseEvent<HTMLDivElement>) {
+    if ((e.target as HTMLDivElement).className.indexOf(sliderClass('indicator')) >= 0) return
     if (this.props.disabled) return
 
-    const { scale, step, vertical, range } = this.props
+    const { scale = DefaultValue.scale, step = DefaultValue.step, vertical, range } = this.props
     const rect = this.innerElement.getBoundingClientRect()
     let per = vertical ? 1 - (e.clientY - rect.top) / rect.height : (e.clientX - rect.left) / rect.width
     if (isRTL() && !vertical) {
       per = 1 - per
     }
 
-    const val = per2value(per, scale, step)
+    const val: number | number[] = per2value(per, scale, step)
 
     if (!range) {
-      this.props.onChange(val)
+      this.props.onChange(val as Value)
       return
     }
-
-    const value = [...this.getValue()]
+    const values = this.getValue()
+    if (!isArray(values)) return
+    const value = [...values]
     if (val < value[0]) value[0] = val
     else value[1] = val
 
-    this.props.onChange(value)
+    this.props.onChange(value as Value)
   }
 
-  handleChange(index, val) {
+  handleChange(index: 0 | 1, val: number) {
     const { range } = this.props
     if (!range) {
-      this.props.onChange(val)
+      this.props.onChange(val as Value)
       return
     }
-
-    const value = [...this.getValue()]
+    const values = this.getValue()
+    if (!isArray(values)) return
+    const value = [...values]
     value[index] = val
-    this.props.onChange(value)
+    this.props.onChange(value as Value)
   }
 
   // handleDrag(index, value) {
@@ -80,8 +96,8 @@ class Container extends PureComponent {
   // }
 
   renderScale() {
-    const { autoHide, formatScale, scale } = this.props
-    if (!formatScale) return null
+    const { autoHide, formatScale, scale = DefaultValue.scale } = this.props
+    if (!formatScale || !isFunc(formatScale)) return null
 
     return (
       <div className={sliderClass(getDirectionClass('scale'), !autoHide && 'show')}>
@@ -95,7 +111,7 @@ class Container extends PureComponent {
   }
 
   render() {
-    const { range, height, style, vertical, ...other } = this.props
+    const { range, height, style, vertical, scale = DefaultValue.scale, ...other } = this.props
     const className = classnames(
       sliderClass('_', vertical && 'vertical', this.props.disabled && 'disabled', isRTL() && 'rtl'),
       this.props.className
@@ -115,6 +131,7 @@ class Container extends PureComponent {
             <Slider
               {...other}
               index={0}
+              scale={scale}
               max={value[1]}
               onChange={this.handleChange}
               value={value[0]}
@@ -125,6 +142,7 @@ class Container extends PureComponent {
           <Slider
             {...other}
             index={1}
+            scale={scale}
             min={value[0]}
             onChange={this.handleChange}
             value={value[1]}
@@ -135,27 +153,6 @@ class Container extends PureComponent {
       </div>
     )
   }
-}
-
-Container.propTypes = {
-  ...getProps(PropTypes, 'disabled', 'type'),
-  autoHide: PropTypes.bool,
-  formatScale: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
-  height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  onChange: PropTypes.func,
-  onDrag: PropTypes.func,
-  scale: PropTypes.arrayOf(PropTypes.number),
-  step: PropTypes.number,
-  value: PropTypes.oneOfType([PropTypes.number, PropTypes.arrayOf(PropTypes.number)]),
-  vertical: PropTypes.bool,
-}
-
-Container.defaultProps = {
-  height: 200,
-  scale: [0, 100],
-  step: 1,
-  vertical: false,
-  formatScale: v => v,
 }
 
 export default Container
