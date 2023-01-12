@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { StandardProps, RegularAttributes, ObjectType } from '../@types/common'
+import { StandardProps, ObjectType } from '../@types/common'
 import { GetInputableProps } from '../Form/Props'
 import { GetInputBorderProps, GetDelayProps, GetCoinProps, GetTrimProps } from '../hoc/Props'
 
@@ -74,24 +74,6 @@ export interface Props extends StandardProps {
    * default: none
    */
   onKeyUp?: (e: React.KeyboardEvent) => void
-
-  /**
-   * The position where the text pop up
-   *
-   * 信息弹出位置
-   *
-   * default: none
-   */
-  popover?: RegularAttributes.Position
-
-  /**
-   * size of input
-   *
-   * 尺寸
-   *
-   * default: 'default'
-   */
-  size?: RegularAttributes.Size
 
   /**
    * Same as the type of the native input tag
@@ -288,7 +270,7 @@ export interface InputNumber extends Omit<Props, 'value' | 'defaultValue' | 'onC
    * default: 1
    */
   step?: number
-  value?: NumberValue
+  value?: string | number
   defaultValue?: NumberValue
   disabled?: boolean
 

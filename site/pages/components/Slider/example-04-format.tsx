@@ -10,12 +10,11 @@ import React from 'react'
 import { Slider, TYPE } from 'shineout'
 
 type SliderProps = TYPE.Slider.Props<number[]>
-type SliderFormatScale = SliderProps['formatScale']
 type SliderFormatValue = SliderProps['formatValue']
 
 const pad = (i: number) => (i < 10 ? `0${i}` : i)
 
-const format: SliderFormatScale | SliderFormatValue = (v: number) => {
+const format: SliderFormatValue = (v: number) => {
   const value = v + 540
   const hours = Math.floor(value / 60)
   return `${pad(hours)}:${pad(value - hours * 60)}`

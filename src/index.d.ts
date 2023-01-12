@@ -113,7 +113,7 @@ export { default as Select } from './Select'
 import { SelectProps as __SelectProps,  } from './Select'
 
 export { default as Slider } from './Slider'
-import { SliderProps as __SliderProps,  } from './Slider'
+import { SliderProps as __SliderProps } from './Slider/interface'
 
 export { default as Spin } from './Spin'
 import { SpinProps as __SpinProps } from './Spin/interface'
@@ -310,7 +310,8 @@ export namespace TYPE {
     export type Props<Item, Value> = __SelectProps<Item, Value>
   }
   export namespace Slider {
-    export type Props<Value> = __SliderProps<Value>
+  
+    export type Props<Value extends number | number[]> = __SliderProps<Value>
   }
   export namespace Spin {
   
