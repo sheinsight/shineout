@@ -23,7 +23,7 @@ export type ColumnType = 'expand' | 'row-expand'
 
 export interface renderSorterParam  {status?: 'asc' | 'desc', triggerAsc: () => void, triggerDesc: () => void}
 
-interface CommonColumn<T> {
+export interface CommonColumn<T> {
   /**
    * cell align \['left', 'center', 'right'\]
    *
