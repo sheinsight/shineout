@@ -424,7 +424,7 @@ TreeSelect.propTypes = {
   onFilter: PropTypes.func,
   onFocus: PropTypes.func,
   empty: PropTypes.string,
-  compressed: PropTypes.bool,
+  compressed: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   compressedBound: PropTypes.number,
   absolute: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   parentClickExpand: PropTypes.bool,

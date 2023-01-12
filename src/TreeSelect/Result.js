@@ -302,7 +302,7 @@ Result.propTypes = {
   renderResult: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
   setInputReset: PropTypes.func,
-  compressed: PropTypes.bool,
+  compressed: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   compressedBound: PropTypes.number,
   renderUnmatched: PropTypes.func,
   innerTitle: PropTypes.node,
