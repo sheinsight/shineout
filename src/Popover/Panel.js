@@ -55,7 +55,7 @@ class Panel extends Component {
     this.bindEvents()
 
     if (this.props.visible) {
-      if (!this.container) this.createContainer()
+      this.createContainer()
       this.forceUpdate()
     }
   }
@@ -230,7 +230,7 @@ class Panel extends Component {
   }
 
   handleShow() {
-    if (!this.container) this.createContainer()
+    this.createContainer()
     if (this.delayTimeout) clearTimeout(this.delayTimeout)
     if (this.state.show) return
     this.setShow(true)
