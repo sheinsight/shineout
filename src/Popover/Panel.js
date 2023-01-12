@@ -40,6 +40,7 @@ class Panel extends Component {
     this.setShow = this.setShow.bind(this)
     this.bindChain = this.bindChain.bind(this)
     this.handleCancel = this.handleCancel.bind(this)
+    this.createContainer = this.createContainer.bind(this)
 
     this.element = document.createElement('div')
   }
@@ -47,16 +48,16 @@ class Panel extends Component {
   componentDidMount() {
     super.componentDidMount()
 
-    const { bindChain, zIndex } = this.props
+    const { bindChain } = this.props
     if (bindChain) bindChain(this.id)
 
     this.parentElement = this.placeholder.parentElement
     this.bindEvents()
-    this.container = this.getContainer()
-    this.element.style.zIndex = zIndex
-    this.container.appendChild(this.element)
 
-    if (this.props.visible) this.forceUpdate()
+    if (this.props.visible) {
+      this.createContainer()
+      this.forceUpdate()
+    }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -103,14 +104,13 @@ class Panel extends Component {
         if (show && this.props.onOpen) this.props.onOpen()
         if (!show && this.props.onClose) this.props.onClose()
 
-        if(show){
+        if (show) {
           this.bindScrollDismiss(true)
           document.addEventListener('mousedown', this.clickAway)
-        }else{
+        } else {
           this.bindScrollDismiss(false)
           document.removeEventListener('mousedown', this.clickAway)
         }
-
       },
       trigger === 'hover' ? delay : 0
     )
@@ -167,6 +167,15 @@ class Panel extends Component {
     return getCommonContainer()
   }
 
+  createContainer() {
+    const { zIndex } = this.props
+    if (!this.container) {
+      this.container = this.getContainer()
+      this.element.style.zIndex = zIndex
+      this.container.appendChild(this.element)
+    }
+  }
+
   updatePosition(position) {
     const pos = getPosition(position, this.parentElement, this.container)
     // eslint-disable-next-line
@@ -221,6 +230,7 @@ class Panel extends Component {
   }
 
   handleShow() {
+    this.createContainer()
     if (this.delayTimeout) clearTimeout(this.delayTimeout)
     if (this.state.show) return
     this.setShow(true)

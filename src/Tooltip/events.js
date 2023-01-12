@@ -3,26 +3,18 @@ import ReactDOM from 'react-dom'
 import { tooltipClass } from './styles'
 import getCommonContainer from '../utils/dom/popContainer'
 
-const div = document.createElement('div')
+let div = null
 let timer
-div.style.display = 'none'
-
-getCommonContainer().appendChild(div)
-
-const arrow = document.createElement('div')
-arrow.className = tooltipClass('arrow')
-div.appendChild(arrow)
-
-const inner = document.createElement('div')
-inner.className = tooltipClass('inner')
-div.appendChild(inner)
-
+let arrow = null
+let inner = null
 let currentId
 
 export function hide() {
   if (timer) clearTimeout(timer)
-  div.style.display = 'none'
-  div.className = ''
+  if (div) {
+    div.style.display = 'none'
+    div.className = ''
+  }
   currentId = undefined
 }
 
@@ -33,6 +25,26 @@ function clickaway() {
 
 export function show(props, id, innerStyle) {
   const { position, style, tip, trigger, animation, className: cn } = props
+
+  // create
+  if (!div) {
+    div = document.createElement('div')
+    div.style.display = 'none'
+    getCommonContainer().appendChild(div)
+  }
+
+  if (!arrow) {
+    arrow = document.createElement('div')
+    arrow.className = tooltipClass('arrow')
+    div.appendChild(arrow)
+  }
+
+  if (!inner) {
+    inner = document.createElement('div')
+    inner.className = tooltipClass('inner')
+    div.appendChild(inner)
+  }
+  //
 
   currentId = id
 
