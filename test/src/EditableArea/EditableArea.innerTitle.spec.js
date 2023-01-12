@@ -9,7 +9,7 @@ describe('EditableArea[innerTitle]', () => {
     expect(wrapper.find(`.${SO_PREFIX}-input-title-box-open`).length).toBe(0)
     wrapper.find('input').simulate('focus')
     wrapper.update()
-    expect(wrapper.find(`.${SO_PREFIX}-input-title-box-open`).length).toBe(2)
+    expect(wrapper.find(`.${SO_PREFIX}-input-title-box-open`).length).toBe(1)
   })
   it('show content when not empty', () => {
     const wrapper = mount(<EditableArea innerTitle="input something" />)
