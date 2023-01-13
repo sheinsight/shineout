@@ -11,22 +11,25 @@ import More, { getResetMore } from '../Select/More'
 import InputTitle from '../InputTitle'
 import { getKey } from '../utils/uid'
 import { getDirectionClass } from '../utils/classname'
-import { ResultProps, ResultValue, UnMatchedValue } from './Props'
+import { ResultProps } from './Props'
+import { ResultItem, UnMatchedValue } from '../@types/common'
 
 export const IS_NOT_MATCHED_VALUE = 'IS_NOT_MATCHED_VALUE'
 
 const getResultContent = <Item, Value>(
-  data: ResultValue<Value>,
+  data: ResultItem<Item>,
   renderResult: ResultProps<Item, Value>['renderResult'],
   renderUnmatched: ResultProps<Item, Value>['renderUnmatched']
-) => {
-  const unMatchedData: UnMatchedValue<Value> = data as UnMatchedValue<Value>
+): React.ReactNode => {
+  const unMatchedData: UnMatchedValue = data as UnMatchedValue
 
   if (isObject(unMatchedData) && unMatchedData.IS_NOT_MATCHED_VALUE) {
     if (typeof renderUnmatched === 'function') return renderUnmatched(unMatchedData.value)
-    return isObject(unMatchedData.value) ? renderResult!(unMatchedData.value) : unMatchedData.value
+    return isObject(unMatchedData.value)
+      ? renderResult(unMatchedData.value as Item)
+      : (unMatchedData.value as React.ReactNode)
   }
-  return renderResult!(data as Value)
+  return renderResult(data as Item)
 }
 
 // eslint-disable-next-line
@@ -38,7 +41,7 @@ function Item<Value>({
   only,
 }: {
   content: React.ReactNode | string
-  data: ResultValue<Value>
+  data: any
   disabled: boolean
   onClick: (value: Value) => void
   only: boolean
@@ -112,7 +115,7 @@ class Result<Item, Value> extends PureComponent<ResultProps<Item, Value>, Result
   }
 
   updateMore(preProps: ResultProps<Item, Value>) {
-    const { result, compressed, onFilter, keygen, data } = this.props
+    const { result, compressed, onFilter, keygen, data, datum } = this.props
     if (compressed) {
       if (this.isCompressedBound()) {
         return
@@ -123,16 +126,14 @@ class Result<Item, Value> extends PureComponent<ResultProps<Item, Value>, Result
       } else if (preProps.result !== result) {
         let i = preProps.result.length - 1
         while (i >= 0) {
-          const getUnMatchKey = (d: ResultValue<Value>, k: ResultProps<Item, Value>['keygen']) => {
-            const unMatchedData = d as UnMatchedValue<Value>
+          const getUnMatchKey = (d: ResultItem<Item>, k: ResultProps<Item, Value>['keygen']) => {
+            const unMatchedData = d as UnMatchedValue
 
-            return unMatchedData && isObject(unMatchedData) && unMatchedData.IS_NOT_MATCHED_VALUE
-              ? unMatchedData.value
-              : getKey(unMatchedData, k as any)
+            return datum.isUnMatch(d) ? (d as UnMatchedValue).value : getKey(unMatchedData, k as any)
           }
           const isSameData = (
-            data1: ResultValue<Value>,
-            data2: ResultValue<Value>,
+            data1: ResultItem<Item>,
+            data2: ResultItem<Item>,
             k: ResultProps<Item, Value>['keygen']
           ) => getUnMatchKey(data1, k) === getUnMatchKey(data2, k)
           if (!isSameData(result[i], preProps.result[i], keygen)) {
@@ -166,9 +167,9 @@ class Result<Item, Value> extends PureComponent<ResultProps<Item, Value>, Result
     this.forceUpdate()
   }
 
-  handleRemove(...args: [Value]) {
+  handleRemove(data: ResultItem<Item>) {
     const { onRemove } = this.props
-    onRemove(...args)
+    onRemove(data)
   }
 
   handelMore(more: number) {
@@ -210,7 +211,7 @@ class Result<Item, Value> extends PureComponent<ResultProps<Item, Value>, Result
     )
   }
 
-  renderItem(data: ResultValue<Value>, index?: number) {
+  renderItem(data: ResultItem<Item>, index?: number) {
     const { renderResult, renderUnmatched, datum } = this.props
     const content = getResultContent(data, renderResult, renderUnmatched)
     if (content === null) return null
@@ -222,7 +223,7 @@ class Result<Item, Value> extends PureComponent<ResultProps<Item, Value>, Result
         key={index}
         content={content}
         data={data}
-        disabled={datum.disabled(data)}
+        disabled={datum.disabled(data as Item)}
         onClick={this.handleRemove}
       />
     )

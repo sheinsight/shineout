@@ -1,4 +1,4 @@
-import { GetTreeSelectProps as __TreeSelectProps, ComponentRef as __ComponentRef } from './Props'
+import { TreeSelectProps as __TreeSelectProps, ComponentRef as __ComponentRef } from './Props'
 
-export type TreeSelectProps<Item, Value> = __TreeSelectProps<Item, Value>
-export type ComponentRef<Value> = __ComponentRef<Value>
+export type Props<Item, Value extends string | number | Array<string> | Array<number>> = __TreeSelectProps<Item, Value>
+export type ComponentRef<Item, Value> = __ComponentRef<Item, Value>

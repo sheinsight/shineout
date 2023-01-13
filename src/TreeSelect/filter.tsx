@@ -2,8 +2,9 @@ import React from 'react'
 import { Component } from '../component'
 import { getFilterTree } from '../utils/tree'
 import { IS_NOT_MATCHED_VALUE } from './Result'
-import { keyType } from '../@types/common'
-import { FilterProps, GetFilterProps, ResultValue, UnMatchedValue } from './Props'
+import { keyType, ResultItem, ValueArr } from '../@types/common'
+import { TreeSelectPropsWithTied, TreeSelectPropsWithFilter, FilterFormType } from './Props'
+import { isArray } from '../utils/is'
 
 const DefaultValue = {
   data: [],
@@ -17,15 +18,15 @@ interface FilterState<Item> {
   filterText: string
 }
 
-export default <Item, Value>(Origin: React.ComponentType<GetFilterProps<FilterProps<Item, Value>, Item, Value>>) =>
-  class Filter extends Component<FilterProps<Item, Value>, FilterState<Item>> {
+export default <Item, Value extends KeyType[]>(Origin: React.ComponentType<TreeSelectPropsWithTied<Item, Value>>) =>
+  class Filter extends Component<TreeSelectPropsWithFilter<Item, Value>, FilterState<Item>> {
     static defaultProps = DefaultValue
 
-    resultCache: Map<keyType, ResultValue<Value>>
+    resultCache: Map<keyType, ResultItem<Item>>
 
     timer: NodeJS.Timer
 
-    constructor(props: FilterProps<Item, Value>) {
+    constructor(props: TreeSelectPropsWithFilter<Item, Value>) {
       super(props)
       this.state = {
         innerFilter: undefined,
@@ -41,16 +42,18 @@ export default <Item, Value>(Origin: React.ComponentType<GetFilterProps<FilterPr
     getResultByValues() {
       const { datum, noCache, renderUnmatched } = this.props
       let value = datum.getValue() || []
+      const vr = (isArray(this.props.value) ? this.props.value : [this.props.value]) as ValueArr<Value>
       if (renderUnmatched) {
-        value = value.concat([].concat(this.props.value as any).filter(v => v && value.indexOf(v) === -1))
+        const emptyArr = ([] as unknown) as ValueArr<Value>
+        value = value.concat(emptyArr.concat(vr).filter(v => v && value.indexOf(v) === -1)) as ValueArr<Value>
       }
-      const result: ResultValue<Value>[] = []
+      const result: ResultItem<Item>[] = []
       value.forEach(v => {
-        let res = noCache ? undefined : this.resultCache.get(v)
+        let res: ResultItem<Item> | null | undefined = noCache ? undefined : this.resultCache.get(v)
         if (!res) {
-          res = (datum.getDataById(v) as unknown) as ResultValue<Value>
-          if (res && !noCache && !(res as UnMatchedValue<Value>)[IS_NOT_MATCHED_VALUE]) this.resultCache.set(v, res)
-          else if (!res) res = { [IS_NOT_MATCHED_VALUE]: true, value: (v as unknown) as Value }
+          res = datum.getDataById(v)
+          if (res && !noCache && !datum.isUnMatch(res)) this.resultCache.set(v, res)
+          else if (!res) res = { [IS_NOT_MATCHED_VALUE]: true, value: v }
         }
         if (res) {
           result.push(res)
@@ -59,7 +62,7 @@ export default <Item, Value>(Origin: React.ComponentType<GetFilterProps<FilterPr
       return result
     }
 
-    handleFilter(text: string, from = 'edit') {
+    handleFilter(text: string, from: FilterFormType = 'edit') {
       const { filterDelay, onFilter } = this.props
 
       // not filter
@@ -107,7 +110,7 @@ export default <Item, Value>(Origin: React.ComponentType<GetFilterProps<FilterPr
           undefined,
           { advanced: other.onAdvancedFilter }
         ) as Item[]
-        newExpanded = filterExpandedKeys as any
+        newExpanded = filterExpandedKeys
       }
       return (
         <Origin

@@ -9,6 +9,6 @@ import { Input } from 'shineout'
 
 const style: React.CSSProperties = { width: 120, marginInlineEnd: 12 }
 
-const App: React.FC = () => <Input.Number style={style} width={120} allowNull max={100} digits={0} />
+const App: React.FC = () => <Input.Number style={style} width={120} min={23} max={100} digits={0} />
 
 export default App

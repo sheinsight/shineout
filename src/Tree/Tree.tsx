@@ -29,7 +29,7 @@ class Tree<DataItem, Value extends any[]> extends PureComponent<TreeProps<DataIt
 
   nodes: Map<keyType, UpdateFunc>
 
-  datum: DatumTree<DataItem, Value>
+  datum: DatumTree<DataItem>
 
   static defaultProps = DefaultProps as any
 
