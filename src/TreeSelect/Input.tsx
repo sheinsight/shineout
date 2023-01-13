@@ -66,8 +66,7 @@ class FilterInput extends Component<InputProps> {
     const value = typeof text === 'string' ? text.replace(/<\/?[^>]*>/g, '') : text
 
     if (isValidElement(value)) {
-      return cloneElement(value, {
-        // @ts-ignore
+      return cloneElement<any>(value, {
         className: treeSelectClass('input'),
         ref: this.bindElement,
         key: 'input',
@@ -85,8 +84,7 @@ class FilterInput extends Component<InputProps> {
         onPaste={preventPasteFile}
         onInput={this.handleInput}
         onBlur={this.handleBlur}
-        // @ts-ignore
-        dangerouslySetInnerHTML={{ __html: value }}
+        dangerouslySetInnerHTML={{ __html: value as string }}
       />
     )
   }

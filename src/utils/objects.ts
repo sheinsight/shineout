@@ -177,7 +177,7 @@ export const deepRemove = (target: ObjectType, path: string) => {
   if (!isObject(target)) throw new Error('Target must be an object.')
   if (typeof path !== 'string' || !path) throw new Error('Path must be a string.')
 
-  let current: any = target
+  let current = target
   let nextIsArray = false
   for (const [prop, next] of pathGenerator(path)) {
     if (current == null || !hasOwnProperty.call(current, prop)) {
@@ -188,7 +188,7 @@ export const deepRemove = (target: ObjectType, path: string) => {
       nextIsArray = /^\[\d+\]/.test(next)
     } else if (isObject(current)) {
       if (nextIsArray) throw new Error('Target is an object, expect array')
-      delete (current as ObjectType)[prop]
+      delete current[prop]
     } else {
       if (!nextIsArray) throw new Error('Target is an array, expect object')
       current.splice(prop, 1)

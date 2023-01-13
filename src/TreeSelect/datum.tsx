@@ -30,7 +30,7 @@ export default function datum<Item, Value extends TreeSelectValueType>(
         keygen: props.keygen,
         mode: props.mode,
         value: toArray(props.value) as keyType[],
-        onChange: props.onChange as any,
+        onChange: props.onChange,
         disabled: typeof props.disabled === 'function' ? props.disabled : undefined,
         childrenKey: props.childrenKey || 'children',
         unmatch: props.unmatch,

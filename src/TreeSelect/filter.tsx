@@ -41,7 +41,7 @@ export default <Item, Value extends KeyType[]>(Origin: React.ComponentType<TreeS
 
     getResultByValues() {
       const { datum, noCache, renderUnmatched } = this.props
-      let value = (datum.getValue() || []) as ValueArr<Value>
+      let value = datum.getValue() || []
       const vr = (isArray(this.props.value) ? this.props.value : [this.props.value]) as ValueArr<Value>
       if (renderUnmatched) {
         const emptyArr = ([] as unknown) as ValueArr<Value>
@@ -53,7 +53,7 @@ export default <Item, Value extends KeyType[]>(Origin: React.ComponentType<TreeS
         if (!res) {
           res = datum.getDataById(v)
           if (res && !noCache && !datum.isUnMatch(res)) this.resultCache.set(v, res)
-          else if (!res) res = { [IS_NOT_MATCHED_VALUE]: true, value: (v as unknown) as Value }
+          else if (!res) res = { [IS_NOT_MATCHED_VALUE]: true, value: v }
         }
         if (res) {
           result.push(res)
@@ -110,7 +110,7 @@ export default <Item, Value extends KeyType[]>(Origin: React.ComponentType<TreeS
           undefined,
           { advanced: other.onAdvancedFilter }
         ) as Item[]
-        newExpanded = filterExpandedKeys as any
+        newExpanded = filterExpandedKeys
       }
       return (
         <Origin

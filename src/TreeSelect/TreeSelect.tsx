@@ -260,12 +260,12 @@ export default class TreeSelect<Item, Value extends TreeSelectValueType> extends
     if (disabled === true || datum.isDisabled(id)) return
     const current = datum.getDataById(id) as Item
     if (!multiple) {
-      datum.setValue([] as ValueArr<any>)
+      datum.setValue([])
       datum.set(datum.getKey(data), 1)
       this.handleState(false)
     }
     const value = this.getValue()
-    if (onChange) onChange(value, current, id && (datum.getPath(id)!.path as any))
+    if (onChange) onChange(value, current, id ? datum.getPath(id).path : undefined)
 
     if (typeof onChangeAddition === 'function') {
       onChangeAddition({
@@ -278,7 +278,7 @@ export default class TreeSelect<Item, Value extends TreeSelectValueType> extends
 
   handleClear() {
     const { multiple, onChangeAddition } = this.props
-    this.props.datum.setValue([] as any)
+    this.props.datum.setValue([])
     this.props.onChange((multiple ? [] : '') as Value)
     if (typeof onChangeAddition === 'function') {
       onChangeAddition({
@@ -335,9 +335,9 @@ export default class TreeSelect<Item, Value extends TreeSelectValueType> extends
       'childrenKey',
       'expandIcons',
     ]
-    props.data = this.props.data
-    TreeKeys.forEach(k => {
-      ;(props as any)[k] = this.props[k as ExtendsTreePropsKey]
+
+    TreeKeys.forEach((k: ExtendsTreePropsKey) => {
+      ;(props as any)[k] = this.props[k]
     })
     props.value = datum.getValue() as ValueArr<Value>
     if (multiple) {
