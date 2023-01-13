@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import immer from 'immer'
 import Datum from '../Datum/Tree'
 import { curry } from '../utils/func'
@@ -7,26 +6,29 @@ import { mergeFilteredTree } from '../utils/tree'
 import { treeClass } from '../Tree/styles'
 import { treeSelectClass } from './styles'
 import { Component } from '../component'
+import {
+  TreeSelectPropsWithTied,
+  TreeSelectPropsWithFilter,
+  FilterFormType,
+  TreeSelectPropsWithAdvancedFilter,
+} from './Props'
 
+interface TiledState {
+  tileds: string[]
+}
+const DefaultProps = {
+  childrenKey: 'children',
+}
 export default curry((options, Origin) => {
   const { dataKey = 'data' } = options
-  class Tiled extends Component {
-    static propTypes = {
-      rawData: PropTypes.array,
-      keygen: PropTypes.any,
-      onFilter: PropTypes.func,
-      childrenKey: PropTypes.string,
-      filterText: PropTypes.string,
-      data: PropTypes.array,
-      expanded: PropTypes.array,
-      onAdvancedFilter: PropTypes.bool,
-    }
+  class Tiled<Item, Value> extends Component<TreeSelectPropsWithTied<Item, Value>, TiledState> {
+    static defaultProps = DefaultProps
 
-    static defaultProps = {
-      childrenKey: 'children',
-    }
+    rawDatum: any
 
-    constructor(props) {
+    filteredDatum: Datum<Item>
+
+    constructor(props: TreeSelectPropsWithTied<Item, Value>) {
       super(props)
       this.state = {
         tileds: [],
@@ -36,7 +38,7 @@ export default curry((options, Origin) => {
       if (props.onAdvancedFilter) this.genRawDatum()
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps: TreeSelectPropsWithTied<Item, Value>) {
       if (prevProps.rawData !== this.props.rawData && this.props.onAdvancedFilter) {
         if (this.rawDatum) this.rawDatum.setData(this.props.rawData)
         else this.genRawDatum()
@@ -46,24 +48,26 @@ export default curry((options, Origin) => {
 
     getFilteredDatum() {
       const { keygen, childrenKey } = this.props
-      const data = this.props[dataKey]
+      const data = this.props[dataKey as 'data']
       if (this.filteredDatum && this.filteredDatum.data === data) return this.filteredDatum
       this.filteredDatum = new Datum({
         data,
         keygen,
-        childrenKey,
+        childrenKey: childrenKey || DefaultProps.childrenKey,
       })
       return this.filteredDatum
     }
 
-    getIcon(data) {
+    getIcon(data: Item) {
       const { childrenKey, expanded = [] } = this.props
       const originIcon = <span className={treeClass('default-icon')} />
       const key = this.rawDatum.getKey(data)
       const rawData = this.rawDatum.getDataById(key)
       if (!data || !rawData) return originIcon
       const sameCount =
-        data[childrenKey] && rawData[childrenKey] && data[childrenKey].length === rawData[childrenKey].length
+        data[childrenKey as keyof Item] &&
+        rawData[childrenKey] &&
+        ((data[childrenKey as keyof Item] as unknown) as Item[]).length === rawData[childrenKey].length
       if (expanded.indexOf(key) === -1) return originIcon
       return (
         <span className={treeSelectClass('match', sameCount && 'full')} onClick={this.handleToggle.bind(this, key)}>
@@ -72,13 +76,13 @@ export default curry((options, Origin) => {
       )
     }
 
-    handleFilter(text, from) {
+    handleFilter(text: string, from: FilterFormType) {
       const { onFilter } = this.props
       if (!text) this.setState({ tileds: [] })
       if (onFilter) onFilter(text, from)
     }
 
-    handleToggle(key, e) {
+    handleToggle(key: string, e: React.MouseEvent) {
       e.stopPropagation()
       this.setState(
         immer(draft => {
@@ -90,8 +94,8 @@ export default curry((options, Origin) => {
     }
 
     genRawDatum() {
-      const { rawData, childrenKey, keygen } = this.props
-      this.rawDatum = new Datum({ data: rawData, childrenKey, keygen })
+      const { rawData, childrenKey = DefaultProps.childrenKey, keygen } = this.props
+      this.rawDatum = new Datum({ data: rawData, childrenKey, keygen: keygen as any })
     }
 
     render() {
@@ -100,7 +104,7 @@ export default curry((options, Origin) => {
       if (!filterText || !onAdvancedFilter) return <Origin {...this.props} />
       const expandIcons = [this.getIcon, this.getIcon]
       const filterDatum = this.getFilteredDatum()
-      const data = mergeFilteredTree(filterDatum, this.rawDatum, tileds)
+      const data = mergeFilteredTree(filterDatum as any, this.rawDatum, tileds)
       const props = {
         ...this.props,
         onFilter: this.handleFilter,
@@ -113,8 +117,9 @@ export default curry((options, Origin) => {
   return Tiled
 })
 
-export const advancedFilterHOC = Origin => props => {
-  // eslint-disable-next-line react/prop-types
+export const advancedFilterHOC = <Item, Value>(Origin: React.ComponentType<TreeSelectPropsWithFilter<Item, Value>>) => (
+  props: TreeSelectPropsWithAdvancedFilter<Item, Value>
+) => {
   const { onAdvancedFilter, onFilter } = props
-  return <Origin {...props} onFilter={onAdvancedFilter || onFilter} onAdvancedFilter={!!onAdvancedFilter} />
+  return <Origin {...props as any} onFilter={onAdvancedFilter || onFilter} onAdvancedFilter={!!onAdvancedFilter} />
 }

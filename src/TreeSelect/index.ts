@@ -7,6 +7,7 @@ import filter from './filter'
 import datum from './datum'
 import tiled, { advancedFilterHOC } from './tiled'
 import absolute from '../Table/context'
+import { TreeSelectType } from './Props'
 
 const exportTreeSelect = compose(
   inputable,
@@ -20,4 +21,4 @@ const exportTreeSelect = compose(
 
 exportTreeSelect.displayName = 'ShineoutTreeSelect'
 
-export default exportTreeSelect
+export default exportTreeSelect as TreeSelectType

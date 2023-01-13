@@ -228,3 +228,13 @@ export type ExistKey<U, Keys extends string> = Omit<U, keyof Omit<U, Keys>>
 
 // 将 U 中 存在的 keys 变成可选
 export type PartialKeys<U, keys extends string> = Omit<U, keys> & Partial<ExistKey<U, keys>>
+
+export type ValueArr<Value> = Value extends any[] ? Value : Value[]
+
+export type ValueItem<Value> = Value extends (infer U)[] ? U : Value
+
+export interface UnMatchedValue {
+  IS_NOT_MATCHED_VALUE: boolean
+  value: any
+}
+export type ResultItem<Item> = Item | UnMatchedValue

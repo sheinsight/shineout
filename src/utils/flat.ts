@@ -168,7 +168,7 @@ export const getSthByName = (name: keyof Source & string, source: Source) => {
   })
 
   // get from form-error
-  if (!result && isObject(source[''])) result = source[''][name]
+  if (!result && isObject(source[''])) result = source['' as keyof Source][name]
 
   return result
 }

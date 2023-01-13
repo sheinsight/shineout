@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { ComponentType } from 'react'
 import * as CSS from 'csstype'
-import { keyType, LiteralUnion, StandardProps } from '../@types/common'
+import { keyType, LiteralUnion, StandardProps, ValueItem } from '../@types/common'
 import DatumTree, { TreePathType, TreeModeType } from '../Datum/Tree'
 import { GetInputableProps } from '../Form/Props'
 
@@ -63,7 +63,7 @@ export interface TreeProps<DataItem, Value extends any[]> extends StandardProps 
    *
    * default: none
    */
-  loader?: (key: keyType, data: DataItem) => void
+  loader?: (key: ValueItem<Value>, data: DataItem) => void
   /**
    * desc: selected mode
    *
@@ -105,7 +105,7 @@ export interface TreeProps<DataItem, Value extends any[]> extends StandardProps 
    */
   onDrop?: (data: DataItem[], key: keyType, targetKey: keyType, position: number) => void
   value?: Value
-  datum?: DatumTree<DataItem, Value>
+  datum?: DatumTree<DataItem>
   /**
    * Expand by click parent node
    *
@@ -265,7 +265,7 @@ export interface RootProps<DataItem, Value extends any[]>
       | 'dragSibling'
     >,
     Pick<Required<TreeProps<DataItem, Value>>, 'childrenKey' | 'dragImageStyle' | 'mode' | 'data'> {
-  datum: DatumTree<DataItem, Value>
+  datum: DatumTree<DataItem>
   disabled: boolean
   unbindNode: (id: keyType) => void
   bindNode: (id: keyType, update: UpdateFunc) => { active: boolean; expanded: boolean }

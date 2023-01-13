@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { addResizeObserver } from '../utils/dom/element'
 import { treeSelectClass } from './styles'
@@ -12,21 +11,43 @@ import More, { getResetMore } from '../Select/More'
 import InputTitle from '../InputTitle'
 import { getKey } from '../utils/uid'
 import { getDirectionClass } from '../utils/classname'
+import { ResultProps } from './Props'
+import { ResultItem, UnMatchedValue } from '../@types/common'
 
 export const IS_NOT_MATCHED_VALUE = 'IS_NOT_MATCHED_VALUE'
 
-const getResultContent = (data, renderResult, renderUnmatched) => {
-  if (isObject(data) && data.IS_NOT_MATCHED_VALUE) {
-    if (typeof renderUnmatched === 'function') return renderUnmatched(data.value)
-    return isObject(data.value) ? renderResult(data.value) : data.value
+const getResultContent = <Item, Value>(
+  data: ResultItem<Item>,
+  renderResult: ResultProps<Item, Value>['renderResult'],
+  renderUnmatched: ResultProps<Item, Value>['renderUnmatched']
+): React.ReactNode => {
+  const unMatchedData: UnMatchedValue = data as UnMatchedValue
+
+  if (isObject(unMatchedData) && unMatchedData.IS_NOT_MATCHED_VALUE) {
+    if (typeof renderUnmatched === 'function') return renderUnmatched(unMatchedData.value)
+    return isObject(unMatchedData.value)
+      ? renderResult(unMatchedData.value as Item)
+      : (unMatchedData.value as React.ReactNode)
   }
-  return renderResult(data)
+  return renderResult(data as Item)
 }
 
 // eslint-disable-next-line
-function Item({ content, data, disabled, onClick, only }) {
+function Item<Value>({
+  content,
+  data,
+  disabled,
+  onClick,
+  only,
+}: {
+  content: React.ReactNode | string
+  data: any
+  disabled: boolean
+  onClick: (value: Value) => void
+  only: boolean
+}) {
   const value = data
-  const click = disabled || !onClick ? undefined : () => onClick(value)
+  const click = disabled || !onClick ? undefined : () => onClick(value as Value)
   const synDisabled = disabled || !click
   return (
     <a
@@ -44,8 +65,18 @@ function Item({ content, data, disabled, onClick, only }) {
   )
 }
 
-class Result extends PureComponent {
-  constructor(props) {
+interface ResultState {
+  more: number
+}
+
+class Result<Item, Value> extends PureComponent<ResultProps<Item, Value>, ResultState> {
+  resultEl: HTMLDivElement
+
+  cancelResizeObserver: () => void
+
+  shouldResetMore: boolean
+
+  constructor(props: ResultProps<Item, Value>) {
     super(props)
     this.state = {
       more: -1,
@@ -63,7 +94,7 @@ class Result extends PureComponent {
     }
   }
 
-  componentDidUpdate(preProps) {
+  componentDidUpdate(preProps: ResultProps<Item, Value>) {
     this.updateMore(preProps)
   }
 
@@ -79,12 +110,12 @@ class Result extends PureComponent {
     return this.state.more
   }
 
-  bindResult(el) {
+  bindResult(el: HTMLDivElement) {
     this.resultEl = el
   }
 
-  updateMore(preProps) {
-    const { result, compressed, onFilter, keygen, data } = this.props
+  updateMore(preProps: ResultProps<Item, Value>) {
+    const { result, compressed, onFilter, keygen, data, datum } = this.props
     if (compressed) {
       if (this.isCompressedBound()) {
         return
@@ -95,8 +126,16 @@ class Result extends PureComponent {
       } else if (preProps.result !== result) {
         let i = preProps.result.length - 1
         while (i >= 0) {
-          const getUnMatchKey = (d, k) => (d && d.IS_NOT_MATCHED_VALUE ? d.value : getKey(d, k))
-          const isSameData = (data1, data2, k) => getUnMatchKey(data1, k) === getUnMatchKey(data2, k)
+          const getUnMatchKey = (d: ResultItem<Item>, k: ResultProps<Item, Value>['keygen']) => {
+            const unMatchedData = d as UnMatchedValue
+
+            return datum.isUnMatch(d) ? (d as UnMatchedValue).value : getKey(unMatchedData, k as any)
+          }
+          const isSameData = (
+            data1: ResultItem<Item>,
+            data2: ResultItem<Item>,
+            k: ResultProps<Item, Value>['keygen']
+          ) => getUnMatchKey(data1, k) === getUnMatchKey(data2, k)
           if (!isSameData(result[i], preProps.result[i], keygen)) {
             shouldRest = true
             break
@@ -109,6 +148,7 @@ class Result extends PureComponent {
         this.resetMore()
       } else if (result.length && this.shouldResetMore) {
         this.shouldResetMore = false
+        // @ts-ignore
         this.state.more = getResetMore(
           onFilter,
           this.resultEl,
@@ -122,16 +162,17 @@ class Result extends PureComponent {
   resetMore() {
     if (!this.props.compressed) return
     this.shouldResetMore = true
+    // @ts-ignore
     this.state.more = -1
     this.forceUpdate()
   }
 
-  handleRemove(...args) {
+  handleRemove(data: ResultItem<Item>) {
     const { onRemove } = this.props
-    onRemove(...args)
+    onRemove(data)
   }
 
-  handelMore(more) {
+  handelMore(more: number) {
     this.setState({ more })
   }
 
@@ -146,11 +187,7 @@ class Result extends PureComponent {
       /* eslint-disable */
       return (
         <div key="clear" onClick={onClear} className={treeSelectClass('close-warpper')}>
-          <a
-            tabIndex={-1}
-            data-role="close"
-            className={treeSelectClass('indicator', 'close')}
-          />
+          <a tabIndex={-1} data-role="close" className={treeSelectClass('indicator', 'close')} />
         </div>
       )
       /* eslint-enable */
@@ -159,7 +196,7 @@ class Result extends PureComponent {
     return null
   }
 
-  renderInput(text, key = 'input') {
+  renderInput(text: React.ReactNode, key: string | number = 'input') {
     const { multiple, onFilter, focus, setInputReset } = this.props
     return (
       <Input
@@ -174,7 +211,7 @@ class Result extends PureComponent {
     )
   }
 
-  renderItem(data, index) {
+  renderItem(data: ResultItem<Item>, index?: number) {
     const { renderResult, renderUnmatched, datum } = this.props
     const content = getResultContent(data, renderResult, renderUnmatched)
     if (content === null) return null
@@ -186,13 +223,13 @@ class Result extends PureComponent {
         key={index}
         content={content}
         data={data}
-        disabled={datum.disabled(data)}
+        disabled={datum.disabled(data as Item)}
         onClick={this.handleRemove}
       />
     )
   }
 
-  renderMore(items) {
+  renderMore(items: React.ReactNode[]) {
     const { compressed } = this.props
     const more = this.getCompressedBound()
     return [
@@ -287,27 +324,6 @@ class Result extends PureComponent {
       </InputTitle>
     )
   }
-}
-
-Result.propTypes = {
-  datum: PropTypes.object,
-  disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
-  filterText: PropTypes.string,
-  focus: PropTypes.bool,
-  multiple: PropTypes.bool.isRequired,
-  onRemove: PropTypes.func,
-  onClear: PropTypes.func,
-  onFilter: PropTypes.func,
-  result: PropTypes.array.isRequired,
-  renderResult: PropTypes.func.isRequired,
-  placeholder: PropTypes.string,
-  setInputReset: PropTypes.func,
-  compressed: PropTypes.bool,
-  compressedBound: PropTypes.number,
-  renderUnmatched: PropTypes.func,
-  innerTitle: PropTypes.node,
-  keygen: PropTypes.any,
-  data: PropTypes.array,
 }
 
 export default Result

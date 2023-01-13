@@ -1,5 +1,5 @@
 import { CHANGE_TOPIC } from './types'
-import { keyType, LiteralUnion, ObjectType } from '../@types/common'
+import { keyType, ObjectType, KeygenType } from '../@types/common'
 
 const IS_NOT_MATCHED_VALUE = 'IS_NOT_MATCHED_VALUE'
 
@@ -42,9 +42,10 @@ export interface TreePathType {
   indexPath: number[]
   index: number
 }
-export interface TreeDatumOptions<Item, Value> {
+type Value = keyType[]
+export interface TreeDatumOptions<Item> {
   data?: Item[]
-  keygen?: LiteralUnion<Item> | ((data: Item, parentId?: string | number) => keyType)
+  keygen?: KeygenType<Item> | ((data: Item, parentKey: keyType) => keyType)
   value?: Value
   /**
    * mode 0: Returns only the fully selected node including the parent node. 1: Returns all selected nodes and semi-selected nodes. 2: Return only the selected child nodes. 3: If the parent node is full selected, only return the parent node. 4: What you choose is what you get.
@@ -58,19 +59,19 @@ export interface TreeDatumOptions<Item, Value> {
   childrenKey: string
   unmatch?: boolean
   loader?: (key: keyType, data: Item) => void
-  onChange?: (value: Value, ...rest: any) => void
+  onChange?: (value: any, ...rest: any) => void
 }
 
-export default class<Item, Value extends any[]> {
-  keygen?: TreeDatumOptions<Item, Value>['keygen']
+export default class<Item> {
+  keygen?: TreeDatumOptions<Item>['keygen']
 
-  mode: TreeDatumOptions<Item, Value>['mode']
+  mode: TreeDatumOptions<Item>['mode']
 
-  unmatch: TreeDatumOptions<Item, Value>['unmatch']
+  unmatch: TreeDatumOptions<Item>['unmatch']
 
-  disabled: TreeDatumOptions<Item, Value>['disabled']
+  disabled: ((data: Item, ...rest: any) => boolean)
 
-  childrenKey: TreeDatumOptions<Item, Value>['childrenKey']
+  childrenKey: TreeDatumOptions<Item>['childrenKey']
 
   valueMap: Map<keyType, CheckedStatus>
 
@@ -90,7 +91,7 @@ export default class<Item, Value extends any[]> {
 
   dataMap: Map<keyType, Item>
 
-  constructor(options: TreeDatumOptions<Item, Value> = { data: [], childrenKey: '' }) {
+  constructor(options: TreeDatumOptions<Item> = { data: [], childrenKey: '' }) {
     const { data, value, keygen, mode, disabled, childrenKey = 'children', unmatch } = options
 
     this.keygen = keygen
@@ -107,7 +108,7 @@ export default class<Item, Value extends any[]> {
     this.setData(data)
   }
 
-  updateDisabled(dis: TreeDatumOptions<Item, Value>['disabled']) {
+  updateDisabled(dis: TreeDatumOptions<Item>['disabled']) {
     if (typeof dis === 'function') {
       this.disabled = dis
     } else {
@@ -184,7 +185,7 @@ export default class<Item, Value extends any[]> {
       if (unmatch && this.unmatch) value.push(id)
     })
     this.cachedValue = value
-    return value
+    return value as Value
   }
 
   setValueMap(id: keyType, checked: CheckedStatus) {
@@ -275,8 +276,8 @@ export default class<Item, Value extends any[]> {
   }
 
   getKey(data: Item, id: keyType = '', index?: number): keyType {
-    if (typeof this.keygen === 'function') return this.keygen(data, id)
-    if (this.keygen) return (data[this.keygen] as unknown) as keyType
+    if (typeof this.keygen === 'function') return this.keygen(data, id as number)
+    if (this.keygen) return (data[this.keygen as keyof Item] as unknown) as keyType
     return id + (id ? ',' : '') + index
   }
 

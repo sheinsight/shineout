@@ -6,6 +6,7 @@ import Spin from '../Spin'
 import Checkbox from './Checkbox'
 import { CHANGE_TOPIC } from '../Datum/types'
 import { ContentProps } from './Props'
+import { ValueItem } from '../@types/common'
 
 const loading = (
   <span className={treeClass('icon-loading')}>
@@ -66,7 +67,7 @@ class Content<DataItem, Value extends any[]> extends PureComponent<ContentProps<
     if (data[childrenKey] !== undefined) return
 
     setFetching(true)
-    if (loader) loader(id, data)
+    if (loader) loader(id as ValueItem<Value>, data)
   }
 
   renderNode() {

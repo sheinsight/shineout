@@ -112,12 +112,12 @@ export const deepSet = (target: ObjectType, path: string, value: any, options: d
   if (path === '') {
     const dest = deepMerge(target, value, mergeOptions)
     Object.keys(dest).forEach(k => {
-      target[k] = dest[k]
+      ;((target as unknown) as ObjectType)[k] = dest[k]
     })
     return target
   }
 
-  let current = target
+  let current: any = target
   for (const [prop, next, mode] of pathGenerator(path)) {
     if (next) {
       const nextIsArray = /^\[\d+\]/.test(next)
@@ -204,7 +204,7 @@ export const deepHas = (target: ObjectType, path: string) => {
 
   if (path === '') return true
 
-  let current = target
+  let current: any = target
   for (const [prop, ,] of pathGenerator(path)) {
     if (!current || !hasOwnProperty.call(current, prop)) return false
     current = current[prop]

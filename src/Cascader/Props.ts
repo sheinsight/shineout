@@ -265,7 +265,7 @@ export interface FilterListProps<DataItem, Value extends BaseValue>
   focus: boolean
   parentElement: HTMLElement
   'data-id': string
-  datum: DatumTree<DataItem, Value>
+  datum: DatumTree<DataItem>
   getRef: () => void
   onChange: (value: Value, Data?: DataItem) => void
   onPathChange: (key: Value[0], item: DataItem | null, keys: Value, is?: boolean) => void
@@ -311,7 +311,7 @@ export interface NodeProps<DataItem, Value extends BaseValue> extends Omit<Casca
 
 export interface ResultProps<DataItem, Value extends BaseValue>
   extends Omit<OriginCascaderProps<DataItem, Value>, 'disabled'> {
-  datum: DatumTree<DataItem, Value>
+  datum: DatumTree<DataItem>
   onPathChange: FilterListProps<DataItem, Value>['onPathChange']
   showList: () => void
   focus: boolean

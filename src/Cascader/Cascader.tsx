@@ -50,7 +50,7 @@ class Cascader<DataItem, Value extends (string | number)[]> extends PureComponen
 > {
   static defaultProps = DefaultProps
 
-  datum: DatumTree<DataItem, Value>
+  datum: DatumTree<DataItem>
 
   selectId: string
 

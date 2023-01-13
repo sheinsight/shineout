@@ -1,35 +1,27 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import DatumTree from '../Datum/Tree'
 import shallowEqual from '../utils/shallowEqual'
+import { TreeSelectPropsWithAdvancedFilter, TreeSelectPropsWithDatum, TreeSelectValueType } from './Props'
+import { keyType } from '../@types/common'
 
-function toArray(value) {
+function toArray<Value>(value: Value) {
   if (!value) return []
   if (!Array.isArray(value)) return [value]
   return value
 }
 
-export default function datum(Origin) {
-  return class TreeDatum extends React.Component {
-    static propTypes = {
-      loader: PropTypes.func,
-      data: PropTypes.array,
-      disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
-      mode: PropTypes.oneOf([0, 1, 2, 3, 4]),
-      onChange: PropTypes.func,
-      value: PropTypes.oneOfType([PropTypes.array, PropTypes.any]),
-      keygen: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
-      multiple: PropTypes.bool,
-      childrenKey: PropTypes.string,
-      unmatch: PropTypes.bool,
-    }
-
+export default function datum<Item, Value extends TreeSelectValueType>(
+  Origin: React.ComponentType<TreeSelectPropsWithAdvancedFilter<Item, Value>>
+) {
+  return class TreeDatum extends React.Component<TreeSelectPropsWithDatum<Item, Value>> {
     static defaultProps = {
       mode: 1,
       childrenKey: 'children',
     }
 
-    constructor(props) {
+    datum: DatumTree<Item>
+
+    constructor(props: TreeSelectPropsWithDatum<Item, Value>) {
       super(props)
 
       this.datum = new DatumTree({
@@ -37,15 +29,15 @@ export default function datum(Origin) {
         loader: props.loader,
         keygen: props.keygen,
         mode: props.mode,
-        value: toArray(props.value),
+        value: toArray(props.value) as keyType[],
         onChange: props.onChange,
         disabled: typeof props.disabled === 'function' ? props.disabled : undefined,
-        childrenKey: props.childrenKey,
+        childrenKey: props.childrenKey || 'children',
         unmatch: props.unmatch,
       })
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps: TreeSelectPropsWithDatum<Item, Value>) {
       if (!shallowEqual(prevProps.data, this.props.data)) {
         const { disabled } = this.props
         this.datum.updateDisabled(typeof disabled === 'function' ? disabled : undefined)
@@ -62,7 +54,7 @@ export default function datum(Origin) {
       }
 
       if (!shallowEqual(toArray(value), this.datum.getValue())) {
-        this.datum.setValue(toArray(value))
+        this.datum.setValue(toArray(value) as keyType[])
       }
       return <Origin {...props} />
     }
