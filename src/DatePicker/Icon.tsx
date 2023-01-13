@@ -1,9 +1,14 @@
 import { createElement, PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import icons from '../icons'
 import { datepickerClass } from './styles'
+import { DatePickerIconProps } from './Props'
 
-class Icon extends PureComponent {
+const DefaultValue = {
+  tag: 'span',
+}
+class Icon extends PureComponent<DatePickerIconProps> {
+  static defaultProps = DefaultValue
+
   render() {
     const { className, name, onClick, tag, disabled } = this.props
 
@@ -12,20 +17,8 @@ class Icon extends PureComponent {
       onClick: disabled ? undefined : onClick,
     }
 
-    return createElement(tag, newProps, icons[name])
+    return createElement(tag, newProps, icons[name as keyof typeof icons])
   }
-}
-
-Icon.propTypes = {
-  className: PropTypes.string,
-  disabled: PropTypes.bool,
-  name: PropTypes.string.isRequired,
-  onClick: PropTypes.func,
-  tag: PropTypes.string,
-}
-
-Icon.defaultProps = {
-  tag: 'span',
 }
 
 export default Icon

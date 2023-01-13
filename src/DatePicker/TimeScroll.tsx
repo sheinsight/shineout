@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import { range } from '../utils/numbers'
 import { datepickerClass } from './styles'
 import paramUtils from './paramUtils'
 import { getLocale } from '../locale'
+import { TimeScrollProps } from './Props'
 
 const lineHeight = 30
 const grayStyle = {
@@ -12,8 +12,16 @@ const grayStyle = {
   3: { color: '#eee' },
 }
 
-class TimeScroll extends PureComponent {
-  constructor(props) {
+const DefaultValue = {
+  total: 60,
+}
+
+class TimeScroll extends PureComponent<TimeScrollProps> {
+  static defaultProps = DefaultValue
+
+  element: HTMLDivElement
+
+  constructor(props: TimeScrollProps) {
     super(props)
 
     this.bindElement = this.bindElement.bind(this)
@@ -34,22 +42,23 @@ class TimeScroll extends PureComponent {
     return { timeZone, weekStartsOn: getLocale('startOfWeek') }
   }
 
-  getValue(v) {
+  getValue(v: number) {
     const { step, ampm } = this.props
     if (!step || ampm) return v
     return Math.ceil(v / step)
   }
 
-  getItemStyle(num, isDisabled) {
+  getItemStyle(num: number, isDisabled: boolean): React.CSSProperties | null {
     if (isDisabled) return null
     if (this.props.ampm || (typeof this.props.step === 'number' && this.props.step > 0)) {
-      if (this.props.value % this.props.step) return null
-      return grayStyle[Math.ceil(Math.abs(this.props.value - num) / this.props.step)]
+      if (this.props.value % this.props.step!) return null
+
+      return grayStyle[Math.ceil(Math.abs(this.props.value - num) / this.props.step!) as keyof typeof grayStyle]
     }
-    return grayStyle[Math.abs(this.props.value - num)]
+    return grayStyle[Math.abs(this.props.value - num) as keyof typeof grayStyle]
   }
 
-  bindElement(el) {
+  bindElement(el: HTMLDivElement) {
     this.element = el
   }
 
@@ -69,7 +78,7 @@ class TimeScroll extends PureComponent {
     this.element.scrollTop = lineHeight * this.getValue(value)
   }
 
-  handleClick(value) {
+  handleClick(value: number) {
     this.props.onChange(value)
     this.element.scrollTop = lineHeight * this.getValue(value)
   }
@@ -82,7 +91,7 @@ class TimeScroll extends PureComponent {
   handleScroll() {
     const { step, ampm } = this.props
     const value = Math.round(this.element.scrollTop / lineHeight)
-    if (value * step === this.props.value) return
+    if (value * step! === this.props.value) return
     if (typeof step === 'number' && step > 0 && !ampm && value !== this.props.value) {
       this.props.onChange(value * step)
       return
@@ -90,13 +99,25 @@ class TimeScroll extends PureComponent {
     if (value !== this.props.value) this.props.onChange(value)
   }
 
-  renderItem(num) {
-    const { ampm, total, value, step, mode, min, max, range: ra, current, disabled, disabledTime } = this.props
+  renderItem(num: number) {
+    const {
+      ampm,
+      total = DefaultValue.total,
+      value,
+      step,
+      mode,
+      min,
+      max,
+      range: ra,
+      current,
+      disabled,
+      disabledTime,
+    } = this.props
 
     if (typeof step === 'number' && step <= 0) return null
     if (!ampm && typeof step === 'number' && num % step !== 0) return null
 
-    let text = num
+    let text: number | string = num
     if (ampm) text = ['am', 'pm'][num]
     else if (total === 12 && num === 0) text = '12'
     else if (num < 10) text = `0${num}`
@@ -118,7 +139,7 @@ class TimeScroll extends PureComponent {
       <span
         key={num}
         className={className}
-        style={this.getItemStyle(num, isDisabled)}
+        style={this.getItemStyle(num, isDisabled)!}
         onClick={this.handleClick.bind(this, num)}
       >
         {text}
@@ -141,22 +162,6 @@ class TimeScroll extends PureComponent {
       </div>
     )
   }
-}
-
-TimeScroll.propTypes = {
-  ampm: PropTypes.bool,
-  onChange: PropTypes.func.isRequired,
-  total: PropTypes.number,
-  value: PropTypes.number.isRequired,
-  step: PropTypes.number,
-  disabled: PropTypes.func,
-  min: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  max: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  range: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
-  current: PropTypes.object,
-  mode: PropTypes.string,
-  disabledTime: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-  timeZone: PropTypes.string,
 }
 
 TimeScroll.defaultProps = {

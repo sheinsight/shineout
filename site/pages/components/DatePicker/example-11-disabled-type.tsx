@@ -5,14 +5,10 @@
  *    -- The disabledTime attribute supports separate disable time.
  */
 import React from 'react'
-import { DatePicker, TYPE } from 'shineout'
+import { DatePicker } from 'shineout'
 import dayjs from 'dayjs'
 
-type DatePickerValue = TYPE.DatePicker.Value
-type DatePickerProps = TYPE.DatePicker.Props<DatePickerValue>
-type DatePickerDefaultValue = DatePickerProps['defaultValue']
-
-const Now: DatePickerDefaultValue = Date.now()
+const Now = Date.now()
 
 const App: React.FC = () => (
   <div>

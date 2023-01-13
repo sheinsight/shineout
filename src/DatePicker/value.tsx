@@ -1,23 +1,18 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 import shallowEqual from '../utils/shallowEqual'
 import utils from './utils'
 import { getLocale } from '../locale'
+import { DatePickerValueProps, DatePickerValue as DatePickerValueType, QuickSelect } from './Props'
 
-export default Origin =>
-  class extends Component {
-    static propTypes = {
-      format: PropTypes.string,
-      onBlur: PropTypes.func,
-      onChange: PropTypes.func,
-      range: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
-      type: PropTypes.string,
-      value: PropTypes.any,
-      allowSingle: PropTypes.bool,
-      timeZone: PropTypes.string,
-    }
+interface DatePickerState {
+  value: DatePickerValueType
+  quickSelect?: QuickSelect | null
+}
 
-    constructor(props) {
+export default <Props extends DatePickerValueProps>(Origin: React.ComponentType<Props>) =>
+  class DatePickerValue extends Component<Props, DatePickerState> {
+    constructor(props: Props) {
       super(props)
 
       this.state = { value: props.value }
@@ -30,12 +25,12 @@ export default Origin =>
       this.convertValue(this.props.value)
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
+    shouldComponentUpdate(nextProps: Props, nextState: DatePickerState) {
       const options = { deep: ['defaultValue', 'name', 'value'] }
       return !(shallowEqual(nextProps, this.props, options) && shallowEqual(nextState, this.state, options))
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps: Props) {
       const { value } = this.props
       if (!shallowEqual(prevProps.value, value) && !shallowEqual(value, this.state.value)) {
         this.convertValue(value)
@@ -66,11 +61,16 @@ export default Origin =>
 
     rangeWithSingle() {
       if (!this.state.value) return false
-      return this.props.range && !this.props.allowSingle && this.state.value.filter(v => v).length === 1
+      return (
+        this.props.range &&
+        !this.props.allowSingle &&
+        Array.isArray(this.state.value) &&
+        this.state.value.filter(v => v).length === 1
+      )
     }
 
-    convertValue(value) {
-      const { range } = this.props
+    convertValue(value: DatePickerValueType) {
+      const { range, onChange } = this.props
       if (!value) {
         this.setState({ value })
         return undefined
@@ -79,25 +79,28 @@ export default Origin =>
 
       if (!range) {
         const newValue = utils.format(
-          utils.toDateWithFormat(value, format, undefined, this.getOptions()),
-          format,
+          utils.toDateWithFormat(value as Date, format, undefined, this.getOptions()),
+          format as string,
           this.getOptions()
         )
-        if (newValue !== value) this.props.onChange(newValue)
+        if (newValue !== value && onChange) onChange(newValue)
         else if (newValue !== this.state.value) this.setState({ value: newValue })
         return newValue
       }
 
       // expand
       const { quickSelect } = this.state
-
-      const newValue = value.map(v => {
+      const newValue: Date[] = (value as Date[]).map(v => {
         if (!v) return undefined
-        return utils.format(utils.toDateWithFormat(v, format, undefined, this.getOptions()), format, this.getOptions())
+        return utils.format(
+          utils.toDateWithFormat(v, format, undefined, this.getOptions()),
+          format as string,
+          this.getOptions()
+        )
       })
 
       if (!shallowEqual(newValue, value)) {
-        this.props.onChange(newValue, quickSelect)
+        if (onChange) onChange(newValue, quickSelect)
       } else if (!shallowEqual(newValue, this.state.value)) {
         // reset quickSelect if newValue !== this.state.value
         this.setState({ value: newValue, quickSelect: null })
@@ -107,15 +110,16 @@ export default Origin =>
       if (shallowEqual(newValue, [undefined, undefined])) {
         this.setState({ value: newValue, quickSelect: null })
       } else {
+        // @ts-ignore
         this.state.value = newValue
       }
 
       return newValue
     }
 
-    handleChange(value, callback, quickSelect) {
+    handleChange(value: DatePickerValueType, callback?: () => void, quickSelect?: QuickSelect) {
       const { range } = this.props
-      const newState = { value }
+      const newState: { value: DatePickerValueType; quickSelect?: QuickSelect } = { value }
       if (range) {
         newState.quickSelect = quickSelect
       }
@@ -123,22 +127,15 @@ export default Origin =>
     }
 
     handleBlur() {
+      const { onChange } = this.props
       if (this.rangeWithSingle()) {
         this.setState({ value: this.props.value })
-      } else if (this.state.value !== this.props.value) this.props.onChange(this.state.value, this.state.quickSelect)
+      } else if (this.state.value !== this.props.value && onChange) onChange(this.state.value, this.state.quickSelect)
     }
 
     render() {
       const { value } = this.state
 
-      return (
-        <Origin
-          {...this.props}
-          onChange={this.handleChange}
-          onValueBlur={this.handleBlur}
-          onBlur={this.props.onBlur}
-          value={value}
-        />
-      )
+      return <Origin {...this.props} onChange={this.handleChange} onValueBlur={this.handleBlur} value={value} />
     }
   }

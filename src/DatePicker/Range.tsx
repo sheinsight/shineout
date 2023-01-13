@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import immer from 'immer'
 import { PureComponent } from '../component'
 import shallowEqual from '../utils/shallowEqual'
@@ -9,9 +8,34 @@ import paramUtils from './paramUtils'
 import Picker from './Picker'
 import { datepickerClass } from './styles'
 import Quick from './Quick'
+import { AreaType } from './Props'
+import { RangeProps, DisabledType, DatePickerValue } from './Props'
 
-class Range extends PureComponent {
-  constructor(props) {
+interface RangeState {
+  rangeDate: Date[]
+}
+
+const DefaultValue = {
+  value: [],
+}
+class Range extends PureComponent<RangeProps, RangeState> {
+  static defaultProps = DefaultValue
+
+  pickers: Picker[]
+
+  handleFirstChange: () => void
+
+  handleSecondChange: () => void
+
+  bindFirstPicker: (picker: Picker) => void
+
+  bindSecondPicker: (picker: Picker) => void
+
+  handleDisabledStart: ((date: Date, type?: DisabledType, value?: DatePickerValue) => boolean)
+
+  handleDisabledEnd: ((date: Date, type?: DisabledType, value?: DatePickerValue) => boolean)
+
+  constructor(props: RangeProps) {
     super(props)
 
     this.state = {
@@ -29,11 +53,10 @@ class Range extends PureComponent {
     this.handleDisabledStart = this.handleDisabled.bind(this, 'start')
     this.handleDisabledEnd = this.handleDisabled.bind(this, 'end')
     this.changeDateSmart = this.changeDateSmart.bind(this)
-    this.fillTime = this.fillTime.bind(this)
     this.handleQuick = this.handleQuick.bind(this)
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: RangeProps) {
     const { rangeDate } = this.state
     if (
       rangeDate.length !== 1 &&
@@ -50,22 +73,22 @@ class Range extends PureComponent {
     return { timeZone, weekStartsOn: getLocale('startOfWeek') }
   }
 
-  bindPicker(index, el) {
+  bindPicker(index: number, el: Picker) {
     this.pickers[index] = el
   }
 
-  resetRange(rangeDate) {
+  resetRange(rangeDate: DatePickerValue) {
     this.setState({ rangeDate })
   }
 
-  handleDayHover(date) {
+  handleDayHover(date: Date) {
     if (this.state.rangeDate.length === 1) {
       utils.cloneTime(date, this.props.value[1], this.props.format, this.getOptions())
       // this.setState({ hover: date })
     }
   }
 
-  changeDateSmart(rangeDate) {
+  changeDateSmart(rangeDate: Date[]) {
     if (!rangeDate[0] || !rangeDate[1]) return
     const [s, e] = rangeDate
     const { range } = this.props
@@ -81,11 +104,18 @@ class Range extends PureComponent {
   }
 
   // Be consistent with the parent onChange, expand first params: index
-  handleChange(index, date, change, end, mode, isQuickSelect, areaType) {
+  handleChange(
+    index: number,
+    date: Date,
+    change: boolean,
+    _end: number,
+    mode: string,
+    _isQuickSelect: boolean,
+    areaType: AreaType
+  ) {
     const { type, range, min, max } = this.props
 
     const handleOnChangeParams = paramUtils.handleOnChangeParams(areaType)
-
     if (!change) {
       const current = immer(this.props.current, draft => {
         draft[index] = date
@@ -95,7 +125,7 @@ class Range extends PureComponent {
     }
 
     if (mode === 'time') {
-      let endChangedDate
+      let endChangedDate: Date
       this.setState(
         immer(draft => {
           draft.rangeDate[index] = date
@@ -150,18 +180,11 @@ class Range extends PureComponent {
     if (max && utils.compareAsc(date, max) >= 0) {
       utils.setTime(date, max)
     }
-    // if (this.state.rangeDate.filter(a => a).length !== 1) {
-    //   this.setState({ rangeDate: index === 1 ? [undefined, date] : [date], hover: undefined })
-    //   return
-    // }
 
     this.setState(
       immer(draft => {
-        // const method = utils.compareAsc(draft.rangeDate[0], date) > 0 ? 'unshift' : 'push'
         draft.rangeDate[index] = date
         draft.rangeDate[1 - index] = draft.rangeDate[1 - index] || ''
-        // draft.rangeDate.map(this.fillTime)
-        // range change start&end
         this.changeDateSmart(draft.rangeDate)
         draft.hover = undefined
       }),
@@ -172,12 +195,7 @@ class Range extends PureComponent {
     )
   }
 
-  fillTime(date, index) {
-    const { defaultTime, format, value } = this.props
-    return utils.formatDateWithDefaultTime(date, value[index], defaultTime[index], format, this.getOptions())
-  }
-
-  handleDisabled(type, date) {
+  handleDisabled(type: DisabledType, date: Date) {
     const { disabled } = this.props
     const { rangeDate } = this.state
     if (disabled) {
@@ -186,7 +204,7 @@ class Range extends PureComponent {
     return false
   }
 
-  handleQuick(quick) {
+  handleQuick(quick: { invalid: boolean; value: Date[]; name?: string }) {
     this.setState({ rangeDate: quick.value })
     this.props.onChange(...paramUtils.quickHandleChangeParams(quick.value, true, null, null, quick))
   }
@@ -236,26 +254,6 @@ class Range extends PureComponent {
       </div>
     )
   }
-}
-
-Range.propTypes = {
-  current: PropTypes.array,
-  disabled: PropTypes.func,
-  children: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  format: PropTypes.string,
-  onChange: PropTypes.func.isRequired,
-  range: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
-  value: PropTypes.array,
-  type: PropTypes.string.isRequired,
-  defaultTime: PropTypes.array,
-  quicks: PropTypes.array,
-  min: PropTypes.object,
-  max: PropTypes.object,
-  timeZone: PropTypes.string,
-}
-
-Range.defaultProps = {
-  value: [],
 }
 
 export default Range

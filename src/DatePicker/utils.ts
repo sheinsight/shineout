@@ -10,6 +10,13 @@ import weekOfYear from 'dayjs/plugin/weekOfYear'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import enLocale from 'dayjs/locale/en'
+import { DateTimeType } from './Props'
+import { DateMode } from './Props'
+
+interface DateOptions {
+  timeZone?: string
+  weekStartsOn?: number
+}
 
 const en2Locate = {
   ...enLocale,
@@ -17,7 +24,7 @@ const en2Locate = {
   weekStart: 1,
 }
 
-dayjs.locale(en2Locate, null, true)
+dayjs.locale(en2Locate, undefined, true)
 dayjs.extend(advancedFormat)
 dayjs.extend(isoWeek)
 dayjs.extend(relativeTime)
@@ -29,7 +36,7 @@ dayjs.extend(quarterOfYear)
 
 const TIME_FORMAT = 'HH:mm:ss'
 
-const compatibleFmt = fmt => {
+const compatibleFmt = (fmt?: string) => {
   if (typeof fmt !== 'string') return fmt
   const trans = {
     yy: 'YY',
@@ -41,18 +48,20 @@ const compatibleFmt = fmt => {
     II: 'WW',
   }
   let result = fmt
-  Object.keys(trans).forEach(key => {
+  Object.keys(trans).forEach((key: keyof typeof trans) => {
     result = result.replace(new RegExp(key, 'g'), trans[key])
   })
   return result
 }
 
-function getDayJsLocate(options) {
+function getDayJsLocate(options?: DateOptions) {
   if (options && options.weekStartsOn === 1) return 'en2'
   return 'en'
 }
 
-function transDateWithZone(dd, options = {}, back = false) {
+// function transDateWithZone(dd: Date, options: DateOptions, back?: boolean): Date
+// function transDateWithZone(dd: DateTimeType, options: DateOptions, back?: boolean): DateTimeType
+function transDateWithZone(dd: Date, options: DateOptions = {}, back = false) {
   if (options.timeZone) {
     const timezoneHH = /^([+-]\d{2})$/
     // 只放开两位时区
@@ -67,7 +76,7 @@ function transDateWithZone(dd, options = {}, back = false) {
   return dd
 }
 
-function addDays(date, offset, options) {
+function addDays(date: Date, offset: number, options: DateOptions) {
   const zd = transDateWithZone(date, options)
   const d = dayjs(zd)
     .add(offset, 'day')
@@ -76,7 +85,7 @@ function addDays(date, offset, options) {
   return ud
 }
 
-function addMonths(date, offset, options) {
+function addMonths(date: Date, offset: number, options: DateOptions) {
   const zd = transDateWithZone(date, options)
   const d = dayjs(zd)
     .add(offset, 'month')
@@ -85,7 +94,7 @@ function addMonths(date, offset, options) {
   return ud
 }
 
-function addSeconds(date, offset, options) {
+function addSeconds(date: Date, offset: number, options: DateOptions) {
   const zd = transDateWithZone(date, options)
   const d = dayjs(zd)
     .add(offset, 'seconds')
@@ -94,7 +103,7 @@ function addSeconds(date, offset, options) {
   return ud
 }
 
-function addYears(date, offset, options) {
+function addYears(date: Date, offset: number, options: DateOptions) {
   const zd = transDateWithZone(date, options)
   const d = dayjs(zd)
     .add(offset, 'year')
@@ -103,22 +112,20 @@ function addYears(date, offset, options) {
   return ud
 }
 
-function changeDate(date, type, num, options) {
+function changeDate(date: Date, type: DateMode, num: number, options: DateOptions) {
   const zd = transDateWithZone(date, options)
   // type is year month ...
-  const d = dayjs(zd)
-    [type](num)
-    .toDate()
+  const d = (dayjs(zd) as any)[type](num).toDate()
   const ud = transDateWithZone(d, options, true)
   return ud
 }
 
-function getDateInfo(date, type, options) {
+function getDateInfo(date: Date, type: DateMode, options: DateOptions): number {
   const zd = transDateWithZone(date, options)
-  return dayjs(zd)[type]()
+  return (dayjs(zd) as any)[type]()
 }
 
-function compareAsc(dateA, dateB) {
+function compareAsc(dateA: DateTimeType, dateB: DateTimeType) {
   if (!dateA || !dateB) return NaN
   const a = dayjs(dateA).valueOf()
   const b = dayjs(dateB).valueOf()
@@ -127,51 +134,51 @@ function compareAsc(dateA, dateB) {
   return a > b ? 1 : -1
 }
 
-function format(date, fmt, options = {}) {
+function format(date: Date, fmt?: string, options: DateOptions = {}) {
   if (!date) return 'Invalid Date'
   const fmt2 = compatibleFmt(fmt)
   let zd = date
   if (fmt2 !== 'X' && fmt2 !== 'x') {
-    zd = transDateWithZone(date, options)
+    zd = transDateWithZone(date, options)!
   }
   const dd = dayjs(zd).locale(getDayJsLocate(options))
   const result = dd.format(fmt2)
   return result
 }
 
-function isSameMonth(date1, date2, options = {}) {
+function isSameMonth(date1: Date, date2: Date, options: DateOptions = {}) {
   return date1 && date2 && format(date1, 'YYYY-MM', options) === format(date2, 'YYYY-MM', options)
 }
 
-function isSameDay(date1, date2, options) {
+function isSameDay(date1: Date, date2: Date, options: DateOptions) {
   return date1 && date2 && format(date1, 'YYYY-MM-dd', options) === format(date2, 'YYYY-MM-dd', options)
 }
 
-function isSameWeek(date1, date2, options) {
+function isSameWeek(date1: Date, date2: Date, options: DateOptions) {
   if (!date1 || !date2) return false
   return date1 && date2 && format(date1, 'gggg-ww', options) === format(date2, 'gggg-ww', options)
 }
-function isSameQuarter(date1, date2, options) {
+function isSameQuarter(date1: Date, date2: Date, options: DateOptions) {
   if (!date1 || !date2) return false
   return date1 && date2 && format(date1, 'YYYY Q', options) === format(date2, 'YYYY Q', options)
 }
 
-function isValid(date) {
+function isValid(date: DateTimeType) {
   if (!date) return false
   if (!(date instanceof Date)) return false
   return dayjs(date).isValid()
 }
 
-function parse(d, fmt, options) {
+function parse(d: string, fmt?: string, options?: DateOptions) {
   if (!d) return new Date('')
   // should clear[xxx]
   const reg = /[[]([^[^\]]+?)[\]]/g
-  const date = d && d.replace ? d.replace(reg, ' ') : d
-  const fmt2 = compatibleFmt(fmt).replace(reg, ' ')
+  const date = d && typeof d === 'string' && d.replace ? d.replace(reg, ' ') : d
+  const fmt2 = compatibleFmt(fmt)!.replace(reg, ' ')
 
   // handle IOS Year Week
   const index = fmt2.indexOf('GGGG')
-  if (index >= 0) {
+  if (index >= 0 && typeof date === 'string') {
     const year = date.slice(index, index + 5)
     const weekIndex = fmt2.indexOf('WW')
     const week = weekIndex >= 0 ? date.slice(weekIndex, weekIndex + 3) : 1
@@ -183,11 +190,11 @@ function parse(d, fmt, options) {
   }
   // handle Quarter
   const quarterIndex = fmt2.indexOf('Q')
-  if (quarterIndex >= 0) {
+  if (quarterIndex >= 0 && typeof date === 'string') {
     const quarter = date.slice(quarterIndex, quarterIndex + 2)
     const result = dayjs(date, fmt2)
       .locale(getDayJsLocate(options))
-      .quarter(quarter)
+      .quarter(Number(quarter))
       .toDate()
     return transDateWithZone(result, options, true)
   }
@@ -202,7 +209,7 @@ function parse(d, fmt, options) {
   return transDateWithZone(result, options, true)
 }
 
-function toDate(day, options) {
+function toDate(day: DateTimeType, options?: DateOptions): Date {
   if (!day) return new Date('')
   if (day instanceof Date) return dayjs(day).toDate()
   if (typeof day === 'number') return new Date(day)
@@ -210,7 +217,7 @@ function toDate(day, options) {
   return dayjs(day).toDate()
 }
 
-function getDaysOfMonth(dirtyDate, options) {
+function getDaysOfMonth(dirtyDate: DateTimeType, options: DateOptions) {
   const date = toDate(dirtyDate, options)
   const temp = dayjs(transDateWithZone(date, options))
   let current = dayjs(transDateWithZone(date, options))
@@ -234,13 +241,15 @@ function getDaysOfMonth(dirtyDate, options) {
   return days
 }
 
-function isInvalid(date) {
+function isInvalid(date: unknown) {
   // eslint-disable-next-line
-  return isNaN(date)
+  return isNaN(date as number)
 }
 
-function toDateWithFormat(dirtyDate, fmt, def, options) {
-  let date
+// function toDateWithFormat(dirtyDate: Date, fmt: string, def: DateTimeType, options: DateOptions): Date
+// function toDateWithFormat(dirtyDate: DateTimeType, fmt: string, def: DateTimeType, options: DateOptions): DateTimeType
+function toDateWithFormat(dirtyDate: DateTimeType, fmt?: string, def?: Date, options?: DateOptions) {
+  let date: Date
   if (typeof dirtyDate === 'string') {
     date = parse(dirtyDate, fmt, options)
     const str = format(date, fmt, options)
@@ -248,11 +257,11 @@ function toDateWithFormat(dirtyDate, fmt, def, options) {
       date = toDate(dirtyDate, options)
     }
   } else date = toDate(dirtyDate, options)
-  if (isInvalid(date)) date = def
+  if (isInvalid(date)) date = def!
   return date
 }
 
-function compareDay(dateLeft, dateRight, pad = 0, options) {
+function compareDay(dateLeft: Date, dateRight: Date, pad = 0, options: DateOptions) {
   if (!dateLeft || !dateRight) return NaN
   const left = dayjs(transDateWithZone(dateLeft, options))
     .startOf('date')
@@ -264,7 +273,7 @@ function compareDay(dateLeft, dateRight, pad = 0, options) {
   return compareAsc(left, right)
 }
 
-function compareMonth(dateLeft, dateRight, pad = 0, options) {
+function compareMonth(dateLeft: Date, dateRight: Date, pad = 0, options: DateOptions) {
   if (!dateLeft || !dateRight) return 0
   const left = dayjs(transDateWithZone(dateLeft, options))
     .startOf('month')
@@ -276,7 +285,7 @@ function compareMonth(dateLeft, dateRight, pad = 0, options) {
   return compareAsc(left, right)
 }
 
-function compareYear(dateLeft, dateRight, pad = 0, options) {
+function compareYear(dateLeft: Date, dateRight: Date, pad = 0, options: DateOptions) {
   if (!dateLeft || !dateRight) return 0
   const left = dayjs(transDateWithZone(dateLeft, options))
     .startOf('year')
@@ -288,7 +297,7 @@ function compareYear(dateLeft, dateRight, pad = 0, options) {
   return compareAsc(left, right)
 }
 
-function compareQuarter(dateLeft, dateRight, pad = 0, options) {
+function compareQuarter(dateLeft: Date, dateRight: Date, pad = 0, options: DateOptions) {
   if (!dateLeft || !dateRight) return 0
   const left = dayjs(transDateWithZone(dateLeft, options))
     .startOf('quarter')
@@ -300,7 +309,7 @@ function compareQuarter(dateLeft, dateRight, pad = 0, options) {
   return compareAsc(left, right)
 }
 
-function newDate(defaultDate, options) {
+function newDate(defaultDate?: Date | DateTimeType, options?: DateOptions) {
   const date = defaultDate ? toDate(defaultDate, options) : new Date()
   const zd = transDateWithZone(date, options)
   const dd = dayjs(zd)
@@ -310,23 +319,28 @@ function newDate(defaultDate, options) {
   return ud
 }
 
-function setTime(date, old) {
+function setTime(date: Date, old: Date) {
   date.setHours(old.getHours())
   date.setMinutes(old.getMinutes())
   date.setSeconds(old.getSeconds())
   date.setMilliseconds(old.getMilliseconds())
-
   return date
 }
 
-function cloneTime(date, old, fmt, options) {
+function cloneTime(date: Date, old: Date, fmt?: string, options?: DateOptions) {
   if (!date) return date
   const oldDate = toDateWithFormat(old, fmt, undefined, options)
   if (isInvalid(oldDate)) return date
   return setTime(date, oldDate)
 }
 
-function formatDateWithDefaultTime(date, value, defaultTime, fmt, options) {
+function formatDateWithDefaultTime(
+  date: Date,
+  value: Date | undefined,
+  defaultTime: Date | undefined,
+  fmt: string,
+  options: DateOptions
+) {
   if (!date) return date
   if (value) return setTime(date, value)
   if (!defaultTime) return date
@@ -338,7 +352,7 @@ function formatDateWithDefaultTime(date, value, defaultTime, fmt, options) {
   return format(nDate, fmt, options)
 }
 
-function clearHMS(date, options) {
+function clearHMS(date: Date, options: DateOptions) {
   if (!isValid(date)) return date
   const zd = transDateWithZone(date, options)
   const dd = dayjs(zd)
@@ -348,7 +362,7 @@ function clearHMS(date, options) {
   return ud
 }
 
-function compareDateArray(arr1, arr2, type = 'date', options) {
+function compareDateArray(arr1: Date[], arr2: Date[], type = 'date', options: DateOptions) {
   if (!arr1 || !arr2 || arr1.length !== arr2.length) return false
   return arr1.every((v, i) => {
     if (!v || !arr2[i]) return false
@@ -357,7 +371,7 @@ function compareDateArray(arr1, arr2, type = 'date', options) {
   })
 }
 
-function getFormat(fo) {
+function getFormat(fo: string) {
   let defaultFormat = 'yyyy-MM-dd HH:mm:ss.SSS'
   ;['H', 'm', 's', 'S', 'h'].map(v => {
     if (fo.indexOf(v) <= -1) {
@@ -369,13 +383,13 @@ function getFormat(fo) {
   return defaultFormat
 }
 
-function resetTimeByFormat(value, fo, options) {
+function resetTimeByFormat(value: Date | undefined, fo: string, options: DateOptions) {
   if (!value) return null
   const date = toDate(value, options)
   return toDate(format(date, getFormat(fo), options), options)
 }
 
-function formatted(date, fmt, options) {
+function formatted(date: Date, fmt: string | Function, options: DateOptions) {
   if (typeof fmt === 'function') return fmt(date)
   return format(date, fmt, options)
 }

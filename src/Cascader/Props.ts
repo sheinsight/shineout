@@ -4,7 +4,7 @@ import { GetInputableProps } from '../Form/Props'
 import DatumTree, { TreeDatumOptions } from '../Datum/Tree'
 import { GetInputBorderProps } from '../hoc/Props'
 import { AbsoluteProps, GetAbsoluteProps } from '../AnimationList/Props'
-import { getTableConsumerProps } from '../Table/Props'
+import { GetTableConsumerProps } from '../Table/Props'
 import { InputTitleProps } from '../InputTitle/Props'
 
 interface componentRef {
@@ -334,7 +334,7 @@ export interface ResultItemProps<DataItem> {
 }
 
 /** ------ CascaderProps ------ * */
-type CascaderPropsWithTableConsumber<Item, Value extends BaseValue> = getTableConsumerProps<
+type CascaderPropsWithTableConsumber<Item, Value extends BaseValue> = GetTableConsumerProps<
   OriginCascaderProps<Item, Value>
 >
 type CascaderPropsWithFilter<Item, Value extends BaseValue> = GetFilterProps<

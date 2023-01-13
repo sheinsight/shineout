@@ -1,22 +1,32 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { PureComponent } from '../component'
-import { datepickerClass } from './styles'
-import utils from './utils'
-import Year from './Year'
-import { getLocale } from '../locale'
-import Month from './Month'
 import Day from './Day'
 import Time from './Time'
+import Year from './Year'
+import Month from './Month'
+import utils from './utils'
 import Quick from './Quick'
 import Quarter from './Quarter'
 import paramUtils from './paramUtils'
+import { getLocale } from '../locale'
+import { datepickerClass } from './styles'
+import { PureComponent } from '../component'
+import { PickerProps, Mode } from './Props'
 
-class Picker extends PureComponent {
-  constructor(props) {
+interface PickerState {
+  mode: Mode
+}
+
+class Picker extends PureComponent<PickerProps, PickerState> {
+  defaultCurrent: Date | Date[]
+
+  handleEnter: React.MouseEventHandler<HTMLDivElement>
+
+  handleLeave: React.MouseEventHandler<HTMLDivElement>
+
+  constructor(props: PickerProps) {
     super(props)
 
-    let mode
+    let mode: Mode
     switch (props.type) {
       case 'year':
         mode = 'year'
@@ -59,21 +69,20 @@ class Picker extends PureComponent {
     return { timeZone, weekStartsOn: getLocale('startOfWeek') }
   }
 
-  handleQuick(quick) {
+  handleQuick(quick: { invalid: boolean; value: Date[]; name?: string }) {
     const { onChange } = this.props
     onChange(...paramUtils.quickHandleChangeParams(quick.value[0], true, null, null, quick))
   }
 
-  handleMouse(isEnter, e) {
+  handleMouse(isEnter: boolean, e: Event) {
     // stop
     e.stopPropagation()
 
     const { index, handleHover } = this.props
-
-    handleHover(index, isEnter)
+    if (handleHover && index !== undefined) handleHover(index, isEnter)
   }
 
-  handleModeChange(mode) {
+  handleModeChange(mode: Mode) {
     setTimeout(() => {
       this.setState({ mode })
     }, 10)
@@ -81,7 +90,7 @@ class Picker extends PureComponent {
 
   render() {
     const { mode } = this.state
-    const { current, index, children, ...otherProps } = this.props
+    const { current, index, ...otherProps } = this.props
 
     let Render
     switch (mode) {
@@ -100,43 +109,29 @@ class Picker extends PureComponent {
       default:
         Render = Day
     }
-
     // only range has index prop
     if (index === undefined)
       return (
         <div className={datepickerClass('split')}>
           <Quick {...otherProps} current={current || this.defaultCurrent} onChange={this.handleQuick} />
-          <Render {...otherProps} current={current || this.defaultCurrent} onModeChange={this.handleModeChange} />
+          <Render
+            {...otherProps}
+            current={(current || this.defaultCurrent) as Date}
+            onModeChange={this.handleModeChange}
+          />
         </div>
       )
-
     return (
       <div onMouseEnter={this.handleEnter} onMouseLeave={this.handleLeave}>
         <Render
           {...otherProps}
           index={index}
-          current={current || this.defaultCurrent}
+          current={(current || this.defaultCurrent) as Date}
           onModeChange={this.handleModeChange}
         />
       </div>
     )
   }
-}
-
-Picker.propTypes = {
-  current: PropTypes.object,
-  disabled: PropTypes.func,
-  format: PropTypes.string,
-  max: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  min: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  onChange: PropTypes.func.isRequired,
-  value: PropTypes.object,
-  type: PropTypes.string.isRequired,
-  index: PropTypes.number,
-  children: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  handleHover: PropTypes.func,
-  defaultTime: PropTypes.array,
-  timeZone: PropTypes.string,
 }
 
 export default Picker

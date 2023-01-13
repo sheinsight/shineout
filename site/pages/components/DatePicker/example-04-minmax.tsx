@@ -5,11 +5,9 @@
  *    -- The basic usage
  */
 import React from 'react'
-import { DatePicker, TYPE } from 'shineout'
+import { DatePicker } from 'shineout'
 
-type DatePickerDateTimeType = TYPE.DatePicker.DateTimeType
-
-const Now: DatePickerDateTimeType = Date.now()
+const Now = Date.now()
 
 const App: React.FC = () => (
   <div>

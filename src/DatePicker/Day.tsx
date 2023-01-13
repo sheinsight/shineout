@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { datepickerClass } from './styles'
 import utils from './utils'
 import paramUtils from './paramUtils'
@@ -7,12 +6,38 @@ import Icon from './Icon'
 import { getLocale } from '../locale'
 import { PureComponent } from '../component'
 import Time from './Time'
+import { isArray } from '../utils/is'
+import { UnionPannelProps } from './Props'
 
 const minStr = 'yyyy-MM-dd 00:00:00'
 const maxStr = 'yyyy-MM-dd 23:59:59'
 
-class Day extends PureComponent {
-  constructor(props) {
+interface DayState {
+  hover: Date | null
+}
+
+class Day extends PureComponent<UnionPannelProps, DayState> {
+  handleNextMonth: () => void
+
+  handlePrevMonth: () => void
+
+  handleNextYear: () => void
+
+  handlePrevYear: () => void
+
+  handleMonthMode: () => void
+
+  handleYearMode: () => void
+
+  handleWeekLeave: () => void
+
+  cachedDays: Date[]
+
+  cachedDate: Date
+
+  today: Date
+
+  constructor(props: UnionPannelProps) {
     super(props)
 
     this.state = {
@@ -29,7 +54,6 @@ class Day extends PureComponent {
     this.handleTimeChange = this.handleTimeChange.bind(this)
     this.handleDisabled = this.handleDisabled.bind(this)
     this.formatWithDefaultTime = this.formatWithDefaultTime.bind(this)
-
     props.disabledRegister(this.handleDisabled, 'day', props.index)
   }
 
@@ -51,7 +75,7 @@ class Day extends PureComponent {
     return this.cachedDays
   }
 
-  formatWithDefaultTime(i) {
+  formatWithDefaultTime(i: number) {
     let idx = 0
     const { current, defaultTime, index } = this.props
     if (typeof index === 'number') idx = index
@@ -60,7 +84,7 @@ class Day extends PureComponent {
     return utils.cloneTime(current, defaultTime[idx], utils.TIME_FORMAT, this.getOptions())
   }
 
-  handleDayDoubleClick(date) {
+  handleDayDoubleClick(date: Date) {
     const { type, defaultTime, index } = this.props
     // range & datetime & deafultTime
     if (type !== 'datetime' || !defaultTime.length || index === undefined) return
@@ -68,20 +92,22 @@ class Day extends PureComponent {
     this.handleDayClick(date, 1)
   }
 
-  handleDayClick(date, sync) {
-    const { type, allowSingle, rangeDate, min, max, index, value } = this.props
+  handleDayClick(date: Date, sync: number) {
+    const { type, allowSingle, rangeDate, min, max, index, value, onChangeSync } = this.props
     const current = (index === sync && value) || this.formatWithDefaultTime(sync)
-    const onChange = typeof sync === 'number' ? this.props.onChangeSync.bind(this.props, sync) : this.props.onChange
+    const onChange =
+      typeof sync === 'number' && onChangeSync ? onChangeSync.bind(this.props, sync) : this.props.onChange
     if (type === 'week') {
       onChange(...paramUtils.weekHandleChangeParams(date, true, true))
     } else {
-      let newDate = utils.setTime(utils.toDate(date), current)
+      let newDate: Date | string = utils.setTime(utils.toDate(date), current)
       // only can select day with the same day of min/max
       if (min && utils.compareAsc(newDate, min) < 0) utils.setTime(newDate, min)
       if (max && utils.compareAsc(newDate, max) > 0) utils.setTime(newDate, max)
-
       if (
         allowSingle &&
+        isArray(rangeDate) &&
+        index !== undefined &&
         rangeDate[index] &&
         utils.clearHMS(newDate, this.getOptions()).getTime() ===
           utils.clearHMS(rangeDate[index], this.getOptions()).getTime()
@@ -91,15 +117,15 @@ class Day extends PureComponent {
     }
   }
 
-  handleTimeChange(time, change, end, mode) {
-    this.props.onChange(...paramUtils.timeHandleChangeParams(time, true, false, mode))
+  handleTimeChange(time: Date) {
+    if (this.props.onChange) this.props.onChange(...paramUtils.timeHandleChangeParams(time, true, false))
   }
 
-  handleWeek(hover) {
+  handleWeek(hover: boolean) {
     this.setState({ hover })
   }
 
-  handleMonth(month) {
+  handleMonth(month: number) {
     const { current, onChange } = this.props
     // warning: month === 12 || month === -12, this is statement is year mode.
     if (month === -12 || month === 12) {
@@ -109,30 +135,31 @@ class Day extends PureComponent {
     onChange(...paramUtils.monthHandleChangeParams(utils.addMonths(current, month, this.getOptions())))
   }
 
-  handleModeChange(mode) {
+  handleModeChange(mode: 'month' | 'year') {
     this.props.onModeChange(mode)
   }
 
-  handleDayHover(date) {
-    this.props.onDayHover(date)
+  handleDayHover(date: Date) {
+    const { onDayHover } = this.props
+
+    if (onDayHover) onDayHover(date)
   }
 
-  handleDisabled(date, minDate, maxDate) {
+  handleDisabled(date: Date, minDate?: Date, maxDate?: Date) {
     const { index, disabled, range, rangeTemp, min, max } = this.props
     const minD = minDate || (min && utils.toDate(utils.format(min, minStr, this.getOptions()), this.getOptions()))
     const maxD = maxDate || (max && utils.toDate(utils.format(max, maxStr, this.getOptions()), this.getOptions()))
-
-    let isDisabled = disabled ? disabled(date) : false
+    let isDisabled = disabled && typeof disabled === 'function' ? disabled(date) : false
     // only for single, single picker don't has index
     if (index === undefined && !isDisabled) {
       if ((minD && utils.compareAsc(date, minD) < 0) || (maxD && utils.compareAsc(date, maxD) > 0)) isDisabled = true
     }
-    if (!isDisabled && index === 1) {
+    if (!isDisabled && index === 1 && rangeTemp) {
       if (
         (typeof range === 'number' &&
           utils.compareAsc(date, utils.addSeconds(rangeTemp, range, this.getOptions())) > 0) ||
         utils.compareAsc(date, utils.clearHMS(rangeTemp, this.getOptions())) < 0 ||
-        utils.compareAsc(date, utils.clearHMS(min, this.getOptions())) < 0 ||
+        (min && utils.compareAsc(date, utils.clearHMS(min, this.getOptions())) < 0) ||
         utils.compareAsc(date, max) > 0
       ) {
         isDisabled = true
@@ -141,14 +168,17 @@ class Day extends PureComponent {
     }
 
     if (!isDisabled && index === 0) {
-      if (utils.compareAsc(date, utils.clearHMS(min, this.getOptions())) < 0 || utils.compareAsc(date, max) > 0) {
+      if (
+        (min && utils.compareAsc(date, utils.clearHMS(min, this.getOptions())) < 0) ||
+        utils.compareAsc(date, max) > 0
+      ) {
         isDisabled = true
       }
     }
     return isDisabled
   }
 
-  renderDay(date, minD, maxD) {
+  renderDay(date: Date, minD?: Date, maxD?: Date) {
     const { current, value, index, type, rangeDate } = this.props
     const { hover } = this.state
     const isDisabled = this.handleDisabled(date, minD, maxD)
@@ -160,7 +190,10 @@ class Day extends PureComponent {
     ]
 
     let hoverClass
-    const hoverProps = {}
+    const hoverProps: {
+      onMouseEnter?: () => void
+      onMouseLeave?: () => void
+    } = {}
     const weekStart = getLocale('startOfWeek')
     const weekEnd = weekStart ? 0 : 6
     const day = utils.getDateInfo(date, 'day', this.getOptions())
@@ -172,7 +205,7 @@ class Day extends PureComponent {
       } else if (hover && utils.isSameWeek(date, hover, this.getOptions())) {
         hoverClass = datepickerClass('hover', day === weekStart && 'hover-start', day === weekEnd && 'hover-end')
       }
-    } else if (rangeDate && utils.compareMonth(current, date, 0, this.getOptions()) === 0) {
+    } else if (rangeDate && utils.compareMonth(current, date, 0, this.getOptions()) === 0 && index !== undefined) {
       hoverProps.onMouseEnter = this.handleDayHover.bind(this, date)
 
       classList.push(utils.isSameDay(date, rangeDate[index], this.getOptions()) && 'active')
@@ -215,9 +248,10 @@ class Day extends PureComponent {
       if (match) format = match[0]
     }
 
-    const value = rangeDate
-      ? utils.toDateWithFormat(rangeDate[index], format, undefined, this.getOptions())
-      : this.props.value
+    const value =
+      rangeDate && index !== undefined
+        ? utils.toDateWithFormat(rangeDate[index], format, undefined, this.getOptions())
+        : this.props.value
     if (!value) return undefined
 
     return (
@@ -237,7 +271,7 @@ class Day extends PureComponent {
     const maxDate = max && utils.toDate(utils.format(max, maxStr, this.getOptions()), this.getOptions())
     return (
       <div className={datepickerClass('day-picker')}>
-        <div className={datepickerClass('title')}>{getLocale('pickerTitle')[index]}</div>
+        <div className={datepickerClass('title')}>{index !== undefined && getLocale('pickerTitle')[index]}</div>
         <div className={datepickerClass('header')}>
           <Icon
             name="AngleDoubleLeft"
@@ -264,7 +298,7 @@ class Day extends PureComponent {
         </div>
 
         <div className={datepickerClass('week')}>
-          {getLocale('weekdayValues.narrow').map(w => (
+          {getLocale('weekdayValues.narrow').map((w: string) => (
             <span key={w}>{w}</span>
           ))}
         </div>
@@ -277,29 +311,6 @@ class Day extends PureComponent {
       </div>
     )
   }
-}
-
-Day.propTypes = {
-  current: PropTypes.object.isRequired,
-  disabled: PropTypes.func,
-  format: PropTypes.string,
-  index: PropTypes.number,
-  max: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  min: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  onChange: PropTypes.func.isRequired,
-  onChangeSync: PropTypes.func,
-  onDayHover: PropTypes.func,
-  onModeChange: PropTypes.func.isRequired,
-  range: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
-  rangeDate: PropTypes.array,
-  rangeTemp: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  showTimePicker: PropTypes.bool,
-  type: PropTypes.string.isRequired,
-  value: PropTypes.object,
-  defaultTime: PropTypes.array,
-  allowSingle: PropTypes.bool,
-  timeZone: PropTypes.string,
-  disabledRegister: PropTypes.func,
 }
 
 export default Day

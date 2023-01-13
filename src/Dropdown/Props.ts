@@ -1,6 +1,6 @@
 import React from 'react'
 import { StandardProps, RegularAttributes, CommonProps } from '../@types/common'
-import { getTableConsumerProps } from '../Table/Props'
+import { GetTableConsumerProps } from '../Table/Props'
 
 export type TriggerType = 'click' | 'hover'
 
@@ -188,7 +188,7 @@ export interface SimpleDropdownProps extends StandardProps, Pick<CommonProps, 'a
   renderItem?: ((data: any) => React.ReactNode) | string
 }
 
-export type DropdownProps = getTableConsumerProps<SimpleDropdownProps>
+export type DropdownProps = GetTableConsumerProps<SimpleDropdownProps>
 
 export declare class DropdownClass extends React.Component<DropdownProps, {}> {
   render(): JSX.Element

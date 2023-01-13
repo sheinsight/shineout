@@ -17,7 +17,7 @@ if (Element && !Element.prototype.matches) {
     proto.webkitMatchesSelector
 }
 
-export function getParent(el: HTMLElement | Element, target?: string | HTMLElement) {
+export function getParent(el: HTMLElement | null | Element, target?: string | HTMLElement) {
   if (!target) {
     return null
   }

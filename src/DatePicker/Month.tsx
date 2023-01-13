@@ -1,15 +1,20 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import { datepickerClass } from './styles'
 import Icon from './Icon'
 import utils from './utils'
 import { getLocale } from '../locale'
 import paramUtils from './paramUtils'
+import { UnionPannelProps } from './Props'
+import { isArray, isNumber } from '../utils/is'
 
 const MONTHBASE = '2019-01-01 00:00:00'
 
-class Month extends PureComponent {
-  constructor(props) {
+class Month extends PureComponent<UnionPannelProps> {
+  handleNextYear: () => void
+
+  handlePrevYear: () => void
+
+  constructor(props: UnionPannelProps) {
     super(props)
 
     this.handleNextYear = this.handleYearChange.bind(this, 1)
@@ -25,7 +30,7 @@ class Month extends PureComponent {
     return { timeZone, weekStartsOn: getLocale('startOfWeek') }
   }
 
-  handleYearChange(year) {
+  handleYearChange(year: number) {
     const { current, onChange } = this.props
     onChange(...paramUtils.yearHandleChangeParams(utils.addYears(current, year, this.getOptions())))
   }
@@ -34,7 +39,7 @@ class Month extends PureComponent {
     this.props.onModeChange('year')
   }
 
-  handleMonthClick(month) {
+  handleMonthClick(month: number) {
     const { current, onChange, onModeChange } = this.props
     let date = new Date(current.getTime())
     const isMonthType = this.props.type === 'month'
@@ -44,7 +49,7 @@ class Month extends PureComponent {
     if (!isMonthType) onModeChange('day')
   }
 
-  handleDisabled(date) {
+  handleDisabled(date: Date) {
     const { min, disabled, range, type, index, rangeDate, max } = this.props
 
     let isDisabled = min && utils.compareMonth(min, date, 1, this.getOptions()) >= 0
@@ -56,21 +61,29 @@ class Month extends PureComponent {
       isDisabled = disabled(date)
     }
 
-    if (!isDisabled && index === 0) {
-      if (rangeDate[1] && utils.compareAsc(date, utils.addSeconds(rangeDate[1], -range, this.getOptions())) < 0) {
+    if (!isDisabled && index === 0 && isArray(rangeDate)) {
+      if (
+        isNumber(range) &&
+        rangeDate[1] &&
+        utils.compareAsc(date, utils.addSeconds(rangeDate[1], -range, this.getOptions())) < 0
+      ) {
         isDisabled = true
       }
     }
 
-    if (!isDisabled && index === 1) {
-      if (rangeDate[0] && utils.compareAsc(date, utils.addSeconds(rangeDate[0], range, this.getOptions())) > 0) {
+    if (!isDisabled && index === 1 && isArray(rangeDate)) {
+      if (
+        isNumber(range) &&
+        rangeDate[0] &&
+        utils.compareAsc(date, utils.addSeconds(rangeDate[0], range, this.getOptions())) > 0
+      ) {
         isDisabled = true
       }
     }
     return isDisabled
   }
 
-  renderMonth(m, i) {
+  renderMonth(m: string, i: number) {
     const { value, current } = this.props
     let date = utils.toDate(MONTHBASE, this.getOptions())
     date = utils.changeDate(date, 'year', utils.getDateInfo(current, 'year', this.getOptions()), this.getOptions())
@@ -81,7 +94,6 @@ class Month extends PureComponent {
       utils.isSameMonth(value, date, this.getOptions()) && 'active',
       isDisabled && 'disabled'
     )
-
     return (
       <span key={i} className={className} onClick={isDisabled ? undefined : this.handleMonthClick.bind(this, i)}>
         {m}
@@ -108,23 +120,6 @@ class Month extends PureComponent {
       </div>
     )
   }
-}
-
-Month.propTypes = {
-  current: PropTypes.object.isRequired,
-  disabled: PropTypes.func,
-  // max: PropTypes.object,
-  max: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  min: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  onChange: PropTypes.func.isRequired,
-  onModeChange: PropTypes.func.isRequired,
-  range: PropTypes.number,
-  type: PropTypes.string.isRequired,
-  value: PropTypes.object,
-  index: PropTypes.number,
-  rangeDate: PropTypes.array,
-  timeZone: PropTypes.string,
-  disabledRegister: PropTypes.func,
 }
 
 export default Month
