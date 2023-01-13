@@ -58,7 +58,7 @@ export { default as Dropdown } from './Dropdown'
 import { DropdownItem as __DropdownItem, DropdownProps as __DropdownProps } from './Dropdown/interface'
 
 export { default as EditableArea } from './EditableArea'
-import { EditableAreaProps as __EditableAreaProps,  } from './EditableArea/interface'
+import { Props as __Props } from './EditableArea/interface'
 
 export { default as Form } from './Form'
 import { FormItemProps as __FormItemProps, FormRef as __FormRef, FormResetProps as __FormResetProps, FormSubmitProps as __FormSubmitProps, FormProps as __FormProps, FormFieldProps as __FormFieldProps, FormFieldSetProps as __FormFieldSetProps, FieldChildrenFunc as __FieldChildrenFunc, FieldSetChildrenFunc as __FieldSetChildrenFunc } from './Form/interface'
@@ -113,7 +113,7 @@ export { default as Select } from './Select'
 import { SelectProps as __SelectProps } from './Select/interface'
 
 export { default as Slider } from './Slider'
-import { SliderProps as __SliderProps,  } from './Slider'
+import { SliderProps as __SliderProps } from './Slider/interface'
 
 export { default as Spin } from './Spin'
 import { SpinProps as __SpinProps } from './Spin/interface'
@@ -221,7 +221,8 @@ export namespace TYPE {
     export type Props = __DropdownProps
   }
   export namespace EditableArea {
-    export type Props = __EditableAreaProps
+  
+    export type Props = __Props
   }
   export namespace Form {
   
@@ -308,7 +309,8 @@ export namespace TYPE {
     export type Props<Item, Value> = __SelectProps<Item, Value>
   }
   export namespace Slider {
-    export type Props<Value> = __SliderProps<Value>
+  
+    export type Props<Value extends number | number[]> = __SliderProps<Value>
   }
   export namespace Spin {
   

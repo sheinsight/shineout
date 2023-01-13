@@ -47,6 +47,13 @@ export interface TreeDatumOptions<Item> {
   data?: Item[]
   keygen?: KeygenType<Item> | ((data: Item, parentKey: keyType) => keyType)
   value?: Value
+  /**
+   * mode 0: Returns only the fully selected node including the parent node. 1: Returns all selected nodes and semi-selected nodes. 2: Return only the selected child nodes. 3: If the parent node is full selected, only return the parent node. 4: What you choose is what you get.
+   *
+   * 选中值模式，未设置值为单选 0: 只返回完全选中的节点，包含父节点 1: 返回全部选中的节点和半选中的父节点 2: 只返回选中的子节点 3: 如果父节点选中，只返回父节点 4: 所选即所得
+   *
+   * default: -
+   */
   mode?: TreeModeType
   disabled?: ((data: Item, ...rest: any) => boolean) | boolean
   childrenKey: string

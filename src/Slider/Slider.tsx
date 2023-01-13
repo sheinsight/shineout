@@ -1,13 +1,27 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { PureComponent } from '../component'
 import Indicator from './Indicator'
 import { sliderClass } from './styles'
 import { per2value, value2per } from './utils'
 import { isRTL } from '../config'
+import { isFunc } from '../utils/is'
+import { BaseSliderProps } from './Props'
 
-class Slider extends PureComponent {
-  constructor(props) {
+interface SliderState {
+  dragging: boolean
+  length: number
+}
+
+const DefaultValue = {
+  formatValue: (v: number) => v,
+}
+
+class Slider<Value extends number | number[]> extends PureComponent<BaseSliderProps<Value>, SliderState> {
+  static defaultProps = DefaultValue
+
+  parentElement: HTMLElement
+
+  constructor(props: BaseSliderProps<Value>) {
     super(props)
 
     this.state = {
@@ -20,7 +34,7 @@ class Slider extends PureComponent {
     this.handleDragEnd = this.handleDragEnd.bind(this)
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: BaseSliderProps<Value>) {
     const { value, scale } = this.props
     const { dragging } = this.state
     const len = scale.length
@@ -30,16 +44,16 @@ class Slider extends PureComponent {
     }
   }
 
-  bindElement(el) {
-    if (el) this.parentElement = el.parentElement
+  bindElement(el: HTMLDivElement) {
+    if (el && el.parentElement) this.parentElement = el.parentElement
   }
 
-  length2value(length) {
+  length2value(length: number) {
     const { scale, step } = this.props
     return per2value(length, scale, step)
   }
 
-  handleDrag(mx, my) {
+  handleDrag(mx: number, my: number) {
     const { scale, onDrag, value, vertical, onIncrease } = this.props
     const m = vertical
       ? my / this.parentElement.clientHeight
@@ -75,8 +89,8 @@ class Slider extends PureComponent {
   }
 
   renderResult() {
-    const { autoHide, formatValue } = this.props
-    if (!formatValue) return null
+    const { autoHide, formatValue = DefaultValue.formatValue } = this.props
+    if (!formatValue || !isFunc(formatValue)) return null
 
     const { dragging } = this.state
     const className = sliderClass('result', (!autoHide || dragging) && 'show')
@@ -104,26 +118,6 @@ class Slider extends PureComponent {
       </div>
     )
   }
-}
-
-Slider.propTypes = {
-  autoHide: PropTypes.bool,
-  disabled: PropTypes.bool,
-  formatValue: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
-  index: PropTypes.number.isRequired,
-  min: PropTypes.number,
-  max: PropTypes.number,
-  onChange: PropTypes.func.isRequired,
-  onDrag: PropTypes.func,
-  scale: PropTypes.array.isRequired,
-  step: PropTypes.number,
-  value: PropTypes.number.isRequired,
-  vertical: PropTypes.bool.isRequired,
-  onIncrease: PropTypes.func,
-}
-
-Slider.defaultProps = {
-  formatValue: v => v,
 }
 
 export default Slider
