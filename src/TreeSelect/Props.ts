@@ -161,7 +161,7 @@ export interface OriginTreeSelectProps<Item, Value>
    * 参数 为 当前选中值
    * default: -
    */
-  onChange: (value: Value, selected?: Item, path?: string[]) => void
+  onChange: (value: Value, selected?: Item, path?: (string | number)[]) => void
 
   /**
    * onChange additional parameters (current is the data of the clicked node, data is the currently selected data, checked is whether it is selected or canceled in the multi-select state)
