@@ -37,7 +37,7 @@ export type GetFilterProps<Props, DataItem> = Omit<
 export interface OriginCascaderProps<DataItem, Value extends BaseValue>
   extends Pick<AbsoluteProps, 'absolute' | 'zIndex'>,
     Pick<InputTitleProps, 'innerTitle'>,
-    Pick<TreeDatumOptions<DataItem, Value>, 'mode'>,
+    Pick<TreeDatumOptions<DataItem>, 'mode'>,
     Pick<StandardProps, 'style'> {
   /**
    * Selected key (controlled)

@@ -22,7 +22,16 @@ import { isRTL } from '../config'
 import InputTitle from '../InputTitle'
 import { inputTitleClass } from '../InputTitle/styles'
 import { getDirectionClass } from '../utils/classname'
-import { AreaType, BaseProps, DateTimeType, ContainerProps, vaildFn, vaildFns, Quick } from './Props'
+import {
+  AreaType,
+  BaseProps,
+  DateTimeType,
+  ContainerProps,
+  vaildFn,
+  vaildFns,
+  QuickType,
+  QuickSelectType,
+} from './Props'
 
 const FadeList = List(['fade'], 'fast')
 const OptionList = absoluteList(({ focus, ...other }: any) => <FadeList show={focus} {...other} />)
@@ -412,7 +421,7 @@ class Container extends PureComponent<ContainerProps, ContainerState> {
     change: boolean | null | undefined,
     blur: boolean | null | undefined,
     _isEnd: boolean | null | undefined,
-    isQuickSelect: boolean | undefined,
+    isQuickSelect: QuickSelectType | undefined,
     areaType: AreaType
   ) {
     const { onPickerChange } = this.props
@@ -576,7 +585,7 @@ class Container extends PureComponent<ContainerProps, ContainerState> {
       timeZone,
     } = this.props
     const format = this.getFormat()
-    const quicks = (this.getQuick(format) as unknown) as Quick[]
+    const quicks = (this.getQuick(format) as unknown) as QuickType[]
     const Component = range ? Range : Picker
     return (
       <Component
