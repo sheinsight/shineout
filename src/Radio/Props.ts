@@ -23,10 +23,17 @@ export type RadioProps = SimpleRadioProps
 
 export type GroupDatumArgsType = 'disabled' | 'format' | 'prediction'
 
-export type InputRadioGroupProps<DataItem, Value> = GetInputableProps<
-  GetDatumListProps<RadioGroupProps<DataItem, Value>, DataItem, Value, GroupDatumArgsType>,
+export type InputRadioGroupPropsWidthDatum<DataItem, Value> = GetDatumListProps<
+  RadioGroupProps<DataItem, Value>,
+  DataItem,
+  Value,
+  GroupDatumArgsType
+>
+export type InputRadioGroupPropsWidthInputable<DataItem, Value> = GetInputableProps<
+  InputRadioGroupPropsWidthDatum<DataItem, Value>,
   Value
 >
+export type InputRadioGroupProps<DataItem, Value> = InputRadioGroupPropsWidthInputable<DataItem, Value>
 
 export declare class RadioGroup<DataItem, Value> extends React.Component<InputRadioGroupProps<DataItem, Value>, {}> {
   render(): JSX.Element

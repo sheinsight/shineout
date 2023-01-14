@@ -1,6 +1,6 @@
 import React from 'react'
 import Icon from './Icon'
-import { IconProps } from './interface'
+import { IconProps } from './Props'
 
 const links: {
   [url: string]: boolean

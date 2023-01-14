@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import classnames from 'classnames'
 import { dividerClass } from './styles'
-import { DividerProps } from './interface'
+import { DividerProps } from './Props'
 
 class Divider extends PureComponent<DividerProps> {
   static defaultProps = {

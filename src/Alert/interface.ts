@@ -93,8 +93,3 @@ export interface AlertProps extends StandardProps {
    */
   duration?: number
 }
-
-declare class Alert extends React.Component<AlertProps> {
-  render(): JSX.Element
-}
-export default Alert
