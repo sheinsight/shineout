@@ -63,7 +63,11 @@ class Text extends PureComponent<TextProps> {
     if (txt.trim().length === 0) {
       onChange(undefined, index, e)
     } else {
-      const newValue = utils.toDateWithFormat(txt, format as string, undefined, this.getOptions())
+      if (typeof format !== 'string') {
+        console.error('formatResult should be string when inputable is true')
+      }
+      const newValue =
+        typeof format === 'string' ? utils.toDateWithFormat(txt, format, undefined, this.getOptions()) : undefined
       // if translate fail, clear
       if (!newValue) {
         // @ts-ignore
@@ -73,7 +77,7 @@ class Text extends PureComponent<TextProps> {
     }
   }
 
-  handleFocus(e: React.FocusEvent) {
+  handleFocus(e: React.FocusEvent | React.MouseEvent) {
     const { onTextSpanRef } = this.props
     if (onTextSpanRef) onTextSpanRef(e.target as HTMLSpanElement)
   }
@@ -97,7 +101,7 @@ class Text extends PureComponent<TextProps> {
 
     if (!inputable || disabled || !focus) {
       return (
-        <span onClick={this.handleFocus as any} className={className}>
+        <span onClick={this.handleFocus} className={className}>
           {value || placeholder}
         </span>
       )

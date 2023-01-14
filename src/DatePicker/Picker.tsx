@@ -10,7 +10,7 @@ import paramUtils from './paramUtils'
 import { getLocale } from '../locale'
 import { datepickerClass } from './styles'
 import { PureComponent } from '../component'
-import { PickerProps, Mode } from './Props'
+import { PickerProps, Mode, QuickSelectType } from './Props'
 
 interface PickerState {
   mode: Mode
@@ -69,9 +69,9 @@ class Picker extends PureComponent<PickerProps, PickerState> {
     return { timeZone, weekStartsOn: getLocale('startOfWeek') }
   }
 
-  handleQuick(quick: { invalid: boolean; value: Date[]; name?: string }) {
+  handleQuick(quick: QuickSelectType) {
     const { onChange } = this.props
-    onChange(...paramUtils.quickHandleChangeParams(quick.value[0], true, null, null, quick))
+    onChange(...paramUtils.quickHandleChangeParams(quick.value[0], true, false, false, quick))
   }
 
   handleMouse(isEnter: boolean, e: Event) {

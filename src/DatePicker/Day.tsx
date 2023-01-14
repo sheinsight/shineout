@@ -75,7 +75,7 @@ class Day extends PureComponent<UnionPannelProps, DayState> {
     return this.cachedDays
   }
 
-  formatWithDefaultTime(i: number) {
+  formatWithDefaultTime(i?: number) {
     let idx = 0
     const { current, defaultTime, index } = this.props
     if (typeof index === 'number') idx = index
@@ -92,7 +92,7 @@ class Day extends PureComponent<UnionPannelProps, DayState> {
     this.handleDayClick(date, 1)
   }
 
-  handleDayClick(date: Date, sync: number) {
+  handleDayClick(date: Date, sync?: number) {
     const { type, allowSingle, rangeDate, min, max, index, value, onChangeSync } = this.props
     const current = (index === sync && value) || this.formatWithDefaultTime(sync)
     const onChange =

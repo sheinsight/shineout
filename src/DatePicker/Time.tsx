@@ -93,6 +93,7 @@ class Time extends PureComponent<UnionPannelProps> {
       | 'ampm') as [boolean, Date]
 
     if (isDisabled) return
+    this.props.onChange(...paramUtils.timeHandleChangeParams(date, true, false, true))
     this.props.onChange(paramUtils.timeHandleChangeParams(date, true, false)[0])
   }
 

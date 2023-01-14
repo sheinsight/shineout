@@ -44,7 +44,7 @@ export { default as Checkbox } from './Checkbox'
 import { CheckboxProps as __CheckboxProps, GroupProps as __GroupProps } from './Checkbox/interface'
 
 export { default as DatePicker } from './DatePicker'
-import { AreaType as __AreaType, QuickSelect as __QuickSelect, DateTimeType as __DateTimeType, DisabledType as __DisabledType, DatePickerValue as __DatePickerValue, DatePickerProps as __DatePickerProps } from './DatePicker/interface'
+import { AreaType as __AreaType, DateTimeType as __DateTimeType, DisabledType as __DisabledType, DatePickerValue as __DatePickerValue, DatePickerProps as __DatePickerProps } from './DatePicker/interface'
 
 export { default as Datum } from './Datum'
 
@@ -146,7 +146,7 @@ export { default as Tree } from './Tree'
 import { TreeProps as __TreeProps, TreeFieldProps as __TreeFieldProps } from './Tree/interface'
 
 export { default as TreeSelect } from './TreeSelect'
-import { ComponentRef as __ComponentRef, Props as __Props } from './TreeSelect/interface'
+import { ComponentRef as __ComponentRef, TreeSelectProps as __TreeSelectProps } from './TreeSelect/interface'
 
 export { default as Upload } from './Upload'
 import { Validator as __Validator, UploadProps as __UploadProps, UploadImageHandlerProps as __UploadImageHandlerProps, UploadOptions as __UploadOptions, UploadImageProps as __UploadImageProps, UploadButtonProps as __UploadButtonProps } from './Upload/interface'
@@ -204,7 +204,6 @@ export namespace TYPE {
   export namespace DatePicker {
   
     export type AreaType = __AreaType
-    export type QuickSelect = __QuickSelect
     export type DateTimeType = __DateTimeType
     export type DisabledType = __DisabledType
     export type Value = __DatePickerValue
@@ -366,7 +365,7 @@ export namespace TYPE {
   export namespace TreeSelect {
   
     export type ComponentRef<Item, Value> = __ComponentRef<Item, Value>
-    export type Props<Item, Value extends string | number | Array<string> | Array<number>> = __Props<Item, Value>
+    export type Props<Item, Value extends string | number | Array<string> | Array<number>> = __TreeSelectProps<Item, Value>
   }
   export namespace Upload {
   

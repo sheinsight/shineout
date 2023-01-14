@@ -3,16 +3,21 @@ import React, { Component } from 'react'
 import shallowEqual from '../utils/shallowEqual'
 import utils from './utils'
 import { getLocale } from '../locale'
-import { DatePickerValueProps, DatePickerValue as DatePickerValueType, QuickSelect } from './Props'
+import {
+  DatePickerPropsWidthAbsolute,
+  DatePickerValue as DatePickerValueType,
+  QuickSelectType,
+  DatePickerPropsWidthValue,
+} from './Props'
 
 interface DatePickerState {
   value: DatePickerValueType
-  quickSelect?: QuickSelect | null
+  quickSelect?: QuickSelectType | null
 }
 
-export default <Props extends DatePickerValueProps>(Origin: React.ComponentType<Props>) =>
-  class DatePickerValue extends Component<Props, DatePickerState> {
-    constructor(props: Props) {
+export default <T extends DatePickerValueType>(Origin: React.ComponentType<DatePickerPropsWidthAbsolute<T>>) =>
+  class DatePickerValue extends Component<DatePickerPropsWidthValue<T>, DatePickerState> {
+    constructor(props: DatePickerPropsWidthValue<T>) {
       super(props)
 
       this.state = { value: props.value }
@@ -25,12 +30,12 @@ export default <Props extends DatePickerValueProps>(Origin: React.ComponentType<
       this.convertValue(this.props.value)
     }
 
-    shouldComponentUpdate(nextProps: Props, nextState: DatePickerState) {
+    shouldComponentUpdate(nextProps: DatePickerPropsWidthValue, nextState: DatePickerState) {
       const options = { deep: ['defaultValue', 'name', 'value'] }
       return !(shallowEqual(nextProps, this.props, options) && shallowEqual(nextState, this.state, options))
     }
 
-    componentDidUpdate(prevProps: Props) {
+    componentDidUpdate(prevProps: DatePickerPropsWidthValue) {
       const { value } = this.props
       if (!shallowEqual(prevProps.value, value) && !shallowEqual(value, this.state.value)) {
         this.convertValue(value)
@@ -117,9 +122,9 @@ export default <Props extends DatePickerValueProps>(Origin: React.ComponentType<
       return newValue
     }
 
-    handleChange(value: DatePickerValueType, callback?: () => void, quickSelect?: QuickSelect) {
+    handleChange(value: DatePickerValueType, callback?: () => void, quickSelect?: QuickSelectType) {
       const { range } = this.props
-      const newState: { value: DatePickerValueType; quickSelect?: QuickSelect } = { value }
+      const newState: { value: DatePickerValueType; quickSelect?: QuickSelectType } = { value }
       if (range) {
         newState.quickSelect = quickSelect
       }

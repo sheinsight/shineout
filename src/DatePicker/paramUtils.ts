@@ -1,26 +1,25 @@
 import utils from './utils'
 import { isNumber } from '../utils/is'
-import { AreaType, DatePickerValue, BaseProps } from './Props'
-import { DisabledType, Quick } from './Props'
+import { AreaType, DatePickerValue, BaseProps, QuickSelectType, DisabledType } from './Props'
 
 const { TIME_FORMAT, compareAsc, addSeconds, format } = utils
 
-const handleOnChangeParams: (
+type HandleOnChangeParams = (
   type: AreaType
-) => (
-  date: any,
-  change?: boolean | undefined,
-  blur?: boolean | undefined | null,
-  isEnd?: boolean | undefined | null,
-  isQuickSelect?: boolean | undefined | Quick,
-  areaType?: AreaType
-) => [any, boolean, boolean, boolean, boolean, AreaType] = type => (
-  date,
-  change = undefined,
-  blur = undefined,
-  isEnd = undefined,
-  isQuickSelect = undefined
-) => [date, change as boolean, blur as boolean, isEnd as boolean, isQuickSelect as boolean, type]
+) => (<U>(
+  date: U,
+  change?: boolean,
+  blur?: boolean,
+  isEnd?: boolean,
+  isQuickSelect?: QuickSelectType
+) => [U, boolean | undefined, boolean | undefined, boolean | undefined, QuickSelectType | undefined, AreaType])
+const handleOnChangeParams: HandleOnChangeParams = (type: AreaType) => <U>(
+  date: U,
+  change?: boolean,
+  blur?: boolean,
+  isEnd?: boolean,
+  isQuickSelect?: QuickSelectType
+) => [date, change, blur, isEnd, isQuickSelect, type]
 
 const yearHandleChangeParams = handleOnChangeParams('year')
 const monthHandleChangeParams = handleOnChangeParams('month')

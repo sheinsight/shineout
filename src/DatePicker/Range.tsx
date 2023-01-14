@@ -8,7 +8,7 @@ import paramUtils from './paramUtils'
 import Picker from './Picker'
 import { datepickerClass } from './styles'
 import Quick from './Quick'
-import { AreaType } from './Props'
+import { AreaType, QuickSelectType } from './Props'
 import { RangeProps, DisabledType, DatePickerValue } from './Props'
 
 interface RangeState {
@@ -23,9 +23,23 @@ class Range extends PureComponent<RangeProps, RangeState> {
 
   pickers: Picker[]
 
-  handleFirstChange: () => void
+  handleFirstChange: (
+    date: Date,
+    change: boolean | undefined,
+    _blur: boolean | undefined,
+    _isEnd: boolean | undefined,
+    _isQuickSelect: QuickSelectType | undefined,
+    areaType: AreaType
+  ) => void
 
-  handleSecondChange: () => void
+  handleSecondChange: (
+    date: Date,
+    change: boolean | undefined,
+    _blur: boolean | undefined,
+    _isEnd: boolean | undefined,
+    _isQuickSelect: QuickSelectType | undefined,
+    areaType: AreaType
+  ) => void
 
   bindFirstPicker: (picker: Picker) => void
 
@@ -107,10 +121,10 @@ class Range extends PureComponent<RangeProps, RangeState> {
   handleChange(
     index: number,
     date: Date,
-    change: boolean,
-    _end: number,
-    mode: string,
-    _isQuickSelect: boolean,
+    change: boolean | undefined,
+    _blur: boolean | undefined,
+    _isEnd: boolean | undefined,
+    _isQuickSelect: QuickSelectType | undefined,
     areaType: AreaType
   ) {
     const { type, range, min, max } = this.props
@@ -124,7 +138,7 @@ class Range extends PureComponent<RangeProps, RangeState> {
       return
     }
 
-    if (mode === 'time') {
+    if (areaType === 'time') {
       let endChangedDate: Date
       this.setState(
         immer(draft => {
@@ -204,9 +218,9 @@ class Range extends PureComponent<RangeProps, RangeState> {
     return false
   }
 
-  handleQuick(quick: { invalid: boolean; value: Date[]; name?: string }) {
+  handleQuick(quick: QuickSelectType) {
     this.setState({ rangeDate: quick.value })
-    this.props.onChange(...paramUtils.quickHandleChangeParams(quick.value, true, null, null, quick))
+    this.props.onChange(...paramUtils.quickHandleChangeParams(quick.value, true, false, false, quick))
   }
 
   render() {

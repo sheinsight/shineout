@@ -20,10 +20,15 @@ export type vaildFn = (date: Date, ...args: any) => boolean
 
 export type vaildFns = ((date: Date, ...args: any) => boolean)[]
 
-export type Quick = {
+export type QuickType = {
   value: Date[]
   invalid: boolean
-  name?: string | undefined
+  name: string
+}
+
+export interface QuickSelectType<T = Date[]> {
+  name: string
+  value: T
 }
 
 export type DisabledRegister = (
@@ -32,16 +37,11 @@ export type DisabledRegister = (
   index?: number
 ) => void
 
-export interface QuickSelect {
-  name?: string
-  value?: DatePickerValue
-}
-
 export type PickMouseEvent = (e: React.MouseEvent) => void
 
 export type DisabledType = 'start' | 'end'
 
-export interface BaseProps<T = DatePickerValue> extends StandardProps, Pick<CommonProps, 'absolute'> {
+export interface BaseProps<T = DatePickerValue> extends StandardProps, CommonProps {
   /**
    * onChange get undefined while clear
    *
@@ -68,15 +68,6 @@ export interface BaseProps<T = DatePickerValue> extends StandardProps, Pick<Comm
    * default: null
    */
   width?: number | string
-
-  /**
-   * whether it can be cleared
-   *
-   * 是否可清空
-   *
-   * default: true
-   */
-  clearable?: boolean
 
   /**
    * When the value is true, disabled all options; When the value is function, disable the options that this function returns true.
@@ -114,7 +105,7 @@ export interface BaseProps<T = DatePickerValue> extends StandardProps, Pick<Comm
    *
    * default: -
    */
-  onChange?: (value: T, quickSelect?: QuickSelect | null) => void
+  onChange?: (value: T, quickSelect?: QuickSelectType | null) => void
 
   /**
    * placeholder text. When the range property is not empty, it is an array of length 2.
@@ -153,15 +144,6 @@ export interface BaseProps<T = DatePickerValue> extends StandardProps, Pick<Comm
   defaultTime?: DatePickerValue
 
   /**
-   * panel z-index
-   *
-   * 选择面板 z-index 值
-   *
-   * default: 1000
-   */
-  zIndex?: number
-
-  /**
    * allow single select, only in range can set
    *
    * 是否允许单选, 仅在 range 模式下有效
@@ -177,7 +159,7 @@ export interface BaseProps<T = DatePickerValue> extends StandardProps, Pick<Comm
    *
    * default: false
    */
-  quickSelect?: Array<QuickSelect>
+  quickSelect?: Array<QuickSelectType<DatePickerValue>>
 
   /**
    * option min value
@@ -270,7 +252,7 @@ export interface BaseProps<T = DatePickerValue> extends StandardProps, Pick<Comm
    *
    * default: none
    */
-  onPickerChange?: (value: DatePickerValue, quickSelect: boolean | QuickSelect | void, areaType: AreaType) => void
+  onPickerChange?: (value: DatePickerValue, quickSelect: QuickSelectType | void | undefined, areaType: AreaType) => void
 
   /**
    * inner title
@@ -327,14 +309,6 @@ export interface BaseProps<T = DatePickerValue> extends StandardProps, Pick<Comm
   timeZone?: string
 }
 
-// HOC Value 类型
-export interface DatePickerValueProps extends Pick<BaseProps, 'timeZone' | 'allowSingle' | 'range' | 'onChange'> {
-  type?: string
-  format?: string
-  value: DatePickerValue
-  // onChange: (value: DatePickerValue, callback?: () => void, quickSelect?: boolean) => void
-}
-
 export interface ContainerProps<T = DatePickerValue>
   extends Pick<
     BaseProps,
@@ -377,25 +351,9 @@ export interface ContainerProps<T = DatePickerValue>
   value: DatePickerValue
   children?: ReactNode
   onValueBlur: () => void
-
-  /**
-   * -
-   *
-   * 内部使用
-   *
-   * -
-   */
   onBlur: (e: any) => void
-
-  /**
-   * -
-   *
-   * 内部使用
-   *
-   * -
-   */
   onFocus: (e: any) => void
-  onChange: (value: T, callback?: () => void, quickSelect?: boolean) => void
+  onChange: (value: T, callback?: () => void, quickSelect?: QuickSelectType) => void
 }
 
 export interface DatePickerIconProps {
@@ -435,6 +393,16 @@ export interface TextProps {
   onChange: (date: Date | undefined, index: number, e: React.FocusEvent<Element>) => void
 }
 
+type ChangeSyncFunc = (
+  index: number,
+  date: Date,
+  change: boolean | undefined,
+  _blur: boolean | undefined,
+  _isEnd: boolean | undefined,
+  _isQuickSelect: QuickSelectType | undefined,
+  areaType: AreaType
+) => void
+
 export interface PickerProps extends Pick<BaseProps, 'range' | 'type'> {
   min?: Date
   max?: Date
@@ -442,17 +410,9 @@ export interface PickerProps extends Pick<BaseProps, 'range' | 'type'> {
   index?: number
   format: string
   rangeDate?: Date[]
-  quicks?: Quick[]
+  quicks?: QuickType[]
   rangeTemp?: Date
-  onChangeSync?: (
-    index: number,
-    date: Date,
-    change: boolean,
-    end: number,
-    mode: string,
-    isQuickSelect: boolean,
-    areaType: AreaType
-  ) => void
+  onChangeSync?: ChangeSyncFunc
   timeZone?: string
   defaultTime: Date[]
   current: Date | Date[]
@@ -462,10 +422,10 @@ export interface PickerProps extends Pick<BaseProps, 'range' | 'type'> {
   handleHover?: (index: number, isEnter: boolean) => void
   onChange: (
     date: Date[] | Date,
-    change: boolean,
+    change?: boolean,
     blur?: boolean,
     isEnd?: boolean,
-    isQuickSelect?: boolean,
+    isQuickSelect?: QuickSelectType,
     areaType?: AreaType
   ) => void
   allowSingle?: boolean
@@ -487,21 +447,21 @@ export interface RangeProps
   disabled?: ((date: Date, type?: DisabledType, value?: DatePickerValue) => boolean)
   format: string
   onChange: (
-    date: Date,
-    change: boolean,
-    blur: boolean,
+    date: Date[],
+    change?: boolean,
+    blur?: boolean,
     isEnd?: boolean,
-    isQuickSelect?: boolean,
+    isQuickSelect?: QuickSelectType,
     areaType?: AreaType
   ) => void
-  quicks?: Quick[]
+  quicks?: QuickType[]
   allowSingle?: boolean
   disabledRegister: DisabledRegister
 }
 
 export interface QuickProps extends Pick<BaseProps, 'type'> {
-  onChange: (quick: Quick) => void
-  quicks?: Quick[]
+  onChange: (quick: QuickSelectType) => void
+  quicks?: QuickType[]
   current: Date | Date[]
   children?: ReactNode
   timeZone?: string
@@ -523,15 +483,7 @@ export interface UnionPannelProps
   onDayHover?: (date: Date) => void
   rangeTemp?: Date
   rangeDate?: Date[]
-  onChangeSync?: (
-    index: number,
-    date: Date,
-    change: boolean,
-    end: number,
-    mode: string,
-    isQuickSelect: boolean,
-    areaType: AreaType
-  ) => void
+  onChangeSync?: ChangeSyncFunc
   defaultTime: Date[]
   showTimePicker: boolean
   onModeChange: (type: Mode) => void
@@ -541,7 +493,7 @@ export interface UnionPannelProps
     change?: boolean,
     blur?: boolean,
     isEnd?: boolean,
-    isQuickSelect?: boolean,
+    isQuickSelect?: QuickSelectType,
     areaType?: AreaType
   ) => void
 }

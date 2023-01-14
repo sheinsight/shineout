@@ -15,7 +15,7 @@ export default class Quick extends React.Component<QuickProps> {
     return utils.compareDateArray(a, b, type, this.getOptions())
   }
 
-  handleQuick(quick: { invalid: boolean; value: Date[]; name?: string }) {
+  handleQuick(quick: { invalid: boolean; value: Date[]; name: string }) {
     if (quick.invalid) {
       console.error(`the date you provider for ${quick.name} is invalid, please check the date in quickSelect!`)
       return
