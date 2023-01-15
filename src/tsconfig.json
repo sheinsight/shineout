@@ -1,0 +1,12 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "declaration": true,
+    "outDir": "../.temp"
+  },
+  "include": [
+    "./",
+    "../externals.d.ts"
+  ]
+}
