@@ -70,7 +70,7 @@ export interface CardGroupProps extends StandardProps {
   children?: ReactNode
 }
 
-export interface CardGroupItemProps<T> extends StandardProps, CardContextValueType {
+export interface BaseCardGroupItemProps<T> extends StandardProps, CardContextValueType {
   /**
    * desc: lazy load placeholder, enable lazy load while set
    *
@@ -125,8 +125,8 @@ export interface CardGroupItemProps<T> extends StandardProps, CardContextValueTy
    */
   children?: ReactNode
 }
-export type GetCardGroupItemProps<T> = GetCardConsumerProps<CardGroupItemProps<T>>
-export declare class CardGroupItem<Value = any> extends React.Component<GetCardGroupItemProps<Value>, {}> {
+export type CardGroupItemProps<T> = GetCardConsumerProps<BaseCardGroupItemProps<T>>
+export declare class CardGroupItem<Value = any> extends React.Component<CardGroupItemProps<Value>, {}> {
   render(): JSX.Element
 }
 

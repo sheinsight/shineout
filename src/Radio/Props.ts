@@ -6,7 +6,7 @@ import { SimpleRadioProps } from '../Checkbox/Props'
 import { KeygenType, StandardProps, StructDataStandardProps } from '../@types/common'
 import ListDatum from '../Datum/List'
 
-export interface RadioGroupProps<DataItem, Value>
+export interface BaseRadioGroupProps<DataItem, Value>
   extends StandardProps,
     Pick<StructDataStandardProps<DataItem>, 'renderItem'> {
   keygen: KeygenType<DataItem>
@@ -24,7 +24,7 @@ export type RadioProps = SimpleRadioProps
 export type GroupDatumArgsType = 'disabled' | 'format' | 'prediction'
 
 export type InputRadioGroupPropsWidthDatum<DataItem, Value> = GetDatumListProps<
-  RadioGroupProps<DataItem, Value>,
+  BaseRadioGroupProps<DataItem, Value>,
   DataItem,
   Value,
   GroupDatumArgsType
@@ -34,8 +34,9 @@ export type InputRadioGroupPropsWidthInputable<DataItem, Value> = GetInputablePr
   Value
 >
 export type InputRadioGroupProps<DataItem, Value> = InputRadioGroupPropsWidthInputable<DataItem, Value>
+export type RadioGroupProps<DataItem, Value> = InputRadioGroupProps<DataItem, Value>
 
-export declare class RadioGroup<DataItem, Value> extends React.Component<InputRadioGroupProps<DataItem, Value>, {}> {
+export declare class RadioGroup<DataItem, Value> extends React.Component<RadioGroupProps<DataItem, Value>, {}> {
   render(): JSX.Element
 }
 

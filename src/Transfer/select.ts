@@ -1,11 +1,11 @@
 import { getKey } from '../utils/uid'
 
-import { TransferProps } from './Props'
+import { BaseTransferProps } from './Props'
 import { keyType } from '../@types/common'
 
 export default function splitSelecteds<DataItem, Value extends any[]>(
   selecteds: keyType[] | undefined,
-  props: TransferProps<DataItem, Value>
+  props: BaseTransferProps<DataItem, Value>
 ) {
   if (!selecteds) return null
 

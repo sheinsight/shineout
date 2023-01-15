@@ -1,3 +1,1 @@
-import { DividerProps as __DividerProps } from './Props'
-
-export type DividerProps = __DividerProps
+export { DividerProps as Props } from './Props'

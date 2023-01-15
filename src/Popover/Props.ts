@@ -1,7 +1,7 @@
 import { ComponentType, ReactNode } from 'react'
 import { StandardProps } from '../@types/common'
 import { ButtonType } from '../Button/Props'
-import { AlertProps } from '../Alert/interface'
+import { AlertProps } from '../Alert/Props'
 
 export interface PopoverContextValue {
   (id: string): void

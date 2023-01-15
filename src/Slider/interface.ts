@@ -1,3 +1,1 @@
-import { SliderProps as __SliderProps } from './Props'
-
-export type SliderProps<Value extends number | number[]> = __SliderProps<Value>
+export { SliderProps as Props } from './Props'

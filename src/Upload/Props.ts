@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { ObjectType, StandardProps } from '../@types/common'
 import { PopoverConfirmProps } from '../Popover/Props'
-import { GapProps } from '../Gap/interface'
+import { GapProps } from '../Gap/Props'
 import { ButtonProps } from '../Button/Props'
 import { GetInputableProps } from '../Form/Props'
 

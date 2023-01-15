@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { FormItemRule } from '../Rule/interface'
+import { FormItemRule } from '../Rule/Props'
 
 export interface StandardProps {
   /**

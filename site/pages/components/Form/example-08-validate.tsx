@@ -7,7 +7,7 @@
 import React from 'react'
 import { Form, Input, Rule, Checkbox, TYPE } from 'shineout'
 
-type RuleFunc = TYPE.Rule.validFunc
+type RuleFunc = TYPE.Rule.ValidFunc
 
 const isExist: RuleFunc = (value, _, callback) => {
   if (value.indexOf('so') >= 0) callback(new Error(`"${value}" is existed.`))
