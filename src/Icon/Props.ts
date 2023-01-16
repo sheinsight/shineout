@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { StandardProps, RegularAttributes } from '../@types/common'
 
-export interface IconComProps extends StandardProps {
+export interface IconCompProps extends StandardProps {
   /**
    * The unicode code of the icon.
    *
@@ -75,9 +75,8 @@ export interface IconComProps extends StandardProps {
   ext?: string
 }
 
-type IconCom = React.FC<IconComProps>
+type IconComp = React.FC<IconCompProps>
 
-export interface IconProps extends IconComProps {}
 /**
  * Function, returns a new component. A project can create more than one, but fontFamily must be the unique.
  *
@@ -88,6 +87,6 @@ export interface IconProps extends IconComProps {}
  * @param prefix 类名前缀
  */
 
-declare function Icon(url: string, fontFamily?: string, prefix?: string): IconCom
+declare function Icon(url: string, fontFamily?: string, prefix?: string): IconComp
 
 export default Icon

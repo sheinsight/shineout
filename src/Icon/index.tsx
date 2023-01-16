@@ -1,6 +1,6 @@
 import React from 'react'
 import Icon from './Icon'
-import { IconProps } from './Props'
+import { IconCompProps } from './Props'
 
 const links: {
   [url: string]: boolean
@@ -9,10 +9,14 @@ const scripts: {
   [url: string]: HTMLScriptElement
 } = {}
 
-export default function icon(url: string, fontFamily = 'iconfont', prefix = 'icon'): React.ComponentType<IconProps> {
+export default function icon(
+  url: string,
+  fontFamily = 'iconfont',
+  prefix = 'icon'
+): React.ComponentType<IconCompProps> {
   if (typeof url !== 'string') {
     console.error(`Shineout Icon url must be a string, but get ${url}`)
-    return (null as unknown) as React.ComponentType<IconProps>
+    return (null as unknown) as React.ComponentType<IconCompProps>
   }
   const ext = url.substr(url.lastIndexOf('.') + 1)
   if (ext === 'css' && !links[url]) {
@@ -30,7 +34,7 @@ export default function icon(url: string, fontFamily = 'iconfont', prefix = 'ico
     document.body.appendChild(script)
   }
 
-  const wrapperIcon = (props: IconProps) => <Icon ext={ext} fontFamily={fontFamily} prefix={prefix} {...props} />
+  const wrapperIcon = (props: IconCompProps) => <Icon ext={ext} fontFamily={fontFamily} prefix={prefix} {...props} />
   wrapperIcon.isShineoutIcon = true
   return wrapperIcon
 }

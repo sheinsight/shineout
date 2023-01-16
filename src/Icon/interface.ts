@@ -1,1 +1,1 @@
-export { IconProps as Props, IconComProps as ComProps } from './Props'
+export { IconCompProps as ComProps } from './Props'

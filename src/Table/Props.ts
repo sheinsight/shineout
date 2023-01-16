@@ -28,7 +28,7 @@ export type TableFix = 'x' | 'y' | 'both'
 
 export type ColumnType = 'expand' | 'row-expand' | 'checkbox'
 
-export interface renderSorterParam {
+export interface RenderSorterParam {
   status?: 'asc' | 'desc'
   triggerAsc: () => void
   triggerDesc: () => void
@@ -380,7 +380,7 @@ export interface SimpleTableProps<DataItem, Value> {
    *
    * default: false
    */
-  renderSorter?: (params: renderSorterParam) => ReactNode
+  renderSorter?: (params: RenderSorterParam) => ReactNode
   hideHeader?: boolean
   /**
    *  Footer information can be used to summarize

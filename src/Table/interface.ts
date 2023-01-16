@@ -3,7 +3,7 @@ export {
   ColumnOrder,
   ColumnFix,
   ColumnType,
-  renderSorterParam,
+  RenderSorterParam,
   ColumnItem,
   CommonColumn,
   SummaryItem,

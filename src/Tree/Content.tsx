@@ -79,8 +79,7 @@ class Content<DataItem, Value extends any[]> extends PureComponent<ContentProps<
   renderIndicator() {
     const { data, expanded, expandIcons, loader, childrenKey, fetching, iconClass } = this.props
     const children = (data[childrenKey] as unknown) as DataItem[]
-    // @ts-ignore
-    const icon = expandIcons ? expandIcons[expanded + 0] : <span className={treeClass('default-icon')} />
+    const icon = expandIcons ? expandIcons[expanded ? 1 : 0] : <span className={treeClass('default-icon')} />
     const indicator = (
       <a
         onClick={this.handleIndicatorClick}
