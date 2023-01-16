@@ -9,6 +9,7 @@ import Caret from '../icons/Caret'
 import { getParent } from '../utils/dom/element'
 import { checkinputClass } from '../Checkbox/styles'
 import { isRTL } from '../config'
+import { CHANGE_TOPIC } from '../Datum/types'
 
 const checkBoxStyle = { marginRight: 8, marginTop: -1, verticalAlign: 'top' }
 
@@ -24,6 +25,14 @@ class Node extends PureComponent {
     this.handleChange = this.handleChange.bind(this)
     this.handlePathChange = this.handlePathChange.bind(this)
     this.handleSelect = this.handleSelect.bind(this)
+    this.handleUpdate = this.forceUpdate.bind(this)
+
+    this.props.datum.subscribe(CHANGE_TOPIC, this.handleUpdate)
+  }
+
+  componentWillUnmount() {
+    super.componentWillUnmount()
+    this.props.datum.unsubscribe(CHANGE_TOPIC, this.handleUpdate)
   }
 
   checkDisabled() {
@@ -33,7 +42,7 @@ class Node extends PureComponent {
     return datum.isDisabled(id)
   }
 
-  handleClick() {
+  handleClick(e) {
     const { id, data, path, onChange, onPathChange, loader, multiple, datum } = this.props
     onPathChange(id, data, path, true)
 
@@ -41,7 +50,7 @@ class Node extends PureComponent {
       onChange([...path, id], datum.getDataById(id))
     }
 
-    if (loader && !this.state.loading) {
+    if (loader && !this.state.loading && !getParent(e.target, `.${checkinputClass('_')}`)) {
       this.setState({ loading: true })
       loader(id, data)
     }

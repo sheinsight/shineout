@@ -29,8 +29,7 @@ export function has3d() {
       result = window.getComputedStyle(el).getPropertyValue(TRANSFORMS[t])
     }
   })
-
-  document.body.removeChild(el)
+  if (el && el.parentNode) el.parentNode.removeChild(el)
 
   return result !== undefined && result.length > 0 && result !== 'none'
 }

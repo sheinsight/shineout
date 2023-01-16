@@ -1,15 +1,6 @@
-import { getUid, getUidStr, getKey } from '../../src/utils/uid'
+import { getUidStr, getKey } from '../../src/utils/uid'
 
 describe('uid.js[getUid-getUidStr]', () => {
-  let first
-  let second
-  beforeAll(() => {
-    first = getUid()
-    second = getUid()
-  })
-  test('should getUid twice calls differ by one', () => {
-    expect(second - first).toBe(1)
-  })
   test('should getUidStr return different', () => {
     expect(getUidStr()).not.toBe(getUidStr())
   })

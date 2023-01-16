@@ -6,6 +6,7 @@ import { range, split } from '../utils/numbers'
 import Colgroup from './Colgroup'
 import Tbody from './Tbody'
 import Thead from './Thead'
+import Tfoot from './Tfoot'
 import { compareColumns } from '../utils/shallowEqual'
 import Sticky from '../Sticky'
 import { addResizeObserver } from '../utils/dom/element'
@@ -20,12 +21,14 @@ class SimpleTable extends PureComponent {
 
     this.state = {
       colgroup: undefined,
-      scrollAble: false,
+      overHeight: false,
+      overWidth: false,
       resize: false,
     }
     this.handleSortChange = this.handleSortChange.bind(this)
     this.bindHeader = this.bindElement.bind(this, 'header')
     this.bindBody = this.bindElement.bind(this, 'body')
+    this.bindFooter = this.bindElement.bind(this, 'footer')
     this.handleScroll = this.handleScroll.bind(this)
     this.handleColgroup = this.handleColgroup.bind(this)
     this.resetColGroup = this.resetColGroup.bind(this)
@@ -66,10 +69,11 @@ class SimpleTable extends PureComponent {
   }
 
   scrollCheck() {
-    const { scrollAble } = this.state
     if (!this.body) return
     const overHeight = this.body.scrollHeight > this.body.clientHeight
-    if (scrollAble !== overHeight) this.setState({ scrollAble: overHeight })
+    const overWidth = this.body.scrollWidth > this.body.clientWidth
+    if (overWidth !== this.state.overWidth) this.setState({ overWidth })
+    if (overHeight !== this.state.overHeight) this.setState({ overHeight })
   }
 
   handleSortChange(...args) {
@@ -96,11 +100,12 @@ class SimpleTable extends PureComponent {
     const { scrollLeft } = currentTarget
     setScrollLeft(this.header, scrollLeft)
     setScrollLeft(this.body, scrollLeft)
+    setScrollLeft(this.footer, scrollLeft)
   }
 
   renderHeader() {
     const { columns, width, data, onResize, columnResizable, sticky, bordered } = this.props
-    const { colgroup, scrollAble } = this.state
+    const { colgroup, overHeight } = this.state
     const inner = (
       <table style={{ width }} className={tableClass(bordered && 'table-bordered')}>
         {/* keep thead colgroup stable */}
@@ -110,7 +115,7 @@ class SimpleTable extends PureComponent {
     )
     const empty = data.length === 0
     const headerStyle = {}
-    if (!empty) headerStyle.overflowY = scrollAble ? 'scroll' : 'hidden'
+    if (!empty) headerStyle.overflowY = overHeight ? 'scroll' : 'hidden'
 
     const header = (
       <div
@@ -131,6 +136,35 @@ class SimpleTable extends PureComponent {
       )
     }
     return header
+  }
+
+  renderFooter() {
+    const { columns, width, data, columnResizable, bordered, summary } = this.props
+    const { colgroup, overHeight, overWidth } = this.state
+    if (!(data && data.length)) return null
+    if (!(summary && summary.length)) return null
+
+    const inner = (
+      <table style={{ width }} className={tableClass(bordered && 'table-bordered')}>
+        <Colgroup colgroup={colgroup || this.lastColGroup} columns={columns} resizable={columnResizable} />
+        <Tfoot {...this.props} />
+      </table>
+    )
+    const footStyle = {}
+    footStyle.overflowY = overHeight ? 'scroll' : 'hidden'
+
+    const footer = (
+      <div
+        key="foot"
+        style={footStyle}
+        className={tableClass('foot', overWidth && 'foot-scroll-x', 'simple-foot')}
+        ref={this.bindFooter}
+        onScroll={this.handleScroll}
+      >
+        {inner}
+      </div>
+    )
+    return footer
   }
 
   renderBody() {
@@ -167,7 +201,7 @@ class SimpleTable extends PureComponent {
           {children}
         </table>
       )
-    return [hideHeader ? null : this.renderHeader(), this.renderBody(), children]
+    return [hideHeader ? null : this.renderHeader(), this.renderBody(), this.renderFooter(), children]
   }
 }
 
@@ -184,6 +218,7 @@ SimpleTable.propTypes = {
   sticky: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   hideHeader: PropTypes.bool,
   bordered: PropTypes.bool,
+  summary: PropTypes.array,
 }
 
 SimpleTable.defaultProps = {

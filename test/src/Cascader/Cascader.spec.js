@@ -4,6 +4,7 @@ import { Cascader } from 'shineout'
 import Tree from 'shineout/Datum/Tree'
 import { cascader as data } from 'doc/data/tree'
 import CascaderLazyload from '../../../site/pages/components/Cascader/example-05-lazyload'
+import CascaderOpen from '../../../site/pages/components/Cascader/test-003-open'
 
 /* global SO_PREFIX */
 const userData = [
@@ -39,6 +40,55 @@ const userData = [
     ],
   },
 ]
+
+const cityData = [
+  {
+    value: '江苏',
+    children: [
+      {
+        value: '南京',
+        children: [
+          {
+            value: '江宁',
+            children: [
+              {
+                value: '东山',
+              },
+            ],
+          },
+          {
+            value: '鼓楼',
+          },
+        ],
+      },
+      {
+        value: '镇江',
+        children: [
+          {
+            value: '丹阳',
+          },
+          {
+            value: '句容',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    value: '安徽',
+    children: [
+      {
+        value: '合肥',
+        children: [
+          {
+            value: '肥东',
+          },
+        ],
+      },
+    ],
+  },
+]
+
 describe('Cascader[Base]', () => {
   test('should show/hide list while click the Cascader/document', () => {
     const wrapper = mount(<Cascader data={data} keygen="id" renderItem={n => `node ${n.text}`} />)
@@ -298,6 +348,31 @@ describe('Cascader[onFilter]', () => {
       .reduce((result, item) => result && item.text().indexOf('1') > -1, true)
     expect(right).toBe(true)
   })
+  it('wideMatch', () => {
+    const wrapper = mount(
+      <Cascader
+        wideMatch
+        onFilter={text => d => d.value.indexOf(text) >= 0}
+        data={cityData}
+        keygen="id"
+        renderItem={n => `${n.value}`}
+      />
+    )
+    jest.useFakeTimers()
+    // 点击展开
+    wrapper.find(`.so-cascader`).simulate('click')
+    // 聚焦输入框
+    wrapper.find(`.so-cascader-input`).simulate('focus')
+    wrapper.find('.so-cascader-input').simulate('input', { target: { innerText: '江' } })
+    jest.runAllTimers()
+    wrapper.update()
+    expect(wrapper.find('.so-cascader-filter-list').length).toBe(1)
+    expect(wrapper.find('.so-cascader-filter-list .so-cascader-node').length).toBe(8)
+    const right = wrapper
+      .find('.so-cascader-list .so-cascader-node')
+      .reduce((result, item) => result && item.text().indexOf('江') > -1, true)
+    expect(right).toBe(true)
+  })
 })
 
 describe('Cascader[renderItem, renderResult]', () => {
@@ -436,5 +511,39 @@ describe('Cascader[value onChange, filterSameChange]', () => {
       .first()
       .simulate('click')
     expect(onChangeHandler.mock.calls.length).toBe(1)
+  })
+})
+
+describe('Cascader[onCollapse and open]', () => {
+  it('onCollpase should called when show or hide List', async () => {
+    const addListener = jest.fn(document.addEventListener)
+    const rmListener = jest.fn(document.removeEventListener)
+    document.addEventListener = addListener
+    document.removeEventListener = rmListener
+
+    const wrapper = mount(<CascaderOpen />)
+    expect(wrapper.render().find(`.${SO_PREFIX}-select-options`).length).toBe(0)
+    // 点击打开
+    wrapper.find(`.${SO_PREFIX}-cascader`).simulate('click')
+    expect(wrapper.render().find(`.${SO_PREFIX}-select-options`).length).toBe(1)
+    expect(addListener.mock.calls.length).toBe(1)
+    // 模拟点击关闭
+    addListener.mock.calls[0][1]({ target: document.body })
+    expect(wrapper.render().find(`.${SO_PREFIX}-select-options`).length).toBe(0)
+
+    // 受控打开
+    wrapper
+      .find(`.${SO_PREFIX}-button`)
+      .at(0)
+      .simulate('click')
+    expect(wrapper.render().find(`.${SO_PREFIX}-select-options`).length).toBe(1)
+    expect(addListener.mock.calls.length).toBe(2)
+    // 受控关闭
+    wrapper
+      .find(`.${SO_PREFIX}-button`)
+      .at(1)
+      .simulate('click')
+    expect(wrapper.render().find(`.${SO_PREFIX}-select-options`).length).toBe(0)
+    expect(rmListener.mock.calls.length).toBe(2)
   })
 })

@@ -1,8 +1,10 @@
 /**
  * cn - 动态加载
  *    -- 数据过大，需要动态加载时，可以设置 loader 函数，当展开未定义 children（undefined）的节点时，触发此函数
+ *    -- 注意，在开启动态加载功能后，mode 属性仅支持 3 或 4 模式。
  * en - Lazy load
  *    -- Set the loader function to dynamic fetch data. This function is triggered when the undefined child node is expanded.
+ *    -- In addition, with lazyload enabled, the mode attribute only supports mode 3 or 4.
  */
 import React, { useState } from 'react'
 import immer from 'immer'
@@ -48,6 +50,7 @@ const App: React.FC = () => {
 
   return (
     <Cascader
+      mode={3}
       data={_data}
       value={value}
       loader={loader}
