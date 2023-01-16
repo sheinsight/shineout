@@ -50,8 +50,8 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
   renderPending: boolean
 
   optionList: {
-    handleHover?: (index: number, is?: boolean) => void
-    hoverMove?: (index: number) => void
+    handleHover?: (index?: number, force?: boolean) => void
+    hoverMove?: (step: number) => void
     getIndex?: () => number
   }
 
@@ -193,7 +193,7 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
     this.optionList[name] = fn
   }
 
-  bindFocusInputFunc(fn: (flag?: boolean) => void) {
+  bindFocusInputFunc(fn: (flag: boolean) => void) {
     this.focusInput = fn
   }
 
@@ -380,7 +380,7 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
     if (data && !data[this.props.groupKey as keyof Item]) {
       const checked = !this.props.datum.check(data)
       this.handleChange(checked, data)
-      if (this.optionList.handleHover) this.optionList.handleHover(hoverIndex!)
+      if (this.optionList.handleHover) this.optionList.handleHover(hoverIndex)
     }
   }
 
@@ -468,7 +468,7 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
     const { onFilter, onCreate, hideCreateOption } = this.props
     const hideCreate = onCreate && hideCreateOption
     if (hideCreate) {
-      this.optionList.handleHover!(-1, true)
+      if (this.optionList.handleHover) this.optionList.handleHover(-1, true)
     }
     if (onFilter) {
       onFilter(...args)

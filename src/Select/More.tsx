@@ -20,7 +20,7 @@ export function getResetMore(
   const contentWidth = clientWidth - paddingLeft - paddingRight - minFilterWidth - 1
 
   const hideEl = items.pop() as HTMLElement
-  const hideElStyle = getComputedStyle(hideEl!)
+  const hideElStyle = getComputedStyle(hideEl)
   const hideMargin = parsePxToNumber(hideElStyle.marginLeft) + parsePxToNumber(hideElStyle.marginRight)
 
   let num = 0
