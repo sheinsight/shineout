@@ -9,10 +9,10 @@ import Select from './Select'
 import filter from './filter'
 import group from './group'
 import absolute from '../Table/context'
-import { GetLimitWrapProps, SelectType } from './Props'
+import { SelectType, SelectPropsWidthDatum, SelectPropsWidthLimitWrap } from './Props'
 
-const limitWrap = <Props extends {}>(Origin: React.ComponentType<GetLimitWrapProps<Props>>) => (
-  props: GetLimitWrapProps<Props>
+const limitWrap = <Item, Value>(Origin: React.ComponentType<SelectPropsWidthDatum<Item, Value>>) => (
+  props: SelectPropsWidthLimitWrap<Item, Value>
 ) => {
   // eslint-disable-next-line
   const limit = props.multiple ? 0 : 1
