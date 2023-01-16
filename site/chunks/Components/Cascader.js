@@ -143,6 +143,19 @@ const examples = [
     parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Cascader/test-002-expandtrigger-finaldismiss.tsx'),
 
   },
+  {
+    name: 'test-003-open',
+    isTs: true,
+    isTest: true,
+    title: locate(
+      '控制浮层显隐 \n open 控制浮层显隐',
+      'Base \n open set visible of cascader popup'
+    ),
+    component: require('doc/pages/components/Cascader/test-003-open.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Cascader/test-003-open.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Cascader/test-003-open.tsx'),
+
+  },
 ]
 
 const codes = undefined

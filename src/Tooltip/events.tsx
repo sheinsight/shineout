@@ -5,28 +5,20 @@ import { tooltipClass } from './styles'
 import getCommonContainer from '../utils/dom/popContainer'
 import { ContainerOptions } from './Props'
 
-const div = document.createElement('div')
+let div: HTMLDivElement | null = null
 let timer: NodeJS.Timeout
-div.style.display = 'none'
+let arrow: HTMLDivElement | null = null
+let inner: HTMLDivElement | null = null
+let currentId: string | undefined
 
 const transStyle = (value: number | string = '') => (typeof value === 'number' ? `${value}px` : value)
 
-getCommonContainer().appendChild(div)
-
-const arrow = document.createElement('div')
-arrow.className = tooltipClass('arrow')
-div.appendChild(arrow)
-
-const inner = document.createElement('div')
-inner.className = tooltipClass('inner')
-div.appendChild(inner)
-
-let currentId: string | undefined
-
 export function hide() {
   if (timer) clearTimeout(timer)
-  div.style.display = 'none'
-  div.className = ''
+  if (div) {
+    div.style.display = 'none'
+    div.className = ''
+  }
   currentId = undefined
 }
 
@@ -38,19 +30,38 @@ function clickaway() {
 export const show: ContainerOptions['show'] = (props, id, innerStyle) => {
   const { position, style = {}, tip, trigger, animation, className: cn } = props
 
+  // create
+  if (!div) {
+    div = document.createElement('div')
+    div.style.display = 'none'
+    getCommonContainer().appendChild(div)
+  }
+
+  if (!arrow) {
+    arrow = document.createElement('div')
+    arrow.className = tooltipClass('arrow')
+    div.appendChild(arrow)
+  }
+
+  if (!inner) {
+    inner = document.createElement('div')
+    inner.className = tooltipClass('inner')
+    div.appendChild(inner)
+  }
+
   currentId = id
 
   div.style.cssText = 'display: none'
   Object.keys(style).forEach((k: keyof CSSProperties) => {
-    div.style[k as any] = transStyle(style[k])
+    div!.style[k as any] = transStyle(style[k])
   })
 
   const className = tooltipClass('_', 'in', position, animation && 'animation')
 
   // fix safari
   timer = setTimeout(() => {
-    div.style.display = 'block'
-    div.className = classnames(className, cn)
+    div!.style.display = 'block'
+    div!.className = classnames(className, cn)
   }, 0)
 
   ReactDOM.render(tip as ReactElement, inner)
@@ -58,7 +69,7 @@ export const show: ContainerOptions['show'] = (props, id, innerStyle) => {
   inner.setAttribute('style', '')
   if (innerStyle) {
     Object.keys(innerStyle).forEach((k: keyof CSSProperties) => {
-      inner.style[k as any] = transStyle(innerStyle[k])
+      inner!.style[k as any] = transStyle(innerStyle[k])
     })
   }
 
@@ -68,9 +79,9 @@ export const show: ContainerOptions['show'] = (props, id, innerStyle) => {
 }
 
 export const move: ContainerOptions['move'] = (id, pos) => {
-  if (id === currentId) {
+  if (id === currentId && div) {
     // eslint-disable-next-line no-return-assign
-    Object.keys(pos).map((key: keyof typeof pos) => (div.style[key] = transStyle(pos[key])))
+    Object.keys(pos).map((key: keyof typeof pos) => (div!.style[key] = transStyle(pos[key])))
   }
 }
 

@@ -88,7 +88,7 @@ export default function<U extends {}>(List: ComponentType<U>) {
       if (!absolute) return
       removeZoomListener(this.zoomChangeHandler)
       if (this.container) {
-        this.container.removeChild(this.element)
+        if (this.element && this.element.parentNode) this.element.parentNode.removeChild(this.element)
       }
     }
 

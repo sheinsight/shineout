@@ -37,4 +37,5 @@
 | loading | boolean \| ReactNode | 无 | 下拉列表 loading 状态 |
 | compressedBound | number | 无 | 开启多选后，指定允许展示标签数量，超过后将折叠 |
 | wideMatch | boolean | 无 | 开启 wideMatch 后，将筛选出所有可能的匹配项目 |
+| open | boolean | 无 | 控制浮层显隐 |
 

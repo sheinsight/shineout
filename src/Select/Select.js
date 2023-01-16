@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { SUBMIT_TOPIC } from '../Datum/types'
 import { PureComponent } from '../component'
 import { getProps } from '../utils/proptypes'
 import { getUidStr } from '../utils/uid'
@@ -70,6 +71,14 @@ class Select extends PureComponent {
     this.focusInput = null
   }
 
+  componentDidMount() {
+    super.componentDidMount()
+    const { formDatum } = this.props
+    if (formDatum) {
+      formDatum.subscribe(SUBMIT_TOPIC, this.forceChange)
+    }
+  }
+
   componentDidUpdate(prevProps, prevState) {
     const { onFilter } = this.props
 
@@ -83,6 +92,10 @@ class Select extends PureComponent {
 
   componentWillUnmount() {
     super.componentWillUnmount()
+    const { formDatum } = this.props
+    if (formDatum) {
+      formDatum.unsubscribe(SUBMIT_TOPIC, this.forceChange)
+    }
     this.clearClickAway()
   }
 
@@ -101,6 +114,13 @@ class Select extends PureComponent {
 
   setInputReset(fn) {
     this.inputReset = fn
+  }
+
+  forceChange = () => {
+    if (this.inputBlurTimer && this.blurHandler) {
+      clearTimeout(this.inputBlurTimer)
+      this.blurHandler()
+    }
   }
 
   isDescendent(el, id) {
@@ -202,6 +222,7 @@ class Select extends PureComponent {
     if (this.inputBlurTimer) {
       this.lastChangeIsOptionClick = true
       clearTimeout(this.inputBlurTimer)
+      this.inputBlurTimer = null
     }
 
     if (multiple) {
@@ -271,10 +292,15 @@ class Select extends PureComponent {
 
     if (this.lastChangeIsOptionClick) return
 
-    // if click option, ignore input blur
-    this.inputBlurTimer = setTimeout(() => {
+    this.blurHandler = () => {
       const retData = onCreate(text)
       this.handleChange(null, retData, true)
+    }
+
+    // if click option, ignore input blur
+    this.inputBlurTimer = setTimeout(() => {
+      this.blurHandler()
+      this.blurHandler = null
     }, 200)
   }
 

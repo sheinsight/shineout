@@ -73,7 +73,7 @@ function execCopyCommand(text: string) {
   if (document.execCommand('copy')) {
     document.execCommand('copy')
   }
-  document.body.removeChild(textarea)
+  if (textarea && textarea.parentNode) textarea.parentNode.removeChild(textarea)
 }
 
 // remove all selectClass from dom

@@ -1,6 +1,6 @@
 import { ReactNode, FocusEventHandler, KeyboardEvent, TextareaHTMLAttributes } from 'react'
 import { InputTitleProps } from '../InputTitle/Props'
-import { GetDelayProps, GetInputBorderProps, GetTrimProps } from '../hoc/Props'
+import { GetDelayProps, GetInputBorderProps } from '../hoc/Props'
 import { GetInputableProps } from '../Form/Props'
 import { ForceAdd } from '../@types/common'
 
@@ -66,14 +66,14 @@ export interface OriginTextareaProps extends Pick<InputTitleProps, 'innerTitle' 
    */
   renderFooter?: (value?: string) => ReactNode
   inputFocus?: boolean
+  trim?: boolean
 }
 
 // 增加原生属性
 type TextareaPropsWithOrigin = ForceAdd<OriginTextareaProps, TextareaHTMLAttributes<HTMLTextAreaElement>>
 
 // hoc
-type TextareaPropsWithTrim = GetTrimProps<TextareaPropsWithOrigin>
-export type TextareaPropsWithDelay = GetDelayProps<TextareaPropsWithTrim>
+export type TextareaPropsWithDelay = GetDelayProps<TextareaPropsWithOrigin>
 type TextareaPropsWithBorder = GetInputBorderProps<TextareaPropsWithDelay>
 type TextareaPropsWithInputAble = GetInputableProps<TextareaPropsWithBorder, string>
 

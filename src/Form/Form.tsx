@@ -5,7 +5,7 @@ import { formClass } from './styles'
 import { FormError } from '../utils/errors'
 import { defaultProps } from '../utils/proptypes'
 import { docScroll } from '../utils/dom/document'
-import { IGNORE_BIND } from '../Datum/types'
+import { IGNORE_BIND, SUBMIT_TOPIC } from '../Datum/types'
 import { FieldSetProvider } from './FieldSet'
 import { isRTL } from '../config'
 import { formStatus, SimpleFormProps } from './Props'
@@ -146,6 +146,7 @@ class Form<Value> extends Component<SimpleFormProps<Value>> {
 
     const activeEl = document.activeElement as HTMLElement
     if (activeEl) activeEl.blur()
+    datum.dispatch(SUBMIT_TOPIC)
 
     setTimeout(() => {
       datum

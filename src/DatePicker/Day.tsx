@@ -276,7 +276,7 @@ class Day extends PureComponent<UnionPannelProps, DayState> {
           <Icon
             name="AngleDoubleLeft"
             className="left"
-            disabled={!!(min && utils.compareYear(current, min, -1, this.getOptions()) === -1)}
+            disabled={!!(min && utils.compareYear(current, min, 1, this.getOptions()) === -1)}
             onClick={this.handlePrevYear}
           />
           <Icon

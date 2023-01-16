@@ -97,22 +97,6 @@ export type GetCoinProps<Props extends { onFocus?: any; onBlur?: any }> = ForceA
   CoinProps
 >
 
-/** ------ trim ------ * */
-export interface TrimProps {
-  value?: any
-  onChange?: (...args: any) => void
-  onBlur?: (e: any) => void
-  /**
-   * When trim is true, blank characters are automatically deleted when lose focus。
-   *
-   * trim 为 true 时，失去焦点时会自动删除空白字符。
-   *
-   * default: false
-   */
-  trim?: boolean
-}
-export type GetTrimProps<Props> = ForceAdd<Props, TrimProps>
-
 /** ------ hidable ------ * */
 export type GetHidableConsumerProps<Props> = Props
 

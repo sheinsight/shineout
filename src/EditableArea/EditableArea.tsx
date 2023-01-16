@@ -1,5 +1,6 @@
 import React from 'react'
 import classnames from 'classnames'
+import config from '../config'
 import Textarea from '../Textarea'
 import Input from '../Input'
 import Popover from '../Popover'
@@ -81,9 +82,23 @@ class Editable extends React.PureComponent<BaseProps, EditableareaState> {
   }
 
   onBlur(e: React.FocusEvent) {
-    const { onBlur } = this.props
+    const { onBlur, forceChange } = this.props
+    const target = e.target as HTMLInputElement
     this.hidePop()
+    let newValue = target.value
+    if (this.getTrim()) {
+      newValue = newValue.trim()
+      target.value = newValue
+    }
+    forceChange(newValue)
     if (typeof onBlur === 'function') onBlur(e)
+  }
+
+  getTrim() {
+    const { trim } = this.props
+    if (trim !== undefined) return trim
+    if (config.trim !== undefined) return config.trim
+    return false
   }
 
   getErrorProps() {

@@ -34,7 +34,7 @@
 | renderUnmatched | (data: any) => ReactNode | none | render unmatched value |
 | onCollapse | (collapse: boolean) => void | none | option collapse callback |
 | rules | any[] | - | Validation rules |
-| unmatch | boolean | - | render unmatch value |
+| unmatch | boolean | true | render unmatch value |
 | underline | boolean | false | only display border bottom  |
 | onAdvancedFilter | (text: string) => (data: any) => boolean | - | In the advanced filter mode, you can switch between the filter results and the original data for the current level by pressing the button |
 | filterSameChange | boolean | false | filter out value change callbacks with the same value |

@@ -4985,6 +4985,7 @@ const injects = {
       {
         name: 'spinDefaultName',
         className: exposeClass('common-spin-default'),
+        parser: (d: string) => (d === 'none' ? 'default' : d),
         attr: 'animationName',
         type: [
           'default',

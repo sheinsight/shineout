@@ -1,6 +1,6 @@
 import React, { ChangeEvent, KeyboardEvent, FocusEvent } from 'react'
 import classnames from 'classnames'
-import { isRTL } from '../config'
+import config, { isRTL } from '../config'
 import { PureComponent } from '../component'
 import { inputClass } from '../Input/styles'
 import cleanProps from '../utils/cleanProps'
@@ -45,6 +45,13 @@ class Textarea extends PureComponent<OriginTextareaProps, TextareaState> {
     if (this.props.autosize && prevProps.value !== this.props.value) this.resize(this.props.value)
   }
 
+  getTrim() {
+    const { trim } = this.props
+    if (trim !== undefined) return trim
+    if (config.trim !== undefined) return config.trim
+    return false
+  }
+
   defaultInfo = (value?: string) => {
     if (!value || value.length === 0) return null
     const { info } = this.props
@@ -79,10 +86,14 @@ class Textarea extends PureComponent<OriginTextareaProps, TextareaState> {
   }
 
   handleBlur(e: FocusEvent<HTMLTextAreaElement>) {
-    const { value } = e.target
+    let newValue = e.target.value
     const { forceChange, onBlur } = this.props
+    if (this.getTrim()) {
+      newValue = newValue.trim()
+      e.target.value = newValue
+    }
+    forceChange(newValue)
     if (onBlur) onBlur(e)
-    forceChange(value)
   }
 
   renderFooter() {

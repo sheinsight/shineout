@@ -39,6 +39,15 @@ export interface OriginCascaderProps<DataItem, Value extends CascaderBaseValue>
     Pick<InputTitleProps, 'innerTitle'>,
     Pick<TreeDatumOptions<DataItem>, 'mode'>,
     Pick<StandardProps, 'style'> {
+  inputFocus: boolean
+  /**
+   * Set visible of cascader popup
+   *
+   * 控制浮层显隐
+   *
+   * default: -
+   */
+  open?: boolean
   /**
    * Selected key (controlled)
    *
@@ -302,7 +311,8 @@ export interface CascaderListProps<DataItem, Value extends CascaderBaseValue>
 }
 
 /** ------ Node ------ * */
-export interface NodeProps<DataItem, Value extends CascaderBaseValue> extends Omit<CascaderListProps<DataItem, Value>, 'data'> {
+export interface NodeProps<DataItem, Value extends CascaderBaseValue>
+  extends Omit<CascaderListProps<DataItem, Value>, 'data'> {
   active: boolean
   data: DataItem
 }
@@ -341,7 +351,9 @@ type CascaderPropsWithFilter<Item, Value extends CascaderBaseValue> = GetFilterP
   CascaderPropsWithTableConsumber<Item, Value>,
   Item
 >
-type CascaderPropsWithBorder<Item, Value extends CascaderBaseValue> = GetInputBorderProps<CascaderPropsWithFilter<Item, Value>>
+type CascaderPropsWithBorder<Item, Value extends CascaderBaseValue> = GetInputBorderProps<
+  CascaderPropsWithFilter<Item, Value>
+>
 type CascaderPropsWithInput<Item, Value extends CascaderBaseValue> = GetInputableProps<
   CascaderPropsWithBorder<Item, Value>,
   Value
