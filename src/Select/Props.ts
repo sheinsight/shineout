@@ -17,7 +17,7 @@ type ReactNode = React.ReactNode
 type ReactElement = React.ReactElement
 export type Position = 'drop-down' | 'drop-up'
 
-export interface SelectProps<Item, Value> extends StandardProps, CommonProps {
+export interface BaseSelectProps<Item, Value> extends StandardProps, CommonProps {
   /**
    * Option columns.
    *
@@ -406,6 +406,8 @@ export interface SelectProps<Item, Value> extends StandardProps, CommonProps {
 
   emptyText?: React.ReactNode
 
+  prediction?: ListItemStandardProps<Item, Value>['prediction']
+
   data: Item[]
   value: Value
   defaultValue?: Value
@@ -424,7 +426,7 @@ export interface SelectProps<Item, Value> extends StandardProps, CommonProps {
 
 /** ---------- optionList ---------- */
 export type Control = 'mouse' | 'keyboard'
-export interface OptionListProps<Item, Value> extends Omit<SelectProps<Item, Value>, 'onChange'> {
+export interface OptionListProps<Item, Value> extends Omit<BaseSelectProps<Item, Value>, 'onChange'> {
   control: Control
   data: Item[]
   datum: List<Item, Value>
@@ -462,7 +464,7 @@ export interface OptionProps<Item> {
 }
 
 /** ---------- optionTree ---------- */
-export interface OptionTreeProps<Item, Value> extends SelectProps<Item, Value> {
+export interface OptionTreeProps<Item, Value> extends BaseSelectProps<Item, Value> {
   onChange: (_: any, data: Item, fromInput?: boolean) => void
   // loader: PropTypes.func,
   defaultExpanded?: string[]
@@ -491,7 +493,7 @@ export type ResultValue<Value> = Value | UnMatchedValue<Value>
 /** ---------- result ---------- */
 export interface ResultProps<Item, Value>
   extends Omit<
-    SelectProps<Item, Value>,
+    BaseSelectProps<Item, Value>,
     'renderItem' | 'onChange' | 'onBlur' | 'onFocus' | 'groupKey' | 'innerData' | 'value'
   > {
   datum: List<Item, Value>
@@ -542,7 +544,7 @@ export interface InputProps {
 }
 
 /** ---------- boxList ---------- */
-export interface BoxListProps<Item, Value> extends Omit<SelectProps<Item, Value>, 'onChange' | 'renderItem' | 'data'> {
+export interface BoxListProps<Item, Value> extends Omit<BaseSelectProps<Item, Value>, 'onChange' | 'renderItem' | 'data'> {
   data: Item[]
   columns: number
   onChange: (isActive: boolean, data: Item, index?: number) => void
@@ -587,7 +589,7 @@ export interface FilterProps<Item, Value> {
 }
 
 /** ---------- group ---------- */
-export interface GroupProps<Item, Value> extends Omit<SelectProps<Item, Value>, 'data'> {
+export interface GroupProps<Item, Value> extends Omit<BaseSelectProps<Item, Value>, 'data'> {
   data: Item[]
   groupBy?: (record: Item, index: number, data: Item[]) => any
 
@@ -654,7 +656,7 @@ export type GetTiledProps<Props> = Omit<Props, 'expandIcons'>
 
 export type GetGroupProps<Props> = Omit<Props, 'groupKey'>
 
-export type SelectPropsWidthGroup<Item, Value> = GetGroupProps<SelectProps<Item, Value>>
+export type SelectPropsWidthGroup<Item, Value> = GetGroupProps<BaseSelectProps<Item, Value>>
 export type SelectPropsWidthTiled<Item, Value> = GetTiledProps<SelectPropsWidthGroup<Item, Value>>
 export type SelectPropsWidthFilter<Item, Value> = GetFilterProps<SelectPropsWidthTiled<Item, Value>, Item>
 export type SelectPropsWidthAdvancedFilter<Item, Value> = GetAdvancedFilterHOC<
@@ -673,10 +675,11 @@ export type SelectPropsWidthDatum<Item, Value> = GetDatumListProps<
 export type SelectPropsWidthInputBorder<Item, Value> = GetInputBorderProps<SelectPropsWidthDatum<Item, Value>>
 export type SelectPropsWidthInputable<Item, Value> = GetInputableProps<SelectPropsWidthInputBorder<Item, Value>, Value>
 
-export type GetSelectProps<Item, Value> = SelectPropsWidthInputable<Item, Value>
+export type SelectProps<Item, Value> = SelectPropsWidthInputable<Item, Value>
 
-export declare class SelectClass<Item = any, Value = any> extends React.Component<GetSelectProps<Item, Value>, {}> {
+export declare class SelectClass<Item = any, Value = any> extends React.Component<SelectProps<Item, Value>, {}> {
   render(): JSX.Element
 }
 
 export type SelectType = typeof SelectClass
+

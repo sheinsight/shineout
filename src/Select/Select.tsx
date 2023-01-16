@@ -13,7 +13,7 @@ import { isRTL } from '../config'
 import absoluteList from '../AnimationList/AbsoluteList'
 import { getDirectionClass } from '../utils/classname'
 import { ResultItem, UnMatchedValue } from '../@types/common'
-import { SelectProps, Control, Position } from './Props'
+import { BaseSelectProps, Control, Position } from './Props'
 
 const WrappedOptionList = absoluteList(OptionList)
 const WrappedBoxList = absoluteList(BoxList)
@@ -44,7 +44,7 @@ interface SelectState {
   position: Position
 }
 
-class Select<Item, Value> extends PureComponent<SelectProps<Item, Value>, SelectState> {
+class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, SelectState> {
   static defaultProps = DefaultValue
 
   renderPending: boolean
@@ -85,7 +85,7 @@ class Select<Item, Value> extends PureComponent<SelectProps<Item, Value>, Select
 
   deleteLock: boolean
 
-  constructor(props: SelectProps<Item, Value>) {
+  constructor(props: BaseSelectProps<Item, Value>) {
     super(props)
 
     this.state = {
@@ -134,7 +134,7 @@ class Select<Item, Value> extends PureComponent<SelectProps<Item, Value>, Select
     this.focusInput = null
   }
 
-  componentDidUpdate(_prevProps: SelectProps<Item, Value>, prevState: SelectState) {
+  componentDidUpdate(_prevProps: BaseSelectProps<Item, Value>, prevState: SelectState) {
     const { onFilter } = this.props
 
     // clear filter
