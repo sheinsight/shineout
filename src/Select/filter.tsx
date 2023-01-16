@@ -2,7 +2,7 @@ import React from 'react'
 import { getKey } from '../utils/uid'
 import { getFilterTree } from '../utils/tree'
 import { IS_NOT_MATCHED_VALUE } from './Result'
-import { ResultValue, FilterProps } from './Props'
+import { ResultValue, SelectPropsWidthTiled, SelectPropsWidthFilter } from './Props'
 
 interface FilterState {
   innerFilter: any
@@ -11,8 +11,8 @@ interface FilterState {
   text: string
 }
 
-export default <Props extends FilterProps<Item, Value>, Item, Value>(Origin: React.ComponentType<Props>) =>
-  class Filter extends React.Component<Props, FilterState> {
+export default <Item, Value>(Origin: React.ComponentType<SelectPropsWidthTiled<Item, Value>>) =>
+  class Filter extends React.Component<SelectPropsWidthFilter<Item, Value>, FilterState> {
     static defaultProps = {
       data: [],
       filterDelay: 300,
@@ -23,7 +23,7 @@ export default <Props extends FilterProps<Item, Value>, Item, Value>(Origin: Rea
 
     timer: NodeJS.Timer
 
-    constructor(props: Props) {
+    constructor(props: SelectPropsWidthFilter<Item, Value>) {
       super(props)
       this.state = {
         innerFilter: undefined,
@@ -38,7 +38,7 @@ export default <Props extends FilterProps<Item, Value>, Item, Value>(Origin: Rea
       this.resultCache = new Map()
     }
 
-    componentDidUpdate(prevProps: Props) {
+    componentDidUpdate(prevProps: SelectPropsWidthFilter<Item, Value>) {
       const { datum, multiple } = this.props
       if (prevProps.multiple !== multiple) {
         datum.limit = multiple ? 0 : 1

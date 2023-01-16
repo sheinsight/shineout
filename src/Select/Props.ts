@@ -9,6 +9,7 @@ import {
   ResultItem,
 } from '../@types/common'
 import List from '../Datum/List'
+import { GetTableConsumerProps } from '../Table/Props'
 import { GetInputableProps } from '../Form/Props'
 import { GetInputBorderProps } from '../hoc/Props'
 import { GetDatumListProps } from '../Datum/Props'
@@ -359,14 +360,6 @@ export interface BaseSelectProps<Item, Value> extends StandardProps, CommonProps
   groupBy?: (record: Item, index: number, data: Item[]) => any
 
   /**
-   * custom empty copy
-   *
-   * 自定义empty文案
-   *
-   * default: -
-   */
-
-  /**
    * value is the datum.getValue().
    *
    * value 为 datum.getValue()
@@ -404,9 +397,50 @@ export interface BaseSelectProps<Item, Value> extends StandardProps, CommonProps
 
   loader?: (key: ValueItem<Value>, data: Item) => void
 
+  /**
+   * custom empty copy
+   *
+   * 自定义 empty 文案
+   *
+   * default:
+   */
   emptyText?: React.ReactNode
 
+  /**
+   * filter out value change callbacks with the same value
+   *
+   * 过滤掉相同值的回调
+   *
+   * default: false
+   */
+  filterSameChange?: boolean
+
+  /**
+   * By default, the result of the format function is used to compare whether it matches. In some cases (for example, whe an object that returns the original data is updated, an different option with the same value  is generated), the prediction function needs to be used to determine whether match
+   *
+   * (val, d) => val===format(d) | 默认使用 format 函数执行的结果来比较是否匹配，在某些情况下（例如返回原始数据的对象，更新数据时，生成了一个值相同，非同一个对象的选项），需要借助 prediction 函数来判断是否匹配
+   *
+   * default: (val, d) => val===format(d)
+   */
   prediction?: ListItemStandardProps<Item, Value>['prediction']
+
+  /**
+   * When it is a string, return d[string]. When it is a function, return the result of the function.
+   *
+   * 为 string 时，返回 d[string]。为 function 时，返回函数结果
+   *
+   * default: (val, d) => val===format(d)
+   */
+  renderResult?: ((data: Item, index?: number) => ReactNode)
+
+  /**
+   * show border bottom
+   *
+   * 仅仅展示下边框
+   *
+   * default: false
+   */
+  underline?: boolean
 
   data: Item[]
   value: Value
@@ -419,9 +453,9 @@ export interface BaseSelectProps<Item, Value> extends StandardProps, CommonProps
   inputText?: string
   groupKey: string
   innerData: Item
-  renderResult?: ((data: Item, index?: number) => ReactNode)
   inputable?: boolean
   text?: React.ReactNode
+  expanded?: string[]
 }
 
 /** ---------- optionList ---------- */
@@ -544,7 +578,8 @@ export interface InputProps {
 }
 
 /** ---------- boxList ---------- */
-export interface BoxListProps<Item, Value> extends Omit<BaseSelectProps<Item, Value>, 'onChange' | 'renderItem' | 'data'> {
+export interface BoxListProps<Item, Value>
+  extends Omit<BaseSelectProps<Item, Value>, 'onChange' | 'renderItem' | 'data'> {
   data: Item[]
   columns: number
   onChange: (isActive: boolean, data: Item, index?: number) => void
@@ -628,18 +663,19 @@ export type GetFilterProps<Props, Item> = Omit<Props, 'filterText' | 'result' | 
    * default: false
    */
   showHitDescendants?: boolean
-}
 
-export type GetLimitWrapProps<Props> = Omit<Props, 'limit'> & {
   /**
-   * if it is true, it will be multiple selection
+   * data cache, if data change asynchronously, better set true
    *
-   * 是否是多选
+   * 是否开启数据缓存，如果数据存在动态更新的情况建议开启
    *
    * default: false
    */
-  multiple?: boolean
+  noCache?: boolean
+  onAdvancedFilter?: (text: string) => ((data: Item) => boolean) | void
 }
+
+export type GetLimitWrapProps<Props> = Omit<Props, 'limit'>
 
 export type GetAdvancedFilterHOC<Props, Item> = Omit<Props, 'onAdvancedFilter'> & {
   /**
@@ -656,23 +692,23 @@ export type GetTiledProps<Props> = Omit<Props, 'expandIcons'>
 
 export type GetGroupProps<Props> = Omit<Props, 'groupKey'>
 
-export type SelectPropsWidthGroup<Item, Value> = GetGroupProps<BaseSelectProps<Item, Value>>
+export type SelectPropsWidthAbsolute<Item, Value> = GetTableConsumerProps<BaseSelectProps<Item, Value>>
+export type SelectPropsWidthGroup<Item, Value> = GetGroupProps<SelectPropsWidthAbsolute<Item, Value>>
 export type SelectPropsWidthTiled<Item, Value> = GetTiledProps<SelectPropsWidthGroup<Item, Value>>
 export type SelectPropsWidthFilter<Item, Value> = GetFilterProps<SelectPropsWidthTiled<Item, Value>, Item>
 export type SelectPropsWidthAdvancedFilter<Item, Value> = GetAdvancedFilterHOC<
   SelectPropsWidthFilter<Item, Value>,
   Item
 >
-
-export type SelectPropsWidthLimitWrap<Item, Value> = GetLimitWrapProps<SelectPropsWidthAdvancedFilter<Item, Value>>
-type DataListDatumKey = 'disabled' | 'limit' | 'format' | 'prediction' | 'separator'
 export type SelectPropsWidthDatum<Item, Value> = GetDatumListProps<
-  SelectPropsWidthLimitWrap<Item, Value>,
+  SelectPropsWidthAdvancedFilter<Item, Value>,
   Item,
   Value,
   DataListDatumKey
 >
-export type SelectPropsWidthInputBorder<Item, Value> = GetInputBorderProps<SelectPropsWidthDatum<Item, Value>>
+export type SelectPropsWidthLimitWrap<Item, Value> = GetLimitWrapProps<SelectPropsWidthDatum<Item, Value>>
+type DataListDatumKey = 'disabled' | 'limit' | 'format' | 'prediction' | 'separator'
+export type SelectPropsWidthInputBorder<Item, Value> = GetInputBorderProps<SelectPropsWidthLimitWrap<Item, Value>>
 export type SelectPropsWidthInputable<Item, Value> = GetInputableProps<SelectPropsWidthInputBorder<Item, Value>, Value>
 
 export type SelectProps<Item, Value> = SelectPropsWidthInputable<Item, Value>
@@ -682,4 +718,3 @@ export declare class SelectClass<Item = any, Value = any> extends React.Componen
 }
 
 export type SelectType = typeof SelectClass
-

@@ -30,6 +30,14 @@ export interface FormDatumOptions<V extends {}> {
 export interface ListDatumOptions<Item, Value> {
   value?: Value
   onChange?: (value: Value, data?: Item, checked?: boolean) => void
+
+  /**
+   * set with multiple, value will separator by this
+   *
+   * 多选情况下设置后，value 会处理为 separator 分隔的字符串。
+   *
+   * default: none
+   */
   separator?: string
   limit?: number
   distinct?: boolean

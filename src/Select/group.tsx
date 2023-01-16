@@ -1,20 +1,20 @@
 import React from 'react'
 import { getUidStr } from '../utils/uid'
-import { GroupProps } from './Props'
+import { SelectPropsWidthGroup, SelectPropsWidthAbsolute } from './Props'
 
 interface GroupState<Item> {
   data: Item[]
 }
 
-export default <Item, Value, Props extends GroupProps<Item, Value>>(Origin: React.ComponentType<Props>) =>
-  class Group extends React.Component<GroupProps<Item, Value>, GroupState<Item>> {
+export default <Item, Value>(Origin: React.ComponentType<SelectPropsWidthAbsolute<Item, Value>>) =>
+  class Group extends React.Component<SelectPropsWidthGroup<Item, Value>, GroupState<Item>> {
     static defaultProps = {
       data: [],
     }
 
     groupKey: string
 
-    constructor(props: Props) {
+    constructor(props: SelectPropsWidthGroup<Item, Value>) {
       super(props)
       this.state = {
         data: [],
@@ -27,7 +27,7 @@ export default <Item, Value, Props extends GroupProps<Item, Value>>(Origin: Reac
       this.groupByData()
     }
 
-    componentDidUpdate(prevProps: Props) {
+    componentDidUpdate(prevProps: SelectPropsWidthGroup<Item, Value>) {
       if (prevProps.data !== this.props.data) this.groupByData()
     }
 
@@ -54,6 +54,6 @@ export default <Item, Value, Props extends GroupProps<Item, Value>>(Origin: Reac
 
     render() {
       const { groupBy, data, ...props } = this.props
-      return <Origin {...props as Props} data={this.state.data} groupKey={this.groupKey} />
+      return <Origin {...props} data={this.state.data} groupKey={this.groupKey} />
     }
   }
