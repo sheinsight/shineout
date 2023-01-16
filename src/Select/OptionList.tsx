@@ -217,7 +217,7 @@ class OptionList<Item, Value> extends Component<OptionListProps<Item, Value>, Op
           <div style={{ height: currentIndex * lineHeight }} />
           {data.slice(currentIndex, currentIndex + itemsInView).map((d, i) => (
             <Option
-              isActive={datum.check(d as any)}
+              isActive={datum.check(d)}
               disabled={datum.disabled(d)}
               isHover={hoverIndex === currentIndex + i}
               key={d && d[groupKey] ? `__${d[groupKey]}__` : getKey(d, keygen, i)}

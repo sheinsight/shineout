@@ -4,15 +4,15 @@ import { getFilterTree } from '../utils/tree'
 import { IS_NOT_MATCHED_VALUE } from './Result'
 import { ResultValue, SelectPropsWidthTiled, SelectPropsWidthFilter } from './Props'
 
-interface FilterState {
-  innerFilter: any
-  innerData: any
+interface FilterState<Item> {
+  innerFilter: undefined | ((data: Item) => boolean)
+  innerData: undefined
   filterText: string
   text: string
 }
 
 export default <Item, Value>(Origin: React.ComponentType<SelectPropsWidthTiled<Item, Value>>) =>
-  class Filter extends React.Component<SelectPropsWidthFilter<Item, Value>, FilterState> {
+  class Filter extends React.Component<SelectPropsWidthFilter<Item, Value>, FilterState<Item>> {
     static defaultProps = {
       data: [],
       filterDelay: 300,

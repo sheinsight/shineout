@@ -23,7 +23,7 @@ const DefaultValue = {
 class BoxList<Item, Value> extends Component<BoxListProps<Item, Value>> {
   static defaultProps = DefaultValue
 
-  handleMouseMove: any
+  handleMouseMove: () => void
 
   constructor(props: BoxListProps<Item, Value>) {
     super(props)
