@@ -1,3 +1,1 @@
-import { InputSwitchProps } from './Props'
-
-export type SwitchProps = InputSwitchProps
+export { SwitchProps as Props } from './Props'

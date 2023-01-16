@@ -9,7 +9,7 @@ import { StickyProps } from '../Sticky/Props'
 import { tabsClass } from './styles'
 import { isEmpty, isObject } from '../utils/is'
 import { isRTL } from '../config'
-import { TabsProps, TabsChildProps } from './Props'
+import { TabsProps, TabsChildProps, TabsBaseValue } from './Props'
 import Panel from './Panel'
 import Link from './Link'
 
@@ -24,7 +24,7 @@ const DefaultValue = {
   hideSplit: false,
 }
 
-class Tabs extends PureComponent<TabsProps, TabsState> {
+class Tabs<T extends TabsBaseValue = TabsBaseValue> extends PureComponent<TabsProps<T>, TabsState> {
   static defaultProps = DefaultValue
 
   container: HTMLDivElement | null
@@ -37,7 +37,7 @@ class Tabs extends PureComponent<TabsProps, TabsState> {
 
   static displayName: string
 
-  constructor(props: TabsProps) {
+  constructor(props: TabsProps<T>) {
     super(props)
 
     this.state = {
@@ -53,7 +53,7 @@ class Tabs extends PureComponent<TabsProps, TabsState> {
     this.setStickyStatus = this.setStickyStatus.bind(this)
   }
 
-  componentDidUpdate(prevProps: TabsProps, prevState: TabsState) {
+  componentDidUpdate(prevProps: TabsProps<T>, prevState: TabsState) {
     const { sticky, switchToTop, active } = this.props
 
     if (
@@ -103,7 +103,7 @@ class Tabs extends PureComponent<TabsProps, TabsState> {
     this.container = node
   }
 
-  handleChange(active: string | number) {
+  handleChange(active: T) {
     const { onChange } = this.props
     if (onChange) onChange(active)
     this.setState({ active })

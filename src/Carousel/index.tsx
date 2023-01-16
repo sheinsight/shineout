@@ -6,7 +6,7 @@ import { carouselClass } from './styles'
 import Item from './Item'
 import getDataset from '../utils/dom/getDataset'
 import { isRTL } from '../config'
-import { CarouselProps } from './interface'
+import { CarouselProps } from './Props'
 
 interface CarouselState {
   current: number

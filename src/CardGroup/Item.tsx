@@ -3,9 +3,9 @@ import classname from 'classnames'
 import Checkbox from '../Checkbox/Checkbox'
 import { cardGroupClass } from './styles'
 import Lazyload from '../Lazyload'
-import { CardGroupItemProps } from './Props'
+import { BaseCardGroupItemProps } from './Props'
 
-class Item<T> extends React.Component<CardGroupItemProps<T>, {}> {
+class Item<T> extends React.Component<BaseCardGroupItemProps<T>, {}> {
   handleChange(value: T, _: any, checked: boolean) {
     const { onChange } = this.props
     if (onChange) onChange(checked, value)

@@ -3,8 +3,7 @@
         "allowJs": true,
         "checkJs": false,
         "baseUrl": "./",
-       "declaration": true,
-       "outDir": "./temp",
+        "noEmit": true,
         "paths": {
             "shineout": ["src/index"],
             "doc/*": ["site/*"]

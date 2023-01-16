@@ -22,7 +22,7 @@ export interface TransferContextValue {
 }
 
 /** ----------- transfer ------------*/
-export interface TransferProps<DataItem, Value extends any[]> {
+export interface BaseTransferProps<DataItem, Value extends any[]> {
   titles?: [NodeItem, NodeItem]
   data: DataItem[]
   datum: ListDatum<DataItem, Value>
@@ -131,8 +131,8 @@ export interface TransferProps<DataItem, Value extends any[]> {
 
 /** ----------- btns ------------*/
 export interface BtnProps<DataItem, Value extends any[]>
-  extends Pick<TransferProps<DataItem, Value>, 'datum' | 'keygen' | 'operationIcon' | 'data' | 'disabled'>,
-    Required<Pick<TransferProps<DataItem, Value>, 'operations' | 'data'>> {
+  extends Pick<BaseTransferProps<DataItem, Value>, 'datum' | 'keygen' | 'operationIcon' | 'data' | 'disabled'>,
+    Required<Pick<BaseTransferProps<DataItem, Value>, 'operations' | 'data'>> {
   selecteds: SelectedArr
   setSelecteds: (index: IndexType, value: keyType[]) => void
   sources: DataItem[]
@@ -142,10 +142,10 @@ export interface BtnProps<DataItem, Value extends any[]>
 /** ----------- card ------------*/
 export interface CardProps<DataItem, Value extends any[]>
   extends Pick<
-      TransferProps<DataItem, Value>,
+      BaseTransferProps<DataItem, Value>,
       'keygen' | 'renderItem' | 'listClassName' | 'listStyle' | 'empty' | 'disabled' | 'onSearch' | 'renderFilter'
     >,
-    Pick<Required<TransferProps<DataItem, Value>>, 'lineHeight' | 'listHeight' | 'rowsInView'> {
+    Pick<Required<BaseTransferProps<DataItem, Value>>, 'lineHeight' | 'listHeight' | 'rowsInView'> {
   title: NodeItem
   selecteds: keyType[]
   data: DataItem[]
@@ -153,7 +153,7 @@ export interface CardProps<DataItem, Value extends any[]>
   index: IndexType
   footer: NodeItem
   loading?: boolean
-  customRender: TransferProps<DataItem, Value>['children']
+  customRender: BaseTransferProps<DataItem, Value>['children']
   values: Value
   onFilter?: (text: string) => void
   filterText: string
@@ -161,7 +161,7 @@ export interface CardProps<DataItem, Value extends any[]>
 
 /** ----------- filter ------------*/
 export type GetFilterProps<Props, DataItem, Value extends any[]> = Omit<Props, 'onFilter' | 'filterText'> & {
-  onFilter: TransferProps<DataItem, Value>['onFilter']
+  onFilter: BaseTransferProps<DataItem, Value>['onFilter']
 }
 
 export declare class FilterComp<DataItem, Value extends any[]> extends React.Component<
@@ -190,7 +190,7 @@ export interface ItemConsumerProps<DataItem, Value extends any[]>
 
 export type TransferBindType = 'disabled' | 'limit' | 'format' | 'prediction' | 'separator'
 export type TransferPropsWithListDatum<DataItem, Value extends any[]> = GetDatumListProps<
-  TransferProps<DataItem, Value>,
+  BaseTransferProps<DataItem, Value>,
   DataItem,
   Value,
   TransferBindType
@@ -200,13 +200,13 @@ export type TransferPropsWithInputable<DataItem, Value extends any[]> = GetInput
   Value
 >
 // separator 测试发现该属性有问题暂时屏蔽
-export type TransferIndexProps<DataItem, Value extends any[]> = Omit<
+export type TransferProps<DataItem, Value extends any[]> = Omit<
   TransferPropsWithInputable<DataItem, Value>,
   'separator'
 >
 
 export declare class TransferComp<DataItem, Value extends any[]> extends React.Component<
-  TransferPropsWithInputable<DataItem, Value>,
+  TransferProps<DataItem, Value>,
   any
 > {
   render: () => JSX.Element

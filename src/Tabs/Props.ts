@@ -191,9 +191,9 @@ export interface TabProps extends Required<BaseTabProps> {
   onChange?: (key: string | number) => void
   align?: 'left' | 'right' | 'vertical-left' | 'vertical-right'
 }
-
-export interface TabsProps {
-  active?: string | number
+export type TabsBaseValue = string | number
+export interface TabsProps<Key extends TabsBaseValue = TabsBaseValue> {
+  active?: Key
   align?: 'left' | 'right' | 'vertical-left' | 'vertical-right' | 'bottom'
   background?: string
   border?: string
@@ -201,7 +201,7 @@ export interface TabsProps {
   className?: string
   collapsible?: boolean
   color?: string
-  defaultActive?: string | number
+  defaultActive?: Key
   defaultCollapsed?: boolean
   inactiveBackground?: string
   shape?: 'card' | 'line' | 'button' | 'bordered' | 'dash'
@@ -213,7 +213,7 @@ export interface TabsProps {
   sticky?: boolean | number | StickyProps
   switchToTop?: boolean
   hideSplit?: boolean
-  onChange?: (key: string | number) => void
+  onChange?: (key: Key) => void
 }
 
 export interface TabsChildProps {

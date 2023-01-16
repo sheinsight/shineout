@@ -13,7 +13,7 @@ import { itemConsumer } from './Item'
 import { fieldSetConsumer } from './FieldSet'
 import ListDatum from '../Datum/List'
 import { ObjectType } from '../@types/common'
-import { FormItemRule } from '../Rule/interface'
+import { FormItemRule } from '../Rule/Props'
 import { InputableProps, BaseInputProps, GetInputableProps, InputableFormConsumerKey } from './Props'
 
 interface CustomValidateType {

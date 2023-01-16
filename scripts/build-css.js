@@ -6,8 +6,8 @@ const autoprefixer = require('autoprefixer')
 const glob = require('glob')
 const { execSync } = require('child_process')
 
-const root = path.resolve(__dirname, '../src')
-const publish = path.resolve(__dirname, '../publish')
+const cssRoot = path.resolve(__dirname, '../publish/css')
+const libRoot = path.resolve(__dirname, '../publish/lib')
 
 async function render(data, setting) {
   return new Promise((resolve, reject) => {
@@ -22,19 +22,18 @@ async function render(data, setting) {
 }
 
 function buildCss(stylePath) {
-  const originPath = path.resolve(root, stylePath)
-  const distPath = path.resolve(publish, 'css', stylePath)
+  const targetPath = path.resolve(cssRoot, stylePath)
+  const sourcePath = path.resolve(libRoot, stylePath)
 
-  if (!fs.existsSync(distPath)) {
-    fs.mkdirSync(distPath)
+  if (!fs.existsSync(targetPath)) {
+    fs.mkdirSync(targetPath)
   }
 
-  fs.readdirSync(originPath)
+  fs.readdirSync(sourcePath)
     .filter(name => name.indexOf('.less') > 0)
     .forEach(async name => {
-      const fn = path.resolve(originPath, name)
-      const cssFile = path.resolve(distPath, name.replace('.less', '.css'))
-
+      const fn = path.resolve(sourcePath, name)
+      const cssFile = path.resolve(targetPath, name).replace('.less', '.css')
       const lessText = fs.readFileSync(fn).toString()
       const cssText = await render(lessText, { filename: fn })
 
@@ -48,9 +47,9 @@ function buildCss(stylePath) {
 }
 
 function replaceLess(d) {
-  const dir = path.resolve(publish, 'css/', d)
+  const dir = path.resolve(cssRoot, d)
   fs.readdirSync(dir)
-    .filter(name => /\.js$/.test(name))
+    .filter(name => /\.(js|ts)$/.test(name))
     .forEach(name => {
       const filePath = path.resolve(dir, name)
       const text = fs
@@ -61,29 +60,18 @@ function replaceLess(d) {
     })
 }
 
-function copyLess(lessPath) {
-  const target = path.resolve(publish, 'lib/', lessPath)
-  const originPath = path.resolve(root, lessPath)
-  if (!fs.existsSync(path.dirname(target))) {
-    fs.mkdirSync(path.dirname(target))
-  }
-  console.log(`cp -r ${originPath} ${target}`)
-  execSync(`cp -r  ${originPath} ${target}`)
-}
-
-// 创建css 到style
-glob('*/styles/', { cwd: path.join(process.cwd(), 'src') }, (error, files) => {
+execSync(`cp -r ${libRoot} ${cssRoot}`)
+// 删除less
+glob('**/*.less', { cwd: cssRoot }, (error, files) => {
   files.forEach(p => {
-    buildCss(p)
-    replaceLess(p)
+    const tempPath = path.resolve(cssRoot, p)
+    fs.unlinkSync(tempPath)
   })
 })
-buildCss('styles/')
-replaceLess('styles/')
-
-// 复制less 到lib
-glob('**/*.less', { cwd: path.join(process.cwd(), 'src') }, (error, files) => {
-  files.forEach(p => {
-    copyLess(p)
+// 编译 less
+glob('*/styles/', { cwd: libRoot }, (error, files) => {
+  files.concat(['styles/']).forEach(p => {
+    buildCss(p)
+    replaceLess(p)
   })
 })

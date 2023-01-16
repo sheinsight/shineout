@@ -2,7 +2,7 @@ import React from 'react'
 import { PureComponent } from '../component'
 import inputBorder from '../hoc/inputBorder'
 import { tagClass } from './styles'
-import { TagInputProps } from './interface'
+import { TagInputProps } from './Props'
 
 class TagInput extends PureComponent<TagInputProps> {
   element: HTMLInputElement

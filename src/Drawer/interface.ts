@@ -1,3 +1,1 @@
-import { ModalProps as __DrawerProps } from '../Modal/Props'
-
-export type DrawerProps = __DrawerProps
+export { ModalProps as Props } from '../Modal/Props'

@@ -13,7 +13,7 @@ interface Value {
   age?: number
   friends?: Value[]
 }
-type RuleFunc = TYPE.Rule.validFunc
+type RuleFunc = TYPE.Rule.ValidFunc
 type FieldSetEmpty = TYPE.Form.FieldSetProps<Value>['empty']
 
 interface ValueMap {

@@ -1,7 +1,5 @@
-import * as T from './Props'
-
-export type PopoverProps = T.PopoverProps
-
-export type PopoverConfirmProps = T.PopoverConfirmProps
-
-export type PopoverContentProps = T.PopoverContentProps
+export {
+  PopoverProps as Props,
+  PopoverConfirmProps as ConfirmProps,
+  PopoverContentProps as ContentProps,
+} from './Props'

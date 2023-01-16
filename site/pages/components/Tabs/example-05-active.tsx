@@ -9,7 +9,7 @@ import { Radio, Tabs, TYPE } from 'shineout'
 import lorem from 'doc/utils/faker/lorem'
 import FontAwsome from '../Icon/FontAwesome'
 
-type TabsProps = TYPE.Tabs.Props
+type TabsProps = TYPE.Tabs.Props<string>
 type TabsOnChange = TabsProps['onChange']
 
 const panelStyle: React.CSSProperties = { padding: 15 }

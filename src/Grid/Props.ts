@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 import { StandardProps } from '../@types/common'
 
-export type responsiveType = 'sm' | 'md' | 'lg' | 'xl'
+export type ResponsiveType = 'sm' | 'md' | 'lg' | 'xl'
 
 export interface GridProps extends StandardProps {
   /**
@@ -38,7 +38,7 @@ export interface GridProps extends StandardProps {
    *
    * default: 'md'
    */
-  responsive?: responsiveType
+  responsive?: ResponsiveType
 
   /**
    * Stretch full height of content

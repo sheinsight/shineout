@@ -13,7 +13,7 @@ import Caret from '../icons/Caret'
 import { getDirectionClass } from '../utils/classname'
 import InputTitle from '../InputTitle'
 import { inputTitleClass } from '../InputTitle/styles'
-import { ResultProps, ResultItemProps, BaseValue } from './Props'
+import { ResultProps, ResultItemProps, CascaderBaseValue } from './Props'
 
 // eslint-disable-next-line react/prop-types
 function Item<DataItem>({
@@ -56,7 +56,7 @@ interface ResultState {
   more: number
 }
 
-class Result<DataItem, Value extends BaseValue> extends PureComponent<ResultProps<DataItem, Value>, ResultState> {
+class Result<DataItem, Value extends CascaderBaseValue> extends PureComponent<ResultProps<DataItem, Value>, ResultState> {
   static defaultProps = {
     value: [],
   }

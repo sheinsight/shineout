@@ -1,3 +1,1 @@
-import { GapProps as __GapProps } from './Props'
-
-export type GapProps = __GapProps
+export { GapProps as Props } from './Props'

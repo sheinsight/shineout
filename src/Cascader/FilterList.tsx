@@ -6,9 +6,9 @@ import { getFlattenTree } from '../utils/tree'
 import { selectClass } from '../Select/styles'
 import { cascaderClass } from './styles'
 import Spin from '../Spin'
-import { FilterItemProps, FilterListProps, BaseValue, FilterListType } from './Props'
+import { FilterItemProps, FilterListProps, CascaderBaseValue, FilterListType } from './Props'
 
-class FilterItem<DataItem, T extends BaseValue> extends Component<FilterItemProps<DataItem, T>, {}> {
+class FilterItem<DataItem, T extends CascaderBaseValue> extends Component<FilterItemProps<DataItem, T>, {}> {
   constructor(props: FilterItemProps<DataItem, T>) {
     super(props)
     this.handleSelect = this.handleSelect.bind(this)
@@ -76,7 +76,7 @@ class FilterItem<DataItem, T extends BaseValue> extends Component<FilterItemProp
 }
 
 // eslint-disable-next-line react/no-multi-comp
-class FilterList<U, T extends BaseValue> extends Component<FilterListProps<U, T>, {}> {
+class FilterList<U, T extends CascaderBaseValue> extends Component<FilterListProps<U, T>, {}> {
   getKey(path: U[]) {
     const { datum } = this.props
     return path.map(d => datum.getKey(d)).join('-')

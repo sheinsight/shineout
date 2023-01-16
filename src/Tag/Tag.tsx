@@ -10,7 +10,7 @@ import { isDark } from '../utils/color'
 import { tagClass } from './styles'
 import { isRTL } from '../config'
 import getDataset from '../utils/dom/getDataset'
-import { TagProps } from './interface'
+import { TagProps } from './Props'
 
 const hideInput = 0
 const showInput = 1

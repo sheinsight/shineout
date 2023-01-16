@@ -1,4 +1,5 @@
 // Created by scripts/src-index.js.
+
 import * as utils from './utils'
 
 export default { utils, version: '1.12.0-rc.2' }
@@ -8,7 +9,6 @@ export { color, style } from './utils/expose'
 export { default as config, setConfig, isRTL } from './config'
 
 export { default as LazyList } from './AnimationList/LazyList'
-export { default as List } from './DataList'
 export { default as Alert } from './Alert'
 export { default as AnimationList } from './AnimationList'
 export { default as Breadcrumb } from './Breadcrumb'
@@ -30,8 +30,8 @@ export { default as Grid } from './Grid'
 export { default as Icon } from './Icon'
 export { default as Image } from './Image'
 export { default as Input } from './Input'
-export { default as InputTitle } from './InputTitle'
 export { default as Lazyload } from './Lazyload'
+export { default as List } from './List'
 export { default as Menu } from './Menu'
 export { default as Message } from './Message'
 export { default as Modal } from './Modal'

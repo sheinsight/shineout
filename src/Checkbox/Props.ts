@@ -86,7 +86,7 @@ export interface CheckboxContextProvider {
 
 export type CheckboxProviderProps<U> = Omit<U, 'onRawChange'>
 
-export interface CheckboxGroupProps<DataItem, Value>
+export interface BaseCheckboxGroupProps<DataItem, Value>
   extends StandardProps,
     Pick<StructDataStandardProps<DataItem>, 'renderItem'> {
   keygen: KeygenType<DataItem>
@@ -114,20 +114,25 @@ export interface CheckboxGroupProps<DataItem, Value>
 }
 export type GroupDatumArgsType = 'disabled' | 'format' | 'prediction' | 'separator'
 
-export type InputCheckboxProps<Value> = PropsWithChildren<GetInputableProps<SimpleCheckProps, Value>>
-export type InputCheckboxGroupProps<DataItem, Value> = PropsWithChildren<
-  GetInputableProps<GetDatumListProps<CheckboxGroupProps<DataItem, Value>, DataItem, Value, GroupDatumArgsType>, Value>
+type InputCheckboxProps<Value> = PropsWithChildren<GetInputableProps<SimpleCheckProps, Value>>
+export type CheckboxProps<Value> = InputCheckboxProps<Value>
+type InputCheckboxGroupProps<DataItem, Value> = PropsWithChildren<
+  GetInputableProps<
+    GetDatumListProps<BaseCheckboxGroupProps<DataItem, Value>, DataItem, Value, GroupDatumArgsType>,
+    Value
+  >
 >
+export type CheckboxGroupProps<DataItem, Value> = InputCheckboxGroupProps<DataItem, Value>
 
 export class CheckboxGroup<DataItem = any, Value = any> extends React.Component<
-  InputCheckboxGroupProps<DataItem, Value>,
+  CheckboxGroupProps<DataItem, Value>,
   {}
 > {
   // @ts-ignore
   render(): JSX.Element
 }
 
-export declare class CheckboxClass<Value = any> extends React.Component<InputCheckboxProps<Value>, {}> {
+export declare class CheckboxClass<Value = any> extends React.Component<CheckboxProps<Value>, {}> {
   static Group: typeof CheckboxGroup
 
   render(): JSX.Element

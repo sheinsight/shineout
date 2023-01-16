@@ -35,7 +35,7 @@ export interface OriginSpinProps {
 export interface TypeSpinProps
   extends Omit<OriginSpinProps, 'style' | 'spinClass' | 'count' | 'render' | 'itemStyle' | 'itemClass' | 'itemSize'> {}
 
-export interface SpinProps extends Omit<TypeSpinProps, 'size'> {
+export interface BaseSpinProps extends Omit<TypeSpinProps, 'size'> {
   style?: CSSProperties
   className?: string
   name?: SpinName
@@ -45,4 +45,4 @@ export interface SpinProps extends Omit<TypeSpinProps, 'size'> {
   loading?: boolean
 }
 
-export type SpinPropsWithHoc = ConfigType<SpinProps>
+export type SpinProps = ConfigType<BaseSpinProps>
