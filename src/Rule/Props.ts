@@ -42,30 +42,121 @@ export interface ValidFunc {
 
 // Rule 的内置结果
 export interface RuleCommonResult {
+  /**
+   * whether to be required
+   *
+   * 是否必填
+   *
+   * default: -
+   */
   required: InnerRuleFunc<(message?: MessageType) => Required>
 
+  /**
+   * The minimum value. When type is 'number', validate the value. Otherwise, validate the value.length.
+   *
+   * 最小值，type 为 'number' 时，判断数值大小，其他类型判断 length
+   *
+   * default: -
+   */
   min: InnerRuleFunc<(number?: number, message?: MessageType) => Min>
 
+  /**
+   * The maximum value. When type is 'number', validate the value. Otherwise, validate the value.length.
+   *
+   * 最大值，type 为 'number' 时，判断数值大小，其他类型判断 length
+   *
+   * default: -
+   */
   max: InnerRuleFunc<(number?: number, message?: MessageType) => Max>
 
+  /**
+   * Range check, automatically determines whether the check type is a string, number, or option base on the field type.
+   *
+   * 数值范围校验，会根据 Field 的 type 自动判断校验类型为字符串、数字或选项
+   *
+   * default: -
+   */
   range: InnerRuleFunc<(min?: number, max?: number, message?: MessageType) => Range>
 
+  /**
+   * regular expression
+   *
+   * 正则表达式
+   *
+   * default: -
+   */
   regExp: InnerRuleFunc<(reg?: RegExp | string, message?: MessageType) => RegExpParams>
 
+  /**
+   * Email check
+   *
+   * 邮箱校验
+   *
+   * default: -
+   */
   email: InnerRuleFunc<(message?: MessageType) => Type>
 
+  /**
+   * Integer check
+   *
+   * 整数校验
+   *
+   * default: -
+   */
   integer: InnerRuleFunc<(message?: MessageType) => Type>
 
+  /**
+   * Number check
+   *
+   * 数值校验
+   *
+   * default: -
+   */
   number: InnerRuleFunc<(message?: MessageType) => Type>
 
+  /**
+   * Url check
+   *
+   * Url 校验
+   *
+   * default: -
+   */
   url: InnerRuleFunc<(message?: MessageType) => Type>
 
+  /**
+   * Json check
+   *
+   * Json 校验
+   *
+   * default: -
+   */
   json: InnerRuleFunc<(message?: MessageType) => Type>
 
+  /**
+   * Hex check
+   *
+   * Hex 校验
+   *
+   * default: -
+   */
   hex: InnerRuleFunc<(message?: MessageType) => Type>
 
+  /**
+   * Rgb check
+   *
+   * Rgb 校验
+   *
+   * default: -
+   */
   rgb: InnerRuleFunc<(message?: MessageType) => Type>
 
+  /**
+   * Ipv4 check
+   *
+   * Ipv4 校验
+   *
+   * default: -
+   */
   ipv4: InnerRuleFunc<(message?: MessageType) => Type>
 }
 
@@ -104,6 +195,7 @@ export interface RuleParams {
   max?: Max
   range?: Range
   regExp?: RegExpParams
+
   email?: Type
   integer?: Type
   number?: Type

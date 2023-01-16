@@ -1,4 +1,4 @@
-import { FormItemRule } from '../Rule/interface'
+import { FormItemRule } from '../Rule/Props'
 import { ForceAdd, LiteralUnion, ObjectType } from '../@types/common'
 import { ValidType } from './types'
 

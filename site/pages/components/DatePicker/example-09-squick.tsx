@@ -5,17 +5,15 @@
  *    -- can configure some options for quick selection. The date can be Date, timestamp, or string. The string needs to be in the same format as the format.
  */
 import React from 'react'
-import { DatePicker, TYPE } from 'shineout'
+import { DatePicker } from 'shineout'
 import dayjs from 'dayjs'
-
-type DatePickerQuickSelect = TYPE.DatePicker.QuickSelect
 
 const today = new Date()
 const fmt = 'YYYY-MM-DD'
 const formatStart = 'YYYY-MM-DD 00:00:00'
 const formatEnd = 'YYYY-MM-DD 23:59:59'
 
-const QuickSelectData: DatePickerQuickSelect[] = [
+const QuickSelectData = [
   { name: 'Today', value: dayjs(today).format(fmt) },
   {
     name: 'A week later',
@@ -30,7 +28,7 @@ const QuickSelectData: DatePickerQuickSelect[] = [
       .format(fmt),
   },
 ]
-const QuickSelectDataTime: DatePickerQuickSelect[] = [
+const QuickSelectDataTime = [
   {
     name: 'Next Week',
     value: [

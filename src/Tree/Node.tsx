@@ -6,7 +6,7 @@ import { treeClass } from './styles'
 import Content from './Content'
 import { getDirectionClass } from '../utils/classname'
 import { NodeProps } from './Props'
-import { keyType } from '../@types/common'
+import { keyType, ObjectType } from '../@types/common'
 
 const placeElement = document.createElement('div')
 placeElement.className = treeClass('drag-place')
@@ -111,8 +111,7 @@ class Node<DataItem, Value extends any[]> extends PureComponent<NodeProps<DataIt
     if (dragImageStyle) {
       Object.keys(dragImageStyle).forEach(k => {
         const styleKey = k as keyof typeof dragImageStyle
-        // @ts-ignore
-        this.dragImage.style[styleKey] = dragImageStyle[styleKey]
+        ;(this.dragImage.style as ObjectType)[styleKey] = dragImageStyle[styleKey]
       })
     }
 

@@ -2,7 +2,7 @@ import React, { ComponentType, PureComponent } from 'react'
 import createReactContext from '../context'
 import { deepGet } from '../utils/objects'
 import { isObject, isArray } from '../utils/is'
-import { FormItemRule } from '../Rule/interface'
+import { FormItemRule } from '../Rule/Props'
 import { ObjectType } from '../@types/common'
 import {
   FormContextKey,

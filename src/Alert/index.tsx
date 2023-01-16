@@ -5,7 +5,7 @@ import { alertClass } from './styles'
 import { capitalize } from '../utils/strings'
 import { defaultProps } from '../utils/proptypes'
 
-import { AlertProps } from './interface'
+import { AlertProps } from './Props'
 
 const DefaultProps = {
   ...defaultProps,

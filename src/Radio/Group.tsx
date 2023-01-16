@@ -7,17 +7,17 @@ import { Provider } from '../Checkbox/context'
 import { checkinputClass } from '../Checkbox/styles'
 import Radio from './Radio'
 import { isRTL } from '../config'
-import { RadioGroupProps } from './Props'
+import { BaseRadioGroupProps } from './Props'
 import { CheckValueType } from '../Checkbox/Props'
 
-class RadioGroup<DataItem, Value> extends PureComponent<RadioGroupProps<DataItem, Value>, {}> {
+class RadioGroup<DataItem, Value> extends PureComponent<BaseRadioGroupProps<DataItem, Value>, {}> {
   static defaultProps = {
     renderItem: (d: any) => d,
   }
 
   handleUpdate: () => void
 
-  constructor(props: RadioGroupProps<DataItem, Value>) {
+  constructor(props: BaseRadioGroupProps<DataItem, Value>) {
     super(props)
 
     this.handleClick = this.handleClick.bind(this)

@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react'
 import { ForceAdd, PartialKeys, RegularAttributes } from '../@types/common'
-import { PopoverProps } from '../Popover/interface'
+import { PopoverProps } from '../Popover/Props'
 import { PaginationProps } from '../Pagination/Props'
 import { PopoverPosition } from '../Popover/Props'
 

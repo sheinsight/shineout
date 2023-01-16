@@ -1,5 +1,1 @@
-import { GetCardGroupItemProps, CardGroupProps as _CardGroupProps } from './Props'
-
-export type CardGroupItemProps<T> = GetCardGroupItemProps<T>
-
-export type CardGroupProps = _CardGroupProps
+export { CardGroupItemProps as ItemProps, CardGroupProps as Props } from './Props'

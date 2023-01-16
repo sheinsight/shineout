@@ -8,7 +8,7 @@ import React, { useState } from 'react'
 import { Tabs, TYPE } from 'shineout'
 import { Link, BrowserRouter } from 'react-router-dom'
 
-type TabsProps = TYPE.Tabs.Props
+type TabsProps = TYPE.Tabs.Props<number>
 type TabsOnChange = TabsProps['onChange']
 
 const App: React.FC = () => {

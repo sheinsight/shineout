@@ -19,7 +19,7 @@ interface Value {
 type FormProps = TYPE.Form.Props<Value>
 type FormValue = FormProps['value']
 type FormRef = TYPE.Form.Ref<any>
-type RuleFunc = TYPE.Rule.validFunc
+type RuleFunc = TYPE.Rule.ValidFunc
 
 const password = {
   func: (value: string, _formData: any, _cb: any, props: { message: string; title: string }) =>

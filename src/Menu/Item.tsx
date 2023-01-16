@@ -122,7 +122,6 @@ class Item<U extends BaseItemProps<U>> extends PureComponent<ItemProps<U>, State
   handleToggle(open: boolean) {
     const { toggleOpenKeys, toggleDuration } = this.props
     const key = this.getKey()
-
     if (this.toggleTimer) clearTimeout(this.toggleTimer)
     if (open) {
       toggleOpenKeys(key, true)

@@ -1,3 +1,1 @@
-import * as T from './props'
-
-export type TextareaProps = T.TextareaProps
+export { TextareaProps as Props } from './props'

@@ -25,7 +25,7 @@ type FormProps = TYPE.Form.Props<Value>
 type FormValue = FormProps['value']
 type FormOnChange = FormProps['onChange']
 
-type RuleFunc = TYPE.Rule.validFunc
+type RuleFunc = TYPE.Rule.ValidFunc
 
 const citys = fetchCity(20)
 

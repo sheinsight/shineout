@@ -4,7 +4,7 @@ import DatumTree, { TreeModeType } from '../Datum/Tree'
 import { GetInputBorderProps } from '../hoc/Props'
 import { GetInputableProps } from '../Form/Props'
 import { TreeProps } from '../Tree/Props'
-import { getTableConsumerProps } from '../Table/Props'
+import { GetTableConsumerProps } from '../Table/Props'
 
 type ReactNode = React.ReactNode
 export type FilterFormType = 'blur' | 'edit'
@@ -221,7 +221,7 @@ export interface InputProps {
   text: React.ReactNode
 }
 
-type TreeSelectPropsWithAbsolute<Item, Value> = getTableConsumerProps<OriginTreeSelectProps<Item, Value>>
+type TreeSelectPropsWithAbsolute<Item, Value> = GetTableConsumerProps<OriginTreeSelectProps<Item, Value>>
 
 export type TreeSelectPropsWithTied<Item, Value> = Omit<TreeSelectPropsWithAbsolute<Item, Value>, 'expandIcons'> & {
   onAdvancedFilter: boolean

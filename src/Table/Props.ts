@@ -28,7 +28,7 @@ export type TableFix = 'x' | 'y' | 'both'
 
 export type ColumnType = 'expand' | 'row-expand' | 'checkbox'
 
-export interface renderSorterParam {
+export interface RenderSorterParam {
   status?: 'asc' | 'desc'
   triggerAsc: () => void
   triggerDesc: () => void
@@ -245,7 +245,7 @@ export interface CommonColumn<T> {
 export type ColumnItem<T> = CommonColumn<T>
 
 /** ------ context ---------- */
-export type getTableConsumerProps<Props> = Props
+export type GetTableConsumerProps<Props> = Props
 
 /** ------ tableIndex ---------- */
 export type TablePropsWithPagable<DataItem, Value> = GetPagableProps<TableProps<DataItem, Value>>
@@ -380,7 +380,7 @@ export interface SimpleTableProps<DataItem, Value> {
    *
    * default: false
    */
-  renderSorter?: (params: renderSorterParam) => ReactNode
+  renderSorter?: (params: RenderSorterParam) => ReactNode
   hideHeader?: boolean
   /**
    *  Footer information can be used to summarize

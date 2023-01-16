@@ -4,7 +4,7 @@ import { GetInputableProps } from '../Form/Props'
 import DatumTree, { TreeDatumOptions } from '../Datum/Tree'
 import { GetInputBorderProps } from '../hoc/Props'
 import { AbsoluteProps, GetAbsoluteProps } from '../AnimationList/Props'
-import { getTableConsumerProps } from '../Table/Props'
+import { GetTableConsumerProps } from '../Table/Props'
 import { InputTitleProps } from '../InputTitle/Props'
 
 interface componentRef {
@@ -12,7 +12,7 @@ interface componentRef {
   [propName: string]: any
 }
 
-export type BaseValue = (string | number)[]
+export type CascaderBaseValue = (string | number)[]
 
 /** ------ filterHoc ------ * */
 
@@ -34,10 +34,10 @@ export type GetFilterProps<Props, DataItem> = Omit<
 }
 
 /** ------ Cascader ------ * */
-export interface OriginCascaderProps<DataItem, Value extends BaseValue>
+export interface OriginCascaderProps<DataItem, Value extends CascaderBaseValue>
   extends Pick<AbsoluteProps, 'absolute' | 'zIndex'>,
     Pick<InputTitleProps, 'innerTitle'>,
-    Pick<TreeDatumOptions<DataItem, Value>, 'mode'>,
+    Pick<TreeDatumOptions<DataItem>, 'mode'>,
     Pick<StandardProps, 'style'> {
   /**
    * Selected key (controlled)
@@ -245,7 +245,7 @@ export interface OriginCascaderProps<DataItem, Value extends BaseValue>
 }
 
 /** ------ filterList ------ * */
-export interface FilterListProps<DataItem, Value extends BaseValue>
+export interface FilterListProps<DataItem, Value extends CascaderBaseValue>
   extends Pick<
     OriginCascaderProps<DataItem, Value>,
     | 'wideMatch'
@@ -271,12 +271,12 @@ export interface FilterListProps<DataItem, Value extends BaseValue>
   onPathChange: (key: Value[0], item: DataItem | null, keys: Value, is?: boolean) => void
 }
 
-export interface FilterItemProps<DataItem, Value extends BaseValue>
+export interface FilterItemProps<DataItem, Value extends CascaderBaseValue>
   extends Omit<FilterListProps<DataItem, Value>, 'data' | 'childrenKey' | 'height' | 'loading' | 'wideMatch'> {
   data: DataItem[]
 }
 
-export declare class FilterList<DataItem, Value extends BaseValue> extends React.Component<
+export declare class FilterList<DataItem, Value extends CascaderBaseValue> extends React.Component<
   GetAbsoluteProps<FilterListProps<DataItem, Value>>,
   any
 > {
@@ -286,7 +286,7 @@ export declare class FilterList<DataItem, Value extends BaseValue> extends React
 export type FilterListType = typeof FilterList
 
 /** ------ CascaderList ------ * */
-export interface CascaderListProps<DataItem, Value extends BaseValue>
+export interface CascaderListProps<DataItem, Value extends CascaderBaseValue>
   extends Pick<
     OriginCascaderProps<DataItem, Value>,
     'renderItem' | 'keygen' | 'loader' | 'onItemClick' | 'expandTrigger' | 'childrenKey' | 'data'
@@ -302,14 +302,14 @@ export interface CascaderListProps<DataItem, Value extends BaseValue>
 }
 
 /** ------ Node ------ * */
-export interface NodeProps<DataItem, Value extends BaseValue> extends Omit<CascaderListProps<DataItem, Value>, 'data'> {
+export interface NodeProps<DataItem, Value extends CascaderBaseValue> extends Omit<CascaderListProps<DataItem, Value>, 'data'> {
   active: boolean
   data: DataItem
 }
 
 /** ------ result ------ * */
 
-export interface ResultProps<DataItem, Value extends BaseValue>
+export interface ResultProps<DataItem, Value extends CascaderBaseValue>
   extends Omit<OriginCascaderProps<DataItem, Value>, 'disabled'> {
   datum: DatumTree<DataItem>
   onPathChange: FilterListProps<DataItem, Value>['onPathChange']
@@ -334,21 +334,21 @@ export interface ResultItemProps<DataItem> {
 }
 
 /** ------ CascaderProps ------ * */
-type CascaderPropsWithTableConsumber<Item, Value extends BaseValue> = getTableConsumerProps<
+type CascaderPropsWithTableConsumber<Item, Value extends CascaderBaseValue> = GetTableConsumerProps<
   OriginCascaderProps<Item, Value>
 >
-type CascaderPropsWithFilter<Item, Value extends BaseValue> = GetFilterProps<
+type CascaderPropsWithFilter<Item, Value extends CascaderBaseValue> = GetFilterProps<
   CascaderPropsWithTableConsumber<Item, Value>,
   Item
 >
-type CascaderPropsWithBorder<Item, Value extends BaseValue> = GetInputBorderProps<CascaderPropsWithFilter<Item, Value>>
-type CascaderPropsWithInput<Item, Value extends BaseValue> = GetInputableProps<
+type CascaderPropsWithBorder<Item, Value extends CascaderBaseValue> = GetInputBorderProps<CascaderPropsWithFilter<Item, Value>>
+type CascaderPropsWithInput<Item, Value extends CascaderBaseValue> = GetInputableProps<
   CascaderPropsWithBorder<Item, Value>,
   Value
 >
-export type CascaderProps<Item, Value extends BaseValue> = CascaderPropsWithInput<Item, Value>
+export type CascaderProps<Item, Value extends CascaderBaseValue> = CascaderPropsWithInput<Item, Value>
 
-export declare class CascaderClass<Item, Value extends BaseValue> extends React.Component<
+export declare class CascaderClass<Item, Value extends CascaderBaseValue> extends React.Component<
   CascaderProps<Item, Value>,
   {}
 > {

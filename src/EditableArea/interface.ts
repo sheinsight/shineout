@@ -1,3 +1,1 @@
-import { EditableAreaProps } from './Props'
-
-export type Props = EditableAreaProps
+export { EditableAreaProps as Props } from './Props'

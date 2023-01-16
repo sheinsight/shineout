@@ -16,7 +16,7 @@ import {
   Default,
 } from './Multiple'
 import { Ring, Plane, Pulse } from './Simple'
-import { SpinName, SpinProps } from './Props'
+import { SpinName, BaseSpinProps } from './Props'
 
 const spins = {
   plane: Plane,
@@ -34,7 +34,7 @@ const spins = {
   'three-bounce': ThreeBounce,
 }
 
-function renderContainer(Loading: ReactElement, props: Pick<SpinProps, 'loading' | 'children'>) {
+function renderContainer(Loading: ReactElement, props: Pick<BaseSpinProps, 'loading' | 'children'>) {
   const { loading, children } = props
   return (
     <div className={spinClass('container', loading && 'show')}>
@@ -50,7 +50,7 @@ function getName(name?: SpinName) {
   return 'default'
 }
 
-const Spin: React.FC<SpinProps> = (props: SpinProps) => {
+const Spin: React.FC<BaseSpinProps> = (props: BaseSpinProps) => {
   const { children, style, className, size = 40, color = '#6c757d', tip, ...rest } = props
   const name = getName(props.name)
   const Component = spins[name as keyof typeof spins]

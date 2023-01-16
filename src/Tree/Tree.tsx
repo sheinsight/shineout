@@ -159,7 +159,7 @@ class Tree<DataItem, Value extends any[]> extends PureComponent<TreeProps<DataIt
     const data = immer(this.props.data, draft => {
       let node: any = draft
       let temp: DataItem[]
-      let removeNode: () => void
+      let removeNode: () => void = () => {}
       let offset = 0
       current.indexPath.forEach((p, i) => {
         if (i < current.indexPath.length - 1) {
@@ -197,7 +197,6 @@ class Tree<DataItem, Value extends any[]> extends PureComponent<TreeProps<DataIt
         targetId = target.path[target.path.length - 1]
       }
 
-      // @ts-ignore
       removeNode()
     })
     if (this.props.onDrop) {

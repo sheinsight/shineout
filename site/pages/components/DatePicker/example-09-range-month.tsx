@@ -7,15 +7,13 @@
 import React from 'react'
 import { DatePicker, TYPE } from 'shineout'
 
-type DatePickerValue = TYPE.DatePicker.Value
-type DatePickerDateTimeType = TYPE.DatePicker.DateTimeType
-type DatePickerProps = TYPE.DatePicker.Props<DatePickerValue>
+type DatePickerProps = TYPE.DatePicker.Props
 type DatePickerDefaultRangeMonth = DatePickerProps['defaultRangeMonth']
 
 const today = new Date()
 const style = { marginBottom: 12 }
-const lastMonth: DatePickerDateTimeType = Date.now() - 86400000 * 30
-const nextMonth: DatePickerDateTimeType = Date.now() + 86400000 * 30
+const lastMonth = Date.now() - 86400000 * 30
+const nextMonth = Date.now() + 86400000 * 30
 const DateRangeLast: DatePickerDefaultRangeMonth = [lastMonth, today]
 const DateRangeNext: DatePickerDefaultRangeMonth = [today, nextMonth]
 

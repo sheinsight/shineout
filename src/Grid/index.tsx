@@ -1,7 +1,7 @@
 import React, { PureComponent, Children, cloneElement } from 'react'
 import classnames from 'classnames'
 import { getGrid } from './utils'
-import { GridProps } from './interface'
+import { GridProps } from './Props'
 
 export default class Grid extends PureComponent<GridProps> {
   static isGrid = true

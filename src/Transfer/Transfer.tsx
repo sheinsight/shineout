@@ -8,7 +8,7 @@ import Context from './context'
 import splitSelecteds from './select'
 import { isRTL } from '../config'
 import getDataset from '../utils/dom/getDataset'
-import { TransferProps, SelectedArr, IndexType } from './Props'
+import { BaseTransferProps, SelectedArr, IndexType } from './Props'
 import { keyType } from '../@types/common'
 
 const DefaultProps = {
@@ -27,10 +27,10 @@ interface TransferState {
   selecteds: SelectedArr
 }
 
-class Transfer<DataItem, Value extends any[]> extends PureComponent<TransferProps<DataItem, Value>, TransferState> {
+class Transfer<DataItem, Value extends any[]> extends PureComponent<BaseTransferProps<DataItem, Value>, TransferState> {
   static defaultProps = DefaultProps
 
-  constructor(props: TransferProps<DataItem, Value>) {
+  constructor(props: BaseTransferProps<DataItem, Value>) {
     super(props)
     this.state = {
       selecteds: (props.selectedKeys

@@ -6,14 +6,14 @@ import { CHANGE_TOPIC } from '../Datum/types'
 import Checkbox from './Checkbox'
 import { Provider } from './context'
 import { checkinputClass } from './styles'
-import { CheckboxGroupProps, CheckValueType } from './Props'
+import { BaseCheckboxGroupProps, CheckValueType } from './Props'
 
-class CheckboxGroup<DataItem, Value> extends PureComponent<CheckboxGroupProps<DataItem, Value>, {}> {
+class CheckboxGroup<DataItem, Value> extends PureComponent<BaseCheckboxGroupProps<DataItem, Value>, {}> {
   static defaultProps = {
     renderItem: (d: any) => d,
   }
 
-  constructor(props: CheckboxGroupProps<DataItem, Value>) {
+  constructor(props: BaseCheckboxGroupProps<DataItem, Value>) {
     super(props)
 
     this.handleClick = this.handleClick.bind(this)

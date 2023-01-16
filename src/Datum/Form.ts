@@ -4,7 +4,7 @@ import { fastClone, deepClone } from '../utils/clone'
 import { deepGet, deepSet, deepRemove, objectValues, deepHas } from '../utils/objects'
 import { isObject, isArray } from '../utils/is'
 import { promiseAll, FormError } from '../utils/errors'
-import { FormItemRule } from '../Rule/interface'
+import { FormItemRule } from '../Rule/Props'
 import {
   updateSubscribe,
   errorSubscribe,

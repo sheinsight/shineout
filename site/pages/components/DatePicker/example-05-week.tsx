@@ -5,13 +5,9 @@
  *    -- Set type to be week to select week.
  */
 import React from 'react'
-import { DatePicker, TYPE } from 'shineout'
+import { DatePicker } from 'shineout'
 
-type DatePickerValue = TYPE.DatePicker.Value
-type DatePickerProps = TYPE.DatePicker.Props<DatePickerValue>
-type DatePickerDefaultValue = DatePickerProps['defaultValue']
-
-const Now: DatePickerDefaultValue = Date.now()
+const Now = Date.now()
 
 const App: React.FC = () => <DatePicker type="week" defaultValue={Now} />
 
