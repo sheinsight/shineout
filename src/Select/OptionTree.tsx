@@ -52,7 +52,7 @@ class OptionList<Item, Value> extends Component<OptionTreeProps<Item, Value>> {
       treeData,
       keygen,
       onExpand,
-      // loader,
+      loader,
       expanded,
       defaultExpanded,
       defaultExpandAll,
@@ -79,11 +79,11 @@ class OptionList<Item, Value> extends Component<OptionTreeProps<Item, Value>> {
           keygen={keygen as any}
           renderItem={this.renderItem.bind(this)}
           onExpand={onExpand}
-          // loader={loader}
+          loader={loader}
           expanded={expanded}
           defaultExpandAll={defaultExpandAll}
           defaultExpanded={defaultExpanded}
-          childrenKey={childrenKey}
+          childrenKey={childrenKey as any}
           expandIcons={expandIcons}
         />
       </div>

@@ -1,20 +1,20 @@
 import React from 'react'
 import { getUidStr } from '../utils/uid'
-import { GroupProps, GetGroupProps } from './Props'
+import { GroupProps } from './Props'
 
 interface GroupState<Item> {
   data: Item[]
 }
 
 export default <Item, Value, Props extends GroupProps<Item, Value>>(Origin: React.ComponentType<Props>) =>
-  class Group extends React.Component<GetGroupProps<Props>, GroupState<Item>> {
+  class Group extends React.Component<GroupProps<Item, Value>, GroupState<Item>> {
     static defaultProps = {
       data: [],
     }
 
     groupKey: string
 
-    constructor(props: GetGroupProps<Props>) {
+    constructor(props: Props) {
       super(props)
       this.state = {
         data: [],
@@ -27,7 +27,7 @@ export default <Item, Value, Props extends GroupProps<Item, Value>>(Origin: Reac
       this.groupByData()
     }
 
-    componentDidUpdate(prevProps: GetGroupProps<Props>) {
+    componentDidUpdate(prevProps: Props) {
       if (prevProps.data !== this.props.data) this.groupByData()
     }
 

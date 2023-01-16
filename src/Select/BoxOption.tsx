@@ -5,10 +5,10 @@ import { selectClass } from './styles'
 import { getDirectionClass } from '../utils/classname'
 import { BoxOptionProps } from './Props'
 
-class BoxOption<Item, Value> extends PureComponent<BoxOptionProps<Item, Value>> {
+class BoxOption<Item> extends PureComponent<BoxOptionProps<Item>> {
   locked: boolean
 
-  constructor(props: BoxOptionProps<Item, Value>) {
+  constructor(props: BoxOptionProps<Item>) {
     super(props)
     this.handleClick = this.handleClick.bind(this)
   }

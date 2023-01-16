@@ -12,7 +12,8 @@ import { getParent } from '../utils/dom/element'
 import { isRTL } from '../config'
 import absoluteList from '../AnimationList/AbsoluteList'
 import { getDirectionClass } from '../utils/classname'
-import { SelectProps, Control, Position, ResultValue } from './Props'
+import { ResultItem, UnMatchedValue } from '../@types/common'
+import { SelectProps, Control, Position } from './Props'
 
 const WrappedOptionList = absoluteList(OptionList)
 const WrappedBoxList = absoluteList(BoxList)
@@ -72,9 +73,9 @@ class Select<Item, Value> extends PureComponent<SelectProps<Item, Value>, Select
 
   lastChangeIsOptionClick: boolean
 
-  handleBlur: any
+  handleBlur: (e?: any) => void
 
-  handleRemove: any
+  handleRemove: (data: ResultItem<Item>, fromInput?: boolean) => void
 
   inputLocked: boolean
 
@@ -259,7 +260,7 @@ class Select<Item, Value> extends PureComponent<SelectProps<Item, Value>, Select
     if (control !== this.state.control) this.setState({ control })
   }
 
-  handleChange(_: any, data: Item | ResultValue<Value> | string, fromInput?: boolean) {
+  handleChange(_isActive: boolean, data: ResultItem<Item>, fromInput?: boolean) {
     const { datum, multiple, emptyAfterSelect, onFilter, filterText, onCreate, reFocus } = this.props
     if (this.getDisabledStatus() === true) return
 
@@ -270,7 +271,7 @@ class Select<Item, Value> extends PureComponent<SelectProps<Item, Value>, Select
     }
 
     if (multiple) {
-      if (isObject(data) && data.IS_NOT_MATCHED_VALUE) {
+      if (isObject(data) && (data as UnMatchedValue).IS_NOT_MATCHED_VALUE) {
         datum.remove(data)
       } else {
         const checked = !datum.check(data as Item)
@@ -278,7 +279,7 @@ class Select<Item, Value> extends PureComponent<SelectProps<Item, Value>, Select
           datum.add(data as Item)
         } else {
           if (fromInput === true) return
-          datum.remove(data as Item)
+          datum.remove(data)
         }
         if (this.inputReset) this.inputReset()
       }
@@ -328,7 +329,7 @@ class Select<Item, Value> extends PureComponent<SelectProps<Item, Value>, Select
   handleInputBlur(text: string) {
     const { onFilter, onCreate, multiple, filterSingleSelect, data } = this.props
     if (onFilter && text && filterSingleSelect && data.length === 1) {
-      this.handleChange(null, data[0], false)
+      this.handleChange(false, data[0], false)
       return
     }
     if (!onCreate) return
@@ -339,7 +340,7 @@ class Select<Item, Value> extends PureComponent<SelectProps<Item, Value>, Select
     // if click option, ignore input blur
     this.inputBlurTimer = setTimeout(() => {
       const retData = (onCreate as Function)(text)
-      this.handleChange(null, retData, true)
+      this.handleChange(false, retData, true)
     }, 200)
   }
 
@@ -502,7 +503,7 @@ class Select<Item, Value> extends PureComponent<SelectProps<Item, Value>, Select
       'treeData',
       'expanded',
       'onExpand',
-      // 'loader',
+      'loader',
       'defaultExpanded',
       'defaultExpandAll',
       'datum',
@@ -623,7 +624,7 @@ class Select<Item, Value> extends PureComponent<SelectProps<Item, Value>, Select
       innerTitle,
       keygen,
       convertBr,
-      data,
+      data = DefaultValue.data,
       onFilter,
       treeData,
     } = this.props

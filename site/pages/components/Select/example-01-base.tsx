@@ -9,6 +9,6 @@ import { Select } from 'shineout'
 
 const data: string[] = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
 
-const App: React.FC = () => <Select keygen style={{ width: 240 }} data={data} defaultValue="" />
+const App: React.FC = () => <Select keygen style={{ width: 240 }} data={data} defaultValue="222" />
 
 export default App

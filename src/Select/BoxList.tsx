@@ -39,7 +39,7 @@ class BoxList<Item, Value> extends Component<BoxListProps<Item, Value>> {
   }
 
   getText(key: string) {
-    return this.props.text[key as keyof typeof this.props.text] || getLocale(key)
+    return this.props.text[key] || getLocale(key)
   }
 
   getWidth() {

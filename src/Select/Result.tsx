@@ -12,7 +12,8 @@ import More, { getResetMore } from './More'
 import InputTitle from '../InputTitle'
 import { getKey } from '../utils/uid'
 import { getDirectionClass } from '../utils/classname'
-import { ResultProps, ResultValue } from './Props'
+import { ResultProps } from './Props'
+import { ResultItem, UnMatchedValue } from '../@types/common'
 
 export const IS_NOT_MATCHED_VALUE = 'IS_NOT_MATCHED_VALUE'
 
@@ -22,9 +23,10 @@ export const IS_NOT_MATCHED_VALUE = 'IS_NOT_MATCHED_VALUE'
  * @param {any} value result value
  * @returns {string | null}
  */
-const getResultClassName = <Item, Value>(f: ResultProps<Item, Value>['resultClassName'], value: ResultValue<Value>) => {
+const getResultClassName = <Item, Value>(f: ResultProps<Item, Value>['resultClassName'], data: ResultItem<Item>) => {
+  const unMatchedData: UnMatchedValue = data as UnMatchedValue
   if (isFunc(f)) {
-    return f(isObject(value) && value.IS_NOT_MATCHED_VALUE ? value.value : value)
+    return f(isObject(unMatchedData) && unMatchedData.IS_NOT_MATCHED_VALUE ? unMatchedData.value : unMatchedData)
   }
   if (isString(f)) {
     return f
@@ -33,13 +35,15 @@ const getResultClassName = <Item, Value>(f: ResultProps<Item, Value>['resultClas
 }
 
 const getResultContent = <Item, Value>(
-  data: ResultValue<Value>,
+  data: ResultItem<Item>,
   renderResult: ResultProps<Item, Value>['renderResult'],
   renderUnmatched: ResultProps<Item, Value>['renderUnmatched']
 ) => {
-  if (isObject(data) && data.IS_NOT_MATCHED_VALUE) {
-    if (typeof renderUnmatched === 'function') return renderUnmatched(data.value)
-    return isObject(data.value) ? renderResult(data.value) : data.value
+  const unMatchedData: UnMatchedValue = data as UnMatchedValue
+
+  if (isObject(unMatchedData) && unMatchedData.IS_NOT_MATCHED_VALUE) {
+    if (typeof renderUnmatched === 'function') return renderUnmatched(unMatchedData.value)
+    return isObject(unMatchedData.value) ? renderResult(unMatchedData.value) : unMatchedData.value
   }
   return renderResult(data)
 }
@@ -55,9 +59,9 @@ function Item<Item, Value>({
   only,
 }: {
   content: React.ReactNode | string
-  data: ResultValue<Value>
+  data: ResultItem<Item>
   disabled: boolean
-  onClick: (value: ResultValue<Value>) => void
+  onClick: (value: ResultItem<Item>) => void
   resultClassName: ResultProps<Item, Value>['resultClassName']
   title: boolean
   only: boolean
@@ -150,13 +154,13 @@ class Result<Item, Value> extends PureComponent<ResultProps<Item, Value>, Result
       if (preProps.result.length !== result.length || (data || []).length !== (preProps.data || []).length) {
         shouldRest = true
       } else if (preProps.result !== result) {
-        const getUnMatchKey = (d: ResultValue<Value>, k: ResultProps<Item, Value>['keygen']) =>
-          d && isObject(d) && d.IS_NOT_MATCHED_VALUE ? d.value : getKey(d, k as any)
-        const isSameData = (
-          data1: ResultValue<Value>,
-          data2: ResultValue<Value>,
-          k: ResultProps<Item, Value>['keygen']
-        ) => getUnMatchKey(data1, k) === getUnMatchKey(data2, k)
+        const getUnMatchKey = (d: ResultItem<Item>, k: ResultProps<Item, Value>['keygen']) => {
+          const unMatchedData = d as UnMatchedValue
+          d && isObject(unMatchedData) && unMatchedData.IS_NOT_MATCHED_VALUE ? unMatchedData.value : getKey(d, k as any)
+        }
+
+        const isSameData = (data1: ResultItem<Item>, data2: ResultItem<Item>, k: ResultProps<Item, Value>['keygen']) =>
+          getUnMatchKey(data1, k) === getUnMatchKey(data2, k)
         let i = preProps.result.length - 1
         while (i >= 0) {
           if (!isSameData(result[i], preProps.result[i], keygen)) {
@@ -199,7 +203,7 @@ class Result<Item, Value> extends PureComponent<ResultProps<Item, Value>, Result
   isEmptyResult() {
     const { result, renderResult, renderUnmatched } = this.props
     if (result.length <= 0) return true
-    const res = result.reduce((acc: ResultValue<Value>[], cur) => {
+    const res = result.reduce((acc: ResultItem<Item>[], cur) => {
       const r = getResultContent(cur, renderResult, renderUnmatched)
       if (!isEmpty(r)) {
         acc.push(cur)
@@ -213,7 +217,7 @@ class Result<Item, Value> extends PureComponent<ResultProps<Item, Value>, Result
     this.setState({ more })
   }
 
-  renderItem(data: ResultValue<Value>, index: number) {
+  renderItem(data: ResultItem<Item>, index: number) {
     const { renderResult, renderUnmatched, datum, resultClassName } = this.props
     const content = getResultContent(data, renderResult, renderUnmatched)
     if (content === null) return null
@@ -361,7 +365,7 @@ class Result<Item, Value> extends PureComponent<ResultProps<Item, Value>, Result
     return (
       <span
         key="result"
-        title={title}
+        title={title as string}
         className={classnames(selectClass('ellipsis'), getResultClassName(resultClassName, result[0]))}
       >
         {v}

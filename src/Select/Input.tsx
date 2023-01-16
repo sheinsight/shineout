@@ -17,7 +17,7 @@ const DefaultValue = {
   updatAble: false,
 }
 
-class FilterInput<Item, Value> extends Component<InputProps<Item, Value>, InputState> {
+class FilterInput extends Component<InputProps, InputState> {
   static defaultProps = DefaultValue
 
   lastCursorOffset: number
@@ -32,7 +32,7 @@ class FilterInput<Item, Value> extends Component<InputProps<Item, Value>, InputS
 
   blurTimer: NodeJS.Timer
 
-  constructor(props: InputProps<Item, Value>) {
+  constructor(props: InputProps) {
     super(props)
 
     this.state = {
@@ -67,7 +67,7 @@ class FilterInput<Item, Value> extends Component<InputProps<Item, Value>, InputS
     return this.props.updatAble
   }
 
-  componentDidUpdate(prevProps: InputProps<Item, Value>) {
+  componentDidUpdate(prevProps: InputProps) {
     if (this.props.focus === prevProps.focus || !this.props.focus) return
     this.props.onInputFocus()
     this.focus()
@@ -115,7 +115,7 @@ class FilterInput<Item, Value> extends Component<InputProps<Item, Value>, InputS
       if (!this.lastMaxValue) {
         this.lastMaxValue = text.slice(0, maxLength)
         // 粘贴文本的情况
-      } else if (this.lastSelect && isObject(this.lastSelect)) {
+      } else if (this.lastSelect && isObject(this.lastSelect) && typeof this.lastSelect !== 'boolean') {
         const { anchorOffset, focusOffset, text: str } = this.lastSelect
         const start = anchorOffset < focusOffset ? anchorOffset : focusOffset
         const end = anchorOffset > focusOffset ? anchorOffset : focusOffset
@@ -183,6 +183,7 @@ class FilterInput<Item, Value> extends Component<InputProps<Item, Value>, InputS
   }
 
   handleInput(e: any) {
+    const { onFilter } = this.props
     const change = this.geHandleMax(e)
     if (!change) {
       return
@@ -190,7 +191,7 @@ class FilterInput<Item, Value> extends Component<InputProps<Item, Value>, InputS
     const text = (e.target as HTMLElement).innerText.replace('\feff ', '')
     this.lastCursorOffset = getCursorOffset(text.length)
     const t = this.getProcessedValue(text)
-    this.props.onFilter!(t)
+    if (onFilter) onFilter(t)
   }
 
   handleBlur(e: React.FocusEvent) {
@@ -239,8 +240,8 @@ class FilterInput<Item, Value> extends Component<InputProps<Item, Value>, InputS
         suppressContentEditableWarning: true,
       })
     }
-    // eslint-disable-next-line react/no-danger
-    return <span dangerouslySetInnerHTML={{ __html: value as string }} {...props} onPaste={this.handlePaste} />
+    // @ts-ignore
+    return <span dangerouslySetInnerHTML={{ __html: value }} {...props} onPaste={this.handlePaste} />
   }
 }
 
