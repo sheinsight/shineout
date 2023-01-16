@@ -269,10 +269,10 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
       this.lastChangeIsOptionClick = true
       clearTimeout(this.inputBlurTimer)
     }
-
+    const unMatchedData: UnMatchedValue = data as UnMatchedValue
     if (multiple) {
-      if (isObject(data) && (data as UnMatchedValue).IS_NOT_MATCHED_VALUE) {
-        datum.remove(data)
+      if (isObject(unMatchedData) && unMatchedData.IS_NOT_MATCHED_VALUE) {
+        datum.remove(unMatchedData)
       } else {
         const checked = !datum.check(data as Item)
         if (checked) {

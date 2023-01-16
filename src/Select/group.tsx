@@ -42,7 +42,7 @@ export default <Item, Value>(Origin: React.ComponentType<SelectPropsWidthAbsolut
       const groupData: { [group: string]: Item[] } = {}
 
       data.forEach((d, i) => {
-        const g = groupBy(d, i, data)
+        const g = groupBy(d, i, data) as any
         if (!groupData[g]) groupData[g || ''] = (g ? [{ [this.groupKey]: g }] : []) as Item[]
         groupData[g].push(d)
       })

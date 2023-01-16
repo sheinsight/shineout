@@ -357,7 +357,7 @@ export interface BaseSelectProps<Item, Value> extends StandardProps, CommonProps
    *
    * default: -
    */
-  groupBy?: (record: Item, index: number, data: Item[]) => any
+  groupBy?: (record: Item, index: number, data: Item[]) => string
 
   /**
    * value is the datum.getValue().
