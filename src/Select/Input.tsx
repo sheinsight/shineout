@@ -1,15 +1,38 @@
 import React, { Component, isValidElement, cloneElement } from 'react'
-import PropTypes from 'prop-types'
 import { selectClass } from './styles'
 import { focusElement, getCursorOffset, preventPasteFile } from '../utils/dom/element'
-import { isString } from '../utils/is'
+import { isString, isObject } from '../utils/is'
+import { InputProps } from './Props'
 
-const handleFocus = e => {
+const handleFocus = (e: React.FocusEvent) => {
   e.stopPropagation()
 }
 
-class FilterInput extends Component {
-  constructor(props) {
+interface InputState {
+  editable: boolean
+}
+
+const DefaultValue = {
+  text: '',
+  updatAble: false,
+}
+
+class FilterInput extends Component<InputProps, InputState> {
+  static defaultProps = DefaultValue
+
+  lastCursorOffset: number
+
+  composition: boolean
+
+  editElement: HTMLSpanElement
+
+  lastSelect: { anchorOffset: number; focusOffset: number; text: string } | boolean
+
+  lastMaxValue: string
+
+  blurTimer: NodeJS.Timer
+
+  constructor(props: InputProps) {
     super(props)
 
     this.state = {
@@ -44,28 +67,28 @@ class FilterInput extends Component {
     return this.props.updatAble
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: InputProps) {
     if (this.props.focus === prevProps.focus || !this.props.focus) return
     this.props.onInputFocus()
     this.focus()
   }
 
-  getProcessedValue(text) {
+  getProcessedValue(text: string) {
     const { trim } = this.props
     if (!trim && this.lastCursorOffset === 0 && /^\u00A0$/.test(text)) return ''
     return trim ? text.trim() : text.replace(/\u00A0/g, ' ')
   }
 
-  handlePaste(e) {
+  handlePaste(e: React.ClipboardEvent) {
     const { convertBr } = this.props
     preventPasteFile(
       e,
-      text => {
+      (text: string) => {
         if (window.getSelection) {
           const selection = window.getSelection()
           this.lastSelect = {
-            anchorOffset: selection.anchorOffset,
-            focusOffset: selection.focusOffset,
+            anchorOffset: selection!.anchorOffset,
+            focusOffset: selection!.focusOffset,
             text,
           }
         }
@@ -76,23 +99,23 @@ class FilterInput extends Component {
     )
   }
 
-  geHandleMax(e) {
+  geHandleMax(e: React.ChangeEvent) {
     const { maxLength } = this.props
     if (!maxLength || this.composition) {
       return true
     }
     let change = true
-    const text = e.target.innerText
+    const text = (e.target as HTMLElement).innerText
     if (text.length >= maxLength) {
       let lastPos
       // 输入的位置 需要考虑选中文本的情况
       if (window.getSelection) {
-        lastPos = Math.min(window.getSelection().anchorOffset - (text.length > maxLength ? 1 : 0), maxLength)
+        lastPos = Math.min(window.getSelection()!.anchorOffset - (text.length > maxLength ? 1 : 0), maxLength)
       }
       if (!this.lastMaxValue) {
         this.lastMaxValue = text.slice(0, maxLength)
         // 粘贴文本的情况
-      } else if (this.lastSelect) {
+      } else if (this.lastSelect && isObject(this.lastSelect) && typeof this.lastSelect !== 'boolean') {
         const { anchorOffset, focusOffset, text: str } = this.lastSelect
         const start = anchorOffset < focusOffset ? anchorOffset : focusOffset
         const end = anchorOffset > focusOffset ? anchorOffset : focusOffset
@@ -108,15 +131,14 @@ class FilterInput extends Component {
       }
       // clear select info
       this.lastSelect = false
-
-      e.target.innerText = this.lastMaxValue
+      ;(e.target as HTMLElement).innerText = this.lastMaxValue
       // 修改e.target.innerText后光标会变到最前面，这儿改变光标位置到上次光标的位置
       if (lastPos) {
         const selection = window.getSelection()
-        const range = selection.getRangeAt(0)
+        const range = selection!.getRangeAt(0)
         let textNode = range.startContainer
         if (textNode.nodeName !== '#text') {
-          ;[textNode] = textNode.childNodes
+          ;[textNode] = textNode.childNodes as any
         }
         range.setStart(textNode, lastPos)
         range.collapse(true)
@@ -156,24 +178,25 @@ class FilterInput extends Component {
     })
   }
 
-  bindElement(el) {
+  bindElement(el: HTMLSpanElement) {
     this.editElement = el
   }
 
-  handleInput(e) {
+  handleInput(e: any) {
+    const { onFilter } = this.props
     const change = this.geHandleMax(e)
     if (!change) {
       return
     }
-    const text = e.target.innerText.replace('\feff ', '')
+    const text = (e.target as HTMLElement).innerText.replace('\feff ', '')
     this.lastCursorOffset = getCursorOffset(text.length)
     const t = this.getProcessedValue(text)
-    this.props.onFilter(t)
+    if (onFilter) onFilter(t)
   }
 
-  handleBlur(e) {
+  handleBlur(e: React.FocusEvent) {
     const { text: txt } = this.props
-    const text = this.getProcessedValue(e.target.innerText.replace('\feff ', ''))
+    const text = this.getProcessedValue((e.target as HTMLElement).innerText.replace('\feff ', ''))
     this.focusInput(false)
     if (text === txt) return
     this.props.onInputBlur(text)
@@ -183,7 +206,7 @@ class FilterInput extends Component {
     this.composition = true
   }
 
-  handleCompositionEnd(e) {
+  handleCompositionEnd(e: any) {
     this.composition = false
     this.handleInput(e)
   }
@@ -199,7 +222,7 @@ class FilterInput extends Component {
       contentEditable: focus || this.state.editable,
       onFocus: handleFocus,
       onBlur: this.handleBlur,
-      title: !focus && isString(value) ? value : null,
+      title: !focus && isString(value) ? value : undefined,
       onCompositionStart: this.handleCompositionStart,
       onCompositionEnd: this.handleCompositionEnd,
     }
@@ -212,33 +235,14 @@ class FilterInput extends Component {
       }
       return cloneElement(value, {
         ...props,
+        // @ts-ignore
+        // cloneElement 中的默认类型 React.HTMLAttributes 缺失 suppressContentEditableWarning
         suppressContentEditableWarning: true,
       })
     }
+    // @ts-ignore
     return <span dangerouslySetInnerHTML={{ __html: value }} {...props} onPaste={this.handlePaste} />
   }
-}
-
-FilterInput.propTypes = {
-  focus: PropTypes.bool.isRequired,
-  multiple: PropTypes.bool,
-  onFilter: PropTypes.func.isRequired,
-  onInputBlur: PropTypes.func.isRequired,
-  onInputFocus: PropTypes.func.isRequired,
-  updatAble: PropTypes.bool,
-  setInputReset: PropTypes.func.isRequired,
-  text: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
-  trim: PropTypes.bool,
-  focusSelected: PropTypes.bool,
-  bindFocusInputFunc: PropTypes.func,
-  // collapse: PropTypes.func,
-  maxLength: PropTypes.number,
-  convertBr: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-}
-
-FilterInput.defaultProps = {
-  text: '',
-  updatAble: false,
 }
 
 export default FilterInput

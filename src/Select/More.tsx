@@ -1,11 +1,15 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { parsePxToNumber } from '../utils/dom/element'
 import Popover from '../Popover'
+import { MoreProps } from './Props'
 
 // if num = -1 display all else display num
-export function getResetMore(onFilter, container, doms) {
+export function getResetMore(
+  onFilter: ((...args: any) => void) | undefined,
+  container: HTMLElement,
+  doms: NodeListOf<HTMLElement>
+) {
   if (!container || !doms || !doms.length) return -1
   const items = Array.from(doms)
   const style = getComputedStyle(container)
@@ -15,7 +19,7 @@ export function getResetMore(onFilter, container, doms) {
   const minFilterWidth = onFilter ? 16 : 0
   const contentWidth = clientWidth - paddingLeft - paddingRight - minFilterWidth - 1
 
-  const hideEl = items.pop()
+  const hideEl = items.pop() as HTMLElement
   const hideElStyle = getComputedStyle(hideEl)
   const hideMargin = parsePxToNumber(hideElStyle.marginLeft) + parsePxToNumber(hideElStyle.marginRight)
 
@@ -40,7 +44,7 @@ export function getResetMore(onFilter, container, doms) {
         moreWidth = 0
       } else {
         const reset = `+${resetNum}`
-        hideEl.childNodes[0].innerText = reset
+        ;(hideEl.childNodes[0] as HTMLElement).innerText = reset
         // (+num) width
         moreWidth = hideEl.offsetWidth + hideMargin
       }
@@ -62,8 +66,19 @@ export function getResetMore(onFilter, container, doms) {
   }
   return num
 }
-class More extends Component {
-  constructor(props) {
+
+interface MoreState {
+  status: boolean
+}
+
+const DefaultValue = {
+  trigger: 'hover',
+}
+
+class More extends Component<MoreProps, MoreState> {
+  static defaultProps = DefaultValue
+
+  constructor(props: MoreProps) {
     super(props)
     this.state = {
       status: false,
@@ -72,7 +87,7 @@ class More extends Component {
     this.changeStatus = this.changeStatus.bind(this)
   }
 
-  changeStatus(status) {
+  changeStatus(status: boolean) {
     this.setState({ status })
   }
 
@@ -89,7 +104,7 @@ class More extends Component {
       showNum,
     } = this.props
     const { status } = this.state
-    if (showNum < 0 || showNum >= data.length)
+    if (showNum! < 0 || showNum! >= data.length)
       return (
         <React.Fragment>
           {data}
@@ -99,7 +114,7 @@ class More extends Component {
             className={className}
             style={{
               position: 'absolute',
-              zIndex: '-100',
+              zIndex: -100,
               userSelect: 'none',
               msUserSelect: 'none',
               contain: 'layout',
@@ -110,8 +125,8 @@ class More extends Component {
         </React.Fragment>
       )
 
-    const before = new Array(showNum).fill().map((item, index) => data[index])
-    const after = new Array(data.length - showNum).fill().map((item, index) => data[showNum + index])
+    const before = new Array(showNum).fill(undefined).map((_item, index) => data[index])
+    const after = new Array(data.length - showNum!).fill(undefined).map((_item, index) => data[showNum! + index])
     const itemsLength = after.length
 
     return (
@@ -135,22 +150,6 @@ class More extends Component {
       </React.Fragment>
     )
   }
-}
-
-More.defaultProps = {
-  trigger: 'hover',
-}
-
-More.propTypes = {
-  className: PropTypes.string,
-  data: PropTypes.array,
-  popoverClassName: PropTypes.string,
-  contentClassName: PropTypes.string,
-  dataId: PropTypes.string,
-  trigger: PropTypes.string,
-  compressed: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-  cls: PropTypes.func,
-  showNum: PropTypes.number,
 }
 
 export default More

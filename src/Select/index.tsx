@@ -9,8 +9,11 @@ import Select from './Select'
 import filter from './filter'
 import group from './group'
 import absolute from '../Table/context'
+import { SelectType, SelectPropsWidthDatum, SelectPropsWidthLimitWrap } from './Props'
 
-const limitWrap = Origin => props => {
+const limitWrap = <Item, Value>(Origin: React.ComponentType<SelectPropsWidthDatum<Item, Value>>) => (
+  props: SelectPropsWidthLimitWrap<Item, Value>
+) => {
   // eslint-disable-next-line
   const limit = props.multiple ? 0 : 1
   return <Origin {...props} limit={limit} />
@@ -30,4 +33,4 @@ const exportSelect = compose(
 
 exportSelect.displayName = 'ShineoutSelect'
 
-export default exportSelect
+export default exportSelect as SelectType

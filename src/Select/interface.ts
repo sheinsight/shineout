@@ -1,1 +1,1 @@
-export { SelectProps as Props } from './index'
+export { SelectProps as Props } from './Props'

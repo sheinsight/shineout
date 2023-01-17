@@ -1,19 +1,20 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { getUidStr } from '../utils/uid'
+import { SelectPropsWidthGroup, SelectPropsWidthAbsolute } from './Props'
 
-export default Origin =>
-  class extends React.Component {
-    static propTypes = {
-      data: PropTypes.array,
-      groupBy: PropTypes.func,
-    }
+interface GroupState<Item> {
+  data: Item[]
+}
 
+export default <Item, Value>(Origin: React.ComponentType<SelectPropsWidthAbsolute<Item, Value>>) =>
+  class Group extends React.Component<SelectPropsWidthGroup<Item, Value>, GroupState<Item>> {
     static defaultProps = {
       data: [],
     }
 
-    constructor(props) {
+    groupKey: string
+
+    constructor(props: SelectPropsWidthGroup<Item, Value>) {
       super(props)
       this.state = {
         data: [],
@@ -26,7 +27,7 @@ export default Origin =>
       this.groupByData()
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps: SelectPropsWidthGroup<Item, Value>) {
       if (prevProps.data !== this.props.data) this.groupByData()
     }
 
@@ -38,16 +39,16 @@ export default Origin =>
         return
       }
 
-      const groupData = {}
+      const groupData: { [group: string]: Item[] } = {}
 
       data.forEach((d, i) => {
-        const g = groupBy(d, i, data)
-        if (!groupData[g]) groupData[g || ''] = g ? [{ [this.groupKey]: g }] : []
+        const g = groupBy(d, i, data) as any
+        if (!groupData[g]) groupData[g || ''] = (g ? [{ [this.groupKey]: g }] : []) as Item[]
         groupData[g].push(d)
       })
 
       this.setState({
-        data: Object.keys(groupData).reduce((p, v) => (v ? p.concat(groupData[v]) : groupData[v].concat(p)), []),
+        data: Object.keys(groupData).reduce((p, v) => (v ? p.concat(groupData[v] as any) : groupData[v].concat(p)), []),
       })
     }
 

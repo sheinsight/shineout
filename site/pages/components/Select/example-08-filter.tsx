@@ -25,7 +25,7 @@ const highlight = (Component: any) => (props: SelectProps) => {
 
   const handleRenderItem: SelectRenderItem = (d, index) => {
     const { renderItem = v => v } = props
-    const result = typeof renderItem === 'function' ? renderItem(d, index) : d[renderItem]
+    const result = typeof renderItem === 'function' ? renderItem(d, index) : d[renderItem as keyof typeof d]
 
     if (!filterText) return result
     if (typeof result !== 'string') return result
@@ -42,6 +42,7 @@ const highlight = (Component: any) => (props: SelectProps) => {
 
   const handleReset = (...args: string[]) => {
     const { beforeChange } = props
+    // @ts-ignore
     if (beforeChange) beforeChange(...args)
     setFilterText('')
   }
