@@ -559,6 +559,19 @@ const examples = [
     parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Table/test-002-value.tsx'),
 
   },
+  {
+    name: 'test-003-sticky',
+    isTs: true,
+    isTest: true,
+    title: locate(
+      'T:sticky \n fixed: 修复 Table 在配置 Sticky 具体属性后可能导致表头渲染异常的问题 \n https://github.com/sheinsight/shineout/pull/1890',
+      'T:sticky \n '
+    ),
+    component: require('doc/pages/components/Table/test-003-sticky.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/test-003-sticky.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Table/test-003-sticky.tsx'),
+
+  },
 ]
 
 const codes = undefined
