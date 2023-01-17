@@ -1,4 +1,4 @@
-import { v4 as getUUid } from 'uuid'
+import getUUid from 'uuid/v4'
 
 let uid = Date.now()
 
