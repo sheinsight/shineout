@@ -7,7 +7,7 @@ import filter from './filter'
 import absolute from '../Table/context'
 import { CascaderType } from './Props'
 
-const Cascader: any = compose(
+const Cascader = compose(
   inputable,
   inputBorder({ className: selectClass('_'), tag: 'span' }),
   filter,

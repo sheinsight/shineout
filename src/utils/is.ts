@@ -15,7 +15,7 @@ export const isNotUndef = (v: unknown): boolean => v != null
 export const isNan = (a: unknown): boolean => a !== a
 export const isFunc = (f: unknown): f is Function => typeof f === 'function'
 export const isNumber = (n: unknown): n is number => typeof n === 'number'
-export const isObject = (val: unknown): boolean => !!val && typeof val === 'object' && !isArray(val)
+export const isObject = (val: unknown): val is Object => !!val && typeof val === 'object' && !isArray(val)
 export const isString = (s: unknown): s is String => typeof s === 'string'
 export const isDate = (val: unknown): boolean => val instanceof Date
 export const isError = (val: unknown): boolean => val instanceof Error

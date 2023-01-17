@@ -149,7 +149,7 @@ export default <Item, Value>(Origin: React.ComponentType<SelectPropsWidthTiled<I
           other.childrenKey as keyof Item,
           showHitDescendants!,
           undefined,
-          { advanced: onAdvancedFilter }
+          { advanced: !!onAdvancedFilter }
         )
       }
       return {

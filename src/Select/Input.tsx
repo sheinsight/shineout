@@ -1,7 +1,7 @@
 import React, { Component, isValidElement, cloneElement } from 'react'
 import { selectClass } from './styles'
 import { focusElement, getCursorOffset, preventPasteFile } from '../utils/dom/element'
-import { isString, isObject } from '../utils/is'
+import { isString } from '../utils/is'
 import { InputProps } from './Props'
 
 const handleFocus = (e: React.FocusEvent) => {
@@ -115,7 +115,7 @@ class FilterInput extends Component<InputProps, InputState> {
       if (!this.lastMaxValue) {
         this.lastMaxValue = text.slice(0, maxLength)
         // 粘贴文本的情况
-      } else if (this.lastSelect && isObject(this.lastSelect) && typeof this.lastSelect !== 'boolean') {
+      } else if (this.lastSelect && typeof this.lastSelect !== 'boolean') {
         const { anchorOffset, focusOffset, text: str } = this.lastSelect
         const start = anchorOffset < focusOffset ? anchorOffset : focusOffset
         const end = anchorOffset > focusOffset ? anchorOffset : focusOffset

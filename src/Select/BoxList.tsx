@@ -34,7 +34,6 @@ class BoxList<Item, Value> extends Component<BoxListProps<Item, Value>> {
     props.bindOptionFunc('getIndex', emptyFunc)
 
     this.handleSelectAll = this.handleSelectAll.bind(this)
-    this.handleSearch = this.handleSearch.bind(this)
     this.handleRenderItem = this.handleRenderItem.bind(this)
   }
 
@@ -52,10 +51,6 @@ class BoxList<Item, Value> extends Component<BoxListProps<Item, Value>> {
     const { datum, data } = this.props
     if (checked) datum.add(data)
     else datum.remove(data)
-  }
-
-  handleSearch(text: string) {
-    this.props.onFilter!(text)
   }
 
   handleRenderItem(data: Item[], groupIndex: number) {
@@ -80,16 +75,6 @@ class BoxList<Item, Value> extends Component<BoxListProps<Item, Value>> {
       </div>
     )
   }
-
-  // renderFilter() {
-  //   const { filterText } = this.props
-  //   return (
-  //     <Input.Group size="small" className={selectClass('filter-input')}>
-  //       <Input value={filterText} onChange={this.handleSearch} />
-  //       {icons.SEARCH}
-  //     </Input.Group>
-  //   )
-  // }
 
   renderHeader(count: number) {
     const { data, loading, multiple, columnsTitle } = this.props
