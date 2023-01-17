@@ -2,7 +2,7 @@ import * as React from 'react'
 import { StandardProps, RegularAttributes, KeygenType, ValueItem, ResultItem, LiteralUnion } from '../@types/common'
 import List from '../Datum/List'
 import { GetTableConsumerProps } from '../Table/Props'
-import { GetInputableProps } from '../Form/Props'
+import { GetInputableProps, InputableProps } from '../Form/Props'
 import { GetInputBorderProps } from '../hoc/Props'
 import { GetDatumListProps } from '../Datum/Props'
 import { AbsoluteProps } from '../AnimationList/Props'
@@ -11,7 +11,10 @@ type ReactNode = React.ReactNode
 type ReactElement = React.ReactElement
 export type Position = 'drop-down' | 'drop-up'
 
-export interface BaseSelectProps<Item, Value> extends StandardProps, Pick<AbsoluteProps, 'absolute' | 'zIndex'> {
+export interface BaseSelectProps<Item, Value>
+  extends StandardProps,
+    Pick<AbsoluteProps, 'absolute' | 'zIndex'>,
+    Pick<InputableProps<Value>, 'formDatum'> {
   /**
    * If clearable is true, show clear value icon
    *
@@ -629,7 +632,15 @@ export interface GroupProps<Item, Value> extends Omit<BaseSelectProps<Item, Valu
   groupKey: string
 }
 
-export type GetFilterProps<Props, Item> = Omit<Props, 'filterText' | 'result' | 'innerData' | 'onFilter'> & {
+export type GetFilterProps<Props, Item> = Omit<Props, 'filterText' | 'result' | 'innerData' | 'onFilter' | 'data'> & {
+  /**
+   * Options data
+   *
+   * 筛选后是否展示命中节点的后代节点
+   *
+   * default: -
+   */
+  data?: Item[]
   /**
    * When the onFilter is not empty, you can filter data by input. If the onFilter returns a function, use this function as a front-end filter. If return undefined, you can do your own backend filtering.
    *
