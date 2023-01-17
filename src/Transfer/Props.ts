@@ -1,7 +1,7 @@
 import * as React from 'react'
 import ListDatum from '../Datum/List'
 import { GetDatumListProps } from '../Datum/Props'
-import { keyType, LiteralUnion, StructKeygenType } from '../@types/common'
+import { KeygenResult, LiteralUnion, StructKeygenType } from '../@types/common'
 import { GetInputableProps } from '../Form/Props'
 
 type filterProps = {
@@ -11,13 +11,13 @@ type filterProps = {
   placeholder?: string
 }
 
-export type SelectedArr = [keyType[], keyType[]]
+export type SelectedArr = [KeygenResult[], KeygenResult[]]
 export type IndexType = 1 | 0
 export type NodeItem = React.ReactNode | undefined
 /** ----------- context ------------*/
 export interface TransferContextValue {
   selecteds: SelectedArr
-  setSelecteds: (index: IndexType, value: keyType[]) => void
+  setSelecteds: (index: IndexType, value: KeygenResult[]) => void
   itemClass: string | undefined
 }
 
@@ -43,7 +43,7 @@ export interface BaseTransferProps<DataItem, Value extends any[]> {
    *
    * default: none
    */
-  selectedKeys?: keyType[]
+  selectedKeys?: KeygenResult[]
   /**
    * desc: checked by default
    *
@@ -51,7 +51,7 @@ export interface BaseTransferProps<DataItem, Value extends any[]> {
    *
    * default: none
    */
-  defaultSelectedKeys?: keyType[]
+  defaultSelectedKeys?: KeygenResult[]
   /**
    * desc: select event
    *
@@ -59,7 +59,7 @@ export interface BaseTransferProps<DataItem, Value extends any[]> {
    *
    * default: none
    */
-  onSelectChange?: (sourceKeys: keyType[], targetKeys: keyType[]) => void
+  onSelectChange?: (sourceKeys: KeygenResult[], targetKeys: KeygenResult[]) => void
   disabled?: boolean | ((data: DataItem) => boolean)
   /**
    * desc: contentless display
@@ -134,7 +134,7 @@ export interface BtnProps<DataItem, Value extends any[]>
   extends Pick<BaseTransferProps<DataItem, Value>, 'datum' | 'keygen' | 'operationIcon' | 'data' | 'disabled'>,
     Required<Pick<BaseTransferProps<DataItem, Value>, 'operations' | 'data'>> {
   selecteds: SelectedArr
-  setSelecteds: (index: IndexType, value: keyType[]) => void
+  setSelecteds: (index: IndexType, value: KeygenResult[]) => void
   sources: DataItem[]
   targets: DataItem[]
 }
@@ -147,9 +147,9 @@ export interface CardProps<DataItem, Value extends any[]>
     >,
     Pick<Required<BaseTransferProps<DataItem, Value>>, 'lineHeight' | 'listHeight' | 'rowsInView'> {
   title: NodeItem
-  selecteds: keyType[]
+  selecteds: KeygenResult[]
   data: DataItem[]
-  setSelecteds: (index: IndexType, value: keyType[]) => void
+  setSelecteds: (index: IndexType, value: KeygenResult[]) => void
   index: IndexType
   footer: NodeItem
   loading?: boolean
@@ -178,7 +178,7 @@ export interface ItemProps<DataItem, Value extends any[]>
   extends Pick<CardProps<DataItem, Value>, 'lineHeight' | 'index'>,
     Pick<TransferContextValue, 'selecteds' | 'setSelecteds' | 'itemClass'> {
   disabled: boolean
-  checkKey: keyType
+  checkKey: KeygenResult
   liData: DataItem
   content: React.ReactNode
 }

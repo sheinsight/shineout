@@ -1,14 +1,15 @@
 import * as React from 'react'
-import { CommonProps, RegularAttributes, ResultItem, keyType, ValueItem } from '../@types/common'
+import { RegularAttributes, ResultItem, KeygenResult, ValueItem } from '../@types/common'
 import DatumTree, { TreeModeType } from '../Datum/Tree'
 import { GetInputBorderProps } from '../hoc/Props'
 import { GetInputableProps } from '../Form/Props'
 import { TreeProps } from '../Tree/Props'
 import { GetTableConsumerProps } from '../Table/Props'
+import { AbsoluteProps } from '../AnimationList/Props'
 
 type ReactNode = React.ReactNode
 export type FilterFormType = 'blur' | 'edit'
-export type TreeSelectValueType = keyType | keyType[]
+export type TreeSelectValueType = KeygenResult | KeygenResult[]
 
 export interface ComponentRef<Item, Value> {
   getDataByValues: (values: Value) => Value extends any[] ? ResultItem<Item>[] : ResultItem<Item>
@@ -40,7 +41,7 @@ export type SetTreeProps<Item, Value> = Partial<
 
 // 重写
 export interface OriginTreeSelectProps<Item, Value>
-  extends Pick<CommonProps, 'absolute' | 'zIndex' | 'clearable'>,
+  extends Pick<AbsoluteProps, 'absolute' | 'zIndex'>,
     ExtendsTreeProps<Item, Value> {
   datum: DatumTree<Item>
   placeholder?: ReactNode

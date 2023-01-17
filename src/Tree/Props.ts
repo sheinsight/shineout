@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { ComponentType } from 'react'
 import * as CSS from 'csstype'
-import { keyType, LiteralUnion, StandardProps, ValueItem } from '../@types/common'
+import { KeygenResult, LiteralUnion, StandardProps, ValueItem } from '../@types/common'
 import DatumTree, { TreePathType, TreeModeType } from '../Datum/Tree'
 import { GetInputableProps } from '../Form/Props'
 
@@ -14,7 +14,7 @@ export interface TreeProps<DataItem, Value extends any[]> extends StandardProps 
    *
    * default: -
    */
-  active?: keyType
+  active?: KeygenResult
   /**
    * desc: active nodes
    *
@@ -30,7 +30,7 @@ export interface TreeProps<DataItem, Value extends any[]> extends StandardProps 
    *
    * default: none
    */
-  defaultExpanded?: keyType[]
+  defaultExpanded?: KeygenResult[]
   defaultValue?: Value
   /**
    * desc: control whether the node can be chosen
@@ -47,7 +47,7 @@ export interface TreeProps<DataItem, Value extends any[]> extends StandardProps 
    *
    * default: none
    */
-  expanded?: keyType[]
+  expanded?: KeygenResult[]
   /**
    * desc: whether show line
    *
@@ -79,7 +79,7 @@ export interface TreeProps<DataItem, Value extends any[]> extends StandardProps 
    *
    * default: none
    */
-  onChange?: (value: Value, id: keyType) => void
+  onChange?: (value: Value, id: KeygenResult) => void
   /**
    * desc: click event
    *
@@ -87,7 +87,7 @@ export interface TreeProps<DataItem, Value extends any[]> extends StandardProps 
    *
    * default: none
    */
-  onClick?: (data: DataItem, key: keyType, path: TreePathType) => void
+  onClick?: (data: DataItem, key: KeygenResult, path: TreePathType) => void
   /**
    * desc: expand event
    *
@@ -95,7 +95,7 @@ export interface TreeProps<DataItem, Value extends any[]> extends StandardProps 
    *
    * default: none
    */
-  onExpand?: (value: keyType[]) => void
+  onExpand?: (value: KeygenResult[]) => void
   /**
    * desc: drop event
    *
@@ -103,7 +103,7 @@ export interface TreeProps<DataItem, Value extends any[]> extends StandardProps 
    *
    * default: none
    */
-  onDrop?: (data: DataItem[], key: keyType, targetKey: keyType, position: number) => void
+  onDrop?: (data: DataItem[], key: KeygenResult, targetKey: KeygenResult, position: number) => void
   value?: Value
   datum?: DatumTree<DataItem>
   /**
@@ -175,7 +175,7 @@ export interface TreeProps<DataItem, Value extends any[]> extends StandardProps 
    *
    * default: index
    */
-  keygen: LiteralUnion<DataItem> | ((data: DataItem, parentKey: keyType) => keyType)
+  keygen: LiteralUnion<DataItem> | ((data: DataItem, parentKey: KeygenResult) => KeygenResult)
   /**
    * desc: selector when dray image
    *
@@ -217,7 +217,7 @@ export interface TreeProps<DataItem, Value extends any[]> extends StandardProps 
    */
   renderItem:
     | LiteralUnion<DataItem>
-    | ((data: DataItem, expanded: boolean, active: boolean, id: keyType) => React.ReactNode)
+    | ((data: DataItem, expanded: boolean, active: boolean, id: KeygenResult) => React.ReactNode)
   /**
    * desc: automatically expand nodes with child nodes when dragging
    *
@@ -267,11 +267,11 @@ export interface RootProps<DataItem, Value extends any[]>
     Pick<Required<TreeProps<DataItem, Value>>, 'childrenKey' | 'dragImageStyle' | 'mode' | 'data'> {
   datum: DatumTree<DataItem>
   disabled: boolean
-  unbindNode: (id: keyType) => void
-  bindNode: (id: keyType, update: UpdateFunc) => { active: boolean; expanded: boolean }
-  onDrop?: (id: keyType, targetId: keyType, position: number) => void
-  onToggle?: (id: keyType, expanded: boolean) => void
-  onNodeClick: (node: DataItem, id: keyType) => void
+  unbindNode: (id: KeygenResult) => void
+  bindNode: (id: KeygenResult, update: UpdateFunc) => { active: boolean; expanded: boolean }
+  onDrop?: (id: KeygenResult, targetId: KeygenResult, position: number) => void
+  onToggle?: (id: KeygenResult, expanded: boolean) => void
+  onNodeClick: (node: DataItem, id: KeygenResult) => void
   dragImageSelector: (data: DataItem) => string | undefined
   childrenClass: (data: DataItem) => string | undefined
   leafClass: (data: DataItem) => string | undefined
@@ -285,14 +285,14 @@ export interface ListProps<DataItem, Value extends any[]>
   path: string
   isRoot?: boolean
   deepIndex: number
-  id?: keyType
+  id?: KeygenResult
   childrenClassName?: string
 }
 
 /** ------------ Node -------------- */
 export interface NodeProps<DataItem, Value extends any[]>
   extends Omit<ListProps<DataItem, Value>, 'data' | 'isRoot' | 'expanded' | 'className' | 'style' | 'id'> {
-  id: keyType
+  id: KeygenResult
   data: DataItem
   index: number
   listComponent: ComponentType<ListProps<DataItem, Value>>

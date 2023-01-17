@@ -1,17 +1,17 @@
 import { getKey } from '../utils/uid'
 
 import { BaseTransferProps } from './Props'
-import { keyType } from '../@types/common'
+import { KeygenResult } from '../@types/common'
 
 export default function splitSelecteds<DataItem, Value extends any[]>(
-  selecteds: keyType[] | undefined,
+  selecteds: KeygenResult[] | undefined,
   props: BaseTransferProps<DataItem, Value>
 ) {
   if (!selecteds) return null
 
   const { data, keygen, datum } = props
-  const left: keyType[] = []
-  const right: keyType[] = []
+  const left: KeygenResult[] = []
+  const right: KeygenResult[] = []
 
   selecteds.forEach(s => {
     const v = data.find((d, i) => getKey(d, keygen, i) === s)
@@ -21,6 +21,6 @@ export default function splitSelecteds<DataItem, Value extends any[]>(
       else left.push(s)
     }
   })
-  const result: [keyType[], keyType[]] = [left, right]
+  const result: [KeygenResult[], KeygenResult[]] = [left, right]
   return result
 }

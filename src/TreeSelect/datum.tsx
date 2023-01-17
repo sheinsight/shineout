@@ -2,7 +2,7 @@ import React from 'react'
 import DatumTree from '../Datum/Tree'
 import shallowEqual from '../utils/shallowEqual'
 import { TreeSelectPropsWithAdvancedFilter, TreeSelectPropsWithDatum, TreeSelectValueType } from './Props'
-import { keyType } from '../@types/common'
+import { KeygenResult } from '../@types/common'
 
 function toArray<Value>(value: Value) {
   if (!value) return []
@@ -30,7 +30,7 @@ export default function datum<Item, Value extends TreeSelectValueType>(
         loader: props.loader,
         keygen: props.keygen,
         mode: props.mode,
-        value: toArray(props.value) as keyType[],
+        value: toArray(props.value) as KeygenResult[],
         onChange: props.onChange,
         disabled: typeof props.disabled === 'function' ? props.disabled : undefined,
         childrenKey: props.childrenKey || 'children',
@@ -55,7 +55,7 @@ export default function datum<Item, Value extends TreeSelectValueType>(
       }
 
       if (!shallowEqual(toArray(value), this.datum.getValue())) {
-        this.datum.setValue(toArray(value) as keyType[])
+        this.datum.setValue(toArray(value) as KeygenResult[])
       }
       return <Origin {...props} />
     }

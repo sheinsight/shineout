@@ -1,7 +1,7 @@
 import React from 'react'
 import { Component } from '../component'
 import { getFilterTree } from '../utils/tree'
-import { keyType, ResultItem, ValueArr } from '../@types/common'
+import { KeygenResult, ResultItem, ValueArr } from '../@types/common'
 import { TreeSelectPropsWithTied, TreeSelectPropsWithFilter, FilterFormType } from './Props'
 import { isArray } from '../utils/is'
 
@@ -21,7 +21,7 @@ export default <Item, Value extends KeyType[]>(Origin: React.ComponentType<TreeS
   class Filter extends Component<TreeSelectPropsWithFilter<Item, Value>, FilterState<Item>> {
     static defaultProps = DefaultValue
 
-    resultCache: Map<keyType, ResultItem<Item>>
+    resultCache: Map<KeygenResult, ResultItem<Item>>
 
     timer: NodeJS.Timer
 

@@ -12,7 +12,7 @@ import List from '../AnimationList'
 import { getLocale } from '../locale'
 import { isRTL } from '../config'
 import { getDirectionClass } from '../utils/classname'
-import { ResultItem, keyType, UnMatchedValue, ValueArr } from '../@types/common'
+import { ResultItem, KeygenResult, UnMatchedValue, ValueArr } from '../@types/common'
 import {
   ComponentRef,
   TreeSelectValueType,
@@ -146,7 +146,7 @@ export default class TreeSelect<Item, Value extends TreeSelectValueType> extends
     return (value.length ? value[0] : '') as Value
   }
 
-  getDataByValue(value?: keyType | keyType[]) {
+  getDataByValue(value?: KeygenResult | KeygenResult[]) {
     if (value === null || value === undefined) return value
     const { datum, multiple } = this.props
     if (multiple && Array.isArray(value)) {
@@ -295,7 +295,7 @@ export default class TreeSelect<Item, Value extends TreeSelectValueType> extends
     return typeof renderItem === 'function' ? (renderItem as any)(data) : data[renderItem as keyof Item]
   }
 
-  renderActive(data: Item, expanded: boolean, active: boolean, id: keyType) {
+  renderActive(data: Item, expanded: boolean, active: boolean, id: KeygenResult) {
     const { renderItem, datum } = this.props
     const item =
       typeof renderItem === 'function' ? renderItem(data, expanded, active, id) : data[renderItem as keyof Item]

@@ -14,7 +14,7 @@ import LazyList from '../AnimationList/LazyList'
 import { getLocale } from '../locale'
 import Input from '../Input'
 import { CardProps } from './Props'
-import { keyType } from '../@types/common'
+import { KeygenResult } from '../@types/common'
 
 interface CardState {
   listHeight: number
@@ -68,7 +68,7 @@ class Card<DataItem, Value extends any[]> extends PureComponent<CardProps<DataIt
               r.push(getKey(d, keygen, i))
               return r
             },
-            [] as keyType[]
+            [] as KeygenResult[]
           )
         )
       else setSelecteds(index, data.map((d, i) => getKey(d, keygen, i)))
@@ -95,7 +95,7 @@ class Card<DataItem, Value extends any[]> extends PureComponent<CardProps<DataIt
     )
   }
 
-  customSetSelected(value: keyType) {
+  customSetSelected(value: KeygenResult) {
     const { index, setSelecteds, selecteds } = this.props
     if (typeof value === 'string') {
       setSelecteds(index, [...selecteds, value])

@@ -1,25 +1,25 @@
 import * as React from 'react'
-import {
-  StandardProps,
-  RegularAttributes,
-  ListItemStandardProps,
-  CommonProps,
-  KeygenType,
-  ValueItem,
-  ResultItem,
-  LiteralUnion,
-} from '../@types/common'
+import { StandardProps, RegularAttributes, KeygenType, ValueItem, ResultItem, LiteralUnion } from '../@types/common'
 import List from '../Datum/List'
 import { GetTableConsumerProps } from '../Table/Props'
 import { GetInputableProps } from '../Form/Props'
 import { GetInputBorderProps } from '../hoc/Props'
 import { GetDatumListProps } from '../Datum/Props'
+import { AbsoluteProps } from '../AnimationList/Props'
 
 type ReactNode = React.ReactNode
 type ReactElement = React.ReactElement
 export type Position = 'drop-down' | 'drop-up'
 
-export interface BaseSelectProps<Item, Value> extends StandardProps, CommonProps {
+export interface BaseSelectProps<Item, Value> extends StandardProps, Pick<AbsoluteProps, 'absolute' | 'zIndex'> {
+  /**
+   * If clearable is true, show clear value icon
+   *
+   * 是否可清除值
+   *
+   * default: false
+   */
+  clearable?: boolean
   /**
    * Option columns.
    *
@@ -416,7 +416,7 @@ export interface BaseSelectProps<Item, Value> extends StandardProps, CommonProps
    *
    * default: (val, d) => val===format(d)
    */
-  prediction?: ListItemStandardProps<Item, Value>['prediction']
+  prediction?: (value: ValueItem<Value>, data: Item) => boolean
 
   /**
    * When it is a string, return d[string]. When it is a function, return the result of the function.
@@ -501,7 +501,7 @@ export interface OptionTreeProps<Item, Value> extends BaseSelectProps<Item, Valu
   datum: List<Item, Value>
   focus?: boolean
   onExpand?: () => void
-  keygen: ListItemStandardProps<Item, Value>['keygen']
+  keygen: KeygenType<Item>
   renderItem: ((data: Item, index?: number) => ReactNode)
   selectId: string
   text: Object
