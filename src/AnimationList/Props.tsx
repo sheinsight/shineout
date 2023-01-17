@@ -51,6 +51,7 @@ export interface ListProps extends StandardProps {
   show?: boolean
   getRef?: (el: HTMLDivElement) => void
   children?: React.ReactNode
+  onMouseMove?: () => void
 }
 
 /** -----------lazyList----------* */

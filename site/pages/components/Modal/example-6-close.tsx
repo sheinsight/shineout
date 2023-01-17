@@ -15,7 +15,7 @@ type ModalProps = TYPE.Modal.Props
 type ModalFooter = ModalProps['footer']
 type ModalVisible = ModalProps['visible']
 
-const list = [
+const list: ({ title: string; value: boolean | null })[] = [
   {
     title: 'false',
     value: false,
