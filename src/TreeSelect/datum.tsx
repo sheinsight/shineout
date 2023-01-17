@@ -17,6 +17,7 @@ export default function datum<Item, Value extends TreeSelectValueType>(
     static defaultProps = {
       mode: 1,
       childrenKey: 'children',
+      unmatch: true,
     }
 
     datum: DatumTree<Item>

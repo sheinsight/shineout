@@ -1,7 +1,6 @@
 import React from 'react'
 import { Component } from '../component'
 import { getFilterTree } from '../utils/tree'
-import { IS_NOT_MATCHED_VALUE } from './Result'
 import { keyType, ResultItem, ValueArr } from '../@types/common'
 import { TreeSelectPropsWithTied, TreeSelectPropsWithFilter, FilterFormType } from './Props'
 import { isArray } from '../utils/is'
@@ -53,7 +52,6 @@ export default <Item, Value extends KeyType[]>(Origin: React.ComponentType<TreeS
         if (!res) {
           res = datum.getDataById(v)
           if (res && !noCache && !datum.isUnMatch(res)) this.resultCache.set(v, res)
-          else if (!res) res = { [IS_NOT_MATCHED_VALUE]: true, value: v }
         }
         if (res) {
           result.push(res)

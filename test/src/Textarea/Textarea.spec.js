@@ -83,8 +83,7 @@ describe('Textarea[trim]', () => {
   const wrapper = mount(<Textarea onChange={changFn} trim />)
   wrapper.find('textarea').prop('onBlur')({ target: { value: '   test    ' } })
   jest.runAllTimers()
-  expect(changFn.mock.calls[0][0].length).toBe(11)
-  expect(changFn.mock.calls[1][0].length).toBe(4)
+  expect(changFn.mock.calls[0][0].length).toBe(4)
 })
 
 describe('Textarea[disabled]', () => {

@@ -61,6 +61,7 @@ export default curry(
       }
 
       forceChange(value: unknown, ...args: unknown[]) {
+        this.cancelChange()
         this.setState({ value })
         this.props.onChange(value, ...args)
         this.changeLocked = false

@@ -2,7 +2,6 @@ import { compose } from '../utils/func'
 import inputable from '../Form/inputable'
 import inputBorder from '../hoc/inputBorder'
 import delay from '../hoc/delay'
-import trim from '../hoc/trim'
 import coin from '../hoc/coin'
 import Input from './Input'
 import Number from './Number'
@@ -14,7 +13,6 @@ const exports = compose(
   inputable,
   inputBorder({}),
   delay(400),
-  trim,
   coin('input')
 )(Input)
 

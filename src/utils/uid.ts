@@ -1,5 +1,7 @@
 import { KeygenType } from '../@types/common'
 
+import getUUid from './uuid'
+
 let uid = Date.now()
 
 export function getUid() {
@@ -7,8 +9,8 @@ export function getUid() {
   return uid
 }
 
-export function getUidStr() {
-  return getUid().toString(36)
+export function getUidStr(...args: Parameters<typeof getUUid>) {
+  return getUUid(...args)
 }
 
 function $getKey<T>(d: T, gen: KeygenType<T>, index?: number) {

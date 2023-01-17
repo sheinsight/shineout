@@ -56,6 +56,10 @@ class Cascader<DataItem, Value extends (string | number)[]> extends PureComponen
 
   isRendered: boolean
 
+  lastFoucs: boolean
+
+  shouldUpdateAfterRef: boolean
+
   ref: HTMLDivElement
 
   close: (e: MouseEvent) => void
@@ -121,6 +125,7 @@ class Cascader<DataItem, Value extends (string | number)[]> extends PureComponen
 
   componentDidMount() {
     super.componentDidMount()
+    this.setOpenEvent()
     this.updatePathByValue()
     if (this.props.mode !== undefined && this.props.loader && [0, 1, 2].includes(this.props.mode)) {
       console.error(
@@ -131,6 +136,7 @@ class Cascader<DataItem, Value extends (string | number)[]> extends PureComponen
 
   componentDidUpdate(prevProps: OriginCascaderProps<DataItem, Value>, prevState: State) {
     this.datum.mode = this.props.mode
+    this.setOpenEvent()
     const { onFilter, filterDataChange, filterText } = this.props
     if (!filterDataChange && prevProps.data !== this.props.data) this.datum.setData(this.props.data, true)
     if (prevProps.value !== this.props.value) {
@@ -138,10 +144,15 @@ class Cascader<DataItem, Value extends (string | number)[]> extends PureComponen
       this.updatePathByValue()
     }
 
-    if (prevState.focus !== this.state.focus && !this.state.focus && onFilter) {
-      setTimeout(() => {
-        onFilter('')
-      }, 400)
+    if (onFilter) {
+      if (
+        (prevState.focus !== this.state.focus && !this.state.focus) ||
+        (prevProps.open !== this.props.open && !this.props.open)
+      ) {
+        setTimeout(() => {
+          onFilter('')
+        }, 400)
+      }
     }
     if (filterText !== undefined && prevProps.filterText !== filterText) {
       this.updatePath()
@@ -151,6 +162,23 @@ class Cascader<DataItem, Value extends (string | number)[]> extends PureComponen
   componentWillUnmount() {
     super.componentWillUnmount()
     this.clearClickAway()
+  }
+
+  get focus() {
+    if ('open' in this.props) {
+      return !!this.props.open
+    }
+    return this.state.focus
+  }
+
+  setOpenEvent() {
+    if (this.lastFoucs !== this.focus)
+      if (this.focus) {
+        this.bindClickAway()
+      } else if (this.lastFoucs !== undefined) {
+        this.clearClickAway()
+      }
+    this.lastFoucs = this.focus
   }
 
   bindRef(el: HTMLDivElement) {
@@ -215,8 +243,7 @@ class Cascader<DataItem, Value extends (string | number)[]> extends PureComponen
   handleClickAway(e: MouseEvent) {
     const desc = isDescendent(e.target as HTMLElement, this.selectId)
     if (!desc) {
-      this.clearClickAway()
-      this.props.onBlur()
+      if (this.props.inputFocus) this.props.onBlur()
       this.handleState(false)
     }
   }
@@ -238,7 +265,6 @@ class Cascader<DataItem, Value extends (string | number)[]> extends PureComponen
   handleFocus(e: any) {
     if (!this.shouldFocus(e.target as HTMLDivElement)) return
     this.props.onFocus(e)
-    this.bindClickAway()
   }
 
   handleClear() {
@@ -259,7 +285,7 @@ class Cascader<DataItem, Value extends (string | number)[]> extends PureComponen
 
   handleState(focus: boolean, e?: MouseEvent) {
     if (this.props.disabled === true) return
-    if (focus === this.state.focus) return
+    if (focus === this.focus) return
 
     // click close icon
     if (focus && e && (e.target as HTMLElement).classList.contains(cascaderClass('close'))) return
@@ -280,28 +306,21 @@ class Cascader<DataItem, Value extends (string | number)[]> extends PureComponen
 
     if (focus) {
       this.renderPending = false
-      this.bindClickAway()
     }
-    // } else if (blur) {
-    //   this.clearClickAway()
-    //   onBlur()
-    // }
   }
 
   handleKeyDown(e: any) {
     if (e.keyCode === 13) {
       e.preventDefault()
-      this.handleState(!this.state.focus)
+      this.handleState(!this.focus)
     }
 
     // fot close the list
     if (e.keyCode === 9) {
       this.props.onBlur()
       // e.preventDefault()
-      if (this.state.focus) {
+      if (this.focus) {
         this.handleState(false)
-      } else {
-        this.clearClickAway()
       }
     }
   }
@@ -392,10 +411,15 @@ class Cascader<DataItem, Value extends (string | number)[]> extends PureComponen
 
   renderAbsoluteList() {
     const { absolute, zIndex } = this.props
-    const { focus, position } = this.state
+    const { position } = this.state
+    const { focus } = this
     const className = classnames(selectClass('options'), cascaderClass('options'))
     const rootClass = classnames(cascaderClass(focus && 'focus', isRTL() && 'rtl'), selectClass(this.state.position))
     if (!focus && !this.isRendered) return null
+    if (!this.element) {
+      this.shouldUpdateAfterRef = true
+      return null
+    }
     this.isRendered = true
     return (
       <OptionList
@@ -429,7 +453,8 @@ class Cascader<DataItem, Value extends (string | number)[]> extends PureComponen
       height,
       loading,
     } = this.props
-    const { focus, position } = this.state
+    const { position } = this.state
+    const { focus } = this
     const className = classnames(cascaderClass(focus && 'focus', isRTL() && 'rtl'), selectClass(this.state.position))
 
     return (
@@ -469,7 +494,7 @@ class Cascader<DataItem, Value extends (string | number)[]> extends PureComponen
 
   render() {
     const { placeholder, disabled, size, ...other } = this.props
-    const { focus } = this.state
+    const { focus } = this
     const className = classnames(
       cascaderClass(
         '_',
@@ -493,6 +518,10 @@ class Cascader<DataItem, Value extends (string | number)[]> extends PureComponen
         onKeyDown={this.handleKeyDown}
         ref={el => {
           this.element = el!
+          if (el && this.shouldUpdateAfterRef) {
+            this.shouldUpdateAfterRef = false
+            this.forceUpdate()
+          }
         }}
       >
         <Result
@@ -514,6 +543,15 @@ class Cascader<DataItem, Value extends (string | number)[]> extends PureComponen
       </div>
     )
   }
+}
+
+Cascader.defaultProps = {
+  clearable: true,
+  expandTrigger: 'click',
+  height: 300,
+  data: [],
+  childrenKey: 'children',
+  showArrow: true,
 }
 
 export default Cascader

@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import classnames from 'classnames'
+import config from '../config'
 import { inputTitleClass } from '../InputTitle/styles'
 import cleanProps from '../utils/cleanProps'
 import Clear from './clear'
@@ -59,6 +60,13 @@ class Input extends PureComponent<Props> {
     if (forwardedRef) forwardedRef(el)
   }
 
+  getTrim = () => {
+    const { trim } = this.props
+    if (trim !== undefined) return trim
+    if (config.trim !== undefined) return config.trim
+    return false
+  }
+
   isValidNumber(val: string) {
     const { numType } = this.props
     const noNeg = numType === 'non-negative' || numType === 'positive'
@@ -82,7 +90,7 @@ class Input extends PureComponent<Props> {
   }
 
   fixValue(val: string) {
-    const { type, digits, autoFix, cancelChange, numType } = this.props
+    const { type, digits, autoFix, numType } = this.props
     if (type !== 'number' || val === '') return val
     if (/^[.-]+$/.test(val)) return ''
     let fixVal = fillNumber(val)
@@ -94,7 +102,6 @@ class Input extends PureComponent<Props> {
       } else {
         fixVal = parseInt(fixVal, 10).toString()
       }
-      if (cancelChange) cancelChange()
     }
     return fixVal
   }
@@ -121,7 +128,7 @@ class Input extends PureComponent<Props> {
   }
 
   handleChange(e: React.ChangeEvent, clearClick: boolean) {
-    const { type, clearable } = this.props
+    const { type, clearable, coin } = this.props
     if (clearClick) {
       this.ref.focus()
       if (typeof clearable === 'function') clearable()
@@ -135,6 +142,9 @@ class Input extends PureComponent<Props> {
     if (type === 'number') {
       if (typeof value !== 'number') {
         value = String(value).replace(/。/g, '.')
+        if (coin) {
+          value = value.replace(/,/g, '')
+        }
       }
       if (!this.isValidNumber(value)) {
         return
@@ -162,11 +172,15 @@ class Input extends PureComponent<Props> {
 
   handleBlur(e: React.FocusEvent<HTMLInputElement>) {
     const { value } = e.target as HTMLInputElement
-    const { forceChange, onBlur, clearToUndefined, cancelChange } = this.props
-    if (cancelChange) cancelChange()
-    const newVal = this.fixValue(value)
-    const canForceChange = !(clearToUndefined && newVal === '' && this.props.value === undefined)
-    if (canForceChange && forceChange && !this.invalidNumber(newVal)) forceChange(newVal)
+    const { forceChange, onChange, onBlur, clearToUndefined } = this.props
+    let newVal = this.fixValue(value)
+    const shouldKeepUndefined = clearToUndefined && newVal === '' && this.props.value === undefined
+    if (!shouldKeepUndefined && !this.invalidNumber(newVal)) {
+      if (this.getTrim()) newVal = newVal.trim()
+      const change = forceChange || onChange
+      change(newVal)
+      e.target.value = newVal
+    }
     if (onBlur) onBlur(e)
   }
 
@@ -217,6 +231,7 @@ class Input extends PureComponent<Props> {
       inputFocus,
       clearToUndefined,
       placeholder,
+      coin,
       ...other
     } = this.props
     const value = this.props.value == null || this.props.value === undefined ? '' : this.props.value

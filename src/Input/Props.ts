@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { StandardProps, ObjectType } from '../@types/common'
 import { GetInputableProps } from '../Form/Props'
-import { GetInputBorderProps, GetDelayProps, GetCoinProps, GetTrimProps } from '../hoc/Props'
+import { GetInputBorderProps, GetDelayProps, GetCoinProps, CoinProps } from '../hoc/Props'
 
 type ReactNode = React.ReactNode
 export type numType = 'positive' | 'non-negative'
@@ -11,7 +11,7 @@ export type NumberValue = InputValue | number | null
 
 type WidthInputHTMLAttribute<U> = U & Omit<React.InputHTMLAttributes<any>, keyof U>
 
-export interface Props extends StandardProps {
+export interface Props extends StandardProps, Pick<CoinProps, 'coin'> {
   /**
    * value
    *
@@ -231,10 +231,11 @@ export interface Props extends StandardProps {
   placeholder?: string
   name?: string
   defaultValue?: InputValue
+  trim?: boolean
 }
 
 export type InputProps = WidthInputHTMLAttribute<
-  GetInputableProps<GetInputBorderProps<GetDelayProps<GetTrimProps<GetCoinProps<Props>>>>, InputValue>
+  GetInputableProps<GetInputBorderProps<GetDelayProps<GetCoinProps<Props>>>, InputValue>
 >
 
 export interface ClearProps {

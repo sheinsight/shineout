@@ -83,6 +83,7 @@ export default <Props extends {}>(coinType?: CoinTypeType) => (Origin: React.Com
           value={this.getValue()}
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}
+          coin
         />
       )
     }

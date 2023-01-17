@@ -1,7 +1,7 @@
 import React from 'react'
 import { StandardProps } from '../@types/common'
 import { GetInputableProps } from '../Form/Props'
-import { GetTrimProps, GetDelayProps } from '../hoc/Props'
+import { GetDelayProps } from '../hoc/Props'
 
 export interface BaseProps extends StandardProps {
   error?: Error
@@ -105,10 +105,11 @@ export interface BaseProps extends StandardProps {
   renderResult?: (value: string) => React.ReactNode
   onChange?: (value: string) => void
   value?: string
+  trim?: boolean
+  forceChange: (value: string) => void
 }
 
-export type EditableAreaPropsWidthTrim = GetTrimProps<BaseProps>
-export type EditableAreaPropsWidthDelay = GetDelayProps<EditableAreaPropsWidthTrim>
+export type EditableAreaPropsWidthDelay = GetDelayProps<BaseProps>
 export type EditableAreaPropsWidthInputable = GetInputableProps<EditableAreaPropsWidthDelay, string>
 export type EditableAreaProps = Omit<EditableAreaPropsWidthInputable, 'innerTitle' | 'placeTitle'>
 

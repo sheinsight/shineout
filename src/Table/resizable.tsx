@@ -52,6 +52,7 @@ export default <DataItem, Value, Props extends SimpleTableProps<DataItem, Value>
     }
 
     handleResize(index: number, width: number, colgroup: number[]) {
+      if (colgroup === undefined) return
       const { onColumnResize } = this.props
       const changed = immer(this.state, draft => {
         const column = draft.columns[index]

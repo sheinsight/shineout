@@ -1,7 +1,6 @@
 import { ComponentType } from 'react'
 import { compose } from '../utils/func'
 import delay from '../hoc/delay'
-import trim from '../hoc/trim'
 import inputable from '../Form/inputable'
 import inputBorder from '../hoc/inputBorder'
 import Component from './Textarea'
@@ -20,8 +19,7 @@ const input = compose(
       return footer && inputClass('with-footer')
     },
   }),
-  delay(400),
-  trim
+  delay(400)
 )
 
 const Textarea = input(Component)

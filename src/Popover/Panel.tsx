@@ -62,6 +62,7 @@ class Panel extends Component<PanelProps, PanelState> {
     this.setShow = this.setShow.bind(this)
     this.bindChain = this.bindChain.bind(this)
     this.handleCancel = this.handleCancel.bind(this)
+    this.createContainer = this.createContainer.bind(this)
 
     this.element = document.createElement('div')
   }
@@ -69,16 +70,16 @@ class Panel extends Component<PanelProps, PanelState> {
   componentDidMount() {
     super.componentDidMount()
 
-    const { bindChain, zIndex } = this.props
+    const { bindChain } = this.props
     if (bindChain) bindChain(this.id)
 
     this.parentElement = this.placeholder.parentElement!
     this.bindEvents()
-    this.container = this.getContainer()
-    this.element.style.zIndex = String(zIndex)
-    this.container.appendChild(this.element)
 
-    if (this.props.visible) this.forceUpdate()
+    if (this.props.visible) {
+      this.createContainer()
+      this.forceUpdate()
+    }
   }
 
   shouldComponentUpdate(nextProps: PanelProps, nextState: PanelState) {
@@ -107,12 +108,11 @@ class Panel extends Component<PanelProps, PanelState> {
 
     if (!this.container) return
     if (this.container === getCommonContainer()) {
-      // this.container.removeChild(this.element)
-      if (this.element && this.element.parentElement) {
-        this.element.parentElement.removeChild(this.element)
+      if (this.element && this.element.parentNode) {
+        this.element.parentNode.removeChild(this.element)
       }
-    } else if (this.container.parentElement) {
-      this.container.parentElement.removeChild(this.container)
+    } else if (this.container && this.container.parentNode) {
+      this.container.parentNode.removeChild(this.container)
     }
   }
 
@@ -189,6 +189,15 @@ class Panel extends Component<PanelProps, PanelState> {
     return getCommonContainer()
   }
 
+  createContainer() {
+    const { zIndex } = this.props
+    if (!this.container) {
+      this.container = this.getContainer()
+      this.element.style.zIndex = String(zIndex)
+      this.container.appendChild(this.element)
+    }
+  }
+
   updatePosition(position: PopoverPosition) {
     const pos = getPosition(position, this.parentElement, this.container)
     // eslint-disable-next-line
@@ -244,6 +253,7 @@ class Panel extends Component<PanelProps, PanelState> {
   }
 
   handleShow() {
+    this.createContainer()
     if (this.delayTimeout) clearTimeout(this.delayTimeout)
     if (this.state.show) return
     this.setShow(true)

@@ -1,4 +1,5 @@
 import React from 'react'
+import { SUBMIT_TOPIC } from '../Datum/types'
 import { PureComponent } from '../component'
 import { getUidStr } from '../utils/uid'
 import { selectClass } from './styles'
@@ -134,6 +135,14 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
     this.focusInput = null
   }
 
+  componentDidMount() {
+    super.componentDidMount()
+    const { formDatum } = this.props
+    if (formDatum) {
+      formDatum.subscribe(SUBMIT_TOPIC, this.forceChange)
+    }
+  }
+
   componentDidUpdate(_prevProps: BaseSelectProps<Item, Value>, prevState: SelectState) {
     const { onFilter } = this.props
 
@@ -147,6 +156,10 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
 
   componentWillUnmount() {
     super.componentWillUnmount()
+    const { formDatum } = this.props
+    if (formDatum) {
+      formDatum.unsubscribe(SUBMIT_TOPIC, this.forceChange)
+    }
     this.clearClickAway()
   }
 
@@ -165,6 +178,13 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
 
   setInputReset(fn: () => void) {
     this.inputReset = fn
+  }
+
+  forceChange = () => {
+    if (this.inputBlurTimer && this.blurHandler) {
+      clearTimeout(this.inputBlurTimer)
+      this.blurHandler()
+    }
   }
 
   // @ts-ignore
@@ -268,6 +288,7 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
     if (this.inputBlurTimer) {
       this.lastChangeIsOptionClick = true
       clearTimeout(this.inputBlurTimer)
+      this.inputBlurTimer = null
     }
     const unMatchedData: UnMatchedValue = data as UnMatchedValue
     if (multiple) {
@@ -337,10 +358,15 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
 
     if (this.lastChangeIsOptionClick) return
 
-    // if click option, ignore input blur
-    this.inputBlurTimer = setTimeout(() => {
+    this.blurHandler = () => {
       const retData = (onCreate as Function)(text)
       this.handleChange(false, retData, true)
+    }
+
+    // if click option, ignore input blur
+    this.inputBlurTimer = setTimeout(() => {
+      this.blurHandler()
+      this.blurHandler = null
     }, 200)
   }
 

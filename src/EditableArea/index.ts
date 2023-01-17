@@ -1,4 +1,3 @@
-import trim from '../hoc/trim'
 import delay from '../hoc/delay'
 import Component from './EditableArea'
 import { compose } from '../utils/func'
@@ -7,8 +6,7 @@ import { EditableAreaType } from './Props'
 
 const EditableArea: any = compose(
   inputable,
-  delay(400),
-  trim
+  delay(400)
 )(Component)
 
 EditableArea.displayName = 'ShineoutEditableArea'

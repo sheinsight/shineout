@@ -25,6 +25,8 @@ export const WITH_OUT_DISPATCH = '__WITH_OUT_DISPATCH__'
 
 export const IGNORE_BIND = '__IGNORE_BIND__'
 
+export const SUBMIT_TOPIC = '__SUBMIT_TOPIC__'
+
 export type ValidType = typeof IGNORE_BIND | typeof FORCE_PASS
 
 export type PublishType = typeof FORCE_PASS | typeof IGNORE_VALIDATE
