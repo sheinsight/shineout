@@ -6,7 +6,7 @@ import { getKey } from '../utils/uid'
 import Tr from './Tr'
 import { tableClass } from './styles'
 import { TbodyProps, ColumnItemWithFixed, Row } from './Props'
-import { keyType } from '../@types/common'
+import { KeygenResult } from '../@types/common'
 import { isFunc } from '../utils/is'
 
 export const RENDER_COL_GROUP_EVENT = 'RENDER_COL_GROUP_EVENT'
@@ -30,7 +30,7 @@ function format<DataItem, Value>(
   data: DataItem,
   nextRow: (RowData<DataItem> | null)[],
   index: number,
-  expandKeys?: keyType[]
+  expandKeys?: KeygenResult[]
 ) {
   const row = columns.map((col, i) => {
     const cell = { index, data, expandKeys } as RowData<DataItem>
@@ -125,7 +125,7 @@ class Tbody<DataItem, Value> extends PureComponent<TbodyProps<DataItem, Value>, 
     this.body = el
   }
 
-  handleExpand(key: keyType, render: ReactNode) {
+  handleExpand(key: KeygenResult, render: ReactNode) {
     this.setState(
       immer(draft => {
         if (render) draft.expand[key] = render
@@ -134,7 +134,7 @@ class Tbody<DataItem, Value> extends PureComponent<TbodyProps<DataItem, Value>, 
     )
   }
 
-  findExpandFunc(key: keyType, i: number) {
+  findExpandFunc(key: KeygenResult, i: number) {
     //
     // (rowData: DataItem, index?: number) => ReactNode
     const { columns, expandKeys, data, externalExpandRender, index } = this.props

@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react'
-import { keyType, LiteralUnion, RegularAttributes, KeygenType, ObjectType, StandardProps } from '../@types/common'
+import { KeygenResult, LiteralUnion, RegularAttributes, KeygenType, ObjectType, StandardProps } from '../@types/common'
 import { GetInputableProps } from '../Form/Props'
 import DatumTree, { TreeDatumOptions } from '../Datum/Tree'
 import { GetInputBorderProps } from '../hoc/Props'
@@ -176,7 +176,7 @@ export interface OriginCascaderProps<DataItem, Value extends CascaderBaseValue>
    *
    * default:
    */
-  loader?: (key: keyType, data: DataItem) => void
+  loader?: (key: KeygenResult, data: DataItem) => void
   /**
    * When it is true, all nodes disable the selection; when it is a function, it determines whether it is disabled according to the return result of the function.
    *
@@ -216,7 +216,7 @@ export interface OriginCascaderProps<DataItem, Value extends CascaderBaseValue>
    *
    * default: index
    */
-  keygen: ((data: DataItem, parentKey?: keyType) => keyType) | LiteralUnion<DataItem>
+  keygen: ((data: DataItem, parentKey?: KeygenResult) => KeygenResult) | LiteralUnion<DataItem>
   /**
    *  A reference to the binding component, you can call some component methods
    *

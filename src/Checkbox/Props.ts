@@ -1,5 +1,5 @@
 import React, { PropsWithChildren, ReactNode } from 'react'
-import { KeygenType, StandardProps, StructDataStandardProps } from '../@types/common'
+import { KeygenType, LiteralUnion, StandardProps } from '../@types/common'
 import ListDatum from '../Datum/List'
 import { GetInputableProps } from '../Form/Props'
 import { GetDatumListProps } from '../Datum/Props'
@@ -86,9 +86,15 @@ export interface CheckboxContextProvider {
 
 export type CheckboxProviderProps<U> = Omit<U, 'onRawChange'>
 
-export interface BaseCheckboxGroupProps<DataItem, Value>
-  extends StandardProps,
-    Pick<StructDataStandardProps<DataItem>, 'renderItem'> {
+export interface BaseCheckboxGroupProps<DataItem, Value> extends StandardProps {
+  /**
+   * When it is a string, return d[string]. When it is a function, return the result of the function.
+   *
+   * 为 string 时，返回 d[string]。 为 function 时，返回函数结果
+   *
+   * default: d => d
+   */
+  renderItem?: LiteralUnion<DataItem> | ((data: DataItem, index?: number) => React.ReactNode)
   keygen: KeygenType<DataItem>
 
   /**

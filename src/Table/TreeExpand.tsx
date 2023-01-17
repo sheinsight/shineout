@@ -2,13 +2,13 @@ import React, { ComponentType } from 'react'
 import immer from 'immer'
 import { getKey } from '../utils/uid'
 import { keysToArray } from '../utils/transform'
-import { keyType } from '../@types/common'
+import { KeygenResult } from '../@types/common'
 import { TableProps, GetTreeExpandProps } from './Props'
 
 const TREE_TABLE_DEFAULT_INDENT = 15
 
 interface treeExpandState {
-  expandKeys: Map<keyType, boolean>
+  expandKeys: Map<KeygenResult, boolean>
 }
 
 const defaultProps = {
@@ -18,7 +18,7 @@ export default <DataItem, Value>(WrappedComponent: ComponentType<TableProps<Data
   class TreeExpand extends React.Component<GetTreeExpandProps<TableProps<DataItem, Value>, DataItem>, treeExpandState> {
     changedByExpand: boolean
 
-    expandLevel: Map<keyType, number>
+    expandLevel: Map<KeygenResult, number>
 
     static defaultProps = defaultProps
 
@@ -49,11 +49,11 @@ export default <DataItem, Value>(WrappedComponent: ComponentType<TableProps<Data
       return TreeExpand.getMapFromArray(treeExpandKeys)
     }
 
-    static getMapFromArray(arr: keyType[]) {
+    static getMapFromArray(arr: KeygenResult[]) {
       return arr.reduce((map, key) => {
         map.set(key, true)
         return map
-      }, new Map<keyType, boolean>())
+      }, new Map<KeygenResult, boolean>())
     }
 
     // getChildrenLength(children) {

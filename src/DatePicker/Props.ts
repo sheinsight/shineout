@@ -2,7 +2,8 @@ import React, { ReactNode } from 'react'
 import { GetTableConsumerProps } from '../Table/Props'
 import { GetInputBorderProps } from '../hoc/Props'
 import { GetInputableProps } from '../Form/Props'
-import { StandardProps, CommonProps, RegularAttributes } from '../@types/common'
+import { StandardProps, RegularAttributes } from '../@types/common'
+import { AbsoluteProps } from '../AnimationList/Props'
 
 export type DateTimeType = Date | number | string | undefined
 
@@ -41,7 +42,15 @@ export type PickMouseEvent = (e: React.MouseEvent) => void
 
 export type DisabledType = 'start' | 'end'
 
-export interface BaseProps<T = DatePickerValue> extends StandardProps, CommonProps {
+export interface BaseProps<T = DatePickerValue> extends StandardProps, Pick<AbsoluteProps, 'absolute' | 'zIndex'> {
+  /**
+   * If clearable is true, show clear value icon
+   *
+   * 是否显示清除数据图标
+   *
+   * default: true
+   */
+  clearable?: boolean
   /**
    * onChange get undefined while clear
    *

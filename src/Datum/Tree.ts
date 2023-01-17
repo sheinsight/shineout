@@ -1,5 +1,5 @@
 import { CHANGE_TOPIC } from './types'
-import { keyType, ObjectType, KeygenType } from '../@types/common'
+import { KeygenResult, ObjectType, KeygenType } from '../@types/common'
 
 const IS_NOT_MATCHED_VALUE = 'IS_NOT_MATCHED_VALUE'
 
@@ -36,16 +36,16 @@ const checkStatusStack = (stack: CheckedStatus[], defaultStatus: CheckedStatus) 
 export type TreeModeType = 0 | 1 | 2 | 3 | 4
 
 export interface TreePathType {
-  children: keyType[]
+  children: KeygenResult[]
   path: (number | string)[]
   isDisabled: boolean
   indexPath: number[]
   index: number
 }
-type Value = keyType[]
+type Value = KeygenResult[]
 export interface TreeDatumOptions<Item> {
   data?: Item[]
-  keygen?: KeygenType<Item> | ((data: Item, parentKey: keyType) => keyType)
+  keygen?: KeygenType<Item> | ((data: Item, parentKey: KeygenResult) => KeygenResult)
   value?: Value
   /**
    * mode 0: Returns only the fully selected node including the parent node. 1: Returns all selected nodes and semi-selected nodes. 2: Return only the selected child nodes. 3: If the parent node is full selected, only return the parent node. 4: What you choose is what you get.
@@ -58,7 +58,7 @@ export interface TreeDatumOptions<Item> {
   disabled?: ((data: Item, ...rest: any) => boolean) | boolean
   childrenKey: string
   unmatch?: boolean
-  loader?: (key: keyType, data: Item) => void
+  loader?: (key: KeygenResult, data: Item) => void
   onChange?: (value: any, ...rest: any) => void
 }
 
@@ -73,11 +73,11 @@ export default class<Item> {
 
   childrenKey: TreeDatumOptions<Item>['childrenKey']
 
-  valueMap: Map<keyType, CheckedStatus>
+  valueMap: Map<KeygenResult, CheckedStatus>
 
   unmatchedValueMap: Map<any, any>
 
-  events: Map<keyType, Function>
+  events: Map<KeygenResult, Function>
 
   $events: ObjectType<Function[]>
 
@@ -87,9 +87,9 @@ export default class<Item> {
 
   cachedValue?: unknown[]
 
-  pathMap: Map<keyType, TreePathType>
+  pathMap: Map<KeygenResult, TreePathType>
 
-  dataMap: Map<keyType, Item>
+  dataMap: Map<KeygenResult, Item>
 
   constructor(options: TreeDatumOptions<Item> = { data: [], childrenKey: '' }) {
     const { data, value, keygen, mode, disabled, childrenKey = 'children', unmatch } = options
@@ -120,7 +120,7 @@ export default class<Item> {
     this.events.set(id, update)
   }
 
-  unbind(id: keyType) {
+  unbind(id: KeygenResult) {
     this.events.delete(id)
   }
 
@@ -149,7 +149,7 @@ export default class<Item> {
   }
 
   getValue() {
-    const value: keyType[] = []
+    const value: KeygenResult[] = []
     this.valueMap.forEach((checked, id) => {
       switch (this.mode) {
         case CheckedMode.Full:
@@ -188,13 +188,13 @@ export default class<Item> {
     return value as Value
   }
 
-  setValueMap(id: keyType, checked: CheckedStatus) {
+  setValueMap(id: KeygenResult, checked: CheckedStatus) {
     this.valueMap.set(id, checked)
     const update = this.events.get(id)
     if (update) update()
   }
 
-  set(id: keyType, checked: CheckedStatus, direction?: 'asc' | 'desc') {
+  set(id: KeygenResult, checked: CheckedStatus, direction?: 'asc' | 'desc') {
     // self
     if (!this.isDisabled(id)) this.setValueMap(id, checked)
 
@@ -247,41 +247,41 @@ export default class<Item> {
     return current
   }
 
-  isDisabled(id: keyType) {
+  isDisabled(id: KeygenResult) {
     const node = this.pathMap.get(id)
     if (node) return node.isDisabled
     return false
   }
 
-  get(id: keyType) {
+  get(id: KeygenResult) {
     return this.valueMap.get(id)
   }
 
-  getDataById(id: keyType) {
+  getDataById(id: KeygenResult) {
     const oroginData = this.dataMap.get(id)
     if (oroginData) return oroginData
     if (!this.unmatch) return null
     return { [IS_NOT_MATCHED_VALUE]: true, value: id }
   }
 
-  getPath(id: keyType) {
+  getPath(id: KeygenResult) {
     return this.pathMap.get(id)!
   }
 
-  getChecked(id: keyType) {
+  getChecked(id: KeygenResult) {
     const value = this.get(id)
     let checked: boolean | 'indeterminate' = value === 1
     if (value === 2) checked = 'indeterminate'
     return checked
   }
 
-  getKey(data: Item, id: keyType = '', index?: number): keyType {
+  getKey(data: Item, id: KeygenResult = '', index?: number): KeygenResult {
     if (typeof this.keygen === 'function') return this.keygen(data, id as number)
-    if (this.keygen) return (data[this.keygen as keyof Item] as unknown) as keyType
+    if (this.keygen) return (data[this.keygen as keyof Item] as unknown) as KeygenResult
     return id + (id ? ',' : '') + index
   }
 
-  initValue(ids?: keyType[], forceCheck?: boolean) {
+  initValue(ids?: KeygenResult[], forceCheck?: boolean) {
     if (!this.data || !this.value) return undefined
 
     if (!ids) {
@@ -322,8 +322,8 @@ export default class<Item> {
     return checked
   }
 
-  initData(data: Item[], path: keyType[], disabled?: boolean, index: number[] = []) {
-    const ids: keyType[] = []
+  initData(data: Item[], path: KeygenResult[], disabled?: boolean, index: number[] = []) {
+    const ids: KeygenResult[] = []
     data.forEach((d, i) => {
       const id = this.getKey(d, path[path.length - 1], i)
       if (this.dataMap.get(id)) {
@@ -339,7 +339,7 @@ export default class<Item> {
 
       const indexPath = [...index, i]
       ids.push(id)
-      let children: keyType[] = []
+      let children: KeygenResult[] = []
       if (Array.isArray((d as any)[this.childrenKey])) {
         children = this.initData(
           (d as any)[this.childrenKey],

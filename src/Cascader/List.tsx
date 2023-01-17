@@ -4,7 +4,7 @@ import Node from './Node'
 import { getLocale } from '../locale'
 import { CascaderListProps } from './Props'
 import { getDirectionClass } from '../utils/classname'
-import { keyType } from '../@types/common'
+import { KeygenResult } from '../@types/common'
 
 const DefaultProps = {
   id: '',
@@ -40,7 +40,7 @@ class List<U, T extends any[]> extends Component<CascaderListProps<U, T>> {
       <div className={cascaderClass(getDirectionClass('list'))}>
         {data.map((d, i) => {
           const id = this.getKey(d, i)
-          return <Node {...other} key={id as keyType} active={other.id === id} id={id} data={d} />
+          return <Node {...other} key={id as KeygenResult} active={other.id === id} id={id} data={d} />
         })}
       </div>
     )

@@ -9,7 +9,7 @@ import splitSelecteds from './select'
 import { isRTL } from '../config'
 import getDataset from '../utils/dom/getDataset'
 import { BaseTransferProps, SelectedArr, IndexType } from './Props'
-import { keyType } from '../@types/common'
+import { KeygenResult } from '../@types/common'
 
 const DefaultProps = {
   titles: [],
@@ -53,7 +53,7 @@ class Transfer<DataItem, Value extends any[]> extends PureComponent<BaseTransfer
     return this.state.selecteds
   }
 
-  setSelecteds(index: IndexType, value: keyType[]) {
+  setSelecteds(index: IndexType, value: KeygenResult[]) {
     const { onSelectChange } = this.props
     const { selecteds } = this.state
     const newSelecteds = index ? [selecteds![0], value] : [value, selecteds![1]]

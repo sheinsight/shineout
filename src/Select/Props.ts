@@ -1,25 +1,28 @@
 import * as React from 'react'
-import {
-  StandardProps,
-  RegularAttributes,
-  ListItemStandardProps,
-  CommonProps,
-  KeygenType,
-  ValueItem,
-  ResultItem,
-  LiteralUnion,
-} from '../@types/common'
+import { StandardProps, RegularAttributes, KeygenType, ValueItem, ResultItem, LiteralUnion } from '../@types/common'
 import List from '../Datum/List'
 import { GetTableConsumerProps } from '../Table/Props'
-import { GetInputableProps } from '../Form/Props'
+import { GetInputableProps, InputableProps } from '../Form/Props'
 import { GetInputBorderProps } from '../hoc/Props'
 import { GetDatumListProps } from '../Datum/Props'
+import { AbsoluteProps } from '../AnimationList/Props'
 
 type ReactNode = React.ReactNode
 type ReactElement = React.ReactElement
 export type Position = 'drop-down' | 'drop-up'
 
-export interface BaseSelectProps<Item, Value> extends StandardProps, CommonProps {
+export interface BaseSelectProps<Item, Value>
+  extends StandardProps,
+    Pick<AbsoluteProps, 'absolute' | 'zIndex'>,
+    Pick<InputableProps<Value>, 'formDatum'> {
+  /**
+   * If clearable is true, show clear value icon
+   *
+   * 是否可清除值
+   *
+   * default: false
+   */
+  clearable?: boolean
   /**
    * Option columns.
    *
@@ -416,7 +419,7 @@ export interface BaseSelectProps<Item, Value> extends StandardProps, CommonProps
    *
    * default: (val, d) => val===format(d)
    */
-  prediction?: ListItemStandardProps<Item, Value>['prediction']
+  prediction?: (value: ValueItem<Value>, data: Item) => boolean
 
   /**
    * When it is a string, return d[string]. When it is a function, return the result of the function.
@@ -501,7 +504,7 @@ export interface OptionTreeProps<Item, Value> extends BaseSelectProps<Item, Valu
   datum: List<Item, Value>
   focus?: boolean
   onExpand?: () => void
-  keygen: ListItemStandardProps<Item, Value>['keygen']
+  keygen: KeygenType<Item>
   renderItem: ((data: Item, index?: number) => ReactNode)
   selectId: string
   text: Object
@@ -629,7 +632,15 @@ export interface GroupProps<Item, Value> extends Omit<BaseSelectProps<Item, Valu
   groupKey: string
 }
 
-export type GetFilterProps<Props, Item> = Omit<Props, 'filterText' | 'result' | 'innerData' | 'onFilter'> & {
+export type GetFilterProps<Props, Item> = Omit<Props, 'filterText' | 'result' | 'innerData' | 'onFilter' | 'data'> & {
+  /**
+   * Options data
+   *
+   * 筛选后是否展示命中节点的后代节点
+   *
+   * default: -
+   */
+  data?: Item[]
   /**
    * When the onFilter is not empty, you can filter data by input. If the onFilter returns a function, use this function as a front-end filter. If return undefined, you can do your own backend filtering.
    *

@@ -4,7 +4,7 @@ import { treeClass } from './styles'
 import { empty } from '../utils/func'
 import Node from './Node'
 import { ListProps } from './Props'
-import { keyType } from '../@types/common'
+import { KeygenResult } from '../@types/common'
 
 class List<DataItem, Value extends any[]> extends PureComponent<ListProps<DataItem, Value>> {
   static defaultProps = {
@@ -44,7 +44,7 @@ class List<DataItem, Value extends any[]> extends PureComponent<ListProps<DataIt
 
   renderNode(child: DataItem, index: number) {
     const { data, isRoot, expanded, keygen, line, className, style, ...other } = this.props
-    const id = this.getKey(child, index) as keyType
+    const id = this.getKey(child, index) as KeygenResult
     return (
       <Node<DataItem, Value>
         {...other}

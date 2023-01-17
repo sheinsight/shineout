@@ -78,7 +78,7 @@ export function pathGenerator(raw: string) {
   let index = 0
   let last = 0
   let prop: string | number = ''
-  const results: Array<any[]> = []
+  const results: Array<[string | number, string | undefined, string | undefined]> = []
   while (index >= 0) {
     index = path.indexOf('.', last)
     prop = path.substring(last, index === -1 ? undefined : index)
@@ -120,7 +120,7 @@ export const deepSet = (target: ObjectType, path: string, value: any, options: d
   let current: any = target
   for (const [prop, next, mode] of pathGenerator(path)) {
     if (next) {
-      const nextIsArray = /^\[\d+\]/.test(next)
+      const nextIsArray = /^\[\d+\]/.test(next as string)
       if (!current[prop]) current[prop] = nextIsArray ? [] : {}
       if (nextIsArray && !Array.isArray(current[prop])) {
         throw new Error(`Path ${path} expect an array.`)
@@ -137,7 +137,7 @@ export const deepSet = (target: ObjectType, path: string, value: any, options: d
     } else if (mode === PATH_MODE.insert) {
       current.splice(prop, 0, value)
     } else if (mode === PATH_MODE.append) {
-      current.splice(prop + 1, 0, value)
+      current.splice((prop as number) + 1, 0, value)
     } else {
       if (skipUndefined && value === undefined) break
 
@@ -177,21 +177,23 @@ export const deepRemove = (target: ObjectType, path: string) => {
   if (!isObject(target)) throw new Error('Target must be an object.')
   if (typeof path !== 'string' || !path) throw new Error('Path must be a string.')
 
-  let current = target
+  let current: ObjectType = target
   let nextIsArray = false
   for (const [prop, next] of pathGenerator(path)) {
     if (current == null || !hasOwnProperty.call(current, prop)) {
       break
     }
     if (next) {
-      current = current[prop]
+      current = current[prop as string]
       nextIsArray = /^\[\d+\]/.test(next)
     } else if (isObject(current)) {
       if (nextIsArray) throw new Error('Target is an object, expect array')
-      delete current[prop]
+      delete (current as ObjectType)[prop]
     } else {
-      if (!nextIsArray) throw new Error('Target is an array, expect object')
-      current.splice(prop, 1)
+      if (!nextIsArray) {
+        throw new Error('Target is an array, expect object')
+      }
+      ;(current as any[]).splice(prop as number, 1)
     }
   }
 

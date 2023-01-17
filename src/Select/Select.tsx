@@ -48,6 +48,8 @@ interface SelectState {
 class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, SelectState> {
   static defaultProps = DefaultValue
 
+  blurHandler: (() => void) | null
+
   renderPending: boolean
 
   optionList: {
@@ -70,7 +72,7 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
 
   blured: boolean
 
-  inputBlurTimer: NodeJS.Timer
+  inputBlurTimer: NodeJS.Timer | null
 
   lastChangeIsOptionClick: boolean
 
@@ -365,7 +367,7 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
 
     // if click option, ignore input blur
     this.inputBlurTimer = setTimeout(() => {
-      this.blurHandler()
+      if (this.blurHandler) this.blurHandler()
       this.blurHandler = null
     }, 200)
   }

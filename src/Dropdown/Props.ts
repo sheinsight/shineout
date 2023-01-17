@@ -1,6 +1,7 @@
 import React from 'react'
-import { StandardProps, RegularAttributes, CommonProps } from '../@types/common'
+import { StandardProps, RegularAttributes } from '../@types/common'
 import { GetTableConsumerProps } from '../Table/Props'
+import { AbsoluteProps } from '../AnimationList/Props'
 
 export type TriggerType = 'click' | 'hover'
 
@@ -56,7 +57,7 @@ export interface ItemProps {
   renderItem: ((data: any) => React.ReactNode) | string
 }
 
-export interface SimpleDropdownProps extends StandardProps, Pick<CommonProps, 'absolute'> {
+export interface SimpleDropdownProps extends StandardProps, Pick<AbsoluteProps, 'absolute'> {
   // hover?: boolean
   isSub?: boolean
 

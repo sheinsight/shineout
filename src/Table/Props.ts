@@ -1,5 +1,5 @@
 import React, { CSSProperties, ReactComponentElement, ReactNode } from 'react'
-import { keyType, LiteralUnion, ObjectType, RegularAttributes, StructKeygenType } from '../@types/common'
+import { KeygenResult, LiteralUnion, ObjectType, RegularAttributes, StructKeygenType } from '../@types/common'
 import ListDatum from '../Datum/List'
 import { StickyProps } from '../Sticky/Props'
 import { GetHidableConsumerProps, GetPagableProps } from '../hoc/Props'
@@ -332,14 +332,14 @@ export interface SimpleTableProps<DataItem, Value> {
   width?: number
   dataChangeResize?: boolean
   externalExpandRender?: (rowData: DataItem, index: number) => ReactNode
-  expandKeys?: keyType[]
+  expandKeys?: KeygenResult[]
   keygen: StructKeygenType<DataItem>
   resetFixAuto: (is?: boolean) => boolean
   onTreeExpand: (data: DataItem, index: number) => void
   datum: ListDatum<DataItem, Value>
   disabled?: boolean | ((d: DataItem) => boolean)
   treeRoot?: boolean
-  treeExpandLevel: Map<keyType, number>
+  treeExpandLevel: Map<KeygenResult, number>
   treeIndent: number
   treeEmptyExpand?: boolean
   ignoreBorderRight?: boolean
@@ -348,7 +348,7 @@ export interface SimpleTableProps<DataItem, Value> {
   externalExpandClick?: (rowData: DataItem, expanded: boolean) => void
   striped?: boolean
   rowClassName?: (rowData: DataItem, index: number) => string | undefined
-  treeExpandKeys?: Map<keyType, boolean>
+  treeExpandKeys?: Map<KeygenResult, boolean>
   /**
    * tr events
    *
@@ -458,7 +458,7 @@ export interface TbodyProps<DataItem, Value> extends Omit<SimpleTableProps<DataI
 export interface Row<DataItem> {
   index: number
   data: DataItem
-  expandKeys?: keyType[]
+  expandKeys?: KeygenResult[]
   colSpan: number
   rowSpan?: number
 }
@@ -466,12 +466,12 @@ export interface Row<DataItem> {
 /** ------ tr ---------- */
 export interface TrProps<DataItem, Value>
   extends Omit<TbodyProps<DataItem, Value>, 'data' | 'keygen' | 'sorter' | 'expandKeys' | 'colgroup'> {
-  onExpand: (key: keyType, expanded?: ReactNode) => void
+  onExpand: (key: KeygenResult, expanded?: ReactNode) => void
   expandRender?: ((rowData: DataItem, index?: number) => ReactNode) | ReactNode
   rowKey?: string | number
   rowData: DataItem
   data: Row<DataItem>[]
-  originKey: keyType
+  originKey: KeygenResult
 }
 export type ColumnItemWithFixed<DataItem> = ColumnItem<DataItem> & {
   lastFixed?: boolean
@@ -623,7 +623,7 @@ export type GetTreeExpandProps<Props, DataItem> = Omit<
    *
    * default: none
    */
-  defaultTreeExpandKeys?: keyType[]
+  defaultTreeExpandKeys?: KeygenResult[]
   /**
    * expand row change, keys is expanded row keys
    *
@@ -631,7 +631,7 @@ export type GetTreeExpandProps<Props, DataItem> = Omit<
    *
    * default: none
    */
-  onTreeExpand?: (openKeys: keyType[], data: DataItem, expand: boolean, index: number) => void
+  onTreeExpand?: (openKeys: KeygenResult[], data: DataItem, expand: boolean, index: number) => void
   /**
    * Tree Table expanded row keys
    *
@@ -639,5 +639,5 @@ export type GetTreeExpandProps<Props, DataItem> = Omit<
    *
    * default: none
    */
-  treeExpandKeys?: keyType[]
+  treeExpandKeys?: KeygenResult[]
 }

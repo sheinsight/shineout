@@ -6,7 +6,7 @@ import { treeClass } from './styles'
 import Content from './Content'
 import { getDirectionClass } from '../utils/classname'
 import { NodeProps } from './Props'
-import { keyType, ObjectType } from '../@types/common'
+import { KeygenResult, ObjectType } from '../@types/common'
 
 const placeElement = document.createElement('div')
 placeElement.className = treeClass('drag-place')
@@ -14,8 +14,8 @@ const innerPlaceElement = document.createElement('div')
 placeElement.appendChild(innerPlaceElement)
 
 const placeInfo: {
-  start: keyType
-  target: keyType
+  start: KeygenResult
+  target: KeygenResult
 } = {
   start: '',
   target: '',

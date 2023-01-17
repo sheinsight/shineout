@@ -4,10 +4,10 @@ import { PureComponent } from '../component'
 import DatumTree, { TreeModeType } from '../Datum/Tree'
 import Root from './Root'
 import { TreeProps, UpdateFunc } from './Props'
-import { keyType } from '../@types/common'
+import { KeygenResult } from '../@types/common'
 
 interface TreeState {
-  active: null | keyType
+  active: null | KeygenResult
 }
 
 const DefaultProps = {
@@ -27,7 +27,7 @@ class Tree<DataItem, Value extends any[]> extends PureComponent<TreeProps<DataIt
 
   handleLeafClass: () => string | undefined
 
-  nodes: Map<keyType, UpdateFunc>
+  nodes: Map<KeygenResult, UpdateFunc>
 
   datum: DatumTree<DataItem>
 
@@ -88,7 +88,7 @@ class Tree<DataItem, Value extends any[]> extends PureComponent<TreeProps<DataIt
     if (bindDatum) bindDatum(this.datum)
   }
 
-  bindNode(id: keyType, update: UpdateFunc) {
+  bindNode(id: KeygenResult, update: UpdateFunc) {
     /*
     if (this.nodes.has(id)) {
       console.error(`Node with '${id}' key has already been added. Tree node's key must be unique.`)
@@ -106,24 +106,24 @@ class Tree<DataItem, Value extends any[]> extends PureComponent<TreeProps<DataIt
     return { active, expanded: !!(expanded && expanded.indexOf(id) >= 0) }
   }
 
-  unbindNode(id: keyType) {
+  unbindNode(id: KeygenResult) {
     this.nodes.delete(id)
   }
 
-  handleExpanded(expanded?: keyType[]) {
+  handleExpanded(expanded?: KeygenResult[]) {
     const temp = new Set(expanded)
     for (const [id, update] of this.nodes) {
       update('expanded', temp.has(id))
     }
   }
 
-  handleActive(active?: keyType) {
+  handleActive(active?: KeygenResult) {
     for (const [id, update] of this.nodes) {
       update('active', id === active)
     }
   }
 
-  handleNodeClick(node: DataItem, id: keyType) {
+  handleNodeClick(node: DataItem, id: KeygenResult) {
     const { active, onClick } = this.props
     if (active === undefined) {
       this.setState({ active: id }, () => {
@@ -135,7 +135,7 @@ class Tree<DataItem, Value extends any[]> extends PureComponent<TreeProps<DataIt
     }
   }
 
-  handleToggle(id: keyType) {
+  handleToggle(id: KeygenResult) {
     const { expanded, onExpand } = this.props
     let newExpanded
 
@@ -152,7 +152,7 @@ class Tree<DataItem, Value extends any[]> extends PureComponent<TreeProps<DataIt
     if (onExpand) onExpand(newExpanded)
   }
 
-  handleDrop(id: keyType, targetId: keyType, position: number) {
+  handleDrop(id: KeygenResult, targetId: KeygenResult, position: number) {
     const { childrenKey } = this.props
     const current = this.datum.getPath(id)
     const target = this.datum.getPath(targetId)
