@@ -521,7 +521,7 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
       'emptyText',
       'renderOptionList',
     ].forEach(k => {
-      props[k] = this.props[k as keyof typeof this.props]
+      props[k] = this.props[k as keyof BaseSelectProps<Item, Value>]
     })
     const style = optionWidth && { width: optionWidth }
     props.renderItem = this.renderItem
@@ -546,7 +546,7 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
     const { focus, control, position } = this.state
     const { autoAdapt, value, optionWidth } = this.props
     const props: { [props: string]: any } = {}
-    ;[
+    const arr: (keyof BaseSelectProps<Item, Value>)[] = [
       'data',
       'datum',
       'keygen',
@@ -567,8 +567,9 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
       'hideCreateOption',
       'emptyText',
       'renderOptionList',
-    ].forEach(k => {
-      props[k] = this.props[k as keyof typeof this.props]
+    ]
+    arr.forEach(k => {
+      props[k] = this.props[k]
     })
 
     const List = props.columns >= 1 || props.columns === -1 ? WrappedBoxList : WrappedOptionList

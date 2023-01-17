@@ -3,7 +3,7 @@ import { deepClone } from './clone'
 
 type ExpandKeys = (string | number)[]
 interface Conf {
-  advanced?: boolean | ((text: string) => ((data: any) => boolean) | void)
+  advanced?: boolean
 }
 export const getFilterTree = <T, K extends Function>(
   treeNodes: T[] | undefined,

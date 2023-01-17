@@ -7,6 +7,7 @@ import {
   KeygenType,
   ValueItem,
   ResultItem,
+  LiteralUnion,
 } from '../@types/common'
 import List from '../Datum/List'
 import { GetTableConsumerProps } from '../Table/Props'
@@ -98,14 +99,7 @@ export interface BaseSelectProps<Item, Value> extends StandardProps, CommonProps
    */
   onCreate?: ((input: string | Item) => Item | string) | boolean
 
-  /**
-   * When the onFilter is not empty, you can filter data by input. If the onFilter returns a function, use this function as a front-end filter. If return undefined, you can do your own backend filtering.
-   *
-   * onFilter 不为空时，可以输入过滤数据。onFilter 如果返回一个函数，使用这个函数做前端过滤。如果不返回，可以自行做后端过滤
-   *
-   * default: -
-   */
-  onFilter?: (text: string, from?: string) => ((data: Item) => boolean) | void
+  onFilter?: (text: string, from?: string) => void
 
   /**
    * The position of the pop-up layer, options: ['left', 'top', 'right', 'bottom']
@@ -123,7 +117,7 @@ export interface BaseSelectProps<Item, Value> extends StandardProps, CommonProps
    *
    * default: -
    */
-  renderItem?: ((data: Item, index?: number) => ReactNode) | string
+  renderItem?: ((data: Item, index?: number) => ReactNode) | LiteralUnion<Item>
 
   /**
    * size of select
@@ -441,7 +435,6 @@ export interface BaseSelectProps<Item, Value> extends StandardProps, CommonProps
    * default: false
    */
   underline?: boolean
-
   data: Item[]
   value: Value
   defaultValue?: Value
@@ -636,7 +629,15 @@ export interface GroupProps<Item, Value> extends Omit<BaseSelectProps<Item, Valu
   groupKey: string
 }
 
-export type GetFilterProps<Props, Item> = Omit<Props, 'filterText' | 'result' | 'innerData' | 'data'> & {
+export type GetFilterProps<Props, Item> = Omit<Props, 'filterText' | 'result' | 'innerData' | 'onFilter'> & {
+  /**
+   * When the onFilter is not empty, you can filter data by input. If the onFilter returns a function, use this function as a front-end filter. If return undefined, you can do your own backend filtering.
+   *
+   * onFilter 不为空时，可以输入过滤数据。onFilter 如果返回一个函数，使用这个函数做前端过滤。如果不返回，可以自行做后端过滤
+   *
+   * default: -
+   */
+  onFilter?: (text: string, from?: string) => ((data: Item) => boolean) | void | undefined
   /**
    * ms. The delay of user input triggering filter events
    *
@@ -645,15 +646,6 @@ export type GetFilterProps<Props, Item> = Omit<Props, 'filterText' | 'result' | 
    * default: 400
    */
   filterDelay?: number
-
-  /**
-   * Options data
-   *
-   * 筛选后是否展示命中节点的后代节点
-   *
-   * default: -
-   */
-  data?: Item[]
 
   /**
    * Whether to show the descendant nodes of the hit node after filtering
