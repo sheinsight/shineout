@@ -1,7 +1,7 @@
 import { createMarkDown } from 'docs/MarkDown'
 import Page from '../Page'
 
-const versions = ['1.x.x']
+const versions = ['1.x.x', '2.x.x']
 const rcVersion = process.env.LOG_ENV === 'rc' ? versions : []
 
 const pages = [
