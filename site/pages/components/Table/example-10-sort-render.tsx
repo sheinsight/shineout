@@ -27,7 +27,7 @@ type TableSorter = TableProps['sorter']
 type TableColumnOrder = TYPE.Table.ColumnOrder
 type TableRenderSorter = TableProps['renderSorter']
 type TableOnSortCancel = TableProps['onSortCancel']
-type TableSorterParam = TYPE.Table.renderSorterParam
+type TableSorterParam = TYPE.Table.RenderSorterParam
 
 const data: TableRowData[] = fetchSync(1000)
 const columns: TableColumnItem[] = [

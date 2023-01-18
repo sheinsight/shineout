@@ -42,6 +42,8 @@
 | onChangeAddition | ({data, current, checked}) => void | - | \onChange additional parameters (current is the data of the clicked node, data is the currently selected data, checked is whether it is selected or canceled in the multi-select state)  |
 | parentClickExpand | boolean | - | Click on the parent node to expand the node |
 | getComponentRef | (componentRef: any => void) | - | A reference to a bound component, which can call certain component methods |
+| onEnterExpand | (e: Event) => boolean | - | Expand option list while enter press |
+| height | number | 300 | The height of list|
 
 ### ComponentRef
 | Property | Type | Default | Description | Version |

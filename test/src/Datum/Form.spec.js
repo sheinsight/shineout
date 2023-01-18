@@ -1,4 +1,4 @@
-import Datum from '../../../src/Datum/index'
+import Datum from '../../../src/Datum'
 import { deepClone } from '../../../src/utils/clone'
 
 describe('Datum[Form.js]', () => {

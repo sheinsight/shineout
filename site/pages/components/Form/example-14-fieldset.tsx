@@ -25,7 +25,7 @@ type FormProps = TYPE.Form.Props<Value>
 type FormValue = FormProps['value']
 type FormOnChange = FormProps['onChange']
 
-type RuleFunc = TYPE.Rule.validFunc
+type RuleFunc = TYPE.Rule.ValidFunc
 
 const citys = fetchCity(20)
 
@@ -99,7 +99,7 @@ const App: React.FC = () => {
                 digits={0}
                 title="age"
                 type="number"
-                defaultValue={18}
+                defaultValue="18"
                 style={{ width: 100 }}
                 rules={[rule.min(18), rule.max(60)]}
               />
@@ -112,12 +112,11 @@ const App: React.FC = () => {
             <Select
               keygen="id"
               name="city"
-              title="city"
+              format="id"
               data={citys}
               renderItem="city"
               style={{ width: 200 }}
               rules={[rule.required]}
-              datum={{ format: 'id' }}
             />
           </Form.Item>
         </Form.FieldSet>

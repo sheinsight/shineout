@@ -44,6 +44,8 @@ TreeSelect 用来选择树形数据结构，若需要非关联树形结构选择
 | onChangeAddition | ({data, current, checked}) => void       | 无 | onChange 额外参数 (current 为点击的节点的数据， data为当前选中的数据， checked为多选状态下是选中还是取消) |
 | parentClickExpand | boolean | 无 | 点击父节点后展开节点 |
 | getComponentRef | (componentRef: any => void) | 无 | 绑定组件的引用，可以调用某些组件方法 |
+| onEnterExpand | (e: Event) => boolean | 无 | 回车触发下拉框展开的时候调用 |
+| height | number | 300 | 下拉列表的高度|
 
 ### ComponentRef
 | 属性 | 类型 | 默认值 | 说明 | 版本 |

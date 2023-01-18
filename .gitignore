@@ -3,6 +3,7 @@ dist
 lib-cov
 coverage.html
 .DS_Store
+.temp
 node_modules
 publish
 .idea

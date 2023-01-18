@@ -18,12 +18,12 @@ const slider: React.CSSProperties = {
 }
 
 const App: React.FC = () => {
-  const [value, setValue] = useState(50)
+  const [value, setValue] = useState<number>(50)
 
   return (
     <div style={container}>
       <Slider value={value} onChange={n => setValue(n)} style={slider} />
-      <Input.Number width={100} value={value} onChange={n => setValue(n)} />
+      <Input.Number width={100} value={value} onChange={(n: number) => setValue(n)} />
     </div>
   )
 }

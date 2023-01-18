@@ -914,7 +914,6 @@ exports[`Table[Empty] should render loading status while empty 1`] = `
         Object {
           "color": "#6c757d",
           "height": 40,
-          "margin": undefined,
           "width": 40,
         }
       }

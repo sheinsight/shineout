@@ -7,12 +7,11 @@
 import React, { useState } from 'react'
 import { DatePicker, Input, TYPE } from 'shineout'
 
+type DatePickerProps = TYPE.DatePicker.Props
 type DatePickerValue = TYPE.DatePicker.Value
-type DatePickerProps = TYPE.DatePicker.Props<DatePickerValue>
 type DatePickerFormat = DatePickerProps['format']
-type DatePickerOnChange = DatePickerProps['onChange']
 
-type InputProps = TYPE.Input.Props<string>
+type InputProps = TYPE.Input.Props
 type InputOnChange = InputProps['onChange']
 
 const App: React.FC = () => {
@@ -22,8 +21,6 @@ const App: React.FC = () => {
   const [formatResultValue, setFormatResultValue] = useState<DatePickerValue>(new Date())
 
   const handleFormatChange: InputOnChange = v => setFormat(v)
-
-  const handleValueChange: DatePickerOnChange = v => setValue(v)
 
   const handleFormatResultChange: InputOnChange = v => setFormatResult(v)
 
@@ -35,7 +32,7 @@ const App: React.FC = () => {
         type="datetime"
         placeholder="format date"
         style={{ marginBottom: 5 }}
-        onChange={handleValueChange}
+        onChange={setValue}
       />
 
       <Input.Group width={240} style={{ marginBottom: 20 }}>

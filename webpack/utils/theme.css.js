@@ -53,6 +53,7 @@ module.exports = function({
     },
     resolve: {
       alias: config.webpack.alias,
+      extensions: ['.js', '.ts', '.json', '.jsx', '.tsx']
     },
     output: {
       ...output,
@@ -64,6 +65,10 @@ module.exports = function({
           test: /\.less$/,
           use: lessLoader(name, hot),
         },
+        {
+          test: /\.(ts|tsx)$/,
+          use: 'babel-loader'
+        }
       ],
     },
     plugins: [

@@ -20,7 +20,7 @@ describe('test draggable', () => {
     const onDragEnd = jest.fn()
     mount(<DragItem client={{ x: 10, y: 10 }} onDragStart={onDragStart} onDrag={onDrag} onDragEnd={onDragEnd} />)
     expect(onDragStart.mock.calls.length).toBe(1)
-    expect(onDragStart.mock.calls[0][0]).toBe(true)
+    expect(onDragStart.mock.calls[0][0]).toBe(undefined)
     // drag
     handler.mousemove({ clientX: 20, clientY: 30 })
     jest.runAllTimers()
@@ -30,7 +30,7 @@ describe('test draggable', () => {
     // end
     handler.mouseup()
     expect(onDragEnd.mock.calls.length).toBe(1)
-    expect(onDragEnd.mock.calls[0][0]).toBe(false)
+    expect(onDragEnd.mock.calls[0][0]).toBe(undefined)
   })
 
   it('should drag', () => {
@@ -50,7 +50,7 @@ describe('test draggable', () => {
     wrapper.find('#target').simulate('mousedown', { clientX: 10, clientY: 10, button: 0 })
     expect(Object.keys(handler)).toStrictEqual(['mousemove', 'mouseup', 'mouseleave'])
     expect(onDragStart.mock.calls.length).toBe(1)
-    expect(onDragStart.mock.calls[0][0]).toBe(true)
+    expect(onDragStart.mock.calls[0][0]).toBe(undefined)
     // drag
     handler.mousemove({ clientX: 20, clientY: 30 })
     jest.runAllTimers()
@@ -60,7 +60,7 @@ describe('test draggable', () => {
     // end
     handler.mouseup()
     expect(onDragEnd.mock.calls.length).toBe(1)
-    expect(onDragEnd.mock.calls[0][0]).toBe(false)
+    expect(onDragEnd.mock.calls[0][0]).toBe(undefined)
 
     expect(() => wrapper.unmount()).not.toThrow()
   })

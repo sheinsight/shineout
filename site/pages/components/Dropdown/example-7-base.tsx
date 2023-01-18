@@ -7,10 +7,9 @@
 import React from 'react'
 import { Dropdown, Message, TYPE } from 'shineout'
 
-type DropdownProps = TYPE.Dropdown.Props
-type DropdownData = DropdownProps['data']
+type DropdownItem = TYPE.Dropdown.Item
 
-const data: DropdownData = [
+const data: DropdownItem[] = [
   {
     content: 'Submenu',
     children: [
