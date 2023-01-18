@@ -7,6 +7,6 @@
 import React from 'react'
 import { Switch } from 'shineout'
 
-const App: React.FC = () => <Switch size="small" content={['开', '关']} keepContentShow />
+const App: React.FC = () => <Switch />
 
 export default App
