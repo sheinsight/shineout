@@ -91,7 +91,7 @@ export default function(type) {
     }
 
     render() {
-      const { disabled, style, content, size, children, inputable, onClick } = this.props
+      const { disabled, style, content, size, children, inputable, keepContentShow, onClick } = this.props
 
       const rtl = isRTL()
 
@@ -117,7 +117,7 @@ export default function(type) {
 
       const [checkedChildren, uncheckedChildren] = content
       const switchChildren =
-        isSwitch && size !== 'small' ? (
+        isSwitch && (keepContentShow || size !== 'small') ? (
           <span className={checkinputClass('switch-children')}>{checked ? checkedChildren : uncheckedChildren}</span>
         ) : null
 
@@ -165,6 +165,7 @@ export default function(type) {
     onRawChange: PropTypes.func,
     value: PropTypes.any,
     onClick: PropTypes.func,
+    keepContentShow: PropTypes.bool,
     size: PropTypes.oneOf(['small', 'default', 'large']),
     content: PropTypes.array,
   }

@@ -69,3 +69,16 @@ describe('Switch[size]', () => {
     })
   })
 })
+
+describe('Switch[keepContentShow]', () => {
+  test('should render switch children', () => {
+    const wrapper = mount(<Switch size="small" content={['Open', 'Close']} />)
+    expect(wrapper.find(`.${SO_PREFIX}-checkinput-switch-children`).length).toBe(0)
+  })
+
+  test('should keep content show when Size is small', () => {
+    const wrapper = mount(<Switch size="small" content={['Open', 'Close']} keepContentShow />)
+    expect(wrapper.find(`.${SO_PREFIX}-checkinput-switch-children`).length).toBe(1)
+    expect(wrapper.find(`.${SO_PREFIX}-checkinput-switch-children`).text()).toBe('Close')
+  })
+})

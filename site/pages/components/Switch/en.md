@@ -16,3 +16,4 @@
 | size | 'default' \| 'small' \| 'large' | 'default' | size of switch |
 | value | boolean | none | set while no checked |
 | defaultValue | boolean | none | init value |
+| keepContentShow | boolean | none | Whether to keep the content displayed when the Size is small |

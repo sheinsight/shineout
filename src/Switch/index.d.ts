@@ -41,6 +41,15 @@ export interface SwitchProps extends
    */
   size?: 'default' | 'small' | 'large';
 
+  /**
+   * Whether to keep the content displayed when the Size is small
+   *
+   * 在 size 为 small 时，是否保持内容显示
+   *
+   * default: 'default'
+   */
+   keepContentShow?: boolean
+
 }
 
 declare class Switch extends React.Component<SwitchProps, any>{
