@@ -27,7 +27,6 @@
   }
 }
 
-
 .@{list-prefix}-container {
   box-sizing: border-box;
   position: relative;
@@ -45,7 +44,7 @@
     padding: @list-default-padding;
 
     &:not(:last-child)::after {
-      content: "";
+      content: '';
       position: absolute;
       bottom: 0px;
       left: 0;
@@ -56,12 +55,15 @@
 
     &.@{list-prefix}-checkbox {
       display: flex;
-      justify-content: flex-start;
+      justify-content: space-between;
       align-items: center;
+      .@{list-prefix}-item-meta {
+        flex: 1;
+      }
     }
 
     .@{list-prefix}-meta-container,
-    .@{list-prefix}-meta.@{list-prefix}-includes{
+    .@{list-prefix}-meta.@{list-prefix}-includes {
       box-sizing: border-box;
       display: flex;
       justify-content: flex-start;
@@ -83,7 +85,6 @@
       box-sizing: border-box;
       padding-top: 12px;
     }
-
   }
 
   &.@{list-prefix}-fixed {
@@ -111,18 +112,16 @@
     flex: 1;
   }
 
-
   &.@{list-prefix}-bordered {
     border: @list-item-bottom-border-width solid @gray-200;
     border-radius: 4px;
   }
 
-
-  .@{list-prefix}-footer{
+  .@{list-prefix}-footer {
     position: relative;
 
     &::before {
-      content: "";
+      content: '';
       position: absolute;
       top: 0px;
       left: 0;
@@ -131,7 +130,6 @@
       background-color: @gray-200;
     }
   }
-
 
   .@{list-prefix}-loading {
     position: absolute;
@@ -164,8 +162,12 @@
   }
 
   .@{button-prefix} + .@{button-prefix} {
-    &:not(@{button-prefix}-rtl) {margin-left: 0;}
-    &.@{button-prefix}-rtl {margin-right: 0;}
+    &:not(@{button-prefix}-rtl) {
+      margin-left: 0;
+    }
+    &.@{button-prefix}-rtl {
+      margin-right: 0;
+    }
   }
 }
 
@@ -174,7 +176,7 @@
     padding: @list-small-padding;
 
     .@{list-prefix}-meta-container,
-    .@{list-prefix}-meta.@{list-prefix}-includes{
+    .@{list-prefix}-meta.@{list-prefix}-includes {
       .@{list-prefix}-meta-avatar {
         width: @list-small-avatar;
         height: @list-small-avatar;
@@ -196,7 +198,6 @@
     }
   }
 }
-
 
 .@{list-prefix}-container.@{list-prefix}-rtl {
   direction: rtl;

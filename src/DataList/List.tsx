@@ -97,6 +97,19 @@ class Index<U, T> extends Component<BaseListProps<U, T>> {
   renderItem(value: U, index: number) {
     const { keygen, onChange } = this.props
     const haveRowSelected = isFunc(onChange)
+
+    if (haveRowSelected) {
+      return (
+        <div
+          className={this.getItemClassName(value, index, haveRowSelected)}
+          key={getKey(value, keygen, index) as React.Key}
+        >
+          {this.renderCheckBox(haveRowSelected, value, index)}
+          <div className={listClass('item-meta')}>{this.getContent(value, index)}</div>
+        </div>
+      )
+    }
+
     return (
       <div
         className={this.getItemClassName(value, index, haveRowSelected)}
