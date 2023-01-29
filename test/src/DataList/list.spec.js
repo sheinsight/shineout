@@ -135,6 +135,15 @@ describe('List[onChange]', () => {
     expect(handleChange).toBeCalled()
     expect(handleChange.mock.calls[0][0][0]).toBe(data[0])
   })
+
+  test('onChange style', () => {
+    const handleChange = jest.fn()
+    const wrapper = mount(
+      <List keygen="id" data={data} onChange={handleChange} renderItem={d => <div>{d.firstName + d.lastName}</div>} />
+    )
+
+    expect(wrapper.find(`.${SO_PREFIX}-list-item-meta`).length).toBe(3)
+  })
 })
 
 describe('List[rowClassName]', () => {
