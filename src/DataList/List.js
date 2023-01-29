@@ -81,19 +81,12 @@ class Index extends Component {
     const { keygen, onChange } = this.props
     const haveRowSelected = isFunc(onChange)
 
-    if (haveRowSelected) {
-      return (
-        <div className={this.getItemClassName(value, index, haveRowSelected)} key={getKey(value, keygen, index)}>
-          {this.renderCheckBox(haveRowSelected, value, index)}
-          <div className={listClass('item-meta')}>{this.getContent(value, index)}</div>
-        </div>
-      )
-    }
+    const content = this.getContent(value, index)
 
     return (
       <div className={this.getItemClassName(value, index, haveRowSelected)} key={getKey(value, keygen, index)}>
         {this.renderCheckBox(haveRowSelected, value, index)}
-        {this.getContent(value, index)}
+        {haveRowSelected ? <div className={listClass('item-meta')}>{content}</div> : content}
       </div>
     )
   }
