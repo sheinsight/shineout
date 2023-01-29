@@ -1,14 +1,8 @@
 import { v4 as getUUid } from 'uuid'
 
-let uid = Date.now()
-
-export function getUid() {
-  uid += 1
-  return uid
-}
-
 export function getUidStr(...args) {
-  return getUUid(...args)
+  // dom id  cannot start with number
+  return `a${getUUid(...args)}`
 }
 
 function $getKey(d, gen, index) {
