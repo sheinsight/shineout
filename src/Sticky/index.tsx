@@ -113,7 +113,11 @@ class Sticky extends PureComponent<StickyProps, StickyState> {
     if (needResetPostion === false) return
 
     const selfRect = copyBoundingClientRect(this.element)
+
     if (selfRect === null) return
+    // If the element is hidden, the width and height will be 0
+    if (selfRect && selfRect.width === 0 && selfRect.height === 0) return
+
     const { marginBottom, marginTop } = getComputedStyle(this.element)
     selfRect.height += parseFloat(marginBottom) + parseFloat(marginTop)
     const scrollElement = this.targetElement || document.body

@@ -292,7 +292,8 @@ class Container extends PureComponent<ContainerProps, ContainerState> {
           const rect = this.element.getBoundingClientRect()
           const windowHeight = docSize.height
           const windowWidth = docSize.width
-          const pickerWidth = this.props.range ? 540 : 270 + (hasQuickColumn ? 120 : 0)
+          const pickerWidth = (this.props.range ? 540 : 270) + (hasQuickColumn ? 120 : 0)
+
           if (!this.props.position) {
             if (rect.bottom + 300 > windowHeight) {
               if (rect.left + pickerWidth > windowWidth) state.position = 'right-top'

@@ -1,16 +1,11 @@
 import { KeygenType } from '../@types/common'
+import { v4 as getUUid } from 'uuid'
 
-import getUUid from './uuid'
 
-let uid = Date.now()
-
-export function getUid() {
-  uid += 1
-  return uid
-}
 
 export function getUidStr(...args: Parameters<typeof getUUid>) {
-  return getUUid(...args)
+  // dom id  cannot start with number
+  return `a${getUUid(...args)}`
 }
 
 function $getKey<T>(d: T, gen: KeygenType<T>, index?: number) {

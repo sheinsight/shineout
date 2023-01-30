@@ -4,6 +4,9 @@ describe('uid.js[getUid-getUidStr]', () => {
   test('should getUidStr return different', () => {
     expect(getUidStr()).not.toBe(getUidStr())
   })
+  test('should return d when gen is true', () => {
+    expect(() => document.querySelector(`#${getUidStr()}`)).not.toThrow()
+  })
 })
 
 describe('uid.js[getKey]', () => {
