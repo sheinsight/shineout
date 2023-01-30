@@ -224,9 +224,11 @@ export const method = (type: Methods) => (option: Options) => {
 
 export const closeAll = () => {
   Object.keys(containers)
-    .filter(id => containers[id].visible)
+    .filter(id => containers[id].props.from === 'method' && containers[id].visible)
     .forEach(id => {
-      close(containers[id].props)
+      const { onClose, usePortal } = containers[id].props
+      if (onClose) onClose()
+      if (!usePortal) close(containers[id].props)
     })
 }
 
@@ -237,9 +239,8 @@ ready(() => {
     const opened = ids.find(id => containers[id].visible && containers[id].props.esc)
     if (!opened) return
     const { props } = containers[opened]
-    // @ts-ignore may be always true
-    const { onClose, isPortal } = props
+    const { onClose, usePortal } = props
     if (onClose) onClose()
-    if (!isPortal) close(props)
+    if (!usePortal) close(props)
   })
 })
