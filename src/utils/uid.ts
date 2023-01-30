@@ -1,7 +1,5 @@
-import { KeygenType } from '../@types/common'
 import { v4 as getUUid } from 'uuid'
-
-
+import { KeygenType } from '../@types/common'
 
 export function getUidStr(...args: Parameters<typeof getUUid>) {
   // dom id  cannot start with number
