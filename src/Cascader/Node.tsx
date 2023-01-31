@@ -4,7 +4,7 @@ import { isRTL } from '../config'
 import Caret from '../icons/Caret'
 import Checkbox from '../Checkbox'
 import { cascaderClass } from './styles'
-import { NodeProps } from './Props'
+import { CascaderBaseValue, NodeProps } from './Props'
 import { PureComponent } from '../component'
 import { CHANGE_TOPIC } from '../Datum/types'
 import { getParent } from '../utils/dom/element'
@@ -17,7 +17,7 @@ interface NodeState {
   loading: boolean
 }
 
-class Node<U, T extends any[]> extends PureComponent<NodeProps<U, T>, NodeState> {
+class Node<U, T extends CascaderBaseValue> extends PureComponent<NodeProps<U, T>, NodeState> {
   handleUpdate: Function
 
   constructor(props: NodeProps<U, T>) {
@@ -51,7 +51,7 @@ class Node<U, T extends any[]> extends PureComponent<NodeProps<U, T>, NodeState>
     const { id, data, path, onChange, onPathChange, loader, multiple, datum } = this.props
     if (onPathChange) onPathChange(id, data, path, true)
     if (!multiple) {
-      if (onChange && path) onChange(([...path, id] as unknown) as T, datum.getDataById(id) as U)
+      if (onChange && path) onChange([...path, id] as T, datum.getDataById(id) as U)
     }
 
     if (loader && !this.state.loading && !getParent(e.target as HTMLElement, `.${checkinputClass('_')}`)) {
@@ -69,7 +69,7 @@ class Node<U, T extends any[]> extends PureComponent<NodeProps<U, T>, NodeState>
   handleChange(_: any, checked: boolean) {
     const { datum, id, onChange } = this.props
     datum.set(id, checked ? 1 : 0)
-    if (onChange) onChange((datum as any).getValue(), datum.getDataById(id) as U)
+    if (onChange) onChange(datum.getValue() as T, datum.getDataById(id) as U)
   }
 
   handleSelect(e: MouseEvent) {
@@ -81,7 +81,7 @@ class Node<U, T extends any[]> extends PureComponent<NodeProps<U, T>, NodeState>
 
   renderContent() {
     const { id, active, data, renderItem } = this.props
-    const render = typeof renderItem === 'function' ? renderItem : (d: U) => d[renderItem as keyof U]
+    const render = typeof renderItem === 'function' ? renderItem : (d: U) => d[renderItem]
     return render(data, active, id)
   }
 

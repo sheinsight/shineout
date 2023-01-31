@@ -29,7 +29,7 @@ class FilterItem<DataItem, T extends CascaderBaseValue> extends Component<Filter
     if (this.checkDisabled(item)) return
     const keys = data!.slice(0, index + 1).map((i: DataItem) => datum.getKey(i)) as T
     if (onChange) onChange(keys)
-    onPathChange(datum.getKey(item), item, keys.slice(0, keys.length - 1) as any, true)
+    onPathChange(datum.getKey(item), item, keys.slice(0, keys.length - 1) as T, true)
     if (onFilter && filterText) onFilter('')
   }
 
@@ -45,7 +45,7 @@ class FilterItem<DataItem, T extends CascaderBaseValue> extends Component<Filter
       const copyRender = render
       render = n => n[copyRender]
     }
-    return (render as Function)(item)
+    return render(item)
   }
 
   render() {

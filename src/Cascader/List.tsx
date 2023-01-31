@@ -22,10 +22,16 @@ class List<U, T extends any[]> extends Component<CascaderListProps<U, T>> {
     this.getText = this.getText.bind(this)
   }
 
-  getKey(data: U, index: number): string | number {
+  getKey(data: U, index: number): KeygenResult {
     const { keygen, parentId } = this.props
     if (typeof keygen === 'function') return keygen(data, parentId)
-    if (keygen && typeof keygen === 'string') return (data[keygen as keyof U] as unknown) as string | number
+    if (keygen && typeof keygen === 'string') {
+      const key = data[keygen]
+      if (typeof key === 'string' || typeof key === 'number') {
+        return key
+      }
+      console.error('key must be number or string but get', key)
+    }
     return parentId + (parentId ? ',' : '') + index
   }
 
@@ -40,7 +46,7 @@ class List<U, T extends any[]> extends Component<CascaderListProps<U, T>> {
       <div className={cascaderClass(getDirectionClass('list'))}>
         {data.map((d, i) => {
           const id = this.getKey(d, i)
-          return <Node {...other} key={id as KeygenResult} active={other.id === id} id={id} data={d} />
+          return <Node {...other} key={id} active={other.id === id} id={id} data={d} />
         })}
       </div>
     )
