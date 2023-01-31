@@ -1,8 +1,6 @@
 /**
  * cn - 控制浮层显隐
  *    -- open 控制浮层显隐
- * en - Base
- *   -- open set visible of cascader popup
  */
 
 import React from 'react'

@@ -56,7 +56,10 @@ interface ResultState {
   more: number
 }
 
-class Result<DataItem, Value extends CascaderBaseValue> extends PureComponent<ResultProps<DataItem, Value>, ResultState> {
+class Result<DataItem, Value extends CascaderBaseValue> extends PureComponent<
+  ResultProps<DataItem, Value>,
+  ResultState
+> {
   static defaultProps = {
     value: [],
   }
@@ -214,8 +217,18 @@ class Result<DataItem, Value extends CascaderBaseValue> extends PureComponent<Re
     raw: DataItem[]
     className: string
   }) {
-    const { singleRemove } = this.props
-    const res = data && render(data, raw)
+    const { singleRemove, datum, renderUnmatched } = this.props
+    let res
+    if (datum.isUnMatch(data)) {
+      if (renderUnmatched) {
+        res = renderUnmatched(data.value)
+      } else {
+        res = typeof data.value === 'string' ? data.value : null
+      }
+    } else {
+      res = data && render(data, raw)
+    }
+
     if (!res) return null
     const more = this.getCompressedBound()
     return (
@@ -306,7 +319,6 @@ class Result<DataItem, Value extends CascaderBaseValue> extends PureComponent<Re
       const copyRender = render
       render = (n: DataItem) => n[copyRender]
     }
-
     let items = this.handleNode(nodes, render as (d: DataItem, row: DataItem[]) => ReactNode)
 
     if (compressed && items.length) {

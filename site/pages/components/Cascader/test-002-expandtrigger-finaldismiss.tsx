@@ -1,6 +1,5 @@
 /**
  * cn - expandTrigger 和 finalDismiss 示例
- * en - Hover
  */
 
 import React from 'react'

@@ -38,3 +38,5 @@
 | compressedBound | number | - | when compressed is True,the comptessedBound can limit the numbers of multiple selected item's label |
 | wideMatch | boolean | - | Allows all possible matching options to be choosed |
 | open | boolean | - | Set visible of cascader popup |
+| renderUnmatched | (d: any)=> ReactNode | none | Custom rendering unmatched values |
+

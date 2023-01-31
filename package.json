@@ -147,5 +147,9 @@
     "webpack-dev-server": "^3.1.14",
     "webpack-merge": "^4.1.2",
     "whatwg-fetch": "^2.0.4"
+  },
+  "resolutions": {
+    "@types/react": "17.0.0",
+    "@types/react-dom": "17.0.0"
   }
 }

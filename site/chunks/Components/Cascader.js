@@ -118,6 +118,19 @@ const examples = [
 
   },
   {
+    name: '08-unmatch',
+    isTs: true,
+    isTest: false,
+    title: locate(
+      '展示未匹配选项 \n unmatch 为 true 时 展示 data 中不存在的值，renderUnmatched 用来自定义渲染未匹配值',
+      'Show unmatched options \n show values that do not exist in data when unmatch is true, and the `renderUnmatched` props is used to customize rendering unmatched value'
+    ),
+    component: require('doc/pages/components/Cascader/example-08-unmatch.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Cascader/example-08-unmatch.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Cascader/example-08-unmatch.tsx'),
+
+  },
+  {
     name: 'test-001-compressed',
     isTs: true,
     isTest: true,
@@ -136,7 +149,7 @@ const examples = [
     isTest: true,
     title: locate(
       'expandTrigger 和 finalDismiss 示例',
-      'Hover'
+      ''
     ),
     component: require('doc/pages/components/Cascader/test-002-expandtrigger-finaldismiss.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Cascader/test-002-expandtrigger-finaldismiss.tsx'),
@@ -149,7 +162,7 @@ const examples = [
     isTest: true,
     title: locate(
       '控制浮层显隐 \n open 控制浮层显隐',
-      'Base \n open set visible of cascader popup'
+      ''
     ),
     component: require('doc/pages/components/Cascader/test-003-open.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Cascader/test-003-open.tsx'),
