@@ -6,7 +6,7 @@
 
 ### Table
 
-| 属性 | 类型 | 默认值 | 说明 |
+| 属性 | 类型 | 默认值 | 说明 |!
 | --- | --- | --- | --- |
 | bordered | boolean | false | 是否显示外边框 |
 | className | string | 无 | 扩展className |
@@ -55,10 +55,11 @@
 | renderSorter | (params: {status?: 'asc' \| 'desc', triggerAsc: () => void, triggerDesc: ()=> void})=> ReactNode | false | 自定义排序图标 |
 | width | number | 无 | 表格总宽度 |
 | summary | { render: ()=> ReactNode, colSpan?: number, rowSpan?: number }\[]\[] | 无 | 渲染底部信息 |
+| columnResizable | boolean | 无 | 设置 columnResizable 为 true，使所有列可伸缩 |
 
 ### TableColumn
 
-| 属性 | 类型 | 默认值 | 说明 |
+| 属性 | 类型 | 默认值 | 说明 |!
 | --- | --- | --- | --- |
 | className | string | 无 | 列对应的类名 |
 | colSpan | function(row) | 无 | 合并列控制函数，row为单行数据，返回值一个整数，标明需要合并的列数 |
@@ -79,3 +80,5 @@
 | hide | boolean | false | 只针对行展开列有效，表示是否隐藏该列 |
 | defaultOrder | string | 'asc' \| 'desc' | 默认排序规则 |
 | filterAll | ( data: array) => array  | 无 | 点击全选后数据过滤，type = "checkbox" 生效 |
+| columnResizable | false | 无 | 设置 columnResizable 为 false，来取消伸缩该列 |
+

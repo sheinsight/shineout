@@ -21,9 +21,9 @@
 | onOpenChange | (keys: string[]) => void | none | menu open change callback |
 | frontCaret | boolean | null | Front solid triangle expansion |
 | frontCaretType | 'solid' \| 'hollow' | 'solid' | front triangle expansion symbol type |
-| caretColor | string | - ｜ triangle expansion color  |
+| caretColor | string | - |  triangle expansion color  |
 | theme | 'dark' | none | theme of menu |
 | looseChildren | boolean | false | menu item expandable if has children |
-| parentSelectable | boolean | false | Whether the parent menu is selectable (whether onClick is triggered after clicking)
- |
+| parentSelectable | boolean | false | Whether the parent menu is selectable (whether onClick is triggered after clicking)|
 | toggleDuration | number | 200 | The duration time of MenuItem |
+| className | string | - | Extend className |

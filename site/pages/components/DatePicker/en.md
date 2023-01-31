@@ -13,7 +13,7 @@
 | className | string | - | extend className |
 | clearable | boolean | true | whether it can be cleared |
 | defaultValue | string \| number \| Date \| \[any, any] | - | default |
-| disabled | (date: Date, type: string, value: \[any, any]) => boolean \| boolean  | false | When the value is true, disabled all options; When the value is function, disable the options that this function returns true. (Note: If you only want to disable the time alone, you can use the disabledTime attribute.) |
+| disabled | ((date: Date, type?: start \| end, value0?: Date value1?: Date) => boolean) \| boolean | false | When the value is true, disabled all options; When the value is function, disable the options that this function returns true. (Note: If you only want to disable the time alone, you can use the disabledTime attribute.) |
 | format | string | | default values for different types: <br />'date': 'yyyy-MM-dd'<br />'time': 'HH:mm:ss'<br />'week': 'RRRR II'<br />'month': 'yyyy-MM'<br />'quarter': 'yyyy-\[Q]Q'<br />'year': 'yyyy'<br />'datetime': 'yyyy-MM-dd HH:mm:ss' |
 | formatResult | string \| (date: Date) => string | props.format | Format the selected time |
 | onChange | (value: string \| \[string \| undefined, string \| undefined\]) => void | - | a callback when the value is changing |

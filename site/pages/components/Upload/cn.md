@@ -46,6 +46,7 @@
 | canDelete | ((value: any) => boolean) \| boolean | 无 | 文件是否可以删除|
 | responseType |  string | 无 | 设置 xhr.responseType |
 | webkitdirectory | any | false | 同原生 input 标签的 webkitdirectory 属性 |
+| onStart | (file: File) => void  | 无 | 开始上传的回调函数 |
 
 ### Upload.Image
 
