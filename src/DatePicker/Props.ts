@@ -85,7 +85,7 @@ export interface BaseProps<T = DatePickerValue> extends StandardProps, Pick<Abso
    *
    * default: false
    */
-  disabled?: ((date: Date, type?: DisabledType, value?: DatePickerValue) => boolean) | boolean
+  disabled?: ((date: Date, type?: DisabledType, value0?: Date, value1?: Date) => boolean) | boolean
 
   /**
    * default values for different types: 'date': 'yyyy-MM-dd'. 'time': 'HH:mm:ss'. 'week': 'RRRR II'. 'month': 'yyyy-MM'. 'week': 'RRRR II'. 'quarter': 'yyyy-[Q]Q'. 'year': 'yyyy'. 'datetime': 'yyyy-MM-dd HH:mm:ss'

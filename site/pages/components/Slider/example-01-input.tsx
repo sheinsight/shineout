@@ -23,7 +23,7 @@ const App: React.FC = () => {
   return (
     <div style={container}>
       <Slider value={value} onChange={n => setValue(n)} style={slider} />
-      <Input.Number width={100} value={value} onChange={(n: number) => setValue(n)} />
+      <Input.Number digits={0} width={100} value={value} onChange={(n: number) => setValue(n)} />
     </div>
   )
 }

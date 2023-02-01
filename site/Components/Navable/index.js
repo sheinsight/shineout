@@ -16,7 +16,7 @@ const scrollTo = id => {
   }
 }
 
-export default function(Component) {
+export default function(Component, config = { noNav: false }) {
   return function Nav(prop) {
     const [active, setActive] = useState('')
     const [headings] = useState([])
@@ -44,6 +44,7 @@ export default function(Component) {
     useEffect(() => {
       hashScroll()
       const handleScroll = () => {
+        if (config.noNav) return
         const top = document.documentElement.scrollTop
         const hs = headings.filter(h => h.level === 3 && h.children[0])
         if (hs.length === 0) return
@@ -85,7 +86,7 @@ export default function(Component) {
     return (
       <div className={navClass('_')}>
         <Component onHeadingSetted={setHeading} />
-        {!prop.noNav && renderNav()}
+        {!config.noNav && renderNav()}
       </div>
     )
   }

@@ -22,7 +22,6 @@ const App: React.FC = () => {
       onChange={v => {
         setValue(v)
       }}
-      limit={3}
       style={{ width: 300 }}
     >
       <Button>

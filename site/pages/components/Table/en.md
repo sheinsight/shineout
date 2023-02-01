@@ -55,6 +55,8 @@
 | renderSorter | (params: {status?: 'asc' \| 'desc', triggerAsc: () => void, triggerDesc: ()=> void})=> ReactNode | false | customize sort icons |
 | width | number | - | Total table width |
 | summary | {render: ()=> ReactNode, colSpan?: number, rowSpan?: number }\[]\[] | - | render footer |
+| columnResizable | boolean | 无 | 设置 columnResizable 为 true，使所有列可伸缩 |
+
 
 
 ### TableColumn

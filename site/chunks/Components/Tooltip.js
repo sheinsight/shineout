@@ -18,8 +18,8 @@ const examples = [
     isTs: true,
     isTest: false,
     title: locate(
-      '基本用法 \n 内置了四个弹出方向',
-      'Base \n There are four pop-up directions built in.'
+      '基本用法 \n children 只能为一个 ReactElement并且不可以使用 Fragment \n 内置了四个弹出方向',
+      'Base \n children can only be a ReactElement and cannot be a Fragment \n There are four pop-up directions built in.'
     ),
     component: require('doc/pages/components/Tooltip/example-1-base.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Tooltip/example-1-base.tsx'),
