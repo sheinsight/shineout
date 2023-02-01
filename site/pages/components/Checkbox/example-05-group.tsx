@@ -7,12 +7,10 @@
 import React from 'react'
 import { Checkbox, TYPE } from 'shineout'
 
-type DataItem = string
-type CheckboxGroupProps = TYPE.Checkbox.GroupProps<DataItem, string>
-type CheckboxGroupData = CheckboxGroupProps['data']
+type CheckboxGroupProps = TYPE.Checkbox.GroupProps<string, string>
 type CheckboxGroupRenderItem = CheckboxGroupProps['renderItem']
 
-const data: CheckboxGroupData = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
+const data = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
 
 const renderItem: CheckboxGroupRenderItem = color => {
   const style = { borderBottom: `solid 1px ${color}`, paddingBottom: 2 }

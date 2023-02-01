@@ -29,7 +29,7 @@ export interface CarouselProps extends StandardProps {
    *
    * default: 'circle'
    */
-  indicatorType?: ((current: number, moveTo: (index: number) => void) => ReactNode) | string
+  indicatorType?: ((current: number, moveTo: (index: number) => void) => ReactNode) | 'circle' | 'number' | 'line'
 
   /**
    * the interval of animation, When it is not 0, play automatically

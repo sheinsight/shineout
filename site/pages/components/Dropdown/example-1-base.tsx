@@ -5,9 +5,10 @@
  *    -- Dropdown is rendered through data and supports json formatted data and React components.
  */
 import React from 'react'
-import { Dropdown, Message } from 'shineout'
+import { Dropdown, Message, TYPE } from 'shineout'
 
-const data = [
+type DropdownItem = TYPE.Dropdown.Item
+const data: DropdownItem[] = [
   {
     content: 'Submenu',
     children: [

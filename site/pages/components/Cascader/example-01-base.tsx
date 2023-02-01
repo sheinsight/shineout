@@ -6,13 +6,9 @@
  */
 
 import React from 'react'
-import { Cascader, TYPE } from 'shineout'
+import { Cascader } from 'shineout'
 
-type dataItem = { value: string; children?: dataItem[] }
-type CascaderProps = TYPE.Cascader.Props<dataItem, string[]>
-type CascaderData = CascaderProps['data']
-
-const data: CascaderData = [
+const data = [
   {
     value: 'jiangsu',
     children: [

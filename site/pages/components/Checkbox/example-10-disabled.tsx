@@ -5,13 +5,9 @@
  *    -- When the disabled is a function, disbale the option that the function to return true.
  */
 import React from 'react'
-import { Checkbox, TYPE } from 'shineout'
+import { Checkbox } from 'shineout'
 
-type DataItem = string
-type CheckboxGroupProps = TYPE.Checkbox.GroupProps<DataItem, string>
-type CheckboxGroupData = CheckboxGroupProps['data']
-
-const data: CheckboxGroupData = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
+const data = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
 
 const App: React.FC = () => (
   <div>

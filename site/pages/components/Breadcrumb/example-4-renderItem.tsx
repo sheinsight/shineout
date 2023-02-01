@@ -19,7 +19,7 @@ const data: BreadcrumbProps['data'] = [
   { title: 'Self', onClick: () => Message.show('Clicked self') },
 ]
 
-const renderItem = (value: BreadcrumbData) => {
+const renderItem: BreadcrumbProps['renderItem'] = value => {
   let BreadcrumbItem: ReactNode = value.title
 
   if (value.onClick || value.url) {

@@ -17,14 +17,6 @@ interface DataItem {
 type CascaderProps = TYPE.Cascader.Props<DataItem, string[]>
 type CascaderRenderItem = CascaderProps['renderItem']
 
-const getValue = (list: any, value: any) => {
-  const [node] = list
-  if (!node) return value
-  value.push(node.id)
-  if (node.children) getValue(node.children, value)
-  return value
-}
-
 const App: React.FC = () => {
   const renderItem: CascaderRenderItem = node => `node ${node.id}`
 
