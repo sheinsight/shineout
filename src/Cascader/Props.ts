@@ -39,6 +39,7 @@ export interface OriginCascaderProps<DataItem, Value extends CascaderBaseValue>
     Pick<InputTitleProps, 'innerTitle'>,
     Pick<TreeDatumOptions<DataItem>, 'mode'>,
     Pick<StandardProps, 'style'> {
+  renderUnmatched?: (data: any) => ReactNode
   inputFocus: boolean
   /**
    * Set visible of cascader popup
@@ -225,7 +226,7 @@ export interface OriginCascaderProps<DataItem, Value extends CascaderBaseValue>
    *  default: -
    *
    */
-  getComponentRef?: (comp: componentRef) => void | { current?: componentRef }
+  getComponentRef?: ((comp: componentRef) => void) | { current: componentRef | undefined }
   /**
    * When it is a string, return d[string]. When it is a function, return the result of the function.
    *

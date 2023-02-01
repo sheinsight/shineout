@@ -16,7 +16,7 @@ import absoluteList from '../AnimationList/AbsoluteList'
 import { isRTL } from '../config'
 import { getKey } from '../utils/uid'
 import Input from './Input'
-import { OriginCascaderProps } from './Props'
+import { CascaderBaseValue, OriginCascaderProps } from './Props'
 
 const OptionList = absoluteList(
   ({ focus, getRef, ...other }: { focus: boolean; getRef: (e: HTMLDivElement) => void }) =>
@@ -35,7 +35,7 @@ const DefaultProps = {
   clearable: true,
   showArrow: true,
   expandTrigger: 'click',
-  childrenKey: 'children' as any,
+  childrenKey: 'children',
 }
 
 interface State {
@@ -44,7 +44,7 @@ interface State {
   position: 'drop-down' | 'drop-up'
 }
 
-class Cascader<DataItem, Value extends (string | number)[]> extends PureComponent<
+class Cascader<DataItem, Value extends CascaderBaseValue> extends PureComponent<
   OriginCascaderProps<DataItem, Value>,
   State
 > {
@@ -118,7 +118,7 @@ class Cascader<DataItem, Value extends (string | number)[]> extends PureComponen
       if (isFunc(props.getComponentRef)) {
         props.getComponentRef(this)
       } else {
-        ;(props.getComponentRef as any).current = this
+        props.getComponentRef.current = this
       }
     }
   }
@@ -230,7 +230,7 @@ class Cascader<DataItem, Value extends (string | number)[]> extends PureComponen
       const data = this.datum.getDataById(v)
       if (data === null || this.datum.isUnMatch(data)) return
       try {
-        const id = this.datum.getKey(data as DataItem, '')
+        const id = this.datum.getKey(data, '')
         let { path } = this.datum.getPath(id) || {}
         path = path || []
         this.handlePathChange(id, null, path)
@@ -270,7 +270,7 @@ class Cascader<DataItem, Value extends (string | number)[]> extends PureComponen
   handleClear() {
     const { mode } = this.props
     this.setState({ path: [] })
-    if (mode !== undefined) this.datum.setValue([] as any)
+    if (mode !== undefined) this.datum.setValue([])
     this.handleChange([] as any)
 
     // force close
@@ -280,7 +280,7 @@ class Cascader<DataItem, Value extends (string | number)[]> extends PureComponen
   handleRemove(node: DataItem) {
     const { onChange } = this.props
     this.datum.set(this.datum.getKey(node), 0)
-    if (onChange) onChange((this.datum as any).getValue(), node)
+    if (onChange) onChange(this.datum.getValue() as Value, node)
   }
 
   handleState(focus: boolean, e?: MouseEvent) {
@@ -359,7 +359,7 @@ class Cascader<DataItem, Value extends (string | number)[]> extends PureComponen
 
     let tempData: any = data
 
-    let list = [
+    let list: React.ReactNode[] = [
       <CascaderList<DataItem, Value>
         {...props}
         text={undefined}
@@ -397,7 +397,7 @@ class Cascader<DataItem, Value extends (string | number)[]> extends PureComponen
     })
 
     if (childs) {
-      list = list.concat(childs as any[])
+      list = list.concat(childs)
     }
 
     const listStyle = data && data.length === 0 ? { height: 'auto', width: '100%' } : { height }

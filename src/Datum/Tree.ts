@@ -1,5 +1,5 @@
 import { CHANGE_TOPIC } from './types'
-import { KeygenResult, ObjectType, KeygenType } from '../@types/common'
+import { KeygenResult, ObjectType, KeygenType, UnMatchedValue } from '../@types/common'
 
 const IS_NOT_MATCHED_VALUE = 'IS_NOT_MATCHED_VALUE'
 
@@ -136,7 +136,7 @@ export default class<Item> {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  isUnMatch(data: ObjectType | null): boolean {
+  isUnMatch(data: ObjectType | null): data is UnMatchedValue {
     return data && data[IS_NOT_MATCHED_VALUE]
   }
 

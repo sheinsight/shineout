@@ -150,3 +150,21 @@ exports[`Cascader[snapshot] Snapshot test: Cascader[site/pages/components/Cascad
   </div>
 </span>
 `;
+
+exports[`Cascader[snapshot] Snapshot test: Cascader[site/pages/components/Cascader/example-08-unmatch.tsx] 1`] = `
+<span>
+  <div>
+    <div>
+      <a>
+        未匹配值aaa
+      </a>
+      <a>
+        <svg>
+          <path />
+        </svg>
+      </a>
+      <a />
+    </div>
+  </div>
+</span>
+`;
