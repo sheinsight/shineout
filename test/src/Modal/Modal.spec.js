@@ -2,7 +2,7 @@ import { Modal, Button } from 'shineout'
 import { mount } from 'enzyme'
 import React from 'react'
 import BaseModal from '../../../site/pages/components/Modal/example-1-base'
-import SpecialModal from '../../../site/pages/components/Modal/example-2-special'
+import { delay } from '../../utils'
 /* global SO_PREFIX */
 describe('Modal', () => {
   test('should render correctly', () => {
@@ -96,16 +96,13 @@ describe('Modal[destroy]', () => {
 describe('Modal[esc]', () => {
   test('should close by ESC', async () => {
     jest.useRealTimers()
-    const wrapper = mount(<Modal visible destroy />)
+    const onClose = jest.fn()
+    const wrapper = mount(<Modal visible onCLose={onClose} />)
     const event = new KeyboardEvent('keydown', { keyCode: 27, key: 'Escape' })
     expect(document.getElementsByClassName(`${SO_PREFIX}-modal`).length).toBe(1)
     document.dispatchEvent(event)
-    await new Promise(r => {
-      setTimeout(() => {
-        r(true)
-      }, 300)
-    })
-    expect(document.getElementsByClassName(`${SO_PREFIX}-modal`).length).toBe(0)
+    wrapper.update()
+    expect(onClose.call.length).toBe(1)
     wrapper.unmount()
   })
 })
@@ -370,26 +367,19 @@ describe('Modal[zoom]', () => {
 describe('Modal[closeAll]', () => {
   test('should close all Modal', async () => {
     jest.useRealTimers()
+    const closeFn = jest.fn()
 
     const wrapper = mount(
-      <Modal width={400} visible destroy>
+      <Modal width={400} visible onClose={closeFn}>
         1
-        <Modal width={400} visible destroy>
-          2
-          <Modal width={400} visible destroy>
-            3
-          </Modal>
-        </Modal>
       </Modal>
     )
-    expect(document.getElementsByClassName(`${SO_PREFIX}-modal`).length).toBe(3)
+    Modal.confirm({ title: 'hello', onClose: closeFn })
+    expect(document.getElementsByClassName(`${SO_PREFIX}-modal`).length).toBe(2)
     Modal.closeAll()
-    await new Promise(r => {
-      setTimeout(() => {
-        r(true)
-      }, 300)
-    })
-    expect(document.getElementsByClassName(`${SO_PREFIX}-modal`).length).toBe(0)
+    await delay(200)
+    expect(document.getElementsByClassName(`${SO_PREFIX}-modal`).length).toBe(2)
+    expect(closeFn.mock.calls.length).toBe(1)
     wrapper.unmount()
   })
 })
