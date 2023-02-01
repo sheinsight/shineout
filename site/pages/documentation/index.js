@@ -1,8 +1,24 @@
 import { createMarkDown } from 'docs/MarkDown'
 import Page from '../Page'
 
-const versions = ['1.x.x', '2.x.x']
-const rcVersion = process.env.LOG_ENV === 'rc' ? versions : []
+const versions = ['2.x.x', '1.x.x']
+const changelogs = versions.reduce((result, v) => {
+  const temp = [
+    {
+      name: v,
+      level: 2,
+      component: createMarkDown(() => import(/* webpackChunkName: 'changelog' */ `./changelog/${v}.md`), true),
+    },
+  ]
+  if (process.env.LOG_ENV === 'rc') {
+    temp.push({
+      name: `${v}-rc`,
+      level: 2,
+      component: createMarkDown(() => import(/* webpackChunkName: 'changelog' */ `./changelog-rc/${v}.md`), true),
+    })
+  }
+  return result.concat(temp)
+}, [])
 
 const pages = [
   'API',
@@ -22,17 +38,7 @@ const pages = [
 
   'CHANGELOG',
 
-  ...versions.map(v => ({
-    name: v,
-    level: 2,
-    component: createMarkDown(() => import(/* webpackChunkName: 'changelog' */ `./changelog/${v}.md`), true),
-  })),
-
-  ...rcVersion.map(v => ({
-    name: `${v}-rc`,
-    level: 2,
-    component: createMarkDown(() => import(/* webpackChunkName: 'changelog' */ `./changelog-rc/${v}.md`), true),
-  })),
+  ...changelogs,
 ]
 
 export default Page(pages)
