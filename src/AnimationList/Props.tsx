@@ -1,9 +1,8 @@
 import * as React from 'react'
 import { GetScrollContextConsumerValue } from '../Scroll/Props'
 import { GetZIndexConsumerProps } from '../Modal/Props'
-import { ForceAdd, KeygenType, StandardProps } from '../@types/common'
+import { ForceAdd, KeygenType, RegularAttributes, StandardProps } from '../@types/common'
 
-type ListPosition = 'drop-down' | 'drop-up'
 type PickerPosition = 'left-bottom' | 'left-top' | 'right-bottom' | 'right-top'
 type DropdownPosition = 'bottom-left' | 'bottom-right' | 'top-left' | 'top-right'
 
@@ -14,7 +13,7 @@ export interface AbsoluteProps {
   focus?: boolean
   fixed?: boolean | 'min' // same width with parentElement
   parentElement?: HTMLElement
-  position?: ListPosition | PickerPosition | DropdownPosition
+  position?: RegularAttributes.ListPosition | PickerPosition | DropdownPosition
   /**
    * When it is true, the pop-up layer of option append into document.body.
    *
@@ -36,7 +35,7 @@ export interface AbsoluteProps {
    */
   zIndex?: number
   style?: React.CSSProperties
-  autoClass?: StyleSheet
+  autoClass?: string
   value?: any
   getResetPosition?: (resetFunc: () => void) => void
   autoAdapt?: boolean

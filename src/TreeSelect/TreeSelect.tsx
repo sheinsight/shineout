@@ -12,7 +12,7 @@ import List from '../AnimationList'
 import { getLocale } from '../locale'
 import { isRTL } from '../config'
 import { getDirectionClass } from '../utils/classname'
-import { ResultItem, KeygenResult, UnMatchedValue, ValueArr } from '../@types/common'
+import { ResultItem, KeygenResult, UnMatchedValue, ValueArr, RegularAttributes } from '../@types/common'
 import {
   ComponentRef,
   TreeSelectValueType,
@@ -21,6 +21,7 @@ import {
   ExtendsTreePropsKey,
   SetTreePropsKey,
 } from './Props'
+import { ListProps } from '../AnimationList/Props'
 
 const DefaultValue = {
   clearable: false,
@@ -35,7 +36,10 @@ const DefaultValue = {
 }
 
 const ScaleList = List(['fade', 'scale-y'], 'fast')
-const OptionList = absoluteList(({ focus, ...other }: { focus: boolean }) => <ScaleList show={focus} {...other} />)
+interface ScaleListProps extends ListProps {
+  focus: boolean
+}
+const OptionList = absoluteList(({ focus, ...other }: ScaleListProps) => <ScaleList show={focus} {...other} />)
 
 const isDescendent = (el: Element, id: string): boolean => {
   if (el.getAttribute('data-id') === id) return true
@@ -45,7 +49,7 @@ const isDescendent = (el: Element, id: string): boolean => {
 
 interface TreeSelectState {
   focus: boolean
-  position: string
+  position: RegularAttributes.ListPosition
 }
 
 export default class TreeSelect<Item, Value extends TreeSelectValueType> extends PureComponent<

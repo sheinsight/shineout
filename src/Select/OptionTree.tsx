@@ -18,8 +18,8 @@ class OptionList<Item, Value> extends Component<OptionTreeProps<Item, Value>> {
     this.handleClick = this.handleClick.bind(this)
   }
 
-  getText(key: string) {
-    return this.props.text[key as keyof typeof this.props.text] || getLocale(key)
+  getText(key: 'noData') {
+    return (this.props.text && this.props.text[key]) || getLocale(key)
   }
 
   handleClick(data: Item, _: any, p: { path: string }) {
@@ -94,10 +94,10 @@ class OptionList<Item, Value> extends Component<OptionTreeProps<Item, Value>> {
     const { focus, style, selectId, height, getRef, customHeader, renderOptionList, loading } = this.props
     const mergeStyle = Object.assign({}, { maxHeight: height, overflowY: 'auto' }, style)
     const result = (
-      <>
+      <React.Fragment>
         {customHeader}
         {this.renderTree()}
-      </>
+      </React.Fragment>
     )
     return (
       <ScaleList

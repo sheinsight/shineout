@@ -34,6 +34,7 @@ export declare namespace RegularAttributes {
   type Size = 'small' | 'default' | 'large'
   type Type = 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger'
   type Align = 'left' | 'center' | 'right'
+  type ListPosition = 'drop-down' | 'drop-up'
 }
 
 export type ObjectType<V = any> = { [name: string]: V }
