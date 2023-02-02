@@ -10,7 +10,7 @@ import { getRTLPosition } from '../utils/strings'
 import zIndexConsumer from '../Modal/context'
 import { isRTL } from '../config'
 import { addZoomListener, removeZoomListener } from '../utils/zoom'
-import { AbsoluteProps } from './Props'
+import { AbsoluteProps, GetAbsoluteProps } from './Props'
 
 const PICKER_V_MARGIN = 4
 let root: HTMLDivElement
@@ -301,5 +301,5 @@ export default function<U extends {}>(List: ComponentType<U>) {
   return compose(
     scrollConsumer,
     zIndexConsumer
-  )(AbsoluteList)
+  )(AbsoluteList) as ComponentType<GetAbsoluteProps<U>>
 }

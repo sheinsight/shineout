@@ -25,12 +25,12 @@ class Option<Data> extends React.Component<OptionProps<Data>> {
   }
 
   handleClick() {
-    const { data, onClick, isActive, index, disabled, groupKey } = this.props
+    const { data, onClick, isActive, disabled, groupKey } = this.props
 
     if (this.locked || disabled || (data && data[groupKey as keyof Data])) return
     this.locked = true
 
-    onClick(!isActive, data, index)
+    onClick(!isActive, data)
 
     setTimeout(() => {
       this.locked = false

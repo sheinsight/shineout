@@ -1,20 +1,37 @@
 import * as React from 'react'
-import { StandardProps, RegularAttributes, KeygenType, ValueItem, ResultItem, LiteralUnion } from '../@types/common'
+import {
+  StandardProps,
+  RegularAttributes,
+  KeygenType,
+  ValueItem,
+  ResultItem,
+  LiteralUnion,
+  ValueArr,
+} from '../@types/common'
 import List from '../Datum/List'
 import { GetTableConsumerProps } from '../Table/Props'
 import { GetInputableProps, InputableProps } from '../Form/Props'
 import { GetInputBorderProps } from '../hoc/Props'
 import { GetDatumListProps } from '../Datum/Props'
-import { AbsoluteProps } from '../AnimationList/Props'
+import { AbsoluteProps, GetAbsoluteProps } from '../AnimationList/Props'
+import { TreeProps } from '../Tree/Props'
 
 type ReactNode = React.ReactNode
 type ReactElement = React.ReactElement
-export type Position = 'drop-down' | 'drop-up'
 
+type ExpandTreeKeys =
+  | 'onExpand'
+  | 'expanded'
+  | 'defaultExpanded'
+  | 'defaultExpandAll'
+  | 'expandIcons'
+  | 'loader'
+  | 'childrenKey'
 export interface BaseSelectProps<Item, Value>
   extends StandardProps,
     Pick<AbsoluteProps, 'absolute' | 'zIndex'>,
-    Pick<InputableProps<Value>, 'formDatum'> {
+    Pick<InputableProps<Value>, 'formDatum'>,
+    Pick<TreeProps<Item, ValueArr<Value>>, ExpandTreeKeys> {
   /**
    * If clearable is true, show clear value icon
    *
@@ -111,7 +128,7 @@ export interface BaseSelectProps<Item, Value>
    *
    * default: auto
    */
-  position?: Position
+  position?: RegularAttributes.ListPosition
 
   /**
    * When it is a string, return d[string]. When it is a function, return the result of the function.
@@ -384,17 +401,6 @@ export interface BaseSelectProps<Item, Value>
   defaultExpandAll?: boolean
 
   /**
-   * treeData，the key of the children data name
-   *
-   * 树形数据下，指定子数据的属性名
-   *
-   * default: 'children'
-   */
-  childrenKey?: string
-
-  loader?: (key: ValueItem<Value>, data: Item) => void
-
-  /**
    * custom empty copy
    *
    * 自定义 empty 文案
@@ -450,32 +456,46 @@ export interface BaseSelectProps<Item, Value>
   groupKey: string
   innerData: Item
   inputable?: boolean
-  text?: React.ReactNode
+  text?: { noData?: string }
   expanded?: string[]
 }
 
 /** ---------- optionList ---------- */
 export type Control = 'mouse' | 'keyboard'
-export interface OptionListProps<Item, Value> extends Omit<BaseSelectProps<Item, Value>, 'onChange'> {
+export interface OptionListProps<Item, Value>
+  extends Pick<
+      BaseSelectProps<Item, Value>,
+      | 'hideCreateOption'
+      | 'loading'
+      | 'keygen'
+      | 'multiple'
+      | 'renderOptionList'
+      | 'data'
+      | 'datum'
+      | 'text'
+      | 'groupKey'
+      | 'emptyText'
+    >,
+    Pick<Required<BaseSelectProps<Item, Value>>, 'itemsInView' | 'lineHeight' | 'height'> {
   control: Control
-  data: Item[]
-  datum: List<Item, Value>
   focus?: boolean
-  height: number
-  itemsInView: number
-  lineHeight: number
   onControlChange: (control: Control) => void
-  onChange: (isActive: boolean, data: Item, index?: number) => void
+  onChange: (isActive: boolean, data: Item) => void
   renderItem: ((data: Item, index?: number) => ReactNode)
   renderPending?: boolean
   selectId: string
   bindOptionFunc: (name: string, fn: Function) => void
   autoClass: string
-  text: Object
-  groupKey: keyof Item & string
   getRef: (el: HTMLElement) => void
   customHeader?: ReactNode
   filterText?: string
+  style: React.CSSProperties
+}
+export declare class WrappedOptionListComp<Item, Value> extends React.Component<
+  GetAbsoluteProps<OptionListProps<Item, Value>>,
+  any
+> {
+  render: () => JSX.Element
 }
 
 /** ---------- option ---------- */
@@ -494,23 +514,29 @@ export interface OptionProps<Item> {
 }
 
 /** ---------- optionTree ---------- */
-export interface OptionTreeProps<Item, Value> extends BaseSelectProps<Item, Value> {
+export interface OptionTreeProps<Item, Value>
+  extends Pick<
+    BaseSelectProps<Item, Value>,
+    ExpandTreeKeys | 'loading' | 'treeData' | 'loader' | 'emptyText' | 'height' | 'renderOptionList' | 'text'
+  > {
   onChange: (_: any, data: Item, fromInput?: boolean) => void
-  // loader: PropTypes.func,
-  defaultExpanded?: string[]
-  expanded?: string[]
   renderPending?: boolean
   treeData: Item[]
   datum: List<Item, Value>
   focus?: boolean
-  onExpand?: () => void
   keygen: KeygenType<Item>
   renderItem: ((data: Item, index?: number) => ReactNode)
   selectId: string
-  text: Object
   getRef?: () => void
   customHeader?: React.ReactNode
-  expandIcons?: ReactNode[]
+  style?: React.CSSProperties
+}
+
+export declare class WrappedOptionTreeComp<Item, Value> extends React.Component<
+  GetAbsoluteProps<OptionTreeProps<Item, Value>>,
+  any
+> {
+  render: () => JSX.Element
 }
 
 export interface UnMatchedValue<Value> {
@@ -575,18 +601,40 @@ export interface InputProps {
 
 /** ---------- boxList ---------- */
 export interface BoxListProps<Item, Value>
-  extends Omit<BaseSelectProps<Item, Value>, 'onChange' | 'renderItem' | 'data'> {
-  data: Item[]
+  extends Pick<
+    BaseSelectProps<Item, Value>,
+    | 'datum'
+    | 'keygen'
+    | 'renderResult'
+    | 'multiple'
+    | 'lineHeight'
+    | 'columnWidth'
+    | 'data'
+    | 'loading'
+    | 'renderOptionList'
+    | 'emptyText'
+    | 'itemsInView'
+    | 'height'
+    | 'columnsTitle'
+  > {
   columns: number
-  onChange: (isActive: boolean, data: Item, index?: number) => void
+  onChange: (isActive: boolean, data: Item) => void
   bindOptionFunc: (name: string, fn: Function) => void
   text: any
   selectId: string
   focus: boolean
   renderPending?: boolean
-  renderItem: (data: Item, index: number) => React.ReactNode
+  renderItem: (data: Item, index?: number) => React.ReactNode
   getRef?: (el: HTMLDivElement) => void
   customHeader: React.ReactNode
+  style: React.CSSProperties
+}
+
+export declare class WrappedBoxListComp<Item, Value> extends React.Component<
+  GetAbsoluteProps<BoxListProps<Item, Value>>,
+  any
+> {
+  render: () => JSX.Element
 }
 
 /** ---------- boxOption ---------- */
@@ -594,11 +642,10 @@ export interface BoxOptionProps<Item> {
   columns: number
   data: Item
   disabled: boolean
-  index?: number
   isActive: boolean
   multiple?: boolean
-  onClick: (isActive: boolean, data: Item, index?: number) => void
-  renderItem: (data: Item, index?: number) => ReactNode
+  onClick: (isActive: boolean, data: Item) => void
+  renderItem: (data: Item) => ReactNode
 }
 
 /** ---------- filter ---------- */

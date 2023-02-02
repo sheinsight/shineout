@@ -14,12 +14,12 @@ class BoxOption<Item> extends PureComponent<BoxOptionProps<Item>> {
   }
 
   handleClick() {
-    const { data, onClick, isActive, index, disabled } = this.props
+    const { data, onClick, isActive, disabled } = this.props
 
     if (this.locked || disabled) return
     this.locked = true
 
-    onClick(!isActive, data, index)
+    onClick(!isActive, data)
 
     setTimeout(() => {
       this.locked = false
@@ -27,13 +27,13 @@ class BoxOption<Item> extends PureComponent<BoxOptionProps<Item>> {
   }
 
   render() {
-    const { data, index, isActive, renderItem, columns, multiple, disabled } = this.props
+    const { data, isActive, renderItem, columns, multiple, disabled } = this.props
 
     const className = selectClass(getDirectionClass('option'))
     const width = columns < 0 ? undefined : `${(1 / columns) * 100}%`
     const Input = multiple ? Checkbox : Radio
 
-    const result = renderItem(data, index)
+    const result = renderItem(data)
     const title = typeof result === 'string' ? result : undefined
 
     return (

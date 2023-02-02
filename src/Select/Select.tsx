@@ -13,12 +13,12 @@ import { getParent } from '../utils/dom/element'
 import { isRTL } from '../config'
 import absoluteList from '../AnimationList/AbsoluteList'
 import { getDirectionClass } from '../utils/classname'
-import { ResultItem, UnMatchedValue } from '../@types/common'
-import { BaseSelectProps, Control, Position } from './Props'
+import { RegularAttributes, ResultItem, UnMatchedValue } from '../@types/common'
+import { BaseSelectProps, Control, WrappedBoxListComp, WrappedOptionListComp, WrappedOptionTreeComp } from './Props'
 
-const WrappedOptionList = absoluteList(OptionList)
-const WrappedBoxList = absoluteList(BoxList)
-const WrappedOptionTree = absoluteList(OptionTree)
+const WrappedOptionList = absoluteList(OptionList) as typeof WrappedOptionListComp
+const WrappedBoxList = absoluteList(BoxList) as typeof WrappedBoxListComp
+const WrappedOptionTree = absoluteList(OptionTree) as typeof WrappedOptionTreeComp
 
 const isResult = (el: HTMLDivElement, selector?: string) => getParent(el, selector || `.${selectClass('result')}`)
 
@@ -42,7 +42,7 @@ const DefaultValue = {
 interface SelectState {
   control: Control
   focus: boolean
-  position: Position
+  position: RegularAttributes.ListPosition
 }
 
 class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, SelectState> {
@@ -76,8 +76,6 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
 
   lastChangeIsOptionClick: boolean
 
-  handleBlur: (e?: any) => void
-
   handleRemove: (data: ResultItem<Item>, fromInput?: boolean) => void
 
   inputLocked: boolean
@@ -104,7 +102,6 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
 
     this.handleClick = this.handleClick.bind(this)
     this.handleFocus = this.handleFocus.bind(this)
-    this.handleBlur = this.handleState.bind(this, false)
     this.handleClear = this.handleClear.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleRemove = this.handleChange.bind(this, false)
@@ -283,6 +280,7 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
   }
 
   handleChange(_isActive: boolean, data: ResultItem<Item>, fromInput?: boolean) {
+    console.log('fromInput', fromInput)
     const { datum, multiple, emptyAfterSelect, onFilter, filterText, onCreate, reFocus } = this.props
     if (this.getDisabledStatus() === true) return
 
@@ -526,33 +524,30 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
   renderTree() {
     const { focus, position } = this.state
     const { optionWidth } = this.props
-    const props: { [props: string]: any } = {}
-    ;[
-      'treeData',
-      'expanded',
-      'onExpand',
-      'loader',
-      'defaultExpanded',
-      'defaultExpandAll',
-      'datum',
-      'keygen',
-      'multiple',
-      'text',
-      'height',
-      'loading',
-      'onFilter',
-      'filterText',
-      'absolute',
-      'zIndex',
-      'childrenKey',
-      'expandIcons',
-      'emptyText',
-      'renderOptionList',
-    ].forEach(k => {
-      props[k] = this.props[k as keyof BaseSelectProps<Item, Value>]
-    })
-    const style = optionWidth && { width: optionWidth }
-    props.renderItem = this.renderItem
+    const props = {
+      treeData: this.props.treeData!,
+      expanded: this.props.expanded,
+      onExpand: this.props.onExpand,
+      loader: this.props.loader,
+      defaultExpanded: this.props.defaultExpanded,
+      defaultExpandAll: this.props.defaultExpandAll,
+      datum: this.props.datum,
+      keygen: this.props.keygen,
+      multiple: this.props.multiple,
+      text: this.props.text,
+      height: this.props.height,
+      loading: this.props.loading,
+      onFilter: this.props.onFilter,
+      filterText: this.props.filterText,
+      absolute: this.props.absolute,
+      zIndex: this.props.zIndex,
+      childrenKey: this.props.childrenKey,
+      expandIcons: this.props.expandIcons,
+      emptyText: this.props.emptyText,
+      renderOptionList: this.props.renderOptionList,
+      renderItem: this.renderItem,
+    }
+    const style: React.CSSProperties = optionWidth ? { width: optionWidth } : {}
     return (
       <WrappedOptionTree
         onChange={this.handleChange}
@@ -573,37 +568,54 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
   renderList() {
     const { focus, control, position } = this.state
     const { autoAdapt, value, optionWidth } = this.props
-    const props: { [props: string]: any } = {}
-    const arr: (keyof BaseSelectProps<Item, Value>)[] = [
-      'data',
-      'datum',
-      'keygen',
-      'multiple',
-      'columns',
-      'columnWidth',
-      'columnsTitle',
-      'text',
-      'itemsInView',
-      'absolute',
-      'lineHeight',
-      'height',
-      'loading',
-      'onFilter',
-      'filterText',
-      'zIndex',
-      'groupKey',
-      'hideCreateOption',
-      'emptyText',
-      'renderOptionList',
-    ]
-    arr.forEach(k => {
-      props[k] = this.props[k]
-    })
+    const props = {
+      data: this.props.data,
+      datum: this.props.datum,
+      keygen: this.props.keygen,
+      multiple: this.props.multiple,
+      columns: this.props.columns,
+      columnWidth: this.props.columnWidth,
+      columnsTitle: this.props.columnsTitle,
+      text: this.props.text,
+      itemsInView: this.props.itemsInView || DefaultValue.itemsInView,
+      absolute: this.props.absolute,
+      lineHeight: this.props.lineHeight || DefaultValue.lineHeight,
+      height: this.props.height || DefaultValue.height,
+      loading: this.props.loading,
+      onFilter: this.props.onFilter,
+      filterText: this.props.filterText,
+      zIndex: this.props.zIndex,
+      groupKey: this.props.groupKey,
+      hideCreateOption: this.props.hideCreateOption,
+      emptyText: this.props.emptyText,
+      renderOptionList: this.props.renderOptionList,
+    }
 
-    const List = props.columns >= 1 || props.columns === -1 ? WrappedBoxList : WrappedOptionList
-    const style = optionWidth && { width: optionWidth }
+    const style: React.CSSProperties = optionWidth ? { width: optionWidth } : {}
+    if ((typeof props.columns === 'number' && props.columns! >= 1) || props.columns === -1) {
+      return (
+        <WrappedBoxList
+          {...props}
+          columns={props.columns}
+          style={style}
+          rootClass={selectClass(position, isRTL() && 'rtl')}
+          autoClass={selectClass(autoAdapt && 'auto-adapt')}
+          bindOptionFunc={this.bindOptionFunc}
+          renderPending={this.renderPending}
+          focus={focus}
+          selectId={this.selectId}
+          onChange={this.handleChange}
+          renderItem={this.renderItem}
+          parentElement={this.element}
+          position={position}
+          fixed={autoAdapt ? 'min' : true}
+          value={value}
+          customHeader={this.renderCustomHeader()}
+        />
+      )
+    }
     return (
-      <List
+      <WrappedOptionList<Item, Value>
         {...props}
         style={style}
         rootClass={selectClass(position, isRTL() && 'rtl')}
@@ -618,7 +630,6 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
         renderItem={this.renderItem}
         parentElement={this.element}
         position={position}
-        onBlur={this.handleBlur}
         fixed={autoAdapt ? 'min' : true}
         value={value}
         customHeader={this.renderCustomHeader()}

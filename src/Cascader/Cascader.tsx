@@ -17,9 +17,10 @@ import { isRTL } from '../config'
 import { getKey } from '../utils/uid'
 import Input from './Input'
 import { CascaderBaseValue, OriginCascaderProps } from './Props'
+import { RegularAttributes } from '../@types/common'
 
 const OptionList = absoluteList(
-  ({ focus, getRef, ...other }: { focus: boolean; getRef: (e: HTMLDivElement) => void }) =>
+  ({ focus, getRef, ...other }: { focus: boolean; getRef: (e: HTMLDivElement) => void; className: string }) =>
     focus ? <div {...other} ref={getRef} /> : null
 )
 
@@ -41,7 +42,7 @@ const DefaultProps = {
 interface State {
   focus: boolean
   path: string[]
-  position: 'drop-down' | 'drop-up'
+  position: RegularAttributes.ListPosition
 }
 
 class Cascader<DataItem, Value extends CascaderBaseValue> extends PureComponent<

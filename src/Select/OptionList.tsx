@@ -62,8 +62,8 @@ class OptionList<Item, Value> extends Component<OptionListProps<Item, Value>, Op
     }
   }
 
-  getText(key: string) {
-    return this.props.text[key as keyof typeof this.props.text] || getLocale(key)
+  getText(key: 'noData') {
+    return (this.props.text && this.props.text[key]) || getLocale(key)
   }
 
   hoverMove(step: number) {
@@ -80,7 +80,7 @@ class OptionList<Item, Value> extends Component<OptionListProps<Item, Value>, Op
 
     // jump the group, the group would't be the last, so do't need to fixed the last
     const data = this.props.data[hoverIndex]
-    if (data && data[groupKey]) {
+    if (data && data[groupKey as keyof Item]) {
       if (step > 0) hoverIndex += 1
       else hoverIndex -= 1
     }
@@ -220,7 +220,7 @@ class OptionList<Item, Value> extends Component<OptionListProps<Item, Value>, Op
               isActive={datum.check(d)}
               disabled={datum.disabled(d)}
               isHover={hoverIndex === currentIndex + i}
-              key={d && d[groupKey] ? `__${d[groupKey]}__` : getKey(d, keygen, i)}
+              key={d && d[groupKey as keyof Item] ? `__${d[groupKey as keyof Item]}__` : getKey(d, keygen, i)}
               index={currentIndex + i}
               data={d}
               multiple={multiple}
