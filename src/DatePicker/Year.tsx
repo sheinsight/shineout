@@ -60,12 +60,6 @@ class Year extends PureComponent<UnionPannelProps> {
       isDisabled = disabled(date)
     }
 
-    if (!isDisabled && index === 0 && isArray(rangeDate)) {
-      if (rangeDate[1] && utils.compareAsc(date, utils.addSeconds(rangeDate[1], -range!, this.getOptions())) < 0) {
-        isDisabled = true
-      }
-    }
-
     if (!isDisabled && index === 1 && isArray(rangeDate)) {
       if (
         rangeDate[0] &&
