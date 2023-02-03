@@ -50,20 +50,8 @@ class Quarter extends PureComponent {
       isDisabled = disabled(date)
     }
 
-    if (!isDisabled && index === 0) {
-      if (
-        rangeDate[1] &&
-        utils.compareQuarter(date, utils.addSeconds(rangeDate[1], -range, this.getOptions()), 0, this.getOptions()) < 0
-      ) {
-        isDisabled = true
-      }
-    }
-
     if (!isDisabled && index === 1) {
-      if (
-        rangeDate[0] &&
-        utils.compareQuarter(date, utils.addSeconds(rangeDate[0], range, this.getOptions()), 0, this.getOptions()) > 0
-      ) {
+      if (rangeDate[0] && utils.compareAsc(date, utils.addSeconds(rangeDate[0], range, this.getOptions())) > 0) {
         isDisabled = true
       }
     }

@@ -18,18 +18,6 @@ const App: React.FC = () => (
       type="date"
       style={style}
       range={86400 * 20}
-      formatResult="yy-MM-dd"
-      onChange={a => console.log(a)}
-      defaultValue={['21-03-10', '21-03-14']}
-      placeholder={['Start date', 'End date']}
-    />
-
-    <br />
-
-    <DatePicker
-      type="date"
-      style={style}
-      range={86400 * 20}
       onChange={a => console.log(a)}
       placeholder={['Start date', 'End date']}
     />
@@ -62,6 +50,16 @@ const App: React.FC = () => (
       style={style}
       onChange={v => console.log(v)}
       placeholder={['First quarter', 'Last quarter']}
+    />
+
+    <br />
+
+    <DatePicker
+      range
+      type="year"
+      style={style}
+      onChange={v => console.log(v)}
+      placeholder={['First year', 'Last year']}
     />
 
     <br />
