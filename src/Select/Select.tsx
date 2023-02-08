@@ -280,7 +280,6 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
   }
 
   handleChange(_isActive: boolean, data: ResultItem<Item>, fromInput?: boolean) {
-    console.log('fromInput', fromInput)
     const { datum, multiple, emptyAfterSelect, onFilter, filterText, onCreate, reFocus } = this.props
     if (this.getDisabledStatus() === true) return
 
