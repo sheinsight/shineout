@@ -1,5 +1,5 @@
 import React, { isValidElement, cloneElement } from 'react'
-import { defaultProps } from '../utils/proptypes'
+import { defaultProps } from '../utils/defaultProps'
 import { DropdownNode, ItemProps } from './Props'
 
 const DefaultProps = {

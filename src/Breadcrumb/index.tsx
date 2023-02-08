@@ -1,7 +1,7 @@
 import React from 'react'
 import classnames from 'classnames'
 import Popover from '../Popover'
-import { defaultProps } from '../utils/proptypes'
+import { defaultProps } from '../utils/defaultProps'
 import { breadcrumbClass } from './styles'
 import { getKey } from '../utils/uid'
 import Caret from '../icons/Caret'

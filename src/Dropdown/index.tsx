@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react'
 import { PureComponent } from '../component'
-import { defaultProps } from '../utils/proptypes'
+import { defaultProps } from '../utils/defaultProps'
 import { getParent } from '../utils/dom/element'
 import Button from '../Button'
 import { dropdownClass } from './styles'

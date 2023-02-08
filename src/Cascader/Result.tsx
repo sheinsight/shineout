@@ -15,7 +15,6 @@ import InputTitle from '../InputTitle'
 import { inputTitleClass } from '../InputTitle/styles'
 import { ResultProps, ResultItemProps, CascaderBaseValue } from './Props'
 
-// eslint-disable-next-line react/prop-types
 function Item<DataItem>({
   children,
   close,

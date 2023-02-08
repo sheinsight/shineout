@@ -13,7 +13,6 @@ function createSrc(name) {
     .toLowerCase()
 
   const indexText = `import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { ${className} } from '../styles'
@@ -30,10 +29,6 @@ class ${componentName} extends PureComponent {
       <div className={className} style={style}>${name}</div>
     )
   }
-}
-
-${componentName}.propTypes = {
-  ...getProps(PropTypes, 'size', 'type'),
 }
 
 ${componentName}.defaultProps = {

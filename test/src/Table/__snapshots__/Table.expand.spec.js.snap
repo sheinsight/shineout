@@ -6,7 +6,7 @@ exports[`Table[expand] should render correct 1`] = `
     <_class data={{...}} keygen=\\"id\\" columns={{...}} onChange={[undefined]} sorter={{...}} onSortChange={[Function: bound handleSortChange]} treeColumnsName={[undefined]} externalExpandRender={[undefined]} externalExpandClick={[undefined]} distinct={true} limit={0} initValidate={false}>
       <AutoFixed data={{...}} keygen=\\"id\\" columns={{...}} onChange={[undefined]} sorter={{...}} onSortChange={[Function: bound handleSortChange]} treeColumnsName={[undefined]} externalExpandRender={[undefined]} externalExpandClick={[undefined]} distinct={true} limit={0} initValidate={false} datum={{...}}>
         <Component data={{...}} keygen=\\"id\\" columns={{...}} onChange={[undefined]} sorter={{...}} onSortChange={[Function: bound handleSortChange]} treeColumnsName={[undefined]} externalExpandRender={[undefined]} externalExpandClick={[undefined]} distinct={true} limit={0} initValidate={false} datum={{...}} fixed={[undefined]} bindWrapper={[Function: bound bindWrapper]} resetFixAuto={[Function: bound resetAutoFixedState]}>
-          <_class data={{...}} keygen=\\"id\\" columns={{...}} onChange={[undefined]} sorter={{...}} onSortChange={[Function: bound handleSortChange]} treeColumnsName={[undefined]} externalExpandRender={[undefined]} externalExpandClick={[undefined]} distinct={true} limit={0} initValidate={false} datum={{...}} fixed={[undefined]} bindWrapper={[Function: bound bindWrapper]} resetFixAuto={[Function: bound resetAutoFixedState]}>
+          <_temp data={{...}} keygen=\\"id\\" columns={{...}} onChange={[undefined]} sorter={{...}} onSortChange={[Function: bound handleSortChange]} treeColumnsName={[undefined]} externalExpandRender={[undefined]} externalExpandClick={[undefined]} distinct={true} limit={0} initValidate={false} datum={{...}} fixed={[undefined]} bindWrapper={[Function: bound bindWrapper]} resetFixAuto={[Function: bound resetAutoFixedState]}>
             <Table data={{...}} keygen=\\"id\\" columns={{...}} onChange={[undefined]} sorter={{...}} onSortChange={[Function: bound handleSortChange]} treeColumnsName={[undefined]} externalExpandRender={[undefined]} externalExpandClick={[undefined]} distinct={true} limit={0} initValidate={false} datum={{...}} fixed={[undefined]} bindWrapper={[Function: bound bindWrapper]} resetFixAuto={[Function: bound resetAutoFixedState]} events={{...}} hover={true} rowsInView={20} verticalAlign=\\"top\\" size=\\"default\\">
               <div className=\\"so-table so-table-default so-table-hover so-table-vertical-top\\" style={{...}}>
                 <SimpleTable keygen=\\"id\\" onChange={[undefined]} sorter={{...}} onSortChange={[Function: bound handleSortChange]} treeColumnsName={[undefined]} externalExpandRender={[undefined]} externalExpandClick={[undefined]} distinct={true} limit={0} initValidate={false} datum={{...}} bindWrapper={[Function: bound bindWrapper]} resetFixAuto={[Function: bound resetAutoFixedState]} rowsInView={10} fixed={[undefined]} loading={[undefined]} height={[undefined]} width={[undefined]} data={{...}} columns={{...}} striped={[undefined]} bordered={[undefined]} columnResizable={[undefined]}>
@@ -350,7 +350,7 @@ exports[`Table[expand] should render correct 1`] = `
                 </SimpleTable>
               </div>
             </Table>
-          </_class>
+          </_temp>
         </Component>
       </AutoFixed>
     </_class>

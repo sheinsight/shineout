@@ -1,6 +1,6 @@
 import React, { ComponentType, PureComponent } from 'react'
 import classnames from 'classnames'
-import { defaultProps } from '../utils/proptypes'
+import { defaultProps } from '../utils/defaultProps'
 import { dispatchEvent } from '../utils/dom/element'
 import { cardClass } from './styles'
 import { Provider } from './context'

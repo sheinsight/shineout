@@ -1,5 +1,4 @@
 import enzyme from 'enzyme'
-import { func } from 'prop-types'
 import React from 'react'
 
 export function isInstance(instance, constructor) {

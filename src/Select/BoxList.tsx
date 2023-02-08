@@ -111,7 +111,6 @@ class BoxList<Item, Value> extends Component<BoxListProps<Item, Value>> {
     }, [])
     return (
       <LazyList
-        keygen
         lineHeight={lineHeight}
         data={sliceData}
         itemsInView={itemsInView}

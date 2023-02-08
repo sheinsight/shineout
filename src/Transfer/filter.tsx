@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { Component } from '../component'
 import { CardProps, GetFilterProps, FilterType } from './Props'
 
@@ -9,13 +8,6 @@ export interface FilterState {
 
 export default <DataItem, Value extends any[]>(Origin: React.ComponentType<CardProps<DataItem, Value>>) =>
   (class extends Component<GetFilterProps<CardProps<DataItem, Value>, DataItem, Value>, FilterState> {
-    static propTypes = {
-      data: PropTypes.array,
-      onFilter: PropTypes.func,
-      onSearch: PropTypes.func,
-      index: PropTypes.number,
-    }
-
     constructor(props: GetFilterProps<CardProps<DataItem, Value>, DataItem, Value>) {
       super(props)
       this.state = {

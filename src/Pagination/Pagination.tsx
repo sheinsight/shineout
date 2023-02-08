@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import classnames from 'classnames'
-import { defaultProps } from '../utils/proptypes'
+import { defaultProps } from '../utils/defaultProps'
 import { paginationClass } from './styles'
 import Links from './Links'
 import Jumper from './Jumper'

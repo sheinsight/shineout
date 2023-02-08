@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-// import PropTypes from 'prop-types'
 import shallowEqual from '../utils/shallowEqual'
 import utils from './utils'
 import { getLocale } from '../locale'
