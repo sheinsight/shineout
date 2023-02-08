@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import classnames from 'classnames'
 import { PureComponent } from '../component'
 import { treeClass } from './styles'
@@ -73,7 +73,7 @@ class Content<DataItem, Value extends any[]> extends PureComponent<ContentProps<
   renderNode() {
     const { id, active, data, renderItem, expanded } = this.props
     const render = typeof renderItem === 'function' ? renderItem : (d: DataItem) => d[renderItem]
-    return render(data, expanded, active, id)
+    return render(data, expanded, active, id) as ReactNode
   }
 
   renderIndicator() {

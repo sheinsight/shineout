@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import classnames from 'classnames'
 import absoluteList from '../AnimationList/AbsoluteList'
 import { Component } from '../component'
@@ -43,7 +43,7 @@ class FilterItem<DataItem, T extends CascaderBaseValue> extends Component<Filter
     let render = renderItem
     if (typeof render === 'string') {
       const copyRender = render
-      render = n => n[copyRender]
+      render = n => (n[copyRender] as unknown) as ReactNode
     }
     return render(item)
   }

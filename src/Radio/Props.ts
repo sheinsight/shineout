@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { ReactNode } from 'react'
 import { GetInputableProps } from '../Form/Props'
 import { GetDatumListProps } from '../Datum/Props'
 import { LiteralUnion, RegularAttributes } from '../@types/common'
@@ -7,6 +8,7 @@ import { KeygenType, StandardProps } from '../@types/common'
 import ListDatum from '../Datum/List'
 
 export interface BaseRadioGroupProps<DataItem, Value> extends StandardProps {
+  children?: ReactNode
   /**
    * When it is a string, return d[string]. When it is a function, return the result of the function.
    *

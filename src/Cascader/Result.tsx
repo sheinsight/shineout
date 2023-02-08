@@ -316,7 +316,7 @@ class Result<DataItem, Value extends CascaderBaseValue> extends PureComponent<
     let render = renderResult || renderItem
     if (typeof render === 'string') {
       const copyRender = render
-      render = (n: DataItem) => n[copyRender]
+      render = (n: DataItem) => (n[copyRender] as unknown) as ReactNode
     }
     let items = this.handleNode(nodes, render as (d: DataItem, row: DataItem[]) => ReactNode)
 

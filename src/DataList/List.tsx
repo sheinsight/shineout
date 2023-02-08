@@ -1,4 +1,4 @@
-import React, { Component, isValidElement } from 'react'
+import React, { Component, isValidElement, ReactNode } from 'react'
 import classnames from 'classnames'
 import { getLocale } from '../locale'
 import LazyList from '../AnimationList/LazyList'
@@ -56,10 +56,10 @@ class Index<U, T> extends Component<BaseListProps<U, T>> {
     return base
   }
 
-  getContent(value: U, index: number) {
+  getContent(value: U, index: number): ReactNode {
     const { renderItem } = this.props
     if (renderItem && typeof renderItem === 'function') return renderItem(value, index)
-    if (isString(renderItem)) return value[renderItem as keyof U]
+    if (isString(renderItem)) return (value[renderItem as keyof U] as unknown) as ReactNode
     if (isString(value)) return value
     return null
   }

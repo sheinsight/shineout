@@ -241,6 +241,7 @@ export interface FormModeProps {
 export type formStatus = 'disabled' | 'pending' | ''
 
 export interface SimpleFormProps<Value = ObjectType> extends StandardProps {
+  children?: ReactNode
   /**
    * Form value
    *
@@ -383,6 +384,7 @@ export interface ItemProps extends StandardProps {
   tip?: React.ReactNode
   formDatum?: FormDatum<any>
   labelVerticalAlign?: 'top' | 'middle' | 'bottom'
+  children?: React.ReactNode
 }
 
 /** ----------------formButton-----------------------* */

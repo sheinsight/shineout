@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { ReactNode } from 'react'
 import { ObjectType, StandardProps } from '../@types/common'
 import { PopoverConfirmProps } from '../Popover/Props'
 import { GapProps } from '../Gap/Props'
@@ -449,6 +450,7 @@ export interface DropProps<ValueItem> extends Pick<AcceptUpload<ValueItem>, 'dro
   dropData?: any
   onDrop?: (files: File[], index: number) => void
   className?: string
+  children?: ReactNode
 }
 
 export interface FileProps {

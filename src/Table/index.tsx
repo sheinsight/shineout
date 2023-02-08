@@ -283,7 +283,10 @@ export default class TableIndex<DataItem, Value> extends React.Component<
       Component = TableWithTree
     }
 
-    const externalExpandRender = (this.getExternalExpandObj() || {}).render
+    const externalExpandRender = (this.getExternalExpandObj() || {}).render as TablePropsWidthPT<
+      DataItem,
+      Value
+    >['externalExpandRender']
     const externalExpandOnClick = (this.getExternalExpandObj() || {}).onClick
 
     const ComponentPT = Component as ComponentType<TablePropsWidthPT<DataItem, Value>>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import Spin from '../Spin'
 import { isRTL } from '../config'
 import Caret from '../icons/Caret'
@@ -79,10 +79,10 @@ class Node<U, T extends CascaderBaseValue> extends PureComponent<NodeProps<U, T>
     this.handleChange(null, !checked)
   }
 
-  renderContent() {
+  renderContent(): ReactNode {
     const { id, active, data, renderItem } = this.props
     const render = typeof renderItem === 'function' ? renderItem : (d: U) => d[renderItem]
-    return render(data, active, id)
+    return render(data, active, id) as ReactNode
   }
 
   render() {

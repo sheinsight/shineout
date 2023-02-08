@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import classnames from 'classnames'
 import { PureComponent } from '../component'
 import { getKey } from '../utils/uid'
@@ -35,10 +35,10 @@ class RadioGroup<DataItem, Value> extends PureComponent<BaseRadioGroupProps<Data
     this.props.datum.unsubscribe(CHANGE_TOPIC, this.handleUpdate)
   }
 
-  getContent(d: DataItem, index: number) {
+  getContent(d: DataItem, index: number): ReactNode {
     const { renderItem } = this.props
     if (typeof renderItem === 'string') {
-      return d[renderItem]
+      return (d[renderItem] as unknown) as ReactNode
     }
     if (typeof renderItem === 'function') {
       return renderItem(d, index)

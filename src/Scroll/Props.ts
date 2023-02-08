@@ -35,6 +35,7 @@ export interface ScrollProps {
   innerScrollAttr?: string[]
   className?: string
   style?: CSSProperties
+  children?: ReactNode
 }
 
 /** ------ bar ------ */
@@ -57,4 +58,5 @@ export interface ScrollIndexProps extends Omit<ScrollProps, 'left' | 'top' | 'sc
   scrollLeft?: number
   scrollTop?: number
   scroll?: ScrollFixedType
+  children?: ReactNode
 }

@@ -1,10 +1,10 @@
 import * as React from 'react'
-import { ComponentType } from 'react'
 import * as CSS from 'csstype'
 import { KeygenResult, LiteralUnion, StandardProps, ValueItem } from '../@types/common'
 import DatumTree, { TreePathType, TreeModeType } from '../Datum/Tree'
 import { GetInputableProps } from '../Form/Props'
 
+type ExpandIconType<Item> = React.ReactNode | ((d: Item) => React.ReactNode)
 /** ------------ Tree -------------- */
 export interface TreeProps<DataItem, Value extends any[]> extends StandardProps {
   /**
@@ -139,7 +139,7 @@ export interface TreeProps<DataItem, Value extends any[]> extends StandardProps 
    *
    * default: none
    */
-  expandIcons?: React.ReactNode[]
+  expandIcons?: [ExpandIconType<DataItem>, ExpandIconType<DataItem>]
   /**
    * desc: style when drap images
    *
@@ -295,7 +295,7 @@ export interface NodeProps<DataItem, Value extends any[]>
   id: KeygenResult
   data: DataItem
   index: number
-  listComponent: ComponentType<ListProps<DataItem, Value>>
+  listComponent: React.ComponentType<ListProps<DataItem, Value>>
 }
 
 /** ------------ Content -------------- */

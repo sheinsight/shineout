@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { SUBMIT_TOPIC } from '../Datum/types'
 import { PureComponent } from '../component'
 import { getUidStr } from '../utils/uid'
@@ -502,7 +502,9 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
 
   renderItem(data: Item, index: number) {
     const { renderItem } = this.props
-    return typeof renderItem === 'function' ? renderItem(data, index) : data[renderItem as keyof Item]
+    return typeof renderItem === 'function'
+      ? renderItem(data, index)
+      : ((data[renderItem as keyof Item] as unknown) as ReactNode)
   }
 
   renderResult(data: Item, index: number) {

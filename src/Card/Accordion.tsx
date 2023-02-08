@@ -37,12 +37,12 @@ class Accordion<T = string> extends PureComponent<CardAccordionProps<T>, { activ
   render() {
     const active = this.getActive()
     return Children.toArray(this.props.children).map((child, i) => {
-      const childId = getChildId(child as React.Component<T>, i)
+      const childId = getChildId((child as unknown) as React.Component<T>, i)
       const props = {
         collapsed: active !== childId,
         collapsible: true,
         className: classnames(
-          typeof child === 'object' && (child as Element).className,
+          typeof child === 'object' && ((child as unknown) as Element).className,
           cardClass('accordion', isRTL() && 'accordion-rtl')
         ),
         onCollapse: this.handleActive.bind(this, childId),
