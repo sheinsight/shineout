@@ -259,6 +259,7 @@ export interface ModalPanelProps
   extends StandardProps,
     Pick<
       ModalProps,
+      | 'children'
       | 'footer'
       | 'maskCloseAble'
       | 'noPadding'
@@ -348,6 +349,7 @@ export interface ModalFunctionOptions extends Omit<ModalProps, 'usePortal' | 'de
    * default: -
    */
   noPadding?: boolean
+  children?: ReactNode
 }
 
 // innerOptions

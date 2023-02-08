@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { ReactNode } from 'react'
 import ListDatum from '../Datum/List'
 import { GetDatumListProps } from '../Datum/Props'
 import { KeygenResult, LiteralUnion, StructKeygenType } from '../@types/common'
@@ -126,7 +127,15 @@ export interface BaseTransferProps<DataItem, Value extends any[]> {
    * default: -
    */
   renderFilter?: (value: filterProps) => React.ReactNode
-  children?: React.ReactNode
+  children?: (
+    props: {
+      onSelected: (keys: KeygenResult) => void
+      direction: 'left' | 'right'
+      selectedKeys: KeygenResult[]
+      value: Value
+      filterText: string
+    }
+  ) => ReactNode
 }
 
 /** ----------- btns ------------*/

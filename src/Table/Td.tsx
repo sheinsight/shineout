@@ -15,7 +15,7 @@ const DefaultProps: any = {
 class Td<DataItem, Value> extends PureComponent<TdProps<DataItem, Value>> {
   static defaultProps = DefaultProps
 
-  cachedRender: ReactNode
+  cachedRender: () => ReactNode
 
   constructor(props: TdProps<DataItem, Value>) {
     super(props)
@@ -38,7 +38,7 @@ class Td<DataItem, Value> extends PureComponent<TdProps<DataItem, Value>> {
     onTreeExpand(data, index)
   }
 
-  renderCheckbox() {
+  renderCheckbox(): ReactNode {
     const { index, data, datum, treeColumnsName, treeCheckAll, disabled, render } = this.props
     const checkbox = (
       <Checkbox
@@ -51,7 +51,7 @@ class Td<DataItem, Value> extends PureComponent<TdProps<DataItem, Value>> {
       />
     )
     if (render && typeof render === 'function') {
-      return render(data, index, checkbox)
+      return render(data, index, checkbox) as ReactNode
     }
     return checkbox
   }
@@ -60,12 +60,12 @@ class Td<DataItem, Value> extends PureComponent<TdProps<DataItem, Value>> {
     const { expanded, render, data } = this.props
     if (typeof render !== 'function') return null
 
-    let cachedRender = render(data, index)
+    let cachedRender = render(data, index) as () => ReactNode
 
     if (!cachedRender) return null
 
     if (typeof cachedRender !== 'function') {
-      cachedRender = () => cachedRender
+      cachedRender = () => cachedRender as ReactNode
     }
     this.cachedRender = cachedRender
     return (
@@ -112,14 +112,17 @@ class Td<DataItem, Value> extends PureComponent<TdProps<DataItem, Value>> {
     )
   }
 
-  renderResult() {
+  renderResult(): ReactNode {
     const { render, data, index, treeColumnsName, treeExpandShow } = this.props
-    const content = typeof render === 'function' ? render(data, index) : data[render as keyof DataItem]
+    const content =
+      typeof render === 'function'
+        ? (render(data, index) as ReactNode)
+        : ((data[render as keyof DataItem] as unknown) as ReactNode)
     if (!treeColumnsName || !treeExpandShow) return content
     return this.renderTreeExpand(content)
   }
 
-  renderContent() {
+  renderContent(): ReactNode {
     const { type, index } = this.props
     switch (type) {
       case 'checkbox':

@@ -41,9 +41,9 @@ function format<DataItem, Value>(
     if (rowSpan && nextRow && nextRow[i]) {
       if (col.type !== 'checkbox') {
         if (typeof col.render === 'string') {
-          cell.content = data[col.render]
+          cell.content = (data[col.render] as unknown) as ReactNode
         } else if (isFunc(col.render)) {
-          cell.content = col.render(data, index)
+          cell.content = (col.render(data, index) as unknown) as ReactNode
         }
       }
       const isEqual =
@@ -125,7 +125,7 @@ class Tbody<DataItem, Value> extends PureComponent<TbodyProps<DataItem, Value>, 
     this.body = el
   }
 
-  handleExpand(key: KeygenResult, render: ReactNode) {
+  handleExpand(key: KeygenResult, render: () => ReactNode) {
     this.setState(
       immer(draft => {
         if (render) draft.expand[key] = render

@@ -7,6 +7,7 @@ import { GetDatumListProps } from '../Datum/Props'
 export type CheckValueType = boolean | 'indeterminate'
 export type CheckType = 'radio' | 'switch' | 'checkbox'
 export interface CheckItemProps extends StandardProps {
+  children?: ReactNode
   /**
    * disable checkbox
    *
@@ -74,7 +75,10 @@ export type SimpleRadioProps = Omit<CheckItemProps, 'content' | 'onChange' | 'on
   checked?: boolean | ((htmlValue: any) => boolean)
   onChange?: ((value: any, checked: CheckValueType, index?: number) => void)
 }
-export type SimpleSwitchProps = Omit<CheckItemProps, 'onChange' | 'onRawChange' | 'inputable' | 'value'> & {
+export type SimpleSwitchProps = Omit<
+  CheckItemProps,
+  'onChange' | 'onRawChange' | 'inputable' | 'value' | 'children'
+> & {
   checked?: boolean | ((htmlValue: any) => boolean)
   onChange?: ((value: boolean) => void)
 }
@@ -87,6 +91,7 @@ export interface CheckboxContextProvider {
 export type CheckboxProviderProps<U> = Omit<U, 'onRawChange'>
 
 export interface BaseCheckboxGroupProps<DataItem, Value> extends StandardProps {
+  children?: ReactNode
   /**
    * When it is a string, return d[string]. When it is a function, return the result of the function.
    *

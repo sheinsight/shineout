@@ -329,9 +329,10 @@ export declare class Table<DataItem, Value> extends React.Component<TableProps<D
 export type TableType = typeof Table
 /** ------ simpleTable ---------- */
 export interface SimpleTableProps<DataItem, Value> {
+  children?: ReactNode
   width?: number
   dataChangeResize?: boolean
-  externalExpandRender?: (rowData: DataItem, index: number) => ReactNode
+  externalExpandRender?: (rowData: DataItem, index: number) => () => ReactNode
   expandKeys?: KeygenResult[]
   keygen: StructKeygenType<DataItem>
   resetFixAuto: (is?: boolean) => boolean
@@ -466,7 +467,7 @@ export interface Row<DataItem> {
 /** ------ tr ---------- */
 export interface TrProps<DataItem, Value>
   extends Omit<TbodyProps<DataItem, Value>, 'data' | 'keygen' | 'sorter' | 'expandKeys' | 'colgroup'> {
-  onExpand: (key: KeygenResult, expanded?: ReactNode) => void
+  onExpand: (key: KeygenResult, expanded?: () => ReactNode) => void
   expandRender?: ((rowData: DataItem, index?: number) => ReactNode) | ReactNode
   rowKey?: string | number
   rowData: DataItem

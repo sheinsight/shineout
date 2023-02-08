@@ -301,8 +301,9 @@ export default class TreeSelect<Item, Value extends TreeSelectValueType> extends
 
   renderActive(data: Item, expanded: boolean, active: boolean, id: KeygenResult) {
     const { renderItem, datum } = this.props
-    const item =
-      typeof renderItem === 'function' ? renderItem(data, expanded, active, id) : data[renderItem as keyof Item]
+    const item = (typeof renderItem === 'function'
+      ? renderItem(data, expanded, active, id)
+      : data[renderItem as keyof Item]) as React.ReactNode
 
     return (
       <span

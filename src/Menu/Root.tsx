@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import classnames from 'classnames'
 import immer from 'immer'
 import { getKey } from '../utils/uid'
@@ -308,7 +308,7 @@ class Root<U, T extends string> extends Component<RootProps<U, T>, State> {
 
   renderItem(data: U, index: number) {
     const { renderItem } = this.props
-    if (typeof renderItem === 'string') return data[renderItem as keyof typeof data]
+    if (typeof renderItem === 'string') return (data[renderItem] as unknown) as ReactNode
     if (typeof renderItem === 'function') return renderItem(data, index)
     return null
   }

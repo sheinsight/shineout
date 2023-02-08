@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import immer from 'immer'
 import classnames from 'classnames'
 import { isFunc } from '../utils/is'
@@ -20,8 +20,16 @@ import { CascaderBaseValue, OriginCascaderProps } from './Props'
 import { RegularAttributes } from '../@types/common'
 
 const OptionList = absoluteList(
-  ({ focus, getRef, ...other }: { focus: boolean; getRef: (e: HTMLDivElement) => void; className: string }) =>
-    focus ? <div {...other} ref={getRef} /> : null
+  ({
+    focus,
+    getRef,
+    ...other
+  }: {
+    children?: ReactNode
+    focus: boolean
+    getRef: (e: HTMLDivElement) => void
+    className: string
+  }) => (focus ? <div {...other} ref={getRef} /> : null)
 )
 
 const isDescendent = (el: HTMLElement, id: string): boolean => {
