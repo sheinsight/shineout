@@ -1,5 +1,5 @@
 import { Component } from 'react'
-import { defaultProps } from '../utils/proptypes'
+import { defaultProps } from '../utils/defaultProps'
 import shallowEqual from '../utils/shallowEqual'
 import { getUidStr } from '../utils/uid'
 import { open, close, destroy } from './events'

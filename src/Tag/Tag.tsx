@@ -1,7 +1,7 @@
 import React from 'react'
 import { PureComponent } from '../component'
 import Input from './Input'
-import { defaultProps } from '../utils/proptypes'
+import { defaultProps } from '../utils/defaultProps'
 import Spin from '../Spin'
 import icons from '../icons'
 import { wrapSpan } from '../utils/dom/element'

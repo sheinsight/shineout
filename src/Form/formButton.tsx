@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import Button from '../Button'
 import { getParent, dispatchEvent } from '../utils/dom/element'
 import { formConsumer } from './formContext'
@@ -10,14 +9,6 @@ export default (htmlType: 'submit' | 'button' | 'reset') =>
     ['disabled'],
     class FormButton extends PureComponent<FormButtonProps> {
       button: HTMLElement
-
-      static propTypes = {
-        children: PropTypes.any,
-        disabled: PropTypes.bool,
-        loading: PropTypes.bool,
-        onClick: PropTypes.func,
-        type: PropTypes.string,
-      }
 
       constructor(props: FormButtonProps) {
         super(props)

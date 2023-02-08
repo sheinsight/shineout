@@ -1,7 +1,6 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import { getProps, defaultProps } from '../utils/proptypes'
+import { defaultProps } from '../utils/defaultProps'
 import { iconClass } from './styles'
 import { IconCompProps } from './Props'
 
@@ -42,14 +41,6 @@ function Icon(
       {children}
     </i>
   )
-}
-
-Icon.propTypes = {
-  ...getProps(PropTypes, 'children', 'size', 'type'),
-  prefix: PropTypes.string,
-  name: PropTypes.string,
-  fontFamily: PropTypes.string,
-  fontSize: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 }
 
 Icon.defaultProps = {

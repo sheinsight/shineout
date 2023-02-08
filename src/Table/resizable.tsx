@@ -1,6 +1,5 @@
 import React, { ComponentType } from 'react'
 import immer from 'immer'
-import PropTypes from 'prop-types'
 import { GetResizeProps, SimpleTableProps } from './Props'
 
 interface ScrollState<DataItem, Value> {
@@ -9,12 +8,6 @@ interface ScrollState<DataItem, Value> {
 }
 export default <DataItem, Value, Props extends SimpleTableProps<DataItem, Value>>(Table: ComponentType<Props>) =>
   class extends React.Component<GetResizeProps<Props, DataItem>, ScrollState<DataItem, Value>> {
-    static propTypes = {
-      columns: PropTypes.array.isRequired,
-      onColumnResize: PropTypes.func,
-      width: PropTypes.number,
-    }
-
     constructor(props: GetResizeProps<Props, DataItem>) {
       super(props)
       this.handleResize = this.handleResize.bind(this)

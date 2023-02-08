@@ -1,7 +1,7 @@
 import React, { KeyboardEvent } from 'react'
 import classnames from 'classnames'
 import { PureComponent } from '../component'
-import { defaultProps } from '../utils/proptypes'
+import { defaultProps } from '../utils/defaultProps'
 import { getUidStr } from '../utils/uid'
 import { getDirectionClass } from '../utils/classname'
 import { isEnterPress } from '../utils/is'

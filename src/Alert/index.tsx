@@ -3,7 +3,7 @@ import icons from '../icons'
 import { isRTL } from '../config'
 import { alertClass } from './styles'
 import { capitalize } from '../utils/strings'
-import { defaultProps } from '../utils/proptypes'
+import { defaultProps } from '../utils/defaultProps'
 
 import { AlertProps } from './Props'
 

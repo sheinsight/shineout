@@ -1,5 +1,4 @@
 import React from 'react'
-import PropType from 'prop-types'
 import classnames from 'classnames'
 import { uploadClass } from './styles'
 import { accept as fileAccept } from '../utils'
@@ -9,17 +8,6 @@ interface DropState {
   drop: boolean
 }
 export default class Drop<ValueItem> extends React.Component<DropProps<ValueItem>, DropState> {
-  static propTypes = {
-    disabled: PropType.bool,
-    accept: PropType.string,
-    multiple: PropType.bool,
-    onDrop: PropType.func,
-    dropData: PropType.any,
-    children: PropType.any,
-    drop: PropType.bool,
-    className: PropType.string,
-  }
-
   static defaultProps = {
     drop: false,
   }

@@ -7,16 +7,10 @@
  *    -- Form.Loop takes a value which type is the array from the form through the name property, furthermore iterates over this value to generate a set of subcomponents.
  */
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import { Button, Datum, Form, Input } from 'shineout'
 import FontAwesome from '../Icon/FontAwesome'
 
 class Friend extends PureComponent {
-  static propTypes = {
-    onChange: PropTypes.func,
-    onRemove: PropTypes.func,
-    value: PropTypes.object,
-  }
 
   constructor(props) {
     super(props)

@@ -1,5 +1,4 @@
 import React, { ComponentType } from 'react'
-import PropTypes from 'prop-types'
 import { addEventListener } from '../utils/dom/document'
 import { getParent } from '../utils/dom/element'
 import { isMacOS, isFirefox } from '../utils/is'
@@ -182,11 +181,6 @@ export default <DataItem, Value, Props extends OriginTableProps<DataItem, Value>
     cache: CacheType
 
     prevDom: null | HTMLTableCellElement
-
-    static propTypes = {
-      selection: PropTypes.bool,
-      cellSelectable: PropTypes.bool,
-    }
 
     constructor(props: GetSelectProps<Props>) {
       super(props)
