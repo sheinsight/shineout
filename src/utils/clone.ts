@@ -6,7 +6,18 @@ type ArraySource<T> = T[] | ArrayLike<T>
 const cloneArray = (source: ArraySource<any>): any[] => Array.from(source, (x: any) => deepClone(x))
 
 const cloneObject = (source: { [x: string]: any }, specialKeys: string[] = []) => {
-  const target = Object.create(Object.getPrototypeOf(source))
+  let target = Object.create(Object.getPrototypeOf(source))
+  /* File or Response (non-serializable data) will throw error */
+  try {
+    // eslint-disable-next-line guard-for-in
+    for (const key in target) {
+      target[key] = target[key]
+    }
+  } catch (e) {
+    console.error('should not pass non-serializable data', source)
+    console.error(e)
+    target = {}
+  }
   ;[...specialKeys, ...Object.keys(source)].forEach(k => {
     // eslint-disable-next-line
     target[k] = deepClone(source[k])
