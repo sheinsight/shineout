@@ -127,7 +127,7 @@ function checkItem(type: CheckType): React.ComponentClass<CheckItemProps, Checkb
       const checked = this.getChecked()
       const isSwitch = type === 'switch'
 
-      const ban = disabled || loading
+      const ban = disabled || (isSwitch && loading)
 
       const className = classnames(
         checkinputClass(
@@ -154,8 +154,6 @@ function checkItem(type: CheckType): React.ComponentClass<CheckItemProps, Checkb
         ) : null
 
       const value = typeof this.props.value === 'string' ? this.props.value : ''
-
-
 
       return (
         <label
