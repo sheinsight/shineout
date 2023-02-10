@@ -65,6 +65,19 @@ const examples = [
     parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Switch/example-4-size.tsx'),
 
   },
+  {
+    name: '5-loading',
+    isTs: true,
+    isTest: false,
+    title: locate(
+      '加载中 \n 表示还在执行中',
+      'loading \n still in progress'
+    ),
+    component: require('doc/pages/components/Switch/example-5-loading.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Switch/example-5-loading.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Switch/example-5-loading.tsx'),
+
+  },
 ]
 
 const codes = undefined

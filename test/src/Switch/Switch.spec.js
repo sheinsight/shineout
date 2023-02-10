@@ -69,3 +69,14 @@ describe('Switch[size]', () => {
     })
   })
 })
+
+describe('Switch[loading]', () => {
+  test('should render spin and disabled', () => {
+    const wrapper = mount(<Switch loading />)
+    expect(wrapper.find('input').prop('disabled')).toBe(true)
+    expect(
+      wrapper.find(`label.${SO_PREFIX}-checkinput.${SO_PREFIX}-checkinput-loading.${SO_PREFIX}-checkinput-disabled`)
+        .length
+    ).toBe(1)
+  })
+})

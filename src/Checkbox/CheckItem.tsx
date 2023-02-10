@@ -6,6 +6,7 @@ import { getUidStr } from '../utils/uid'
 import { getDirectionClass } from '../utils/classname'
 import { isEnterPress } from '../utils/is'
 import Input from '../Input'
+import Spin from '../Spin'
 import { checkinputClass } from './styles'
 import { isRTL } from '../config'
 import getDataset from '../utils/dom/getDataset'
@@ -119,20 +120,23 @@ function checkItem(type: CheckType): React.ComponentClass<CheckItemProps, Checkb
     }
 
     render() {
-      const { disabled, style, content, size, children, inputable, onClick } = this.props
+      const { disabled, style, content, size, children, inputable, onClick, loading } = this.props
 
       const rtl = isRTL()
 
       const checked = this.getChecked()
       const isSwitch = type === 'switch'
 
+      const ban = disabled || (isSwitch && loading)
+
       const className = classnames(
         checkinputClass(
           '_',
-          disabled && 'disabled',
+          ban && 'disabled',
           checked === true && 'checked',
           checked === 'indeterminate' && 'indeterminate',
           isSwitch && 'switch',
+          loading && 'loading',
           `${type}-container`,
           rtl && 'rtl',
           {
@@ -160,13 +164,13 @@ function checkItem(type: CheckType): React.ComponentClass<CheckItemProps, Checkb
           tabIndex={disabled ? undefined : 0}
           ref={this.bindRef}
           /* @ts-ignore */
-          disabled={disabled}
+          disabled={ban}
           {...getDataset(this.props)}
         >
           {switchChildren}
           <input
             id={this.id}
-            disabled={disabled}
+            disabled={ban}
             tabIndex={-1}
             type={isSwitch ? 'checkbox' : type}
             onClick={onClick}
@@ -178,7 +182,11 @@ function checkItem(type: CheckType): React.ComponentClass<CheckItemProps, Checkb
           {inputable && !isSwitch && checked && (
             <Input className={checkinputClass('text')} onChange={this.handleInputChange} value={value} />
           )}
-          {isSwitch && <span className={checkinputClass(getDirectionClass('switch-indicator'))} />}
+          {isSwitch && (
+            <span className={checkinputClass(getDirectionClass('switch-indicator'))}>
+              {loading ? <Spin size="auto" color="none" name="ring" /> : null}
+            </span>
+          )}
         </label>
       )
     }
