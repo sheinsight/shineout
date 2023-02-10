@@ -7,5 +7,6 @@
   "include": [
     "./",
     "../externals.d.ts"
-  ]
+  ],
+  "exclude": ["./index.js"]
 }
