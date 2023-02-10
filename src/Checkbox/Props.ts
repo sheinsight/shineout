@@ -16,7 +16,15 @@ export interface CheckItemProps extends StandardProps {
    * default: false
    */
   disabled?: boolean
-
+  /**
+   *
+   *  loading
+   *
+   * 加载中
+   *
+   * default: false
+   */
+  loading?: boolean
   /**
    * if not set, use (value === htmlValue).
    *
@@ -68,10 +76,13 @@ export interface CheckItemProps extends StandardProps {
   content?: [ReactNode, ReactNode] | []
 }
 
-export type SimpleCheckProps = Omit<CheckItemProps, 'content' | 'onChange'> & {
+export type SimpleCheckProps = Omit<CheckItemProps, 'content' | 'onChange' | 'loading'> & {
   onChange?: ((value: any, checked: CheckValueType, index?: number) => void)
 }
-export type SimpleRadioProps = Omit<CheckItemProps, 'content' | 'onChange' | 'onRawChange' | 'inputable' | 'value'> & {
+export type SimpleRadioProps = Omit<
+  CheckItemProps,
+  'content' | 'onChange' | 'onRawChange' | 'inputable' | 'value' | 'loading'
+> & {
   checked?: boolean | ((htmlValue: any) => boolean)
   onChange?: ((value: any, checked: CheckValueType, index?: number) => void)
 }

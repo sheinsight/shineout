@@ -16,4 +16,5 @@
 | size | 'default' \| 'small' \| 'large' | default | 开关大小 |
 | value | boolean | 无 | checked 未设置的情况下， checked = value |
 | defaultValue | boolean | 无 | 初始值 |
+| loading | boolean | 无 | 加载中 |
 
