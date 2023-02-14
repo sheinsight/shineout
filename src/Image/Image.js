@@ -125,13 +125,13 @@ class Image extends PureComponent {
   }
 
   renderType(src) {
-    const { title, fit } = this.props
+    const { title, fit, draggable } = this.props
 
     return fit === 'fill' || fit === 'fit' ? (
       <div className={imageClass('inner')} title={title} style={{ backgroundImage: `url("${src}")` }} />
     ) : (
       <div className={imageClass('inner')} title={title}>
-        <img alt="" src={src} />
+        <img alt="" src={src} draggable={draggable} />
       </div>
     )
   }
@@ -212,6 +212,7 @@ Image.propTypes = {
   error: PropTypes.node,
   autoSSL: PropTypes.bool,
   onError: PropTypes.func,
+  draggable: PropTypes.string,
 }
 
 Image.defaultProps = {

@@ -148,6 +148,16 @@ export interface ImageProps extends StandardProps {
    * default: -
    */
   title?: string;
+
+   /**
+   * native draggable attribute
+   *
+   * 原生 draggable 属性
+   *
+   * default: true
+   */
+    draggable?: boolean;
+    
 }
 
 export interface ImageGroupProps {
