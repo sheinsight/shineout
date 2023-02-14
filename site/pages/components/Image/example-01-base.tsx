@@ -7,6 +7,6 @@
 import React from 'react'
 import { Image } from 'shineout'
 
-const App: React.FC = () => <Image width={200} height={125} src="../../../images/1_b.jpg" draggable={false} />
+const App: React.FC = () => <Image width={200} height={125} src="../../../images/1_b.jpg" draggable="false" />
 
 export default App
