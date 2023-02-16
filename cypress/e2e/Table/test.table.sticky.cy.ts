@@ -1,0 +1,20 @@
+describe('table[sticky]', () => {
+  it('test sticky', () => {
+    cy.visit('/cn/components/Table?example=31-sticky')
+    cy.wait(400)
+    cy.scrollTo(0, 800)
+    cy.get('.so-table-head')
+      .parent()
+      .should('have.css', 'position')
+      .and('eq', 'fixed')
+    cy.wait(400)
+
+    cy.scrollTo(0, 2000)
+    cy.wait(400)
+    cy.get('.so-table')
+      .get('.so-table-head')
+      .parent()
+      .should('have.css', 'position')
+      .and('not.eq', 'fixed')
+  })
+})
