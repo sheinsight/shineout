@@ -39,6 +39,14 @@ export interface OriginCascaderProps<DataItem, Value extends CascaderBaseValue>
     Pick<InputTitleProps, 'innerTitle'>,
     Pick<TreeDatumOptions<DataItem>, 'mode'>,
     Pick<StandardProps, 'style'> {
+  /**
+   * 自定义渲染下拉列表
+   *
+   * Custom render dropdown
+   *
+   * default: -
+   */
+  renderOptionList?: (list: React.ReactElement, info: { loading: boolean }) => React.ReactElement
   renderUnmatched?: (data: any) => ReactNode
   inputFocus: boolean
   /**
@@ -270,6 +278,7 @@ export interface FilterListProps<DataItem, Value extends CascaderBaseValue>
     | 'loading'
     | 'expandTrigger'
     | 'placeholder'
+    | 'renderOptionList'
   > {
   fixed: string
   focus: boolean

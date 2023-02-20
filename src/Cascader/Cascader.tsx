@@ -419,7 +419,7 @@ class Cascader<DataItem, Value extends CascaderBaseValue> extends PureComponent<
   }
 
   renderAbsoluteList() {
-    const { absolute, zIndex } = this.props
+    const { absolute, zIndex, renderOptionList, loading } = this.props
     const { position } = this.state
     const { focus } = this
     const className = classnames(selectClass('options'), cascaderClass('options'))
@@ -430,6 +430,7 @@ class Cascader<DataItem, Value extends CascaderBaseValue> extends PureComponent<
       return null
     }
     this.isRendered = true
+    const list = this.renderList()
     return (
       <OptionList
         autoAdapt
@@ -442,7 +443,7 @@ class Cascader<DataItem, Value extends CascaderBaseValue> extends PureComponent<
         data-id={this.selectId}
         zIndex={zIndex}
       >
-        {this.renderList()}
+        {renderOptionList ? renderOptionList(list, { loading: !!loading }) : list}
       </OptionList>
     )
   }
@@ -461,6 +462,7 @@ class Cascader<DataItem, Value extends CascaderBaseValue> extends PureComponent<
       filterDataChange,
       height,
       loading,
+      renderOptionList,
     } = this.props
     const { position } = this.state
     const { focus } = this
@@ -489,6 +491,7 @@ class Cascader<DataItem, Value extends CascaderBaseValue> extends PureComponent<
         filterText={filterText}
         height={height}
         loading={loading}
+        renderOptionList={renderOptionList}
       />
     )
   }

@@ -125,9 +125,12 @@ class FilterList<U, T extends CascaderBaseValue> extends Component<FilterListPro
       height,
       filterDataChange,
       placeholder,
+      renderOptionList,
+      loading,
       ...others
     } = this.props
     if (!focus) return null
+    const list = this.renderList()
     return (
       <div
         {...others}
@@ -137,7 +140,7 @@ class FilterList<U, T extends CascaderBaseValue> extends Component<FilterListPro
           cascaderClass('filter', expandTrigger === 'hover-only' && 'leaf-only')
         )}
       >
-        {this.renderList()}
+        {renderOptionList ? renderOptionList(list, { loading: !!loading }) : list}
       </div>
     )
   }
