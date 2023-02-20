@@ -150,11 +150,11 @@ export interface ImageProps extends StandardProps {
   /**
    * The original property of html
    *
-   * 原生 draggable 属性
+   * 是否禁止 img 元素原生 draggable 属性
    *
-   * default: -
+   * default: false
    */
-  draggable?: string
+  noImgDrag?: boolean
 }
 
 export interface ImageGroupProps extends StandardProps {

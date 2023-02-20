@@ -153,13 +153,13 @@ export default class Image extends PureComponent<ImageProps, State> {
   }
 
   renderType(src?: string) {
-    const { title, fit, draggable } = this.props
+    const { title, fit, noImgDrag = false } = this.props
 
     return fit === 'fill' || fit === 'fit' ? (
       <div className={imageClass('inner')} title={title} style={{ backgroundImage: `url("${src}")` }} />
     ) : (
       <div className={imageClass('inner')} title={title}>
-        <img alt="" src={src} draggable={draggable} />
+        <img alt="" src={src} draggable={!noImgDrag} />
       </div>
     )
   }

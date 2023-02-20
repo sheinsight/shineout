@@ -26,6 +26,7 @@
 | onError | (err: Event) => void | none | callback of image src or alt request fail | |
 | onClick | (e: MouseEvent) => void | - | The callback of click | |
 | title | string | - | The original property of html | |
+| noImgDrag | string | false | disable the native draggable attribute of the img element | |
 
 
 ### Image.Group

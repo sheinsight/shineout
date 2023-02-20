@@ -28,7 +28,7 @@
 | onError | (err: Event) => void | 无 | src或alt 地址请求出错回调 | |
 | onClick | (e: MouseEvent) => void | 无 | 点击图片的回调 | |
 | title | string | 无 | 原生 title 属性 | |
-| draggable | string | 无 | 原生 draggable 属性 | |
+| noImgDrag | string | false | 禁止 img 元素原生 draggable 属性 | |
  
 ### Image.Group
 
