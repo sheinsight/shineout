@@ -91,6 +91,10 @@ class Table<DataItem, Value> extends Component<OriginTableProps<DataItem, Value>
     return parseInt(String(rowsInView), 10)
   }
 
+  getShouldSticky() {
+    return this.props.sticky && this.state.inView
+  }
+
   bindTable(el: HTMLDivElement) {
     const { bindWrapper } = this.props
     this.table = el
@@ -119,7 +123,7 @@ class Table<DataItem, Value> extends Component<OriginTableProps<DataItem, Value>
       ...others
     } = this.props
 
-    const { scrollLeft, scrollRight, inView } = this.state
+    const { scrollLeft, scrollRight } = this.state
 
     const className = classnames(
       tableClass(
@@ -132,7 +136,7 @@ class Table<DataItem, Value> extends Component<OriginTableProps<DataItem, Value>
         scrollRight < 0 && 'right-float',
         `vertical-${verticalAlign}`,
         columnResizable && 'resize',
-        others.sticky && 'sticky',
+        this.getShouldSticky() && 'sticky',
         isRTL() && 'rtl'
       ),
       this.props.className
@@ -165,7 +169,7 @@ class Table<DataItem, Value> extends Component<OriginTableProps<DataItem, Value>
 
     return (
       <div className={className} ref={this.bindTable} style={newStyle} {...events}>
-        <RenderTable {...props} bordered={bordered} sticky={props.sticky && inView} />
+        <RenderTable {...props} bordered={bordered} sticky={this.getShouldSticky()} />
         {loading && (
           <div className={tableClass('loading')}>{typeof loading === 'boolean' ? <Spin size={40} /> : loading}</div>
         )}
