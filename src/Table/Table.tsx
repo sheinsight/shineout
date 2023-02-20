@@ -28,6 +28,7 @@ const RadioWrapper = <Props extends { limit: any; distinct: any }>(
 interface FormState {
   scrollLeft: number
   scrollRight: number
+  inView: boolean
 }
 const DefaultProps = {
   hover: true,
@@ -39,6 +40,8 @@ const DefaultProps = {
 class Table<DataItem, Value> extends Component<OriginTableProps<DataItem, Value>, FormState> {
   table: HTMLElement
 
+  visibleObserver: IntersectionObserver | null
+
   static defaultProps = DefaultProps
 
   constructor(props: OriginTableProps<DataItem, Value>) {
@@ -46,9 +49,23 @@ class Table<DataItem, Value> extends Component<OriginTableProps<DataItem, Value>
     this.state = {
       scrollLeft: 0,
       scrollRight: 0,
+      inView: false,
     }
 
     this.bindTable = this.bindTable.bind(this)
+  }
+
+  componentDidMount() {
+    if (this.props.sticky && this.table && global.IntersectionObserver) {
+      const observer = new IntersectionObserver(entries => {
+        const entry = entries[0]
+        this.setState({
+          inView: entry.intersectionRatio > 0,
+        })
+      })
+      observer.observe(this.table)
+      this.visibleObserver = observer
+    }
   }
 
   componentDidUpdate(preProps: OriginTableProps<DataItem, Value>) {
@@ -60,11 +77,22 @@ class Table<DataItem, Value> extends Component<OriginTableProps<DataItem, Value>
     }
   }
 
+  componentWillUnmount() {
+    if (this.visibleObserver) {
+      this.visibleObserver.disconnect()
+      this.visibleObserver = null
+    }
+  }
+
   getRowsInView() {
     const { rowsInView = DefaultProps.rowsInView, data, fixed } = this.props
     const dataLength = data.length
     if (rowsInView <= 0 || rowsInView > dataLength || fixed === 'x') return dataLength
     return parseInt(String(rowsInView), 10)
+  }
+
+  getShouldSticky() {
+    return this.props.sticky && this.state.inView
   }
 
   bindTable(el: HTMLDivElement) {
@@ -108,7 +136,7 @@ class Table<DataItem, Value> extends Component<OriginTableProps<DataItem, Value>
         scrollRight < 0 && 'right-float',
         `vertical-${verticalAlign}`,
         columnResizable && 'resize',
-        others.sticky && 'sticky',
+        this.getShouldSticky() && 'sticky',
         isRTL() && 'rtl'
       ),
       this.props.className
@@ -141,7 +169,7 @@ class Table<DataItem, Value> extends Component<OriginTableProps<DataItem, Value>
 
     return (
       <div className={className} ref={this.bindTable} style={newStyle} {...events}>
-        <RenderTable {...props} bordered={bordered} />
+        <RenderTable {...props} bordered={bordered} sticky={this.getShouldSticky()} />
         {loading && (
           <div className={tableClass('loading')}>{typeof loading === 'boolean' ? <Spin size={40} /> : loading}</div>
         )}
