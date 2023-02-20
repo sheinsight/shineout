@@ -291,7 +291,7 @@ export default class<Item> {
       })
     }
 
-    let checked: CheckedStatus = 0
+    let checked: CheckedStatus
     ids.forEach(id => {
       const { children } = this.pathMap.get(id)!
 
@@ -319,7 +319,7 @@ export default class<Item> {
       else if (checked !== childChecked) checked = 2
     })
 
-    return checked
+    return checked!
   }
 
   initData(data: Item[], path: KeygenResult[], disabled?: boolean, index: number[] = []) {
