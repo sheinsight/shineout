@@ -860,7 +860,7 @@ describe('Tree[value]', () => {
       set(v)
     })
     const App = () => {
-      const [value, setValue] = React.useState([])
+      const [value, setValue] = React.useState(['0', '0-0', '0-1'])
       return (
         <Tree
           data={data}
@@ -873,6 +873,14 @@ describe('Tree[value]', () => {
     }
 
     const wrapper = mount(<App />)
+
+    // 测试回填数据后正确展示
+    expect(
+      wrapper
+        .find('.so-checkinput')
+        .first()
+        .hasClass('so-checkinput-checked')
+    ).toBeTruthy()
 
     wrapper
       .find(`label.${SO_PREFIX}-checkinput input`)
