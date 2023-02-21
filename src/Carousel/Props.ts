@@ -60,4 +60,21 @@ export interface CarouselProps extends StandardProps {
    * default: -
    */
   children?: ReactNode
+
+  /**
+   * When to show the switch trigger
+   *
+   * 切换箭头显示时机
+   *
+   * default: -
+   */
+  showArrow?: 'always' | 'hover' | 'never'
+  /**
+   * The additional css class for arrow
+   *
+   * 箭头扩展 class
+   *
+   * default: -
+   */
+  arrowClassName?: string
 }

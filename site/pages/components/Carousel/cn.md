@@ -13,3 +13,6 @@
 | interval | number | 0 | 动画间隔时间，为 0 时，不自动播放 |
 | style | object | 无 | 最外层扩展样式 |
 | onMove | (current: number, extra: object) => void | 无 | 轮播后回调 |
+| showArrow | 'always' \| 'hover' \| 'never' | 'never' | 切换箭头显示时机 |
+| arrowClassName | string | 无 | 箭头扩展 class |
+

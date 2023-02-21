@@ -62,6 +62,7 @@ const App: React.FC = () => {
         animation={animation}
         indicatorPosition={indicatorPosition}
         indicatorType={indicatorType}
+        showArrow="hover"
       >
         <div style={{ background: '#666', display: 'flex' }}>
           <div style={containerStyle}>Page 1</div>

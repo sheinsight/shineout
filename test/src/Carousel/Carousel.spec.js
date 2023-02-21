@@ -71,9 +71,10 @@ describe('Carousel[props]', () => {
 
 describe('Carousel[Autoplay]', () => {
   test('should auto play while interval > 0', () => {
+    const onMove = jest.fn()
     jest.useFakeTimers()
     const wrapper = shallow(
-      <Carousel interval={5000}>
+      <Carousel interval={5000} onMove={onMove}>
         <div />
         <div />
       </Carousel>
@@ -103,6 +104,13 @@ describe('Carousel[Autoplay]', () => {
         .at(1)
         .prop('current')
     ).toBeTruthy()
+    expect(onMove.mock.calls.length).toBe(1)
+    wrapper.find(`.${SO_PREFIX}-carousel`).simulate('mouseEnter')
+    jest.advanceTimersByTime(5000)
+    expect(onMove.mock.calls.length).toBe(1)
+    wrapper.find(`.${SO_PREFIX}-carousel`).simulate('mouseLeave')
+    jest.advanceTimersByTime(5000)
+    expect(onMove.mock.calls.length).toBe(2)
   })
   test('should not auto play while interval not pass or equal 0', () => {
     jest.useFakeTimers()
@@ -189,5 +197,51 @@ describe('Carousel[baseTest]', () => {
     expect(onMove.mock.calls[0][0]).toBe(index)
     expect(onMove.mock.calls[0][1].prev).toBe(0)
     expect(onMove.mock.calls[0][1].direction).toBe('forward')
+  })
+})
+
+describe('Carousel[showArrow]', () => {
+  test('never', () => {
+    const wrapper = mount(
+      <Carousel interval={0} showArrow="never">
+        <div />
+        <div />
+        <div />
+        <div />
+      </Carousel>
+    )
+    expect(wrapper.find(`.${SO_PREFIX}-carousel-arrow`).length).toBe(0)
+    wrapper.unmount()
+  })
+  test('always', () => {
+    const onMove = jest.fn()
+    const wrapper = mount(
+      <Carousel interval={0} showArrow="always" onMove={onMove}>
+        <div />
+        <div />
+        <div />
+        <div />
+      </Carousel>
+    )
+    expect(wrapper.find(`.${SO_PREFIX}-carousel-arrow`).length).toBe(1)
+    wrapper.find(`.${SO_PREFIX}-carousel-arrow-left`).simulate('click')
+    wrapper.find(`.${SO_PREFIX}-carousel-arrow-right`).simulate('click')
+    expect(onMove.mock.calls[0][0]).toBe(3)
+    expect(onMove.mock.calls[1][0]).toBe(0)
+    wrapper.unmount()
+  })
+  test('hover', () => {
+    const onMove = jest.fn()
+    const wrapper = mount(
+      <Carousel interval={0} showArrow="hover" onMove={onMove}>
+        <div />
+        <div />
+        <div />
+        <div />
+      </Carousel>
+    )
+    expect(wrapper.find(`.${SO_PREFIX}-carousel-arrow`).length).toBe(1)
+    expect(wrapper.find(`.${SO_PREFIX}-carousel-arrow-hover`).length).toBe(1)
+    wrapper.unmount()
   })
 })
