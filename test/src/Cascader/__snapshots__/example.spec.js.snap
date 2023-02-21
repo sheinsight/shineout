@@ -168,3 +168,20 @@ exports[`Cascader[snapshot] Snapshot test: Cascader[site/pages/components/Cascad
   </div>
 </span>
 `;
+
+exports[`Cascader[snapshot] Snapshot test: Cascader[site/pages/components/Cascader/example-09-renderlist.tsx] 1`] = `
+<span>
+  <div>
+    <div>
+      <span>
+         
+      </span>
+      <a>
+        <svg>
+          <path />
+        </svg>
+      </a>
+    </div>
+  </div>
+</span>
+`;
