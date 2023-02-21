@@ -203,7 +203,7 @@ describe('Carousel[baseTest]', () => {
 describe('Carousel[showArrow]', () => {
   test('never', () => {
     const wrapper = mount(
-      <Carousel interval={0} showArrow="never">
+      <Carousel interval={0} showArrow="">
         <div />
         <div />
         <div />

@@ -21,7 +21,6 @@ const CarouselDefaultProps: CarouselProps = {
   interval: 0,
   className: '',
   style: {},
-  showArrow: 'never',
 }
 
 type CarouselPropsWithDefault = CarouselProps & Required<Pick<CarouselProps, keyof typeof CarouselDefaultProps>>
@@ -171,7 +170,7 @@ class Carousel extends PureComponent<CarouselPropsWithDefault, CarouselState> {
 
   renderArrow() {
     const { arrowClassName, showArrow } = this.props
-    if (!showArrow || showArrow === 'never') return null
+    if (!showArrow) return null
     return (
       <div className={classnames(carouselClass('arrow', showArrow === 'hover' && 'arrow-hover'), arrowClassName)}>
         <div className={carouselClass('arrow-left')} onClick={this.backward} />

@@ -68,7 +68,7 @@ export interface CarouselProps extends StandardProps {
    *
    * default: -
    */
-  showArrow?: 'always' | 'hover' | 'never'
+  showArrow?: 'always' | 'hover'
   /**
    * The additional css class for arrow
    *
