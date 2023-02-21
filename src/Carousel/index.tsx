@@ -14,7 +14,7 @@ interface CarouselState {
   pre: number
 }
 
-const CarouselDefaultProps = {
+const CarouselDefaultProps: CarouselProps = {
   animation: 'slide',
   indicatorPosition: 'center',
   indicatorType: 'circle',
@@ -44,37 +44,34 @@ class Carousel extends PureComponent<CarouselPropsWithDefault, CarouselState> {
       pre: 0,
     }
 
-    this.handleMouseIn = this.handleMouseIn.bind(this)
-    this.handleMouseOut = this.handleMouseOut.bind(this)
+    this.start = this.start.bind(this)
+    this.stop = this.stop.bind(this)
     this.moveTo = this.moveTo.bind(this)
+    this.forward = this.forward.bind(this)
+    this.backward = this.backward.bind(this)
   }
 
   componentDidMount() {
     super.componentDidMount()
-    this.setNext(1)
+    this.start()
   }
 
   componentDidUpdate() {
     if (this.count > 1 && !this.$timeout) {
-      this.setNext(this.state.current + 1)
+      this.start()
     }
   }
 
   componentWillUnmount() {
     super.componentWillUnmount()
-    if (this.$timeout) {
-      clearTimeout(this.$timeout)
-      this.$timeout = null
-    }
+    this.stop()
   }
 
   setNext(next: number) {
+    if (this.mouseInView) return
     const { interval } = this.props
     if (interval > 0 && this.count > 1) {
-      if (this.$timeout) {
-        clearTimeout(this.$timeout)
-        this.$timeout = null
-      }
+      this.stop()
       this.$timeout = setTimeout(() => {
         this.moveTo(next)
       }, interval)
@@ -90,8 +87,10 @@ class Carousel extends PureComponent<CarouselPropsWithDefault, CarouselState> {
     if (next >= this.count) {
       direction = 'forward'
       next = 0
+    } else if (next < 0) {
+      direction = 'backward'
+      next = this.count - 1
     }
-
     this.setState({ pre: current, current: next, direction })
     this.setNext(next + 1)
     if (onMove)
@@ -102,13 +101,33 @@ class Carousel extends PureComponent<CarouselPropsWithDefault, CarouselState> {
       })
   }
 
-  handleMouseIn() {
-    this.mouseInView = true
+  forward() {
+    this.moveTo(this.state.current + 1)
   }
 
-  handleMouseOut() {
-    this.mouseInView = false
+  backward() {
+    this.moveTo(this.state.current - 1)
+  }
+
+  stop() {
+    if (this.$timeout) {
+      clearTimeout(this.$timeout)
+      this.$timeout = null
+    }
+  }
+
+  start() {
     this.setNext(this.state.current + 1)
+  }
+
+  mouseEnterHandler = () => {
+    this.mouseInView = true
+    this.stop()
+  }
+
+  mouseLeaveHandler = () => {
+    this.mouseInView = false
+    this.start()
   }
 
   renderItems() {
@@ -149,6 +168,17 @@ class Carousel extends PureComponent<CarouselPropsWithDefault, CarouselState> {
     return <div className={className}>{inds}</div>
   }
 
+  renderArrow() {
+    const { arrowClassName, showArrow } = this.props
+    if (!showArrow) return null
+    return (
+      <div className={classnames(carouselClass('arrow', showArrow === 'hover' && 'arrow-hover'), arrowClassName)}>
+        <div className={carouselClass('arrow-left')} onClick={this.backward} />
+        <div className={carouselClass('arrow-right')} onClick={this.forward} />
+      </div>
+    )
+  }
+
   render() {
     this.count = Children.toArray(this.props.children).length
 
@@ -157,8 +187,15 @@ class Carousel extends PureComponent<CarouselPropsWithDefault, CarouselState> {
     const className = classnames(carouselClass('_', animation, direction), this.props.className)
 
     return (
-      <div className={className} style={style} {...getDataset(this.props)}>
+      <div
+        className={className}
+        style={style}
+        onMouseEnter={this.mouseEnterHandler}
+        onMouseLeave={this.mouseLeaveHandler}
+        {...getDataset(this.props)}
+      >
         {this.renderItems()}
+        {this.renderArrow()}
         {this.count > 1 && this.renderIndicator()}
       </div>
     )

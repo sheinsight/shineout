@@ -1,8 +1,15 @@
 @import '../../styles/variables.less';
 @import '../../styles/themes/@{so-theme}.less';
 
-@carousel-prefix: ~'@{so-prefix}-carousel';
+@carousel-arrow-bg: hsla(0, 0%, 100%, 0.3);
+@carousel-arrow-bg-hover:hsla(0,0%,100%,.5);
+@carousel-arrow-color: #fff;
+@carousel-arrow-circle-size: 24px;
+@carousel-arrow-circle-margin: 12px;
+@carousel-arrow-size: 8px;
+@carousel-arrow-border: 1px;
 
+@carousel-prefix: ~'@{so-prefix}-carousel';
 .@{carousel-prefix} {
   @keyframes-r2c: ~'@{carousel-prefix}-r2c';
   @keyframes-c2r: ~'@{carousel-prefix}-c2r';
@@ -18,6 +25,7 @@
   @keyframes @keyframes-r2c {
     0% {
       transform: translateX(100%);
+      left: @carousel-caption-color;
     }
 
     100% {
@@ -282,6 +290,55 @@
         &.@{carousel-prefix}-indicator-active {
           height: @carousel-indicator-line-width + 4;
         }
+      }
+    }
+  }
+
+  &-arrow {
+    &>div {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: @carousel-arrow-circle-size;
+      height: @carousel-arrow-circle-size;;
+      border-radius: 50%;
+      color: @carousel-arrow-color;
+      background-color: @carousel-arrow-bg;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      &::after {
+        content: "  ";
+        width: @carousel-arrow-size;
+        height: @carousel-arrow-size;
+        display: block;
+        border-width: @carousel-arrow-border @carousel-arrow-border 0px 0px;
+        border-style: solid;
+        border-color: currentColor;
+      }
+      &:hover {
+        background-color: @carousel-arrow-bg-hover;
+      }
+    }
+    &-hover > div {
+      opacity: 0;
+      transition: opacity .3s;
+      .@{carousel-prefix}:hover & {
+        opacity: 1;
+      }
+    }
+    &-left {
+      left: 12px;
+      &::after {
+        transform: translateX(35%) rotate(-135deg) ;
+      }
+    }
+    &-right {
+      right: 12px;
+      &::after {
+        transform: translateX(-15%) rotate(45deg) ;
       }
     }
   }
