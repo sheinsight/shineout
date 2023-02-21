@@ -11,7 +11,7 @@ describe('Carousel[Base]', () => {
   test('should render number of items', () => {
     expect(wrapper.find(`.${SO_PREFIX}-carousel-item`).length).toBe(4)
     expect(wrapper.find(`.${SO_PREFIX}-carousel-indicator`).length).toBe(1)
-    expect(wrapper.children().children().length).toBe(5)
+    expect(wrapper.find(`.${SO_PREFIX}-carousel-arrow`).length).toBe(1)
   })
   test('should render item class', () => {
     wrapper.find('Item').forEach(item => {
