@@ -39,4 +39,5 @@
 | wideMatch | boolean | - | Allows all possible matching options to be choosed |
 | open | boolean | - | Set visible of cascader popup |
 | renderUnmatched | (d: any)=> ReactNode | none | Custom rendering unmatched values |
+| renderOptionList | (list: ReactElement, info: {loading: boolean})=> ReactElement | none | Custom render dropdown |
 
