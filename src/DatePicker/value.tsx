@@ -51,15 +51,15 @@ export default <T extends DatePickerValueType>(Origin: React.ComponentType<DateP
       if (format) return format
       switch (type) {
         case 'datetime':
-          return 'yyyy-MM-dd HH:mm:ss'
+          return 'YYYY-MM-DD HH:mm:ss'
         case 'month':
-          return 'yyyy-MM'
+          return 'YYYY-MM'
         case 'time':
           return 'HH:mm:ss'
         case 'week':
-          return 'RRRR II'
+          return 'GGGG WW'
         default:
-          return 'yyyy-MM-dd'
+          return 'YYYY-MM-DD'
       }
     }
 

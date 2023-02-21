@@ -88,10 +88,10 @@ export interface BaseProps<T = DatePickerValue> extends StandardProps, Pick<Abso
   disabled?: ((date: Date, type?: DisabledType, value0?: Date, value1?: Date) => boolean) | boolean
 
   /**
-   * default values for different types: 'date': 'yyyy-MM-dd'. 'time': 'HH:mm:ss'. 'week': 'RRRR II'. 'month': 'yyyy-MM'. 'week': 'RRRR II'. 'quarter': 'yyyy-[Q]Q'. 'year': 'yyyy'. 'datetime': 'yyyy-MM-dd HH:mm:ss'
+   * default values for different types: 'date': 'YYYY-MM-DD'. 'time': 'HH:mm:ss'. 'week': 'GGGG WW'. 'month': 'YYYY-MM'. 'week': 'GGGG WW'. 'quarter': 'YYYY-[Q]Q'. 'year': 'YYYY'. 'datetime': 'YYYY-MM-DD HH:mm:ss'
    *
    *
-   * 不同type对应的默认值。'date': 'yyyy-MM-dd'。'time': 'HH:mm:ss'。'week': 'RRRR II'。'month': 'yyyy-MM'。'quarter': 'yyyy-[Q]Q'。 'year': 'yyyy' 。 'datetime': 'yyyy-MM-dd HH:mm:ss'
+   * 不同type对应的默认值。'date': 'YYYY-MM-DD'。'time': 'HH:mm:ss'。'week': 'GGGG WW'。'month': 'YYYY-MM'。'quarter': 'YYYY-[Q]Q'。 'year': 'YYYY' 。 'datetime': 'YYYY-MM-DD HH:mm:ss'
    *
    *
    * default:
