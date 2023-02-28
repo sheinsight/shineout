@@ -91,7 +91,21 @@ class TimeScroll extends PureComponent {
   }
 
   renderItem(num) {
-    const { ampm, total, value, step, mode, min, max, range: ra, current, disabled, disabledTime } = this.props
+    const {
+      ampm,
+      total,
+      value,
+      step,
+      mode,
+      min,
+      max,
+      range: ra,
+      current,
+      disabled,
+      disabledTime,
+      index,
+      rangeDate,
+    } = this.props
 
     if (typeof step === 'number' && step <= 0) return null
     if (!ampm && typeof step === 'number' && num % step !== 0) return null
@@ -101,17 +115,19 @@ class TimeScroll extends PureComponent {
     else if (total === 12 && num === 0) text = '12'
     else if (num < 10) text = `0${num}`
 
-    const [isDisabled] = paramUtils.judgeTimeByRange(
-      num,
-      current,
+    const [isDisabled] = paramUtils.judgeTimeByRange({
+      target: num,
+      value: current,
       mode,
       min,
       max,
-      ra,
+      range: ra,
       disabled,
       disabledTime,
-      this.getOptions()
-    )
+      options: this.getOptions(),
+      index,
+      rangeDate,
+    })
 
     const className = datepickerClass(!isDisabled && value === num && 'time-active')
     return (
@@ -157,6 +173,8 @@ TimeScroll.propTypes = {
   mode: PropTypes.string,
   disabledTime: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   timeZone: PropTypes.string,
+  index: PropTypes.number,
+  rangeDate: PropTypes.array,
 }
 
 TimeScroll.defaultProps = {

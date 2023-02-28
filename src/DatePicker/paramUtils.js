@@ -1,7 +1,6 @@
 import utils from './utils'
-import { isNumber } from '../utils/is'
 
-const { TIME_FORMAT, compareAsc, addSeconds, format } = utils
+const { TIME_FORMAT, compareAsc, format } = utils
 
 const handleOnChangeParams = type => (date, change, blur = undefined, isEnd = undefined, isQuickSelect = undefined) => [
   date,
@@ -26,25 +25,28 @@ function handleTimeDisabled(date, disabledTime, options) {
   return undefined
 }
 
-function handleDisabled(...args) {
-  const [date, min, max, range, disabled, disabledTime, options] = args
+function handleDisabled(params) {
+  const { date, min, max, range, disabled, disabledTime, options, index, rangeDate } = params
   let isDisabled
   if (disabled) isDisabled = disabled(date)
   if (disabledTime) isDisabled = isDisabled || handleTimeDisabled(date, disabledTime)
   if (isDisabled) return true
   if (!isDisabled && min) {
     if (compareAsc(date, min) < 0) return true
-    if (range && isNumber(range) && compareAsc(date, addSeconds(min, range, options)) > 0) return true
   }
   if (!isDisabled && max) {
     if (compareAsc(date, max) > 0) return true
-    if (range && isNumber(range) && compareAsc(date, addSeconds(max, -range, options)) < 0) return true
+  }
+  if (!isDisabled && index === 1 && rangeDate && rangeDate[0]) {
+    if (typeof range === 'number' && utils.compareAsc(date, utils.addSeconds(rangeDate[0], range, options)) > 0) {
+      return true
+    }
   }
   return false
 }
 
-function judgeTimeByRange(...args) {
-  const [target, value, mode, min, max, range, disabled, disabledTime, options] = args
+function judgeTimeByRange(params) {
+  const { target, value, mode, min, max, range, disabled, disabledTime, index, rangeDate, options } = params
   let date = new Date(value.getTime())
   switch (mode) {
     case 'H':
@@ -79,7 +81,17 @@ function judgeTimeByRange(...args) {
       break
   }
 
-  const isDisabled = handleDisabled(date, min, max, range, disabled, disabledTime, options)
+  const isDisabled = handleDisabled({
+    date,
+    min,
+    max,
+    range,
+    disabled,
+    disabledTime,
+    options,
+    index,
+    rangeDate,
+  })
   return [isDisabled, date]
 }
 
