@@ -29,8 +29,6 @@ class Text extends PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    console.log(prevProps.focus, this.props.focus)
-    console.log(this.props.focusElement, this.element)
     if (
       prevProps.focus !== this.props.focus &&
       this.props.focus &&
