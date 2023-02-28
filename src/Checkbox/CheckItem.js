@@ -5,7 +5,7 @@ import { PureComponent } from '../component'
 import { getProps, defaultProps } from '../utils/proptypes'
 import { getUidStr } from '../utils/uid'
 import { getDirectionClass } from '../utils/classname'
-import { isEnterPress } from '../utils/is'
+import { isEnterPress, isFunc } from '../utils/is'
 import Input from '../Input'
 import { checkinputClass } from './styles'
 import { isRTL } from '../config'
@@ -50,6 +50,12 @@ export default function(type) {
       return this.state[key]
     }
 
+    onClick = e => {
+      e.stopPropagation()
+      const { onClick } = this.props
+      if (isFunc(onClick)) onClick()
+    }
+
     bindRef(el) {
       if (el) this.el = el
     }
@@ -91,7 +97,7 @@ export default function(type) {
     }
 
     render() {
-      const { disabled, style, content, size, children, inputable, onClick } = this.props
+      const { disabled, style, content, size, children, inputable } = this.props
 
       const rtl = isRTL()
 
@@ -140,7 +146,7 @@ export default function(type) {
             disabled={disabled}
             tabIndex={-1}
             type={isSwitch ? 'checkbox' : type}
-            onClick={onClick}
+            onClick={this.onClick}
             onChange={this.handleChange}
             checked={checked}
           />

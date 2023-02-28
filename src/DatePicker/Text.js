@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import classnames from 'classnames'
+import { inputClass } from 'shineout/Input/styles'
 import { getParent, focusElement } from '../utils/dom/element'
 import utils from './utils'
 import { datepickerClass } from './styles'
@@ -22,10 +24,13 @@ class Text extends PureComponent {
     this.handleBlur = this.handleBlur.bind(this)
     this.handleInput = this.handleInput.bind(this)
     this.handleFocus = this.handleFocus.bind(this)
+    this.handleSpanClick = this.handleSpanClick.bind(this)
     this.bindElement = this.bindElement.bind(this)
   }
 
   componentDidUpdate(prevProps) {
+    console.log(prevProps.focus, this.props.focus)
+    console.log(this.props.focusElement, this.element)
     if (
       prevProps.focus !== this.props.focus &&
       this.props.focus &&
@@ -69,6 +74,11 @@ class Text extends PureComponent {
     if (onTextSpanRef) onTextSpanRef(e.target)
   }
 
+  handleSpanClick() {
+    const { onTextSpanRef } = this.props
+    if (onTextSpanRef && this.element) onTextSpanRef(this.element)
+  }
+
   handleInput(e) {
     if (e.keyCode === 13) {
       e.preventDefault()
@@ -85,25 +95,32 @@ class Text extends PureComponent {
 
   render() {
     const { className, inputable, value, placeholder, disabled, focus } = this.props
-
-    if (!inputable || disabled || !focus) {
-      return (
-        <span onClick={this.handleFocus} className={className}>
+    const showInput = inputable && !disabled && focus
+    const hideStyle = { display: 'none' }
+    return (
+      <>
+        {inputable ? (
+          <span
+            style={!showInput ? hideStyle : undefined}
+            ref={this.bindElement}
+            key="edit"
+            contentEditable={inputable}
+            onBlur={this.handleBlur}
+            onFocus={this.handleFocus}
+            onKeyDown={this.handleInput}
+            className={className}
+            dangerouslySetInnerHTML={{ __html: value }}
+          />
+        ) : null}
+        <span
+          style={showInput ? hideStyle : undefined}
+          key="placeholder"
+          onClick={this.handleSpanClick}
+          className={classnames(!value && inputClass('placeholder'), className)}
+        >
           {value || placeholder}
         </span>
-      )
-    }
-
-    return (
-      <span
-        ref={this.bindElement}
-        contentEditable={inputable}
-        onBlur={this.handleBlur}
-        onFocus={this.handleFocus}
-        onKeyDown={this.handleInput}
-        className={className}
-        dangerouslySetInnerHTML={{ __html: value }}
-      />
+      </>
     )
   }
 }

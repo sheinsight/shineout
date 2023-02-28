@@ -344,7 +344,12 @@ describe('TreeSelect[defaultValue]', () => {
       <TreeSelect width={200} keygen="id" defaultValue="1" data={modeData} renderItem={node => `node ${node.text}`} />
     )
     appendToDOM(wrapper.html())
-    expect(wrapper.find(`.so-treeSelect-ellipsis`).text()).toBe('node 1')
+    expect(
+      wrapper
+        .find(`.so-treeSelect-ellipsis`)
+        .first()
+        .text()
+    ).toBe('node 1')
   })
 })
 
@@ -868,7 +873,12 @@ describe('TreeSelect[renderResult]', () => {
       .last()
       .simulate('click')
 
-    expect(wrapper.find(`.${SO_PREFIX}-treeSelect-ellipsis`).text()).toBe(`Hello 2`)
+    expect(
+      wrapper
+        .find(`.${SO_PREFIX}-treeSelect-ellipsis`)
+        .first()
+        .text()
+    ).toBe(`Hello 2`)
   })
 })
 

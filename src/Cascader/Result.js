@@ -235,7 +235,7 @@ class Result extends PureComponent {
     )
   }
 
-  renderPlaceholder() {
+  renderPlaceholder(empty) {
     const { focus, onFilter, innerTitle } = this.props
     if (focus && onFilter) {
       return this.renderInput()
@@ -243,6 +243,7 @@ class Result extends PureComponent {
     return (
       <span
         key="placeholder"
+        style={!empty ? { display: 'none' } : undefined}
         className={classnames(
           inputClass('placeholder'),
           selectClass('ellipsis'),
@@ -268,7 +269,7 @@ class Result extends PureComponent {
   }
 
   renderResult() {
-    const { datum, value, renderItem, renderResult, compressed, focus, onFilter } = this.props
+    const { datum, value, renderItem, renderResult, compressed } = this.props
     const nodes = value.map(v => datum.getDataById(v))
     let render = renderResult || renderItem
     if (typeof render === 'string') {
@@ -281,12 +282,7 @@ class Result extends PureComponent {
     if (compressed && items.length) {
       items = this.renderMore(items)
     }
-
-    if (items.length === 0) {
-      items.push(this.renderPlaceholder())
-    } else if (focus && onFilter) {
-      items.push(this.renderInput())
-    }
+    items.push(this.renderPlaceholder(items.length === 0))
 
     return items
   }
@@ -294,7 +290,7 @@ class Result extends PureComponent {
   render() {
     const { style, value, compressed, multiple, innerTitle, onFilter, focus } = this.props
     const empty = value.length === 0
-    const result = empty ? this.renderPlaceholder() : this.renderResult()
+    const result = this.renderResult()
     const clearEl = this.renderClear()
     const shouldCompressed = multiple && compressed
     return (

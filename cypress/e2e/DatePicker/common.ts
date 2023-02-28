@@ -6,24 +6,26 @@ export function open(selector: string) {
 }
 
 export function input(selector: string, value: string) {
+    cy.get(selector).trigger('click')
   return cy
     .get(selector)
-    .find('.so-datepicker-txt')
+    .find('.so-datepicker-txt[contenteditable="true"]')
     .click()
     .clear()
     .type(`${value}{enter}`)
 }
 
 export function inputRange(selector: string, value: string[]) {
+  cy.get(selector).trigger('click')
   cy.get(selector)
-    .find('.so-datepicker-txt')
+    .find('.so-datepicker-txt[contenteditable="true"]')
     .first()
     .click()
     .clear()
     .type(`${value[0]}`)
   return cy
     .get(selector)
-    .find('.so-datepicker-txt')
+    .find('.so-datepicker-txt[contenteditable="true"]')
     .last()
     .click()
     .clear()
