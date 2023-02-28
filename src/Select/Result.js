@@ -271,16 +271,17 @@ class Result extends PureComponent {
     )
   }
 
-  renderPlaceholder() {
+  renderPlaceholder(empty) {
     const { focus, onFilter, filterText, multiple, innerTitle } = this.props
 
-    if (focus && onFilter) {
+    if (focus && onFilter && empty) {
       return this.renderInput(multiple ? filterText : '')
     }
 
     return (
       <span
         key="placeholder"
+        style={!empty ? { display: 'none' } : undefined}
         className={classnames(
           inputClass('placeholder'),
           selectClass('ellipsis'),
@@ -351,12 +352,13 @@ class Result extends PureComponent {
   render() {
     const { compressed, innerTitle, focus, onFilter } = this.props
     const showPlaceholder = this.isEmptyResult()
-    const result = showPlaceholder ? this.renderPlaceholder() : this.renderResult()
+    const placeholder = this.renderPlaceholder(showPlaceholder)
+    const result = showPlaceholder ? null : this.renderResult()
 
     const rtl = isRTL()
     const clearEl = this.renderClear()
     const indicator = this.renderIndicator()
-    const inner = [result, indicator, clearEl]
+    const inner = [result, placeholder, indicator, clearEl]
     const open = (onFilter && focus) || !showPlaceholder
 
     return (
