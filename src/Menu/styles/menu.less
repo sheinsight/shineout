@@ -7,6 +7,7 @@
 @ul-default-margin: 0;
 @ul-root-margin: -1px;
 @title-padding-x: 16px;
+@title-padding-y: 10px;
 @vertical-list-margin-x: 3px;
 @caret-solid-margin: 8px;
 @caret-hollow-margin-x-start: -4px;
@@ -41,9 +42,9 @@
 
   &-item {
     a {
-      display: block;
+      display: flex;
       color: @menu-item-color;
-      white-space: nowrap;
+      //white-space: nowrap;
       transition: all @transition-duration;
 
       &:focus {
@@ -81,9 +82,11 @@
 
   &-title {
     position: relative;
-    height: @menu-item-height;
-    padding: 0 @title-padding-x;
-    line-height: @menu-item-height;
+    min-height: @menu-item-height;
+    padding: @title-padding-y @title-padding-x;
+    display: flex;
+    align-items: center;
+    line-height: @line-height-base;
     font-size: @menu-item-font-size;
   }
 
@@ -279,6 +282,9 @@
   }
 
   &-vertical {
+    .@{menu-prefix}-title {
+      white-space: nowrap;
+    }
     &.@{menu-prefix}-root {
       border-right: solid 1px @menu-border-color;
     }
@@ -515,8 +521,8 @@
       .@{menu-prefix}-caret-solid {
         .@{menu-prefix}-title {
           & > .@{menu-prefix}-caret.@{menu-prefix}-has-childs {
-              color: @menu-dark-item;
-              border-top-color: currentColor;
+            color: @menu-dark-item;
+            border-top-color: currentColor;
           }
 
           &:hover {

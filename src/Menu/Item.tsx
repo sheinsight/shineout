@@ -200,14 +200,14 @@ class Item<U extends BaseItemProps<U>> extends PureComponent<ItemProps<U>, State
       return (
         <a {...props}>
           <div style={{ color: caretColor }} className={menuClass('caret', hasChilds && 'has-childs')} />
-          {item}
+          <span>{item}</span>
         </a>
       )
     }
 
     return (
       <a {...props}>
-        {item}
+        <span>{item}</span>
         <span className={menuClass('expand')} style={{ color: caretColor }} />
       </a>
     )

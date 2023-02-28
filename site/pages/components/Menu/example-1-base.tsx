@@ -63,6 +63,10 @@ const data: MenuItem[] = [
     id: '2',
     title: 'Navigation Four',
   },
+  {
+    id: '3',
+    title: 'This is a very very very very long menu title',
+  },
 ]
 
 const App: React.FC = () => {
