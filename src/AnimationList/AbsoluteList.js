@@ -14,10 +14,23 @@ import { addZoomListener, removeZoomListener } from '../utils/zoom'
 
 const PICKER_V_MARGIN = 4
 let root
+
 function initRoot() {
   root = document.createElement('div')
   root.className = listClass('root', isRTL() && 'rtl')
   document.body.appendChild(root)
+
+  const observer = new MutationObserver(mutationsList => {
+    for (const mutation of mutationsList) {
+      if (mutation.type === 'childList' && mutation.removedNodes.length > 0) {
+        if (!document.documentElement.contains(root)) {
+          root = null
+          observer.disconnect()
+        }
+      }
+    }
+  })
+  observer.observe(root.parentNode, { childList: true })
 }
 
 const getOverDocStyle = right => (right ? { left: 0, right: 'auto' } : { right: 0, left: 'auto' })
@@ -46,6 +59,7 @@ export default function(List) {
         props.getResetPosition(this.resetPosition.bind(this))
       }
       this.zoomChangeHandler = this.zoomChangeHandler.bind(this)
+      this.observer = null
     }
 
     componentDidMount() {
