@@ -2,6 +2,10 @@ import '@babel/polyfill'
 import Enzyme from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 
+window.MutationObserver = jest.fn(() => ({
+  observe: jest.fn(),
+}))
+
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
   value: jest.fn().mockImplementation(query => ({

@@ -33,6 +33,11 @@ function initRoot() {
   observer.observe(root.parentNode, { childList: true })
 }
 
+function getRoot() {
+  if (!root || root.isConnected === false) initRoot()
+  return root
+}
+
 const getOverDocStyle = right => (right ? { left: 0, right: 'auto' } : { right: 0, left: 'auto' })
 
 const listPosition = ['drop-down', 'drop-up']
@@ -52,7 +57,7 @@ export default function(List) {
       this.lastStyle = {}
 
       if (!root) initRoot()
-      this.container = typeof this.props.absolute === 'function' ? this.props.absolute() : root
+      this.container = typeof this.props.absolute === 'function' ? this.props.absolute() : getRoot()
       this.element = document.createElement('div')
       if (this.container) this.container.appendChild(this.element)
       if (props.getResetPosition) {
@@ -64,7 +69,7 @@ export default function(List) {
 
     componentDidMount() {
       if (this.props.absolute && !this.container) {
-        this.container = typeof this.props.absolute === 'function' ? this.props.absolute() : root
+        this.container = typeof this.props.absolute === 'function' ? this.props.absolute() : getRoot()
         this.container.appendChild(this.element)
         if (this.props.focus) {
           this.forceUpdate()
@@ -116,7 +121,7 @@ export default function(List) {
       }
 
       const { container } = this
-      const rootContainer = container === root || !container ? document.body : container
+      const rootContainer = container === getRoot() || !container ? document.body : container
       const containerRect = rootContainer.getBoundingClientRect()
       const containerScroll = {
         left: rootContainer.scrollLeft,
