@@ -52,6 +52,15 @@ export interface MessageOptions {
    * default: -
    */
   top?: string
+
+  /**
+   * target element
+   *
+   * 渲染的目标节点
+   *
+   * default: document.body
+   */
+  container?: (() => HTMLElement) | HTMLElement
 }
 
 export interface MessageProps {

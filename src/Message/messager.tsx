@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import { messageClass } from './styles'
 import Container from './Container'
 import { PositionType } from './Props'
+import { isFunc } from '../utils/is'
 
 const elements: {
   [type: string]: HTMLElement
@@ -11,11 +12,20 @@ const components: {
   [type: string]: Container | null
 } = {}
 
-function getElement(type: PositionType) {
+function getElement(type: PositionType, container?: (() => HTMLElement) | HTMLElement) {
   const div = document.createElement('div')
   div.className = messageClass('_', type)
+  let target = document.body
 
-  document.body.appendChild(div)
+  if (container && isFunc(container)) {
+    target = container()
+  }
+
+  if (container && container instanceof HTMLElement) {
+    target = container
+  }
+
+  target.appendChild(div)
   elements[type!] = div
   return div
 }
@@ -32,21 +42,27 @@ export function destroy(type: PositionType) {
   }
 }
 
-export function getComponent(type: PositionType): Promise<{ addMessage: (message: any) => void }> {
+export function getComponent({
+  position,
+  container,
+}: {
+  position: PositionType
+  container?: (() => HTMLElement) | HTMLElement
+}): Promise<{ addMessage: (message: any) => void }> {
   return new Promise(resolve => {
-    const component = components[type!]
+    const component = components[position!]
     if (component) {
       resolve(component)
     } else {
       ReactDOM.render(
         <Container
           ref={comp => {
-            components[type] = comp
+            components[position] = comp
             resolve(comp!)
           }}
-          onDestory={destroy.bind(null, type)}
+          onDestory={destroy.bind(null, position)}
         />,
-        getElement(type)
+        getElement(position, container)
       )
     }
   })
