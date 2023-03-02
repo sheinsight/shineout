@@ -64,6 +64,8 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
 
   lastResult: undefined
 
+  lastFoucs: boolean
+
   focusInput: null | ((flag?: boolean) => void)
 
   inputReset: () => void
@@ -136,20 +138,30 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
 
   componentDidMount() {
     super.componentDidMount()
+    this.setOpenEvent()
     const { formDatum } = this.props
     if (formDatum) {
       formDatum.subscribe(SUBMIT_TOPIC, this.forceChange)
     }
   }
 
-  componentDidUpdate(_prevProps: BaseSelectProps<Item, Value>, prevState: SelectState) {
+  componentDidUpdate(prevProps: BaseSelectProps<Item, Value>, prevState: SelectState) {
+    this.setOpenEvent()
     const { onFilter } = this.props
-
     // clear filter
-    if (prevState.focus !== this.state.focus && !this.state.focus && onFilter) {
-      setTimeout(() => {
-        onFilter('', 'blur')
-      }, 400)
+    if (onFilter) {
+      if (
+        (prevState.focus !== this.state.focus && !this.state.focus) ||
+        (prevProps.open !== this.props.open && !this.props.open)
+      ) {
+        setTimeout(() => {
+          onFilter('')
+        }, 400)
+      }
+    }
+
+    if (this.props.open !== undefined && prevProps.open !== this.props.open) {
+      this.handleState(this.props.open, null)
     }
   }
 
@@ -160,6 +172,23 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
       formDatum.unsubscribe(SUBMIT_TOPIC, this.forceChange)
     }
     this.clearClickAway()
+  }
+
+  get focus() {
+    if ('open' in this.props) {
+      return !!this.props.open
+    }
+    return this.state.focus
+  }
+
+  setOpenEvent() {
+    if (this.lastFoucs !== this.focus)
+      if (this.focus) {
+        this.bindClickAway()
+      } else if (this.lastFoucs !== undefined) {
+        this.clearClickAway()
+      }
+    this.lastFoucs = this.focus
   }
 
   getDisabledStatus() {
@@ -245,7 +274,7 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
     const { onCreate, onFilter } = this.props
     const plain = !onCreate && !onFilter
     const target = e.target as HTMLDivElement
-    if (this.state.focus) {
+    if (this.focus) {
       if ((plain && isResult(target)) || isResult(target, `.${selectClass('caret')}`)) {
         this.handleState(false, e)
         return
@@ -256,7 +285,7 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
 
   handleState(focus: boolean, e?: any) {
     if (this.getDisabledStatus() === true) return
-    if (focus === this.state.focus) return
+    if (this.props.open === undefined && focus === this.focus) return
     // click close icon
     if (focus && e && e.target.classList.contains(selectClass('close'))) return
 
@@ -373,7 +402,7 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
     this.props.datum.setValue(([] as unknown) as Value)
     this.element.focus()
 
-    if (this.state.focus === false) {
+    if (this.focus === false) {
       this.forceUpdate()
     } else {
       this.handleState(false)
@@ -413,7 +442,7 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
     const { onEnterExpand } = this.props
     this.keyLocked = true
     // just for enter to open the list
-    if ((e.keyCode === 13 || e.keyCode === 40) && !this.state.focus) {
+    if ((e.keyCode === 13 || e.keyCode === 40) && !this.focus) {
       e.preventDefault()
       if (typeof onEnterExpand === 'function') {
         const canOpen = onEnterExpand(e)
@@ -427,13 +456,13 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
     if (e.keyCode === 9) {
       this.props.onBlur(e as any)
       // e.preventDefault()
-      if (this.state.focus) this.handleState(false, e)
+      if (this.focus) this.handleState(false, e)
       else this.clearClickAway()
       return
     }
 
     // no focus no event
-    if (!this.state.focus) return
+    if (!this.focus) return
 
     this.handleControlChange('keyboard')
 
@@ -523,7 +552,7 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
   }
 
   renderTree() {
-    const { focus, position } = this.state
+    const { position } = this.state
     const { optionWidth } = this.props
     const props = {
       treeData: this.props.treeData!,
@@ -556,7 +585,7 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
         position={position}
         rootClass={selectClass(position, isRTL() && 'rtl')}
         selectId={this.selectId}
-        focus={focus}
+        focus={this.focus}
         renderPending={this.renderPending}
         fixed="min"
         {...props}
@@ -567,7 +596,7 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
   }
 
   renderList() {
-    const { focus, control, position } = this.state
+    const { control, position } = this.state
     const { autoAdapt, value, optionWidth } = this.props
     const props = {
       data: this.props.data,
@@ -603,7 +632,7 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
           autoClass={selectClass(autoAdapt && 'auto-adapt')}
           bindOptionFunc={this.bindOptionFunc}
           renderPending={this.renderPending}
-          focus={focus}
+          focus={this.focus}
           selectId={this.selectId}
           onChange={this.handleChange}
           renderItem={this.renderItem}
@@ -623,7 +652,7 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
         autoClass={selectClass(autoAdapt && 'auto-adapt')}
         bindOptionFunc={this.bindOptionFunc}
         renderPending={this.renderPending}
-        focus={focus}
+        focus={this.focus}
         control={control}
         selectId={this.selectId}
         onControlChange={this.handleControlChange}
@@ -673,7 +702,7 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
     const className = selectClass(
       'inner',
       size,
-      this.state.focus && 'focus',
+      this.focus && 'focus',
       this.state.position,
       multiple && 'multiple',
       disabled === true && getDirectionClass('disabled'),
@@ -701,7 +730,7 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
           onFilter={onFilter ? this.handleFilter : undefined}
           datum={datum}
           disabled={disabled}
-          focus={this.state.focus}
+          focus={this.focus}
           result={result}
           multiple={multiple}
           placeholder={placeholder}
