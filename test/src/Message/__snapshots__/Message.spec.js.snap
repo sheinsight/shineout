@@ -95,3 +95,15 @@ exports[`Message[snapshot] Snapshot test: Message[site/pages/components/Message/
   </span>
 </button>
 `;
+
+exports[`Message[snapshot] Snapshot test: Message[site/pages/components/Message/example-6-container.tsx] 1`] = `
+<div>
+  <div>
+    <button>
+      <span>
+        Show
+      </span>
+    </button>
+  </div>
+</div>
+`;
