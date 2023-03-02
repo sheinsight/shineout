@@ -13,19 +13,19 @@ const defaultValue = {
   separator: '/',
 }
 
-class Breadcrumb extends React.PureComponent<BreadcrumbProps> {
+class Breadcrumb<Item = BreadcrumbData> extends React.PureComponent<BreadcrumbProps<Item>> {
   static defaultProps = defaultValue
 
   static displayName: string
 
-  renderArray(data: StructureArray<BreadcrumbData>) {
-    const first = data[0] as BreadcrumbData
+  renderArray(data: StructureArray<Item>) {
+    const first = data[0] as Item
     return (
       <span>
         {this.renderItem(first)}
         <span className={breadcrumbClass('down')}>{<Caret />}</span>
         <Popover position="bottom">
-          {(data as BreadcrumbData[]).slice(1).map((d, i) => (
+          {(data as Item[]).slice(1).map((d, i) => (
             <div className={breadcrumbClass('dropdown-item')} key={i}>
               {this.renderItem(d)}
             </div>
@@ -35,8 +35,9 @@ class Breadcrumb extends React.PureComponent<BreadcrumbProps> {
     )
   }
 
-  renderItem(d: BreadcrumbData) {
+  renderItem(dataItem: Item) {
     const { renderItem } = this.props
+    const d = dataItem as BreadcrumbData
     let item = d.title
     if (!React.isValidElement(item)) {
       if (d.onClick || d.url) {
@@ -52,10 +53,16 @@ class Breadcrumb extends React.PureComponent<BreadcrumbProps> {
           </a>
         )
       } else {
-        item = <b>{d.title}</b>
+        item = (
+          <b>
+            {d.icon}
+            &nbsp;
+            {d.title}
+          </b>
+        )
       }
     }
-    return renderItem ? renderItem(d) : item
+    return renderItem ? renderItem(dataItem) : item
   }
 
   render() {

@@ -1,5 +1,5 @@
 import React from 'react'
-import { KeygenType, LiteralUnion } from '../@types/common'
+import { KeygenType, ObjectKey } from '../@types/common'
 
 export type Direction = 'X' | 'Y'
 
@@ -180,7 +180,7 @@ export interface RootProps<Item, Value> {
    *
    * default: -
    */
-  linkKey?: ((d: Item) => string) | LiteralUnion<Item>
+  linkKey?: ((d: Item) => string) | ObjectKey<Item>
 
   /**
    * Element render mode. If it is a string, the corresponding value is taken as the display content; If it is a function, the result returned by the function is taken as the display content.
@@ -189,7 +189,7 @@ export interface RootProps<Item, Value> {
    *
    * default: 'title'
    */
-  renderItem: ((data: Item, index: number) => React.ReactElement | React.ReactNode) | LiteralUnion<Item>
+  renderItem: ((data: Item, index: number) => React.ReactElement | React.ReactNode) | ObjectKey<Item>
 }
 
 export interface ListProps<Item extends BaseItemProps<Item>> {
@@ -210,7 +210,7 @@ export interface ListProps<Item extends BaseItemProps<Item>> {
   style?: React.CSSProperties
   disabled?: (data: Item) => boolean
   frontCaretType?: 'hollow' | 'solid'
-  linkKey?: ((d: Item) => string) | LiteralUnion<Item>
+  linkKey?: ((d: Item) => string) | ObjectKey<Item>
   onClick?: (id: string, data: Item) => void
   toggleOpenKeys: (id: string, open: boolean) => void
   keygen: KeygenType<Item>

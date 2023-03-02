@@ -2,7 +2,7 @@ import * as React from 'react'
 import { ReactNode } from 'react'
 import ListDatum from '../Datum/List'
 import { GetDatumListProps } from '../Datum/Props'
-import { KeygenResult, LiteralUnion, StructKeygenType } from '../@types/common'
+import { KeygenResult, ObjectKey, StructKeygenType } from '../@types/common'
 import { GetInputableProps } from '../Form/Props'
 
 type filterProps = {
@@ -28,7 +28,7 @@ export interface BaseTransferProps<DataItem, Value extends any[]> {
   data: DataItem[]
   datum: ListDatum<DataItem, Value>
   keygen: StructKeygenType<DataItem>
-  renderItem?: ((data: DataItem) => React.ReactNode) | LiteralUnion<DataItem>
+  renderItem?: ((data: DataItem) => React.ReactNode) | ObjectKey<DataItem>
   footers?: [NodeItem, NodeItem]
   operations?: [NodeItem, NodeItem]
   operationIcon?: boolean

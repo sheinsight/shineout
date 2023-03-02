@@ -5,126 +5,104 @@ type ReactNode = React.ReactNode
 
 export interface CardContextValueType {
   /**
-   *  inner attribute, get form context
-   *
-   *  内部属性，从context获取
+   *  @inner 内部属性，从context获取
    */
   container?: HTMLDivElement
 }
 
 export type GetCardConsumerProps<U> = Omit<U, keyof CardContextValueType>
 
+/**
+ * @title CardGroup
+ */
 export interface CardGroupProps extends StandardProps {
   /**
-   * group height
-   *
-   * 卡片组高度
-   *
-   * default: none
+   * @en group height
+   * @cn 卡片组高度
    */
   height?: number
 
   /**
-   * card min width
-   *
-   * 卡片最小宽度
-   *
-   * default: none
+   * @en card min width
+   * @cn 卡片最小宽度
    */
   cardWidth?: number
 
   /**
-   * items count each row, not work while cardWidth setted
-   *
-   * 列数，设置 cardWidth 后该属性将失效
-   *
-   * default: 3
+   * @en items count each row, not work while cardWidth setted
+   * @cn 列数，设置 cardWidth 后该属性将失效
+   * @default 3
    */
   columns?: number
 
   /**
-   * grid style
-   *
-   * 卡片网格样式
-   *
-   * default: none
+   * @en grid style
+   * @cn 卡片网格样式
    */
   gridStyle?: React.CSSProperties
 
   /**
-   * gutter width horizontal and vertical, if diff shoud set gridStyle
-   *
-   * 卡片横向纵向间距，如果两个间距相互独立可以通过 gridStyle 调整
-   *
-   * default: 16
+   * @en gutter width horizontal and vertical, if diff shoud set gridStyle
+   * @cn 卡片横向纵向间距，如果两个间距相互独立可以通过 gridStyle 调整
+   * @default 16
    */
   gutter?: number
 
   /**
-   * children
-   *
-   * 子元素
-   *
-   * default: -
+   * @cn children
+   * @en 子元素
    */
   children?: ReactNode
 }
 
-export interface BaseCardGroupItemProps<T> extends StandardProps, CardContextValueType {
+export interface BaseCardGroupItemProps<Value> extends StandardProps, CardContextValueType {
   /**
-   * desc: lazy load placeholder, enable lazy load while set
+   * @en lazy load placeholder, enable lazy load while set
+   * @cn 懒加载占位元素，设置后卡片将开启懒加载
    *
-   * 懒加载占位元素，设置后卡片将开启懒加载
-   *
-   * default: none
    */
   placeholder?: ReactNode
 
   /**
-   * desc: checked status, hide while not set
-   *
-   * checked 表示选中状态，不设置则不显示选择框
-   *
-   * default: -
+   * @en checked status, hide while not set
+   * @cn checked 表示选中状态，不设置则不显示选择框
    */
   checked?: boolean | undefined
 
   /**
-   * desc: disable checkbox
+   * @en disable checkbox
    *
-   * 是否禁用选择框
+   * @cn 是否禁用选择框
    *
-   * default: false
+   * @default false
    */
   disabled?: boolean
 
   /**
-   * desc: Specifies the result
-   *
-   * 选中时返回值
-   *
-   * default: true
+   * @en Specifies the result
+   * @cn 选中时返回值
+   * @default true
+   * @override any
    */
-  value?: T
+  value?: Value
 
   /**
-   * desc: check changed, value is the value props
+   * @en check changed, value is the value props
+   * @cn 选中状态变化事件，checked表示选中状态，value代表对应的值
    *
-   * 选中状态变化事件，checked表示选中状态，value代表对应的值
-   *
-   * default: -
    */
-  onChange?: (checked: boolean, value: T) => void
+  onChange?: (checked: boolean, value: Value) => void
 
   /**
-   * children
-   *
-   * 子元素
-   *
-   * default: -
+   * @en children
+   * @cn 子元素
    */
   children?: ReactNode
 }
+
+/**
+ * @title CardGroup.Item
+ */
 export type CardGroupItemProps<T> = GetCardConsumerProps<BaseCardGroupItemProps<T>>
 export declare class CardGroupItem<Value = any> extends React.Component<CardGroupItemProps<Value>, {}> {
   render(): JSX.Element

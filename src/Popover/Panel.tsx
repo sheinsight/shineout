@@ -12,7 +12,7 @@ import { Provider as AbsoluteProvider } from '../Table/context'
 import { consumer, Provider } from './context'
 import { getUidStr } from '../utils/uid'
 import getCommonContainer from '../utils/dom/popContainer'
-import { PanelProps, PopoverPosition } from './Props'
+import { PanelProps, PopoverPositionType } from './Props'
 
 const emptyEvent = <U extends { stopPropagation: () => void }>(e: U) => e.stopPropagation()
 
@@ -174,7 +174,7 @@ class Panel extends Component<PanelProps, PanelState> {
         position += '-left'
       }
     }
-    return position as PopoverPosition
+    return position as PopoverPositionType
   }
 
   getContainer() {
@@ -198,7 +198,7 @@ class Panel extends Component<PanelProps, PanelState> {
     }
   }
 
-  updatePosition(position: PopoverPosition) {
+  updatePosition(position: PopoverPositionType) {
     const pos = getPosition(position, this.parentElement, this.container)
     // eslint-disable-next-line
     Object.keys(pos).forEach((attr: keyof typeof pos) => {

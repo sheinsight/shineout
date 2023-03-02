@@ -183,31 +183,76 @@ export interface BaseInputProps {
 }
 
 export interface InputableProps<Value> {
+  /**
+   * @en The callback before the value is changed, when the return value is not empty, it will be used as the new value of the component
+   * @cn 值改变前的回调，当返回值不为空时将作为组件的新值
+   * @override (value: any , datum: FormDatum) => any
+   */
   beforeChange?: (value: Value | undefined, datum: FormDatum<ObjectType>) => Value | undefined | void
   onChange?: (value: Value | undefined, ...rest: any) => void
+  /**
+   * @en rules validation callback
+   * @cn rules 校验回调
+   */
   onError?: (e?: Error) => void
   popover?: string
+  /**
+   * @en value
+   * @cn 值
+   */
   value?: Value
   error?: Error
   // readOnly?: boolean
   disabled?: boolean
+  /**
+   * @en onChange is not triggered when two selected values are the same
+   * @cn 当两次选择的值相同时不触发onChange
+   * @default false
+   */
   filterSameChange?: boolean
   combineRules?: (name: string, rules?: FormItemRule<Value>) => FormItemRule<Value>
   required?: boolean
+  /**
+   * @en When the value changes, it will link to verify the fields in the bind, which needs to be used with Form
+   * @cn 当值改变是会联动校验 bind 中的字段, 需要配合Form 使用
+   */
   bind?: string[]
   onItemError?: (id: string, error?: Error) => void
   bindInputToItem?: (name: string) => void
   unbindInputFromItem?: (name: string) => void
+  /**
+   * @inner 内部属性
+   */
   scuSkip?: string[]
+  /**
+   * @en defaultValue
+   * @cn 默认值
+   */
   defaultValue?: Value
+  /**
+   * @en If set to true, the form will not automatically delete the data after the component is uninstalled
+   * @cn 设置为true 组件卸载后表单不自动删除数据
+   */
   reserveAble?: boolean
+  /**
+   * @en Validation rules, see Rule usage for details
+   * @cn 校验规则 详见 Rule 用法
+   * @override RuleItem[]
+   */
   rules?: FormItemRule<Value>
   /**
-   * 内部属性
+   * @inner 内部属性
    */
   formDatum?: FormDatum<ObjectType>
   fieldSetValidate?: (validator: boolean) => void
+  /**
+   * @en Form field, used with Form
+   * @cn 表单字段,配合 Form 使用
+   */
   name?: string | string[]
+  /**
+   * @inner 内部属性
+   */
   forceChangeOnValueSet?: boolean
 }
 export type InputableFormConsumerKey = 'formDatum' | 'disabled' | 'combineRules' | 'size'

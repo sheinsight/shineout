@@ -1,5 +1,5 @@
 import React, { PropsWithChildren, ReactNode } from 'react'
-import { KeygenType, LiteralUnion, StandardProps } from '../@types/common'
+import { KeygenType, ObjectKey, StandardProps } from '../@types/common'
 import ListDatum from '../Datum/List'
 import { GetInputableProps } from '../Form/Props'
 import { GetDatumListProps } from '../Datum/Props'
@@ -110,7 +110,7 @@ export interface BaseCheckboxGroupProps<DataItem, Value> extends StandardProps {
    *
    * default: d => d
    */
-  renderItem?: LiteralUnion<DataItem> | ((data: DataItem, index?: number) => React.ReactNode)
+  renderItem?: ObjectKey<DataItem> | ((data: DataItem, index?: number) => React.ReactNode)
   keygen: KeygenType<DataItem>
 
   /**

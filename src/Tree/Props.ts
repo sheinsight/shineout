@@ -1,6 +1,6 @@
 import * as React from 'react'
 import * as CSS from 'csstype'
-import { KeygenResult, LiteralUnion, StandardProps, ValueItem } from '../@types/common'
+import { KeygenResult, ObjectKey, StandardProps, ValueItem } from '../@types/common'
 import DatumTree, { TreePathType, TreeModeType } from '../Datum/Tree'
 import { GetInputableProps } from '../Form/Props'
 
@@ -130,7 +130,7 @@ export interface TreeProps<DataItem, Value extends any[]> extends StandardProps 
    *
    * default: children
    */
-  childrenKey?: LiteralUnion<DataItem>
+  childrenKey?: ObjectKey<DataItem>
 
   /**
    * desc: DIY icon when expanded
@@ -175,7 +175,7 @@ export interface TreeProps<DataItem, Value extends any[]> extends StandardProps 
    *
    * default: index
    */
-  keygen: LiteralUnion<DataItem> | ((data: DataItem, parentKey: KeygenResult) => KeygenResult)
+  keygen: ObjectKey<DataItem> | ((data: DataItem, parentKey: KeygenResult) => KeygenResult)
   /**
    * desc: selector when dray image
    *
@@ -216,7 +216,7 @@ export interface TreeProps<DataItem, Value extends any[]> extends StandardProps 
    * default: -
    */
   renderItem:
-    | LiteralUnion<DataItem>
+    | ObjectKey<DataItem>
     | ((data: DataItem, expanded: boolean, active: boolean, id: KeygenResult) => React.ReactNode)
   /**
    * desc: automatically expand nodes with child nodes when dragging

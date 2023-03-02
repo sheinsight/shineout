@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { StandardProps, RegularAttributes, LiteralUnion, KeygenType } from '../@types/common'
+import { StandardProps, RegularAttributes, ObjectKey, KeygenType } from '../@types/common'
 import ListDatum from '../Datum/List'
 import { GetPagableProps } from '../hoc/Props'
 import { GetDatumListProps } from '../Datum/Props'
@@ -19,7 +19,7 @@ export interface BaseListProps<Item, Value> extends StandardProps {
    * 内部属性
    */
   datum: ListDatum<Item, Value>
-  renderItem?: LiteralUnion<Item> | ((d: Item, index: number) => React.ReactNode)
+  renderItem?: ObjectKey<Item> | ((d: Item, index: number) => React.ReactNode)
   /**
    * The current selected value.
    *

@@ -69,6 +69,8 @@ const examples = [
 
 const codes = undefined
 
+const api = '[{"title":"Breadcrumb","properties":[{"name":"data","tag":{"en":"The array of breadcrumb objects, see data","cn":"面包屑对象数组,见 data","default":"[]","override":"any[]"},"type":"any[]"},{"name":"separator","tag":{"en":"A breadcrumb separator which can be strings or custom elements","cn":"面包屑分隔符,可以是字符串或自定义的元素","default":"\\\"/\\\""},"type":"ReactNode"},{"name":"keygen","tag":{"en":"Key generator.When it is true, the data itself is used as the key equivalent to (d => d);When it is a function, use its return value;When it is a string，ues the value of the string.For example, \\\"id\\\" is the same thing as (d) => d.id.","cn":"生成每一项key的辅助方法。为 true 时，以数据项本身作为key，相当于 (d => d)；为函数时，使用此函数返回值；为string时，使用这个string对应的数据值。如 \\\"id\\\"，相当于 (d => d.id)","override":"union"},"type":"true | ObjectKey<Item> | (data: Item, index?: number ) => string | number"},{"name":"renderItem","tag":{"en":"Custom render","cn":"自定义渲染"},"type":"(value: Item) => ReactNode"},{"name":"className","tag":{"en":"extend className","cn":"扩展className"},"type":"string"},{"name":"style","tag":{"en":"style object","cn":"内联样式"},"type":"CSSProperties"}]},{"title":"BreadcrumbData","properties":[{"name":"onClick","tag":{"en":"The click event","cn":"点击事件"},"type":"MouseEventHandler<HTMLAnchorElement>"},{"name":"title","tag":{"en":"Displayed content","cn":"显示内容"},"type":"ReactNode"},{"name":"url","tag":{"en":"Link address","cn":"链接地址，onClick 属性二选一"},"type":"string"},{"name":"icon","tag":{"en":"Custom icon","cn":"自定义图标"},"type":"ReactNode"}]}]';
+
 export default navable(props => (
-  <MarkDown {...props} codes={codes} source={source} examples={examples} />
+  <MarkDown {...props} codes={codes} source={source} examples={examples} api={api} />
 ))

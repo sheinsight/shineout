@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react'
-import { KeygenResult, LiteralUnion, RegularAttributes, KeygenType, ObjectType, StandardProps } from '../@types/common'
+import { KeygenResult, ObjectKey, RegularAttributes, KeygenType, ObjectType, StandardProps } from '../@types/common'
 import { GetInputableProps } from '../Form/Props'
 import DatumTree, { TreeDatumOptions } from '../Datum/Tree'
 import { GetInputBorderProps } from '../hoc/Props'
@@ -17,7 +17,7 @@ export type CascaderBaseValue = (string | number)[]
 /** ------ filterHoc ------ * */
 
 export interface FilterProps<DataItem> {
-  childrenKey?: LiteralUnion<DataItem>
+  childrenKey?: ObjectKey<DataItem>
   data: DataItem[]
   filterDelay: number
   keygen: KeygenType<DataItem>
@@ -161,7 +161,7 @@ export interface OriginCascaderProps<DataItem, Value extends CascaderBaseValue>
    *
    * default: 'children'
    */
-  childrenKey: LiteralUnion<DataItem>
+  childrenKey: ObjectKey<DataItem>
   /**
    * Merges selected values
    *
@@ -225,7 +225,7 @@ export interface OriginCascaderProps<DataItem, Value extends CascaderBaseValue>
    *
    * default: index
    */
-  keygen: ((data: DataItem, parentKey?: KeygenResult) => KeygenResult) | LiteralUnion<DataItem>
+  keygen: ((data: DataItem, parentKey?: KeygenResult) => KeygenResult) | ObjectKey<DataItem>
   /**
    *  A reference to the binding component, you can call some component methods
    *
@@ -242,7 +242,7 @@ export interface OriginCascaderProps<DataItem, Value extends CascaderBaseValue>
    *
    * default: d => d
    */
-  renderItem: LiteralUnion<DataItem> | ((data: DataItem, active?: boolean, id?: Value[0]) => React.ReactNode)
+  renderItem: ObjectKey<DataItem> | ((data: DataItem, active?: boolean, id?: Value[0]) => React.ReactNode)
   /**
    * The content displayed in the result after selecting, if not set, use renderItem. not show while return null, result is current selected
    *
@@ -250,7 +250,7 @@ export interface OriginCascaderProps<DataItem, Value extends CascaderBaseValue>
    *
    * default: renderItem
    */
-  renderResult?: LiteralUnion<DataItem> | ((data: DataItem, row: DataItem[]) => React.ReactNode)
+  renderResult?: ObjectKey<DataItem> | ((data: DataItem, row: DataItem[]) => React.ReactNode)
   position?: 'drop-up' | 'drop-down'
   firstMatchNode: DataItem
   filterText: string

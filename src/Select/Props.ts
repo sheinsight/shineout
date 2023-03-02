@@ -5,7 +5,7 @@ import {
   KeygenType,
   ValueItem,
   ResultItem,
-  LiteralUnion,
+  ObjectKey,
   ValueArr,
 } from '../@types/common'
 import List from '../Datum/List'
@@ -137,7 +137,7 @@ export interface BaseSelectProps<Item, Value>
    *
    * default: -
    */
-  renderItem?: ((data: Item, index?: number) => ReactNode) | LiteralUnion<Item>
+  renderItem?: ((data: Item, index?: number) => ReactNode) | ObjectKey<Item>
 
   /**
    * size of select

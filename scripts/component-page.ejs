@@ -54,6 +54,8 @@ const codes = {
 const codes = undefined
 <% } -%>
 
+const api = '<%- JSON.stringify(api)%>';
+
 export default navable(props => (
-  <MarkDown {...props} codes={codes} source={source} examples={examples} />
+  <MarkDown {...props} codes={codes} source={source} examples={examples} api={api} />
 ))

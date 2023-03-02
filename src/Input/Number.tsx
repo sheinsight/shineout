@@ -5,7 +5,7 @@ import { inputClass } from './styles'
 import { isRTL } from '../config'
 import { sub } from '../utils/numbers'
 import { getDirectionClass } from '../utils/classname'
-import { InputNumber, NumberValue } from './Props'
+import { InputNumber, NumberValueType } from './Props'
 
 const DefaultValue = {
   step: 1,
@@ -45,7 +45,7 @@ class Number extends PureComponent<InputNumber> {
   //   this.handleChange(NumberValue)
   // }
 
-  handleChange(value?: NumberValue, check?: boolean, isEmpty?: boolean) {
+  handleChange(value?: NumberValueType, check?: boolean, isEmpty?: boolean) {
     if (isEmpty || value === undefined) {
       this.props.onChange(value)
       return

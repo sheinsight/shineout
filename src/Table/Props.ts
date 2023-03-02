@@ -1,5 +1,5 @@
 import React, { CSSProperties, ReactComponentElement, ReactNode } from 'react'
-import { KeygenResult, LiteralUnion, ObjectType, RegularAttributes, StructKeygenType } from '../@types/common'
+import { KeygenResult, ObjectKey, ObjectType, RegularAttributes, StructKeygenType } from '../@types/common'
 import ListDatum from '../Datum/List'
 import { StickyProps } from '../Sticky/Props'
 import { GetHidableConsumerProps, GetPagableProps } from '../hoc/Props'
@@ -139,7 +139,7 @@ export interface CommonColumn<T> {
    * default: none
    */
   render?:
-    | LiteralUnion<T>
+    | ObjectKey<T>
     | ((rowData: T, index: number, checkInstance?: ReactComponentElement<any>) => ReactNode | (() => ReactNode))
 
   /**
@@ -176,7 +176,7 @@ export interface CommonColumn<T> {
    *
    * default: none
    */
-  treeColumnsName?: LiteralUnion<T>
+  treeColumnsName?: ObjectKey<T>
 
   /**
    * indent of each level
@@ -372,7 +372,7 @@ export interface SimpleTableProps<DataItem, Value> {
   showSelectAll?: boolean
   bordered?: boolean
   columnResizable?: boolean
-  treeColumnsName?: LiteralUnion<DataItem>
+  treeColumnsName?: ObjectKey<DataItem>
   treeCheckAll?: boolean
   /**
    * customize sort icons

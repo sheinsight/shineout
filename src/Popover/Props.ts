@@ -13,7 +13,7 @@ export interface PopoverProviderProps {
 
 export type GetPopoverConsumerProps<P> = Omit<P, keyof PopoverProviderProps>
 
-export type PopoverPosition =
+export type PopoverPositionType =
   | 'top-left'
   | 'top'
   | 'top-right'
@@ -29,7 +29,7 @@ export type PopoverPosition =
   | 'cover'
 
 export type PopType = 'success' | 'info' | 'warning' | 'danger'
-export type PriorityDirection = 'vertical' | 'horizontal' | 'auto'
+export type PriorityDirectionType = 'vertical' | 'horizontal' | 'auto'
 
 export interface PanelProps extends StandardProps, PopoverProviderProps {
   /**
@@ -79,7 +79,7 @@ export interface PanelProps extends StandardProps, PopoverProviderProps {
    *
    * default: 'top'
    */
-  position?: PopoverPosition
+  position?: PopoverPositionType
   /**
    * type of show
    *
@@ -143,7 +143,7 @@ export interface PanelProps extends StandardProps, PopoverProviderProps {
    *
    * default: 'vertical'
    */
-  priorityDirection?: PriorityDirection
+  priorityDirection?: PriorityDirectionType
   /**
    * Custom Popover container, override the default behavior which is rendering under the body, () => DOMElement
    *

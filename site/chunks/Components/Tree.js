@@ -159,6 +159,8 @@ const examples = [
 
 const codes = undefined
 
+const api = '[]';
+
 export default navable(props => (
-  <MarkDown {...props} codes={codes} source={source} examples={examples} />
+  <MarkDown {...props} codes={codes} source={source} examples={examples} api={api} />
 ))

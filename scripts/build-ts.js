@@ -3,6 +3,7 @@ const path = require('path')
 const ejs = require('ejs')
 const glob = require('glob').sync
 const ts = require('typescript')
+const { ModuleMap } = require('./doc/util')
 
 const srcPath = path.resolve(__dirname, '../src')
 const libPath = path.resolve(__dirname, '../publish/lib')
@@ -12,9 +13,7 @@ const cssPath = path.resolve(__dirname, '../publish/css')
 const sitePath = path.resolve(__dirname, '../site/pages/components')
 const temp = fs.readFileSync(path.resolve(__dirname, './component-declare.ejs'), 'utf-8')
 const sep = '-- |'
-const moduleMap = {
-  List: 'DataList',
-}
+
 const ignoreModule = [
   'Datum',
   'hoc',
@@ -113,7 +112,7 @@ const copyTs = (dir, componentName) => {
 }
 
 markdown.forEach(p => {
-  const componentName = moduleMap[path.dirname(p)] || path.dirname(p)
+  const componentName = ModuleMap[path.dirname(p)] || path.dirname(p)
   if (ignoreModule.includes(componentName)) return
   const componentDir = path.resolve(libPath, componentName)
   if (!fs.existsSync(componentDir)) fs.mkdirSync(componentDir)

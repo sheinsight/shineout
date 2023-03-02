@@ -2,7 +2,7 @@ import * as React from 'react'
 import { ReactNode } from 'react'
 import { GetInputableProps } from '../Form/Props'
 import { GetDatumListProps } from '../Datum/Props'
-import { LiteralUnion, RegularAttributes } from '../@types/common'
+import { ObjectKey, RegularAttributes } from '../@types/common'
 import { SimpleRadioProps } from '../Checkbox/Props'
 import { KeygenType, StandardProps } from '../@types/common'
 import ListDatum from '../Datum/List'
@@ -16,7 +16,7 @@ export interface BaseRadioGroupProps<DataItem, Value> extends StandardProps {
    *
    * default: d => d
    */
-  renderItem?: LiteralUnion<DataItem> | ((data: DataItem, index?: number) => React.ReactNode)
+  renderItem?: ObjectKey<DataItem> | ((data: DataItem, index?: number) => React.ReactNode)
   keygen: KeygenType<DataItem>
   block?: boolean
   button?: boolean | 'outline'

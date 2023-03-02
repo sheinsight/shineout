@@ -1,5 +1,5 @@
 import { FormItemRule } from '../Rule/Props'
-import { ForceAdd, LiteralUnion, ObjectType } from '../@types/common'
+import { ForceAdd, ObjectKey, ObjectType } from '../@types/common'
 import { ValidType } from './types'
 
 interface RuleObject {
@@ -65,7 +65,7 @@ export interface ListDatumOptions<Item, Value> {
    *
    * default: d => d
    */
-  format?: LiteralUnion<Item> | ((data: Item) => Value extends (infer U)[] ? U : Value)
+  format?: ObjectKey<Item> | ((data: Item) => Value extends (infer U)[] ? U : Value)
 }
 
 export interface DatumHocOptions<Props> {

@@ -22,7 +22,7 @@ const gray: CardStyle = { background: '#f7f7f7' }
 
 const App: React.FC = () => (
   <div>
-    <Card style={cardStyle}>
+    <Card style={cardStyle} moveable>
       <Card.Header>Header</Card.Header>
       <Card.Body>Body</Card.Body>
       <Card.Footer>Footer</Card.Footer>
