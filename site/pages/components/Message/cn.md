@@ -31,6 +31,7 @@ Message.setOptions() // 设置默认选项，优先级低于实际调用时的�
 | --- | --- | --- | --- |
 | content | ReactNode | 必填 | 消息内容 |
 | duration | number | 3 | 消息持续时间，单位秒；如果设置为 0，必须手动关闭 |
+| container | () => HTMLElement \| HTMLElement | document.body | 渲染的目标节点 |
 
 
 ### MessageOptions
