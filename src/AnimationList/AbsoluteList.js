@@ -14,10 +14,28 @@ import { addZoomListener, removeZoomListener } from '../utils/zoom'
 
 const PICKER_V_MARGIN = 4
 let root
+
 function initRoot() {
   root = document.createElement('div')
   root.className = listClass('root', isRTL() && 'rtl')
   document.body.appendChild(root)
+
+  const observer = new MutationObserver(mutationsList => {
+    for (const mutation of mutationsList) {
+      if (mutation.type === 'childList' && mutation.removedNodes.length > 0) {
+        if (!document.documentElement.contains(root)) {
+          root = null
+          observer.disconnect()
+        }
+      }
+    }
+  })
+  observer.observe(root.parentNode, { childList: true })
+}
+
+function getRoot() {
+  if (!root || root.isConnected === false) initRoot()
+  return root
 }
 
 const getOverDocStyle = right => (right ? { left: 0, right: 'auto' } : { right: 0, left: 'auto' })
@@ -39,18 +57,19 @@ export default function(List) {
       this.lastStyle = {}
 
       if (!root) initRoot()
-      this.container = typeof this.props.absolute === 'function' ? this.props.absolute() : root
+      this.container = typeof this.props.absolute === 'function' ? this.props.absolute() : getRoot()
       this.element = document.createElement('div')
       if (this.container) this.container.appendChild(this.element)
       if (props.getResetPosition) {
         props.getResetPosition(this.resetPosition.bind(this))
       }
       this.zoomChangeHandler = this.zoomChangeHandler.bind(this)
+      this.observer = null
     }
 
     componentDidMount() {
       if (this.props.absolute && !this.container) {
-        this.container = typeof this.props.absolute === 'function' ? this.props.absolute() : root
+        this.container = typeof this.props.absolute === 'function' ? this.props.absolute() : getRoot()
         this.container.appendChild(this.element)
         if (this.props.focus) {
           this.forceUpdate()
@@ -102,7 +121,7 @@ export default function(List) {
       }
 
       const { container } = this
-      const rootContainer = container === root || !container ? document.body : container
+      const rootContainer = container === getRoot() || !container ? document.body : container
       const containerRect = rootContainer.getBoundingClientRect()
       const containerScroll = {
         left: rootContainer.scrollLeft,

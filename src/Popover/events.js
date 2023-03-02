@@ -28,7 +28,6 @@ function clickaway(e) {
 
 export function show(props, id) {
   const { position, style, content, background, border, noArrow, type } = props
-
   if (!div) {
     div = document.createElement('div')
     div.style.display = 'none'

@@ -25,12 +25,18 @@ function clickaway() {
 
 export function show(props, id, innerStyle) {
   const { position, style, tip, trigger, animation, className: cn } = props
-
+  const container = getCommonContainer()
   // create
+  if (!container.contains(div)) {
+    div = null
+    arrow = null
+    inner = null
+  }
+
   if (!div) {
     div = document.createElement('div')
     div.style.display = 'none'
-    getCommonContainer().appendChild(div)
+    container.appendChild(div)
   }
 
   if (!arrow) {

@@ -169,7 +169,7 @@ class Panel extends Component {
 
   createContainer() {
     const { zIndex } = this.props
-    if (!this.container) {
+    if (!this.container || !document.documentElement.contains(this.container)) {
       this.container = this.getContainer()
       this.element.style.zIndex = zIndex
       this.container.appendChild(this.element)
