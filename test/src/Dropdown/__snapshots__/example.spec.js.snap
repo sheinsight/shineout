@@ -995,3 +995,56 @@ exports[`Dropdown[snapshot] Snapshot test: Dropdown[site/pages/components/Dropdo
   </div>
 </div>
 `;
+
+exports[`Dropdown[snapshot] Snapshot test: Dropdown[site/pages/components/Dropdown/example-8-open.tsx] 1`] = `
+<div>
+  <button>
+    <span>
+      关闭
+    </span>
+    <span>
+      弹层
+    </span>
+  </button>
+  <div>
+    <div>
+      <div>
+        <div>
+          <a>
+            Link to Google
+          </a>
+          <a>
+            Disabled
+          </a>
+        </div>
+        <a>
+          <span>
+            Submenu
+          </span>
+          <span>
+            <svg>
+              <path />
+            </svg>
+          </span>
+        </a>
+      </div>
+      <a>
+        Home
+      </a>
+      <a>
+        Message
+      </a>
+    </div>
+    <button>
+      <span>
+        Dropdown
+      </span>
+      <span>
+        <svg>
+          <path />
+        </svg>
+      </span>
+    </button>
+  </div>
+</div>
+`;
