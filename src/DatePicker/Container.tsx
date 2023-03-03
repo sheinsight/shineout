@@ -131,7 +131,6 @@ class Container extends PureComponent<ContainerProps, ContainerState> {
     super.componentDidMount()
     this.setOpenEvent()
     if (this.props.open !== undefined && this.props.open) {
-      console.log(999)
       this.handleToggle(true)
     }
   }
