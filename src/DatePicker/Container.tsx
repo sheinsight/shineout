@@ -166,19 +166,19 @@ class Container extends PureComponent<ContainerProps, ContainerState> {
     }
     switch (type) {
       case 'date':
-        return 'yyyy-MM-dd'
+        return 'YYYY-MM-DD'
       case 'month':
-        return 'yyyy-MM'
+        return 'YYYY-MM'
       case 'time':
         return 'HH:mm:ss'
       case 'year':
-        return 'yyyy'
+        return 'YYYY'
       case 'week':
-        return 'RRRR II'
+        return 'GGGG WW'
       case 'quarter':
-        return 'yyyy-[Q]Q'
+        return 'YYYY-[Q]Q'
       default:
-        return 'yyyy-MM-dd HH:mm:ss'
+        return 'YYYY-MM-DD HH:mm:ss'
     }
   }
 

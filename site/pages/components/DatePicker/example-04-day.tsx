@@ -9,6 +9,6 @@ import { DatePicker } from 'shineout'
 
 const Now = Date.now()
 
-const App: React.FC = () => <DatePicker type="date" format="yyyy-MM-dd" defaultValue={Now} />
+const App: React.FC = () => <DatePicker type="date" format="YYYY-MM-DD" defaultValue={Now} />
 
 export default App
