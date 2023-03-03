@@ -2,10 +2,13 @@ import React from 'react'
 import locate from 'doc/locate'
 
 const APP = props => {
-  const { title, properties } = props
+  const { title, properties, cn, en } = props
   return (
     <>
       <h3 id={`api-${title}`}>{title}</h3>
+      {cn ? (
+        <p style={{ whiteSpace: 'pre-wrap', margin: '14px 0 14px 14px', lineHeight: '1.5' }}>{locate(cn, en)}</p>
+      ) : null}
       <div style={{ overflow: 'auto' }}>
         <table className="doc-api-table">
           <thead>

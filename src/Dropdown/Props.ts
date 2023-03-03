@@ -139,7 +139,7 @@ export interface SimpleDropdownProps extends StandardProps, Pick<AbsoluteProps, 
   /**
    * @en Set position property can control the direction and position of the drop-down menu
    * @cn 弹出的方向和位置
-   * @default: 'auto'
+   * @default 'auto'
    */
   position?:
     | 'left-top'

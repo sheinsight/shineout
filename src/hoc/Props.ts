@@ -92,7 +92,7 @@ export interface DelayProps {
   /**
    * @en User input triggers the onChange and to check interval, unit: ms.
    * @cn 用户输入触发 onChange 和校验间隔时间，单位 毫秒。
-   * @default: 400
+   * @default 400
    */
   delay?: number
   value?: any

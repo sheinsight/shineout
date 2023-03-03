@@ -56,7 +56,7 @@ const examples = [
 
 const codes = undefined
 
-const api = '[]';
+const api = '[{"title":"Divider","properties":[{"name":"children","tag":{"cn":"分割线中文字内容","en":"Content, text or react component","default":""},"type":"ReactNode"},{"name":"mode","tag":{"cn":"分割线排布模式","en":"mode of divider","default":"\\\"horizontal\\\""},"type":"\\\"horizontal\\\" | \\\"vertical\\\""},{"name":"orientation","tag":{"cn":"水平分割线的文字排布位置","en":"The position of title inside divider","default":"\\\"center\\\""},"type":"\\\"left\\\" | \\\"center\\\" | \\\"right\\\""},{"name":"className","tag":{"cn":"扩展className","en":"extend className","default":""},"type":"string"},{"name":"style","tag":{"cn":"内联样式","en":"style object","default":""},"type":"CSSProperties"}],"cn":"","en":""}]';
 
 export default navable(props => (
   <MarkDown {...props} codes={codes} source={source} examples={examples} api={api} />

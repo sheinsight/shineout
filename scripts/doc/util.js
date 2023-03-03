@@ -176,7 +176,7 @@ function getPropertiesWithDocComments(pp) {
   })
   return results
 }
-const p = path.resolve(__dirname, '../../src/DropDown/Props.ts')
+const p = path.resolve(__dirname, '../../src/EditableArea/Props.ts')
 console.log(getPropertiesWithDocComments(p))
 const ModuleMap = {
   List: 'DataList',
