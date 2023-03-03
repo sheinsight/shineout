@@ -12,11 +12,10 @@ import { isRTL, getDefaultContainer } from '../config'
 import { addZoomListener, removeZoomListener } from '../utils/zoom'
 import { AbsoluteProps, GetAbsoluteProps } from './Props'
 
-const defaultContainer = getDefaultContainer()
-
 const PICKER_V_MARGIN = 4
 let root: HTMLDivElement
 function initRoot() {
+  const defaultContainer = getDefaultContainer()
   root = document.createElement('div')
   root.className = listClass('root', isRTL() && 'rtl')
   defaultContainer.appendChild(root)
@@ -95,6 +94,7 @@ export default function<U extends {}>(List: ComponentType<U>) {
     }
 
     getPosition(rect: DOMRect) {
+      const defaultContainer = getDefaultContainer()
       const { fixed } = this.props
       let { position } = this.props as { position: string }
       const rtl = isRTL()

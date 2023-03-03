@@ -6,8 +6,6 @@ import { PositionType } from './Props'
 import { isFunc } from '../utils/is'
 import { getDefaultContainer } from '../config'
 
-const defaultContainer = getDefaultContainer()
-
 const elements: {
   [type: string]: HTMLElement
 } = {}
@@ -16,6 +14,7 @@ const components: {
 } = {}
 
 function getElement(type: PositionType, container?: (() => HTMLElement) | HTMLElement) {
+  const defaultContainer = getDefaultContainer()
   const div = document.createElement('div')
   div.className = messageClass('_', type)
 

@@ -13,8 +13,6 @@ import { docSize } from '../utils/dom/document'
 import { isRTL, getDefaultContainer } from '../config'
 import { Methods, Options } from './Props'
 
-const defaultContainer = getDefaultContainer()
-
 const containers: {
   [id: string]: { div: HTMLElement; container: HTMLElement; visible?: boolean; props: Options }
 } = {}
@@ -76,6 +74,7 @@ export function close(props: Options, callback?: Function) {
 }
 
 export function createDiv(props: Options) {
+  const defaultContainer = getDefaultContainer()
   const { id, position, fullScreen, container = defaultContainer } = props
   let div = getDiv(props.id)
   if (div) return div
