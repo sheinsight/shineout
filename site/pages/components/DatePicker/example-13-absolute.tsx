@@ -13,11 +13,11 @@ const App: React.FC = () => (
   <div style={{ padding: 10, height: 150, overflow: 'hidden' }}>
     <DatePicker
       absolute
-      format="t"
+      format="x"
       type="datetime"
       defaultValue={new Date()}
       style={{ marginBottom: 8 }}
-      formatResult="yyyy-MM-dd HH:mm:ss"
+      formatResult="YYYY-MM-DD HH:mm:ss"
     />
     <br />
     <DatePicker absolute inputable range defaultValue={['2018-05-25', '2018-06-05']} style={{ marginBottom: 8 }} />

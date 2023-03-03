@@ -45,7 +45,7 @@ class Picker extends PureComponent<PickerProps, PickerState> {
     }
 
     this.state = { mode }
-    const format = 'yyyy-MM-dd HH:mm:ss'
+    const format = 'YYYY-MM-DD HH:mm:ss'
     this.defaultCurrent = utils.toDateWithFormat(
       utils.formatDateWithDefaultTime(
         utils.newDate(undefined, this.getOptions()),

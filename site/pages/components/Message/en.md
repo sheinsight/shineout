@@ -31,6 +31,7 @@ Message.setOptions() // set global options, priority is lower than the actual ca
 | --- | --- | --- | --- |
 | content | ReactNode | required | The message content |
 | duration | number | 3 | Message duration, unit: s; If it is set to 0, it must be manually closed. |
+| container | () => HTMLElement \| HTMLElement | document.body | target element |
 
 
 ### MessageOptions

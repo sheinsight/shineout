@@ -71,7 +71,7 @@ class Quarter extends PureComponent<UnionPannelProps> {
   renderQuarter(q: string, i: number) {
     const { current, index, rangeDate, value } = this.props
     const year = utils.getDateInfo(current, 'year', this.getOptions())
-    const date = utils.parse(`${year} ${i + 1}`, 'yyyy Q', this.getOptions())
+    const date = utils.parse(`${year} ${i + 1}`, 'YYYY Q', this.getOptions())
     const isDisabled = this.handleDisabled(date)
     // let hoverClass
     const classList = [isDisabled && 'disabled']

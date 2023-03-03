@@ -9,8 +9,8 @@ import Time from './Time'
 import { isArray } from '../utils/is'
 import { UnionPannelProps } from './Props'
 
-const minStr = 'yyyy-MM-dd 00:00:00'
-const maxStr = 'yyyy-MM-dd 23:59:59'
+const minStr = 'YYYY-MM-DD 00:00:00'
+const maxStr = 'YYYY-MM-DD 23:59:59'
 
 interface DayState {
   hover: Date | null
@@ -240,7 +240,7 @@ class Day extends PureComponent<UnionPannelProps, DayState> {
     if (!showTimePicker) return undefined
 
     let { format } = this.props
-    if (/^[T|t]$/.test(format)) {
+    if (/^[X|x]$/.test(utils.compatibleFmt(format)!)) {
       format = 'HH:mm:ss'
     } else {
       const match = format.match(/[H|h].*/)

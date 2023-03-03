@@ -78,6 +78,19 @@ const examples = [
     parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Message/example-5-manual-close.tsx'),
 
   },
+  {
+    name: '6-container',
+    isTs: true,
+    isTest: false,
+    title: locate(
+      '指定容器 \n 使用 container 来指定 Message 渲染的目标节点',
+      'Target \n Set container to render target node'
+    ),
+    component: require('doc/pages/components/Message/example-6-container.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Message/example-6-container.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Message/example-6-container.tsx'),
+
+  },
 ]
 
 const codes = undefined

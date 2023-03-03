@@ -9,8 +9,8 @@ let defaultOptions: MessageOptions & {
 const create = (type: MessageType) => (content: React.ReactNode, duration?: number, options?: MessageOptions) => {
   const mo = Object.assign({}, defaultOptions, options)
   duration = [duration, defaultOptions.duration, 3].find(d => typeof d === 'number')!
-  const { onClose, position = 'top', title, className = '', top = 'auto', hideClose } = mo
-  return getComponent(position).then(messager =>
+  const { onClose, position = 'top', title, className = '', top = 'auto', hideClose, container } = mo
+  return getComponent({ position, container }).then(messager =>
     messager.addMessage({
       content,
       duration,

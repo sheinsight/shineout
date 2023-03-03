@@ -36,7 +36,7 @@ dayjs.extend(quarterOfYear)
 
 const TIME_FORMAT = 'HH:mm:ss'
 
-const compatibleFmt = (fmt?: string) => {
+export const compatibleFmt = (fmt?: string) => {
   if (typeof fmt !== 'string') return fmt
   const trans = {
     yy: 'YY',
@@ -45,12 +45,15 @@ const compatibleFmt = (fmt?: string) => {
     t: 'X',
     T: 'x',
     RRRR: 'GGGG',
-    II: 'WW',
+    I: 'W',
   }
   let result = fmt
   Object.keys(trans).forEach((key: keyof typeof trans) => {
     result = result.replace(new RegExp(key, 'g'), trans[key])
   })
+  if (result !== fmt) {
+    console.warn(`invalid datepicker format: ${fmt} please use ${result}`)
+  }
   return result
 }
 
@@ -59,8 +62,6 @@ function getDayJsLocate(options?: DateOptions) {
   return 'en'
 }
 
-// function transDateWithZone(dd: Date, options: DateOptions, back?: boolean): Date
-// function transDateWithZone(dd: DateTimeType, options: DateOptions, back?: boolean): DateTimeType
 function transDateWithZone(dd: Date, options: DateOptions = {}, back = false) {
   if (options.timeZone) {
     const timezoneHH = /^([+-]\d{2})$/
@@ -151,7 +152,7 @@ function isSameMonth(date1: Date, date2: Date, options: DateOptions = {}) {
 }
 
 function isSameDay(date1: Date, date2: Date, options: DateOptions) {
-  return date1 && date2 && format(date1, 'YYYY-MM-dd', options) === format(date2, 'YYYY-MM-dd', options)
+  return date1 && date2 && format(date1, 'YYYY-MM-DD', options) === format(date2, 'YYYY-MM-DD', options)
 }
 
 function isSameWeek(date1: Date, date2: Date, options: DateOptions) {
@@ -182,7 +183,7 @@ function parse(d: string, fmt?: string, options?: DateOptions) {
     const year = date.slice(index, index + 5)
     const weekIndex = fmt2.indexOf('WW')
     const week = weekIndex >= 0 ? date.slice(weekIndex, weekIndex + 3) : 1
-    const result = dayjs(`${year}-06-15`, 'YYYY-MM-dd')
+    const result = dayjs(`${year}-06-15`, 'YYYY-MM-DD')
       .locale(getDayJsLocate(options))
       .isoWeek(Number(week))
       .toDate()
@@ -366,13 +367,13 @@ function compareDateArray(arr1: Date[], arr2: Date[], type = 'date', options: Da
   if (!arr1 || !arr2 || arr1.length !== arr2.length) return false
   return arr1.every((v, i) => {
     if (!v || !arr2[i]) return false
-    if (type === 'week') return format(v, 'RRRR II', options) === format(arr2[i], 'RRRR II', options)
+    if (type === 'week') return format(v, 'GGGG WW', options) === format(arr2[i], 'GGGG WW', options)
     return v.getTime() === arr2[i].getTime()
   })
 }
 
 function getFormat(fo: string) {
-  let defaultFormat = 'yyyy-MM-dd HH:mm:ss.SSS'
+  let defaultFormat = 'YYYY-MM-DD HH:mm:ss.SSS'
   ;['H', 'm', 's', 'S', 'h'].map(v => {
     if (fo.indexOf(v) <= -1) {
       const reg = new RegExp(`${v}`, 'g')
@@ -425,4 +426,5 @@ export default {
   resetTimeByFormat,
   changeDate,
   getDateInfo,
+  compatibleFmt,
 }

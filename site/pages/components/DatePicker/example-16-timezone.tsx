@@ -19,13 +19,13 @@ const App: React.FC = () => {
   return (
     <div>
       <DatePicker
-        format="T"
+        format="X"
         timeZone={tz}
         type="datetime"
         defaultValue={new Date()}
         placeholder="Select datetime"
         onChange={d => console.log(d)}
-        formatResult="yyyy-MM-dd HH:mm:ss"
+        formatResult="YYYY-MM-DD HH:mm:ss"
       />
       <Select
         keygen
