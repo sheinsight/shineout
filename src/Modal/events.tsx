@@ -10,8 +10,10 @@ import { getLocale } from '../locale'
 import { getParent } from '../utils/dom/element'
 import ready from '../utils/dom/ready'
 import { docSize } from '../utils/dom/document'
-import { isRTL } from '../config'
+import { isRTL, getDefaultContainer } from '../config'
 import { Methods, Options } from './Props'
+
+const defaultContainer = getDefaultContainer()
 
 const containers: {
   [id: string]: { div: HTMLElement; container: HTMLElement; visible?: boolean; props: Options }
@@ -64,6 +66,7 @@ export function close(props: Options, callback?: Function) {
     if (props.destroy) destroy(id!, !props.usePortal)
 
     if (!hasVisible()) {
+      // 这里是解除滚动限制
       const doc = document.body.parentNode as HTMLElement
       doc.style.overflow = ''
       doc.style.paddingRight = ''
@@ -73,7 +76,7 @@ export function close(props: Options, callback?: Function) {
 }
 
 export function createDiv(props: Options) {
-  const { id, position, fullScreen, container = document.body } = props
+  const { id, position, fullScreen, container = defaultContainer } = props
   let div = getDiv(props.id)
   if (div) return div
 
@@ -99,6 +102,7 @@ export function open(props: Options, isPortal?: boolean) {
   const parsed = parseInt(String(zIndex), 10)
   if (!Number.isNaN(parsed)) div.style.zIndex = (parsed as unknown) as string
   const doc = document.body.parentNode as HTMLElement
+  // 这里是让整个html无法滚动
   if (!doc.style.paddingRight) {
     const scrollWidth = window.innerWidth - docSize.width
     doc.style.overflow = 'hidden'

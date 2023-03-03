@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Gallery from './Gallery'
+import { getDefaultContainer } from '../config'
 import { imageClass } from './styles'
 
 let container: Element | null
@@ -25,9 +26,9 @@ function keyClose(e: KeyboardEvent) {
 
 function getContainer() {
   if (container) return container
-
+  const defaultContainer = getDefaultContainer()
   container = document.createElement('div')
-  document.body.appendChild(container)
+  defaultContainer.appendChild(container)
   container.className = imageClass('gallery')
 
   return container

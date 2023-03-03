@@ -8,16 +8,18 @@ import { listClass } from './styles'
 import { docSize } from '../utils/dom/document'
 import { getRTLPosition } from '../utils/strings'
 import zIndexConsumer from '../Modal/context'
-import { isRTL } from '../config'
+import { isRTL, getDefaultContainer } from '../config'
 import { addZoomListener, removeZoomListener } from '../utils/zoom'
 import { AbsoluteProps, GetAbsoluteProps } from './Props'
+
+const defaultContainer = getDefaultContainer()
 
 const PICKER_V_MARGIN = 4
 let root: HTMLDivElement
 function initRoot() {
   root = document.createElement('div')
   root.className = listClass('root', isRTL() && 'rtl')
-  document.body.appendChild(root)
+  defaultContainer.appendChild(root)
 }
 
 const getOverDocStyle = (right: boolean) => (right ? { left: 0, right: 'auto' } : { right: 0, left: 'auto' })
@@ -116,7 +118,7 @@ export default function<U extends {}>(List: ComponentType<U>) {
       }
 
       const { container } = this
-      const rootContainer = container === root || !container ? document.body : container
+      const rootContainer = container === root || !container ? defaultContainer : container
       const containerRect = rootContainer.getBoundingClientRect()
       const containerScroll = {
         left: rootContainer.scrollLeft,

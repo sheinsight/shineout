@@ -4,6 +4,9 @@ import { messageClass } from './styles'
 import Container from './Container'
 import { PositionType } from './Props'
 import { isFunc } from '../utils/is'
+import { getDefaultContainer } from '../config'
+
+const defaultContainer = getDefaultContainer()
 
 const elements: {
   [type: string]: HTMLElement
@@ -15,7 +18,8 @@ const components: {
 function getElement(type: PositionType, container?: (() => HTMLElement) | HTMLElement) {
   const div = document.createElement('div')
   div.className = messageClass('_', type)
-  let target = document.body
+
+  let target = defaultContainer
 
   if (container && isFunc(container)) {
     target = container()
