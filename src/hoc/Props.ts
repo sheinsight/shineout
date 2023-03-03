@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react'
-import { ForceAdd, PartialKeys, RegularAttributes } from '../@types/common'
+import { ForceAdd, PartialKeys, RegularAttributes, StandardProps } from '../@types/common'
 import { PopoverProps, PopoverPositionType } from '../Popover/Props'
 import { PaginationProps } from '../Pagination/Props'
 
@@ -24,9 +24,7 @@ export type ResizableType<Props> = Props & {
 export type ConfigType<Props> = Props
 
 /** ------ inputBorder ------ * */
-export interface InputBorderProps {
-  className?: string
-  style?: React.CSSProperties
+export interface InputBorderProps extends StandardProps {
   /**
    * @en Prompt information
    * @cn 提示信息

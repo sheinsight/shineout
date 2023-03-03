@@ -33,19 +33,42 @@ function replaceStr(str) {
     .replace(/\r?\n|\r/g, '')
 }
 
+function getInterfaceType(type) {
+  let str = '{'
+  const properties = typeChecker.getPropertiesOfType(type.getType())
+  properties.forEach(property => {
+    const isOptional = property.isOptional()
+    const name = property.getName()
+    const pt = property
+      .getDeclarations()[0]
+      .getType()
+      .getText()
+      .replaceAll('| undefined', '')
+    str += ` ${name}${isOptional ? '?:' : ':'} ${pt}`
+  })
+  str += ' }'
+  return str
+}
 // 获取文件中的某个属性的类型
 function getPathType(pp, name) {
   const sourceFile = project.addSourceFileAtPath(pp)
   const type = sourceFile.getTypeAlias(name) || sourceFile.getInterface(name)
-  if (type) {
-    return replaceStr(type.getTypeNode().getText()).replace(/import\("([^"]+)"\)\./g, '')
+  if (type && type.getTypeNode) {
+    return type.getTypeNode().getText()
   }
+  if (type && type.getProperties) {
+    return getInterfaceType(type)
+  }
+  console.log(pp, name)
+  console.log(type.getStructure())
+
   return ''
 }
 
 // 处理import
 function getImportType(text) {
-  const reg = /import\("([^"]+)"\)\.(\w+)(<\w+>)?\s*/g
+  // eslint-disable-next-line
+  const reg = /import\("([^"]+)"\)\.(\w+)(<[\w\[\]]+>)?(\[\])?/g
   let currentMatch
   let resultStr = text
   do {
@@ -55,16 +78,17 @@ function getImportType(text) {
       const pp = currentMatch[1]
       const name = currentMatch[2]
       const fanXin = currentMatch[3] || ''
-      // console.log(str, pp, name, fanXin)
+      const isArray = !!currentMatch[4]
+      console.log(str, pp, name, fanXin, isArray)
       // 过滤掉 xxxProps 和 ObjectKey
       if (!name.endsWith('Props') && !['ObjectKey'].includes(name)) {
         if (!pathMap[name]) {
           pathMap[name] = {
             form: pp,
-            type: convertQuotes(getPathType(`${pp}.ts`, name)),
+            type: getPathType(`${pp}.ts`, name),
           }
         }
-        resultStr = resultStr.replace(str, pathMap[name].type)
+        resultStr = resultStr.replace(str, isArray ? `(${pathMap[name].type})[]` : pathMap[name].type)
       } else {
         resultStr = resultStr.replace(str, `${name}${fanXin}`)
       }
@@ -75,7 +99,7 @@ function getImportType(text) {
 
 function getTypeStr(override, type) {
   if (override && override !== 'union') {
-    return convertQuotes(override)
+    return override
   }
   let text = type.getText()
   if (override === 'union') {
@@ -86,7 +110,6 @@ function getTypeStr(override, type) {
   }
   text = getImportType(text)
   text = replaceStr(text)
-  text = convertQuotes(text)
   return text
 }
 
@@ -128,15 +151,15 @@ function getPropertiesWithDocComments(pp) {
       }
       const nodeType = declarations1[0].getType().getNonNullableType()
       const typeText = getTypeStr(propertyJsDocTags.override, nodeType)
-      item.properties.push({
+      const itemProperty = {
         name: property.getName(),
         tag: Object.keys(propertyJsDocTags).reduce(
           (result, i) => ({ ...result, [i]: convertQuotes(propertyJsDocTags[i] || '') }),
           {}
         ),
-        type: typeText,
-      })
-      // console.log(property.getName(), propertyJsDocTags, typeText)
+        type: convertQuotes(typeText),
+      }
+      item.properties.push(itemProperty)
     })
     if (lost.length) {
       console.log(`${mainTags.title}缺失`, lost.join(','))
@@ -145,8 +168,8 @@ function getPropertiesWithDocComments(pp) {
   })
   return results
 }
-// const p = path.resolve(__dirname, '../../src/DataList/Props.ts')
-// getPropertiesWithDocComments(p)
+const p = path.resolve(__dirname, '../../src/DatePicker/Props.ts')
+getPropertiesWithDocComments(p)
 const ModuleMap = {
   List: 'DataList',
 }
