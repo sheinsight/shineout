@@ -316,6 +316,15 @@ export interface BaseProps<T = DatePickerValue> extends StandardProps, Pick<Abso
    * default: -
    */
   timeZone?: string
+
+  /**
+   * Set visible of datepicker popup
+   *
+   * 控制浮层显隐
+   *
+   * default: -
+   */
+  open?: boolean
 }
 
 export interface ContainerProps<T = DatePickerValue>
@@ -349,6 +358,7 @@ export interface ContainerProps<T = DatePickerValue>
     | 'clearWithUndefined'
     | 'innerTitle'
     | 'timeZone'
+    | 'open'
   > {
   /**
    * When the value is string, it needs to match the format attribute. When the range property is true, the value is an array of length 2.
