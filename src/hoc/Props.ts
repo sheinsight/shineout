@@ -35,6 +35,7 @@ export interface InputBorderProps {
   /**
    * @en The position where the text pop up
    * @cn 信息弹出位置
+   * @override PopoverProps["position"]
    */
   popover?: PopoverPositionType
   /**
@@ -42,6 +43,9 @@ export interface InputBorderProps {
    * @cn 输入框宽度
    */
   width?: string | number
+  /**
+   * @inner 内部属性
+   */
   error?: Error
   /**
    * @en Vilidate popup properties, specific properties refer to Popover component description
@@ -105,7 +109,13 @@ export interface CoinProps {
   type?: string
   onFocus?: (e: any) => void
   onBlur?: (e: any) => void
+  /**
+   * @inner 同原生属性
+   */
   onMouseDown?: React.MouseEventHandler
+  /**
+   * @inner 同原生属性
+   */
   onMouseUp?: React.MouseEventHandler
   /**
    * @en Show as thousands separator, valid only when type is 'number'
@@ -124,5 +134,9 @@ export type GetHidableConsumerProps<Props> = Props
 
 /** ------ pagable ------ * */
 export type GetPagableProps<Props> = Props & {
+  /**
+   * @en Show pagination See Pagination for details
+   * @cn 展示分页 详见 Pagination
+   */
   pagination?: PaginationProps
 }

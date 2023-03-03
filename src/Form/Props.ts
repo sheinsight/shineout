@@ -186,21 +186,27 @@ export interface InputableProps<Value> {
   /**
    * @en The callback before the value is changed, when the return value is not empty, it will be used as the new value of the component
    * @cn 值改变前的回调，当返回值不为空时将作为组件的新值
-   * @override (value: any , datum: FormDatum) => any
+   * @override (value: any , datum?: FormDatum) => any
    */
-  beforeChange?: (value: Value | undefined, datum: FormDatum<ObjectType>) => Value | undefined | void
+  beforeChange?: (value: Value | undefined, datum?: FormDatum<ObjectType>) => Value | undefined | void
   onChange?: (value: Value | undefined, ...rest: any) => void
   /**
    * @en rules validation callback
    * @cn rules 校验回调
    */
   onError?: (e?: Error) => void
+  /**
+   * @inner 内部属性
+   */
   popover?: string
   /**
    * @en value
    * @cn 值
    */
   value?: Value
+  /**
+   * @inner 内部属性
+   */
   error?: Error
   // readOnly?: boolean
   disabled?: boolean
@@ -227,6 +233,7 @@ export interface InputableProps<Value> {
   /**
    * @en defaultValue
    * @cn 默认值
+   * @override any
    */
   defaultValue?: Value
   /**

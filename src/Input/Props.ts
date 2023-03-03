@@ -265,7 +265,7 @@ export type InputNumberPropsWithBorder = GetInputBorderProps<InputNumberPropsWit
  */
 export type InputNumberPropsWithInputable = Omit<
   GetInputableProps<InputNumberPropsWithBorder, NumberValueType>,
-  'filterSameChange'
+  'filterSameChange' | 'forceChange' | 'cancelChange' | 'type'
 >
 export type InputNumberProps = WidthInputHTMLAttribute<InputNumberPropsWithInputable>
 
@@ -284,7 +284,7 @@ export interface InputPassword extends Props {
  */
 export type InputPasswordPropsWithInputable = Omit<
   GetInputableProps<GetInputBorderProps<InputPassword>, string>,
-  'filterSameChange'
+  'filterSameChange' | 'forceChange' | 'cancelChange'
 >
 
 export type InputPasswordProps = WidthInputHTMLAttribute<InputPasswordPropsWithInputable>

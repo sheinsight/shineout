@@ -43,7 +43,7 @@ export interface AlertProps extends StandardProps {
   hideClose?: boolean
 
   /**
-   * @inner
+   * @inner 内部属性
    */
   outAnimation?: boolean
 
@@ -54,12 +54,12 @@ export interface AlertProps extends StandardProps {
   closeItem?: React.ReactNode
 
   /**
-   * @inner
+   * @inner 内部属性
    */
   dismiss?: boolean
 
   /**
-   * @inner
+   * @inner 内部属性
    */
   duration?: number
 }

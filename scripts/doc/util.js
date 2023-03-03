@@ -15,58 +15,67 @@ function parseDocTag(jtTags) {
     {}
   )
 }
-
-// 一些逻辑处理
-function replaceStr(str) {
-  console.log('str', str)
-  return str
-    .replaceAll('boolean | React.ReactChild | React.ReactFragment | React.ReactPortal', 'ReactNode')
-    .replaceAll('React.', '')
-    .replaceAll('ReactElement<any, string | JSXElementConstructor<any>>', 'ReactElement')
-    .replaceAll('| undefined', '')
-    .replace(/import\("([^"]+)"\)\./g, '')
-}
-
-function getPathType(pp, name) {
-  const sourceFile = project.addSourceFileAtPath(pp)
-  const type = sourceFile.getTypeAlias(name) || sourceFile.getInterface(name)
-  if (type) {
-    return replaceStr(type.getTypeNode().getText())
-  }
-  return ''
-}
-
 function convertQuotes(str) {
   return str.replaceAll('"', '\\"').replaceAll("'", '\\"')
 }
 
+// 一些逻辑处理
+function replaceStr(str) {
+  return str
+    .replaceAll('boolean | React.ReactChild | React.ReactFragment | React.ReactPortal', 'ReactNode')
+    .replaceAll(
+      'string | number | boolean | {} | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactNodeArray | React.ReactPortal',
+      'ReactNode'
+    )
+    .replaceAll('ReactElement<any, string | JSXElementConstructor<any>>', 'ReactElement')
+    .replaceAll('| undefined', '')
+    .replaceAll('React.', '')
+    .replace(/\r?\n|\r/g, '')
+}
+
+// 获取文件中的某个属性的类型
+function getPathType(pp, name) {
+  const sourceFile = project.addSourceFileAtPath(pp)
+  const type = sourceFile.getTypeAlias(name) || sourceFile.getInterface(name)
+  if (type) {
+    return replaceStr(type.getTypeNode().getText()).replace(/import\("([^"]+)"\)\./g, '')
+  }
+  return ''
+}
+
+// 处理import
 function getImportType(text) {
-  const reg = /import\("([^"]+)"\)\.(\w+)\s*/g
+  const reg = /import\("([^"]+)"\)\.(\w+)(<\w+>)?\s*/g
   let currentMatch
-  const results = []
+  let resultStr = text
   do {
     currentMatch = reg.exec(text)
     if (currentMatch) {
+      const str = currentMatch[0]
       const pp = currentMatch[1]
       const name = currentMatch[2]
+      const fanXin = currentMatch[3] || ''
+      // console.log(str, pp, name, fanXin)
       // 过滤掉 xxxProps 和 ObjectKey
       if (!name.endsWith('Props') && !['ObjectKey'].includes(name)) {
-        results.push(name)
         if (!pathMap[name]) {
           pathMap[name] = {
             form: pp,
-            type: getPathType(`${pp}.ts`, name),
+            type: convertQuotes(getPathType(`${pp}.ts`, name)),
           }
         }
+        resultStr = resultStr.replace(str, pathMap[name].type)
+      } else {
+        resultStr = resultStr.replace(str, `${name}${fanXin}`)
       }
     }
   } while (currentMatch !== null)
-  return results
+  return resultStr
 }
 
 function getTypeStr(override, type) {
   if (override && override !== 'union') {
-    return override
+    return convertQuotes(override)
   }
   let text = type.getText()
   if (override === 'union') {
@@ -75,12 +84,10 @@ function getTypeStr(override, type) {
       .map(t => t.getText())
       .join(' | ')
   }
-  const names = getImportType(text)
-  let result = replaceStr(text)
-  names.forEach(name => {
-    result = result.replaceAll(name, pathMap[name].type)
-  })
-  return convertQuotes(result)
+  text = getImportType(text)
+  text = replaceStr(text)
+  text = convertQuotes(text)
+  return text
 }
 
 function getPropertiesWithDocComments(pp) {
@@ -105,6 +112,7 @@ function getPropertiesWithDocComments(pp) {
     const item = { title: mainTags.title, properties: [] }
     const type = interface.getType()
     const properties = typeChecker.getPropertiesOfType(type)
+    const lost = []
     properties.forEach(property => {
       const declarations1 = property.getDeclarations()
       const propertyJsDocTags = parseDocTag(
@@ -114,6 +122,10 @@ function getPropertiesWithDocComments(pp) {
           .map(jsDoc => jsDoc.getTags())
           .flat()
       )
+      if (!propertyJsDocTags.cn) {
+        if (!propertyJsDocTags.inner) lost.push(property.getName())
+        return
+      }
       const nodeType = declarations1[0].getType().getNonNullableType()
       const typeText = getTypeStr(propertyJsDocTags.override, nodeType)
       item.properties.push({
@@ -126,12 +138,15 @@ function getPropertiesWithDocComments(pp) {
       })
       // console.log(property.getName(), propertyJsDocTags, typeText)
     })
+    if (lost.length) {
+      console.log(`${mainTags.title}缺失`, lost.join(','))
+    }
     results.push(item)
   })
   return results
 }
-const p = path.resolve(__dirname, '../../src/Breadcrumb/Props.ts')
-getPropertiesWithDocComments(p)
+// const p = path.resolve(__dirname, '../../src/DataList/Props.ts')
+// getPropertiesWithDocComments(p)
 const ModuleMap = {
   List: 'DataList',
 }
