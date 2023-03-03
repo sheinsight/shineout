@@ -7,43 +7,44 @@ export type TriggerType = 'click' | 'hover'
 
 export type DropdownItem = DropdownNode | React.ReactNode
 
+/**
+ * @title DropdownNode
+ * @cn data 选项有三种情况：\n  为 ReactElement 时，直接显示此元素；\n  为 object 且设置了 renderItem，显示 renderItem 返回的内容；\n  为 object 且未设置 renderItem，按以下数据结构处理。
+ * @en If data item is a ReactElement, render the item;\nIf data item is an object and renderItem is set, render the renderItem's result;\nif data item is an object and renderItem is not set, handle the parameters as follows;
+ */
 export interface DropdownNode {
   /**
-   * url属性不为空时，render为一个链接
-   *
-   * When the url is not empty, a url will be rendered.
-   *
-   * default: -
+   * @en When the url is not empty, a url will be rendered.
+   * @cn url属性不为空时，render为一个链接
    */
   url?: string
 
   /**
-   * url 不为空时有效
-   *
-   * It is valid when the url is not empty.
-   *
-   * default: -
+   * @en It is valid when the url is not empty.
+   * @cn url 不为空时有效
    */
   target?: string
 
   /**
-   * 禁用
-   *
-   * Disabled
-   *
-   * default: -
+   * @en Disabled
+   * @cn 禁用
    */
   disabled?: boolean
 
   /**
-   * 默认从content获取内容
-   *
-   * element
-   *
-   * default: -
+   * @en element
+   * @cn 默认从content获取内容
    */
   content?: React.ReactNode
+  /**
+   * @en childNode
+   * @cn 子节点
+   */
   children?: DropdownNode[]
+  /**
+   * @en click event
+   * @cn 点击事件
+   */
   onClick?: (data: DropdownNode) => void
   [key: string]: any
 }
@@ -58,114 +59,87 @@ export interface ItemProps {
 }
 
 export interface SimpleDropdownProps extends StandardProps, Pick<AbsoluteProps, 'absolute'> {
-  // hover?: boolean
-  isSub?: boolean
-
   /**
-   * Display multiple elements on the page. This property depends on the width attribute. Please set the number of columns and width appropriately.
-   *
-   * 页面多元素展示,此属性需要依赖width属性,请合理的设置列数和宽度
-   *
-   * default: -
+   * @inner 内部属性
+   */
+  isSub?: boolean
+  /**
+   * @en Display multiple elements on the page. This property depends on the width attribute. Please set the number of columns and width appropriately.
+   * @cn 页面多元素展示,此属性需要依赖width属性,请合理的设置列数和宽度
    */
   columns?: number
 
   /**
-   * same as Button
-   *
-   * 同 Button
-   *
-   * default: -
+   * @en same as Button
+   * @cn 同 Button
    */
   outline?: boolean
 
   /**
-   * Specifies the dropdown should be disabled
-   *
-   * 禁用
-   *
-   * default: false
+   * @en Specifies the dropdown should be disabled
+   * @cn 禁用
+   * @default false
    */
   disabled?: boolean
 
   /**
-   * Specifies the dropdown should be disabled
-   *
-   * 是否开启动画
-   *
-   * default: true
+   * @en Specifies the dropdown should be disabled
+   * @cn 是否开启动画
+   * @default true
    */
   animation?: boolean
 
   /**
-   * data of dropdown
-   *
-   * 下拉数据
-   *
-   * default: []
+   * @en data of dropdown
+   * @cn 下拉数据
+   * @default []
    */
   data: DropdownItem[]
 
   /**
-   * Toggle mode
-   *
-   * 触发方式
-   *
-   * default: 'click'
+   * @en Toggle mode
+   * @cn 触发方式
+   * @default 'click'
    */
   trigger?: TriggerType
 
   /**
-   * Displayed content of the button
-   *
-   * 按钮显示内容
-   *
-   * default: -
+   * @en Displayed content of the button
+   * @cn 按钮显示内容
    */
   placeholder?: React.ReactNode
 
   /**
-   * same as Button
-   *
-   * 同 Button
-   *
-   * default: 'default'
+   * @en same as Button
+   * @cn 同 Button
+   * @default 'default'
+   * @override union
    */
   size?: RegularAttributes.Size
 
   /**
-   * type of Dropdown
-   *
-   * 类型
-   *
-   * default: -
+   * @en type of Dropdown
+   * @cn 类型
+   * @override union
    */
   type?: RegularAttributes.Type | 'link'
 
   /**
-   * The click event. The parameter is the rendered data. <br /> Note: if the onClick is set in the data, this method will be ignored and data.onclick will be called.
-   *
-   * 点击事件。参数为渲染的数据,注: 如果数据内设置了onClick，会忽略此方法，调用data.onClick
-   *
-   * default: -
+   * @en The click event. The parameter is the rendered data. <br /> Note: if the onClick is set in the data, this method will be ignored and data.onclick will be called.
+   * @cn 点击事件。参数为渲染的数据,注: 如果数据内设置了onClick，会忽略此方法，调用data.onClick
    */
   onClick?: (data: any) => void
 
   /**
-   * The width of the pop-up option layer
-   *
-   * 弹出选项层的宽度
-   *
-   * default: -
+   * @en The width of the pop-up option layer
+   * @cn 弹出选项层的宽度
    */
   width?: number
 
   /**
-   * Set position property can control the direction and position of the drop-down menu
-   *
-   * 弹出的方向和位置
-   *
-   * default: 'auto'
+   * @en Set position property can control the direction and position of the drop-down menu
+   * @cn 弹出的方向和位置
+   * @default: 'auto'
    */
   position?:
     | 'left-top'
@@ -179,16 +153,15 @@ export interface SimpleDropdownProps extends StandardProps, Pick<AbsoluteProps, 
     | 'auto'
 
   /**
-   * Set the displayed content. If it is a string,  the corresponding value will be displayed.
-   * If it is a function, the return value will be displayed and its parameter is the current data.
-   *
-   * 设置显示的内容,如果是字符串,则为对应的值。如果是函数,则返回值为显示的内容,参数为当条数据
-   *
-   * default: 'auto'
+   * @en Set the displayed content. If it is a string,  the corresponding value will be displayed. \n If it is a function, the return value will be displayed and its parameter is the current data.
+   * @cn 设置显示的内容,如果是字符串,则为对应的值。如果是函数,则返回值为显示的内容,参数为当条数据
    */
   renderItem?: ((data: any) => React.ReactNode) | string
 }
 
+/**
+ * @title DropDown
+ */
 export type DropdownProps = GetTableConsumerProps<SimpleDropdownProps>
 
 export declare class DropdownClass extends React.Component<DropdownProps, {}> {

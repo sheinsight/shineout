@@ -15,7 +15,7 @@ function parseDocTag(jtTags) {
     {}
   )
 }
-function convertQuotes(str) {
+function convertQuotes(str = '') {
   return str.replaceAll('"', '\\"').replaceAll("'", '\\"')
 }
 
@@ -60,7 +60,7 @@ function getPathType(pp, name) {
     return getInterfaceType(type)
   }
   console.log(pp, name)
-  console.log(type.getStructure())
+  console.log(type && type.getStructure())
 
   return ''
 }
@@ -78,10 +78,10 @@ function getImportType(text) {
       const pp = currentMatch[1]
       const name = currentMatch[2]
       const fanXin = currentMatch[3] || ''
-      const isArray = !!currentMatch[4]
+      const isArray = currentMatch[4] || ''
       console.log(str, pp, name, fanXin, isArray)
-      // 过滤掉 xxxProps 和 ObjectKey
-      if (!name.endsWith('Props') && !['ObjectKey'].includes(name)) {
+      // 过滤掉 xxxProps 和 ObjectKey 等不需要继续计算的属性
+      if (!name.endsWith('Props') && !['ObjectKey', 'DropdownNode'].includes(name)) {
         if (!pathMap[name]) {
           pathMap[name] = {
             form: pp,
@@ -90,7 +90,7 @@ function getImportType(text) {
         }
         resultStr = resultStr.replace(str, isArray ? `(${pathMap[name].type})[]` : pathMap[name].type)
       } else {
-        resultStr = resultStr.replace(str, `${name}${fanXin}`)
+        resultStr = resultStr.replace(str, `${name}${fanXin}${isArray}`)
       }
     }
   } while (currentMatch !== null)
@@ -132,7 +132,12 @@ function getPropertiesWithDocComments(pp) {
       .flat()
     const mainTags = parseDocTag(InterfaceJsDocTags)
     if (!mainTags.title) return
-    const item = { title: mainTags.title, properties: [] }
+    const item = {
+      title: mainTags.title,
+      properties: [],
+      cn: convertQuotes(mainTags.cn),
+      en: convertQuotes(mainTags.en),
+    }
     const type = interface.getType()
     const properties = typeChecker.getPropertiesOfType(type)
     const lost = []
@@ -153,13 +158,16 @@ function getPropertiesWithDocComments(pp) {
       const typeText = getTypeStr(propertyJsDocTags.override, nodeType)
       const itemProperty = {
         name: property.getName(),
-        tag: Object.keys(propertyJsDocTags).reduce(
-          (result, i) => ({ ...result, [i]: convertQuotes(propertyJsDocTags[i] || '') }),
-          {}
-        ),
+        tag: {
+          cn: convertQuotes(propertyJsDocTags.cn),
+          en: convertQuotes(propertyJsDocTags.en),
+          default: convertQuotes(propertyJsDocTags.default),
+        },
         type: convertQuotes(typeText),
       }
       item.properties.push(itemProperty)
+      // console.log('---------')
+      // console.log(itemProperty.name, itemProperty.type, itemProperty.tag.cn)
     })
     if (lost.length) {
       console.log(`${mainTags.title}缺失`, lost.join(','))
@@ -168,8 +176,8 @@ function getPropertiesWithDocComments(pp) {
   })
   return results
 }
-const p = path.resolve(__dirname, '../../src/DatePicker/Props.ts')
-getPropertiesWithDocComments(p)
+const p = path.resolve(__dirname, '../../src/DropDown/Props.ts')
+console.log(getPropertiesWithDocComments(p))
 const ModuleMap = {
   List: 'DataList',
 }

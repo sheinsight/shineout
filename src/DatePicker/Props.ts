@@ -251,6 +251,10 @@ export interface ContainerProps<T = DatePickerValue>
    * @cn 值为 string 时，需要和 format 属性匹配。\n 非 string 会格式化为 string。\n range 属性为 true 时，值为长度为2的数组
    */
   value: DatePickerValue
+  /**
+   * @en extra children
+   * @cn 额外渲染的节点
+   */
   children?: ReactNode
   onValueBlur: () => void
   /**
