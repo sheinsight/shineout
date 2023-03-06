@@ -1,0 +1,96 @@
+@import './variables.less';
+
+.doc-home {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  padding-top: 60px;
+  margin-top: -60px;
+
+  &-left {
+    position: relative;
+    flex: 1;
+  }
+
+
+  &-content {
+    position: relative;
+    z-index: 10;
+    width: 60%;
+    margin: 15% 15% 0 25%;
+    font-size: 18px;
+
+    @media (max-width: 979px) and (min-width: 600px){
+      margin: 50% 30% 0 25%;
+      width: 80%;
+    }
+
+    @media (max-width: 599px) and (min-width: 0px){
+      margin: 80% 30% 0 45%;
+      width: 90%;
+    }
+
+    h2 {
+      margin-bottom: 30px;
+      font-family: 'Futura';
+      font-size: 48px;
+    }
+  }
+
+  &-buttons {
+    padding-top: 40px;
+
+    @media (max-width: 979px) and (min-width: 0px){
+      .so-button{
+        margin-bottom: 10px;
+      }
+    }
+  }
+
+  &-bottom-left {
+    position: absolute;
+    z-index: 0;
+    bottom: 0;
+    left: 0;
+    width: 90%;
+    font-size: 0;
+
+    @media (max-width: 979px) and (min-width: 0px){
+      position: fixed;
+    }
+  }
+
+  &-right {
+    position: relative;
+    overflow: hidden;
+    width: 45vw;
+
+    .doc-home-img {
+      position: absolute;
+      top: 50%;
+      margin-top: -22vw;
+
+      @media (max-width: 599px) and (min-width: 0px){
+        display: none;
+      }
+    }
+
+    img {
+      width: 100%;
+    }
+  }
+}
+
+table .table-bg-danger > td {
+  background: #fff1f0;
+}
+
+table .table-bg-success > td {
+  background: #f6ffed;
+}
+
+@media (max-width: 979px) and (min-width: 0px){
+  .so-button {
+    margin-bottom: 10px;
+  }
+}

@@ -1,0 +1,389 @@
+@import './variables.less';
+
+@doc-header-prefix: doc-header;
+@editor-text-color: #c0c4cc;
+@editor-darken-text-color: darken(@editor-text-color, 40%);
+
+.doc-header {
+  @header-height: 60px;
+
+  display: flex;
+  height: @header-height;
+  align-items: center;
+  border-bottom: solid 1px rgb(232, 242, 255);
+  @media (max-width: 979px) and (min-width: 0px){
+    position: fixed;
+    right: 0;
+    left: 0;
+    z-index: 100;
+    background: #fff;
+  }
+
+  &-logo {
+    width: 20%;
+    padding: 18px 50px;
+    font-size: 0;
+
+    svg {
+      width: 120px;
+      height: 24px;
+    }
+  }
+
+  &-nav {
+    display: inline-block;
+    flex: 1;
+    padding-left: 30px;
+    height: @header-height;
+    overflow: auto;
+    white-space: nowrap;
+
+    a {
+      display: inline-block;
+      padding: 0 10px;
+      margin: 0 20px;
+      color: #333;
+      line-height: @header-height;
+      text-decoration: none;
+      @media (max-width: 1110px) and (min-width: 0px){
+        margin: 0;
+      }
+    }
+
+    a.doc-header-active,
+    a:hover {
+      color: #333;
+    }
+  }
+
+  &-right {
+    padding-right: 20px;
+  }
+
+  &-search {
+    margin-right: 12px;
+    /* border: 1px solid #000; */
+    border: 0;
+    height: 30px;
+    width: 160px;
+    outline: none;
+    font-size: 13px;
+    margin-left: 8px;
+  }
+
+  &-light {
+    vertical-align: middle;
+    button,
+    button:hover,
+    button:focus,
+    button:active {
+      color: #333;
+    }
+  }
+
+  &-export-conf {
+    white-space: pre;
+    max-height: 300px;
+    overflow: auto;
+    margin: 16px 24px;
+  }
+
+  &-editor-drawer {
+    z-index: @zindex-navbar-fixed;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    background: #fff;
+    height: 100%;
+    border-left: 1px solid @table-border-color;
+  }
+
+  &-editor {
+    overflow: auto;
+    height: 100%;
+    background: @doc-code-bg;
+    &-close {
+      margin-left: 8px;
+      float: left;
+      z-index: 100;
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      padding: 0;
+    }
+    &-item {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+    &-footer {
+      height: 44px;
+      line-height: 44px;
+      padding: 0 24px 0 12px;
+      text-align: right;
+      color: @editor-text-color;
+      span {
+        transition: color .3s;
+        cursor: pointer;
+        margin-left: 14px;
+        color: @editor-darken-text-color;
+        &:hover {
+          color: @colors-primary;
+        }
+      }
+    }
+    &-content {
+      width: 283px;
+      flex: 1;
+      padding: 15px 18px;
+      overflow: auto;
+      > div {
+        margin-bottom: 20px;
+        .@{so-prefix}-form-item {
+          padding: 5px 0;
+          margin-bottom: 0;
+          display: block;
+          .@{so-prefix}-form-label {
+            font-size: 12px;
+            width: auto;
+            color: @editor-darken-text-color;
+          }
+          .@{doc-header-prefix}-attr-item {
+            display: flex;
+            flex-direction: row;
+            > label {
+              margin-right: 8px;
+            }
+            .@{doc-header-prefix}-color {
+              width: 34px;
+              height: 34px;
+            }
+          }
+        }
+        .@{doc-header-prefix}-form-desc {
+          font-size: 12px;
+          font-style: italic;
+          padding-left: 6px;
+          margin-bottom: 8px;
+          display: inline-block;
+          color: #aaa;
+        }
+      }
+      h2 {
+        cursor: pointer;
+        user-select: none;
+        color: @editor-text-color;
+        font-size: 15px;
+        font-weight: 400;
+        margin: 0 0 8px 0;
+        transition: color .3s;
+        &.@{doc-header-prefix}-active {
+          padding-bottom: 8px;
+          border-bottom: 2px solid fade(@editor-text-color, 30%);
+          color: @editor-darken-text-color;
+          > span {
+            .caret-outline(up, @caret-width);
+            margin-right: 10px;
+            display: inline-block;
+            &:after {
+              width: 8px;
+              height: 8px;
+              margin-left: 0;
+              top: -1px;
+              border-width: 0 1px 1px 0;
+            }
+          }
+        }
+        &:hover {
+          color: @editor-darken-text-color;
+        }
+        > span {
+          .caret-outline(down, @caret-width);
+          float: right;
+          margin-right: 10px;
+          display: inline-block;
+          &:after {
+            width: 8px;
+            height: 8px;
+            margin-left: 0;
+            top: -1px;
+            border-width: 0 1px 1px 0;
+          }
+        }
+        & + div {
+          margin-left: -5px;
+        }
+      }
+    }
+    .@{doc-header-prefix}-color {
+      &-item {
+        display: inline-block;
+        text-align: left;
+        margin-right: 18px;
+        margin-bottom: 8px;
+        > p {
+          margin: 0;
+          &:first-child {
+            text-transform: capitalize;
+            margin-bottom: 4px;
+          }
+        }
+      }
+    }
+  }
+
+  &-color {
+    width: 30px;
+    height: 30px;
+    padding: 1px;
+    display: inline-block;
+    border-radius: 3px;
+    text-align: center;
+    border: 1px solid @btn-default-border;
+    cursor: pointer;
+    outline: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    vertical-align: middle;
+
+    &-current {
+      width: 100%;
+      height: 100%;
+      border-width: 1px;
+      border-style: solid;
+      border-color: inherit;
+      border-radius: inherit;
+    }
+    &-picker {
+      box-shadow: none !important;
+    }
+  }
+
+  &-icon {
+    color: #999999;
+  }
+
+  &-docsearch {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  @media (max-width: 979px) and (min-width: 599px) {
+    &-logo svg{
+      width: 100px;
+    }
+    &-light {
+      display: none !important;
+    }
+    &-right {
+      .so-button{
+        margin-bottom: 0;
+      }
+    }
+    &-search::-webkit-input-placeholder { color:transparent; }
+    &-search::placeholder { color:transparent; }
+    &-search:-ms-input-placeholder { color:transparent; }
+    .so-button-link{
+      display: none;
+    }
+    &-search {
+      width: 0;
+    }
+    &-search:focus {
+      width: 100px;
+    }
+    &-nav {
+      -webkit-overflow-scrolling: touch;
+      display: flex;
+      flex: 1;
+      padding-left: 10px;
+      overflow-x: scroll;
+      overflow: -moz-scrollbars-none;
+      -ms-overflow-style: none;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      a{
+        min-width: 50px;
+      }
+    }
+  }
+
+  @media (max-width: 599px) and (min-width: 0px) {
+
+    .ds-dropdown-menu {
+      z-index: 100;
+      position: fixed !important;
+      top: 60px !important;
+      left: auto !important;
+      right: 2rem !important;
+      width: 600px;
+      max-width: calc(100% - 2rem);
+      max-height: calc(100% - 5rem);
+      min-width: 200px !important;
+      display: block;
+
+    }
+    &-logo {
+      padding: 0;
+      margin: 0 10px;
+      min-width: 100px;
+    }
+
+    &-logo svg{
+      width: 100px;
+    }
+
+    &-nav {
+      -webkit-overflow-scrolling: touch;
+      display: flex;
+      flex: 1;
+      padding-left: 0;
+      overflow-x: scroll;
+      overflow: -moz-scrollbars-none;
+      -ms-overflow-style: none;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      > a{
+        min-width: 50px;
+      }
+    }
+    // a {
+    //   line-height: normal;
+    //   margin: 0;
+    //   width: 50px;
+    // }
+    &-light {
+      display: none !important;
+    }
+    &-right {
+      padding-right: 5px;
+      .so-button{
+        padding: 2px 5px;
+        font-size: 12px;
+        margin-bottom: 0;
+      }
+    }
+    &-search {
+      width: 0px;
+      margin-right: 0;
+      overflow: hidden;
+    }
+    &-search:focus {
+      width: 80px;
+    }
+    &-search::-webkit-input-placeholder { color:transparent; }
+    &-search::placeholder { color:transparent; }
+    &-search:-ms-input-placeholder { color:transparent; }
+    .so-button-link{
+      display: none;
+    }
+  }
+}

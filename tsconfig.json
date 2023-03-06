@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "allowJs": true,
+        "checkJs": false,
+        "baseUrl": "./",
+        "paths": {
+            "shineout": ["src/index"],
+            "doc/*": ["site/*"]
+        },
+        "strictNullChecks": true,
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "experimentalDecorators": true,
+        "jsx": "preserve",
+        "noUnusedParameters": true,
+        "noUnusedLocals": true,
+        "noImplicitAny": true,
+        "target": "ESNext",
+        "lib": ["dom", "es2017"],
+        "skipLibCheck": false
+    },
+    "include": ["src", "externals.d.ts", "site"] ,
+}

@@ -1,0 +1,52 @@
+@import '../../styles/variables.less';
+@import '../../styles/themes/@{so-theme}.less';
+
+@breadcrumb-prefix: ~'@{so-prefix}-breadcrumb';
+
+//
+// Breadcrumbs
+// --------------------------------------------------
+
+.@{breadcrumb-prefix} {
+  background-color: @breadcrumb-bg;
+  border-radius: @border-radius-base;
+  font-size: @font-size-base;
+  list-style: none;
+
+  &-separator {
+    margin: 0 @breadcrumb-padding-vertical;
+  }
+
+  a,
+  b {
+    display: inline-block;
+  }
+
+  a {
+    color: @breadcrumb-a-color;
+  }
+
+  b {
+    font-weight: normal;
+  }
+
+  a:hover {
+    color: @colors-primary;
+  }
+
+  &-down {
+    display: inline-block;
+    width: 10px;
+    margin-left: 8px;
+  }
+
+  &-dropdown-item a {
+    display: block;
+    padding: 6px 20px;
+    min-width: 100px;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.05);
+    }
+  }
+}

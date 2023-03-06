@@ -1,0 +1,296 @@
+@import './bootstrap.less';
+@import './cssvar.less';
+
+@colors-primary-value: #1890ff;
+@colors-primary: var(--primary-color, @colors-primary-value);
+@colors-blue: #1890ff;
+
+@colors-secondary-value: #6c757d;
+@colors-secondary: var(--secondary-color, @colors-secondary-value);
+
+@colors-green: #52c41a;
+@colors-success-value: @colors-green;
+@colors-success: var(--success-color, @colors-success-value);
+
+@colors-cyan: #1890ff;
+@colors-info-value: @colors-cyan;
+@colors-info: var(--info-color, @colors-info-value);
+
+@colors-yellow: #faad14;
+@colors-warning-value: @colors-yellow;
+@colors-warning: var(--warning-color, @colors-warning-value);
+
+@colors-red: #f5222d;
+@colors-danger-value: @colors-red;
+@colors-danger: var(--danger-color, @colors-danger-value);
+
+@btn-circle-width: 32px;
+@btn-circle-small-width: 24px;
+@btn-circle-large-width: 40px;
+@button-border-radius-value: 4px;
+@btn-border-radius-base: var(--button-border-radius, @button-border-radius-value);
+@button-small-border-radius-value: 4px;
+@btn-border-radius-small: var(--button-small-border-radius, @button-small-border-radius-value);
+@button-large-border-radius-value: 4px;
+@btn-border-radius-large: var(--button-large-border-radius, @button-large-border-radius-value);
+
+@padding-base-horizontal: 12px;
+@padding-base-vertical: 5px;
+@button-padding-base-horizontal-value: @padding-base-horizontal;
+@btn-padding-x: var(--button-padding-base-horizontal, @button-padding-base-horizontal-value);
+@button-padding-base-vertical-value: @padding-base-vertical;
+@btn-padding-y: var(--button-padding-base-vertical, @button-padding-base-vertical-value);
+
+@padding-large-horizontal: 15px;
+@padding-large-vertical: 8px;
+@button-padding-large-horizontal-value: @padding-large-horizontal;
+@btn-padding-large-x: var(--button-padding-large-horizontal, @button-padding-large-horizontal-value);
+@button-padding-large-vertical-value: @padding-large-vertical;
+@btn-padding-large-y: var(--button-padding-large-vertical, @button-padding-large-vertical-value);
+
+@padding-small-horizontal: 7px;
+@padding-small-vertical: 2px;
+@padding-large-vertical: 8px;
+@button-padding-small-horizontal-value: @padding-small-horizontal;
+@btn-padding-small-x: var(--button-padding-small-horizontal, @button-padding-small-horizontal-value);
+@button-padding-small-vertical-value: @padding-small-vertical;
+@btn-padding-small-y: var(--button-padding-small-vertical, @button-padding-small-vertical-value);
+
+@table-head-color-value: rgba(0, 0, 0, 0.85);
+@table-head-color: var(--table-head-color, @table-head-color-value);
+
+@table-border-color-value: #e8e8e8;
+@table-border-color: var(--table-border-color, @table-border-color-value);
+
+@table-bg-hover-value: #e6f7ff;
+@table-bg-hover: var(--table-hover-bg, @table-bg-hover-value);
+
+@table-color-value: rgba(0, 0, 0, 0.65);
+@table-color: var(--table-color, @table-color-value);
+
+@table-cell-padding-horizontal-value: 16px;
+@table-cell-padding-horizontal: var(--table-cell-padding-horizontal, @table-cell-padding-horizontal-value);
+
+@table-cell-padding-vertical-value: 16px;
+@table-cell-padding-vertical: var(--table-cell-padding-vertical, @table-cell-padding-vertical-value);
+
+@tag-border-color-value: #d9d9d9;
+@tag-border-color: var(--tag-border-color, @tag-border-color-value);
+
+@input-border-focus-value: #40a9ff;
+@input-border-focus: var(--input-border-focus-color, @input-border-focus-value);
+
+@tag-border-radius-value: 3px;
+@tag-border-radius: var(--tag-border-radius, @tag-border-radius-value);
+
+@tag-padding-x-value: 8px;
+@tag-padding-x: var(--tag-padding-horizontal, @tag-padding-x-value);
+
+@tag-padding-y-value: 2px;
+@tag-padding-y: var(--tag-padding-vertical, @tag-padding-y-value);
+
+@input-bg-disabled-value: hsv(0, 0, 96%);
+@input-bg-disabled: var(--input-bg-disabled, @input-bg-disabled-value);
+
+@input-border-value: @gray-300-value;
+@input-border: var(--input-border-color, @input-border-value);
+
+@input-color-placeholder-value: #bfbfbf;
+@input-color-placeholder: var(--input-placeholder-color, @input-color-placeholder-value);
+
+@checkbox-border-color-value: @input-border-value;
+@checkbox-border-color: var(--checkbox-border-color, @checkbox-border-color-value);
+
+@dropdown-link-active-bg-value: #f2f2f2;
+@dropdown-link-active-bg: var(--select-item-active-bg, @dropdown-link-active-bg-value);
+
+@dropdown-link-active-color-value: rgba(0, 0, 0, 0.65);
+@dropdown-link-active-color: var(--select-item-active-color, @dropdown-link-active-color-value);
+
+@menu-dark-bg-value: #001529;
+@menu-dark-bg: var(--menu-dark-bg, @menu-dark-bg-value);
+
+@menu-dark-item-value: #bfbfbf;
+@menu-dark-item: var(--menu-dark-color, @menu-dark-item-value);
+
+@input-focus-width-value: 2px;
+@input-focus-width: var(--input-focus-width, @input-focus-width-value);
+
+@menu-item-active-bg-value: #e6f7ff;
+@menu-item-active-bg: var(--menu-item-active-bg, @menu-item-active-bg-value);
+
+@menu-item-active-color-value: @colors-primary-value;
+@menu-item-active-color: var(--menu-item-active-color, @menu-item-active-color-value);
+
+@pagination-hover-border-value: @colors-primary-value;
+@pagination-hover-border: var(--pagination-hover-border, @pagination-hover-border-value);
+
+@pagination-hover-bg-value: @pagination-bg;
+@pagination-hover-bg: var(--pagination-hover-bg, @pagination-hover-bg-value);
+
+@pagination-hover-color-value: @colors-primary-value;
+@pagination-hover-color: var(--pagination-hover-color, @pagination-hover-color-value);
+
+@message-box-shadow-value: 0 4px 12px rgba(0, 0, 0, 0.15);
+@message-box-shadow: var(--message-box-shadow, @message-box-shadow-value);
+
+@select-option-hover-bg-value: #e6f7ff;
+@select-option-hover-bg: var(--select-option-hover-bg, @select-option-hover-bg-value);
+
+@select-option-hover-color-value: @dropdown-link-hover-color;
+@select-option-hover-color: var(--select-option-hover-color, @select-option-hover-color-value);
+
+@select-option-color-value: rgba(0, 0, 0, 0.65);
+@select-option-color: var(--select-option-color, @select-option-color-value);
+
+@state-success-text: rgba(0, 0, 0, 0.65);
+@state-success-bg: #f6ffed;
+@state-success-border: #b7eb8f;
+
+@state-info-text: rgba(0, 0, 0, 0.65);
+@state-info-bg: #e6f7ff;
+@state-info-border: #91d5ff;
+
+@state-warning-text: rgba(0, 0, 0, 0.65);
+@state-warning-bg: #fffbe6;
+@state-warning-border: #ffe58f;
+
+@state-danger-text: rgba(0, 0, 0, 0.65);
+@state-danger-bg: #fff1f0;
+@state-danger-border: #ffa39e;
+
+@font-size-large: @font-size-large-medium;
+@button-font-size-large-value: @font-size-large;
+@button-font-size-large: var(--button-font-size-large, @button-font-size-large-value);
+
+@panel-border-radius-value: 2px;
+@panel-border-radius: var(--panel-border-radius, @panel-border-radius-value);
+
+@panel-header-padding-horizontal-value: 16px;
+@panel-header-padding-horizontal: var(--panel-header-padding-horizontal, @panel-header-padding-horizontal-value);
+
+@panel-header-padding-vertical-value: 16px;
+@panel-header-padding-vertical: var(--panel-header-padding-vertical, @panel-header-padding-vertical-value);
+
+@panel-body-padding-horizontal-value: 16px;
+@panel-body-padding-horizontal: var(--panel-body-padding-horizontal, @panel-body-padding-horizontal-value);
+
+@panel-body-padding-vertical-value: 16px;
+@panel-body-padding-vertical: var(--panel-body-padding-vertical, @panel-body-padding-vertical-value);
+
+@panel-footer-padding-horizontal-value: 16px;
+@panel-footer-padding-horizontal: var(--panel-footer-padding-horizontal, @panel-footer-padding-horizontal-value);
+
+@panel-footer-padding-vertical-value: 16px;
+@panel-footer-padding-vertical: var(--panel-footer-padding-vertical, @panel-footer-padding-vertical-value);
+
+@modal-header-padding: var(--modal-header-padding, 16px 32px 16px 16px);
+@modal-header-padding-top: var(--modal-header-padding-top, 16px);
+@modal-header-padding-right: var(--modal-header-padding-right, 32px);
+@modal-header-padding-bottom: var(--modal-header-padding-bottom, 16px);
+@modal-header-padding-left: var(--modal-header-padding-left, 16px);
+
+@modal-body-padding-top: var(--modal-body-padding-top, 16px);
+@modal-body-padding-right: var(--modal-body-padding-right, 16px);
+@modal-body-padding-bottom: var(--modal-body-padding-bottom, 16px);
+@modal-body-padding-left: var(--modal-body-padding-left, 16px);
+
+@modal-footer-padding: var(--modal-footer-padding, 16px);
+@modal-border-radius: var(--modal-border-radius, @panel-border-radius-value);
+@modal-close-top-margin: var(--modal-close-top-margin, 18px);
+@modal-close-right-margin: var(--modal-close-right-margin, 16px);
+
+@caret-width: 6px;
+
+@ease-in-out: 0.3s;
+// Alert
+@alert-padding-y-value: 8px;
+
+// Button
+@btn-default-border-color-value: #d9d9d9;
+@btn-default-border: var(--button-default-border, @btn-default-border-color-value);
+
+@btn-primary-border: @colors-primary;
+@btn-warning-border: @colors-warning;
+@btn-success-border: @colors-success;
+@btn-info-border: @colors-info;
+@btn-danger-border: @colors-danger;
+@btn-hover-darken: -5%;
+
+// Dropdown
+@dropdown-padding-x: 12px;
+@dropdown-padding-y: 0;
+@dropdown-item-padding-y: 6px;
+@dropdown-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+@dropdown-border: transparent;
+@dropdown-link-color: rgba(0, 0, 0, 0.65);
+@dropdown-link-hover-color: rgba(0, 0, 0, 0.65);
+@dropdown-link-hover-bg: #e6f7ff;
+@dropdown-default-border-width-color: var(--button-default-border, @btn-default-border-color-value);
+@dropdown-default-border-width-hover-color: @colors-primary-value;
+
+// message
+
+// table
+@table-cell-padding: 16px;
+@table-head-border: 1px;
+@table-condensed-cell-padding: 10px 16px;
+
+// pagination
+
+//breadcrumb
+@breadcrumb-bg: transparent;
+@breadcrumb-a-color: rgba(0, 0, 0, 0.45);
+@breadcrumb-active-color: rgba(0, 0, 0, 0.85);
+
+//menu
+@menu-title-transform: translateY(-75%) rotate(45deg);
+@menu-title-transform-origin: 75% 75%;
+@menu-title-open-transform: translateY(-75%) rotate(225deg);
+@menu-title-vertical-transform: translateY(-75%) rotate(-45deg);
+@menu-title-vertical-transform-rtl: translateY(-75%) rotate(135deg);
+
+// @datepicker-day-hover-bg: #e6f7ff;
+@datepicker-day-hover-bgc-value: #e6f7ff;
+
+// tag
+@tag-font-size: 80%;
+@tag-input-padding-y: 2px;
+
+// dropdown
+@dropdown-arrow-vertical: auto;
+
+// switch
+@switch-type: inner;
+@switch-checked-bg: var(--switch-checked-bg, @colors-primary);
+@switch-indicator-uncheck-bg: #fff;
+@switch-indicator-checked-bg: var(--switch-indicator-checked-bg, #fff);
+@switch-checked-box-shadow: var(--switch-checked-box-shadow, 0 1px 4px @gray-500);
+@switch-uncheck-box-shadow: 0 1px 4px @gray-500;
+@switch-indicator-padding-horizontal: var(--switch-indicator-padding-horizontal, 2px);
+@switch-indicator-padding-horizontal-negative: var(--switch-indicator-padding-horizontal-negative, -2px);
+@switch-indicator-size: var(--switch-indicator-size, 18px);
+@switch-bg-width: 44px;
+@switch-bg-border-radius: (@switch-bg-width / 2);
+@switch-bg-height: var(--switch-bg-height, 22px);
+@switch-font-size: 12px;
+@switch-indicator-top: var(--switch-indicator-top, 2px);
+
+@switch-small-indicator-size: var(--switch-small-indicator-size, 12px);
+@switch-small-bg-width: 28px;
+@switch-small-bg-border-radius: (@switch-small-bg-width / 2);
+@switch-small-bg-height: var(--switch-small-bg-height, 16px);
+@switch-small-indicator-top: var(--switch-small-indicator-top, 2px);
+@switch-small-indicator-padding: 0px;
+
+@switch-large-indicator-size: var(--switch-large-indicator-size, 24px);
+@switch-large-bg-width: 60px;
+@switch-large-bg-border-radius: (@switch-large-bg-width / 2);
+@switch-large-bg-height: var(--switch-large-bg-height, 28px);
+@switch-large-indicator-top: var(--switch-large-indicator-top, 2px);
+
+@common-caret-style: var(--common-caret-style, line);
+
+
+@menu-caret-solid-width: 4px;
+@menu-caret-solid-height: 4px;

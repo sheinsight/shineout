@@ -1,0 +1,109 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Message[snapshot] Snapshot test: Message[site/pages/components/Message/example-1-base.tsx] 1`] = `
+<div>
+  <button>
+    <span>
+      Show
+    </span>
+  </button>
+  <button>
+    <span>
+      Info
+    </span>
+  </button>
+  <button>
+    <span>
+      Success
+    </span>
+  </button>
+  <button>
+    <span>
+      Warn
+    </span>
+  </button>
+  <button>
+    <span>
+      Error
+    </span>
+  </button>
+  <button>
+    <span>
+      Close All
+    </span>
+  </button>
+</div>
+`;
+
+exports[`Message[snapshot] Snapshot test: Message[site/pages/components/Message/example-2-duration.tsx] 1`] = `
+<div>
+  <button>
+    <span>
+      Duration 10 s.
+    </span>
+  </button>
+  <button>
+    <span>
+      Manually close
+    </span>
+  </button>
+</div>
+`;
+
+exports[`Message[snapshot] Snapshot test: Message[site/pages/components/Message/example-3-position.tsx] 1`] = `
+<div>
+  position:
+  <div>
+    <div>
+      <div>
+        <span>
+          top-right
+        </span>
+        <a>
+          <svg>
+            <path />
+          </svg>
+        </a>
+      </div>
+      <div>
+        <span>
+          Data not found
+        </span>
+      </div>
+    </div>
+  </div>
+  <button>
+    <span>
+      Show message.
+    </span>
+  </button>
+</div>
+`;
+
+exports[`Message[snapshot] Snapshot test: Message[site/pages/components/Message/example-4-close.tsx] 1`] = `
+<button>
+  <span>
+    Close callback
+  </span>
+</button>
+`;
+
+exports[`Message[snapshot] Snapshot test: Message[site/pages/components/Message/example-5-manual-close.tsx] 1`] = `
+<button>
+  <span>
+    Manual Close
+  </span>
+</button>
+`;
+
+exports[`Message[snapshot] Snapshot test: Message[site/pages/components/Message/example-6-container.tsx] 1`] = `
+<div>
+  <div>
+    <button>
+      <span>
+        Show
+      </span>
+    </button>
+  </div>
+</div>
+`;

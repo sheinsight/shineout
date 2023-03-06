@@ -1,0 +1,241 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Table[loading] should render loading 1`] = `
+<div
+  className="so-table so-table-default so-table-hover so-table-vertical-top"
+  style={
+    Object {
+      "overflow": "hidden",
+    }
+  }
+>
+  <div
+    className="so-table-head so-table-simple-head"
+    style={
+      Object {
+        "overflowY": "hidden",
+      }
+    }
+  >
+    <table
+      className=""
+      style={
+        Object {
+          "width": undefined,
+        }
+      }
+    >
+      <colgroup>
+        <col
+          style={
+            Object {
+              "width": 50,
+            }
+          }
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+        />
+      </colgroup>
+      <thead>
+        <tr>
+          <th
+            className=""
+            rowSpan={1}
+          >
+            <div
+              className=""
+            >
+              <span>
+                id
+              </span>
+            </div>
+          </th>
+          <th
+            className=""
+            rowSpan={1}
+          >
+            <div
+              className=""
+            >
+              <span>
+                Name
+              </span>
+            </div>
+          </th>
+          <th
+            className=""
+            rowSpan={1}
+          >
+            <div
+              className=""
+            >
+              <span>
+                Country
+              </span>
+            </div>
+          </th>
+          <th
+            className=""
+            rowSpan={1}
+          >
+            <div
+              className=""
+            >
+              <span>
+                Position
+              </span>
+            </div>
+          </th>
+          <th
+            className=""
+            rowSpan={1}
+          >
+            <div
+              className=""
+            >
+              <span>
+                Office
+              </span>
+            </div>
+          </th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <div
+    className="so-table-simple-body"
+    onScroll={[Function]}
+  >
+    <table
+      className=""
+      style={
+        Object {
+          "width": undefined,
+        }
+      }
+    >
+      <colgroup>
+        <col
+          style={
+            Object {
+              "width": 50,
+            }
+          }
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+        />
+      </colgroup>
+      <tbody>
+        <tr
+          className="so-table-normal"
+          onClick={[Function]}
+        >
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            0
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            first last
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            country
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            pos
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            office
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div
+    className="so-table-loading"
+  >
+    <div
+      className="so-spin-ring"
+      style={
+        Object {
+          "borderTopColor": "#1890ff",
+          "borderWidth": "4px",
+          "color": "#1890ff",
+          "height": 40,
+          "width": 40,
+        }
+      }
+    />
+  </div>
+</div>
+`;

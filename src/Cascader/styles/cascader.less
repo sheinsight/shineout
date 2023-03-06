@@ -1,0 +1,452 @@
+@import '../../styles/variables.less';
+@import '../../styles/themes/@{so-theme}.less';
+
+@cascader-prefix: ~'@{so-prefix}-cascader';
+@list-prefix: ~'@{so-prefix}-list';
+@checkinput-prefix: ~'@{so-prefix}-checkinput';
+@input-prefix: ~'@{so-prefix}-input';
+@select-prefix: ~'@{so-prefix}-select';
+@input-title-prefix: ~'@{so-prefix}-input-title-box';
+@baseOffset: 12;
+@multiOffset: 22;
+
+.@{cascader-prefix} {
+  position: relative;
+  width: 100%;
+  display: flex;
+
+  &:focus {
+    outline: none;
+  }
+
+  &-result {
+    cursor: pointer;
+    // position: relative;
+    display: flex;
+    max-height: 105px;
+    flex-flow: wrap;
+    overflow-y: auto;
+    flex-grow: 1;
+    &-ltr {
+      padding: @padding-base-vertical @padding-base-horizontal+@baseOffset 0 @padding-base-horizontal;
+    }
+    &-rtl {
+      padding: @padding-base-vertical   @padding-base-horizontal 0  @padding-base-horizontal+@baseOffset;
+    }
+
+    .@{so-prefix}-input-placeholder {
+      color: @input-color-placeholder;
+    }
+
+    > span,
+    .@{cascader-prefix}-item {
+      display: inline-block;
+      overflow: hidden;
+      max-width: 80%;
+      padding: 0 @select-result-space;
+      margin-bottom: @padding-base-vertical;
+      border-radius: @select-result-border-radius;
+      color: inherit;
+      text-overflow: ellipsis;
+      position: relative;
+      &-ltr {
+        margin-right: @select-result-space;
+      }
+      &-rtl {
+        margin-left: @select-result-space;
+      }
+
+      &-compressed {
+        padding: 0 8px;
+        font-size: 80%;
+        opacity: .9;
+        > span {
+          //vertical-align: middle;
+          letter-spacing: 2px;
+          padding: 0;
+          margin: 0;
+          overflow: visible;
+          max-width: none;
+        }
+      }
+
+      &:after {
+        content: '\feff ';
+      }
+
+      &.@{cascader-prefix}-remove-container {
+        &-ltr {
+          padding-right: 16px;
+        }
+        &-rtl {
+          padding-left: 16px;
+        }
+        &:after {
+          content: none;
+        }
+      }
+
+      .@{cascader-prefix}-single-remove {
+        box-sizing: border-box;
+        position: absolute;
+        top: 50%;
+        margin: 0;
+        padding: 0;
+
+        &-ltr {
+          right: 8px;
+          transform: translate(50%, -50%);
+        }
+        &-rtl {
+          left: 8px;
+          transform: translate(-50%, -50%);
+        }
+
+        svg {
+          width: 6px;
+          height: 6px;
+          transform: translateY(-1px);
+
+          path {
+            transition: all .2s;
+            fill: @gray-500;
+          }
+        }
+        &:hover {
+          svg path {
+            fill: @colors-primary;
+          }
+        }
+      }
+    }
+
+    .@{cascader-prefix}-item {
+      background: @select-result-bg;
+      font-size: @font-size-base;
+      color: @gray-700;
+    }
+
+    .@{cascader-prefix}-input {
+      display: inline-flex;
+      min-width: 12px;
+      flex: 1;
+      margin-bottom: @padding-base-vertical;
+      outline: none;
+      cursor: text;
+      white-space: pre;
+
+      &:after {
+        content: '\feff ';
+      }
+
+      &.@{cascader-prefix}-full {
+        display: block;
+      }
+    }
+  }
+
+  &-disabled &-result{
+    cursor: not-allowed;
+    .so-cascader-item {
+      cursor: not-allowed;
+      background-color: inherit;
+      color: inherit;
+    }
+    .@{select-prefix}-multi {
+      visibility: visible;
+      cursor: not-allowed;
+    }
+  }
+
+  &:not(&-disabled) {
+    &.@{cascader-prefix}-focus .@{cascader-prefix}-close,
+    .@{cascader-prefix}-result:hover .@{cascader-prefix}-close,
+    .@{cascader-prefix}-title-box:hover .@{cascader-prefix}-close
+    {
+      display: block;
+    }
+
+    &.@{cascader-prefix}-focus .@{cascader-prefix}-result-clearable .@{select-prefix}-multi,
+    .@{cascader-prefix}-result-clearable:hover .@{select-prefix}-multi,
+    .@{cascader-prefix}-title-box:hover .@{cascader-prefix}-result-clearable .@{select-prefix}-multi
+    {
+      visibility: hidden;
+    }
+  }
+
+  &-multiple {
+    .@{cascader-prefix}-close {
+      &-ltr {
+        right: 19px;
+      }
+      &-rtl {
+        left: 19px
+      }
+    }
+  }
+
+  div&-options {
+    width: auto;
+    white-space: nowrap;
+    align-items: stretch;
+    font-size: @font-size-base;
+  }
+
+  &-focus &-options {
+    display: inline-flex;
+  }
+
+  &-compressed&-result {
+    flex-grow: 1;
+    width: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    &-ltr {
+      padding: @padding-base-vertical @padding-base-horizontal+@multiOffset 0 @padding-base-horizontal;
+    }
+    &-rtl {
+      padding: @padding-base-vertical @padding-base-horizontal 0 @padding-base-horizontal+@multiOffset;
+    }
+    .@{cascader-prefix}-item {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .@{cascader-prefix}-item-only {
+      flex-shrink: 1;
+    }
+    .@{cascader-prefix}-input {
+      white-space: nowrap;
+    }
+    .@{cascader-prefix}-close {
+      &-ltr {
+        right: 9px;
+      }
+      &-rtl {
+        left: 9px
+      }
+
+    }
+
+  }
+
+  &-no-data {
+    width: 100%;
+    position: relative;
+    display: block;
+    overflow: hidden;
+    padding: @dropdown-item-padding-y @dropdown-padding-x+12 @dropdown-item-padding-y @dropdown-padding-x;
+    color: @gray-500;
+    font-size: @font-size-base;
+    line-height: @line-height-base;
+    text-overflow: ellipsis;
+    transition: none;
+    white-space: nowrap;
+    .@{input-prefix}-rtl &, .@{list-prefix}-rtl & {
+      padding: @dropdown-item-padding-y @dropdown-padding-x @dropdown-item-padding-y @dropdown-padding-x +12;
+    }
+    &:hover {
+      color: @dropdown-link-active-color;
+    }
+  }
+
+  &-list-loading {
+    padding: @dropdown-item-padding-y @dropdown-padding-x;
+  }
+
+  &-list {
+    display: inline-block;
+    min-width: 120px;
+    height: 100%;
+    &-ltr {
+      border-right: solid 1px @gray-200;
+    }
+    &-rtl {
+      border-left: solid 1px @gray-200;
+    }
+    overflow-y: auto;
+    vertical-align: top;
+  }
+
+  &-node {
+    position: relative;
+    padding: @dropdown-item-padding-y @dropdown-padding-x+16 @dropdown-item-padding-y @dropdown-padding-x;
+    .@{input-prefix}-rtl &, .@{list-prefix}-rtl & {
+      padding: @dropdown-item-padding-y @dropdown-padding-x @dropdown-item-padding-y @dropdown-padding-x+16;
+    }
+    color: @dropdown-link-color;
+    white-space: nowrap;
+
+    &:hover {
+      background-color: @dropdown-link-hover-bg;
+    }
+
+    &.@{cascader-prefix}-disabled {
+      color: @gray-400;
+      cursor: not-allowed;
+
+      &:hover {
+        background-color: transparent;
+      }
+    }
+  }
+
+  &-loading {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    .@{input-prefix}-rtl &, .@{list-prefix}-rtl & {
+      right: auto;
+      left: 12px;
+    }
+  }
+
+  &-has-children,
+  &-may-be-children {
+    .@{cascader-prefix}-caret {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      position: absolute;
+      top: 50%;
+      &-ltr {
+        right: 12px;
+        transform: translateY(-50%) rotate(-90deg);
+      }
+      &-rtl {
+        left: 12px;
+        transform: translateY(-50%) rotate(90deg);
+      }
+    }
+  }
+
+  &-may-be-children .@{cascader-prefix}-caret {
+    fill: @gray-300;
+  }
+
+  &-active {
+    background-color: @cascader-active-background-color;
+    color: @cascader-active-color;
+    // font-weight: bold;
+    text-decoration: none;
+
+    // cover hover
+    &.@{cascader-prefix}-node {
+      background-color: @cascader-active-background-color;
+      color: @cascader-active-color;
+    }
+  }
+
+  div&-filter {
+    display: block;
+    min-width: 100%;
+    width: auto;
+    &-list {
+      overflow: auto;
+      &-separator {
+        margin: 0 4px;
+      }
+      &-content {
+        display: inline-block;
+        transition: all .2s;
+        &.@{cascader-prefix}-disabled {
+          color: @gray-400;
+          cursor: not-allowed;
+        }
+      }
+      .@{cascader-prefix}-node {
+        cursor: pointer;
+      }
+    }
+    &:not(.@{cascader-prefix}-leaf-only) {
+      .@{cascader-prefix}-filter-list-content {
+        &:not(.@{cascader-prefix}-disabled):hover {
+          color: @colors-primary;
+        }
+      }
+    }
+  }
+
+
+  &-popover {
+    .@{cascader-prefix}-result {
+      max-height: 112px;
+      max-width: 300px;
+      padding: 14px 14px 8px 14px;
+
+      .@{cascader-prefix}-item  {
+        max-width: none;
+      }
+    }
+  }
+}
+
+.@{cascader-prefix}-rtl {
+  direction: rtl;
+  text-align: start;
+}
+
+
+.@{input-prefix}  {
+  &.@{input-prefix}-small {
+    .@{cascader-prefix}-result {
+      padding-top: 2px;
+
+      .@{input-prefix}-placeholder,
+      .@{cascader-prefix}-item,
+      .@{cascader-prefix}-input {
+        margin-bottom: 2px;
+        font-size: @font-size-small;
+      }
+    }
+  }
+
+  &.@{input-prefix}-large {
+    .@{cascader-prefix}-result {
+      padding-top: 8px;
+
+      .@{input-prefix}-placeholder,
+      .@{cascader-prefix}-item,
+      .@{cascader-prefix}-input {
+        margin-bottom: 8px;
+        font-size: @font-size-large;
+      }
+    }
+  }
+}
+
+.@{cascader-prefix}-result.@{cascader-prefix}-large {
+  .@{cascader-prefix}-item {
+    font-size: @font-size-large;
+  }
+}
+
+.@{cascader-prefix}-result.@{cascader-prefix}-small {
+  .@{cascader-prefix}-item {
+    font-size: @font-size-small;
+  }
+}
+
+.@{cascader-prefix} {
+  &-title-box &-title-box-title, .@{input-title-prefix}&-title-box &-result {
+    .inner-title-responsive-offset(@cascader-prefix,0, @baseOffset)
+  }
+  &-title-box &-title-box-title-compressed&-title-box-title, &-title-box &-compressed&-result {
+    .inner-title-responsive-offset(@cascader-prefix, 0, @multiOffset)
+  }
+  &-title-box {
+    > .@{input-title-prefix}-content {
+      display: flex;
+    }
+  }
+  &-title-box &-result {
+    .@{input-prefix}-placeholder,
+    .@{cascader-prefix}-item,
+    .@{cascader-prefix}-input {
+      .inner-title-responsive-scroll-item-bottom(@cascader-prefix)
+    }
+  }
+}

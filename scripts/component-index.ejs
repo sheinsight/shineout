@@ -1,0 +1,23 @@
+/**
+ * 此文件根据 scripts/component-index.ejs 生成，不要手动修改
+ */
+import { lazy } from 'react'
+import Page from 'doc/pages/Page'
+
+const pages = [
+<% Object.keys(groups).forEach(function(key) { -%>
+<% if (key.length > 0) { -%>
+  '<%= key %>',
+<% } -%>
+<% groups[key].forEach(function(page, i) { -%>
+  {
+    name: '<%= page.name %>',
+    cn: '<%= page.cn %>',
+    level: <%= key ? 2 : 1 %>,
+    component: lazy(() => import(/* webpackChunkName: "<%= page.name %>" */ './<%= page.name %>')),
+  },
+<% }) -%>
+<% }) -%>
+]
+
+export default Page(pages)

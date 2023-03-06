@@ -1,0 +1,71 @@
+@import './variables.less';
+
+.doc-nav {
+  position: relative;
+  margin: 0 auto;
+
+  &-sticky {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    .rtl & {
+      right: auto;
+      left: 0;
+    }
+    width: 160px;
+    @media (max-width: 979px) and (min-width: 0px){
+      display:none;
+    }
+  }
+
+  &-nav {
+    width: 100%;
+    box-sizing: border-box;
+    padding-left: 20px;
+    overflow: auto;
+    max-height: calc(100vh - 70px);
+
+    a {
+      position: relative;
+      display: block;
+      margin-bottom: 10px;
+      color: #333;
+      font-size: 12px;
+      line-height: 1;
+      text-decoration: none;
+
+      &:hover {
+        color: @link-color;
+      }
+
+      &.doc-nav-active {
+        color: @colors-primary;
+
+        &:before {
+          position: absolute;
+          top: 0;
+          left: 6px;
+          width: 2px;
+          height: 100%;
+          background: @colors-primary;
+          content: ' ';
+        }
+      }
+    }
+  }
+
+  a&-level-2 {
+    margin: 30px 0 12px;
+    color: #666;
+    font-size: 16px;
+    font-weight: 300;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  &-level-3 {
+    padding-left: 12px;
+  }
+}

@@ -1,0 +1,491 @@
+@import './variables.less';
+@import './themes/@{so-theme}.less';
+
+@types: primary, warning, danger, success, secondary;
+@attrs: background, color, border;
+
+.borderMixin(@attr, @type) when (@attr = border){
+  @color-var-name: %('colors-%s', @type);
+  border-color: @@color-var-name;
+}
+.backgroundMixin(@attr, @type) when (@attr = background){
+  @color-var-name: %('colors-%s', @type);
+  background-color: @@color-var-name;
+}
+.colorMixin(@attr, @type) when (@attr = color){
+  @color-var-name: %('colors-%s', @type);
+  color: @@color-var-name;
+}
+.generate-attrs(@data, @n, @type, @i: 1) when (@i =< @n) {
+  @name: extract(@attrs, @i);
+  &-@{name} {
+    .borderMixin(@name, @type);
+    .backgroundMixin(@name, @type);
+    .colorMixin(@name, @type);
+  }
+  .generate-attrs(@data, @n, @type, (@i + 1));
+}
+.generate-types(@data, @n, @i: 1) when (@i =< @n) {
+  @name: extract(@types, @i);
+  &-@{name} {
+    .generate-attrs(@attrs, 3, @name)
+  }
+  .generate-types(@data, @n, (@i + 1));
+}
+.generate-location(@data, @n, @i: 1) when(@i =< @n){
+  @name: extract(@types, @i);
+  @color-var-name: %('colors-%s', @name);
+  &-location-@{name} {
+    color: @@color-var-name;
+    display: none;
+    position: absolute;
+  }
+  .generate-location(@data, @n, (@i + 1));
+}
+
+.loop-gray(@n, @i: 1) when(@i =< @n){
+  @var-name: %('gray-%s00', @i);
+  &-gray-@{i}00 {
+    color: @@var-name;
+  }
+  .loop-gray(@n, (@i + 1));
+}
+
+@expose-prefix: ~'@{so-prefix}-expose';
+
+.@{expose-prefix} {
+  .generate-location(@types, 5);
+  .generate-types(@types, 5);
+  &-table {
+    color: @table-color;
+    margin-bottom: @table-margin-bottom;
+    &-head {
+      font-weight: @table-head-font-weight;
+      background: @table-head-bg;
+      border-radius: @table-border-radius-top @table-border-radius-top 0 0;
+      color: @table-head-color;
+      border-color: @table-border-color;
+      padding: @table-header-cell-padding;
+      &-hover {
+        background: @table-bg-hover;
+      }
+      &-top {
+        border-width: @table-header-top-divider-width;
+      }
+    }
+    &-spacing {
+      height: @table-row-spacing;
+      border-radius: @table-row-border-radius;
+    }
+    &-cell {
+      padding: @table-cell-padding-vertical @table-cell-padding-horizontal;
+    }
+    &-small {
+      padding: @table-small-cell-padding;
+    }
+    &-fixed {
+      &-start {
+        background: @table-fixed-start-color;
+      }
+      &-end {
+        background: @table-fixed-end-color;
+      }
+    }
+    &-scroll {
+      &-ratio {
+        width: @table-scroll-ratio;
+      }
+    }
+    &-selected {
+      background: @table-selected-row-bg;
+    }
+    &-tree-expand {
+      margin-right: @table-tree-expand-icon-margin-right;
+    }
+    &-body {
+      background: @table-body-bg;
+    }
+
+    &-even {
+      background-color: @table-even-td-bgc;
+    }
+    &-odd {
+      background-color: @table-odd-td-bgc;
+    }
+  }
+  &-dropdown {
+    &-button {
+      border: @dropdown-border-width solid #000;
+    }
+    &-options-hover {
+      background-color: @dropdown-options-hover-bgc;
+      color: @dropdown-options-hover-color;
+    }
+  }
+  &-select {
+   &-result-item {
+     background: @select-result-bg;
+     padding: @select-result-padding-vertical @select-result-space-16 @select-result-padding-vertical @select-result-space;
+   }
+    &-option {
+      &-hover {
+        background: @select-option-hover-bg;
+        color: @select-option-hover-color;
+      }
+    }
+    &-close {
+      background: @select-clear-bg-color;
+    }
+    &-compressed {
+      background: @select-compressed-hover-bg;
+    }
+    &-tree {
+      color: @select-tree-content-color;
+      &-icon-hover {
+        background: @select-tree-icon-hover-bg-color
+      }
+      &-node-selected {
+        background: @select-tree-node-selected-bg;
+        color: @select-tree-node-selected-color;
+      }
+      &-node-hover {
+        background: @select-tree-node-hover-bg;
+        color: @select-tree-node-hover-color;
+      }
+      &-disabled {
+        background: @select-tree-disabled-bg-color;
+        color: @select-tree-disabled-content-color;
+      }
+    }
+  }
+  &-datepicker-month{
+    &-item {
+      border-radius: @datepicker-rect-active-border-radius-value;
+    }
+  }
+  &-datepicker-day {
+    &-hover-bgc{
+      background-color: @datepicker-day-hover-bg;
+    }
+  }
+  &-slider {
+    &-bar {
+      background: @slider-bar-bgc;
+      &-disabled {
+        background: @slider-disabled-bar-bg;
+      }
+    }
+    &-indicator {
+      background: @slider-indicator-bg;
+      width: @slider-indicator-size;
+      &-disabled {
+        background: @slider-disbaled-indicator-bg;
+        border-color: @slider-disbaled-indicator-border-color;
+      }
+    }
+    &-value {
+      height: @slider-value-bottom;
+    }
+  }
+  &-menu {
+    &-text {
+      color: @menu-item-color;
+    }
+    &-dark {
+      background: @menu-dark-bg;
+      color: @menu-dark-item;
+      &-active {
+        background: @menu-dark-active-bg;
+      }
+      &-hover {
+        color: @menu-item-dark-hover-color;
+        background-color: @menu-item-dark-hover-bgc;
+      }
+      &-bar  {
+        background-color: @menu-dark-active-bar-color;
+      }
+      &-root {
+        background-color: @menu-root-node-bgc;
+      }
+      &-seg {
+        border-top-color: @menu-children-segmentation;
+      }
+
+      &-vertical {
+        background-color: @menu-vertical-dark-parent-active-bgc;
+
+        &-children {
+          background-color: @menu-item-has-children-active-bgc;
+          color: @menu-item-has-children-active-color;
+        }
+        &-bar {
+          width: @menu-vertical-in-path-bar-width;
+        }
+      }
+    }
+    &-bar {
+      background-color: @menu-active-bar-color;
+      width: @menu-active-bar;
+    }
+    &-active {
+      background: @menu-item-active-bg;
+      color: @menu-item-active-color;
+      border-radius: @menu-active-border-radius;
+      padding: @menu-active-padding-vertical @menu-active-padding-horizontal;
+    }
+    &-light {
+      &-hover {
+        color: @menu-item-light-hover-color;
+        background-color: @menu-item-light-hover-bgc;
+      }
+    }
+  }
+  &-form {
+    &-inline {
+      margin-right: @form-inline-margin-right;
+    }
+    &-tip {
+      color: @form-tip-color;
+      font-size: @form-tip-font-size;
+    }
+    &-label {
+      text-align: @form-item-label-align;
+    }
+    &-error {
+      line-height: @form-item-error-line-height;
+      margin-top: @form-item-error-margin-top;
+      margin-bottom: @form-item-error-margin-bottom;
+    }
+    &-keep-error {
+      min-height: @form-Item-min-keep-height;
+    }
+  }
+  .loop-gray(9);
+  &-button {
+    margin-left: @button-margin-left;
+    &-disabled-delimiter {
+      border-color: @button-disabled-delimiter;
+    }
+  }
+  &-input {
+    &-focus {
+      border-color: @input-border-focus;
+    }
+    &-placeholder {
+      font-size: @input-size-placeholder;
+      color: @input-color-placeholder;
+    }
+    &-clear {
+      background-color: @input-clear-bg-color;
+      &-hover {
+        background-color: @input-clear-bg-hover-color;
+      }
+    }
+  }
+  &-alert {
+    &-close {
+      color: @alert-close-color;
+      &-hover {
+        color: @alert-close-hover-color;
+      }
+    }
+  }
+  &-radio {
+    width: @radio-width;
+    border: @radio-border-width solid #fff;
+    color: @radio-text-color;
+    &-inner {
+      width: @radio-inner-width;
+    }
+    &-uncheck {
+      width: @radio-border-uncheck-width;
+    }
+    &-group-default {
+      color: @radio-button-group-color;
+      background-color: @radio-button-group-bgc;
+      border-color: @radio-button-group-border-color;
+      border-radius: @radio-button-group-border-radius;
+    }
+    &-group-active {
+      color: @radio-button-group-active-color;
+      background-color: @radio-button-group-active-bgc;
+      border-color: @radio-button-group-active-border-color;
+    }
+  }
+  &-pagination {
+    font-size: @pagination-font-size;
+    &-hover {
+      border-color: @pagination-hover-border;
+      color: @pagination-hover-color;
+      background-color: @pagination-hover-bg;
+    }
+    &-default {
+      width: @pagination-size;
+    }
+    &-small {
+      width: @pagination-size-small;
+    }
+    &-large {
+      width: @pagination-size-large;
+    }
+  }
+  &-modal {
+    &-icon {
+      width: @modal-icon-size;
+      margin-left: @modal-icon-left;
+      margin-top: @modal-icon-top;
+      &-body {
+        padding-top: @modal-icon-body-padding-top;
+        padding-right: @modal-icon-body-padding-right;
+        padding-bottom: @modal-icon-body-padding-bottom;
+        padding-left: @modal-icon-body-padding-left;
+      }
+    }
+    &-close {
+      color: @modal-close-icon-color;
+      margin-top: @modal-close-top-margin;
+      margin-right: @modal-close-right-margin;
+      &-hover {
+        color: @modal-close-icon-hover-color;
+      }
+    }
+    &-card {
+      font-size: @modal-font-size;
+      border-radius: @modal-border-radius;
+      border: @modal-border-width solid @modal-border-color;
+      box-shadow: @modal-box-shadow;
+      color: @modal-color;
+      &-header {
+        padding-top: @modal-header-padding-top;
+        padding-right: @modal-header-padding-right;
+        padding-bottom: @modal-header-padding-bottom;
+        padding-left: @modal-header-padding-left;
+        background: @modal-header-bg;
+      }
+      &-body {
+        padding-top: @modal-body-padding-top;
+        padding-right: @modal-body-padding-right;
+        padding-bottom: @modal-body-padding-bottom;
+        padding-left: @modal-body-padding-left;
+      }
+      &-footer {
+        padding: @modal-footer-padding;
+        background: @modal-footer-bg;
+        color: @modal-footer-color;
+      }
+    }
+    &-divider {
+      height: @modal-divider-height;
+      background: @modal-divider-color;
+    }
+  }
+  &-tag {
+    &-close {
+      color: @tag-close-color;
+      &-hover {
+        color: @tag-close-hover-color;
+      }
+    }
+  }
+  &-card {
+    &-divider {
+      height: @card-divider-height;
+      width: @card-divider-width;
+      background: @card-divider-color;
+    }
+  }
+  &-tree {
+    &-indent {
+      width: @tree-level-indent;
+    }
+    &-node {
+      margin-bottom: @tree-node-margin-bottom;
+    }
+    &-default-icon{
+      border-left-color: @tree-indicator-color;
+    }
+    &-line {
+      color: @tree-line-color
+    }
+  }
+  &-checkbox {
+    &-indicator {
+      border-color: @checkbox-border-color;
+      width: @checkbox-border-width;
+      border-radius: @checkbox-indicator-border-radius;
+    }
+
+    &-text {
+      padding: 0 @checkbox-text-padding-x;
+    }
+    &-disabled {
+      background-color: @checkbox-disabled-bgc;
+    }
+    &-checked-disabled {
+      background-color: @checkbox-checked-disabled-bgc;
+    }
+  }
+  &-switch {
+    &-type {
+      animation-name: @switch-type;
+    }
+  }
+  &-msg {
+    &-close {
+      color: @message-close-color;
+    }
+    &-icon {
+      margin-top: @message-icon-margin-top;
+    }
+  }
+  &-tabs {
+    margin-left: @tabs-tab-spacing;
+    &-tab {
+      padding: @tabs-tab-padding-y @tabs-tab-padding-x;
+      font-size: @tabs-tab-font-size;
+      color: @tabs-tab-color;
+      border-color: @tabs-tab-border-color;
+      background: @tabs-tab-background;
+    }
+    &-tab-active {
+      color: @tabs-tab-active-color;
+      border-color: @tabs-tab-active-border-color;
+      background: @tabs-tab-active-background;
+    }
+    &-line-active {
+      color: @tabs-line-active-color;
+    }
+  }
+  &-cascader-active {
+    background-color: @cascader-active-background-color;
+    color: @cascader-active-color;
+  }
+  &-list-item {
+    background-color: @list-item-hover-bgc;
+    width: @list-item-bottom-border-width;
+  }
+  &-progress {
+    background-color: @progress-bg-color;
+  }
+  &-common {
+    &-base {
+      font-size: @font-size-base;
+    }
+    &-input{
+      &-delay {
+        width: @common-input-delay;
+      }
+      &-trim {
+        opacity: @common-input-trim;
+      }
+    }
+    &-spin {
+      &-default {
+        animation-name: @common-spin-default-name;
+      }
+    }
+    &-caret {
+      animation-name: @common-caret-style;
+    }
+  }
+}

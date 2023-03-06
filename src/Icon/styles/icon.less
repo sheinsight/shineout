@@ -1,0 +1,54 @@
+@import '../../styles/variables.less';
+@import '../../styles/themes/@{so-theme}.less';
+
+@icon-prefix: ~'@{so-prefix}-icon';
+
+.@{icon-prefix} {
+  display: inline-block;
+  font-size: inherit;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-style: normal;
+  text-rendering: auto;
+
+  &-small {
+    font-size: @icon-small;
+  }
+
+  &-large {
+    font-size: @icon-large;
+  }
+
+  &-primary {
+    color: @icon-primary;
+  }
+
+  &-success {
+    color: @icon-success;
+  }
+
+  &-secondary {
+    color: @icon-secondary;
+  }
+
+  &-info {
+    color: @icon-info;
+  }
+
+  &-warning {
+    color: @icon-warning;
+  }
+
+  &-danger {
+    color: @icon-danger;
+  }
+
+  &-svg {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+  }
+}

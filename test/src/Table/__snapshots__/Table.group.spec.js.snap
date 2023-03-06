@@ -1,0 +1,410 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Table[group] should render group header 1`] = `
+<div
+  className="so-table so-table-default so-table-hover so-table-bordered so-table-vertical-top"
+  style={Object {}}
+>
+  <div
+    className="so-table-head so-table-simple-head"
+    style={
+      Object {
+        "overflowY": "hidden",
+      }
+    }
+  >
+    <table
+      className="so-table-table-bordered"
+      style={
+        Object {
+          "width": undefined,
+        }
+      }
+    >
+      <colgroup>
+        <col
+          style={
+            Object {
+              "width": 50,
+            }
+          }
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+        />
+      </colgroup>
+      <thead>
+        <tr>
+          <th
+            className=""
+            rowSpan={3}
+          >
+            <div
+              className=""
+            >
+              <span>
+                id
+              </span>
+            </div>
+          </th>
+          <th
+            className="so-table-center so-table-condensed"
+            colSpan={3}
+            style={
+              Object {
+                "padding": 0,
+              }
+            }
+          >
+            <span
+              style={
+                Object {
+                  "background": "#ccc",
+                  "color": "#fff",
+                  "display": "block",
+                  "lineHeight": "40px",
+                }
+              }
+            >
+              Name
+            </span>
+          </th>
+          <th
+            className=""
+            rowSpan={3}
+          >
+            <div
+              className=""
+            >
+              <span>
+                Country
+              </span>
+            </div>
+          </th>
+          <th
+            className="so-table-center so-table-condensed so-table-ignore-right-border"
+            colSpan={2}
+            style={
+              Object {
+                "padding": 0,
+              }
+            }
+          >
+            <span>
+              Other
+            </span>
+          </th>
+        </tr>
+        <tr>
+          <th
+            className="so-table-center so-table-condensed"
+            colSpan={2}
+          >
+            True Name
+          </th>
+          <th
+            className="so-table-condensed"
+            rowSpan={2}
+          >
+            <div
+              className=""
+            >
+              <span>
+                Nick Name
+              </span>
+            </div>
+          </th>
+          <th
+            className="so-table-condensed"
+            rowSpan={2}
+          >
+            <div
+              className=""
+            >
+              <span>
+                Office
+              </span>
+            </div>
+          </th>
+          <th
+            className="so-table-condensed so-table-ignore-right-border"
+            rowSpan={2}
+          >
+            <div
+              className=""
+            >
+              <span>
+                Position
+              </span>
+            </div>
+          </th>
+        </tr>
+        <tr>
+          <th
+            className="so-table-condensed"
+            rowSpan={1}
+          >
+            <div
+              className=""
+            >
+              <span>
+                First Name
+              </span>
+            </div>
+          </th>
+          <th
+            className="so-table-condensed"
+            rowSpan={1}
+          >
+            <div
+              className=""
+            >
+              <span>
+                Last Name
+              </span>
+            </div>
+          </th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <div
+    className="so-table-simple-body"
+    onScroll={[Function]}
+  >
+    <table
+      className="so-table-table-bordered"
+      style={
+        Object {
+          "width": undefined,
+        }
+      }
+    >
+      <colgroup>
+        <col
+          style={
+            Object {
+              "width": 50,
+            }
+          }
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+        />
+      </colgroup>
+      <tbody>
+        <tr
+          className="so-table-normal"
+          onClick={[Function]}
+        >
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            1
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          />
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          />
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            nickname
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          />
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          />
+          <td
+            className="so-table-ignore-right-border"
+            colSpan={1}
+            style={Object {}}
+          />
+        </tr>
+        <tr
+          className="so-table-normal"
+          onClick={[Function]}
+        >
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            2
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          />
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          />
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            nickname
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          />
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          />
+          <td
+            className="so-table-ignore-right-border"
+            colSpan={1}
+            style={Object {}}
+          />
+        </tr>
+        <tr
+          className="so-table-normal"
+          onClick={[Function]}
+        >
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            3
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          />
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          />
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            nickname
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          />
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          />
+          <td
+            className="so-table-ignore-right-border"
+            colSpan={1}
+            style={Object {}}
+          />
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+`;

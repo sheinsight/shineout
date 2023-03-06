@@ -1,0 +1,60 @@
+{
+  "": {},
+  "General": {
+    "Button": "按钮",
+    "Dropdown": "下拉菜单",
+    "Icon": "图标",
+    "Image": "图片"
+  },
+  "Form": {
+    "Cascader": "级联选择",
+    "Checkbox": "复选框",
+    "DatePicker": "日期选择",
+    "EditableArea": "可编辑域",
+    "Form": "表单",
+    "Input": "输入框",
+    "Radio": "单选框",
+    "Rate": "评分",
+    "Rule": "校验规则",
+    "Select": "选择框",
+    "Switch": "开关",
+    "TreeSelect": "树选择",
+    "Slider": "滑块",
+    "Textarea": "多行文本框",
+    "Upload": "上传",
+    "Transfer": "穿梭框"
+  },
+  "Data": {
+    "Carousel": "轮播",
+    "Datum.Form": "表单处理",
+    "Datum.List": "数据处理",
+    "Pagination": "分页",
+    "Table": "表格",
+    "Tree": "树",
+    "List": "列表"
+  },
+  "Feedback": {
+    "Alert": "提示框",
+    "Message": "消息提示",
+    "Spin": "加载中",
+    "Modal": "对话框",
+    "Drawer": "抽屉",
+    "Popover": "气泡",
+    "Progress": "进度条",
+    "Tooltip": "提示",
+    "Tag": "标签"
+  },
+  "Layout": {
+    "Card": "卡片",
+    "CardGroup": "卡片组",
+    "Grid": "栅格",
+    "Sticky": "附着",
+    "Tabs": "标签页",
+    "Divider":"分割线",
+    "Gap": "间距"
+  },
+  "Navigation": {
+    "Breadcrumb": "面包屑",
+    "Menu": "菜单"
+  }
+}

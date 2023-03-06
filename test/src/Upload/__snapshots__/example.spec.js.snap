@@ -1,0 +1,290 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Upload[snapshot] Snapshot test: Upload[site/pages/components/Upload/example-01-base.tsx] 1`] = `
+<div>
+  <span>
+    <button>
+      <i />
+      <span>
+        Upload file
+      </span>
+    </button>
+    <input />
+  </span>
+</div>
+`;
+
+exports[`Upload[snapshot] Snapshot test: Upload[site/pages/components/Upload/example-01-onChange.tsx] 1`] = `
+<div>
+  <span>
+    <button>
+      <i />
+      <span>
+        Upload file
+      </span>
+    </button>
+    <input />
+  </span>
+</div>
+`;
+
+exports[`Upload[snapshot] Snapshot test: Upload[site/pages/components/Upload/example-02-image.tsx] 1`] = `
+<div>
+  <div>
+    <div>
+      <span>
+        <span>
+          <div>
+            <div />
+          </div>
+          <input />
+        </span>
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Upload[snapshot] Snapshot test: Upload[site/pages/components/Upload/example-02-show-image.tsx] 1`] = `
+<div>
+  <div>
+    <div>
+      <span>
+        <div>
+          <div />
+        </div>
+        <input />
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Upload[snapshot] Snapshot test: Upload[site/pages/components/Upload/example-03-button.tsx] 1`] = `
+<div>
+  <span>
+    <button>
+      <span>
+        点击上传
+      </span>
+    </button>
+    <input />
+  </span>
+</div>
+`;
+
+exports[`Upload[snapshot] Snapshot test: Upload[site/pages/components/Upload/example-04-validator.tsx] 1`] = `
+<div>
+  <div>
+    <div>
+      <span>
+        <div>
+          <div>
+            <i />
+            Upload Image
+            <br />
+            Allow size 200 * 100
+          </div>
+        </div>
+        <input />
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Upload[snapshot] Snapshot test: Upload[site/pages/components/Upload/example-05-filesize.tsx] 1`] = `
+<div>
+  <div>
+    <span>
+      <button>
+        <i />
+        <span>
+          Upload file
+        </span>
+      </button>
+      <input />
+    </span>
+  </div>
+  <div>
+    <div>
+      <div>
+        <span>
+          <div>
+            <div />
+          </div>
+          <input />
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Upload[snapshot] Snapshot test: Upload[site/pages/components/Upload/example-06-error.tsx] 1`] = `
+<div>
+  <div>
+    <span>
+      <button>
+        <i />
+        <span>
+          Upload file
+        </span>
+      </button>
+      <input />
+    </span>
+  </div>
+  <div>
+    <div>
+      <div>
+        <span>
+          <div>
+            <div />
+          </div>
+          <input />
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Upload[snapshot] Snapshot test: Upload[site/pages/components/Upload/example-08-request-a.tsx] 1`] = `
+<div>
+  <span>
+    <button>
+      <i />
+      <span>
+         Upload file
+      </span>
+    </button>
+    <input />
+  </span>
+</div>
+`;
+
+exports[`Upload[snapshot] Snapshot test: Upload[site/pages/components/Upload/example-08-request-ignore.tsx] 1`] = `
+<div>
+  <div>
+    <div>
+      <span>
+        <div>
+          <div />
+        </div>
+        <input />
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Upload[snapshot] Snapshot test: Upload[site/pages/components/Upload/example-09-zip.tsx] 1`] = `
+<div>
+  <span>
+    <button>
+      <i />
+      <span>
+        Upload file
+      </span>
+    </button>
+    <input />
+  </span>
+</div>
+`;
+
+exports[`Upload[snapshot] Snapshot test: Upload[site/pages/components/Upload/example-10-defaultValue.tsx] 1`] = `
+<div>
+  <div>
+    <span>
+      <button>
+        <i />
+        <span>
+          Upload file
+        </span>
+      </button>
+      <input />
+    </span>
+    <div>
+      <div>
+        test file.png
+      </div>
+      <a>
+        <svg>
+          <path />
+        </svg>
+      </a>
+    </div>
+  </div>
+  <br />
+  <div>
+    <div>
+      <div>
+        <div>
+          <a>
+            <div>
+              <div>
+                <span>
+                  loading...
+                </span>
+              </div>
+            </div>
+          </a>
+          <div>
+            <a>
+              <svg>
+                <path />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div>
+        <span>
+          <div>
+            <div />
+          </div>
+          <input />
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Upload[snapshot] Snapshot test: Upload[site/pages/components/Upload/example-11-dragger.tsx] 1`] = `
+<div>
+  <div>
+    <div>
+      <div>
+        <span>
+          <span>
+            <div>
+              <div>
+                <i />
+                <p>
+                  Click or Drag image to upload
+                </p>
+              </div>
+            </div>
+            <input />
+          </span>
+        </span>
+      </div>
+    </div>
+  </div>
+  <br />
+  <div>
+    <span>
+      <span>
+        <div>
+          <i />
+          <p>
+            Click or drag file to this area to upload
+          </p>
+        </div>
+        <input />
+      </span>
+    </span>
+  </div>
+</div>
+`;

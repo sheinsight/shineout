@@ -1,0 +1,119 @@
+@import '../../styles/variables.less';
+@import '../../styles/themes/@{so-theme}.less';
+
+@progress-prefix: ~'@{so-prefix}-progress';
+@popup-height: 38px;
+
+.@{progress-prefix} {
+  &-rtl {
+    direction: rtl;
+    text-align: right;
+  }
+  &-line {
+    display: flex;
+    align-items: center;
+
+    .@{progress-prefix}-background {
+      position: relative;
+      overflow: hidden;
+      flex: 1;
+      background: @progress-bg-color;
+    }
+
+    .@{progress-prefix}-content {
+      margin-left: 8px;
+      .@{progress-prefix}-rtl&  {
+        margin-right: 8px;
+        margin-left: 0;
+      }
+    }
+
+    .@{progress-prefix}-front {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      background: @colors-primary;
+      transition: width 0.32s linear;
+      .@{progress-prefix}-rtl&  {
+        left: auto;
+        right: 0;
+      }
+    }
+    &-popup {
+      padding-top: @popup-height;
+      position: relative;
+    }
+    .@{progress-prefix}-popup {
+      display: inline-block;
+      position: absolute;
+      transition: all 0.32s linear;
+      top: 0;
+      background: #fff;
+      padding: 4px 8px;
+      border-radius: 2px;
+      box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.12),0 6px 16px rgba(0, 0, 0, 0.08),0 9px 28px 8px rgba(0, 0, 0, 0.05);
+      .@{progress-prefix}-arrow {
+        background: #fff;
+        position: absolute;
+        display: block;
+        width: 6px;
+        height: 6px;
+        left: 50%;
+        bottom: 0;
+        transform: translateX(-50%) translateY(50%) rotate(45deg);
+      }
+    }
+  }
+
+  &-circle {
+    position: relative;
+    display: inline-block;
+
+    svg {
+      transform: rotate(270deg);
+    }
+
+    .@{progress-prefix}-background {
+      stroke: @progress-bg-color;
+    }
+
+    .@{progress-prefix}-front {
+      stroke: @colors-primary;
+      transition: stroke-dashoffset 0.32s ease 0s, stroke-dasharray 0.32s ease 0s, stroke 0.32s,
+        stroke-width 0.06s ease 0.32s;
+    }
+
+    .@{progress-prefix}-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  &-success &-front {
+    background: @colors-success;
+    stroke: @colors-success;
+  }
+
+  &-success .@{so-prefix}-progress-content {
+    color: @colors-success;
+  }
+
+  &-info &-front {
+    background: @colors-info;
+    stroke: @colors-info;
+  }
+
+  &-warning &-front {
+    background: @colors-warning;
+    stroke: @colors-warning;
+  }
+
+  &-error &-front,
+  &-danger &-front {
+    background: @colors-danger;
+    stroke: @colors-danger;
+  }
+}

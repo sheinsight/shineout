@@ -1,0 +1,813 @@
+@import '../../styles/variables.less';
+@import '../../styles/themes/@{so-theme}.less';
+
+@table-prefix: ~'@{so-prefix}-table';
+@button-prefix: ~'@{so-prefix}-button';
+@table-sorter-width: 18px;
+@checkbox-width: 48px;
+
+.@{table-prefix} {
+  border-radius: @table-border-radius-top @table-border-radius-top 0 0;
+  position: relative;
+  display: flex;
+  overflow: auto;
+  max-width: 100%;
+  flex-direction: column;
+  margin-bottom: @table-margin-bottom;
+
+  &:after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: all 0.3s;
+    content: '';
+    pointer-events: none;
+  }
+
+  &-sticky {
+    overflow: visible;
+  }
+
+  table {
+    min-width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 @table-row-spacing;
+    color: @table-color;
+    table-layout: fixed;
+    // Cells
+    > thead,
+    > tbody,
+    > tfoot {
+      > tr {
+        > th,
+        > td {
+          position: relative;
+          padding: @table-cell-padding-vertical @table-cell-padding-horizontal;
+          border-bottom: 1px solid @table-border-color;
+          background-clip: padding-box;
+          line-height: @line-height-base;
+          word-break: break-all;
+          &:first-child {
+            border-radius: @table-row-border-radius 0 0 @table-row-border-radius;
+          }
+          &:last-child {
+            border-radius: 0 @table-row-border-radius @table-row-border-radius 0;
+          }
+        }
+      }
+    }
+    // Bottom align for column headings
+    > thead > tr > th {
+      border-bottom-width: 0;
+      background-color: @table-head-bg;
+      color: @table-head-color;
+      vertical-align: middle;
+      font-weight: @table-head-font-weight;
+
+      & > div.@{table-prefix}-has-sorter {
+        display: flex;
+      }
+    }
+
+    > thead + tbody > tr:first-child > td {
+      border-top: @table-head-border solid @table-border-color;
+    }
+
+    // Account for multiple tbody instances
+    > tbody + tbody {
+      border-top: @table-head-border solid @table-border-color;
+    }
+
+    table {
+      background-color: @body-bg;
+    }
+
+    > tbody > tr {
+      position: relative;
+    }
+  }
+
+  table&-init {
+    table-layout: auto;
+  }
+
+  &:not(.@{table-prefix}-bordered) table > thead > tr > th {
+    border-top: @table-header-top-divider-width solid @table-border-color;
+  }
+
+  table tr &-checkbox {
+    width: @checkbox-width;
+    padding-right: 0;
+    padding-left: 0;
+    text-align: center;
+
+    label {
+      margin-right: 0;
+      vertical-align: baseline;
+      .@{table-prefix}-rtl & {
+        margin-left: 0;
+      }
+    }
+
+    i {
+      vertical-align: top;
+    }
+  }
+
+  table tr.@{table-prefix}-selected td {
+    background: @table-selected-row-bg;
+  }
+
+  table tr &-placeholder-checkbox {
+    width: @checkbox-width;
+  }
+
+  caption {
+    padding-top: @table-cell-padding-vertical;
+    padding-bottom: @table-cell-padding-vertical;
+    color: @text-muted;
+    text-align: left;
+    text-align: start;
+  }
+
+  th {
+    text-align: left;
+    text-align: start;
+  }
+
+  &-vertical-top td {
+    vertical-align: top;
+  }
+
+  &-vertical-middle td {
+    vertical-align: middle;
+  }
+
+  &-sorter-container {
+    width: @table-sorter-width;
+    min-width: @table-sorter-width;
+    position: relative;
+    transform: translateX(6px);
+    .@{table-prefix}-rtl & {
+      transform: translateX(-6px);
+    }
+  }
+
+  &-sorter-asc,
+  &-sorter-desc {
+    position: absolute;
+    right: 0;
+    width: @table-sorter-width;
+    color: transparent;
+    .@{table-prefix}-rtl & {
+      right: auto;
+      left: 0;
+    }
+
+    &:active,
+    &:focus {
+      color: transparent;
+    }
+
+    &:after {
+      position: absolute;
+      right: 5px;
+      border: solid transparent;
+      content: ' ';
+      .@{table-prefix}-rtl & {
+        right: auto;
+        left: 5px;
+      }
+    }
+  }
+
+  &-sorter-asc {
+    top: 0;
+    bottom: 50%;
+
+    &:after {
+      bottom: 2px;
+      border-width: 0 4px 6px 4px;
+      border-bottom-color: @gray-500;
+    }
+
+    &:hover:after {
+      border-bottom-color: @gray-700;
+    }
+  }
+
+  &-sorter-desc {
+    top: 50%;
+    bottom: 0;
+
+    &:after {
+      top: 2px;
+      border-width: 6px 4px 0 4px;
+      border-top-color: @gray-500;
+    }
+
+    &:hover:after {
+      border-top-color: @gray-700;
+    }
+  }
+
+  &-sorter-active {
+    &.@{table-prefix}-sorter-asc:after {
+      border-bottom-color: @colors-primary;
+    }
+
+    &.@{table-prefix}-sorter-desc:after {
+      border-top-color: @colors-primary;
+    }
+  }
+
+  th&-center {
+    text-align: center;
+  }
+
+  table > thead > tr > th&-condensed {
+    padding: @table-header-cell-padding;
+  }
+
+  &-hover {
+    table > tbody > tr:hover,
+    table > tbody > tr:hover > td {
+      background-color: @table-bg-hover;
+    }
+  }
+
+  &-normal td {
+    background-color: @table-body-bg;
+  }
+
+  &-small {
+    table {
+      > thead > tr > th {
+        padding: @table-header-cell-padding;
+      }
+    }
+    table {
+      > tbody,
+      > tfoot {
+        > tr {
+          > td {
+            padding: @table-small-cell-padding;
+          }
+        }
+      }
+    }
+  }
+
+  &-bordered {
+    position: relative;
+    z-index: 1;
+    border-left: 1px solid @table-border-color;
+    border-right: 1px solid @table-border-color;
+    border-top: 1px solid @table-border-color;
+    // :before 在表格可滚动的时候情况下不能完全覆盖底部边框，用个不占位的 box-shadow 长期覆盖（它俩重叠后看不出来变化），避免出现滚动条时底部边框消失的情况
+    // 但是:before不能去掉，虚拟滚动条的 dom 会遮住 box-shadow ，这时候需要:before
+    box-shadow: inset 0 -1px @table-border-color;
+
+    &:before {
+      position: absolute;
+      content: '';
+      display: inline-block;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: @table-border-color;
+      z-index: 100;
+    }
+
+    .@{table-prefix}-head {
+      .@{table-prefix}-table-bordered {
+        border-bottom-width: @table-head-border - 1;
+      }
+    }
+
+    .@{table-prefix}-table-bordered {
+      > thead,
+      > tbody,
+      > tfoot {
+        > tr {
+          > th,
+          > td {
+            border-right: 1px solid @table-border-color;
+            border-bottom-width: 1px;
+            .@{table-prefix}-rtl& {
+              border-left: 1px solid @table-border-color;
+              border-right: none;
+            }
+          }
+        }
+      }
+
+      > tbody > tr > td.@{table-prefix}-ignore-bottom-border {
+        border-bottom: none;
+      }
+
+      > thead + tbody > tr:first-child > td {
+        border-top-width: @table-head-border - 1;
+      }
+      .@{table-prefix}-ignore-right-border {
+        border-right: none;
+        .@{table-prefix}-rtl& {
+          border-left: none;
+        }
+
+        &:before {
+          display: none;
+        }
+      }
+      .@{table-prefix}-fixed-right,
+      .@{table-prefix}-fixed-left {
+        border-right: 0;
+        z-index: 1;
+        .@{table-prefix}-rtl& {
+          border-left: 0;
+        }
+        &:before {
+          bottom: -1px;
+          position: absolute;
+          content: ' ';
+          background: @table-border-color;
+          height: 100%;
+          width: 1px;
+          top: 0;
+          right: 0;
+          z-index: 10;
+          .@{table-prefix}-rtl& {
+            left: 0;
+            right: auto;
+          }
+        }
+      }
+    }
+
+    .@{table-prefix}-body .@{table-prefix}-table-bordered {
+      border-top-width: 0;
+    }
+
+    .@{table-prefix}-float-right .@{table-prefix}-float-left {
+      &:before {
+        bottom: -1px;
+      }
+      &:after {
+        bottom: -1px;
+      }
+    }
+
+    .@{so-prefix}-scroll-y {
+      border-left: 1px solid @table-border-color;
+      .@{table-prefix}-rtl& {
+        border-right: 1px solid @table-border-color;
+        border-left: none;
+      }
+    }
+    .@{so-prefix}-scroll-x {
+      &:after {
+        position: absolute;
+        content: '';
+        display: inline-block;
+        top: -2px;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: @table-border-color;
+      }
+    }
+  }
+
+  table > tbody > tr&-even > td {
+    background-color: @table-even-td-bgc;
+  }
+  table > tbody > tr&-odd > td {
+    background-color: @table-odd-td-bgc;
+  }
+
+  &-simple-body {
+    overflow: auto;
+  }
+  &:not(&-bordered) &-simple-body:first-child,
+  &:not(&-bordered) &-body:first-child {
+    border-top: 1px solid @table-border-color;
+  }
+
+  &-simple-head.@{table-prefix}-scroll-y.@{table-prefix}-head {
+    padding-right: 0;
+    .@{table-prefix}-rtl & {
+      padding-left: 0;
+    }
+    &:after {
+      display: none;
+    }
+  }
+
+  &-head {
+    position: relative;
+    overflow: hidden;
+    flex: 0 0 auto;
+    background: @table-head-bg;
+
+    > table {
+      border-bottom: @table-head-border solid @table-border-color;
+    }
+  }
+
+  &-empty-head {
+    overflow: visible;
+  }
+
+  &-foot {
+    position: relative;
+    scrollbar-width: none;
+    -ms-overflow-style: none; /* IE 11 */
+    overflow: hidden;
+    flex: 0 0 auto;
+    min-width: 0;
+    background: var(--table-head-bg, #e8ebf0);
+    &::-webkit-scrollbar{
+      display: none;
+    }
+    > table td {
+      background: var(--table-head-bg, #e8ebf0);
+    }
+    &-scroll-x {
+      border-top: @table-head-border solid @table-border-color;
+    }
+  }
+  &-simple-foot {
+    overflow: auto;
+  }
+
+  .@{table-prefix}-icon-tree-expand {
+    margin-right: @table-tree-expand-icon-margin-right;
+    .@{table-prefix}-rtl& {
+      margin-right: 0;
+      margin-left: @table-tree-expand-icon-margin-right;
+    }
+    display: inline-block;
+    width: 17px;
+    height: 17px;
+    line-height: 14px;
+    text-align: center;
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    cursor: pointer;
+    user-select: none;
+
+    &.@{table-prefix}-icon-tree-plus {
+      &:after {
+        content: '+';
+      }
+    }
+
+    &.@{table-prefix}-icon-tree-sub {
+      &:after {
+        content: '-';
+      }
+    }
+  }
+
+  &-icon-expand-plus,
+  &-icon-expand-sub {
+    position: relative;
+    display: block;
+    width: 15px;
+    height: 15px;
+    margin: 2px 0;
+    border: solid 1px @gray-600;
+    background: #fff;
+    border-radius: 2px;
+    cursor: pointer;
+
+    &:before,
+    &:after {
+      position: absolute;
+      top: 6px;
+      left: 2px;
+      width: 9px;
+      height: 0px;
+      border-width: 0 0 1px 0;
+      border-style: solid;
+      border-color: inherit;
+      content: ' ';
+      .@{table-prefix}-rtl & {
+        left: auto;
+        right: 2px;
+      }
+    }
+
+    &:hover {
+      border-color: @colors-primary;
+
+      &:before,
+      &:after {
+        background: @colors-primary;
+      }
+    }
+  }
+
+  &-icon-expand-plus:after {
+    top: 2px;
+    left: 6px;
+    width: 0;
+    height: 9px;
+    border-width: 0 1px 0 0;
+    .@{table-prefix}-rtl & {
+      left: auto;
+      right: 6px;
+      border-width: 0 0 0 1px;
+    }
+  }
+
+  &-scroll-y.@{table-prefix}-head, &-scroll-y.@{table-prefix}-foot {
+    padding-right: @scrollbar-width;
+    .@{table-prefix}-rtl & {
+      padding-left: @scrollbar-width;
+      padding-right: 0;
+    }
+
+    &:after {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: @scrollbar-width;
+      border-bottom: @table-head-border solid @table-border-color;
+      background-color: @table-head-bg;
+      content: ' ';
+      .@{table-prefix}-rtl & {
+        right: auto;
+        left: 0;
+      }
+    }
+  }
+
+  &-body {
+    min-width: 100%;
+    flex: 1;
+  }
+
+  &-scroll-inner {
+    min-width: 100%;
+  }
+
+  &-float-left &-fixed-left,
+  &-float-right &-fixed-right {
+    position: relative;
+    z-index: 100;
+  }
+
+  &-float-left &-fixed-last {
+    &:after {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 100%;
+      width: 6px;
+      background: linear-gradient(to right, @table-fixed-start-color, @table-fixed-end-color);
+      content: ' ';
+      .@{table-prefix}-rtl & {
+        left: auto;
+        right: 100%;
+        background: linear-gradient(to left, @table-fixed-start-color, @table-fixed-end-color);
+      }
+    }
+    &:before {
+      display: none;
+    }
+  }
+
+  &-float-right &-fixed-first {
+    &::after {
+      position: absolute;
+      top: 0;
+      right: 100%;
+      bottom: 0;
+      width: 6px;
+      background: linear-gradient(to left, @table-fixed-start-color, @table-fixed-end-color);
+      content: ' ';
+      .@{table-prefix}-rtl & {
+        left: 100%;
+        right: auto;
+        background: linear-gradient(to right, @table-fixed-start-color, @table-fixed-end-color);
+      }
+    }
+  }
+
+  &-fixed-right + &-fixed-right:before {
+    width: 0;
+  }
+
+  &-loading {
+    position: absolute;
+    z-index: 11;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.4);
+  }
+
+  &-empty {
+    position: sticky;
+    left: 0;
+    display: flex;
+    flex: 1;
+    padding: 20px;
+    color: #aaa;
+    font-size: 16px;
+    text-align: center;
+    .@{table-prefix}-rtl & {
+      right: 0;
+      left: initial;
+    }
+
+    span {
+      display: block;
+      margin: auto;
+    }
+  }
+
+  &-fixed &-empty {
+    &-ltr {
+      border-right-width: 0;
+    }
+    &-rtl {
+      border-left-width: 0;
+    }
+  }
+
+  &-expand-wrapped {
+    display: inline-block;
+  }
+
+  td&-align-center,
+  th&-align-center {
+    text-align: center;
+    > div.@{table-prefix}-has-sorter {
+      justify-content: center;
+    }
+  }
+
+  td&-align-center {
+    .@{table-prefix}-icon-expand-plus,
+    .@{table-prefix}-icon-expand-sub {
+      margin: 0 auto;
+    }
+  }
+
+  td&-align-right,
+  th&-align-right {
+    text-align: right;
+    text-align: end;
+    > div.@{table-prefix}-has-sorter {
+      justify-content: flex-end;
+    }
+  }
+
+  td&-align-left,
+  th&-align-left {
+    text-align: left;
+    text-align: start;
+    > div.@{table-prefix}-has-sorter {
+      justify-content: flex-start;
+    }
+  }
+
+  &-resize {
+    &-spanner {
+      z-index: 12;
+      position: absolute;
+      right: -2px;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: @colors-primary;
+      opacity: 0;
+      transition: opacity 0.3s;
+      cursor: ew-resize;
+      .@{table-prefix}-rtl & {
+        left: -2px;
+        right: auto;
+      }
+      &:after,
+      &:before {
+        border-width: 3px;
+        content: ' ';
+        position: absolute;
+        width: 0;
+        height: 0;
+        margin: auto;
+        bottom: 0;
+        top: 0;
+      }
+      &:after {
+        border-style: dashed solid dashed dashed;
+        border-color: transparent @colors-primary transparent transparent;
+        right: 4px;
+        .@{table-prefix}-rtl & {
+          right: auto;
+          left: 4px;
+        }
+      }
+      &:before {
+        border-style: dashed dashed dashed solid;
+        border-color: transparent transparent transparent @colors-primary;
+        left: 4px;
+        .@{table-prefix}-rtl & {
+          right: 4px;
+          left: auto;
+        }
+      }
+    }
+    thead tr th:last-child .@{table-prefix}-resize-spanner {
+      display: none;
+    }
+    table.@{table-prefix}-resizing span.@{table-prefix}-resize-spanner {
+      opacity: 0;
+    }
+    table th.@{table-prefix}-resizing-item .@{table-prefix}-resize-spanner {
+      opacity: 1;
+    }
+    th:hover .@{table-prefix}-resize-spanner {
+      opacity: 1;
+    }
+  }
+
+  &-placeholder-tr td {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    border-bottom-width: 0 !important;
+    line-height: 0 !important;
+    > div {
+      height: 0 !important;
+      overflow: hidden;
+    }
+  }
+
+  td {
+    .@{button-prefix} {
+      + .@{button-prefix} {
+        &:not(.@{button-prefix}-rtl) {
+          margin-left: 0;
+        }
+        &.@{button-prefix}-rtl {
+          margin-right: 0;
+        }
+      }
+      &:not(:last-child) {
+        &:not(.@{button-prefix}-rtl) {
+          margin-right: @button-margin-left;
+        }
+        &.@{button-prefix}-rtl {
+          margin-left: @button-margin-left;
+        }
+      }
+    }
+    .@{button-prefix}-group .@{button-prefix}:not(:last-child) {
+      &:not(.@{button-prefix}-rtl) {
+        margin-right: 0;
+      }
+      &.@{button-prefix}-rtl {
+        margin-left: 0;
+      }
+    }
+  }
+
+  &-select {
+    &::before {
+      content: ' ';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      border: 1px solid @colors-primary;
+      .@{table-prefix}-rtl & {
+        left: auto;
+        right: 0;
+      }
+    }
+  }
+}
+
+.@{table-prefix}-no-selection {
+  *::selection {
+    background-color: transparent;
+  }
+}
+
+.@{table-prefix}-rtl {
+  direction: rtl;
+}

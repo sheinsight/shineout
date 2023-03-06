@@ -1,0 +1,293 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Table[rowClassname] should render correct 1`] = `
+<div
+  className="so-table so-table-default so-table-hover so-table-vertical-top"
+  style={Object {}}
+>
+  <div
+    className="so-table-head so-table-simple-head"
+    style={
+      Object {
+        "overflowY": "hidden",
+      }
+    }
+  >
+    <table
+      className=""
+      style={
+        Object {
+          "width": undefined,
+        }
+      }
+    >
+      <colgroup>
+        <col
+          style={
+            Object {
+              "width": 50,
+            }
+          }
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+        />
+      </colgroup>
+      <thead>
+        <tr>
+          <th
+            className=""
+            rowSpan={1}
+          >
+            <div
+              className=""
+            >
+              <span>
+                id
+              </span>
+            </div>
+          </th>
+          <th
+            className=""
+            rowSpan={1}
+          >
+            <div
+              className=""
+            >
+              <span>
+                Name
+              </span>
+            </div>
+          </th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <div
+    className="so-table-simple-body"
+    onScroll={[Function]}
+  >
+    <table
+      className=""
+      style={
+        Object {
+          "width": undefined,
+        }
+      }
+    >
+      <colgroup>
+        <col
+          style={
+            Object {
+              "width": 50,
+            }
+          }
+        />
+        <col
+          style={
+            Object {
+              "width": undefined,
+            }
+          }
+        />
+      </colgroup>
+      <tbody>
+        <tr
+          className="so-table-normal table-bg-success"
+          onClick={[Function]}
+        >
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            id0
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            first last
+          </td>
+        </tr>
+        <tr
+          className="so-table-normal table-bg-danger"
+          onClick={[Function]}
+        >
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            id1
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            first last
+          </td>
+        </tr>
+        <tr
+          className="so-table-normal table-bg-success"
+          onClick={[Function]}
+        >
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            id2
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            first last
+          </td>
+        </tr>
+        <tr
+          className="so-table-normal table-bg-danger"
+          onClick={[Function]}
+        >
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            id3
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            first last
+          </td>
+        </tr>
+        <tr
+          className="so-table-normal table-bg-success"
+          onClick={[Function]}
+        >
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            id4
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            first last
+          </td>
+        </tr>
+        <tr
+          className="so-table-normal table-bg-danger"
+          onClick={[Function]}
+        >
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            id5
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            first last
+          </td>
+        </tr>
+        <tr
+          className="so-table-normal table-bg-success"
+          onClick={[Function]}
+        >
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            id6
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            first last
+          </td>
+        </tr>
+        <tr
+          className="so-table-normal table-bg-danger"
+          onClick={[Function]}
+        >
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            id7
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            first last
+          </td>
+        </tr>
+        <tr
+          className="so-table-normal table-bg-success"
+          onClick={[Function]}
+        >
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            id8
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            first last
+          </td>
+        </tr>
+        <tr
+          className="so-table-normal table-bg-danger"
+          onClick={[Function]}
+        >
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            id9
+          </td>
+          <td
+            className=""
+            colSpan={1}
+            style={Object {}}
+          >
+            first last
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+`;

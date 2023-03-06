@@ -1,0 +1,539 @@
+@import '../../styles/variables.less';
+@import '../../styles/themes/@{so-theme}.less';
+
+@upload-prefix: ~'@{so-prefix}-upload';
+@button-prefix: ~'@{so-prefix}-button';
+@gap-prefix: ~'@{so-prefix}-gap';
+
+.message() {
+  position: absolute;
+  z-index: 1000;
+  top: 100%;
+  left: 50%;
+  width: max-content;
+  min-width: 120px;
+  max-width: 240px;
+  padding: @padding-small-vertical @padding-small-horizontal;
+  margin-top: 8px;
+  background: @gray-100;
+  border-radius: @input-border-radius;
+  box-shadow: 0 0 0 1px @state-danger-border, 0 2px 8px rgba(0, 0, 0, 0.15);
+  color: @form-feedback-invalid-color;
+  font-size: 12px;
+  transform: translateX(-50%);
+  transform-origin: 0 0;
+
+  &:before {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    width: 6px;
+    height: 6px;
+    border: solid 1px @state-danger-border;
+    border-width: 1px 0 0 1px;
+    background: inherit;
+    content: ' ';
+    transform: rotate(45deg) translateY(3px);
+  }
+}
+
+.@{upload-prefix} {
+  &-rtl {
+    direction: rtl;
+    text-align: right;
+  }
+  &-handle {
+    display: inline-block;
+    margin-bottom: 8px;
+    cursor: pointer;
+  }
+
+  &-hide-list {
+    .@{upload-prefix}-handle {
+      margin-bottom: 0;
+    }
+  }
+
+  &-view-value,
+  &-view-file {
+    position: relative;
+    padding: 4px 10px;
+    transition: background .2s;
+
+    .@{upload-prefix}-text {
+      word-break: break-all;
+      &-ltr{
+        margin-right: 20px;
+      }
+      &-rtl{
+        margin-left: 20px;
+
+      }
+    }
+
+    .@{upload-prefix}-delete,
+    .@{upload-prefix}-recover {
+      position: absolute;
+      top: 2px;
+      width: 12px;
+      height: 12px;
+      color: @colors-danger;
+      font-size: 16px;
+      vertical-align: middle;
+      right: 10px;
+      .@{upload-prefix}-rtl &{
+        left: 10px;
+        right: auto;
+      }
+
+      svg {
+        width: 12px;
+        height: 12px;
+      }
+
+      &:active {
+        text-decoration: none;
+      }
+    }
+
+    .@{upload-prefix}-delete svg {
+      width: 10px;
+      height: 10px;
+      fill: @gray-300;
+    }
+
+    .@{upload-prefix}-recover svg {
+      fill: @colors-primary;
+    }
+
+    &:hover {
+      background: @dropdown-link-hover-bg;
+
+      .@{upload-prefix}-delete svg {
+        fill: @colors-danger;
+      }
+    }
+
+    &.@{upload-prefix}-to-be-delete {
+      color: @gray-400;
+      text-decoration: line-through;
+    }
+
+    &.@{upload-prefix}-error {
+      color: @colors-danger;
+    }
+  }
+
+  &.@{upload-prefix}-file-drop {
+    .@{upload-prefix}-drop {
+      .@{upload-prefix}-handle {
+        border-color: @colors-primary;
+      }
+    }
+    .@{upload-prefix}-handle {
+      position: relative;
+      width: 100%;
+      border: dashed 1px @upload-image-border;
+      transition: border-color .2s;
+      &:not(.@{upload-prefix}-disabled) {
+        &:hover {
+          border-color: @colors-primary;
+        }
+      }
+      &.@{upload-prefix}-disabled:hover {
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  &-view-value&-view-active {
+    background: @dropdown-link-hover-bg;
+    .@{upload-prefix}-delete svg {
+      fill: @colors-danger;
+    }
+  }
+
+  &-view-file {
+    .@{upload-prefix}-delete svg {
+      fill: @colors-danger;
+    }
+  }
+
+  &-view-file {
+    .@{upload-prefix}-progress {
+      margin-top: 2px;
+    }
+  }
+
+  &-image-item {
+    position: relative;
+    display: inline-block;
+    border: dashed 1px @upload-image-border;
+    background: @upload-image-bg;
+    border-radius: 2px;
+    vertical-align: top;
+    &:hover {
+      .@{upload-prefix}-image-options {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+
+    .@{upload-prefix}-image-options {
+      border-radius: 2px;
+      padding: 0 2px;
+      transition: all .2s;
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      right: 4px;
+      bottom: 4px;
+      background: rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-around;
+      opacity: 0;
+      visibility: hidden;
+      .@{upload-prefix}-options-item {
+        width: 20px;
+        height: 20px;
+        fill: @gray-300;
+        transition: all .2s;
+        &:hover {
+          fill: #fff;
+        }
+      }
+      &.@{upload-prefix}-image-active {
+        opacity: 1;
+        visibility: visible;
+        .@{upload-prefix}-options-remove {
+          fill: #fff;
+        }
+      }
+    }
+
+    .@{upload-prefix}-image-bg {
+      position: absolute;
+      z-index: 0;
+      top: @upload-image-space;
+      right: @upload-image-space;
+      bottom: @upload-image-space;
+      left: @upload-image-space;
+      background-size: cover;
+    }
+
+    .@{upload-prefix}-progress-bg {
+      position: absolute;
+      z-index: 1;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: inherit;
+    }
+
+    .@{upload-prefix}-progress {
+      position: absolute;
+      z-index: 10;
+      right: 4px;
+      bottom: 4px;
+      left: 4px;
+    }
+
+    .@{upload-prefix}-delete {
+      cursor: pointer;
+      &:after, &:before {
+        position: absolute;
+        left: 50%;
+        top: 2px;
+        content: '';
+        display: inline-block;
+        width: 1px;
+        height: 10px;
+        background: #fff;
+      }
+      &:after {
+        transform: rotate(45deg);
+      }
+      &:before {
+        transform: rotate(-45deg);
+      }
+    }
+
+    .@{upload-prefix}-delete,
+    .@{upload-prefix}-recover {
+      position: absolute;
+      z-index: 100;
+      top: -7px;
+      right: -7px;
+      display: flex;
+      width: 14px;
+      height: 14px;
+      background: @colors-danger;
+      border-radius: 8px;
+      .@{upload-prefix}-rtl & {
+        right: auto;
+        left: -7px;
+      }
+
+      svg {
+        width: 6px;
+        height: 6px;
+        margin: auto;
+        fill: #ffffff;
+      }
+    }
+
+    .@{upload-prefix}-recover {
+      background: @colors-primary;
+
+      svg {
+        width: 8px;
+        height: 8px;
+      }
+    }
+
+    &.@{upload-prefix}-error {
+      border-color: @colors-danger;
+
+      .@{upload-prefix}-message {
+        .message()
+      }
+
+      .@{upload-prefix}-progress-bg {
+        display: none;
+      }
+    }
+  }
+
+  &-dragger-wrapper {
+    display: block;
+    width: 100%;
+  }
+  &-dragger-area {
+    position: relative;
+    color: rgba(0, 0, 0, .8);
+    padding: 16px;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    background: #fafafa;
+    border-radius: 2px;
+    cursor: pointer;
+
+    :after {
+      content: '';
+      display: block;
+      top: -1px;
+      left: -1px;
+      right: -1px;
+      bottom: -1px;
+      position: absolute;
+      border-radius: 2px;
+      border: 1px dashed @upload-image-border;
+      transition: border-color .3s;
+    }
+
+    &:hover {
+      :after {
+        border-color: @colors-primary;
+      }
+    }
+
+    &.@{upload-prefix}-disabled {
+      cursor: not-allowed;
+      :after {
+        border: 1px dashed @upload-image-border;
+      }
+    }
+  }
+
+  &-drop {
+    .@{upload-prefix}-image-plus, .@{upload-prefix}-image-item {
+      border-color: @colors-primary;
+    }
+    .@{upload-prefix}-dragger-area {
+      :after {
+        border-color: @colors-primary;
+      }
+    }
+  }
+
+  &-image-plus {
+    position: relative;
+    display: inline-flex;
+    vertical-align: top;
+
+    &.@{upload-prefix}-disabled {
+      cursor: @cursor-disabled;
+      &:hover,
+      &:focus {
+        border-color: @upload-image-border;
+        .@{upload-prefix}-indicator {
+          &:before,
+          &:after {
+            background: #999;;
+          }
+        }
+      }
+    }
+
+    .@{upload-prefix}-indicator {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 30px;
+      height: 30px;
+      margin: -15px -15px;
+
+      &:before,
+      &:after {
+        position: absolute;
+        display: block;
+        background: #999;
+        content: ' ';
+      }
+
+      &:before {
+        left: 14px;
+        width: 2px;
+        height: 30px;
+      }
+
+      &:after {
+        top: 14px;
+        width: 30px;
+        height: 2px;
+      }
+    }
+
+    &:hover,
+    &:focus {
+      border-color: @colors-primary;
+
+      .@{upload-prefix}-indicator {
+        &:before,
+        &:after {
+          background: @colors-primary;
+        }
+      }
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &-image-result {
+    border-style: solid;
+
+    .@{upload-prefix}-delete {
+      visibility: hidden;
+    }
+
+    &:hover {
+      .@{upload-prefix}-delete {
+        visibility: visible;
+      }
+    }
+
+    &.@{upload-prefix}-to-be-delete {
+      border-style: dashed;
+
+      .@{upload-prefix}-image-bg {
+        filter: grayscale(100%);
+        opacity: 0.6;
+      }
+    }
+  }
+
+  &-button {
+    position: relative;
+    overflow: hidden;
+    .@{upload-prefix}-bg {
+      overflow: hidden;
+      z-index: 2;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      background: inherit;
+      transition: right .2s ease-in-out;
+      color: #fff;
+      white-space: nowrap;
+      .@{upload-prefix}-rtl & {
+        auto: 0;
+        right: 0;
+      }
+      &-spin {
+        display: inline-block;
+        margin-right: 8px;
+        .@{upload-prefix}-rtl & {
+          margin-left: 8px;
+        }
+      }
+      > span {
+        display: inline-block;
+        margin: @btn-padding-y @btn-padding-x;
+      }
+    }
+    .@{upload-prefix}-cover {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      top: 0;
+      background: @btn-default-bg;
+    }
+    > span {
+      position: relative;
+      z-index: 1;
+    }
+    &.@{upload-prefix}-uploading {
+      color: @button-default-text-color;
+    }
+    &.@{button-prefix}-default .@{upload-prefix}-bg {
+      background: @colors-primary;
+    }
+    &.@{button-prefix}-small {
+      .@{upload-prefix}-bg {
+        > span {
+          margin: @btn-padding-small-y @btn-padding-small-x;
+        }
+      }
+    }
+    &.@{button-prefix}-large {
+      .@{upload-prefix}-bg {
+        > span {
+          margin: @btn-padding-large-y @btn-padding-large-x;
+        }
+      }
+    }
+  }
+
+
+  &-url-invalid-border {
+    border-color: @colors-danger!important;
+  }
+
+  &-url-invalid-indicator {
+    &:before,
+    &:after {
+      background: @colors-danger!important;
+    }
+  }
+
+  &-url-invalid-message {
+    .message()
+  }
+}
+
+.@{gap-prefix} {
+  .@{upload-prefix} {
+    &-handle {
+      margin-bottom: 0;
+    }
+  }
+}

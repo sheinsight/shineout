@@ -1,0 +1,143 @@
+@import './variables.less';
+
+.doc-markdown {
+  flex: 1;
+  padding: 30px 200px 0 0;
+  .rtl & {
+    padding: 30px 0 0  200px;
+  }
+
+  @media (max-width: 979px) and (min-width: 0px){
+    padding: 0;
+    .rtl & {
+      padding: 0;
+    }
+  }
+  // overflow: hidden;
+
+  & > h1,
+  & > h2,
+  & > h3 {
+    font-weight: normal;
+
+    em {
+      font-size: 0.75em;
+    }
+  }
+
+  & > h1 {
+    em {
+      color: #555;
+      font-style: normal;
+      font-weight: normal;
+    }
+  }
+
+  & > h2 {
+    padding-top: 20px;
+    margin: 40px 0;
+  }
+
+  & > h3 {
+    position: relative;
+    padding-top: 20px;
+    padding-left: 20px;
+    margin-bottom: 20px;
+    color: @gray-600;
+    font-size: 18px;
+    line-height: 1;
+
+    &:before {
+      position: absolute;
+      top: 20px;
+      bottom: 0px;
+      left: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, #3023ae, #53a0fd 40%, #51ecbf);
+      content: ' ';
+    }
+  }
+
+  pre {
+    margin: 0 0 20px;
+    background: #fff;
+    background: @doc-code-bg;
+    white-space: pre-wrap;
+    word-break: break-all;
+    word-wrap: break-word;
+    text-align: left;
+    direction: ltr;
+    & + pre {
+      margin-top: -21px;
+    }
+  }
+
+  & > pre {
+    // border: solid 1px @doc-border-color;
+    border-radius: 2px;
+  }
+
+  & .doc-api-table {
+    width: 100%;
+    border: 1px solid @doc-border-color;
+    background: #fff;
+    border-collapse: collapse;
+    border-spacing: 0;
+    empty-cells: show;
+    white-space: pre-wrap;
+
+    th {
+      background: #f5f5f5;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    td,
+    th {
+      overflow: visible;
+      padding: 12px 20px;
+      margin: 0;
+      border: 1px solid @doc-border-color;
+      border-width: 0 0 1px 1px;
+      font-size: inherit;
+    }
+  }
+
+  pre + &-console {
+    margin-top: -21px;
+  }
+
+  &-console {
+    position: relative;
+    display: flex;
+    padding: 6px 8px;
+    // border: 1px solid @doc-border-color;
+    border-bottom: solid 1px #f2f2f2;
+    background: #fff;
+    color: #888;
+
+    div {
+      overflow: hidden;
+      cursor: pointer;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    pre {
+      flex: 1;
+      margin: 0;
+      background: #fff;
+    }
+
+    &:before {
+      margin-right: 8px;
+      color: @gray-300;
+      content: '>';
+    }
+  }
+}
+@media screen and (max-width: 780px) {
+  .doc-markdown {
+    padding: 0px;
+  }
+}

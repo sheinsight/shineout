@@ -1,0 +1,282 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tree[Base] should render correctly 1`] = `
+<div
+  className="so-tree so-tree-with-line"
+  onDragOver={[Function]}
+  onDrop={[Function]}
+  style={
+    Object {
+      "display": "block",
+    }
+  }
+>
+  <div
+    className="so-tree-node so-tree-node-ltr"
+  >
+    <div
+      onDragOver={[Function]}
+    >
+      <a
+        className="so-tree-icon-sub"
+        onClick={[Function]}
+      >
+        <span
+          className="so-tree-default-icon"
+        />
+      </a>
+      <div
+        className="so-tree-content"
+      >
+        <div
+          className="so-tree-text"
+          onClick={[Function]}
+          onDoubleClick={[Function]}
+        >
+          0
+        </div>
+      </div>
+    </div>
+    <div
+      className="so-tree-children"
+      onDragOver={[Function]}
+      onDrop={[Function]}
+      style={
+        Object {
+          "display": "block",
+        }
+      }
+    >
+      <div
+        className="so-tree-node so-tree-node-ltr"
+      >
+        <div
+          onDragOver={[Function]}
+        >
+          <div
+            className="so-tree-content"
+          >
+            <div
+              className="so-tree-text"
+              onClick={[Function]}
+              onDoubleClick={[Function]}
+            >
+              0-0
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="so-tree-node so-tree-node-ltr"
+      >
+        <div
+          onDragOver={[Function]}
+        >
+          <div
+            className="so-tree-content"
+          >
+            <div
+              className="so-tree-text"
+              onClick={[Function]}
+              onDoubleClick={[Function]}
+            >
+              0-1
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="so-tree-node so-tree-node-ltr"
+  >
+    <div
+      onDragOver={[Function]}
+    >
+      <a
+        className="so-tree-icon-sub"
+        onClick={[Function]}
+      >
+        <span
+          className="so-tree-default-icon"
+        />
+      </a>
+      <div
+        className="so-tree-content"
+      >
+        <div
+          className="so-tree-text"
+          onClick={[Function]}
+          onDoubleClick={[Function]}
+        >
+          1
+        </div>
+      </div>
+    </div>
+    <div
+      className="so-tree-children"
+      onDragOver={[Function]}
+      onDrop={[Function]}
+      style={
+        Object {
+          "display": "block",
+        }
+      }
+    >
+      <div
+        className="so-tree-node so-tree-node-ltr"
+      >
+        <div
+          onDragOver={[Function]}
+        >
+          <a
+            className="so-tree-icon-sub"
+            onClick={[Function]}
+          >
+            <span
+              className="so-tree-default-icon"
+            />
+          </a>
+          <div
+            className="so-tree-content"
+          >
+            <div
+              className="so-tree-text"
+              onClick={[Function]}
+              onDoubleClick={[Function]}
+            >
+              1-1
+            </div>
+          </div>
+        </div>
+        <div
+          className="so-tree-children"
+          onDragOver={[Function]}
+          onDrop={[Function]}
+          style={
+            Object {
+              "display": "block",
+            }
+          }
+        >
+          <div
+            className="so-tree-node so-tree-node-ltr"
+          >
+            <div
+              onDragOver={[Function]}
+            >
+              <div
+                className="so-tree-content"
+              >
+                <div
+                  className="so-tree-text"
+                  onClick={[Function]}
+                  onDoubleClick={[Function]}
+                >
+                  1-1-1
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Tree[Icon] should render correctly 1`] = `
+<div
+  className="so-tree so-tree-with-line"
+  onDragOver={[Function]}
+  onDrop={[Function]}
+  style={
+    Object {
+      "display": "block",
+    }
+  }
+>
+  <div
+    className="so-tree-node so-tree-node-ltr"
+  >
+    <div
+      onDragOver={[Function]}
+    >
+      <a
+        className="so-tree-icon-plus"
+        onClick={[Function]}
+      >
+        <span
+          className="so-tree-default-icon"
+        />
+      </a>
+      <div
+        className="so-tree-content"
+      >
+        <div
+          className="so-tree-text"
+          onClick={[Function]}
+          onDoubleClick={[Function]}
+        >
+          <span>
+            <i
+              className="so-icon so-icon-default fa-folder"
+              size="default"
+              style={
+                Object {
+                  "color": "#ffd666",
+                  "fontFamily": "FontAwesome",
+                  "fontSize": undefined,
+                }
+              }
+            />
+             
+            0
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="so-tree-node so-tree-node-ltr"
+  >
+    <div
+      onDragOver={[Function]}
+    >
+      <a
+        className="so-tree-icon-plus"
+        onClick={[Function]}
+      >
+        <span
+          className="so-tree-default-icon"
+        />
+      </a>
+      <div
+        className="so-tree-content"
+      >
+        <div
+          className="so-tree-text"
+          onClick={[Function]}
+          onDoubleClick={[Function]}
+        >
+          <span>
+            <i
+              className="so-icon so-icon-default fa-folder"
+              size="default"
+              style={
+                Object {
+                  "color": "#ffd666",
+                  "fontFamily": "FontAwesome",
+                  "fontSize": undefined,
+                }
+              }
+            />
+             
+            1
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

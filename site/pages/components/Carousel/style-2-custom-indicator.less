@@ -1,0 +1,50 @@
+@keyframes indicator-rise {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+
+div.indicator {
+  text-align: center;
+  user-select: none;
+  float: left;
+
+  &-item{
+    margin-right: 10px;
+    float: left;
+    width: 36px;
+    height: 30px;
+    font-size: 20px;
+    color: #ffffff50;
+    cursor: pointer;
+
+    &.active {
+      color: #fff;
+    }
+  }
+
+  .indicator-progress{
+    position: relative;
+    > div{
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+    }
+
+    .bg {
+      width: 100%;
+      background: #ffffff50;
+    }
+    .fg {
+      width: 0;
+      background: #ffffff;
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "declaration": true,
+    "outDir": "../.temp"
+  },
+  "include": [
+    "./",
+    "../externals.d.ts"
+  ],
+  "exclude": ["./index.js"]
+}

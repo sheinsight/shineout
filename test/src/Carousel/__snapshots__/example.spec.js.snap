@@ -1,0 +1,203 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Carousel[snapshot] Snapshot test: Carousel[site/pages/components/Carousel/example-1-base.tsx] 1`] = `
+<div>
+  <div>
+    animation:
+    <div>
+      <div>
+        <div>
+          <span>
+            slide
+          </span>
+          <a>
+            <svg>
+              <path />
+            </svg>
+          </a>
+        </div>
+        <div>
+          <span>
+            Data not found
+          </span>
+        </div>
+      </div>
+    </div>
+    indicatorPosition: 
+    <div>
+      <div>
+        <div>
+          <span>
+            center
+          </span>
+          <a>
+            <svg>
+              <path />
+            </svg>
+          </a>
+        </div>
+        <div>
+          <span>
+            Data not found
+          </span>
+        </div>
+      </div>
+    </div>
+    indicatorType: 
+    <div>
+      <div>
+        <div>
+          <span>
+            circle
+          </span>
+          <a>
+            <svg>
+              <path />
+            </svg>
+          </a>
+        </div>
+        <div>
+          <span>
+            Data not found
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      <div>
+        <div>
+          Page 1
+        </div>
+      </div>
+    </div>
+    <div>
+      <div>
+        <div>
+          Page 2
+        </div>
+      </div>
+    </div>
+    <div>
+      <div>
+        <div>
+          Page 3
+        </div>
+      </div>
+    </div>
+    <div>
+      <a>
+        <img />
+      </a>
+    </div>
+    <div>
+      <div />
+      <div />
+    </div>
+    <div>
+      <a>
+        
+      </a>
+      <a>
+        
+      </a>
+      <a>
+        
+      </a>
+      <a>
+        
+      </a>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Carousel[snapshot] Snapshot test: Carousel[site/pages/components/Carousel/example-2-custom-indicator.tsx] 1`] = `
+<div>
+  <div>
+    <div>
+      <div>
+        S
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      <div>
+        H
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      <div>
+        I
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      <div>
+        N
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      <div>
+        E
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      <div>
+        <span>
+          S
+        </span>
+        <div>
+          <div />
+          <div />
+        </div>
+      </div>
+      <div>
+        <span>
+          H
+        </span>
+        <div>
+          <div />
+          <div />
+        </div>
+      </div>
+      <div>
+        <span>
+          I
+        </span>
+        <div>
+          <div />
+          <div />
+        </div>
+      </div>
+      <div>
+        <span>
+          N
+        </span>
+        <div>
+          <div />
+          <div />
+        </div>
+      </div>
+      <div>
+        <span>
+          E
+        </span>
+        <div>
+          <div />
+          <div />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -1,0 +1,88 @@
+@import './variables.less';
+
+.doc-example {
+  position: relative;
+  overflow: visible;
+  max-width: 100%;
+  margin-bottom: 40px;
+  background: #fff;
+  border-radius: 2px;
+
+  &-toggle {
+    position: absolute;
+    right: 6px;
+    bottom: 2px;
+    display: block;
+    padding: 4px 8px;
+    color: @gray-500;
+    font-size: 16px;
+    font-style: normal;
+  }
+
+  &-desc {
+    position: relative;
+    min-height: 50px;
+    padding: 15px 60px 15px 20px;
+    background: @doc-code-bg;
+    font-size: 12px;
+  }
+
+  &-desc &-toggle {
+    top: 10px;
+    bottom: auto;
+  }
+
+  &-body {
+    position: relative;
+    padding: 30px 20px;
+  }
+
+  &-code {
+    position: relative;
+    overflow: hidden;
+    height: 0;
+    border-radius: 0;
+    &-type > .@{so-prefix}-tabs {
+      text-align: center;
+      background-color: @doc-code-bg;
+    }
+
+    pre {
+      margin: 0 0 10px;
+      white-space: pre-wrap;
+      word-break: break-all;
+      word-wrap: break-word;
+    }
+
+    & > a {
+      top: auto;
+      bottom: 0;
+      display: none;
+    }
+  }
+
+  &-showcode &-code {
+    border-top: dashed 1px #ccc;
+    transition: height 0.24s linear;
+
+    & > a {
+      display: inline;
+    }
+  }
+
+  &-placeholder {
+    padding: 100px 0;
+    margin-bottom: 20px;
+    border: solid 1px #eee;
+    background: #f7f7f7;
+    text-align: center;
+  }
+
+  pre&-pre {
+    margin: 0 0 20px;
+  }
+}
+
+h3 + .doc-example {
+  border-top: solid 1px #f0f0f0;
+}
