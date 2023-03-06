@@ -10,7 +10,7 @@ import { Select, Button } from 'shineout'
 const data: string[] = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']
 
 const App: React.FC = () => {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(true)
 
   return (
     <div>
@@ -18,8 +18,16 @@ const App: React.FC = () => {
         {open ? '关闭' : '打开'}
         弹层
       </Button>
-      <div style={{ margin: '10px 0' }}>
-        <Select open={open} keygen style={{ width: 240 }} data={data} />
+      <div style={{ margin: '10px 0', height: open ? 280 : 30 }}>
+        <Select
+          open={open}
+          onCollapse={() => {
+            console.log('关闭弹层')
+          }}
+          keygen
+          style={{ width: 240 }}
+          data={data}
+        />
       </div>
     </div>
   )

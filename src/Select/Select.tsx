@@ -131,22 +131,23 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
     // this.closeByResult = false
     this.mouseDown = false
 
-    this.lastResult = undefined
+    // this.lastResult = undefined
 
     this.focusInput = null
   }
 
   componentDidMount() {
     super.componentDidMount()
-    this.setOpenEvent()
     const { formDatum } = this.props
     if (formDatum) {
       formDatum.subscribe(SUBMIT_TOPIC, this.forceChange)
     }
+    if (this.props.open !== undefined && this.props.open === true) {
+      this.handleState(true, null)
+    }
   }
 
   componentDidUpdate(prevProps: BaseSelectProps<Item, Value>, prevState: SelectState) {
-    this.setOpenEvent()
     const { onFilter } = this.props
     // clear filter
     if (onFilter) {
@@ -179,16 +180,6 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
       return !!this.props.open
     }
     return this.state.focus
-  }
-
-  setOpenEvent() {
-    if (this.lastFoucs !== this.focus)
-      if (this.focus) {
-        this.bindClickAway()
-      } else if (this.lastFoucs !== undefined) {
-        this.clearClickAway()
-      }
-    this.lastFoucs = this.focus
   }
 
   getDisabledStatus() {
@@ -271,7 +262,8 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
   }
 
   handleClick(e: React.MouseEvent<HTMLDivElement>) {
-    const { onCreate, onFilter } = this.props
+    const { onCreate, onFilter, open } = this.props
+    if (open !== undefined) return
     const plain = !onCreate && !onFilter
     const target = e.target as HTMLDivElement
     if (this.focus) {
@@ -288,14 +280,14 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
     if (this.props.open === undefined && focus === this.focus) return
     // click close icon
     if (focus && e && e.target.classList.contains(selectClass('close'))) return
-
     const { height = DefaultValue.height, onCollapse } = this.props
     let { position } = this.props
     const windowHeight = docSize.height
     const bottom = height + this.element.getBoundingClientRect().bottom
     if (bottom > windowHeight && !position) position = 'drop-up'
 
-    if (onCollapse) onCollapse(focus)
+    // 仅当 focus 为 false 时，需要触发 onCollapse
+    if (onCollapse && !this.focus) onCollapse(focus)
     this.setState({ focus, position: position || 'drop-down' })
 
     if (focus) {
@@ -361,6 +353,8 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
   }
 
   handleFocus(e: React.FocusEvent<HTMLDivElement>) {
+    const { open } = this.props
+    if (open !== undefined) return
     if (!this.shouldFocus(e.target)) return
     this.props.onFocus(e)
     this.bindClickAway()
@@ -376,7 +370,8 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
   }
 
   handleInputBlur(text: string) {
-    const { onFilter, onCreate, multiple, filterSingleSelect, data } = this.props
+    const { onFilter, onCreate, multiple, filterSingleSelect, data, open } = this.props
+    if (open !== undefined) return
     if (onFilter && text && filterSingleSelect && data.length === 1) {
       this.handleChange(false, data[0], false)
       return

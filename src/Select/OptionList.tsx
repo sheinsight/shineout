@@ -244,7 +244,6 @@ class OptionList<Item, Value> extends Component<OptionListProps<Item, Value>, Op
         {this.renderList()}
       </>
     )
-
     return (
       <ScaleList
         show={focus}
