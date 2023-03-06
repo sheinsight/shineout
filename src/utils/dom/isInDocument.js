@@ -1,6 +1,6 @@
 export function isInDocument(element) {
-  if (element instanceof HTMLElement) {
+  if (element && 'isConnected' in element) {
     return element.isConnected
   }
-  return false
+  return document.documentElement.contains(element)
 }
