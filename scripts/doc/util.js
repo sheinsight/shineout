@@ -16,7 +16,10 @@ function parseDocTag(jtTags) {
   )
 }
 function convertQuotes(str = '') {
-  return str.replaceAll('"', '\\"').replaceAll("'", '\\"')
+  return str
+    .replaceAll('"', '\\"')
+    .replaceAll("'", '\\"')
+    .replace(/\n/g, '\\n')
 }
 
 // 一些逻辑处理
@@ -79,9 +82,9 @@ function getImportType(text) {
       const name = currentMatch[2]
       const fanXin = currentMatch[3] || ''
       const isArray = currentMatch[4] || ''
-      console.log(str, pp, name, fanXin, isArray)
+      // console.log(str, pp, name, fanXin, isArray)
       // 过滤掉 xxxProps 和 ObjectKey 等不需要继续计算的属性
-      if (!name.endsWith('Props') && !['ObjectKey', 'DropdownNode'].includes(name)) {
+      if (!name.endsWith('Props') && !name.endsWith('Ref') && !['ObjectKey', 'DropdownNode'].includes(name)) {
         if (!pathMap[name]) {
           pathMap[name] = {
             form: pp,
@@ -162,6 +165,7 @@ function getPropertiesWithDocComments(pp) {
           cn: convertQuotes(propertyJsDocTags.cn),
           en: convertQuotes(propertyJsDocTags.en),
           default: convertQuotes(propertyJsDocTags.default),
+          version: convertQuotes(propertyJsDocTags.version),
         },
         type: convertQuotes(typeText),
       }
@@ -176,7 +180,7 @@ function getPropertiesWithDocComments(pp) {
   })
   return results
 }
-const p = path.resolve(__dirname, '../../src/EditableArea/Props.ts')
+const p = path.resolve(__dirname, '../../src/Form/Props.ts')
 console.log(getPropertiesWithDocComments(p))
 const ModuleMap = {
   List: 'DataList',

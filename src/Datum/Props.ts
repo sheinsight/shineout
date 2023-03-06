@@ -10,21 +10,36 @@ export interface FormValid {
   (type?: ValidType): Promise<any>
 }
 
-export interface FormDatumOptions<V extends {}> {
+export interface FormDatumOptions<Value extends {}> {
   /**
-   * When removeUndefined is true, remove undefined value on submit.
-   *
-   * 是否删除值为 undefined 的字段，默认值为删除
-   *
-   * default: true
+   * @en When removeUndefined is true, remove undefined value on submit.
+   * @cn 是否删除值为 undefined 的字段，默认值为删除
+   * @default true
    */
   removeUndefined?: boolean
+  /**
+   * @en validation rules, see details in the Rules
+   * @cn 校验规则，详见 Rules
+   */
   rules?: RuleObject
-  onChange?: (value: V) => void
-  value?: V
+  /**
+   * @en callback function, executed when the value is changing
+   * @cn 表单内组件值变化函数
+   */
+  onChange?: (value: Value) => void
+  value?: Value
   error?: { [name: string]: string | Error }
+  /**
+   * @en validate after set value
+   * @cn 设置 value 后是否自动校验
+   */
   initValidate?: boolean
-  defaultValue?: V
+  /**
+   * @cn Form 默认值
+   * @en Form default value
+   * @override object
+   */
+  defaultValue?: Value
 }
 
 export interface ListDatumOptions<DataItem, Value> {
