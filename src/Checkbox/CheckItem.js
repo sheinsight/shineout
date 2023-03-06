@@ -53,7 +53,7 @@ export default function(type) {
     onClick = e => {
       e.stopPropagation()
       const { onClick } = this.props
-      if (isFunc(onClick)) onClick()
+      if (isFunc(onClick)) onClick(e)
     }
 
     bindRef(el) {
