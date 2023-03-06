@@ -14,7 +14,6 @@ const getContainer = () => {
   Container.setAttribute('style', 'position: absolute; top: 0; left: 0; width: 100%; contain: size')
   ready(() => {
     document.body.appendChild(Container)
-    observer.observe(Container.parentNode, { childList: true })
   })
   return Container
 }
