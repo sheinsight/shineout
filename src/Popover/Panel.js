@@ -14,6 +14,7 @@ import { Provider as AbsoluteProvider } from '../Table/context'
 // import { isRTL } from '../config'
 import { consumer, Provider } from './context'
 import { getUidStr } from '../utils/uid'
+import { isInDocument } from '../utils/dom/isInDocument'
 import getCommonContainer from '../utils/dom/popContainer'
 
 const emptyEvent = e => e.stopPropagation()
@@ -169,7 +170,7 @@ class Panel extends Component {
 
   createContainer() {
     const { zIndex } = this.props
-    if (!this.container || !document.documentElement.contains(this.container)) {
+    if (!this.container || !isInDocument(this.container)) {
       this.container = this.getContainer()
       this.element.style.zIndex = zIndex
       this.container.appendChild(this.element)

@@ -2,23 +2,13 @@
  * 最外层容器
  */
 import ready from './ready'
+import { isInDocument } from './isInDocument'
 import { getDefaultContainer } from '../../config'
 
 let Container = null
 
-const observer = new MutationObserver(mutationsList => {
-  for (const mutation of mutationsList) {
-    if (mutation.type === 'childList' && mutation.removedNodes.length > 0) {
-      if (!document.documentElement.contains(Container)) {
-        Container = null
-        observer.disconnect()
-      }
-    }
-  }
-})
-
 const getContainer = () => {
-  if (Container) {
+  if (Container && isInDocument(Container)) {
     return Container
   }
   Container = document.createElement('div')
@@ -26,7 +16,6 @@ const getContainer = () => {
   ready(() => {
     const target = getDefaultContainer()
     target.appendChild(Container)
-    observer.observe(Container.parentNode, { childList: true })
   })
   return Container
 }

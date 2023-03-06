@@ -11,6 +11,7 @@ import { getRTLPosition } from '../utils/strings'
 import zIndexConsumer from '../Modal/context'
 import { isRTL, getDefaultContainer } from '../config'
 import { addZoomListener, removeZoomListener } from '../utils/zoom'
+import { isInDocument } from '../utils/dom/isInDocument'
 
 const PICKER_V_MARGIN = 4
 let root
@@ -35,7 +36,7 @@ function initRoot() {
 }
 
 function getRoot() {
-  if (!root || root.isConnected === false) initRoot()
+  if (!root || isInDocument(root) === false) initRoot()
   return root
 }
 
@@ -65,7 +66,6 @@ export default function(List) {
         props.getResetPosition(this.resetPosition.bind(this))
       }
       this.zoomChangeHandler = this.zoomChangeHandler.bind(this)
-      this.observer = null
     }
 
     componentDidMount() {
