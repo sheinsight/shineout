@@ -21,8 +21,8 @@ const App: React.FC = () => {
       <div style={{ margin: '10px 0', height: open ? 280 : 30 }}>
         <Select
           open={open}
-          onCollapse={() => {
-            console.log('关闭弹层')
+          onCollapse={v => {
+            console.log('控制弹层（受控）：', v)
           }}
           keygen
           style={{ width: 240 }}
