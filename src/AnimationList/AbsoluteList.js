@@ -9,21 +9,22 @@ import { listClass } from './styles'
 import { docSize } from '../utils/dom/document'
 import { getRTLPosition } from '../utils/strings'
 import zIndexConsumer from '../Modal/context'
-import { isRTL } from '../config'
+import { isRTL, getDefaultContainer } from '../config'
 import { addZoomListener, removeZoomListener } from '../utils/zoom'
 
 const PICKER_V_MARGIN = 4
 let root
 
 function initRoot() {
+  const defaultContainer = getDefaultContainer()
   root = document.createElement('div')
   root.className = listClass('root', isRTL() && 'rtl')
-  document.body.appendChild(root)
+  defaultContainer.appendChild(root)
 
   const observer = new MutationObserver(mutationsList => {
     for (const mutation of mutationsList) {
       if (mutation.type === 'childList' && mutation.removedNodes.length > 0) {
-        if (!document.documentElement.contains(root)) {
+        if (!defaultContainer.contains(root)) {
           root = null
           observer.disconnect()
         }
@@ -121,7 +122,8 @@ export default function(List) {
       }
 
       const { container } = this
-      const rootContainer = container === getRoot() || !container ? document.body : container
+      const defaultContainer = getDefaultContainer()
+      const rootContainer = container === getRoot() || !container ? defaultContainer : container
       const containerRect = rootContainer.getBoundingClientRect()
       const containerScroll = {
         left: rootContainer.scrollLeft,

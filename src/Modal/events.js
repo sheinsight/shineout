@@ -10,7 +10,7 @@ import { getLocale } from '../locale'
 import { getParent } from '../utils/dom/element'
 import ready from '../utils/dom/ready'
 import { docSize } from '../utils/dom/document'
-import { isRTL } from '../config'
+import { isRTL, getDefaultContainer } from '../config'
 
 const containers = {}
 const DURATION = 300
@@ -70,7 +70,8 @@ export function close(props, callback) {
 }
 
 export function createDiv(props) {
-  const { id, position, fullScreen, container = document.body } = props
+  const defaultContainer = getDefaultContainer()
+  const { id, position, fullScreen, container = defaultContainer } = props
   let div = getDiv(props.id)
   if (div) return div
 
