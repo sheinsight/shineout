@@ -11,6 +11,7 @@ import { getRTLPosition } from '../utils/strings'
 import zIndexConsumer from '../Modal/context'
 import { isRTL } from '../config'
 import { addZoomListener, removeZoomListener } from '../utils/zoom'
+import { isInDocument } from '../utils/dom/isInDocument'
 
 const PICKER_V_MARGIN = 4
 let root
@@ -19,22 +20,10 @@ function initRoot() {
   root = document.createElement('div')
   root.className = listClass('root', isRTL() && 'rtl')
   document.body.appendChild(root)
-
-  const observer = new MutationObserver(mutationsList => {
-    for (const mutation of mutationsList) {
-      if (mutation.type === 'childList' && mutation.removedNodes.length > 0) {
-        if (!document.documentElement.contains(root)) {
-          root = null
-          observer.disconnect()
-        }
-      }
-    }
-  })
-  observer.observe(root.parentNode, { childList: true })
 }
 
 function getRoot() {
-  if (!root || root.isConnected === false) initRoot()
+  if (!root || isInDocument(root) === false) initRoot()
   return root
 }
 
@@ -64,7 +53,6 @@ export default function(List) {
         props.getResetPosition(this.resetPosition.bind(this))
       }
       this.zoomChangeHandler = this.zoomChangeHandler.bind(this)
-      this.observer = null
     }
 
     componentDidMount() {
