@@ -64,7 +64,10 @@ export default function<U extends HideableProps>(
       const el = this.getElement()
       if (!el) return
 
-      if (this.props.show) return
+      if (this.props.show) {
+        this.show()
+        return
+      }
       if (hasCollapse) this.height = el.offsetHeight
 
       el.style.display = 'none'
@@ -88,7 +91,6 @@ export default function<U extends HideableProps>(
     show() {
       const es = this.getElement().style
       es.display = display
-
       setTimeout(() => {
         if (this.$isMounted) {
           this.setState({ show: true })
