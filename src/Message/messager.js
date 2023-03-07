@@ -2,15 +2,17 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { messageClass } from './styles'
 import Container from './Container'
+import { getDefaultContainer } from '../config'
 
 const elements = {}
 const components = {}
 
 function getElement(type) {
+  const defaultContainer = getDefaultContainer()
   const div = document.createElement('div')
   div.className = messageClass('_', type)
 
-  document.body.appendChild(div)
+  defaultContainer.appendChild(div)
   elements[type] = div
   return div
 }

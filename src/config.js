@@ -1,4 +1,5 @@
 import { entries } from './utils/objects'
+import { isFunc } from './utils/is'
 import Notification from './utils/notification'
 
 export const noti = new Notification()
@@ -14,6 +15,7 @@ const config = {
   spin: undefined,
   caret: undefined,
   direction: 'ltr',
+  popupContainer: undefined,
 }
 
 export default config
@@ -31,4 +33,17 @@ export function setConfig(conf) {
 
 export function isRTL() {
   return config.direction === 'rtl'
+}
+
+export function getDefaultContainer() {
+  if (isFunc(config.popupContainer)) {
+    const container = config.popupContainer()
+    if (container instanceof HTMLElement) {
+      return container
+    }
+  }
+
+  if (config.popupContainer instanceof HTMLElement) return config.popupContainer
+
+  return document.body
 }
