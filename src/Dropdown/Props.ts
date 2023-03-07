@@ -187,6 +187,15 @@ export interface SimpleDropdownProps extends StandardProps, Pick<AbsoluteProps, 
    * default: 'auto'
    */
   renderItem?: ((data: any) => React.ReactNode) | string
+
+  /**
+   * Set visible of cascader popup
+   *
+   * 控制浮层显隐
+   *
+   * default: -
+   */
+  open?: boolean
 }
 
 export type DropdownProps = GetTableConsumerProps<SimpleDropdownProps>

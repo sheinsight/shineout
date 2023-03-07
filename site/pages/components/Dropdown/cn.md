@@ -21,6 +21,7 @@
 | type | 'primary' \| 'secondary' \|  'success' \| 'info' \|  'warning' \|  'danger' \|  'link' | 'default' | 类型 |
 | width | number | 无 | 弹出选项层的宽度 |
 | animation | boolean | true | 是否开启动画 |
+| open | boolean | 无 | 控制浮层显隐 |
 | absolute | boolean \| (() => element) | false | 为 true 时，选项弹出层在 BODY 下独立 render， 为函数时 选项弹出层在函数返回的 DOM 下render  |
 | position | 'left-top' \| 'left-bottom' \| 'right-top' \| 'right-bottom' \| 'top-right' \| 'top-left' \| 'bottom-right' \| 'bottom-left' \| 'auto' | 'auto' | 弹出层位置 |
 

@@ -21,6 +21,7 @@
 | type | 'primary' \| 'secondary' \|  'success' \| 'info' \|  'warning' \|  'danger' \|  'link' | 'default' | type of Dropdown |
 | width | number | none | The width of the pop-up option layer |
 | animation | boolean | true | animation toggle |
+| open | boolean | none | Set visible of dropdown popup |
 | absolute \| (() => element) | boolean | false | When it is true, the pop-up layer of option append into document.body. When it is function, the pop-up layer of option append into it's return DOM.  |
 | position | 'left-top' \| 'left-bottom' \| 'right-top' \| 'right-bottom' \| 'top-right' \| 'top-left' \| 'bottom-right' \| 'bottom-left' \| 'auto' | 'auto' | Set position property can control the direction and position of the drop-down menu.
  |

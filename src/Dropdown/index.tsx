@@ -90,6 +90,13 @@ class Dropdown extends PureComponent<DropdownProps, DropDownState> {
     this.toggleDocumentEvent(false)
   }
 
+  get show() {
+    if ('open' in this.props) {
+      return !!this.props.open
+    }
+    return this.state.show
+  }
+
   getTrigger() {
     // @ts-ignore
     if (this.props.hover === true) return 'hover'
@@ -142,7 +149,7 @@ class Dropdown extends PureComponent<DropdownProps, DropDownState> {
       clearTimeout(this.closeTimer)
     }
 
-    if (this.state.show) return
+    if (this.show) return
     this.setState({
       show: true,
     })
@@ -169,7 +176,7 @@ class Dropdown extends PureComponent<DropdownProps, DropDownState> {
       return (
         <a
           key="button"
-          className={dropdownClass('button', 'item', this.state.show && 'active')}
+          className={dropdownClass('button', 'item', this.show && 'active')}
           data-role="item"
           onClick={this.handleFocus}
         >
@@ -217,7 +224,7 @@ class Dropdown extends PureComponent<DropdownProps, DropDownState> {
       return (
         <a
           key="button"
-          className={dropdownClass('button', 'item', this.state.show && 'active')}
+          className={dropdownClass('button', 'item', this.show && 'active')}
           data-role="item"
           onClick={this.handleFocus}
         >
@@ -257,7 +264,7 @@ class Dropdown extends PureComponent<DropdownProps, DropDownState> {
         )}
         style={{ width }}
         key="list"
-        focus={this.state.show}
+        focus={this.show}
         data-id={this.dropdownId}
         fixed="min"
       >
@@ -311,10 +318,10 @@ class Dropdown extends PureComponent<DropdownProps, DropDownState> {
 
   render() {
     const { data, className, style, placeholder } = this.props
-    const { show } = this.state
+    // const { show } = this.state
     const position = this.getPosition()
 
-    let wrapClassName = dropdownClass('_', position, show && 'show', { 'split-dropdown': !placeholder, rtl: isRTL() })
+    let wrapClassName = dropdownClass('_', position, this.show && 'show', { 'split-dropdown': !placeholder, rtl: isRTL() })
     if (className) wrapClassName += ` ${className}`
 
     return (
