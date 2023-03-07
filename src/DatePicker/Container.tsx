@@ -3,7 +3,6 @@ import classnames from 'classnames'
 import immer from 'immer'
 import { PureComponent } from '../component'
 import { datepickerClass } from './styles'
-import { inputClass } from '../Input/styles'
 import Icon from './Icon'
 import utils from './utils'
 import Picker from './Picker'
@@ -507,8 +506,7 @@ class Container extends PureComponent<ContainerProps, ContainerState> {
     const { inputable, formatResult, disabled } = this.props
     const date = this.parseDate(value)
     const className = classnames(
-      datepickerClass('txt', key !== undefined && this.state[`picker${key}`] && 'text-focus'),
-      utils.isInvalid(date) && inputClass('placeholder')
+      datepickerClass('txt', key !== undefined && this.state[`picker${key}`] && 'text-focus')
     )
     const resultFormat = formatResult || this.getFormat()
     return (

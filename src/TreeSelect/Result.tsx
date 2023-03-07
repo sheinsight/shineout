@@ -246,15 +246,16 @@ class Result<Item, Value> extends PureComponent<ResultProps<Item, Value>, Result
     ]
   }
 
-  renderPlaceholder() {
+  renderPlaceholder(showPlaceholder?: boolean) {
     const { focus, onFilter, innerTitle } = this.props
 
-    if (focus && onFilter) {
+    if (focus && onFilter && showPlaceholder) {
       return this.renderInput(' ')
     }
 
     return (
       <span
+        style={showPlaceholder ? undefined : { display: 'none' }}
         className={classnames(
           inputClass('placeholder'),
           treeSelectClass('ellipsis'),
@@ -295,7 +296,8 @@ class Result<Item, Value> extends PureComponent<ResultProps<Item, Value>, Result
 
   render() {
     const showPlaceholder = this.props.result.length === 0
-    const result = showPlaceholder ? this.renderPlaceholder() : this.renderResult()
+    const placeholder = this.renderPlaceholder(showPlaceholder)
+    const result = showPlaceholder ? null : this.renderResult()
     const { compressed, innerTitle, focus, onFilter } = this.props
     const open = (onFilter && focus) || !showPlaceholder
     return (
@@ -313,6 +315,7 @@ class Result<Item, Value> extends PureComponent<ResultProps<Item, Value>, Result
           )}
         >
           {result}
+          {placeholder}
           {!this.props.multiple && (
             // eslint-disable-next-line
             <a tabIndex={-1} className={treeSelectClass('indicator', 'caret')}>

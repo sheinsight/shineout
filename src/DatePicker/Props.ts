@@ -384,7 +384,7 @@ export interface DatePickerIconProps {
 }
 
 export interface TimeScrollProps
-  extends Pick<UnionPannelProps, 'range' | 'disabled' | 'disabledTime'>,
+  extends Pick<UnionPannelProps, 'range' | 'disabled' | 'disabledTime' | 'index' | 'rangeDate'>,
     Pick<BaseProps, 'timeZone'> {
   value: number
   total: number

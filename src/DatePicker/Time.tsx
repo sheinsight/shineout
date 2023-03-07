@@ -55,9 +55,9 @@ class Time extends PureComponent<UnionPannelProps> {
     mode: 'H' | 'h' | 'm' | 'minute' | 's' | 'second' | 'ampm',
     onlyVaild?: boolean
   ) {
-    const { disabled, min, max, range, disabledTime } = this.props
-    const [isDisabled, date] = paramUtils.judgeTimeByRange(
-      val,
+    const { disabled, min, max, range, disabledTime, index, rangeDate } = this.props
+    const [isDisabled, date] = paramUtils.judgeTimeByRange({
+      target: val,
       value,
       mode,
       min,
@@ -65,8 +65,10 @@ class Time extends PureComponent<UnionPannelProps> {
       range,
       disabled,
       disabledTime,
-      this.getOptions()
-    )
+      index,
+      rangeDate,
+      options: this.getOptions(),
+    })
     return onlyVaild ? isDisabled : [isDisabled, date]
   }
 
@@ -98,7 +100,7 @@ class Time extends PureComponent<UnionPannelProps> {
   }
 
   renderTimeScroller(value: Date, min: Date | null, max: Date | null, hours: number) {
-    const { format, hourStep, minuteStep, secondStep, range, disabled, disabledTime } = this.props
+    const { format, hourStep, minuteStep, secondStep, range, disabled, disabledTime, index, rangeDate } = this.props
 
     const rtl = isRTL()
     let res = [
@@ -116,6 +118,8 @@ class Time extends PureComponent<UnionPannelProps> {
           step={hourStep}
           onChange={this.handleHourChange}
           disabledTime={disabledTime}
+          index={index}
+          rangeDate={rangeDate}
         />
       ),
       format.indexOf('h') >= 0 && (
@@ -132,6 +136,8 @@ class Time extends PureComponent<UnionPannelProps> {
           step={hourStep}
           onChange={this.handleHourChange}
           disabledTime={disabledTime}
+          index={index}
+          rangeDate={rangeDate}
         />
       ),
       format.indexOf('m') >= 0 && (
@@ -147,6 +153,8 @@ class Time extends PureComponent<UnionPannelProps> {
           step={minuteStep}
           onChange={this.handleMinuteChange}
           disabledTime={disabledTime}
+          index={index}
+          rangeDate={rangeDate}
         />
       ),
       format.indexOf('s') >= 0 && (
@@ -162,6 +170,8 @@ class Time extends PureComponent<UnionPannelProps> {
           step={secondStep}
           onChange={this.handleSecondChange}
           disabledTime={disabledTime}
+          index={index}
+          rangeDate={rangeDate}
         />
       ),
       /a|A/.test(format) && (
@@ -178,6 +188,8 @@ class Time extends PureComponent<UnionPannelProps> {
           ampm
           onChange={this.handleAMPMChange}
           disabledTime={disabledTime}
+          index={index}
+          rangeDate={rangeDate}
         />
       ),
     ]
