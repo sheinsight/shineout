@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import { inputClass } from 'shineout/Input/styles'
+import { inputClass } from '../Input/styles'
 import { getParent, focusElement } from '../utils/dom/element'
 import utils from './utils'
 import { datepickerClass } from './styles'
