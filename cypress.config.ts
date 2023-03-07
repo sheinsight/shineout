@@ -5,7 +5,7 @@ export default defineConfig({
   viewportHeight: 1080,
   video: false,
   e2e: {
-    baseUrl: "http://localhost:3000",
+    baseUrl: "http://localhost:4000",
     specPattern: `cypress/e2e/${nycConfig.target}/*.cy.{js,jsx,ts,tsx}`,
     setupNodeEvents(on, config) {
       require('@cypress/code-coverage/task')(on, config)
