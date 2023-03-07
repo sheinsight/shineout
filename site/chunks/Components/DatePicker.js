@@ -27,6 +27,19 @@ const examples = [
 
   },
   {
+    name: '01-open',
+    isTs: true,
+    isTest: false,
+    title: locate(
+      '控制弹层（受控） \n DatePicker 通过 open 控制弹层的显示和隐藏。请注意，将面板设置成常开时，建议同时设置 position 属性，否则面板易遮挡其他内容。',
+      'Dropdown list controlled by open property \n The dropdown list of Datepicker controlled by open property'
+    ),
+    component: require('doc/pages/components/DatePicker/example-01-open.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/DatePicker/example-01-open.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/DatePicker/example-01-open.tsx'),
+
+  },
+  {
     name: '02-format',
     isTs: true,
     isTest: false,

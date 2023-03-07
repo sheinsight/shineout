@@ -86,6 +86,8 @@ class Container extends PureComponent<ContainerProps, ContainerState> {
 
   textSpan: HTMLSpanElement
 
+  lastFoucs: boolean
+
   constructor(props: ContainerProps) {
     super(props)
 
@@ -125,9 +127,41 @@ class Container extends PureComponent<ContainerProps, ContainerState> {
     this.firstRender = false
   }
 
+  componentDidMount() {
+    super.componentDidMount()
+    this.setOpenEvent()
+    if (this.props.open !== undefined && this.props.open) {
+      this.handleToggle(true)
+    }
+  }
+
+  componentDidUpdate(prevProps: ContainerProps) {
+    this.setOpenEvent()
+    if (this.props.open !== undefined && prevProps.open !== this.props.open) {
+      this.handleToggle(this.props.open)
+    }
+  }
+
   componentWillUnmount() {
     super.componentWillUnmount()
     this.clearClickAway()
+  }
+
+  get focus() {
+    if ('open' in this.props) {
+      return !!this.props.open
+    }
+    return this.state.focus
+  }
+
+  setOpenEvent() {
+    if (this.lastFoucs !== this.focus)
+      if (this.focus) {
+        this.bindClickAway()
+      } else if (this.lastFoucs !== undefined) {
+        this.clearClickAway()
+      }
+    this.lastFoucs = this.focus
   }
 
   getOptions() {
@@ -264,14 +298,14 @@ class Container extends PureComponent<ContainerProps, ContainerState> {
   handleKeyDown(e: KeyboardEvent<HTMLDivElement>) {
     if (e.keyCode === 13) {
       e.preventDefault()
-      this.handleToggle(!this.state.focus)
+      this.handleToggle(!this.focus)
     }
 
     // fot close the list
     if (e.keyCode === 9) {
       this.props.onBlur(e)
       // e.preventDefault()
-      if (this.state.focus) this.handleToggle(false)
+      if (this.focus) this.handleToggle(false)
       else this.clearClickAway()
     }
   }
@@ -280,7 +314,8 @@ class Container extends PureComponent<ContainerProps, ContainerState> {
     const { quickSelect } = this.props
     const hasQuickColumn = Array.isArray(quickSelect) && quickSelect.length > 0
     if (this.props.disabled === true) return
-    if (focus === this.state.focus) return
+    // open 判断仅在弹层非受控的情况下生效
+    if (this.props.open === undefined && focus === this.focus) return
     if (e && focus && getParent(e.target as HTMLElement, this.pickerContainer)) return
 
     // click close icon
@@ -321,10 +356,9 @@ class Container extends PureComponent<ContainerProps, ContainerState> {
 
   triggerValueBlur(cb: () => void) {
     const { inputable } = this.props
-    const { focus } = this.state
     if (cb && typeof cb === 'function') cb()
     // OnChange is not triggered when handling copy and paste
-    if (inputable && focus === false) {
+    if (inputable && this.focus === false) {
       this.props.onValueBlur()
     }
   }
@@ -483,7 +517,7 @@ class Container extends PureComponent<ContainerProps, ContainerState> {
         onTextSpanRef={this.bindTextSpan}
         focusElement={this.textSpan}
         className={className}
-        focus={this.state.focus}
+        focus={this.focus}
         format={resultFormat}
         index={key as number}
         inputable={inputable}
@@ -515,7 +549,7 @@ class Container extends PureComponent<ContainerProps, ContainerState> {
           className={datepickerClass('title-box')}
           contentClass={inputTitleClass('hidable')}
           innerTitle={innerTitle}
-          open={!isEmpty || (inputable && this.state.focus)}
+          open={!isEmpty || (inputable && this.focus)}
         >
           {range && Array.isArray(value)
             ? [
@@ -534,7 +568,7 @@ class Container extends PureComponent<ContainerProps, ContainerState> {
   }
 
   renderWrappedPicker() {
-    const { focus, position } = this.state
+    const { position } = this.state
     const { absolute, zIndex, quickSelect } = this.props
     const props: {
       absolute: boolean | (() => HTMLElement) | undefined
@@ -547,7 +581,7 @@ class Container extends PureComponent<ContainerProps, ContainerState> {
       getRef: (el: HTMLDivElement) => void
     } = {
       absolute,
-      focus,
+      focus: this.focus,
       className: datepickerClass(
         'picker',
         'location',
@@ -565,6 +599,7 @@ class Container extends PureComponent<ContainerProps, ContainerState> {
     } else {
       props.position = getCurrentPosition(position)
     }
+
     return <OptionList {...props}>{this.renderPicker()}</OptionList>
   }
 
@@ -621,15 +656,12 @@ class Container extends PureComponent<ContainerProps, ContainerState> {
 
   render() {
     const { range, size, disabled, align, innerTitle } = this.props
-    const { focus } = this.state
-
     const rtl = isRTL()
-
     const className = datepickerClass(
       'inner',
       range && 'range',
       size && `size-${size}`,
-      focus && 'focus',
+      this.focus && 'focus',
       disabled === true && 'disabled',
       align && `align-${align}`,
       getCurrentPosition(this.state.position),
