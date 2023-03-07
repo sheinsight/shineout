@@ -21,18 +21,6 @@ function initRoot() {
   root = document.createElement('div')
   root.className = listClass('root', isRTL() && 'rtl')
   defaultContainer.appendChild(root)
-
-  const observer = new MutationObserver(mutationsList => {
-    for (const mutation of mutationsList) {
-      if (mutation.type === 'childList' && mutation.removedNodes.length > 0) {
-        if (!defaultContainer.contains(root)) {
-          root = null
-          observer.disconnect()
-        }
-      }
-    }
-  })
-  observer.observe(root.parentNode, { childList: true })
 }
 
 function getRoot() {
