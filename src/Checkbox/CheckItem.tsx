@@ -4,7 +4,7 @@ import { PureComponent } from '../component'
 import { defaultProps } from '../utils/defaultProps'
 import { getUidStr } from '../utils/uid'
 import { getDirectionClass } from '../utils/classname'
-import { isEnterPress } from '../utils/is'
+import { isEnterPress, isFunc } from '../utils/is'
 import Input from '../Input'
 import Spin from '../Spin'
 import { checkinputClass } from './styles'
@@ -83,6 +83,12 @@ function checkItem(type: CheckType): React.ComponentClass<CheckItemProps, Checkb
       if (el) this.el = el
     }
 
+    onClick = (e: React.MouseEvent<HTMLInputElement>) => {
+      e.stopPropagation()
+      const { onClick } = this.props
+      if (isFunc(onClick)) onClick(e)
+    }
+
     handleEnter(e: KeyboardEvent) {
       if (isEnterPress(e)) {
         this.handleChange({
@@ -120,7 +126,7 @@ function checkItem(type: CheckType): React.ComponentClass<CheckItemProps, Checkb
     }
 
     render() {
-      const { disabled, style, content, size, children, inputable, onClick, loading } = this.props
+      const { disabled, style, content, size, children, inputable, loading } = this.props
 
       const rtl = isRTL()
 
@@ -173,7 +179,7 @@ function checkItem(type: CheckType): React.ComponentClass<CheckItemProps, Checkb
             disabled={ban}
             tabIndex={-1}
             type={isSwitch ? 'checkbox' : type}
-            onClick={onClick}
+            onClick={this.onClick}
             onChange={this.handleChange}
             checked={checked as boolean}
           />

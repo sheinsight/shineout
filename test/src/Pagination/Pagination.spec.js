@@ -132,6 +132,7 @@ describe('Pagination[text]', () => {
     expect(
       wrapper
         .find(`.${SO_PREFIX}-select-result span`)
+        .first()
         .text()
         .indexOf(text.page) > 0
     ).toBeTruthy()

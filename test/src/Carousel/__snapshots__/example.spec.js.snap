@@ -10,6 +10,10 @@ exports[`Carousel[snapshot] Snapshot test: Carousel[site/pages/components/Carous
           <span>
             slide
           </span>
+          <span>
+            <span />
+             
+          </span>
           <a>
             <svg>
               <path />
@@ -30,6 +34,10 @@ exports[`Carousel[snapshot] Snapshot test: Carousel[site/pages/components/Carous
           <span>
             center
           </span>
+          <span>
+            <span />
+             
+          </span>
           <a>
             <svg>
               <path />
@@ -49,6 +57,10 @@ exports[`Carousel[snapshot] Snapshot test: Carousel[site/pages/components/Carous
         <div>
           <span>
             circle
+          </span>
+          <span>
+            <span />
+             
           </span>
           <a>
             <svg>

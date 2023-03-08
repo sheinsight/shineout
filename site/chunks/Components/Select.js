@@ -403,6 +403,19 @@ const examples = [
     parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Select/test-004-blurAndSubmit.tsx'),
 
   },
+  {
+    name: 'test-005-unmount',
+    isTs: true,
+    isTest: true,
+    title: locate(
+      '组件挂载时检查容器是否存在 \n 检查容器存活，如果不存在容器，则重新创建容器',
+      ' \n '
+    ),
+    component: require('doc/pages/components/Select/test-005-unmount.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/test-005-unmount.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Select/test-005-unmount.tsx'),
+
+  },
 ]
 
 const codes = undefined

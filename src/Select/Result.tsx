@@ -156,7 +156,9 @@ class Result<Item, Value> extends PureComponent<ResultProps<Item, Value>, Result
       } else if (preProps.result !== result) {
         const getUnMatchKey = (d: ResultItem<Item>, k: ResultProps<Item, Value>['keygen']) => {
           const unMatchedData = d as UnMatchedValue
-          d && isObject(unMatchedData) && unMatchedData.IS_NOT_MATCHED_VALUE ? unMatchedData.value : getKey(d, k as any)
+          return d && isObject(unMatchedData) && unMatchedData.IS_NOT_MATCHED_VALUE
+            ? unMatchedData.value
+            : getKey(d, k as any)
         }
 
         const isSameData = (data1: ResultItem<Item>, data2: ResultItem<Item>, k: ResultProps<Item, Value>['keygen']) =>
@@ -308,16 +310,17 @@ class Result<Item, Value> extends PureComponent<ResultProps<Item, Value>, Result
     )
   }
 
-  renderPlaceholder() {
+  renderPlaceholder(empty?: boolean) {
     const { focus, onFilter, filterText, multiple, innerTitle } = this.props
 
-    if (focus && onFilter) {
+    if (focus && onFilter && empty) {
       return this.renderInput(multiple ? filterText : '')
     }
 
     return (
       <span
         key="placeholder"
+        style={!empty ? { display: 'none' } : undefined}
         className={classnames(
           inputClass('placeholder'),
           selectClass('ellipsis'),
@@ -388,12 +391,13 @@ class Result<Item, Value> extends PureComponent<ResultProps<Item, Value>, Result
   render() {
     const { compressed, innerTitle, focus, onFilter } = this.props
     const showPlaceholder = this.isEmptyResult()
-    const result = showPlaceholder ? this.renderPlaceholder() : this.renderResult()
+    const placeholder = this.renderPlaceholder(showPlaceholder)
+    const result = showPlaceholder ? null : this.renderResult()
 
     const rtl = isRTL()
     const clearEl = this.renderClear()
     const indicator = this.renderIndicator()
-    const inner = [result, indicator, clearEl]
+    const inner = [result, placeholder, indicator, clearEl]
     const open = (onFilter && focus) || !showPlaceholder
 
     return (

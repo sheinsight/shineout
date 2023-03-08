@@ -2,6 +2,7 @@ import { entries } from './utils/objects'
 import Notification from './utils/notification'
 import { LanType, Direction } from './locale/Props'
 import { CartType } from './icons/Props'
+import { isFunc } from "./utils/is"
 
 export const noti = new Notification()
 
@@ -16,6 +17,7 @@ interface ConfigOption {
   spin?: string
   caret?: CartType
   direction: Direction
+  popupContainer?: HTMLElement | (() => HTMLElement)
 }
 
 const config: ConfigOption = {
@@ -29,6 +31,7 @@ const config: ConfigOption = {
   spin: undefined,
   caret: undefined,
   direction: 'ltr',
+  popupContainer: undefined,
 }
 
 export default config
@@ -46,4 +49,17 @@ export function setConfig(conf: Partial<ConfigOption>) {
 
 export function isRTL() {
   return config.direction === 'rtl'
+}
+
+export function getDefaultContainer() {
+  if (isFunc(config.popupContainer)) {
+    const container = config.popupContainer()
+    if (container instanceof HTMLElement) {
+      return container
+    }
+  }
+
+  if (config.popupContainer instanceof HTMLElement) return config.popupContainer
+
+  return document.body
 }
