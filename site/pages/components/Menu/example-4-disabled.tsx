@@ -13,7 +13,7 @@ interface MenuItem {
   disabled?: boolean
   children?: MenuItem[]
 }
-type MenuProps = TYPE.Menu.Props<MenuItem, MenuItem>
+type MenuProps = TYPE.Menu.Props<MenuItem, string>
 type MenuActive = MenuProps['active']
 type MenuOnClick = MenuProps['onClick']
 type MenuDisabled = MenuProps['disabled']

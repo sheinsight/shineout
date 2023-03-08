@@ -43,7 +43,7 @@ const examples = [
 
 const codes = undefined
 
-const api = '[]';
+const api = '[{"title":"Gap","properties":[{"name":"column","tag":{"cn":"水平方向的列间距","en":"column spacing in the horizontal direction","default":"8","version":""},"type":"string | number"},{"name":"row","tag":{"cn":"垂直方向的行间距","en":"vertical line spacing","default":"8","version":""},"type":"string | number"},{"name":"itemStyle","tag":{"cn":"子元素自定义样式","en":"the styles of child elements","default":"","version":""},"type":"CSSProperties"},{"name":"children","tag":{"cn":"子元素","en":"children","default":"","version":""},"type":"ReactNode"},{"name":"className","tag":{"cn":"扩展className","en":"extend className","default":"","version":""},"type":"string"},{"name":"style","tag":{"cn":"最外层扩展样式","en":"Container element style","default":"","version":""},"type":"CSSProperties"}],"cn":"","en":""}]';
 
 export default navable(props => (
   <MarkDown {...props} codes={codes} source={source} examples={examples} api={api} />

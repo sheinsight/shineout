@@ -137,11 +137,17 @@ function getPropertiesWithDocComments(pp) {
     if (!mainTags.title) return
     const item = {
       title: mainTags.title,
+      subTitle: mainTags.subTitle,
       properties: [],
       cn: convertQuotes(mainTags.cn),
       en: convertQuotes(mainTags.en),
     }
     const type = interface.getType()
+    // const typeArgs = interface.getTypeParameters().reduce((result, param) => {
+    //   const paramDefault = param.getDefault()
+    //   if (paramDefault) return { ...result, [param.getName()]: getImportType(paramDefault.getType().getText()) }
+    //   return result
+    // }, {})
     const properties = typeChecker.getPropertiesOfType(type)
     const lost = []
     properties.forEach(property => {
@@ -180,7 +186,7 @@ function getPropertiesWithDocComments(pp) {
   })
   return results
 }
-const p = path.resolve(__dirname, '../../src/Form/Props.ts')
+const p = path.resolve(__dirname, '../../src/Menu/Props.ts')
 console.log(getPropertiesWithDocComments(p))
 const ModuleMap = {
   List: 'DataList',

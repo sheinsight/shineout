@@ -9,8 +9,8 @@ export interface StandardProps {
   className?: string
 
   /**
-   * @en style object
-   * @cn 内联样式
+   * @en Container element style
+   * @cn 最外层扩展样式
    */
   style?: React.CSSProperties
 }
