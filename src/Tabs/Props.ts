@@ -6,166 +6,125 @@ import { StickyProps } from '../Sticky/Props'
 type ReactNode = React.ReactNode
 export interface Props extends StandardProps {
   /**
-   * Current active tab id or index
-   *
-   * 当前选中标签页（受控）
-   *
-   * default: 0
+   * @en Current active tab id or index
+   * @cn 当前选中标签页（受控）
+   * @default 0
+   * @override union
    */
   active?: string | number
 
   /**
-   * set the label align
-   *
-   * 设置标签对齐方式
-   *
-   * default: 无
+   * @en set the label align
+   * @cn 设置标签对齐方式
+   * @default '无'
+   * @override union
    */
   align?: 'left' | 'right' | 'vertical-left' | 'vertical-right'
 
   /**
-   * Active background color
-   *
-   * 选中标签背景色
-   *
-   * default: -
+   * @en Active background color
+   * @cn 选中标签背景色
    */
   background?: string
 
   /**
-   * Border color
-   *
-   * 边框颜色
-   *
-   * default: -
+   * @en Border color
+   * @cn 边框颜色
    */
   border?: string
 
   /**
-   * Whether can be collapsed
-   *
-   * 是否可折叠
-   *
-   * default: false
+   * @en Whether can be collapsed
+   * @cn 是否可折叠
+   * @default false
    */
   collapsible?: boolean
 
   /**
-   * Default active tab id or index
-   *
-   * 默认选中标签页（非受控）
-   *
-   * default: 0
+   * @en Default active tab id or index
+   * @cn 默认选中标签页（非受控）
+   * @default 0
+   * @override union
    */
   defaultActive?: string | number
 
   /**
-   * Inactive background color
-   *
-   * 未选中标签背景色
-   *
-   * default: -
+   * @en Inactive background color
+   * @cn 未选中标签背景色
    */
   inactiveBackground?: string
 
   /**
-   * extra element in tab bar
-   *
-   * tab bar 上额外的元素
-   *
-   * default: -
+   * @en extra element in tab bar
+   * @cn tab bar 上额外的元素
+   * @override union
    */
   tabBarExtraContent?: string | ReactNode
 
   /**
-   * style in tab bar
-   *
-   * tab bar 的样式对象
-   *
-   * default: -
+   * @en style in tab bar
+   * @cn tab bar 的样式对象
    */
   tabBarStyle?: React.CSSProperties
 
   /**
-   * Change callback
-   *
-   * 标签选中时触发回调事件
-   *
-   * default: -
+   * @en Change callback
+   * @cn 标签选中时触发回调事件
    */
   onChange?: (key: any) => void
 
   /**
-   * Options: ['card', 'line', 'button', 'bordered', 'dash']. If shape is not null, the style properties such as background, border will lose effect
-   *
-   * shape 不为空时，background 等颜色参数将会无效
-   *
-   * default: -
+   * @en Options: ['card', 'line', 'button', 'bordered', 'dash']. If shape is not null, the style properties such as background, border will lose effect
+   * @cn shape 不为空时，background 等颜色参数将会无效
+   * @override union
    */
   shape?: 'card' | 'line' | 'button' | 'bordered' | 'dash'
 
   /**
-   * lazy load
-   *
-   * 是否开启懒加载
-   *
-   * default: true
+   * @en lazy load
+   * @cn 是否开启懒加载
+   * @default true
    */
   lazy?: boolean
 
   /**
-   * sticky header
-   *
-   * 头部浮动
-   *
-   * default: none
+   * @en sticky header
+   * @cn 头部浮动
+   * @override union
    */
   sticky?: boolean | number | StickyProps
 
   /**
-   * switch tabs will scroll to Tabs
-   *
-   * 切换tab将自动滚动到Tabs
-   *
-   * default: none
+   * @en switch tabs will scroll to Tabs
+   * @cn 切换tab将自动滚动到Tabs
    */
   switchToTop?: boolean
 
   /**
-   * Whether to hide the dividing line
-   *
-   * 是否隐藏分割线
-   *
-   * default: false
+   * @en Whether to hide the dividing line
+   * @cn 是否隐藏分割线
+   * @default false
    */
   hideSplit?: boolean
 
   /**
-   * content
-   *
-   * 内容
-   *
-   * default: -
+   * @en content
+   * @cn 内容
    */
   children: ReactNode
 
   /**
-   * the color of tab's text
-   *
-   * 标签页文字颜色，仅当 shape 为 'card' 时生效
-   *
-   * default: -
+   * @en the color of tab's text
+   * @cn 标签页文字颜色，仅当 shape 为 'card' 时生效
    */
   color?: string
 }
 
 export interface TabsLinkProps extends AnchorHTMLAttributes<any> {
   /**
-   * Link content
-   *
-   * 链接内容
-   *
-   * default: required
+   * @en Link content
+   * @cn 链接内容
+   * @default required
    */
   children: React.ReactNode
 

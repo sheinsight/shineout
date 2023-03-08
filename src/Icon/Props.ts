@@ -3,65 +3,50 @@ import { StandardProps, RegularAttributes } from '../@types/common'
 
 export interface IconCompProps extends StandardProps {
   /**
-   * The unicode code of the icon.
-   *
-   * 图标 unicode 编码，和 name 二选一
-   *
-   * default: -
+   * @en The unicode code of the icon.
+   * @cn 图标 unicode 编码，和 name 二选一
    */
   children?: React.ReactNode
 
   /**
-   * desc: Icon class name (the part without the prefix)
-   *
-   * 图标类名（去除前缀的部分），值参照具体使用的图标库
-   *
-   * default:
+   * @en Icon class name (the part without the prefix)
+   * @cn 图标类名（去除前缀的部分），值参照具体使用的图标库
    */
   name?: string
 
   /**
-   * desc: Icon size, same as style.fontsize
-   *
-   * 图标大小，和 style.fontSize 相同
-   *
-   * default:
+   * @en Icon size, same as style.fontsize
+   * @cn 图标大小，和 style.fontSize 相同
+   * @override union
    */
   fontSize?: string | number
 
   /**
-   * desc: Built-in color type
-   *
-   *内置颜色类型
-
-   * default: 'default'
+   * @en Built-in color type
+   * @cn 内置颜色类型
+   * @default 'default'
+   * @override union
    */
   type?: RegularAttributes.Type | 'info'
 
   /**
-   * Size of pagination
-   *
-   * 尺寸
-   *
-   * default: 'default'
+   * @en Size of pagination
+   * @cn 尺寸
+   * @default 'default'
    */
   size?: RegularAttributes.Size
 
   /**
-   * Size of pagination
-   *
-   * 类名前缀
-   *
-   * default: 'default'
+   * @en Size of pagination
+   * @cn 类名前缀
+   * @default 'default'
    */
   prefix?: string
 
   /**
-   * Size of pagination
-   *
-   * font-family 需要和引入的css/js文件内的font-family一致
-   *
-   * default: 'iconfont'
+   * @en Size of pagination
+   * @cn font-family 需要和引入的css/js文件内的font-family一致
+   * @default 'iconfont'
    */
   fontFamily?: string
 

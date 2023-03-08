@@ -33,218 +33,162 @@ export type PriorityDirectionType = 'vertical' | 'horizontal' | 'auto'
 
 export interface PanelProps extends StandardProps, PopoverProviderProps {
   /**
-   * Pop-up background-color(with arrows)
-   *
-   * 弹出层背景色（含箭头）
-   *
-   * default: '#fff'
+   * @en Pop-up background-color(with arrows)
+   * @cn 弹出层背景色（含箭头）
+   * @default '#fff'
    */
   background?: string
   /**
-   * The color of pop-up border(with arrows)
-   *
-   * 弹出层边框颜色（含箭头）
-   *
-   * default: '#dee2e6'
+   * @en The color of pop-up border(with arrows)
+   * @cn 弹出层边框颜色（含箭头）
+   * @default '#dee2e6'
    */
   border?: string
   /**
-   * Pop-up content.
-   *
-   * 弹出显示内容，如果内容为函数，则参数是主动关闭操作
-   *
-   * default: required
+   * @en Pop-up content.
+   * @cn 弹出显示内容，如果内容为函数，则参数是主动关闭操作
+   * @default required
+   * @override union
    */
   children?: ReactNode | ((close: ((e?: MouseEvent) => void)) => ReactNode)
   /**
-   * Callback event when close.
-   *
-   * Popover 关闭时回调事件
-   *
-   * default: -
+   * @en Callback event when close.
+   * @cn Popover 关闭时回调事件
    */
   onClose?: () => void
   /**
-   * Callback event when open.
-   *
-   * Popover 弹出回调事件
-   *
-   * default: -
+   * @en Callback event when open.
+   * @cn Popover 弹出回调事件
    */
   onOpen?: () => void
   /**
-   * The position of pop-up layer
-   *
-   * 弹出层位置
-   *
-   * default: 'top'
+   * @en The position of pop-up layer
+   * @cn 弹出层位置
+   * @default 'top'
    */
   position?: PopoverPositionType
   /**
-   * type of show
-   *
-   * 触发方式
-   *
-   * default: 'hover'
+   * @en type of show
+   * @cn 触发方式
+   * @default 'hover'
+   * @override union
    */
   trigger?: 'click' | 'hover'
   /**
-   * type of popover
-   *
-   * 类型
-   *
-   * default: none
+   * @en type of popover
+   * @cn 类型
    */
   type?: PopType
   /**
-   * is visible (controlled)
-   *
-   * 是否显示(受控)
-   *
-   * default: -
+   * @en is visible (controlled)
+   * @cn 是否显示(受控)
    */
   visible?: boolean
   /**
-   * the event of visible change
-   *
-   * 显示隐藏改变时事件
-   *
-   * default: -
+   * @en the event of visible change
+   * @cn 显示隐藏改变时事件
    */
   onVisibleChange?: (visible: boolean) => void
   /**
-   * default visible
-   *
-   * 默认是否显示
-   *
-   * default: -
+   * @en default visible
+   * @cn 默认是否显示
    */
   defaultVisible?: boolean
   /**
-   * the show delay of mouseenter(ms)
-   *
-   * 移入显示延迟(毫秒)
-   *
-   * default: 0
+   * @en the show delay of mouseenter(ms)
+   * @cn 移入显示延迟(毫秒)
+   * @default 0
    */
   mouseEnterDelay?: number
   /**
-   * the hidden delay of mouseleave (ms)
-   *
-   * 移除隐藏延迟(毫秒)
-   *
-   * default: 0
+   * @en the hidden delay of mouseleave (ms)
+   * @cn 移除隐藏延迟(毫秒)
+   * @default 0
    */
   mouseLeaveDelay?: number
   /**
-   * Popup location priority, default is left and right priority, only valid when position is not set, Options: ['vertical', 'horizontal']
-   *
-   * 弹出位置优先级, 默认为左右优先, 只在未设置 position 时生效, 可选值['vertical', 'horizontal', 'auto']
-   *
-   * default: 'vertical'
+   * @en Popup location priority, default is left and right priority, only valid when position is not set, Options: ['vertical', 'horizontal']
+   * @cn 弹出位置优先级, 默认为左右优先, 只在未设置 position 时生效, 可选值['vertical', 'horizontal', 'auto']
+   * @default 'vertical'
    */
   priorityDirection?: PriorityDirectionType
   /**
-   * Custom Popover container, override the default behavior which is rendering under the body, () => DOMElement
-   *
-   * 自定义Popover容器，覆盖默认渲染在body下的行为, () => DOMElement
-   *
-   * default: none
+   * @en Custom Popover container, override the default behavior which is rendering under the body, () => DOMElement
+   * @cn 自定义Popover容器，覆盖默认渲染在body下的行为, () => DOMElement
+   * @override union
    */
   getPopupContainer?: () => HTMLElement | null
   /**
-   * scroll to dismiss, return el to order scroller
-   *
-   * 滚动来关闭气泡框，如果需要指定滚动元素，则通过函数返回
-   *
-   * default: false
+   * @en scroll to dismiss, return el to order scroller
+   * @cn 滚动来关闭气泡框，如果需要指定滚动元素，则通过函数返回
+   * @default false
+   * @override union
    */
   scrollDismiss?: boolean | (() => HTMLElement | null)
   /**
-   * show arrow
-   *
-   * 是否显示箭头
-   *
-   * default: true
+   * @en show arrow
+   * @cn 是否显示箭头
+   * @default true
    */
   showArrow?: boolean
   /**
-   * z-index of popover
-   *
-   * Popover 层级
-   *
-   * default: 1060
+   * @en z-index of popover
+   * @cn Popover 层级
+   * @default 1060
    */
   zIndex?: number
   /**
-   * Cancel the popup after clicking the element in mouseEnterDelay
-   *
-   * mouseEnterDelay 内点击元素后取消弹出
-   *
-   * default: false
+   * @en Cancel the popup after clicking the element in mouseEnterDelay
+   * @cn mouseEnterDelay 内点击元素后取消弹出
+   * @default false
    */
   clickToCancelDelay?: boolean
   /**
-   * using inner styles
-   *
-   * 使用内置文本样式
-   *
-   * default: -
+   * @en using inner styles
+   * @cn 使用内置文本样式
    */
   useTextStyle?: boolean
 }
 
 export interface PopoverConfirmProps extends Omit<PopoverProps, 'children' | 'type'> {
   /**
-   * button text
-   *
-   * 按钮文字
-   *
-   * default: { ok: 'Ok', cancel: 'Cancel' }
+   * @en button text
+   * @cn 按钮文字
+   * @default { ok: 'Ok', cancel: 'Cancel' }
    */
   text?: {
     ok?: string
     cancel?: string
   }
   /**
-   * ok button click callback, will close tooltip while returned promise resolve
-   *
-   * 点击确定按钮时触发事件，返回 Promise 时，会在 Promise resolve 后关闭 Tooltip
-   *
-   * default: none
+   * @en ok button click callback, will close tooltip while returned promise resolve
+   * @cn 点击确定按钮时触发事件，返回 Promise 时，会在 Promise resolve 后关闭 Tooltip
+   * @override union
    */
   onOk?: () => void | Promise<any>
   /**
-   * cancel button click callback, will close tooltip while returned promise resolve
-   *
-   * 点击取消按钮时触发事件，返回 Promise 时，会在 Promise resolve 后关闭 Tooltip
-   *
-   * default: none
+   * @en cancel button click callback, will close tooltip while returned promise resolve
+   * @cn 点击取消按钮时触发事件，返回 Promise 时，会在 Promise resolve 后关闭 Tooltip
+   * @override union
    */
   onCancel?: () => void | Promise<any>
   /**
-   * ok button's type, same with button type
-   *
-   * 确认按钮的类型，与按钮类型相同
-   *
-   * default: danger
+   * @en ok button's type, same with button type
+   * @cn 确认按钮的类型，与按钮类型相同
+   * @default danger
    */
   okType?: ButtonType
   /**
-   * ok button's type, same with button type
-   *
-   * 确认按钮的类型，与按钮类型相同
-   *
-   * default: danger
+   * @en ok button's type, same with button type
+   * @cn 确认按钮的类型，与按钮类型相同
+   * @default danger
    */
   icon?: AlertProps['icon']
   children: ReactNode
   /**
-   * same with Alert type
-   *
-   * 类型同 Alert type 属性
-   *
-   * default: confirmwarning
+   * @en same with Alert type
+   * @cn 类型同 Alert type 属性
+   * @default confirmwarning
    */
   type?: AlertProps['type']
 }

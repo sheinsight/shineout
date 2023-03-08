@@ -3,62 +3,46 @@ export type MessageType = 'default' | 'success' | 'info' | 'warning' | 'danger'
 export type PositionType = 'top' | 'middle' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'
 export interface MessageOptions {
   /**
-   * extend className
-   *
-   * 类名
-   *
-   * default: -
+   * @en extend className
+   * @cn 类名
    */
   className?: string
   /**
-   * The callback function when the message is closed.
-   *
-   * 关闭后回调事件
-   *
-   * default: -
+   * @en The callback function when the message is closed.
+   * @cn 关闭后回调事件
    */
   onClose?: () => void
   /**
-   * The position where the message display
-   *
-   * 消息显示的位置
-   *
-   * default: top
+   * @en The position where the message display
+   * @cn 消息显示的位置
+   * @default top
+   * @override union
    */
   position?: 'top' | 'middle' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'
   /**
-   * title
-   *
-   * 标题文字
-   *
-   * default: -
+   * @en title
+   * @cn 标题文字
    */
   title?: string
 
   /**
-   * show close button
-   *
-   * 是否隐藏关闭按钮
-   *
-   * default: false
+   * @en show close button
+   * @cn 是否隐藏关闭按钮
+   * @default false
    */
   hideClose?: boolean
 
   /**
-   * Distance from the top
-   *
-   * 距离顶部的距离
-   *
-   * default: -
+   * @en Distance from the top
+   * @cn 距离顶部的距离
    */
   top?: string
 
   /**
-   * target element
-   *
-   * 渲染的目标节点
-   *
-   * default: document.body
+   * @en target element
+   * @cn 渲染的目标节点
+   * @default document.body
+   * @override union
    */
   container?: (() => HTMLElement) | HTMLElement
 }

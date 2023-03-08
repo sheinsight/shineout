@@ -4,38 +4,30 @@ import { StandardProps } from '../@types/common'
 
 export interface GapProps extends StandardProps {
   /**
-   * column spacing in the horizontal direction
-   *
-   * 水平方向的列间距
-   *
-   * default: 8
+   * @en column spacing in the horizontal direction
+   * @cn 水平方向的列间距
+   * @default 8
+   * @override union
    */
   column?: number | string
 
   /**
-   * vertical line spacing
-   *
-   * 垂直方向的行间距
-   *
-   * default: 8
+   * @en vertical line spacing
+   * @cn 垂直方向的行间距
+   * @default 8
+   * @override union
    */
   row?: number | string
 
   /**
-   * the styles of child elements
-   *
-   * 子元素自定义样式
-   *
-   * default: -
+   * @en the styles of child elements
+   * @cn 子元素自定义样式
    */
   itemStyle?: React.CSSProperties
 
   /**
-   * children
-   *
-   * 子元素
-   *
-   * default: -
+   * @en children
+   * @cn 子元素
    */
   children?: ReactNode
 }
