@@ -12,7 +12,9 @@ const stlye = {
 }
 const App: React.FC = () => {
   const [open, setOpen] = useState(true)
-
+  const handleClose = (close: boolean) => {
+    console.log('控制弹层（受控）:', close)
+  }
   return (
     <div>
       <div style={{ margin: '10px 0' }}>
@@ -24,14 +26,20 @@ const App: React.FC = () => {
       <div style={{ height: 350 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <div style={stlye}>
-            <DatePicker open={open} type="date" placeholder="Select date" position="left-bottom" />
+            <DatePicker
+              open={open}
+              onCollapse={handleClose}
+              type="date"
+              placeholder="Select date"
+              position="left-bottom"
+            />
           </div>
-          <div style={stlye}>
+          {/* <div style={stlye}>
             <DatePicker open={open} type="month" placeholder="Select month" position="left-bottom" />
           </div>
           <div style={stlye}>
             <DatePicker open={open} type="time" placeholder="Select time" position="left-bottom" />
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

@@ -66,19 +66,6 @@ const examples = [
 
   },
   {
-    name: '01-open',
-    isTs: true,
-    isTest: false,
-    title: locate(
-      '控制弹层（受控） \n Select 通过 open 控制弹层的显示和隐藏',
-      'Dropdown list controlled by open property \n The dropdown list of Select controlled by open property'
-    ),
-    component: require('doc/pages/components/Select/example-01-open.tsx').default,
-    rawText: require('!raw-loader!doc/pages/components/Select/example-01-open.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Select/example-01-open.tsx'),
-
-  },
-  {
     name: '02-format',
     isTs: true,
     isTest: false,
@@ -414,6 +401,19 @@ const examples = [
     component: require('doc/pages/components/Select/test-005-unmount.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Select/test-005-unmount.tsx'),
     parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Select/test-005-unmount.tsx'),
+
+  },
+  {
+    name: 'test-006-open',
+    isTs: true,
+    isTest: true,
+    title: locate(
+      '控制弹层（受控） \n Select 通过 open 控制弹层的显示和隐藏',
+      'Dropdown list controlled by open property \n The dropdown list of Select controlled by open property'
+    ),
+    component: require('doc/pages/components/Select/test-006-open.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/test-006-open.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Select/test-006-open.tsx'),
 
   },
 ]

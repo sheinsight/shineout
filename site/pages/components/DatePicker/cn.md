@@ -43,6 +43,7 @@
 | size | 'small' \| 'default' \| 'large' | 'default' | 尺寸大小 |
 | timeZone | string | 无 | 设置默认时区,格式为/^(\[+-\]\d{2})$/ 支持 '-12' 到 '+13' |
 | open | boolean | 无 | 控制浮层显隐 |
+| onCollapse | (collapse: boolean) => void | 无 | 下拉列表展开/收起回调 |
 
 ### DatePickerFormat
 
