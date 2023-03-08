@@ -75,7 +75,7 @@ class Range extends PureComponent {
     }
     if (utils.compareAsc(s, e) > 0) {
       const sWitheTime = utils.toDate(s, this.getOptions())
-      utils.setTime(sWitheTime, e)
+      utils.setTime(sWitheTime, e, this.getOptions())
       rangeDate[1] = utils.compareAsc(s, sWitheTime) > 0 ? s : sWitheTime
     }
   }
@@ -145,10 +145,10 @@ class Range extends PureComponent {
 
     utils.cloneTime(date, this.props.value[index], undefined, this.getOptions())
     if (min && utils.compareAsc(date, min) <= 0) {
-      utils.setTime(date, min)
+      utils.setTime(date, min, this.getOptions())
     }
     if (max && utils.compareAsc(date, max) >= 0) {
-      utils.setTime(date, max)
+      utils.setTime(date, max, this.getOptions())
     }
     // if (this.state.rangeDate.filter(a => a).length !== 1) {
     //   this.setState({ rangeDate: index === 1 ? [undefined, date] : [date], hover: undefined })

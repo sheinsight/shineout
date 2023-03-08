@@ -241,7 +241,7 @@ function isInvalid(date) {
 
 function toDateWithFormat(dirtyDate, fmt, def, options) {
   let date
-  if (typeof dirtyDate === 'string') {
+  if (typeof dirtyDate === 'string' && fmt) {
     date = parse(dirtyDate, fmt, options)
     const str = format(date, fmt, options)
     if (str !== dirtyDate) {
@@ -310,25 +310,27 @@ function newDate(defaultDate, options) {
   return ud
 }
 
-function setTime(date, old) {
-  date.setHours(old.getHours())
-  date.setMinutes(old.getMinutes())
-  date.setSeconds(old.getSeconds())
-  date.setMilliseconds(old.getMilliseconds())
-
-  return date
+function setTime(date, old, options) {
+  const zd = transDateWithZone(date, options)
+  const oldZd = transDateWithZone(old, options)
+  zd.setHours(oldZd.getHours())
+  zd.setMinutes(oldZd.getMinutes())
+  zd.setSeconds(oldZd.getSeconds())
+  zd.setMilliseconds(oldZd.getMilliseconds())
+  const ud = transDateWithZone(zd, options, true)
+  return ud
 }
 
 function cloneTime(date, old, fmt, options) {
   if (!date) return date
   const oldDate = toDateWithFormat(old, fmt, undefined, options)
   if (isInvalid(oldDate)) return date
-  return setTime(date, oldDate)
+  return setTime(date, oldDate, options)
 }
 
 function formatDateWithDefaultTime(date, value, defaultTime, fmt, options) {
   if (!date) return date
-  if (value) return setTime(date, value)
+  if (value) return setTime(date, value, options)
   if (!defaultTime) return date
 
   const dateHMS = toDateWithFormat(defaultTime, TIME_FORMAT, undefined, options)
