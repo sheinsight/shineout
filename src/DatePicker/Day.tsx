@@ -100,10 +100,11 @@ class Day extends PureComponent<UnionPannelProps, DayState> {
     if (type === 'week') {
       onChange(...paramUtils.weekHandleChangeParams(date, true, true))
     } else {
-      let newDate: Date | string = utils.setTime(utils.toDate(date), current)
+      let newDate: Date | string = utils.setTime(utils.toDate(date, this.getOptions()), current, this.getOptions())
+
       // only can select day with the same day of min/max
-      if (min && utils.compareAsc(newDate, min) < 0) utils.setTime(newDate, min)
-      if (max && utils.compareAsc(newDate, max) > 0) utils.setTime(newDate, max)
+      if (min && utils.compareAsc(newDate, min) < 0) utils.setTime(newDate, min, this.getOptions())
+      if (max && utils.compareAsc(newDate, max) > 0) utils.setTime(newDate, max, this.getOptions())
       if (
         allowSingle &&
         isArray(rangeDate) &&

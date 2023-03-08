@@ -36,7 +36,7 @@ dayjs.extend(quarterOfYear)
 
 const TIME_FORMAT = 'HH:mm:ss'
 
-export const compatibleFmt = (fmt?: string) => {
+export const compatibleFmt = (fmt: string) => {
   if (typeof fmt !== 'string') return fmt
   const trans = {
     yy: 'YY',
@@ -57,7 +57,7 @@ export const compatibleFmt = (fmt?: string) => {
   return result
 }
 
-function getDayJsLocate(options?: DateOptions) {
+function getDayJsLocate(options: DateOptions) {
   if (options && options.weekStartsOn === 1) return 'en2'
   return 'en'
 }
@@ -135,7 +135,7 @@ function compareAsc(dateA: DateTimeType, dateB: DateTimeType) {
   return a > b ? 1 : -1
 }
 
-function format(date: Date, fmt?: string, options: DateOptions = {}) {
+function format(date: Date, fmt: string, options: DateOptions = {}) {
   if (!date) return 'Invalid Date'
   const fmt2 = compatibleFmt(fmt)
   let zd = date
@@ -170,7 +170,7 @@ function isValid(date: DateTimeType) {
   return dayjs(date).isValid()
 }
 
-function parse(d: string, fmt?: string, options?: DateOptions) {
+function parse(d: string, fmt: string, options: DateOptions) {
   if (!d) return new Date('')
   // should clear[xxx]
   const reg = /[[]([^[^\]]+?)[\]]/g
@@ -210,7 +210,7 @@ function parse(d: string, fmt?: string, options?: DateOptions) {
   return transDateWithZone(result, options, true)
 }
 
-function toDate(day: DateTimeType, options?: DateOptions): Date {
+function toDate(day: DateTimeType, options: DateOptions): Date {
   if (!day) return new Date('')
   if (day instanceof Date) return dayjs(day).toDate()
   if (typeof day === 'number') return new Date(day)
@@ -249,9 +249,14 @@ function isInvalid(date: unknown) {
 
 // function toDateWithFormat(dirtyDate: Date, fmt: string, def: DateTimeType, options: DateOptions): Date
 // function toDateWithFormat(dirtyDate: DateTimeType, fmt: string, def: DateTimeType, options: DateOptions): DateTimeType
-function toDateWithFormat(dirtyDate: DateTimeType, fmt?: string, def?: Date, options?: DateOptions) {
+function toDateWithFormat(
+  dirtyDate: DateTimeType,
+  fmt: string | undefined,
+  def: Date | undefined,
+  options: DateOptions
+) {
   let date: Date
-  if (typeof dirtyDate === 'string') {
+  if (typeof dirtyDate === 'string' && fmt) {
     date = parse(dirtyDate, fmt, options)
     const str = format(date, fmt, options)
     if (str !== dirtyDate) {
@@ -310,7 +315,7 @@ function compareQuarter(dateLeft: Date, dateRight: Date, pad = 0, options: DateO
   return compareAsc(left, right)
 }
 
-function newDate(defaultDate?: Date | DateTimeType, options?: DateOptions) {
+function newDate(defaultDate: Date | DateTimeType | undefined, options: DateOptions) {
   const date = defaultDate ? toDate(defaultDate, options) : new Date()
   const zd = transDateWithZone(date, options)
   const dd = dayjs(zd)
@@ -320,19 +325,22 @@ function newDate(defaultDate?: Date | DateTimeType, options?: DateOptions) {
   return ud
 }
 
-function setTime(date: Date, old: Date) {
-  date.setHours(old.getHours())
-  date.setMinutes(old.getMinutes())
-  date.setSeconds(old.getSeconds())
-  date.setMilliseconds(old.getMilliseconds())
-  return date
+function setTime(date: Date, old: Date, options: DateOptions) {
+  const zd = transDateWithZone(date, options)
+  const oldZd = transDateWithZone(old, options)
+  zd.setHours(oldZd.getHours())
+  zd.setMinutes(oldZd.getMinutes())
+  zd.setSeconds(oldZd.getSeconds())
+  zd.setMilliseconds(oldZd.getMilliseconds())
+  const ud = transDateWithZone(zd, options, true)
+  return ud
 }
 
-function cloneTime(date: Date, old: Date, fmt?: string, options?: DateOptions) {
+function cloneTime(date: Date, old: Date, fmt: string | undefined, options: DateOptions) {
   if (!date) return date
   const oldDate = toDateWithFormat(old, fmt, undefined, options)
   if (isInvalid(oldDate)) return date
-  return setTime(date, oldDate)
+  return setTime(date, oldDate, options)
 }
 
 function formatDateWithDefaultTime(
@@ -343,7 +351,7 @@ function formatDateWithDefaultTime(
   options: DateOptions
 ) {
   if (!date) return date
-  if (value) return setTime(date, value)
+  if (value) return setTime(date, value, options)
   if (!defaultTime) return date
 
   const dateHMS = toDateWithFormat(defaultTime, TIME_FORMAT, undefined, options)
