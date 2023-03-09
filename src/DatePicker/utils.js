@@ -378,7 +378,8 @@ function resetTimeByFormat(value, fo, options) {
 }
 
 function formatted(date, fmt, options) {
-  if (typeof fmt === 'function') return fmt(date)
+  const offsetDate = transDateWithZone(date, options)
+  if (typeof fmt === 'function') return fmt(date, offsetDate)
   return format(date, fmt, options)
 }
 

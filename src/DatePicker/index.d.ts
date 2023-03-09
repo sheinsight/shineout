@@ -88,7 +88,7 @@ export interface DatePickerProps<T = DatePickerValue> extends StandardProps,
    *
    * default: props.format
    */
-  formatResult?: string | ((date: Date) => string);
+  formatResult?: string | ((date: Date, offsetDate: Date) => string);
 
   /**
    * a callback when the value is changing
