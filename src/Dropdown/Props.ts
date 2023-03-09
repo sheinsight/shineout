@@ -196,6 +196,15 @@ export interface SimpleDropdownProps extends StandardProps, Pick<AbsoluteProps, 
    * default: -
    */
   open?: boolean
+
+  /**
+   * options collapse callback
+   *
+   * 下拉列表展开/收起回调
+   *
+   * default: none
+   */
+  onCollapse?: (collapse: boolean) => void
 }
 
 export type DropdownProps = GetTableConsumerProps<SimpleDropdownProps>
