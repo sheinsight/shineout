@@ -38,7 +38,9 @@ type ExtendsTreeProps<Item, Value> = Pick<TreeProps<Item, Value extends any[] ? 
 export type SetTreeProps<Item, Value> = Partial<
   Pick<TreeProps<Item, Value extends any[] ? Value : Value[]>, SetTreePropsKey>
 >
-
+/**
+ * @title TreeSelect
+ */
 // 重写
 export interface OriginTreeSelectProps<Item, Value>
   extends Pick<AbsoluteProps, 'absolute' | 'zIndex'>,

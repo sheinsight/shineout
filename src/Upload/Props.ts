@@ -6,6 +6,9 @@ import { GapProps } from '../Gap/Props'
 import { ButtonProps } from '../Button/Props'
 import { GetInputableProps } from '../Form/Props'
 
+/**
+ * @title Upload
+ */
 export interface FileRecord {
   name: string
   process: number
@@ -14,10 +17,33 @@ export interface FileRecord {
   xhr?: XhrType | void
   message?: string
 }
+/**
+ * @title Validator
+ */
 export interface Validator {
+  /**
+   * @en custom validator
+   * @cn 自定义校验
+   * @override union
+   */
   customValidator?: (file: File) => void | Error | Promise<any>
+  /**
+   * @en Judge the file extension, return the Error when the verification fails.
+   * @cn 判断后缀名，传入参数为文件后缀，校验失败返回 Error
+   * @override union
+   */
   ext?: (ext: string) => void | Error | Promise<any>
+  /**
+   * @en It is only valid for Image to determine the size of images and return the Error when the verification fails.
+   * @cn 只对 Image 有效，判断图片尺寸，校验失败返回 Error
+   * @override union
+   */
   imageSize?: (image: { width: number; height: number }) => void | Error
+  /**
+   * @en Judge the size of the file and return the Error when the verification fails.
+   * @cn 判断文件大小，校验失败返回 Error
+   * @override union
+   */
   size?: (size: number) => void | Error | Promise<any>
 }
 
@@ -393,10 +419,21 @@ export interface UploadImageResultProps {
 }
 
 // Upload.Button
+/**
+ * @title Button
+ */
 export interface UploadProgressProps<ValueItem>
   extends AcceptUpload<ValueItem>,
     Pick<ButtonProps, 'type' | 'size' | 'outline'> {
+  /**
+   * @en button default content
+   * @cn 按钮默认内容
+   */
   placeholder?: React.ReactNode
+  /**
+   * @en content of uploading, will have spin if a string
+   * @cn 上传中按钮的内容，如果是字符串默认会有spin loading
+   */
   loading?: React.ReactNode
 }
 
