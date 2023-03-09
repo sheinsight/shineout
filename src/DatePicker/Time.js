@@ -28,7 +28,7 @@ class Time extends PureComponent {
 
   getDefaultTime() {
     let idx = 0
-    const current = utils.newDate()
+    const current = utils.newDate(undefined, this.getOptions())
     const { index, defaultTime, format } = this.props
     if (typeof index === 'number') idx = index
     if (!defaultTime[idx]) return current
