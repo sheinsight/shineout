@@ -104,6 +104,19 @@ const examples = [
     parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Dropdown/example-7-base.tsx'),
 
   },
+  {
+    name: 'test-001-disabled',
+    isTs: true,
+    isTest: true,
+    title: locate(
+      'disabled 后 hover 无效 \n 开启 disabled 后，hover、click 不可展开菜单',
+      ' \n '
+    ),
+    component: require('doc/pages/components/Dropdown/test-001-disabled.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Dropdown/test-001-disabled.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Dropdown/test-001-disabled.tsx'),
+
+  },
 ]
 
 const codes = undefined
