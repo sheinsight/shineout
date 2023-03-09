@@ -90,7 +90,7 @@
     "cypress": "^10.3.0",
     "cypress-file-upload": "^5.0.8",
     "docsearch.js": "^2.6.2",
-    "ejs": "^2.5.7",
+    "ejs": "^3.1.7",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.8.0",
     "es6-object-assign": "^1.1.0",
