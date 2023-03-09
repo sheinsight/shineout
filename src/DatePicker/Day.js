@@ -77,8 +77,8 @@ class Day extends PureComponent {
     } else {
       let newDate = utils.setTime(utils.toDate(date), current, this.getOptions())
       // only can select day with the same day of min/max
-      if (min && utils.compareAsc(newDate, min) < 0) utils.setTime(newDate, min, this.getOptions())
-      if (max && utils.compareAsc(newDate, max) > 0) utils.setTime(newDate, max, this.getOptions())
+      if (min && utils.compareAsc(newDate, min) < 0) newDate = utils.setTime(newDate, min, this.getOptions())
+      if (max && utils.compareAsc(newDate, max) > 0) newDate = utils.setTime(newDate, max, this.getOptions())
 
       if (
         allowSingle &&

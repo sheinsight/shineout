@@ -64,7 +64,7 @@ function transDateWithZone(dd, options = {}, back = false) {
     }
     console.error(new Error(`timeZone is not supported: ${options.timeZone}`))
   }
-  return dd
+  return new Date(dd)
 }
 
 function addDays(date, offset, options) {
@@ -413,4 +413,5 @@ export default {
   resetTimeByFormat,
   changeDate,
   getDateInfo,
+  transDateWithZone,
 }

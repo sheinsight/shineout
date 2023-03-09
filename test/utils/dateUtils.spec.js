@@ -34,8 +34,7 @@ describe('dateUtil[clearHMS]', () => {
   })
 })
 
-describe(
-  'dateUtil[addDays]', () => {
+describe('dateUtil[addDays]', () => {
   it.each([[1], [0], [-1]])('add %i day', num => {
     const a = new Date()
     const b = new Date(a.valueOf())
@@ -522,7 +521,17 @@ describe('dateUtil[setTime]', () => {
     const b = new Date(2021, 1, 2, 13, 14, 15)
     const c = new Date(2021, 0, 1, 13, 14, 15)
     expect(utils.setTime(a, b).valueOf()).toBe(c.valueOf())
-    expect(a.valueOf()).toBe(c.valueOf())
+  })
+  it('clone time with zone', () => {
+    const options = { timeZone: '-12' }
+    const dateA = '2023-03-09 23:58:59'
+    const dateB = '2023-03-10 00:00:00'
+    const dateC = '2023-03-10 23:58:59'
+    const format = 'YYYY-MM-dd HH:mm:ss'
+    const a = utils.parse(dateA, format, options)
+    const b = utils.parse(dateB, format, options)
+    const c = utils.parse(dateC, format, options)
+    expect(utils.setTime(b, a, options).valueOf()).toBe(c.valueOf())
   })
 })
 
