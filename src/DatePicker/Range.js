@@ -75,8 +75,8 @@ class Range extends PureComponent {
         rangeDate[1] = utils.addSeconds(s, range, this.getOptions())
     }
     if (utils.compareAsc(s, e) > 0) {
-      const sWitheTime = utils.toDate(s, this.getOptions())
-      utils.setTime(sWitheTime, e, this.getOptions())
+      let sWitheTime = utils.toDate(s, this.getOptions())
+      sWitheTime = utils.setTime(sWitheTime, e, this.getOptions())
       rangeDate[1] = utils.compareAsc(s, sWitheTime) > 0 ? s : sWitheTime
     }
   }
