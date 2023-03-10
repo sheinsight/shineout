@@ -1,6 +1,6 @@
 describe('Dropdown[open]', () => {
   it('should auto select when focus', () => {
-    cy.visit('/cn/components/Dropdown?example=8-open')
+    cy.visit('/cn/components/Dropdown?test=01-open')
     cy.get('#control').as('Button')
     cy.get('.so-dropdown > div').as('DropdownMenu')
     cy.get('@DropdownMenu').should('have.class', 'so-hidable-show')

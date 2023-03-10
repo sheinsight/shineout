@@ -1,6 +1,6 @@
 describe('Select[open]', () => {
   it('should open', () => {
-    cy.visit('/cn/components/Select?example=01-open')
+    cy.visit('/cn/components/Select?test=006-open')
     cy.get('#control').as('Button')
     cy.get('@Button').click()
     cy.get('.so-select .so-list').as('SelectList')

@@ -34,13 +34,17 @@ const data: DropdownItem[] = [
 
 const App: React.FC = () => {
   const [show, setShow] = useState(true)
+
+  const handleCollapse = (collapsed: boolean) => {
+    setShow(collapsed)
+    console.log('控制弹层（受控）:', collapsed)
+  }
   return (
     <div style={{ height: 150 }}>
-      <Button id="control" onClick={() => setShow(!show)}>
-        {show ? '关闭' : '打开'}
-        弹层
+      <Button id="control" onClick={() => setShow(true)}>
+        打开弹层
       </Button>
-      <Dropdown open={show} placeholder="Dropdown" data={data} />
+      <Dropdown onCollapse={handleCollapse} open={show} placeholder="Dropdown" data={data} />
     </div>
   )
 }

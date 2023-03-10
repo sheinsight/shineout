@@ -67,6 +67,7 @@ const App: React.FC = () => {
           console.log('blur')
         }}
         onCollapse={v => {
+          console.log('cccc', v)
           setOpen(v)
         }}
         keygen="value"

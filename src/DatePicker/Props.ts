@@ -325,6 +325,15 @@ export interface BaseProps<T = DatePickerValue> extends StandardProps, Pick<Abso
    * default: -
    */
   open?: boolean
+
+  /**
+   * option list collapse callback
+   *
+   * 下拉列表展开/收起回调
+   *
+   * default: none
+   */
+  onCollapse?: (collapse: boolean) => void
 }
 
 export interface ContainerProps<T = DatePickerValue>
@@ -359,6 +368,7 @@ export interface ContainerProps<T = DatePickerValue>
     | 'innerTitle'
     | 'timeZone'
     | 'open'
+    | 'onCollapse'
   > {
   /**
    * When the value is string, it needs to match the format attribute. When the range property is true, the value is an array of length 2.
