@@ -5,7 +5,7 @@ const glob = require('glob')
 const fs = require('fs')
 const path = require('path')
 
-const esmDir = path.resolve(__dirname, '../publish/esm')
+const esmDir = path.resolve(__dirname, '../publish/es')
 
 const babelESMConfigName = '.es.babel.config.json'
 const babelConfig = JSON.parse(readFileSync('.babelrc', 'utf8')).env.publish
