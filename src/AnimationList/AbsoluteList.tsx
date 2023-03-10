@@ -8,16 +8,23 @@ import { listClass } from './styles'
 import { docSize } from '../utils/dom/document'
 import { getRTLPosition } from '../utils/strings'
 import zIndexConsumer from '../Modal/context'
-import { isRTL } from '../config'
+import { isRTL, getDefaultContainer } from '../config'
 import { addZoomListener, removeZoomListener } from '../utils/zoom'
+import { isInDocument } from '../utils/dom/isInDocument'
 import { AbsoluteProps, GetAbsoluteProps } from './Props'
 
 const PICKER_V_MARGIN = 4
 let root: HTMLDivElement
 function initRoot() {
+  const defaultContainer = getDefaultContainer()
   root = document.createElement('div')
   root.className = listClass('root', isRTL() && 'rtl')
-  document.body.appendChild(root)
+  defaultContainer.appendChild(root)
+}
+
+function getRoot() {
+  if (!root || isInDocument(root) === false) initRoot()
+  return root
 }
 
 const getOverDocStyle = (right: boolean) => (right ? { left: 0, right: 'auto' } : { right: 0, left: 'auto' })
@@ -53,7 +60,7 @@ export default function<U extends {}>(List: ComponentType<U>) {
       this.lastStyle = {}
 
       if (!root) initRoot()
-      this.container = typeof this.props.absolute === 'function' ? this.props.absolute() : root
+      this.container = typeof this.props.absolute === 'function' ? this.props.absolute() : getRoot()
       this.element = document.createElement('div')
       if (this.container) this.container.appendChild(this.element)
       if (props.getResetPosition) {
@@ -64,7 +71,7 @@ export default function<U extends {}>(List: ComponentType<U>) {
 
     componentDidMount() {
       if (this.props.absolute && !this.container) {
-        this.container = typeof this.props.absolute === 'function' ? this.props.absolute() : root
+        this.container = typeof this.props.absolute === 'function' ? this.props.absolute() : getRoot()
         this.container.appendChild(this.element)
         if (this.props.focus) {
           this.forceUpdate()
@@ -116,7 +123,8 @@ export default function<U extends {}>(List: ComponentType<U>) {
       }
 
       const { container } = this
-      const rootContainer = container === root || !container ? document.body : container
+      const defaultContainer = getDefaultContainer()
+      const rootContainer = container === getRoot() || !container ? defaultContainer : container
       const containerRect = rootContainer.getBoundingClientRect()
       const containerScroll = {
         left: rootContainer.scrollLeft,

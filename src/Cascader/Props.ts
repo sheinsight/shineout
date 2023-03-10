@@ -9,7 +9,6 @@ import { InputTitleProps } from '../InputTitle/Props'
 
 interface componentRef {
   close: (e: MouseEvent) => void
-  [propName: string]: any
 }
 
 export type CascaderBaseValue = (string | number)[]

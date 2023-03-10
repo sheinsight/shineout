@@ -1,8 +1,7 @@
 import utils from './utils'
-import { isNumber } from '../utils/is'
 import { AreaType, DatePickerValue, BaseProps, QuickSelectType, DisabledType } from './Props'
 
-const { TIME_FORMAT, compareAsc, addSeconds, format } = utils
+const { TIME_FORMAT, compareAsc, format } = utils
 
 type HandleOnChangeParams = (
   type: AreaType
@@ -35,41 +34,50 @@ function handleTimeDisabled(date: Date, disabledTime: BaseProps['disabledTime'],
   return undefined
 }
 
-function handleDisabled(
-  date: Date,
-  min: Date | undefined | null,
-  max: Date | undefined | null,
-  range: BaseProps['range'],
-  disabled: ((date: Date, type?: DisabledType, value?: DatePickerValue) => boolean) | boolean | undefined,
-  disabledTime: BaseProps['disabledTime'],
+function handleDisabled(params: {
+  date: Date
+  min?: Date | null
+  max?: Date | null
+  range: BaseProps['range']
+  disabled?: ((date: Date, type?: DisabledType, value?: DatePickerValue) => boolean) | boolean
+  disabledTime: BaseProps['disabledTime']
   options?: any
-) {
+  index?: number
+  rangeDate?: Date[]
+}) {
+  const { date, min, max, range, disabled, disabledTime, options, index, rangeDate } = params
   let isDisabled
   if (disabled && typeof disabled === 'function') isDisabled = disabled(date)
   if (disabledTime) isDisabled = isDisabled || handleTimeDisabled(date, disabledTime)
   if (isDisabled) return true
   if (!isDisabled && min) {
     if (compareAsc(date, min) < 0) return true
-    if (range && typeof range === 'number' && compareAsc(date, addSeconds(min, range, options)) > 0) return true
   }
   if (!isDisabled && max) {
     if (compareAsc(date, max) > 0) return true
-    if (range && isNumber(range) && compareAsc(date, addSeconds(max, -range, options)) < 0) return true
+  }
+  if (!isDisabled && index === 1 && rangeDate && rangeDate[0]) {
+    if (typeof range === 'number' && utils.compareAsc(date, utils.addSeconds(rangeDate[0], range, options)) > 0) {
+      return true
+    }
   }
   return false
 }
 
-function judgeTimeByRange(
-  target: number,
-  value: Date,
-  mode: 'H' | 'h' | 'm' | 'minute' | 's' | 'second' | 'ampm',
-  min: Date | null | undefined,
-  max: Date | null | undefined,
-  range: BaseProps['range'],
-  disabled: ((date: Date, type?: DisabledType, value?: DatePickerValue) => boolean) | boolean | undefined,
-  disabledTime: BaseProps['disabledTime'],
+function judgeTimeByRange(params: {
+  target: number
+  value: Date
+  mode: 'H' | 'h' | 'm' | 'minute' | 's' | 'second' | 'ampm'
+  min?: Date | null
+  max?: Date | null
+  range: BaseProps['range']
+  disabled?: ((date: Date, type?: DisabledType, value?: DatePickerValue) => boolean) | boolean
+  disabledTime: BaseProps['disabledTime']
   options?: any
-): [boolean, Date] {
+  index?: number
+  rangeDate?: Date[]
+}): [boolean, Date] {
+  const { target, value, mode, min, max, range, disabled, disabledTime, index, rangeDate, options } = params
   let date = new Date(value.getTime())
   switch (mode) {
     case 'H':
@@ -104,7 +112,17 @@ function judgeTimeByRange(
       break
   }
 
-  const isDisabled = handleDisabled(date, min, max, range, disabled, disabledTime, options)
+  const isDisabled = handleDisabled({
+    date,
+    min,
+    max,
+    range,
+    disabled,
+    disabledTime,
+    options,
+    index,
+    rangeDate,
+  })
   return [isDisabled, date]
 }
 

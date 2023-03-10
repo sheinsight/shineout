@@ -3,7 +3,6 @@ import classnames from 'classnames'
 import immer from 'immer'
 import { PureComponent } from '../component'
 import { datepickerClass } from './styles'
-import { inputClass } from '../Input/styles'
 import Icon from './Icon'
 import utils from './utils'
 import Picker from './Picker'
@@ -86,6 +85,8 @@ class Container extends PureComponent<ContainerProps, ContainerState> {
 
   textSpan: HTMLSpanElement
 
+  lastFoucs: boolean
+
   constructor(props: ContainerProps) {
     super(props)
 
@@ -122,12 +123,38 @@ class Container extends PureComponent<ContainerProps, ContainerState> {
     this.getDefaultTime = this.getDefaultTime.bind(this)
     this.getQuick = this.getQuick.bind(this)
 
-    this.firstRender = false
+    this.firstRender = !!props.open
+  }
+
+  componentDidMount() {
+    super.componentDidMount()
+    this.setOpenEvent()
+  }
+
+  componentDidUpdate() {
+    this.setOpenEvent()
   }
 
   componentWillUnmount() {
     super.componentWillUnmount()
     this.clearClickAway()
+  }
+
+  get focus() {
+    if ('open' in this.props) {
+      return !!this.props.open
+    }
+    return this.state.focus
+  }
+
+  setOpenEvent() {
+    if (this.lastFoucs !== this.focus)
+      if (this.focus) {
+        this.bindClickAway()
+      } else if (this.lastFoucs !== undefined) {
+        this.clearClickAway()
+      }
+    this.lastFoucs = this.focus
   }
 
   getOptions() {
@@ -249,7 +276,6 @@ class Container extends PureComponent<ContainerProps, ContainerState> {
     const onAbsolutePicker = getParent(e.target as HTMLElement, `.${datepickerClass('location')}`)
     if (!onPicker && !onAbsolutePicker) {
       if (this.props.inputable && this.textSpan) this.textSpan.blur()
-      this.clearClickAway()
       this.handleToggle(false)
       if (this.props.onBlur) this.props.onBlur(e)
     }
@@ -264,27 +290,34 @@ class Container extends PureComponent<ContainerProps, ContainerState> {
   handleKeyDown(e: KeyboardEvent<HTMLDivElement>) {
     if (e.keyCode === 13) {
       e.preventDefault()
-      this.handleToggle(!this.state.focus)
+      this.handleToggle(!this.focus)
     }
 
     // fot close the list
     if (e.keyCode === 9) {
       this.props.onBlur(e)
       // e.preventDefault()
-      if (this.state.focus) this.handleToggle(false)
-      else this.clearClickAway()
+      if (this.focus) {
+        this.handleToggle(false)
+      }
     }
   }
 
   handleToggle(focus: boolean, e?: MouseEvent) {
-    const { quickSelect } = this.props
+    const { quickSelect, onCollapse } = this.props
     const hasQuickColumn = Array.isArray(quickSelect) && quickSelect.length > 0
+
     if (this.props.disabled === true) return
-    if (focus === this.state.focus) return
+
+    if (focus === this.focus) return
+
     if (e && focus && getParent(e.target as HTMLElement, this.pickerContainer)) return
 
     // click close icon
     if (focus && e && (e.target as HTMLElement).classList.contains(datepickerClass('close'))) return
+
+    if (onCollapse) onCollapse(focus)
+
     this.setState(
       immer(state => {
         state.focus = focus
@@ -321,10 +354,9 @@ class Container extends PureComponent<ContainerProps, ContainerState> {
 
   triggerValueBlur(cb: () => void) {
     const { inputable } = this.props
-    const { focus } = this.state
     if (cb && typeof cb === 'function') cb()
     // OnChange is not triggered when handling copy and paste
-    if (inputable && focus === false) {
+    if (inputable && this.focus === false) {
       this.props.onValueBlur()
     }
   }
@@ -473,8 +505,7 @@ class Container extends PureComponent<ContainerProps, ContainerState> {
     const { inputable, formatResult, disabled } = this.props
     const date = this.parseDate(value)
     const className = classnames(
-      datepickerClass('txt', key !== undefined && this.state[`picker${key}`] && 'text-focus'),
-      utils.isInvalid(date) && inputClass('placeholder')
+      datepickerClass('txt', key !== undefined && this.state[`picker${key}`] && 'text-focus')
     )
     const resultFormat = formatResult || this.getFormat()
     return (
@@ -483,7 +514,7 @@ class Container extends PureComponent<ContainerProps, ContainerState> {
         onTextSpanRef={this.bindTextSpan}
         focusElement={this.textSpan}
         className={className}
-        focus={this.state.focus}
+        focus={this.focus}
         format={resultFormat}
         index={key as number}
         inputable={inputable}
@@ -515,7 +546,7 @@ class Container extends PureComponent<ContainerProps, ContainerState> {
           className={datepickerClass('title-box')}
           contentClass={inputTitleClass('hidable')}
           innerTitle={innerTitle}
-          open={!isEmpty || (inputable && this.state.focus)}
+          open={!isEmpty || (inputable && this.focus)}
         >
           {range && Array.isArray(value)
             ? [
@@ -534,7 +565,7 @@ class Container extends PureComponent<ContainerProps, ContainerState> {
   }
 
   renderWrappedPicker() {
-    const { focus, position } = this.state
+    const { position } = this.state
     const { absolute, zIndex, quickSelect } = this.props
     const props: {
       absolute: boolean | (() => HTMLElement) | undefined
@@ -547,7 +578,7 @@ class Container extends PureComponent<ContainerProps, ContainerState> {
       getRef: (el: HTMLDivElement) => void
     } = {
       absolute,
-      focus,
+      focus: this.focus,
       className: datepickerClass(
         'picker',
         'location',
@@ -565,6 +596,7 @@ class Container extends PureComponent<ContainerProps, ContainerState> {
     } else {
       props.position = getCurrentPosition(position)
     }
+
     return <OptionList {...props}>{this.renderPicker()}</OptionList>
   }
 
@@ -621,15 +653,12 @@ class Container extends PureComponent<ContainerProps, ContainerState> {
 
   render() {
     const { range, size, disabled, align, innerTitle } = this.props
-    const { focus } = this.state
-
     const rtl = isRTL()
-
     const className = datepickerClass(
       'inner',
       range && 'range',
       size && `size-${size}`,
-      focus && 'focus',
+      this.focus && 'focus',
       disabled === true && 'disabled',
       align && `align-${align}`,
       getCurrentPosition(this.state.position),

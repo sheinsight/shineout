@@ -122,12 +122,14 @@ class Cascader<DataItem, Value extends CascaderBaseValue> extends PureComponent<
     this.bindInput = this.bindInput.bind(this)
     this.handleRemove = this.handleRemove.bind(this)
     this.close = this.handleBlur
-
+    const componentRef = {
+      close: this.close,
+    }
     if (props.getComponentRef) {
       if (isFunc(props.getComponentRef)) {
-        props.getComponentRef(this)
+        props.getComponentRef(componentRef)
       } else {
-        props.getComponentRef.current = this
+        props.getComponentRef.current = componentRef
       }
     }
   }

@@ -337,6 +337,15 @@ export interface BaseSelectProps<Item, Value>
    * @default false
    */
   underline?: boolean
+
+  /**
+   * Set visible of select popup
+   *
+   * 控制浮层显隐
+   *
+   * default: -
+   */
+  open?: boolean
   data: Item[]
   value: Value
   defaultValue?: Value

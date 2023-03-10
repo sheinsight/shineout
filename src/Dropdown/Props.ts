@@ -157,6 +157,24 @@ export interface SimpleDropdownProps extends StandardProps, Pick<AbsoluteProps, 
    * @cn 设置显示的内容,如果是字符串,则为对应的值。如果是函数,则返回值为显示的内容,参数为当条数据
    */
   renderItem?: ((data: any) => React.ReactNode) | string
+
+  /**
+   * Set visible of cascader popup
+   *
+   * 控制浮层显隐
+   *
+   * default: -
+   */
+  open?: boolean
+
+  /**
+   * options collapse callback
+   *
+   * 下拉列表展开/收起回调
+   *
+   * default: none
+   */
+  onCollapse?: (collapse: boolean) => void
 }
 
 /**

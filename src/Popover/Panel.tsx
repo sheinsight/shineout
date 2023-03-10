@@ -11,6 +11,7 @@ import isDOMElement from '../utils/dom/isDOMElement'
 import { Provider as AbsoluteProvider } from '../Table/context'
 import { consumer, Provider } from './context'
 import { getUidStr } from '../utils/uid'
+import { isInDocument } from '../utils/dom/isInDocument'
 import getCommonContainer from '../utils/dom/popContainer'
 import { PanelProps, PopoverPositionType } from './Props'
 
@@ -191,7 +192,7 @@ class Panel extends Component<PanelProps, PanelState> {
 
   createContainer() {
     const { zIndex } = this.props
-    if (!this.container) {
+    if (!this.container || !isInDocument(this.container)) {
       this.container = this.getContainer()
       this.element.style.zIndex = String(zIndex)
       this.container.appendChild(this.element)

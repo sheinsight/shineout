@@ -32,6 +32,11 @@ const data: DropdownItem[] = [
   },
 ]
 
-const App: React.FC = () => <Dropdown placeholder="Dropdown" data={data} />
+const App: React.FC = () => {
+  const handleCollapse = (collapsed: boolean) => {
+    console.log('Dropdown collapsed:', collapsed)
+  }
+  return <Dropdown trigger="click" onCollapse={handleCollapse} placeholder="Dropdown" data={data} />
+}
 
 export default App

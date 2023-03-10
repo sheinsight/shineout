@@ -63,3 +63,4 @@
 | onAdvancedFilter | (text: string) => ((data: Item) => boolean) \| void | - | Use the onAdvancedFilter property to enable filtering to switch between filtering results and raw data for the current hierarchy. |
 | convertBr | string | ((text: string) => string) | "," | Used to convert line breaks in pasted text |
 | renderOptionList | (list: ReactElement, info: {loading: boolean})=>  ReactElement | - | Custom render dropdown |
+| open | boolean | none | Set visible of select popup |

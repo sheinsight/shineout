@@ -212,6 +212,24 @@ export interface BaseProps<Value = DatePickerValue>
    * @cn 设置默认时区,格式为/^([+-]\\d{2})$/ 支持 '-12' 到 '+13'
    */
   timeZone?: string
+
+  /**
+   * Set visible of datepicker popup
+   *
+   * 控制浮层显隐
+   *
+   * default: -
+   */
+  open?: boolean
+
+  /**
+   * option list collapse callback
+   *
+   * 下拉列表展开/收起回调
+   *
+   * default: none
+   */
+  onCollapse?: (collapse: boolean) => void
 }
 
 export interface ContainerProps<T = DatePickerValue>
@@ -245,6 +263,8 @@ export interface ContainerProps<T = DatePickerValue>
     | 'clearWithUndefined'
     | 'innerTitle'
     | 'timeZone'
+    | 'open'
+    | 'onCollapse'
   > {
   /**
    * @en When the value is string, it needs to match the format attribute.\n When the range property is true, the value is an array of length 2.
@@ -279,7 +299,7 @@ export interface DatePickerIconProps {
 }
 
 export interface TimeScrollProps
-  extends Pick<UnionPannelProps, 'range' | 'disabled' | 'disabledTime'>,
+  extends Pick<UnionPannelProps, 'range' | 'disabled' | 'disabledTime' | 'index' | 'rangeDate'>,
     Pick<BaseProps, 'timeZone'> {
   value: number
   total: number
