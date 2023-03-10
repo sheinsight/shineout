@@ -91,10 +91,10 @@ import * as utils from './utils'
 
 declare const __default: {
   utils: typeof utils,
-  version: '1.12.0-rc.6'
+  version: number
 }
 export default __default
-
+  
 export { utils }
 export { setLocale } from './locale'
 export { color, style } from './utils/expose'

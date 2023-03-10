@@ -27,7 +27,7 @@ export declare namespace TYPE {
   const defaultExport = isTs
     ? `declare const __default: {
   utils: typeof utils,
-  version: '1.12.0-rc.6'
+  version: number
 }
 export default __default
   `
