@@ -214,20 +214,14 @@ export interface BaseProps<Value = DatePickerValue>
   timeZone?: string
 
   /**
-   * Set visible of datepicker popup
-   *
-   * 控制浮层显隐
-   *
-   * default: -
+   * @en Set visible of datepicker popup
+   * @cn 控制浮层显隐
    */
   open?: boolean
 
   /**
-   * option list collapse callback
-   *
-   * 下拉列表展开/收起回调
-   *
-   * default: none
+   * @en option list collapse callback
+   * @cn 下拉列表展开/收起回调
    */
   onCollapse?: (collapse: boolean) => void
 }

@@ -159,20 +159,14 @@ export interface SimpleDropdownProps extends StandardProps, Pick<AbsoluteProps, 
   renderItem?: ((data: any) => React.ReactNode) | string
 
   /**
-   * Set visible of cascader popup
-   *
-   * 控制浮层显隐
-   *
-   * default: -
+   * @en Set visible of cascader popup
+   * @cn 控制浮层显隐
    */
   open?: boolean
 
   /**
-   * options collapse callback
-   *
-   * 下拉列表展开/收起回调
-   *
-   * default: none
+   * @en options collapse callback
+   * @cn 下拉列表展开/收起回调
    */
   onCollapse?: (collapse: boolean) => void
 }
