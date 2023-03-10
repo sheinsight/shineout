@@ -123,7 +123,7 @@ class Container extends PureComponent<ContainerProps, ContainerState> {
     this.getDefaultTime = this.getDefaultTime.bind(this)
     this.getQuick = this.getQuick.bind(this)
 
-    this.firstRender = props.open !== undefined && props.open
+    this.firstRender = !!props.open
   }
 
   componentDidMount() {
