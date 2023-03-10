@@ -5,7 +5,7 @@ import { mount } from 'enzyme'
 const data = [
   {
     content: 'Submenu',
-    children: [
+    children: [can
       {
         content: 'Link to Google',
         target: '_blank',
