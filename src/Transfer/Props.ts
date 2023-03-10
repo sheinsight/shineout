@@ -38,93 +38,65 @@ export interface BaseTransferProps<DataItem, Value extends any[]> {
   listClassName?: string
   listStyle?: React.CSSProperties
   /**
-   * desc: checked lists
-   *
-   * 被勾选的列表, 勾选的值均使用的是 keygen 的结果
-   *
-   * default: none
+   * @en checked lists
+   * @cn 被勾选的列表, 勾选的值均使用的是 keygen 的结果
    */
   selectedKeys?: KeygenResult[]
   /**
-   * desc: checked by default
-   *
-   * 默认被勾选的列表
-   *
-   * default: none
+   * @en checked by default
+   * @cn 默认被勾选的列表
    */
   defaultSelectedKeys?: KeygenResult[]
   /**
-   * desc: select event
-   *
-   * 勾选触发的方法
-   *
-   * default: none
+   * @en select event
+   * @cn 勾选触发的方法
    */
   onSelectChange?: (sourceKeys: KeygenResult[], targetKeys: KeygenResult[]) => void
   disabled?: boolean | ((data: DataItem) => boolean)
   /**
-   * desc: contentless display
-   *
-   * 无内容的展示
-   *
-   * default: "无数据"
+   * @en contentless display
+   * @cn 无内容的展示
+   * @default "无数据"
    */
   empty?: React.ReactNode
   /**
-   * desc: fileter data
-   *
-   * 筛选函数, 参数为: 输入文本, 数据, 是否为左侧数据
-   *
-   * default: none
+   * @en fileter data
+   * @cn 筛选函数, 参数为: 输入文本, 数据, 是否为左侧数据
    */
   onFilter?: (text: string, data: DataItem, isSource: boolean) => boolean
   itemClass?: string
   /**
-   * desc: loading
-   *
-   * 加载中, 如果需要两侧加载中状态不一致, 需要传入数组
-   *
-   * default: none
+   * @en loading
+   * @cn 加载中, 如果需要两侧加载中状态不一致, 需要传入数组
+   * @override union
    */
   loading?: boolean | [boolean, boolean]
   /**
-   * desc: seach event
-   *
-   * 输入框值变化的回调, 参数为: 输入文本, 是否为左侧数据
-   *
-   * default: none
+   * @en seach event
+   * @cn 输入框值变化的回调, 参数为: 输入文本, 是否为左侧数据
    */
   onSearch?: (text: string, isSource: boolean) => void
   /**
-   * desc: number of data loaded at one time
-   *
-   * 一次加载的数据条数
-   *
-   * default: 20
+   * @en number of data loaded at one time
+   * @cn 一次加载的数据条数
+   * @default 20
    */
   rowsInView?: number
   /**
-   * desc: line height of list
-   *
-   * 列表行高
-   *
-   * default: 32
+   * @en line height of list
+   * @cn 列表行高
+   * @default 32
    */
   lineHeight?: number
   /**
-   * desc: list height
-   *
-   * 列表高度
-   *
-   * default: 180
+   * @en list height
+   * @cn 列表高度
+   * @default 180
    */
   listHeight?: number
   /**
-   * desc: custom render filter. The type filterProps: value : string; disabled : boolean; onFilter : Function; placeholder : string
-   *
-   * 自定义过滤器渲染。自定义过滤器渲染。filterProps 包含参数如下：value : string; disabled : boolean; onFilter : Function; placeholder : string
-   *
-   * default: -
+   * @en custom render filter. The type filterProps: value : string; disabled : boolean; onFilter : Function; placeholder : string
+   * @cn 自定义过滤器渲染。自定义过滤器渲染。filterProps 包含参数如下：value : string; disabled : boolean; onFilter : Function; placeholder : string
    */
   renderFilter?: (value: filterProps) => React.ReactNode
   children?: (

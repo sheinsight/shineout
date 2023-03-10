@@ -6,63 +6,47 @@ import { ForceAdd } from '../@types/common'
 
 export interface OriginTextareaProps extends Pick<InputTitleProps, 'innerTitle' | 'placeTitle'> {
   /**
-   * Whether the height changes automatically with the content
-   *
-   * 高度是否随内容自动变化
-   *
-   * default: false
+   * @en Whether the height changes automatically with the content
+   * @cn 高度是否随内容自动变化
+   * @default false
    */
   autosize?: boolean
   /**
-   * Infomation
-   *
-   * 提示信息
-   *
-   * default: -
+   * @en Infomation
+   * @cn 提示信息
+   * @override union
    */
   info?: number | ((value?: string) => ReactNode)
   /**
-   * the maxHeight of the textarea, scroll bars appear after more than
-   *
-   * 输入框的最大高度, 超过之后会出现滚动条
-   *
-   * default: -
+   * @en the maxHeight of the textarea, scroll bars appear after more than
+   * @cn 输入框的最大高度, 超过之后会出现滚动条
+   * @override union
    */
   maxHeight?: number | string
   /**
-   * The callback when Textarea blur
-   *
-   * 失去焦点后的回调
-   *
-   * default: -
+   * @en The callback when Textarea blur
+   * @cn 失去焦点后的回调
    */
   onBlur?: FocusEventHandler<HTMLTextAreaElement>
   onChange: (value: string) => void
   forceChange: (value: string) => void
   onEnterPress?: (value: string, e: KeyboardEvent<HTMLTextAreaElement>) => void
   /**
-   * The minimum row height. Same as native textarea rows property.
-   *
-   * 最小行高，同原生 textarea rows 属性
-   *
-   * default: 4
+   * @en The minimum row height. Same as native textarea rows property.
+   * @cn 最小行高，同原生 textarea rows 属性
+   * @default 4
    */
   rows?: number
   value?: string
   /**
-   * support resize
-   *
-   * 是否可以伸缩高度
-   *
-   * default: false
+   * @en support resize
+   * @cn 是否可以伸缩高度
+   * @default false
    */
   resize?: boolean
   /**
-   * render textarea footer
-   *
-   * 渲染 textarea footer
-   *
-   * default: -
+   * @en render textarea footer
+   * @cn 渲染 textarea footer
    */
   renderFooter?: (value?: string) => ReactNode
   inputFocus?: boolean

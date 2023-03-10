@@ -5,55 +5,39 @@ export type Mode = 'top' | 'bottom'
 
 export interface StickyProps extends StandardProps {
   /**
-   * Offsets from the bottom.
-   *
-   * 距离底部多少偏移量触发
-   *
-   * default: -
+   * @en Offsets from the bottom.
+   * @cn 距离底部多少偏移量触发
    */
   bottom?: number
 
   /**
-   * Attached target. the default is the document.body. You can pass in an HTMLElement or css selector, and the target must be an ancestor node of the Sticky component.
-   *
-   * 附着的目标，默认为document.body。可以传入HTMLElement或者css selector，target 必须为 Sticky 组件的祖先节点
-   *
-   * default: none
+   * @en Attached target. the default is the document.body. You can pass in an HTMLElement or css selector, and the target must be an ancestor node of the Sticky component.
+   * @cn 附着的目标，默认为document.body。可以传入HTMLElement或者css selector，target 必须为 Sticky 组件的祖先节点
    */
   target?: string | HTMLElement
 
   /**
-   * Offsets from the top.
-   *
-   * 距离顶部多少偏移量触发
-   *
-   * default: none
+   * @en Offsets from the top.
+   * @cn 距离顶部多少偏移量触发
    */
   top?: number
 
   /**
-   * use css position:sticky while target is ordered
-   *
-   * 在指定 target 下，是否采用css方式实现附着效果
-   *
-   * default: true
+   * @en use css position:sticky while target is ordered
+   * @cn 在指定 target 下，是否采用css方式实现附着效果
+   * @default true
    */
   css?: boolean
   /**
-   * When the adsorption effect, trigger the callback
-   *
-   * 吸附效果时，触发该回调
-   *
-   * default: null
+   * @en When the adsorption effect, trigger the callback
+   * @cn 吸附效果时，触发该回调
+   * @default null
    */
   onChange?: (isSticky: boolean) => void
 
   /**
-   * children
-   *
-   * 子元素
-   *
-   * default: -
+   * @en children
+   * @cn 子元素
    */
   children?: ReactNode
 

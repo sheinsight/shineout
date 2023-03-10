@@ -2,15 +2,12 @@ import * as React from 'react'
 import { StandardProps } from '../@types/common'
 
 type ReactNode = React.ReactNode
-
-/**
- * @title Image
- */
 export interface ImageProps extends StandardProps {
   /**
    * @en the height of the image(When the value is percentage, the ratio is the width of the image)
    * @cn 图片高度(值为百分比时，对比值为图片宽度)
    * @default '100%'
+   * @override union
    */
   height?: string | number
 
@@ -24,12 +21,14 @@ export interface ImageProps extends StandardProps {
    * @en whether to delay loading, number to set lazy offset
    * @cn 是否延迟加载，如果为数字则表示懒加载偏移量
    * @default false
+   * @override union
    */
   lazy?: boolean | number
 
   /**
    * @en the picture address
    * @cn 图片地址
+   * @default required
    */
   src?: string
 
@@ -49,6 +48,7 @@ export interface ImageProps extends StandardProps {
    * @en target of image
    * @cn 图片打开方式
    * @default '_modal'
+   * @override union
    */
   target?: '_modal' | '_blank' | '_self' | '_download'
 
@@ -56,6 +56,7 @@ export interface ImageProps extends StandardProps {
    * @en the width of the image
    * @cn 图片宽度
    * @default '100%'
+   * @override union
    */
   width?: string | number
 
@@ -69,6 +70,7 @@ export interface ImageProps extends StandardProps {
   /**
    * @en the special element selector witch container the lazy image, such as: '#id', '.class'
    * @cn 对特定元素进行懒加载判断的选择器, 如: '#id', '.class'
+   * @override union
    */
   container?: string | Element
 
@@ -88,6 +90,7 @@ export interface ImageProps extends StandardProps {
   /**
    * @en fit the container
    * @cn 适应容器的方式
+   * @override union
    */
   fit?: 'fill' | 'fit' | 'stretch' | 'center'
 
@@ -95,6 +98,7 @@ export interface ImageProps extends StandardProps {
    * @en shape of image
    * @cn 图片样式
    * @default 'rounded'
+   * @override union
    */
   shape?: 'rounded' | 'circle' | 'thumbnail'
 
@@ -118,14 +122,12 @@ export interface ImageProps extends StandardProps {
   noImgDrag?: boolean
 }
 
-/**
- * @title Image.Group
- */
 export interface ImageGroupProps extends StandardProps {
   /**
    * @en the height of single image(When the value is percentage, the ratio is the width of the image)
    * @cn 单个图片高度(值为百分比时，对比值为图片宽度)
    * @default '100%'
+   * @override union
    */
   height?: string | number
 
@@ -147,6 +149,7 @@ export interface ImageGroupProps extends StandardProps {
    * @en target of image
    * @cn 图片打开方式
    * @default '_modal'
+   * @override union
    */
   target?: '_modal' | '_blank' | '_self' | '_download'
 
@@ -154,6 +157,7 @@ export interface ImageGroupProps extends StandardProps {
    * @en the width of single picture
    * @cn 单个图片宽度
    * @default '100%'
+   * @override union
    */
   width?: string | number
 

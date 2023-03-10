@@ -269,6 +269,7 @@ export type InputNumberPropsWithInputable = Omit<
 >
 export type InputNumberProps = WidthInputHTMLAttribute<InputNumberPropsWithInputable>
 
+// Input.Password 对内
 export interface InputPassword extends Props {
   /**
    * @en password symbol
@@ -278,6 +279,9 @@ export interface InputPassword extends Props {
   point?: string
 }
 
+/**
+ * @title Input.Password
+ */
 export type InputPasswordPropsWithInputable = Omit<
   GetInputableProps<GetInputBorderProps<InputPassword>, string>,
   'filterSameChange' | 'forceChange' | 'cancelChange'

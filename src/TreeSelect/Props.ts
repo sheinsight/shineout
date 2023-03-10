@@ -38,7 +38,9 @@ type ExtendsTreeProps<Item, Value> = Pick<TreeProps<Item, Value extends any[] ? 
 export type SetTreeProps<Item, Value> = Partial<
   Pick<TreeProps<Item, Value extends any[] ? Value : Value[]>, SetTreePropsKey>
 >
-
+/**
+ * @title TreeSelect
+ */
 // 重写
 export interface OriginTreeSelectProps<Item, Value>
   extends Pick<AbsoluteProps, 'absolute' | 'zIndex'>,
@@ -46,130 +48,92 @@ export interface OriginTreeSelectProps<Item, Value>
   datum: DatumTree<Item>
   placeholder?: ReactNode
   /**
-   * when compressed is True,the comptessedBound can limit the numbers of multiple selected item's label
-   *
-   * 开启多选后，指定允许展示标签数量，超过后将折叠
-   *
-   * default: -
+   * @en when compressed is True,the comptessedBound can limit the numbers of multiple selected item's label
+   * @cn 开启多选后，指定允许展示标签数量，超过后将折叠
    */
   compressedBound?: number
   /**
-   * If clearable is true, show clear value icon
-   *
-   * 是否可清除值
-   *
-   * default: false
+   * @en If clearable is true, show clear value icon
+   * @cn 是否可清除值
+   * @default false
    */
   clearable?: boolean
   size?: RegularAttributes.Size
   filterText?: string
   result: ResultItem<Item>[]
   /**
-   * render unmatched value
-   *
-   * 渲染未匹配值的方式
-   *
-   * default: none
+   * @en ender unmatched value
+   * @cn 渲染未匹配值的方式
    */
   renderUnmatched?: (data: ValueItem<Value>) => ReactNode
   /**
-   * inner title
-   *
-   * 内嵌标题
-   *
-   * default: -
+   * @en inner title
+   * @cn 内嵌标题
    */
   innerTitle?: ReactNode
   data: Item[]
   /**
-   * Some methods of getting components Currently only support getDataByValue
-   *
-   * 获取组件的一些方法 目前只支持 getDataByValues
-   *
-   * default: -
+   * @en Some methods of getting components Currently only support getDataByValue
+   * @cn 获取组件的一些方法 目前只支持 getDataByValues
    */
   getComponentRef?: ((ref: ComponentRef<Item, Value>) => void) | { current?: ComponentRef<Item, Value> }
   onFilter?: (text: string, from: FilterFormType) => void
   /**
-   * Placeholder content when there is no data
-   *
-   * 无数据时的占位内容
-   *
-   * default: -
+   * @en Placeholder content when there is no data
+   * @cn 无数据时的占位内容
    */
   empty?: React.ReactNode
   /**
-   * if it is true, it will be multiple selection
-   *
-   * 是否是多选
-   *
-   * default: false
+   * @en if it is true, it will be multiple selection
+   * @cn 是否是多选
+   * @default false
    */
   multiple?: boolean
   onBlur: (e?: any) => void
   onFocus: (e?: any) => void
   /**
-   * When it is true, all nodes disable the selection; when it is a function, it determines whether it is disabled according to the return result of the function.
-   *
-   * 为 true 时，所有节点禁用选择，为函数时，根据函数返回结果确定是否禁用
-   *
-   * default: false
+   * @en When it is true, all nodes disable the selection; when it is a function, it determines whether it is disabled according to the return result of the function.
+   * @cn 为 true 时，所有节点禁用选择，为函数时，根据函数返回结果确定是否禁用
+   * @default false
    */
   disabled?: ((data: Item) => boolean) | boolean
   /**
-   * The content displayed in the result after selecting, if not set, use renderItem. not show while return null, result is current selected
-   *
-   * 选中后在结果中显示的内容，默认和 renderItem 相同
-   *
-   * default: renderItem
+   * @en The content displayed in the result after selecting, if not set, use renderItem. not show while return null, result is current selected
+   * @cn 选中后在结果中显示的内容，默认和 renderItem 相同
+   * @default renderItem
    */
   renderResult?: (data: Item) => React.ReactNode
   /**
-   * mode . 0: Returns only the fully selected node including the parent node.  1: Returns all selected nodes and semi-selected nodes. 2: Return only the selected child nodes. 3: If the parent node is full selected, only return the parent node.
-   *
-   * 选中值模式。0: 只返回完全选中的节点，包含父节点。1: 返回全部选中的节点和半选中的父节点。2: 只返回选中的子节点。3: 如果父节点选中，只返回父节点
-   *
-   * default: 1
+   * @en mode . 0: Returns only the fully selected node including the parent node.  1: Returns all selected nodes and semi-selected nodes. 2: Return only the selected child nodes. 3: If the parent node is full selected, only return the parent node.
+   * @cn 选中值模式。0: 只返回完全选中的节点，包含父节点。1: 返回全部选中的节点和半选中的父节点。2: 只返回选中的子节点。3: 如果父节点选中，只返回父节点
+   * @default 1
    */
   mode?: TreeModeType
   /**
-   * The height of list
-   *
-   * 列表高度
-   *
-   * default: -
+   * @en The height of list
+   * @cn 列表高度
    */
   height?: number
   /**
-   * option collapse callback
-   *
-   * 下拉列表展开/收起回调
-   *
-   * default: none
+   * @en option collapse callback
+   * @cn 下拉列表展开/收起回调
    */
   onCollapse?: (collapse: boolean) => void
   position?: 'drop-up' | 'drop-down'
   /**
-   * Expand option list while enter press
-   *
-   * 回车触发下拉框展开的时候调用
-   *
-   * default: -
+   * @en Expand option list while enter press
+   * @cn 回车触发下拉框展开的时候调用
    */
   onEnterExpand?: (e: React.KeyboardEvent<HTMLDivElement>) => boolean
   /**
-   * value is your picker now
-   * 参数 为 当前选中值
-   * default: -
+   * @en value is your picker now
+   * @cn 参数 为 当前选中值
    */
   onChange: (value: Value, selected?: Item, path?: (string | number)[]) => void
 
   /**
-   * onChange additional parameters (current is the data of the clicked node, data is the currently selected data, checked is whether it is selected or canceled in the multi-select state)
-   *
-   * onChange 额外参数 (current 为点击的节点的数据， data为当前选中的数据， checked为多选状态下是选中还是取消)
-   *
-   * default: -
+   * @en onChange additional parameters (current is the data of the clicked node, data is the currently selected data, checked is whether it is selected or canceled in the multi-select state)
+   * @cn onChange 额外参数 (current 为点击的节点的数据， data为当前选中的数据， checked为多选状态下是选中还是取消)
    */
   onChangeAddition?: (
     params: {
@@ -179,11 +143,8 @@ export interface OriginTreeSelectProps<Item, Value>
     }
   ) => void
   /**
-   * In the Form, the value will be taken over by the form and the value will be invalid.
-   *
-   * 选中的 key （受控），多选时必须为array
-   *
-   * default:
+   * @en In the Form, the value will be taken over by the form and the value will be invalid.
+   * @cn 选中的 key （受控），多选时必须为array
    */
   value?: Value
   compressed?: boolean | 'no-repeat'
@@ -235,26 +196,20 @@ export type TreeSelectPropsWithFilter<Item, Value> = Omit<
 > & {
   noCache?: boolean
   /**
-   * Whether to show the descendant nodes of the hit node after filtering
-   *
-   * 筛选后是否展示命中节点的后代节点
-   *
-   * default: false
+   * @en Whether to show the descendant nodes of the hit node after filtering
+   * @cn 筛选后是否展示命中节点的后代节点
+   * @default false
    */
   showHitDescendants?: boolean
   /**
-   * ms. The delay of user input triggering filter events
-   *
-   * 毫秒。用户输入触发 fitler 事件的延时
-   *
-   * default: 400
+   * @en ms. The delay of user input triggering filter events
+   * @cn 毫秒。用户输入触发 fitler 事件的延时
+   * @default 400
    */
   filterDelay?: number
-  /** When the onFilter is not empty, you can filter data by input. If the onFilter returns a function, use this function as a front-end filter. If return undefined, you can do your own backend filtering.
-   *
-   * onFilter 不为空时，可以输入过滤数据。 onFilter 如果返回一个函数，使用这个函数做前端过滤。 如果不返回，可以自行做后端过滤
-   *
-   * default: -
+  /**
+   * @en When the onFilter is not empty, you can filter data by input. If the onFilter returns a function, use this function as a front-end filter. If return undefined, you can do your own backend filtering.
+   * @cn onFilter 不为空时，可以输入过滤数据。 onFilter 如果返回一个函数，使用这个函数做前端过滤。 如果不返回，可以自行做后端过滤
    */
   onFilter?: (text: string, from: FilterFormType) => ((data: Item) => boolean) | void
 }
@@ -264,11 +219,8 @@ export type TreeSelectPropsWithAdvancedFilter<Item, Value> = Omit<
   'onAdvancedFilter'
 > & {
   /**
-   * In the advanced filter mode, you can switch between the filter results and the original data for the current level by pressing the button
-   *
-   * 高级筛选模式，可针对当前层级在筛选结果和原始数据间切换
-   *
-   * default: -
+   * @en In the advanced filter mode, you can switch between the filter results and the original data for the current level by pressing the button
+   * @cn 高级筛选模式，可针对当前层级在筛选结果和原始数据间切换
    */
   onAdvancedFilter?: (text: string, from: FilterFormType) => (data: Item) => boolean
 }

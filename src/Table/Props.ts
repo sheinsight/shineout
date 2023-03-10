@@ -42,202 +42,143 @@ export interface SummaryItem {
 
 export interface CommonColumn<T> {
   /**
-   * cell align \['left', 'center', 'right'\]
-   *
-   * 单元格内容排布方式，可选 \['left', 'center', 'right'\]
-   *
-   * default: 'left'
+   * @en cell align \['left', 'center', 'right'\]
+   * @cn 单元格内容排布方式，可选 \['left', 'center', 'right'\]
+   * @default 'left'
    */
   align?: RegularAttributes.Align
 
   /**
-   * The function for controlling to merge columns. The return value is an integer indicating the number of columns that need to be merged。
-   *
-   * 合并列控制函数，row为单行数据，返回值一个整数，标明需要合并的列数
-   *
-   * default: none
+   * @en The function for controlling to merge columns. The return value is an integer indicating the number of columns that need to be merged。
+   * @cn 合并列控制函数，row为单行数据，返回值一个整数，标明需要合并的列数
    */
   colSpan?: (row: T, index: number) => number
 
   /**
-   * default sort
-   *
-   * 默认排序规则
-   *
-   * default: none
+   * @en default sort
+   * @cn 默认排序规则
    */
   defaultOrder?: ColumnOrder
 
   /**
-   * options: \['left', 'right']；Need to set the Table's fixed to 'x' or 'both'
-   *
-   * 可选\['left', 'right']；需要设置Table的fixed为'x'或'both'才生效；如果相邻的多列需要锁定，只需指定最外侧的column即可
-   *
-   * default: none
+   * @en options: \['left', 'right']；Need to set the Table's fixed to 'x' or 'both'
+   * @cn 可选\['left', 'right']；需要设置Table的fixed为'x'或'both'才生效；如果相邻的多列需要锁定，只需指定最外侧的column即可
    */
   fixed?: ColumnFix
 
   /**
-   * The group of header column.
-   *
-   * 表头分组，相邻的相同 group 会生成一个新的表头
-   *
-   * default: none
+   * @en The group of header column.
+   * @cn 表头分组，相邻的相同 group 会生成一个新的表头
+   * @override union
    */
   group?: string | ReactNode | Array<string | ReactNode>
 
   /**
-   * hide the column, only work on row-expand column
-   *
-   * 只针对行展开列有效，表示是否隐藏该列
-   *
-   * default: none
+   * @en hide the column, only work on row-expand column
+   * @cn 只针对行展开列有效，表示是否隐藏该列
    */
   hide?: boolean
 
   /**
-   * The key of the column
-   *
-   * 列的key，默认使用index
-   *
-   * default: none
+   * @en The key of the column
+   * @cn 列的key，默认使用index
+   * @override union
    */
   key?: string | number
 
   /**
-   * min width
-   *
-   * 最小列宽
-   *
-   * default: none
+   * @en min width
+   * @cn 最小列宽
    */
   minWidth?: number
 
   /**
-   * max width
-   *
-   * 最大可拖动列宽
-   *
-   * default: none
+   * @en max width
+   * @cn 最大可拖动列宽
    */
   maxWidth?: number
 
   /**
-   * 全选时用来筛除数据，仅当type="checkbox"的时候有效
-   *
-   * 最大可拖动列宽
-   *
-   * default: none
+   * @en 全选时用来筛除数据，仅当type="checkbox"的时候有效
+   * @cn 最大可拖动列宽
    */
   filterAll?: (data: T[]) => T[]
 
   /**
-   * The generation function for Table content.d: the data of the current row. i: the index of the current row .For ease of use, you can pass in the key of a data, such as 'id', which is equivalent to (d) => { return d.id }
-   *
-   * 表格内容生成函数；d: 当前行数据i: 当前行索引为了使用方便，可以传入一个数据的key，如 'id'，相当于 (d) => { return d.id }
-   *
-   * default: none
+   * @en The generation function for Table content.d: the data of the current row. i: the index of the current row .For ease of use, you can pass in the key of a data, such as 'id', which is equivalent to (d) => { return d.id }
+   * @cn 表格内容生成函数；d: 当前行数据i: 当前行索引为了使用方便，可以传入一个数据的key，如 'id'，相当于 (d) => { return d.id }
+   * @override union
    */
   render?:
     | ObjectKey<T>
     | ((rowData: T, index: number, checkInstance?: ReactComponentElement<any>) => ReactNode | (() => ReactNode))
 
   /**
-   *
-   *
-   * 根据函数返回的结果（boolean）判断是否合并行，a、b为相邻的两行数据。
-   *
-   * default: none
+   * @en According to the result (boolean) returned by the function to determine whether to merge rows, a and b are two adjacent rows of data
+   * @cn 根据函数返回的结果（boolean）判断是否合并行，a、b为相邻的两行数据。
+   * @override union
    */
   rowSpan?: ((prevRowData: T, nextRowData: T) => boolean) | boolean
 
   /**
-   * When the sorter is not empty, the sort icon appears in this column. the value of order: \['asc', 'desc']. Indicate the sort key string, will pass to table sorter method. Front-end sorting returns a sort function, refer to Array.sort. Server-side sorting, do not return values and handle it itself.
-   *
-   * sorter 不为空时，这一列会出现排序 icon。order的值为\['asc', 'desc']。字符串表示排序依据字段，作为第一个参数传入Table.sorter。前端排序，返回一个排序函数，参考 Array.sort。服务端排序，不要返回值，自行处理即可。
-   *
-   * default: none
+   * @en When the sorter is not empty, the sort icon appears in this column. the value of order: \['asc', 'desc']. Indicate the sort key string, will pass to table sorter method. Front-end sorting returns a sort function, refer to Array.sort. Server-side sorting, do not return values and handle it itself.
+   * @cn sorter 不为空时，这一列会出现排序 icon。order的值为\['asc', 'desc']。字符串表示排序依据字段，作为第一个参数传入Table.sorter。前端排序，返回一个排序函数，参考 Array.sort。服务端排序，不要返回值，自行处理即可。
+   * @override union
    */
   sorter?: ((order: ColumnOrder) => ((prevRowData: T, nextRowData: T) => number) | void) | string | Sorter
 
   /**
-   * The content of the header
-   *
-   * 表头显示内容
-   *
-   * default: none
+   * @en The content of the header
+   * @cn 表头显示内容
+   * @override union
    */
   title?: string | ReactNode | ((rowData: T[]) => ReactNode)
 
   /**
-   * tree table children-data name
-   *
-   * 树形表格子数据字段名
-   *
-   * default: none
+   * @en tree table children-data name
+   * @cn 树形表格子数据字段名
    */
   treeColumnsName?: ObjectKey<T>
 
   /**
-   * indent of each level
-   *
-   * 每一层缩进宽度
-   *
-   * default: none
+   * @en indent of each level
+   * @cn 每一层缩进宽度
    */
   treeIndent?: number
 
   /**
-   * Special column, options: \['expand', 'row-expand', 'checkbox'].expand: Expand the column. When the render function returns a function, it means that the row can be expanded and the content  is the result returned by this function. row-expand: Similar to expand. The difference is that clicking on the entire row triggers the expand event. checkbox: Select column for scenes with only fixed selection columns
-   *
-   * 特殊用途列，可选值为 \['expand', 'row-expand', 'checkbox']。expand: 行展开列，render 函数返回函数时，表示此行可以展开，内容为此函数返回结果。row-expand: 同expand。不同为点击行内空白区域也可以折叠/展开行。checkbox: 选择列，用于仅固定选择列的场景
-   *
-   * default: none
+   * @en Special column, options: \['expand', 'row-expand', 'checkbox'].expand: Expand the column. When the render function returns a function, it means that the row can be expanded and the content  is the result returned by this function. row-expand: Similar to expand. The difference is that clicking on the entire row triggers the expand event. checkbox: Select column for scenes with only fixed selection columns
+   * @cn 特殊用途列，可选值为 \['expand', 'row-expand', 'checkbox']。expand: 行展开列，render 函数返回函数时，表示此行可以展开，内容为此函数返回结果。row-expand: 同expand。不同为点击行内空白区域也可以折叠/展开行。checkbox: 选择列，用于仅固定选择列的场景
    */
   type?: ColumnType
 
   /**
-   * width
-   *
-   * 列宽
-   *
-   * default: none
+   * @en width
+   * @cn 列宽
    */
   width?: number
 
   /**
-   * 列对应的类名
-   *
-   * classname of column
-   *
-   * default: -
+   * @cn 列对应的类名
+   * @en classname of column
    */
   className?: string
 
   /**
-   * td 样式
-   *
-   * style of td
-   *
-   * default: -
+   * @cn td 样式
+   * @en style of td
    */
   style?: React.CSSProperties
 
   /**
-   * 列点击事件
-   *
-   * Click event of column
-   *
-   * default: -
+   * @cn 列点击事件
+   * @en Click event of column
    */
   onClick?: (d: T, isExpand: boolean) => void
 
   /**
-   * 单独设置某一列不可拖动
-   *
-   * Separately set a column not to be draggable
-   *
-   * default: -
+   * @cn 单独设置某一列不可拖动
+   * @en Separately set a column not to be draggable
    */
   columnResizable?: false
 }
@@ -263,27 +204,20 @@ export interface TableIndexProps<DataItem, Value>
   > {
   columns?: ColumnItem<DataItem>[]
   /**
-   * Select row. Rows is the selected data.
-   *
-   * 选择行。rows为选中的数据。如果需要数据需要格式化的处理，建议配置 format 和 prediction
-   *
-   * default: none
+   * @en Select row. Rows is the selected data.
+   * @cn 选择行。rows为选中的数据。如果需要数据需要格式化的处理，建议配置 format 和 prediction
    */
   onRowSelect?: (rows: Value) => void
   /**
-   * the method of table sort，args are Column.sorter and order. Multi-column sorting is supported. The sorter passes in the object {rule: string | function, weight: number}, where rule is a sorting rule, which refers to the use of single-column sorting when it is a string, weight is the weight, indicating the priority of the order. When sorting on multiple columns, sortedList returns information about all fields involved in sorting
-   *
-   * 表格统一排序函数，参数分别为 Column.sorter 和 排序方式; 支持多列排序，sorter传入对象{ rule: string \| function, weight: number }, rule为排序规则，为字符串时参考单列排序的用法, weight为权重，指明排序的优先级。 多列排序时，sortedList返回所有参与排序的字段信息
-   *
-   * default: alphaSort(Column.sorter, sorter)
+   * @en the method of table sort，args are Column.sorter and order. Multi-column sorting is supported. The sorter passes in the object {rule: string | function, weight: number}, where rule is a sorting rule, which refers to the use of single-column sorting when it is a string, weight is the weight, indicating the priority of the order. When sorting on multiple columns, sortedList returns information about all fields involved in sorting
+   * @cn 表格统一排序函数，参数分别为 Column.sorter 和 排序方式; 支持多列排序，sorter传入对象{ rule: string \| function, weight: number }, rule为排序规则，为字符串时参考单列排序的用法, weight为权重，指明排序的优先级。 多列排序时，sortedList返回所有参与排序的字段信息
+   * @override union
+   * @default alphaSort(Column.sorter, sorter)
    */
   sorter?: (sortKey: string, sorter: 'asc' | 'desc', sortedList: any[]) => ((a: DataItem, b: DataItem) => number) | void
   /**
-   * sort cancel event
-   *
-   * 排序取消事件
-   *
-   * default: none
+   * @en sort cancel event
+   * @cn 排序取消事件
    */
   onSortCancel?: (prevType: ColumnOrder, index: number, orders: any, sort: any) => void
 }
@@ -301,11 +235,10 @@ export interface OriginTableProps<DataItem, Value>
   className?: string
   loading?: boolean | ReactNode
   /**
-   * vertical align with content
-   *
-   * 单元格内容垂直对齐方式
-   *
-   * default: 'top'
+   * @en vertical align with content
+   * @cn 单元格内容垂直对齐方式
+   * @default 'top'
+   * @override union
    */
   verticalAlign?: 'top' | 'middle'
   events?: React.HTMLAttributes<HTMLDivElement>
@@ -351,11 +284,8 @@ export interface SimpleTableProps<DataItem, Value> {
   rowClassName?: (rowData: DataItem, index: number) => string | undefined
   treeExpandKeys?: Map<KeygenResult, boolean>
   /**
-   * tr events
-   *
-   * tr 事件监听器集合
-   *
-   * default: none
+   * @en tr events
+   * @cn tr 事件监听器集合
    */
   rowEvents?: ObjectType
   columns: ColumnItemWithFixed<DataItem>[]
@@ -375,38 +305,30 @@ export interface SimpleTableProps<DataItem, Value> {
   treeColumnsName?: ObjectKey<DataItem>
   treeCheckAll?: boolean
   /**
-   * customize sort icons
-   *
-   * 自定义排序图标
-   *
-   * default: false
+   * @en customize sort icons
+   * @cn 自定义排序图标
+   * @default false
    */
   renderSorter?: (params: RenderSorterParam) => ReactNode
   hideHeader?: boolean
   /**
-   *  Footer information can be used to summarize
-   *
-   *  底部信息可用于总结
-   *
+   * @en Footer information can be used to summarize
+   * @cn 底部信息可用于总结
    *  default: -
+   * @override union
    */
   summary?: SummaryItem[][] | SummaryItem[]
   onResize?: (index: number, width: number, colgroup?: number[]) => void
   /**
-   * sticky header, When it is true, the distance from the top is 0. When it is an object, the attribute value reference [Sticky component] (/components/Sticky)
-   *
-   * 表头是否附着顶部，为 true 时距离顶部为0，为对象时属性值参考 [Sticky组件](/components/Sticky)
-   *
-   * default: none
+   * @en sticky header, When it is true, the distance from the top is 0. When it is an object, the attribute value reference [Sticky component] (/components/Sticky)
+   * @cn 表头是否附着顶部，为 true 时距离顶部为0，为对象时属性值参考 [Sticky组件](/components/Sticky)
+   * @override union
    */
   sticky?: boolean | StickyProps
   fixed?: TableFix
   /**
-   * Table instance (please use with caution: only fixed Table)
-   *
-   * Table 实例（请谨慎使用：仅固定表格）
-   *
-   * default: none
+   * @en Table instance (please use with caution: only fixed Table)
+   * @cn Table 实例（请谨慎使用：仅固定表格）
    */
   tableRef?: (table: TableRef) => void
 }
@@ -414,30 +336,24 @@ export interface SimpleTableProps<DataItem, Value> {
 /** ------ SeperateTable ---------- */
 export interface SeperateTableProps<DataItem, Value> extends SimpleTableProps<DataItem, Value> {
   /**
-   * The maximum number of rows for a single render. Table uses lazy render to optimize performance under large amounts of data. If your table displays more than 20 rows, you can change the value of rowsInView. Value of 0 render all data.
-   *
-   * 单次render的最大行数。Table 采用了lazy render的方式来优化在大量数据下的性能，如果你的表格显示的高度超出了20条，可以调整rowsInView的值。为 0 表示单次 render 所有数据。
-   *
-   * default: 20
+   * @en The maximum number of rows for a single render. Table uses lazy render to optimize performance under large amounts of data. If your table displays more than 20 rows, you can change the value of rowsInView. Value of 0 render all data.
+   * @cn 单次render的最大行数。Table 采用了lazy render的方式来优化在大量数据下的性能，如果你的表格显示的高度超出了20条，可以调整rowsInView的值。为 0 表示单次 render 所有数据。
+   * @default 20
    */
   rowsInView: number
   rowHeight?: number
   onScroll?: (x: number, y: number, left: number) => void
   scrollLeft?: number
   /**
-   * Enable in specific scenarios (tree data expansion is controlled) Used to change the default behavior of scroll reset
-   *
-   * 在特定场景（树形数据展开受控)下开启 用来改变滚动条重置的默认行为
-   *
-   * default: false
+   * @en Enable in specific scenarios (tree data expansion is controlled) Used to change the default behavior of scroll reset
+   * @cn 在特定场景（树形数据展开受控)下开启 用来改变滚动条重置的默认行为
+   * @default false
    */
   changedByExpand?: boolean
   /**
-   * set inner scrollable element's attribute
-   *
-   * 虚拟滚动模式下，设置行内元素的 attribut 来实现内部滚动
-   *
-   * default: 无
+   * @en set inner scrollable element's attribute
+   * @cn 虚拟滚动模式下，设置行内元素的 attribut 来实现内部滚动
+   * @default '无'
    */
   innerScrollAttr?: string[]
 }
@@ -602,11 +518,9 @@ export type GetSelectProps<Props> = Omit<Props, 'events'> & {
    */
   selection?: boolean
   /**
-   * whether to enable ctrl/cmd + click check
-   *
-   * 是否启用 ctrl/cmd + click 选中单元格
-   *
-   * default: false
+   * @en whether to enable ctrl/cmd + click check
+   * @cn 是否启用 ctrl/cmd + click 选中单元格
+   * @default false
    */
   cellSelectable?: boolean
 }
@@ -618,27 +532,18 @@ export type GetTreeExpandProps<Props, DataItem> = Omit<
   'treeExpandLevel' | 'treeRoot' | 'treeIndent' | 'onTreeExpand' | 'treeExpandKeys'
 > & {
   /**
-   * Default expanded row keys
-   *
-   * 默认展开行(非受控)
-   *
-   * default: none
+   * @en Default expanded row keys
+   * @cn 默认展开行(非受控)
    */
   defaultTreeExpandKeys?: KeygenResult[]
   /**
-   * expand row change, keys is expanded row keys
-   *
-   * 展开行，keys为展开的行
-   *
-   * default: none
+   * @en expand row change, keys is expanded row keys
+   * @cn 展开行，keys为展开的行
    */
   onTreeExpand?: (openKeys: KeygenResult[], data: DataItem, expand: boolean, index: number) => void
   /**
-   * Tree Table expanded row keys
-   *
-   * 树形数据展开行，受控
-   *
-   * default: none
+   * @en Tree Table expanded row keys
+   * @cn 树形数据展开行，受控
    */
   treeExpandKeys?: KeygenResult[]
 }

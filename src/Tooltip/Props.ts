@@ -12,27 +12,21 @@ export interface ContainerOptions {
 }
 export interface ContainerProps extends StandardProps {
   /**
-   * use animation
-   *
-   * 弹出是否使用动画，默认为 true
-   *
-   * default: true
+   * @en use animation
+   * @cn 弹出是否使用动画，默认为 true
+   * @default true
    */
   animation?: boolean
   /**
-   * The child element can only be a ReactElement.
-   *
-   * 子元素只能为一个 ReactElement
-   *
-   * default: required
+   * @en The child element can only be a ReactElement.
+   * @cn 子元素只能为一个 ReactElement
+   * @default required
    */
   children: ReactNode
   /**
-   * The position of the pop-up layer, options: ['left', 'top', 'right', 'bottom']
-   *
-   * 弹出层位置
-   *
-   * default: 'top'
+   * @en The position of the pop-up layer, options: ['left', 'top', 'right', 'bottom']
+   * @cn 弹出层位置
+   * @default 'top'
    */
   position?: ToolPosition
   /**
@@ -48,35 +42,27 @@ export interface ContainerProps extends StandardProps {
    */
   scrollTop?: number
   /**
-   * Pop-up type, one of  ["hover", "click"]
-   *
-   * 弹出方式
-   *
-   * default: "hover"
+   * @en Pop-up type, one of  ["hover", "click"]
+   * @cn 弹出方式
+   * @default "hover"
    */
   trigger?: TriggerType
   /**
-   * make disabled element work
-   *
-   * 使被禁用的元素正常显示提示
-   *
-   * default: false
+   * @en make disabled element work
+   * @cn 使被禁用的元素正常显示提示
+   * @default false
    */
   disabledChild?: boolean
   /**
-   * Pop up texts
-   *
-   * 弹出文字
-   *
-   * default: required
+   * @en Pop up texts
+   * @cn 弹出文字
+   * @default required
    */
   tip: ReactNode
   /**
-   * Popup delay
-   *
-   * 弹出延迟
-   *
-   * default: 0
+   * @en Popup delay
+   * @cn 弹出延迟
+   * @default 0
    */
   delay?: number
 }
