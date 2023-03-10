@@ -33,8 +33,8 @@ describe('Dropdown[close]', () => {
         .first()
         .instance().state.show
     ).toBe(true)
-    const click = new UIEvent('click')
-    click.initUIEvent('click')
+    const click = new UIEvent('mousedown')
+    click.initUIEvent('mousedown')
     document.dispatchEvent(click)
     jest.runAllTimers()
     expect(

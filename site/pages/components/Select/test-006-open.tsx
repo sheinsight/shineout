@@ -14,14 +14,14 @@ const App: React.FC = () => {
 
   return (
     <div>
-      <Button id="control" onClick={() => setOpen(!open)}>
-        {open ? '关闭' : '打开'}
-        弹层
+      <Button id="control" onClick={() => setOpen(true)}>
+        打开弹层
       </Button>
-      <div style={{ margin: '10px 0', height: open ? 280 : 30 }}>
+      <div style={{ margin: '10px 0', height: 250 }}>
         <Select
           open={open}
           onCollapse={v => {
+            setOpen(v)
             console.log('控制弹层（受控）：', v)
           }}
           keygen

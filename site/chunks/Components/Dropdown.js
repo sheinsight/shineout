@@ -105,16 +105,16 @@ const examples = [
 
   },
   {
-    name: '8-open',
+    name: 'test-001-open',
     isTs: true,
-    isTest: false,
+    isTest: true,
     title: locate(
       '控制弹层（受控） \n Dropdown 通过 open 控制弹层的显示和隐藏',
       'Controlled \n Component controlled by open property'
     ),
-    component: require('doc/pages/components/Dropdown/example-8-open.tsx').default,
-    rawText: require('!raw-loader!doc/pages/components/Dropdown/example-8-open.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Dropdown/example-8-open.tsx'),
+    component: require('doc/pages/components/Dropdown/test-001-open.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Dropdown/test-001-open.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Dropdown/test-001-open.tsx'),
 
   },
 ]

@@ -59,6 +59,10 @@ class Dropdown extends PureComponent<DropdownProps, DropDownState> {
 
   static displayName: string
 
+  focus: boolean
+
+  lastFoucs: boolean
+
   constructor(props: DropdownProps) {
     super(props)
 
@@ -85,6 +89,15 @@ class Dropdown extends PureComponent<DropdownProps, DropDownState> {
     this.bindList()
   }
 
+  componentDidMount() {
+    super.componentDidMount()
+    this.setOpenEvent()
+  }
+
+  componentDidUpdate() {
+    this.setOpenEvent()
+  }
+
   componentWillUnmount() {
     super.componentWillUnmount()
     this.toggleDocumentEvent(false)
@@ -95,6 +108,16 @@ class Dropdown extends PureComponent<DropdownProps, DropDownState> {
       return !!this.props.open
     }
     return this.state.show
+  }
+
+  setOpenEvent() {
+    if (this.lastFoucs !== this.show)
+      if (this.show) {
+        this.toggleDocumentEvent(true)
+      } else if (this.lastFoucs !== undefined) {
+        this.toggleDocumentEvent(false)
+      }
+    this.lastFoucs = this.show
   }
 
   getTrigger() {
@@ -131,7 +154,7 @@ class Dropdown extends PureComponent<DropdownProps, DropDownState> {
 
   toggleDocumentEvent(bind: boolean) {
     const method = bind ? 'addEventListener' : 'removeEventListener'
-    document[method]('click', (this.clickAway as unknown) as EventListener, true)
+    document[method]('mousedown', (this.clickAway as unknown) as EventListener, true)
   }
 
   clickAway(e: React.MouseEvent) {
@@ -145,29 +168,31 @@ class Dropdown extends PureComponent<DropdownProps, DropDownState> {
   }
 
   handleFocus() {
+    const { onCollapse } = this.props
     if (this.closeTimer) {
       clearTimeout(this.closeTimer)
     }
-
     if (this.show) return
+    if (onCollapse) onCollapse(true)
     this.setState({
       show: true,
     })
-
-    this.toggleDocumentEvent(true)
   }
 
   handleHide(delay = 200) {
+    const { onCollapse } = this.props
     this.closeTimer = setTimeout(() => {
+      if (onCollapse) onCollapse(false)
       this.setState({ show: false })
-      this.toggleDocumentEvent(false)
     }, delay)
   }
 
   handleToggle(show: boolean) {
     if (this.getTrigger() === 'click') return
-    if (show) this.handleFocus()
-    else this.handleHide()
+
+    if (show) {
+      this.handleFocus()
+    } else this.handleHide()
   }
 
   renderRTLButton(placeholder: string, spanClassName: string, caret: ReactNode, buttonClassName: string) {
@@ -321,7 +346,10 @@ class Dropdown extends PureComponent<DropdownProps, DropDownState> {
     // const { show } = this.state
     const position = this.getPosition()
 
-    let wrapClassName = dropdownClass('_', position, this.show && 'show', { 'split-dropdown': !placeholder, rtl: isRTL() })
+    let wrapClassName = dropdownClass('_', position, this.show && 'show', {
+      'split-dropdown': !placeholder,
+      rtl: isRTL(),
+    })
     if (className) wrapClassName += ` ${className}`
 
     return (

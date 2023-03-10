@@ -123,22 +123,16 @@ class Container extends PureComponent<ContainerProps, ContainerState> {
     this.getDefaultTime = this.getDefaultTime.bind(this)
     this.getQuick = this.getQuick.bind(this)
 
-    this.firstRender = false
+    this.firstRender = !!props.open
   }
 
   componentDidMount() {
     super.componentDidMount()
     this.setOpenEvent()
-    if (this.props.open !== undefined && this.props.open) {
-      this.handleToggle(true)
-    }
   }
 
-  componentDidUpdate(prevProps: ContainerProps) {
+  componentDidUpdate() {
     this.setOpenEvent()
-    if (this.props.open !== undefined && prevProps.open !== this.props.open) {
-      this.handleToggle(this.props.open)
-    }
   }
 
   componentWillUnmount() {
@@ -282,7 +276,6 @@ class Container extends PureComponent<ContainerProps, ContainerState> {
     const onAbsolutePicker = getParent(e.target as HTMLElement, `.${datepickerClass('location')}`)
     if (!onPicker && !onAbsolutePicker) {
       if (this.props.inputable && this.textSpan) this.textSpan.blur()
-      this.clearClickAway()
       this.handleToggle(false)
       if (this.props.onBlur) this.props.onBlur(e)
     }
@@ -304,21 +297,27 @@ class Container extends PureComponent<ContainerProps, ContainerState> {
     if (e.keyCode === 9) {
       this.props.onBlur(e)
       // e.preventDefault()
-      if (this.focus) this.handleToggle(false)
-      else this.clearClickAway()
+      if (this.focus) {
+        this.handleToggle(false)
+      }
     }
   }
 
   handleToggle(focus: boolean, e?: MouseEvent) {
-    const { quickSelect } = this.props
+    const { quickSelect, onCollapse } = this.props
     const hasQuickColumn = Array.isArray(quickSelect) && quickSelect.length > 0
+
     if (this.props.disabled === true) return
-    // open 判断仅在弹层非受控的情况下生效
-    if (this.props.open === undefined && focus === this.focus) return
+
+    if (focus === this.focus) return
+
     if (e && focus && getParent(e.target as HTMLElement, this.pickerContainer)) return
 
     // click close icon
     if (focus && e && (e.target as HTMLElement).classList.contains(datepickerClass('close'))) return
+
+    if (onCollapse) onCollapse(focus)
+
     this.setState(
       immer(state => {
         state.focus = focus
