@@ -223,8 +223,7 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
 }
 
 interface componentRef  {
-  close: () => void;
-  [propName: string]: any;
+  close: () => void
 }
 
 declare class Cascader<Item = any, Value = string[]> extends React.Component<CascaderProps<Item, Value>, {}> {

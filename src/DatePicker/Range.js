@@ -83,7 +83,7 @@ class Range extends PureComponent {
 
   // Be consistent with the parent onChange, expand first params: index
   handleChange(index, date, change, end, mode, isQuickSelect, areaType) {
-    let newDate = utils.toDate(date)
+    let newDate = date ? utils.toDate(date, this.getOptions()) : ''
     const { type, range, min, max } = this.props
 
     const handleOnChangeParams = paramUtils.handleOnChangeParams(areaType)
