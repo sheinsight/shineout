@@ -263,7 +263,6 @@ class Cascader<DataItem, Value extends CascaderBaseValue> extends PureComponent<
 
   handlePathChange(id: string | number, data: DataItem | null, path: (string | number)[], fromClick?: boolean) {
     const { childrenKey, finalDismiss, loader } = this.props
-    console.log('!!!!', id, data, path, fromClick)
     if (fromClick && data && childrenKey) {
       let leaf = !data[childrenKey] || ((data[childrenKey] as unknown) as DataItem[]).length === 0
       if (loader && typeof loader === 'function' && data[childrenKey] === undefined) {
