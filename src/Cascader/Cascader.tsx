@@ -59,6 +59,8 @@ class Cascader<DataItem, Value extends CascaderBaseValue> extends PureComponent<
 > {
   static defaultProps = DefaultProps
 
+  pathChangeTimer: NodeJS.Timeout | null
+
   datum: DatumTree<DataItem>
 
   selectId: string
@@ -268,7 +270,11 @@ class Cascader<DataItem, Value extends CascaderBaseValue> extends PureComponent<
       }
       if (finalDismiss && leaf) this.handleState(false)
     }
-    setTimeout(() => {
+    if (this.pathChangeTimer) {
+      clearTimeout(this.pathChangeTimer)
+      this.pathChangeTimer = null
+    }
+    this.pathChangeTimer = setTimeout(() => {
       this.setState({ path: [...path, id] })
     }, 50)
   }
