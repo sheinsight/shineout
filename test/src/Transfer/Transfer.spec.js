@@ -1,7 +1,7 @@
 import { mount } from 'enzyme'
 import React from 'react'
 import { Transfer } from 'shineout'
-import { childrenTest, baseTest } from '../../utils'
+import { baseTest } from '../../utils'
 
 const data = [
   {
@@ -38,7 +38,7 @@ describe('Transfer[defaultSelectedKeys]', () => {
         defaultSelectedKeys={[0, 1, 2]}
       />
     )
-    wrapper.find(`.${SO_PREFIX}-transfer-body-container label.${SO_PREFIX}-checkinput`).forEach((checkbox, index) => {
+    wrapper.find(`.${SO_PREFIX}-transfer-body-container label.${SO_PREFIX}-checkinput`).forEach(checkbox => {
       expect(checkbox.hasClass(`${SO_PREFIX}-checkinput-checked`)).toBe(true)
     })
   })
@@ -309,7 +309,7 @@ describe('Transfer[operations]', () => {
 
 describe('Transfer[renderFilter]', () => {
   test('should set renderFilter', () => {
-    const renderFilter = jest.fn(() => <div className="hello">Hello</div>)
+    const renderFilter = jest.fn(props => <div className="hello">{props.isSource ? 0 : 1}</div>)
     const handleFilter = jest.fn()
     const wrapper = mount(
       <Transfer
@@ -328,9 +328,15 @@ describe('Transfer[renderFilter]', () => {
     expect(
       wrapper
         .find(`.${SO_PREFIX}-transfer-filter .hello`)
-        .first()
+        .at(0)
         .text()
-    ).toBe('Hello')
+    ).toBe('0')
+    expect(
+      wrapper
+        .find(`.${SO_PREFIX}-transfer-filter .hello`)
+        .at(1)
+        .text()
+    ).toBe('1')
   })
 })
 
