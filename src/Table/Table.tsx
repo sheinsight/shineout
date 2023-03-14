@@ -92,7 +92,7 @@ class Table<DataItem, Value> extends Component<OriginTableProps<DataItem, Value>
   }
 
   getShouldSticky() {
-    return this.props.sticky && this.state.inView
+    return this.state.inView && this.props.sticky
   }
 
   bindTable(el: HTMLDivElement) {
