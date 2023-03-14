@@ -55,7 +55,7 @@ export function getThemeTarget() {
     target = document.querySelector(target)
   }
   if (target instanceof HTMLElement) return target
-  console.error(`cont not find theme target dom from "${config.target}"`)
+  console.error(`can not find theme target dom from "${config.target}"`)
   return document.body
 }
 
@@ -69,8 +69,9 @@ export function injectTag(custom = {}) {
   }
   const selector = config.target || 'body'
   const id = `__shineoutThemeStyleContainer__${hash(selector)}`
-  const styleText = `${selector}{${Object.keys({ ...styleObj, ...custom })
-    .map(key => `${key}: ${styleObj[key]}`)
+  const varObj = { ...styleObj, ...custom }
+  const styleText = `${selector}{${Object.keys(varObj)
+    .map(key => `${key}: ${varObj[key]}`)
     .join(';')}}`
   const el = document.getElementById(id)
   if (el) {
