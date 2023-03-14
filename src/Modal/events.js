@@ -56,8 +56,10 @@ export function close(props, callback) {
   if (!props.position) div.classList.add(modalClass('end'))
 
   setTimeout(() => {
-    div.style.display = 'none'
-    div.classList.remove(modalClass('end'))
+    if (div) {
+      div.style.display = 'none'
+      div.classList.remove(modalClass('end'))
+    }
     if (props.destroy) destroy(id, !props.usePortal)
 
     if (!hasVisible()) {
