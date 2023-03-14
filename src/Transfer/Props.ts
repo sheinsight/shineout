@@ -10,6 +10,7 @@ type filterProps = {
   disabled: boolean
   onFilter?: (value: string) => void
   placeholder?: string
+  isSource: boolean
 }
 
 export type SelectedArr = [KeygenResult[], KeygenResult[]]
