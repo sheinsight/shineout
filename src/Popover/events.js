@@ -11,9 +11,12 @@ let timer = null
 let currentId
 
 export function hide(delay = 500) {
+  // https://github.com/sheinsight/shineout/pull/1957
   timer = setTimeout(() => {
-    div.style.display = 'none'
-    div.className = ''
+    if (div) {
+      div.style.display = 'none'
+      div.className = ''
+    }
     currentId = undefined
   }, delay)
 }
