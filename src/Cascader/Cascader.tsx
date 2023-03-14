@@ -59,6 +59,8 @@ class Cascader<DataItem, Value extends CascaderBaseValue> extends PureComponent<
 > {
   static defaultProps = DefaultProps
 
+  pathChangeTimer: NodeJS.Timeout | null
+
   datum: DatumTree<DataItem>
 
   selectId: string
@@ -261,6 +263,7 @@ class Cascader<DataItem, Value extends CascaderBaseValue> extends PureComponent<
 
   handlePathChange(id: string | number, data: DataItem | null, path: (string | number)[], fromClick?: boolean) {
     const { childrenKey, finalDismiss, loader } = this.props
+    console.log('!!!!', id, data, path, fromClick)
     if (fromClick && data && childrenKey) {
       let leaf = !data[childrenKey] || ((data[childrenKey] as unknown) as DataItem[]).length === 0
       if (loader && typeof loader === 'function' && data[childrenKey] === undefined) {
@@ -268,7 +271,11 @@ class Cascader<DataItem, Value extends CascaderBaseValue> extends PureComponent<
       }
       if (finalDismiss && leaf) this.handleState(false)
     }
-    setTimeout(() => {
+    if (this.pathChangeTimer) {
+      clearTimeout(this.pathChangeTimer)
+      this.pathChangeTimer = null
+    }
+    this.pathChangeTimer = setTimeout(() => {
       this.setState({ path: [...path, id] })
     }, 50)
   }
