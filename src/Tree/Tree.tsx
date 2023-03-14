@@ -131,7 +131,7 @@ class Tree<DataItem, Value extends any[]> extends PureComponent<TreeProps<DataIt
       })
     }
     if (onClick) {
-      onClick(node, id, this.datum.getPath(id))
+      onClick(node, id, this.datum.getPath(id)!)
     }
   }
 
@@ -156,6 +156,7 @@ class Tree<DataItem, Value extends any[]> extends PureComponent<TreeProps<DataIt
     const { childrenKey } = this.props
     const current = this.datum.getPath(id)
     const target = this.datum.getPath(targetId)
+    if (!current || !target) return
     const data = immer(this.props.data, draft => {
       let node: any = draft
       let temp: DataItem[]
