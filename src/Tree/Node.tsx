@@ -130,6 +130,7 @@ class Node<DataItem, Value extends any[]> extends PureComponent<NodeProps<DataIt
     const current = datum.getPath(startId)
     const target = datum.getPath(this.props.id)
 
+    if (!current || !target) return
     const currentPathStr = current.path.join('/')
     const targetPathStr = target.path.join('/')
 

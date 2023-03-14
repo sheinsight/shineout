@@ -265,7 +265,7 @@ export default class<Item> {
   }
 
   getPath(id: KeygenResult) {
-    return this.pathMap.get(id)!
+    return this.pathMap.get(id)
   }
 
   getChecked(id: KeygenResult) {
