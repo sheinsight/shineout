@@ -3,7 +3,7 @@ import { exposeClass } from '../styles/expose'
 import cssAccessors, { cleanCache } from './css-accessors'
 import { capitalize } from './strings'
 import { entries } from './objects'
-import { setInjectType, injectTag, getInjectType, cleanStyleObj } from './vars-inject'
+import { setInjectType, injectTag, getInjectType, cleanStyleObj, setThemeConfig } from './vars-inject'
 
 const types = ['primary', 'warning', 'danger', 'success', 'secondary']
 const attrs = ['background', 'color', 'border']
@@ -45,7 +45,8 @@ function resetTheme() {
   })
 }
 
-function setStyleWithTag(options, custom) {
+function setStyle(options, custom, config = {}) {
+  setThemeConfig(config)
   cleanStyleObj()
   if (!options) {
     resetTheme()
@@ -55,25 +56,18 @@ function setStyleWithTag(options, custom) {
       if (cssAccessors[key] && cssAccessors[key][setterName]) cssAccessors[key][setterName](values)
     }
   }
-  injectTag(custom)
+  if (config.injectType === 'tag') {
+    const id = injectTag(custom)
+    return () => {
+      document.getElementById(id).remove()
+    }
+  }
+  return () => {}
 }
 
 const style = {
   getClassname,
-  setStyle(options, custom = {}) {
-    if (getInjectType() === 'tag') {
-      setStyleWithTag(options, custom)
-      return
-    }
-    if (!options) {
-      resetTheme()
-      return
-    }
-    for (const [key, values] of entries(options)) {
-      const setterName = `set${capitalize(key)}`
-      if (cssAccessors[key] && cssAccessors[key][setterName]) cssAccessors[key][setterName](values)
-    }
-  },
+  setStyle,
   cleanCache,
   setInjectType,
   getInjectType,

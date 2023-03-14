@@ -1,6 +1,8 @@
 import { darken, fade } from './color'
 import { set as configSet } from '../config'
 import { entries } from './objects'
+import { isFunc } from './is'
+import hash from './hash'
 
 import { paginationClass } from '../Pagination/styles'
 import { checkinputClass } from '../Checkbox/styles'
@@ -21,16 +23,40 @@ import { sliderClass } from '../Slider/styles'
 import { tagClass } from '../Tag/styles'
 import { exposeClass } from '../styles/expose'
 
+const config = {
+  injectType: 'body',
+  target: undefined,
+}
 const computedCache = {}
-let injectType = 'body'
 let styleObj = {}
 
 export function getInjectType() {
-  return injectType
+  return config.injectType
 }
-
 export function setInjectType(type) {
-  injectType = type
+  config.injectType = type
+}
+export function setThemeConfig(c = {}) {
+  Object.keys(c).forEach(key => {
+    if (key in config) {
+      config[key] = c[key]
+    }
+  })
+}
+export function getThemeConfig(name) {
+  return config[name]
+}
+export function getThemeTarget() {
+  let { target } = config
+  if (!target) return document.body
+  if (isFunc(target)) {
+    target = config.target()
+  } else if (typeof target === 'string') {
+    target = document.querySelector(target)
+  }
+  if (target instanceof HTMLElement) return target
+  console.error(`can not find theme target dom from "${config.target}"`)
+  return document.body
 }
 
 export function cleanStyleObj() {
@@ -38,9 +64,14 @@ export function cleanStyleObj() {
 }
 
 export function injectTag(custom = {}) {
-  const id = '__shineoutThemeStyleContainer__'
-  const styleText = `body{${Object.keys({ ...styleObj, ...custom })
-    .map(key => `${key}: ${styleObj[key]}`)
+  if (config.target && typeof config.target !== 'string') {
+    console.error('The target of themeConfig must use string when injectType = "tag"')
+  }
+  const selector = config.target || 'body'
+  const id = `__shineoutThemeStyleContainer__${hash(selector)}`
+  const varObj = { ...styleObj, ...custom }
+  const styleText = `${selector}{${Object.keys(varObj)
+    .map(key => `${key}: ${varObj[key]}`)
     .join(';')}}`
   const el = document.getElementById(id)
   if (el) {
@@ -52,6 +83,7 @@ export function injectTag(custom = {}) {
     stylee.innerText = styleText
     document.head.appendChild(stylee)
   }
+  return id
 }
 
 function getProperty(name = '--btn-hover-darken', cache = true) {
@@ -64,14 +96,15 @@ function getProperty(name = '--btn-hover-darken', cache = true) {
 
 function setBodyProperty(colors, value) {
   for (const [cssVar, cssValue] of entries(colors)) {
-    if (injectType === 'body') {
+    if (config.injectType === 'body') {
+      const target = getThemeTarget()
       if (value === undefined) {
-        document.body.style.removeProperty(cssVar)
+        target.style.removeProperty(cssVar)
       } else {
-        document.body.style.setProperty(cssVar, cssValue)
+        target.style.setProperty(cssVar, cssValue)
       }
     }
-    if (injectType === 'tag') {
+    if (config.injectType === 'tag') {
       if (value === undefined) {
         delete styleObj[cssVar]
       } else {
