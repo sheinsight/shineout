@@ -13,6 +13,7 @@ import API from '../API'
 
 const codeReg = /^<code name="([\w|-]+)" /
 const exampleReg = /^<example name="([\w|-]+)"/
+const apiReg = /^<api name="([\w|-]+)"/
 
 const createId = (level, str) => {
   if (level === 4) return getUidStr()
@@ -122,6 +123,20 @@ export default function MarkDown({ onHeadingSetted, codes, examples, source, api
     return cache[key]
   }
 
+  const renderAPI = name => {
+    const sid = `api-${name}`
+
+    if (!cache[sid]) {
+      const p = (apis || []).find(e => e.title === name)
+
+      if (!p) cache[sid] = null
+      else {
+        cache[sid] = <API key={sid} single {...p} />
+      }
+    }
+    return cache[sid]
+  }
+
   const renderHeading = ({ level, children }) => {
     const key = `${level}-${children[0]}`
     const Tag = `h${level}`
@@ -156,7 +171,9 @@ export default function MarkDown({ onHeadingSetted, codes, examples, source, api
           if (prop.value === '<apis />') return renderApis()
 
           const example = prop.value.match(exampleReg)
+          const api1 = prop.value.match(apiReg)
           if (example) return renderExample(example[1], prop.value.indexOf('noExpand') >= 0)
+          if (api1) return renderAPI(api1[1])
 
           if (prop.value === '<br>' || prop.value === '<br />') return <br />
 

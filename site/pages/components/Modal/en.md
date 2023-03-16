@@ -6,38 +6,7 @@ You can use Modal to display secondary content or actions without jumping to the
 ## API
 
 ### Modal
-
-| Property | Type | Default | Description | version |
-| --- | --- | --- | --- | --- |
-| className | string | - | Extend className | |
-| bodyStyle | object | - | Extend modal body style | |
-| footer | ReactNode | - | The content at the bottom | |
-| maskCloseAble | boolean | true | Whether to close the mask when the mask is clicked | |
-| maskOpacity | number | 0.25 | The opacity of the mask | |
-| padding | number\|string | none | Padding style of the content | |
-| position | string | - | Pop-up position, one of \['top', 'right', 'bottom', 'left'] | |
-| style | object | - | Extend style | |
-| title | ReactNode | - | the title of the pop-up layer | |
-| usePortal | boolean | true | When the usePortal is true, use ReactDOM.createPortal to create the pop-up layer, otherwise use ReactDOM.render.<br /> Use ReactDOM.render while func call. | |
-| visible | boolean | false |  | |
-| width | number \| string | 500 | the width of the Modal | |
-| zIndex | number | 1050 | Modal z-index | |
-| rootClassName | string | - | the root element of modal, the mask parent element | 1.4.2 |
-| container | () => HTMLElement \| HTMLElement | document.body | target element | |
-| moveable | boolean | false | modal support move | |
-| resizable | boolean | false | modal resizable | |
-| maskBackground | string | null | mask background | |
-| onClose | () => void | none | modal close callback | |
-| destroy | boolean | false | Whether to destroy elements when it is closed | |
-| hideClose | boolean | none | hide the close button | |
-| type | 'info' \| 'success' \| 'warning' \| 'error' \| 'normal' | null | Modal Title show status icon | 1.6.1 |
-| zoom | boolean | false | toggle zoom animation | |
-| esc | boolean | true | esc to close | |
-| events | object | none | modal events list, use stopPropagation at createPortal | |
-| fullScreen | boolean | false | display modal with full screen | |
-| top | number \| string | 10vh | distance from top | |
-| forceMask | boolean | false | Whether to force the mask transparency (in multi-layer Modal, the transparency of other Modal masks except the first layer will be adjusted to 0.01) | |
-| noPadding | boolean | - |When the theme is antd, Set the content style padding to 0 | |
+<api name="Modal" />
 
 
 ### ModalMethods
@@ -60,13 +29,4 @@ Modal.closeAll() // close all modal
 
 ** *options support Modal in addition to any other properties of usePortal and destory, there are additional properties as follows **
 
-
-| Property | Type | Default | Description |
-| --- | --- | --- | --- |
-| content | ReactNode | - | Content body |
-| title | string | - | title |
-| onCancel | function | - | The event is triggered when the cancel button is clicked. |
-| onClose | function | none | The event is triggered when the modal is closed. |
-| onOk | function | none | The event is triggered when the ok button is clicked. |
-| text | object | { ok: 'Ok', cancel: 'Cancel' } | The text of button |
-| autoFocusButton | string | - | auto focus button, one of \['ok', 'cancel'] |
+<api name="ModalMethods" />

@@ -163,7 +163,7 @@ function getPropertiesWithDocComments(pp) {
         if (!propertyJsDocTags.inner) lost.push(property.getName())
         return
       }
-      const nodeType = declarations1[0].getType().getNonNullableType()
+      const nodeType = declarations1[0].getType()
       const typeText = getTypeStr(propertyJsDocTags.override, nodeType)
       const itemProperty = {
         name: property.getName(),
@@ -186,7 +186,7 @@ function getPropertiesWithDocComments(pp) {
   })
   return results
 }
-const p = path.resolve(__dirname, '../../src/Menu/Props.ts')
+const p = path.resolve(__dirname, '../../src/Modal/Props.ts')
 console.log(getPropertiesWithDocComments(p))
 const ModuleMap = {
   List: 'DataList',

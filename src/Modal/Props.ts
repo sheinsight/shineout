@@ -4,6 +4,9 @@ import { StandardProps } from '../@types/common'
 export type GetZIndexConsumerProps<Props> = Props
 export type Methods = 'success' | 'info' | 'warning' | 'error' | 'confirm' | 'normal'
 
+/**
+ * @title Modal
+ */
 export interface ModalProps extends StandardProps {
   /**
    * @en Whether to force the mask transparency (in multi-layer Modal, the transparency of other Modal masks except the first layer will be adjusted to 0.01)
@@ -20,8 +23,8 @@ export interface ModalProps extends StandardProps {
   top?: number | string
 
   /**
-   * @en Use the fullScreen property to display the modal in full screen
-   * @cn 使用 fullScreen 属性来使对话框全屏展示
+   * @en display modal with full screen
+   * @cn 是否全屏展示
    * @default false
    */
   fullScreen?: boolean
@@ -36,14 +39,14 @@ export interface ModalProps extends StandardProps {
    * @en The content at the bottom
    * @cn 底部内容
    */
-  footer?: ReactNode | any[]
+  footer?: ReactNode
 
   /**
    * @en Whether to close the mask when the mask is clicked
-   * @cn 点击遮罩层是否关闭对话框
+   * @cn 点击遮罩层是否关闭对话框, 设置为 null 右上角关闭图标会保留
    * @default true
    */
-  maskCloseAble?: boolean | null
+  maskCloseAble?: null | boolean
 
   /**
    * @en The opacity of the mask
@@ -55,13 +58,12 @@ export interface ModalProps extends StandardProps {
   /**
    * @en Padding style of the content
    * @cn 内容内边距
-   * @default 16
    */
   padding?: number | string
 
   /**
-   * @en Pop-up position, one of ['top', 'right', 'bottom', 'left']
-   * @cn 弹出位置，可选值为 ['top', 'right', 'bottom', 'left']
+   * @en Pop-up position
+   * @cn 弹出位置
    */
   position?: 'top' | 'right' | 'bottom' | 'left'
 
@@ -102,6 +104,7 @@ export interface ModalProps extends StandardProps {
   /**
    * @en the root element of modal, the mask parent element
    * @cn modal 的根元素类名, 为遮罩层的父元素
+   * @version 1.4.2
    */
   rootClassName?: string
 
@@ -122,7 +125,6 @@ export interface ModalProps extends StandardProps {
   /**
    * @en mask background
    * @cn 遮罩背景色，设置后透明度将失效
-   * @default null
    */
   maskBackground?: string
 
@@ -148,7 +150,7 @@ export interface ModalProps extends StandardProps {
   /**
    * @en Modal Title show status icon
    * @cn Modal title 显示状态icon
-   * @default null
+   * @version 1..6.1
    */
   type?: 'info' | 'success' | 'warning' | 'error' | 'normal' | 'default'
 
@@ -186,10 +188,20 @@ export interface ModalProps extends StandardProps {
    */
   noPadding?: boolean
 
+  /**
+   * @en the height of the Modal ( only works under normal modal )
+   * @cn 对话框高度 （仅在常规对话框下生效）
+   */
   height?: string | number
-
+  /**
+   * @inner 内部属性
+   */
   drawer?: boolean
 
+  /**
+   * @en Modal 内容
+   * @cn Modal children
+   */
   children?: ReactNode
 }
 
@@ -224,32 +236,31 @@ export interface ModalPanelProps
   height?: string | number
 }
 
-export interface ModalFunctionOptions extends Omit<ModalProps, 'usePortal' | 'destroy'> {
+/**
+ * @title ModalMethods
+ */
+interface ModalFunctionExternalOptions {
   /**
    * @en Content body
    * @cn 提示内容主体
-   * @default null
    */
   content?: ReactNode
 
   /**
    * @en The event is triggered when the cancel button is clicked.
    * @cn 点击取消按钮时触发事件，仅在 confirm 方法中有效
-   * @default null
    */
   onCancel?: () => void
 
   /**
    * @en The event is triggered when the modal is closed.
    * @cn 关闭Modal时触发
-   * @default null
    */
   onClose?: () => void
 
   /**
    * @en The event is triggered when the ok button is clicked.
    * @cn 点击确定按钮时触发事件，返回 Promise 时，会在 Promise resolve 后关闭Modal
-   * @default null
    */
   onOk?: () => void | Promise<any>
 
@@ -265,14 +276,8 @@ export interface ModalFunctionOptions extends Omit<ModalProps, 'usePortal' | 'de
    * @cn 默认聚焦的按钮, 可选值 ['ok', 'cancel']
    */
   autoFocusButton?: string
-
-  /**
-   * @en When the theme is antd, Set the content style padding to 0
-   * @cn 当Sheinout采用 antd 主题时，取消内容区域的padding
-   */
-  noPadding?: boolean
-  children?: ReactNode
 }
+export interface ModalFunctionOptions extends Omit<ModalProps, 'usePortal' | 'destroy'>, ModalFunctionExternalOptions {}
 
 // innerOptions
 export type Options = ModalFunctionOptions & {
