@@ -22,6 +22,7 @@ class Sticky extends PureComponent {
     this.bindOrigin = this.bindOrigin.bind(this)
     this.bindPlaceholder = this.bindPlaceholder.bind(this)
     this.handlePosition = this.handlePosition.bind(this)
+    this.getElementTopInContainer = this.getElementTopInContainer.bind(this)
     this.style = {}
   }
 
@@ -29,6 +30,7 @@ class Sticky extends PureComponent {
     super.componentDidMount()
     const { target } = this.props
     this.targetElement = getParent(this.element, target)
+    this.defaultTop = this.element.getBoundingClientRect().top
     this.handlePosition()
     this.bindScroll()
   }
@@ -62,7 +64,8 @@ class Sticky extends PureComponent {
       } else {
         style.position = 'absolute'
         if (mode === 'top') {
-          style.transform = `translateY(${offset + this.targetElement.scrollTop}px)`
+          const offsetToContainer = this.getElementTopInContainer() - offset
+          style.transform = `translateY(${this.targetElement.scrollTop - offsetToContainer}px)`
         } else {
           style.transform = `translateY(${this.targetElement.scrollTop}px)`
         }
@@ -113,7 +116,7 @@ class Sticky extends PureComponent {
 
     if (this.targetElement) {
       const { paddingTop, paddingBottom } = getComputedStyle(scrollElement)
-      limitTop += scrollRect.top + parseInt(paddingTop, 10)
+      limitTop += scrollRect.top + parseInt(paddingTop, 10) - top
       limitBottom = scrollRect.bottom - bottom - parseInt(paddingBottom, 10)
     }
 
@@ -177,6 +180,19 @@ class Sticky extends PureComponent {
       this.style = style
       this.setState({ style })
     }
+  }
+
+  // 用于计算 sticky 距离指定容器的真实距离
+  getElementTopInContainer() {
+    let { offsetTop } = this.element
+    let parent = this.element.offsetParent
+
+    while (parent !== null && parent !== this.targetElement) {
+      offsetTop += parent.offsetTop
+      parent = parent.offsetParent
+    }
+
+    return offsetTop
   }
 
   triggerChange(flag, style) {
