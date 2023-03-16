@@ -235,6 +235,14 @@ export interface PopoverConfirmProps extends PopoverProps{
    * default: -
    */
    useTextStyle?: boolean;
+  /**
+   * delete dom when close
+   *
+   * 关闭 Popover 后销毁 dom
+   *
+   * default: -
+   */
+  destroy?: boolean;
 }
 
 declare class PopoverConfirm extends React.Component<PopoverConfirmProps, {}> {
