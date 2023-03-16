@@ -141,7 +141,7 @@ class Card<DataItem, Value extends any[]> extends PureComponent<CardProps<DataIt
   }
 
   renderFilter() {
-    const { onFilter, onSearch, renderFilter, filterText, disabled } = this.props
+    const { onFilter, onSearch, renderFilter, filterText, disabled, index } = this.props
     if (!onFilter && !onSearch) return null
     if (renderFilter && typeof renderFilter === 'function') {
       return (
@@ -151,6 +151,7 @@ class Card<DataItem, Value extends any[]> extends PureComponent<CardProps<DataIt
             disabled: disabled === true,
             onFilter,
             placeholder: getLocale('search'),
+            isSource: index === 0,
           })}
         </div>
       )

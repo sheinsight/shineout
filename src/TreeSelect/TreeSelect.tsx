@@ -269,7 +269,7 @@ export default class TreeSelect<Item, Value extends TreeSelectValueType> extends
       this.handleState(false)
     }
     const value = this.getValue()
-    if (onChange) onChange(value, current, id ? datum.getPath(id).path : undefined)
+    if (onChange) onChange(value, current, id ? (datum.getPath(id) || {}).path : undefined)
 
     if (typeof onChangeAddition === 'function') {
       onChangeAddition({
