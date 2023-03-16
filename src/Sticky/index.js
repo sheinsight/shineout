@@ -30,7 +30,6 @@ class Sticky extends PureComponent {
     super.componentDidMount()
     const { target } = this.props
     this.targetElement = getParent(this.element, target)
-    this.defaultTop = this.element.getBoundingClientRect().top
     this.handlePosition()
     this.bindScroll()
   }
