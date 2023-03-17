@@ -251,13 +251,13 @@ class Sticky extends PureComponent {
 
   render() {
     const { children, className, target, css, top, bottom } = this.props
-    const { zIndex = defaultZIndex } = this.props.style
     const { placeholder } = this.state
 
     let outerStyle = this.props.style
     let innerStyle = this.state.style
+
     if (target && supportSticky && css) {
-      outerStyle = Object.assign({}, outerStyle, { position: 'sticky', top, bottom, zIndex })
+      outerStyle = Object.assign({ zIndex: defaultZIndex }, outerStyle, { position: 'sticky', top, bottom })
       innerStyle = {}
     }
 
