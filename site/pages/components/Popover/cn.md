@@ -30,6 +30,7 @@
 | zIndex | number | 1060 | popover 层级 |
 | clickToCancelDelay | boolean | false | 在mouseEnterDelay内点击元素后取消弹出 |
 | useTextStyle | boolean | 无 | 使用内置文本样式 |
+| destroy | boolean | false | 关闭后卸载dom |
 
 ### Popover.Confirm
 | 属性 | 类型 | 默认值 | 说明 |

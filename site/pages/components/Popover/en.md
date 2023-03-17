@@ -31,6 +31,7 @@
 | zIndex | number | 1060 | z-index of popover |
 | clickToCancelDelay | boolean | false | Cancel the popup after clicking the element in mouseEnterDelay |
 | useTextStyle | boolean | - | Using inner styles |
+| destroy | boolean | false | delete dom when close |
 
 ### Popover.Confirm
 
