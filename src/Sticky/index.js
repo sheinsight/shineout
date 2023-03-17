@@ -11,6 +11,7 @@ import { consumer } from './context'
 
 const events = ['scroll', 'pageshow', 'load']
 const supportSticky = cssSupport('position', 'sticky')
+const defaultZIndex = 900
 
 class Sticky extends PureComponent {
   constructor(props) {
@@ -30,7 +31,10 @@ class Sticky extends PureComponent {
     const { target } = this.props
     this.targetElement = getParent(this.element, target)
     this.handlePosition()
-    this.bindScroll()
+
+    if (!this.shouldUseCss) {
+      this.bindScroll()
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -45,10 +49,17 @@ class Sticky extends PureComponent {
     if (this.scrollTimer) clearTimeout(this.scrollTimer)
   }
 
-  getStyle(mode, offset, left, width) {
-    const { zIndex = 900 } = this.props.style
+  get shouldUseCss() {
     const { css } = this.props
+    if (css && supportSticky && this.targetElement) {
+      return true
+    }
+    return false
+  }
 
+  getStyle(mode, offset, left, width) {
+    const { zIndex = defaultZIndex } = this.props.style
+    const { css } = this.props
     const style = {
       position: 'fixed',
       left,
@@ -173,6 +184,7 @@ class Sticky extends PureComponent {
     if (placeholder !== undefined) {
       this.setState({ placeholder })
     }
+
     if (style) {
       this.style = style
       this.setState({ style })
@@ -194,7 +206,6 @@ class Sticky extends PureComponent {
 
     this.locked = true
     this.scrollCount = 0
-
     this.setPosition()
     this.scrollTimer = setTimeout(() => {
       this.locked = false
@@ -239,13 +250,14 @@ class Sticky extends PureComponent {
   }
 
   render() {
-    const { children, className, target, css } = this.props
+    const { children, className, target, css, top, bottom } = this.props
     const { placeholder } = this.state
 
     let outerStyle = this.props.style
     let innerStyle = this.state.style
+
     if (target && supportSticky && css) {
-      outerStyle = Object.assign({}, outerStyle, innerStyle)
+      outerStyle = Object.assign({ zIndex: defaultZIndex }, outerStyle, { position: 'sticky', top, bottom })
       innerStyle = {}
     }
 
