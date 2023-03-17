@@ -11,6 +11,7 @@ import { consumer } from './context'
 
 const events = ['scroll', 'pageshow', 'load']
 const supportSticky = cssSupport('position', 'sticky')
+const defaultZIndex = 900
 
 class Sticky extends PureComponent {
   constructor(props) {
@@ -57,7 +58,7 @@ class Sticky extends PureComponent {
   }
 
   getStyle(mode, offset, left, width) {
-    const { zIndex = 900 } = this.props.style
+    const { zIndex = defaultZIndex } = this.props.style
     const { css } = this.props
     const style = {
       position: 'fixed',
@@ -250,7 +251,7 @@ class Sticky extends PureComponent {
 
   render() {
     const { children, className, target, css, top, bottom } = this.props
-    const { zIndex = 900 } = this.props.style
+    const { zIndex = defaultZIndex } = this.props.style
     const { placeholder } = this.state
 
     let outerStyle = this.props.style
