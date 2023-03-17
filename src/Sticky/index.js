@@ -69,7 +69,6 @@ class Sticky extends PureComponent {
     if (this.targetElement) {
       if (supportSticky && css) {
         style.position = 'sticky'
-        style.top = offset
       } else {
         style.position = 'absolute'
         if (mode === 'top') {
