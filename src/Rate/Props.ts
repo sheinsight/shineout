@@ -2,6 +2,26 @@ import { ReactElement, ReactNode } from 'react'
 import { StandardProps } from '../@types/common'
 import { GetInputableProps } from '../Form/Props'
 
+/**
+ * @title RateFunction
+ * @subTitle (background, front): ReactClass
+ */
+export type ArgProps = {
+  /**
+   * @en Unselected element background
+   * @cn 未选中元素背景
+   * @override ReactElement | string | Array<string | ReactElement>
+   */
+  background?: ReactElement | string | Array<string | ReactElement>
+
+  /**
+   * @en selected element background
+   * @cn 选中元素背景
+   * @override ReactElement | string | Array<string | ReactElement>
+   */
+  front?: ReactElement | string | Array<string | ReactElement>
+}
+
 export declare interface OriginRateProps extends ArgProps, StandardProps {
   /**
    * @en Whether to allow semi selection
@@ -63,18 +83,8 @@ export declare interface OriginRateProps extends ArgProps, StandardProps {
    */
   onChange: (value: number) => void
 }
-export interface ArgProps {
-  /**
-   * @en Unselected element background
-   * @cn 未选中元素背景
-   */
-  background?: ReactElement | string | Array<string | ReactElement>
 
-  /**
-   * @en selected element background
-   * @cn 选中元素背景
-   */
-  front?: ReactElement | string | Array<string | ReactElement>
-}
-
+/**
+ * @title Rate
+ */
 export type RateProps = GetInputableProps<Omit<OriginRateProps, keyof ArgProps>, string>

@@ -100,7 +100,7 @@ function getImportType(text) {
   return resultStr
 }
 
-function getTypeStr(override, type) {
+function getTypeStr(override, type, optional) {
   if (override && override !== 'union') {
     return override
   }
@@ -109,6 +109,7 @@ function getTypeStr(override, type) {
     text = type
       .getUnionTypes()
       .map(t => t.getText())
+      .filter(item => optional && item !== 'undefined')
       .join(' | ')
   }
   text = getImportType(text)
@@ -164,7 +165,8 @@ function getPropertiesWithDocComments(pp) {
         return
       }
       const nodeType = declarations1[0].getType()
-      const typeText = getTypeStr(propertyJsDocTags.override, nodeType)
+      const optional = property.isOptional()
+      const typeText = getTypeStr(propertyJsDocTags.override, nodeType, optional)
       const itemProperty = {
         name: property.getName(),
         tag: {
@@ -186,7 +188,7 @@ function getPropertiesWithDocComments(pp) {
   })
   return results
 }
-const p = path.resolve(__dirname, '../../src/Popover/Props.ts')
+const p = path.resolve(__dirname, '../../src/Spin/Props.ts')
 console.log(getPropertiesWithDocComments(p))
 const ModuleMap = {
   List: 'DataList',

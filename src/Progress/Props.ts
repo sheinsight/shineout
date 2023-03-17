@@ -9,6 +9,9 @@ export interface ColorStep {
   [key: string]: string | undefined
 }
 
+/**
+ * @title Progress
+ */
 export interface ProgressProps extends StandardProps {
   /**
    * @en popup to show children
@@ -37,8 +40,8 @@ export interface ProgressProps extends StandardProps {
   color?: string | ColorStep
 
   /**
-   * @en Options: ['line', 'circle']
-   * @cn 样式，可选值为 ['line', 'circle']
+   * @en Options
+   * @cn 样式
    * @default 'line'
    */
   shape?: 'line' | 'circle'
@@ -64,8 +67,8 @@ export interface ProgressProps extends StandardProps {
   style?: React.CSSProperties
 
   /**
-   * @en Built-in color, options: ['success', 'info', 'warning', 'danger']
-   * @cn 内置配色，可选值为，['success', 'info', 'warning', 'danger']
+   * @en Built-in color
+   * @cn 内置配色
    */
   type?: 'success' | 'info' | 'warning' | 'danger'
 

@@ -97,6 +97,9 @@ export type SimpleRadioProps = Omit<
   'content' | 'onChange' | 'onRawChange' | 'inputable' | 'value' | 'loading'
 > & {
   checked?: boolean | ((htmlValue: any) => boolean)
+  /**
+   * @inner 内部属性
+   */
   onChange?: ((value: any, checked: CheckValueType, index?: number) => void)
 }
 export type SimpleSwitchProps = Omit<

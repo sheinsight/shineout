@@ -108,6 +108,9 @@ export interface IndicatorProps {
 }
 
 export type SliderPropsWidthInputable<Value extends number | number[]> = GetInputableProps<ContainerProps<Value>, Value>
+/**
+ * @title Slider
+ */
 export type SliderProps<Value extends number | number[]> = SliderPropsWidthInputable<Value>
 
 export declare class SliderClass<Value extends number | number[]> extends React.Component<SliderProps<Value>, {}> {

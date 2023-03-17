@@ -48,6 +48,7 @@ export interface BaseSelectProps<Item, Value>
   /**
    * @en tree select data，[{children: []}]
    * @cn 树形结构数据项，[{children: []}]
+   * @override object[]
    */
   treeData?: Item[]
 
@@ -118,6 +119,7 @@ export interface BaseSelectProps<Item, Value>
    * @en size of select
    * @cn 尺寸
    * @default 'default'
+   * @override union
    */
   size?: RegularAttributes.Size
 
@@ -157,7 +159,7 @@ export interface BaseSelectProps<Item, Value>
 
   /**
    * @en the way to render not matched data value
-   * @cn 渲染未匹配值的方式
+   * @cn 渲染未匹配值的方式
    */
   renderUnmatched?: (data: ValueItem<Value>) => ReactNode
 
@@ -198,7 +200,7 @@ export interface BaseSelectProps<Item, Value>
    * @en The className of the selected result content container
    * @cn 选中结果内容容器的className
    */
-  resultClassName?: ((value: Item | ResultValue<Value>) => string) | string
+  resultClassName?: ((value: Item) => string) | string
 
   /**
    * @en There are onFilter and onCreate, select Option, automatically focus Input
@@ -344,19 +346,39 @@ export interface BaseSelectProps<Item, Value>
    */
   open?: boolean
   data: Item[]
+  /**
+   * @en In the Form, the value will be taken over by the form and the value will be invalid.
+   * @cn 在Form中，value会被表单接管，value无效
+   * @override any
+   */
   value: Value
+  /**
+   * @en Initial value
+   * @cn 默认值
+   * @override any
+   */
   defaultValue?: Value
   datum: List<Item, Value>
   filterText?: string
+  /**
+   * @en blur callback
+   * @cn blur 回调
+   */
   onBlur: (e?: any) => void
+  /**
+   * @en focus callback
+   * @cn focus 回调
+   */
   onFocus: (e?: any) => void
   result: ResultItem<Item>[]
   inputText?: string
   groupKey: string
   innerData: Item
   inputable?: boolean
+  /**
+   * @inner 内部属性
+   */
   text?: { noData?: string }
-  expanded?: string[]
 }
 
 /** ---------- optionList ---------- */
@@ -578,7 +600,10 @@ export interface GroupProps<Item, Value> extends Omit<BaseSelectProps<Item, Valu
   groupKey: string
 }
 
-export type GetFilterProps<Props, Item> = Omit<Props, 'filterText' | 'result' | 'innerData' | 'onFilter' | 'data'> & {
+export type GetFilterProps<Props, Item> = Omit<
+  Props,
+  'filterText' | 'result' | 'innerData' | 'onFilter' | 'data' | 'inputText' | 'inputable'
+> & {
   /**
    * @en Options data
    * @cn 筛选后是否展示命中节点的后代节点
@@ -645,6 +670,9 @@ type DataListDatumKey = 'disabled' | 'limit' | 'format' | 'prediction' | 'separa
 export type SelectPropsWidthInputBorder<Item, Value> = GetInputBorderProps<SelectPropsWidthLimitWrap<Item, Value>>
 export type SelectPropsWidthInputable<Item, Value> = GetInputableProps<SelectPropsWidthInputBorder<Item, Value>, Value>
 
+/**
+ * @title Select
+ */
 export type SelectProps<Item, Value> = SelectPropsWidthInputable<Item, Value>
 
 export declare class SelectClass<Item = any, Value = any> extends React.Component<SelectProps<Item, Value>, {}> {
