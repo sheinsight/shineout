@@ -1,8 +1,5 @@
 import { StandardProps } from '../@types/common'
-
-interface SizeListProps {
-  [propName: string]: any
-}
+import { SelectProps } from '../Select/Props'
 
 export interface TextParams {
   prev?: string
@@ -11,6 +8,9 @@ export interface TextParams {
   jumper?: string
 }
 
+/**
+ * @title Pagination
+ */
 export interface PaginationProps extends StandardProps {
   /**
    * @en align of pagination
@@ -40,11 +40,11 @@ export interface PaginationProps extends StandardProps {
   disabled?: boolean
 
   /**
-   * @en The layout of child elements, options: 'links': page number。'simple': simple page number(Do not use both simple and links)。'list': page size selector。'jumper': jump to page number。'simple': minimalist mode。function({ current, total, pageSize }): custom information
-   * @cn 子组件布局，可选值为:'links': 页码。'simple': 简约页码(和links不要同时使用)。'list': 每页数量选择。'jumper': 跳转页码。'simple': 极简模式。function({ current, total, pageSize }): 匿名函数，用来信息展示
+   * @en The layout of child elements, options: 'links': page number; 'simple': simple page number(Do not use both simple and links); 'list': page size selector; 'jumper': jump to page number; 'simple': minimalist mode; function({ current, total, pageSize }): custom information
+   * @cn 子组件布局，可选值为:'links': 页码；'simple': 简约页码(和links不要同时使用)；'list': 每页数量选择。'jumper': 跳转页码；function({ current, total, pageSize }): 匿名函数，用来信息展示
    * @default ['links']
    */
-  layout?: (string | ((...args: any[]) => string))[]
+  layout?: Array<'links' | 'simple' | 'list' | 'jumper' | ((props: PaginationProps) => string)>
 
   /**
    * @en The callback function when current page or pageSize is changing。current: new page number。pageSize: number of each page
@@ -90,7 +90,7 @@ export interface PaginationProps extends StandardProps {
    * @en Additional attributes which need to given page size selector
    * @cn 需要给分页数量的选择框的额外的属性
    */
-  sizeListProps?: SizeListProps
+  sizeListProps?: SelectProps<number, number>
 
   /**
    * @en The number of pagination buttons

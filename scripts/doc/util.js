@@ -186,7 +186,7 @@ function getPropertiesWithDocComments(pp) {
   })
   return results
 }
-const p = path.resolve(__dirname, '../../src/Modal/Props.ts')
+const p = path.resolve(__dirname, '../../src/Popover/Props.ts')
 console.log(getPropertiesWithDocComments(p))
 const ModuleMap = {
   List: 'DataList',

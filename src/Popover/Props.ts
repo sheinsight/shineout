@@ -47,9 +47,8 @@ export interface PanelProps extends StandardProps, PopoverProviderProps {
   /**
    * @en Pop-up content.
    * @cn 弹出显示内容，如果内容为函数，则参数是主动关闭操作
-   * @default required
    */
-  children?: ReactNode | ((close: ((e?: MouseEvent) => void)) => ReactNode)
+  children: ReactNode | ((close: ((e?: MouseEvent) => void)) => ReactNode)
   /**
    * @en Callback event when close.
    * @cn Popover 关闭时回调事件
@@ -146,7 +145,12 @@ export interface PanelProps extends StandardProps, PopoverProviderProps {
   useTextStyle?: boolean
 }
 
-export interface PopoverConfirmProps extends Omit<PopoverProps, 'children' | 'type'> {
+/**
+ * @title Popover.Confirm
+ * @en Properties are basically the same as popovers, except for the following:
+ * @cn 属性和 Popover 基本一致，除了以下:
+ */
+export interface PopoverConfirmSelfProps {
   /**
    * @en button text
    * @cn 按钮文字
@@ -178,6 +182,10 @@ export interface PopoverConfirmProps extends Omit<PopoverProps, 'children' | 'ty
    * @default danger
    */
   icon?: AlertProps['icon']
+  /**
+   * @en Pop-up content.
+   * @cn 弹出显示内容
+   */
   children: ReactNode
   /**
    * @en same with Alert type
@@ -186,6 +194,12 @@ export interface PopoverConfirmProps extends Omit<PopoverProps, 'children' | 'ty
    */
   type?: AlertProps['type']
 }
+
+export interface PopoverConfirmProps extends Omit<PopoverProps, 'children' | 'type'>, PopoverConfirmSelfProps {}
+
+/**
+ * @title PopoverProps
+ */
 export type PopoverProps = GetPopoverConsumerProps<PanelProps>
 export interface PopoverContentProps extends Omit<PopoverProps, 'useTextStyle'> {}
 
