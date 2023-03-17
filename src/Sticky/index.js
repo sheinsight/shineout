@@ -22,7 +22,6 @@ class Sticky extends PureComponent {
     this.bindOrigin = this.bindOrigin.bind(this)
     this.bindPlaceholder = this.bindPlaceholder.bind(this)
     this.handlePosition = this.handlePosition.bind(this)
-    this.getElementTopInContainer = this.getElementTopInContainer.bind(this)
     this.style = {}
   }
 
@@ -31,7 +30,10 @@ class Sticky extends PureComponent {
     const { target } = this.props
     this.targetElement = getParent(this.element, target)
     this.handlePosition()
-    this.bindScroll()
+
+    if (!this.shouldUseCss) {
+      this.bindScroll()
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -46,10 +48,17 @@ class Sticky extends PureComponent {
     if (this.scrollTimer) clearTimeout(this.scrollTimer)
   }
 
+  get shouldUseCss() {
+    const { css } = this.props
+    if (css && supportSticky && this.targetElement) {
+      return true
+    }
+    return false
+  }
+
   getStyle(mode, offset, left, width) {
     const { zIndex = 900 } = this.props.style
     const { css } = this.props
-
     const style = {
       position: 'fixed',
       left,
@@ -60,11 +69,11 @@ class Sticky extends PureComponent {
     if (this.targetElement) {
       if (supportSticky && css) {
         style.position = 'sticky'
+        style.top = offset
       } else {
         style.position = 'absolute'
         if (mode === 'top') {
-          const offsetToContainer = this.getElementTopInContainer() - offset
-          style.transform = `translateY(${this.targetElement.scrollTop - offsetToContainer}px)`
+          style.transform = `translateY(${offset + this.targetElement.scrollTop}px)`
         } else {
           style.transform = `translateY(${this.targetElement.scrollTop}px)`
         }
@@ -115,7 +124,7 @@ class Sticky extends PureComponent {
 
     if (this.targetElement) {
       const { paddingTop, paddingBottom } = getComputedStyle(scrollElement)
-      limitTop += scrollRect.top + parseInt(paddingTop, 10) - top
+      limitTop += scrollRect.top + parseInt(paddingTop, 10)
       limitBottom = scrollRect.bottom - bottom - parseInt(paddingBottom, 10)
     }
 
@@ -175,23 +184,11 @@ class Sticky extends PureComponent {
     if (placeholder !== undefined) {
       this.setState({ placeholder })
     }
+
     if (style) {
       this.style = style
       this.setState({ style })
     }
-  }
-
-  // 用于计算 sticky 距离指定容器的真实距离
-  getElementTopInContainer() {
-    let { offsetTop } = this.element
-    let parent = this.element.offsetParent
-
-    while (parent !== null && parent !== this.targetElement) {
-      offsetTop += parent.offsetTop
-      parent = parent.offsetParent
-    }
-
-    return offsetTop
   }
 
   triggerChange(flag, style) {
@@ -209,7 +206,6 @@ class Sticky extends PureComponent {
 
     this.locked = true
     this.scrollCount = 0
-
     this.setPosition()
     this.scrollTimer = setTimeout(() => {
       this.locked = false
@@ -254,13 +250,14 @@ class Sticky extends PureComponent {
   }
 
   render() {
-    const { children, className, target, css } = this.props
+    const { children, className, target, css, top, bottom } = this.props
+    const { zIndex = 900 } = this.props.style
     const { placeholder } = this.state
 
     let outerStyle = this.props.style
     let innerStyle = this.state.style
     if (target && supportSticky && css) {
-      outerStyle = Object.assign({}, outerStyle, innerStyle)
+      outerStyle = Object.assign({}, outerStyle, { position: 'sticky', top, bottom, zIndex })
       innerStyle = {}
     }
 
