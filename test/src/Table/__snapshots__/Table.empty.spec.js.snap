@@ -706,11 +706,7 @@ exports[`Table[Empty] should render empty table with fixed column 1`] = `
 exports[`Table[Empty] should render loading status while empty 1`] = `
 <div
   className="so-table so-table-default so-table-hover so-table-vertical-top"
-  style={
-    Object {
-      "overflow": "hidden",
-    }
-  }
+  style={Object {}}
 >
   <div
     className="so-table-head so-table-simple-head so-table-empty-head"
