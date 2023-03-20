@@ -124,7 +124,6 @@ class Table extends Component {
     const newStyle = Object.assign({}, style)
     if (height) newStyle.height = height
     if (useSeparate && !newStyle.height) newStyle.height = '100%'
-    if (loading) newStyle.overflow = 'hidden'
 
     return (
       <div className={className} ref={this.bindTable} style={newStyle} {...events}>
