@@ -8,6 +8,11 @@ export type CheckValueType = boolean | 'indeterminate'
 export type CheckType = 'radio' | 'switch' | 'checkbox'
 export interface CheckItemProps extends StandardProps {
   /**
+   * @en Form field, used with Form
+   * @cn 表单字段,配合 Form 使用
+   */
+  name?: string
+  /**
    * @en content
    * @cn 内容
    */
@@ -19,15 +24,14 @@ export interface CheckItemProps extends StandardProps {
    */
   disabled?: boolean
   /**
-   *
    * @en loading
-   * @en 加载中
+   * @cn 加载中
    * @default false
    */
   loading?: boolean
   /**
-   *  @en if not set, use (value === htmlValue).
-   *  @cn checked 传入时为受控组件
+   * @en if not set, use (value === htmlValue).
+   * @cn checked 传入时为受控组件
    */
   checked?: CheckValueType | ((htmlValue: any) => CheckValueType)
 
@@ -104,10 +108,23 @@ export type SimpleRadioProps = Omit<
 }
 export type SimpleSwitchProps = Omit<
   CheckItemProps,
-  'onChange' | 'onRawChange' | 'inputable' | 'value' | 'children'
+  'onChange' | 'onRawChange' | 'inputable' | 'value' | 'children' | 'checked' | 'htmlValue'
 > & {
-  checked?: boolean | ((htmlValue: any) => boolean)
+  /**
+   * @en checked status，will in control when pass
+   * @cn 当前选中状态，checked 传入时为受控组件
+   */
+  checked?: boolean
+  /**
+   * @en checked is status
+   * @cn checked 表示选中状态
+   */
   onChange?: ((value: boolean) => void)
+  /**
+   * @en set while no checked
+   * @cn checked 未设置的情况下， checked = value
+   */
+  value?: boolean
 }
 
 export interface CheckboxContextProvider {
@@ -118,6 +135,11 @@ export interface CheckboxContextProvider {
 export type CheckboxProviderProps<U> = Omit<U, 'onRawChange'>
 
 export interface BaseCheckboxGroupProps<DataItem, Value> extends StandardProps {
+  /**
+   * @en Form field, used with Form
+   * @cn 表单字段,配合 Form 使用
+   */
+  name?: string
   /**
    * @en Checkbox instance
    * @cn Checkbox 实例

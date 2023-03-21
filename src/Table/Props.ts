@@ -40,6 +40,9 @@ export interface SummaryItem {
   rowSpan?: number
 }
 
+/**
+ * @title TableColumn
+ */
 export interface CommonColumn<T> {
   /**
    * @en cell align \['left', 'center', 'right'\]
@@ -185,6 +188,10 @@ export type GetTableConsumerProps<Props> = Props
 /** ------ tableIndex ---------- */
 export type TablePropsWithPagable<DataItem, Value> = GetPagableProps<TableProps<DataItem, Value>>
 export type TablePropsWidthPT<DataItem, Value> = GetTreeExpandProps<TablePropsWithPagable<DataItem, Value>, DataItem>
+
+/**
+ * @title Table
+ */
 export interface TableIndexProps<DataItem, Value>
   extends Omit<
     TablePropsWidthPT<DataItem, Value>,

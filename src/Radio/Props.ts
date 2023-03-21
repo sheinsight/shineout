@@ -9,6 +9,11 @@ import ListDatum from '../Datum/List'
 
 export interface BaseRadioGroupProps<DataItem, Value> extends StandardProps {
   /**
+   * @en Form field, used with Form
+   * @cn 表单字段,配合 Form 使用
+   */
+  name?: string
+  /**
    * @en You can pass in a set of Radio
    * @cn 可以传入一组Radio
    */
@@ -89,7 +94,7 @@ export type InputRadioGroupProps<DataItem, Value> = InputRadioGroupPropsWidthInp
 /**
  * @title Radio.Group
  */
-export type RadioGroupProps<DataItem, Value> = InputRadioGroupProps<DataItem, Value>
+export type RadioGroupProps<DataItem, Value> = Omit<InputRadioGroupProps<DataItem, Value>, 'filterSameChange'>
 
 export declare class RadioGroup<DataItem, Value> extends React.Component<RadioGroupProps<DataItem, Value>, {}> {
   render(): JSX.Element

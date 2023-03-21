@@ -33,6 +33,11 @@ export interface BaseSelectProps<Item, Value>
     Pick<InputableProps<Value>, 'formDatum'>,
     Pick<TreeProps<Item, ValueArr<Value>>, ExpandTreeKeys> {
   /**
+   * @en Form field, used with Form
+   * @cn 表单字段,配合 Form 使用
+   */
+  name?: string
+  /**
    * @en If clearable is true, show clear value icon
    * @cn 是否可清除值
    * @default false

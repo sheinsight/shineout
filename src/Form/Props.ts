@@ -214,9 +214,8 @@ export interface InputableProps<Value> {
    */
   scuSkip?: string[]
   /**
-   * @en defaultValue
-   * @cn 默认值
-   * @override any
+   * @en defaultValue 和 value 类型相同
+   * @cn 默认值  和 value 类型相同
    */
   defaultValue?: Value
   /**
@@ -249,8 +248,7 @@ export type InputableFormConsumerKey = 'formDatum' | 'disabled' | 'combineRules'
 // 过滤掉原生属性required
 type InputablePropsFiltered<Value> = Omit<InputableProps<Value>, 'required'>
 // value 和 onChange 变为可选属性 并去掉validateHook属性
-type HandleValueProps<Props extends BaseInputProps> = Omit<Props, 'value' | 'onChange' | 'validateHook'> &
-  Partial<Pick<Props, 'value' | 'onChange'>>
+type HandleValueProps<Props extends BaseInputProps> = PartialKeys<Omit<Props, 'validateHook'>, 'value' | 'onChange'>
 // inputable 中增加了一些属性
 type AddInputProps<Props extends BaseInputProps, Value> = ForceAdd<
   HandleValueProps<Props>,

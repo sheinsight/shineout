@@ -3,7 +3,15 @@ import { StandardProps } from '../@types/common'
 
 export type Mode = 'top' | 'bottom'
 
+/**
+ * @title Sticky
+ */
 export interface StickyProps extends StandardProps {
+  /**
+   * @en Extend style. The default z-Index after triggering the float is 900, and you can modify the z-Index of the style to change.
+   * @cn 扩展样式。触发浮动后的默认zIndex为900，修改style的zIndex来改变。
+   */
+  style?: React.CSSProperties
   /**
    * @en Offsets from the bottom.
    * @cn 距离底部多少偏移量触发
@@ -41,11 +49,7 @@ export interface StickyProps extends StandardProps {
   children?: ReactNode
 
   /**
-   * -
-   *
-   * 内部使用
-   *
-   * default: -
+   * @inner 内部使用
    */
   needResetPostion?: boolean
 }

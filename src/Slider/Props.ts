@@ -4,6 +4,11 @@ import { GetInputableProps } from '../Form/Props'
 
 export interface ContainerProps<Value extends number | number[]> extends StandardProps {
   /**
+   * @en Form field, used with Form
+   * @cn 表单字段,配合 Form 使用
+   */
+  name?: string
+  /**
    * @en Automatically hides the current value and scale
    * @cn 是否自动隐藏当前值和刻度
    * @default false
@@ -111,7 +116,7 @@ export type SliderPropsWidthInputable<Value extends number | number[]> = GetInpu
 /**
  * @title Slider
  */
-export type SliderProps<Value extends number | number[]> = SliderPropsWidthInputable<Value>
+export type SliderProps<Value extends number | number[]> = Omit<SliderPropsWidthInputable<Value>, 'filterSameChange'>
 
 export declare class SliderClass<Value extends number | number[]> extends React.Component<SliderProps<Value>, {}> {
   render(): JSX.Element

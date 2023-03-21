@@ -27,7 +27,7 @@ In addition to its own shineout theme, there are two sets of theme built in, def
 
 You can switch topics by modifying the webpack's less-loader configuration.
 ```
-//  ts-loader < 6.0.0
+//  less-loader < 6.0.0
 {
   loader: 'less-loader',
   options: {
@@ -36,7 +36,7 @@ You can switch topics by modifying the webpack's less-loader configuration.
     }
   }
 }
-// ts-loader >= 6.0.0
+// less-loader >= 6.0.0
 {
   loader: 'less-loader',
   options: {
@@ -54,7 +54,7 @@ You can switch topics by modifying the webpack's less-loader configuration.
 
 By default, the css code is isolated by prefix. The default prefix is 'so' and does not need to modified normally. If you wang to modify this value, modify the less-loader configuration of the webpack.
 ```
-//  ts-loader < 6.0.0
+//  less-loader < 6.0.0
 {
   loader: 'less-loader',
   options: {
@@ -63,7 +63,7 @@ By default, the css code is isolated by prefix. The default prefix is 'so' and d
     }
   }
 }
-// ts-loader >= 6.0.0
+// less-loader >= 6.0.0
 {
   loader: 'less-loader',
   options: {

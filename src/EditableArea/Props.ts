@@ -5,6 +5,11 @@ import { GetDelayProps } from '../hoc/Props'
 
 export interface BaseProps extends StandardProps {
   /**
+   * @en Form field, used with Form
+   * @cn 表单字段,配合 Form 使用
+   */
+  name?: string
+  /**
    * @inner 内部属性
    */
   error?: Error

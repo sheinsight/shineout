@@ -24,6 +24,11 @@ export type ArgProps = {
 
 export declare interface OriginRateProps extends ArgProps, StandardProps {
   /**
+   * @en Form field, used with Form
+   * @cn 表单字段,配合 Form 使用
+   */
+  name?: string
+  /**
    * @en Whether to allow semi selection
    * @cn 是否允许半选
    * @default false
@@ -84,7 +89,9 @@ export declare interface OriginRateProps extends ArgProps, StandardProps {
   onChange: (value: number) => void
 }
 
+export type RatePropsWithInput = GetInputableProps<Omit<OriginRateProps, keyof ArgProps>, string>
+
 /**
  * @title Rate
  */
-export type RateProps = GetInputableProps<Omit<OriginRateProps, keyof ArgProps>, string>
+export type RateProps = Omit<RatePropsWithInput, 'filterSameChange'>

@@ -30,7 +30,7 @@ function replaceStr(str) {
       'string | number | boolean | {} | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactNodeArray | React.ReactPortal',
       'ReactNode'
     )
-    .replaceAll('ReactElement<any, string | JSXElementConstructor<any>>', 'ReactElement')
+    .replaceAll('React.ReactElement<any, string | React.JSXElementConstructor<any>>', 'ReactElement')
     .replaceAll('| undefined', '')
     .replaceAll('React.', '')
     .replace(/\r?\n|\r/g, '')
@@ -188,7 +188,7 @@ function getPropertiesWithDocComments(pp) {
   })
   return results
 }
-const p = path.resolve(__dirname, '../../src/Spin/Props.ts')
+const p = path.resolve(__dirname, '../../src/Table/Props.ts')
 console.log(getPropertiesWithDocComments(p))
 const ModuleMap = {
   List: 'DataList',
