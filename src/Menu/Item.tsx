@@ -7,7 +7,7 @@ import List from './List'
 import { consumer } from './context'
 import { isLink } from '../utils/is'
 import { isRTL } from '../config'
-import { getParent } from '../utils/dom/element'
+import { getParent, wrapSpan } from '../utils/dom/element'
 import { ItemProps, BaseItemProps } from './Props'
 import { DefaultProps } from './Root'
 
@@ -200,14 +200,14 @@ class Item<U extends BaseItemProps<U>> extends PureComponent<ItemProps<U>, State
       return (
         <a {...props}>
           <div style={{ color: caretColor }} className={menuClass('caret', hasChilds && 'has-childs')} />
-          <span>{item}</span>
+          {wrapSpan(item)}
         </a>
       )
     }
 
     return (
       <a {...props}>
-        <span>{item}</span>
+        {wrapSpan(item)}
         <span className={menuClass('expand')} style={{ color: caretColor }} />
       </a>
     )
