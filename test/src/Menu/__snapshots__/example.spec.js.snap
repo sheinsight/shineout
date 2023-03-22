@@ -479,10 +479,8 @@ exports[`Menu[snapshot] Snapshot test: Menu[site/pages/components/Menu/example-6
       <li>
         <a>
           <span>
-            <span>
-              <i />
-               Navigation One
-            </span>
+            <i />
+             Navigation One
           </span>
           <span />
         </a>
@@ -490,10 +488,8 @@ exports[`Menu[snapshot] Snapshot test: Menu[site/pages/components/Menu/example-6
       <li>
         <a>
           <span>
-            <span>
-              <i />
-               Navigation Two
-            </span>
+            <i />
+             Navigation Two
           </span>
           <span />
         </a>
@@ -519,10 +515,8 @@ exports[`Menu[snapshot] Snapshot test: Menu[site/pages/components/Menu/example-6
       <li>
         <a>
           <span>
-            <span>
-              <i />
-               Navigation Three
-            </span>
+            <i />
+             Navigation Three
           </span>
           <span />
         </a>
@@ -566,10 +560,8 @@ exports[`Menu[snapshot] Snapshot test: Menu[site/pages/components/Menu/example-6
       <li>
         <a>
           <span>
-            <span>
-              <i />
-               Navigation Four
-            </span>
+            <i />
+             Navigation Four
           </span>
           <span />
         </a>
