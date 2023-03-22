@@ -237,7 +237,8 @@ export default class TableIndex<DataItem, Value> extends React.Component<
         })
       )
     } else {
-      const sort = typeof sorter === 'string' ? this.getTableSorter()(sorter, order, [{ order, index }]) : sorter(order)
+      const sort =
+        typeof sorter === 'string' ? this.getTableSorter()(sorter, order, [{ order, index, manual }]) : sorter(order)
       this.setState(
         immer(state => {
           state.sorter = []

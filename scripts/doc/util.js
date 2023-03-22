@@ -37,7 +37,7 @@ function replaceStr(str) {
 }
 
 function getInterfaceType(type) {
-  let str = '{'
+  const strArr = []
   const properties = typeChecker.getPropertiesOfType(type.getType())
   properties.forEach(property => {
     const isOptional = property.isOptional()
@@ -47,10 +47,10 @@ function getInterfaceType(type) {
       .getType()
       .getText()
       .replaceAll('| undefined', '')
-    str += ` ${name}${isOptional ? '?:' : ':'} ${pt}`
+    strArr.push(` ${name}${isOptional ? '?:' : ':'} ${pt}`)
   })
-  str += ' }'
-  return str
+
+  return `{ ${strArr.join(',')} }`
 }
 // 获取文件中的某个属性的类型
 function getPathType(pp, name) {
@@ -69,7 +69,7 @@ function getPathType(pp, name) {
 }
 
 // 处理import
-function getImportType(text) {
+function getImportType(text, de) {
   // eslint-disable-next-line
   const reg = /import\("([^"]+)"\)\.(\w+)(<[\w\[\]]+>)?(\[\])?/g
   let currentMatch
@@ -91,16 +91,20 @@ function getImportType(text) {
             type: getPathType(`${pp}.ts`, name),
           }
         }
+        if (de) console.info('before', resultStr)
+        if (de) console.info('replace', str)
         resultStr = resultStr.replace(str, isArray ? `(${pathMap[name].type})[]` : pathMap[name].type)
+        if (de) console.info('after', resultStr)
       } else {
         resultStr = resultStr.replace(str, `${name}${fanXin}${isArray}`)
       }
     }
   } while (currentMatch !== null)
+  if (reg.test(resultStr)) return getImportType(resultStr, de)
   return resultStr
 }
 
-function getTypeStr(override, type, optional) {
+function getTypeStr(override, type, optional, name) {
   if (override && override !== 'union') {
     return override
   }
@@ -112,7 +116,7 @@ function getTypeStr(override, type, optional) {
       .filter(item => optional && item !== 'undefined')
       .join(' | ')
   }
-  text = getImportType(text)
+  text = getImportType(text, name === 'sorter')
   text = replaceStr(text)
   return text
 }
@@ -166,7 +170,7 @@ function getPropertiesWithDocComments(pp) {
       }
       const nodeType = declarations1[0].getType()
       const optional = property.isOptional()
-      const typeText = getTypeStr(propertyJsDocTags.override, nodeType, optional)
+      const typeText = getTypeStr(propertyJsDocTags.override, nodeType, optional, property.getName())
       const itemProperty = {
         name: property.getName(),
         tag: {
