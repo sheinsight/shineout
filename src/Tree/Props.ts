@@ -1,11 +1,13 @@
 import * as React from 'react'
-import * as CSS from 'csstype'
 import { KeygenResult, ObjectKey, StandardProps, ValueItem } from '../@types/common'
 import DatumTree, { TreePathType, TreeModeType } from '../Datum/Tree'
 import { GetInputableProps } from '../Form/Props'
 
 type ExpandIconType<Item> = React.ReactNode | ((d: Item) => React.ReactNode)
 /** ------------ Tree -------------- */
+/**
+ * @title Tree
+ */
 export interface TreeProps<DataItem, Value extends any[]> extends StandardProps {
   /**
    * @en active node key
@@ -23,6 +25,10 @@ export interface TreeProps<DataItem, Value extends any[]> extends StandardProps 
    * @cn 默认展开的节点 key（非受控）
    */
   defaultExpanded?: KeygenResult[]
+  /**
+   * @en Default selected key (not controlled)
+   * @cn 默认选中的 key （非受控）
+   */
   defaultValue?: Value
   /**
    * @en control whether the node can be chosen
@@ -46,8 +52,8 @@ export interface TreeProps<DataItem, Value extends any[]> extends StandardProps 
    */
   loader?: (key: ValueItem<Value>, data: DataItem) => void
   /**
-   * @en selected mode
-   * @cn 选中值模式
+   * @en mode 0: Returns only the fully selected node including the parent node. 1: Returns all selected nodes and semi-selected nodes. 2: Return only the selected child nodes. 3: If the parent node is full selected, only return the parent node. 4: What you choose is what you get.
+   * @cn 选中值模式，未设置值为单选 0: 只返回完全选中的节点，包含父节点 1: 返回全部选中的节点和半选中的父节点 2: 只返回选中的子节点 3: 如果父节点选中，只返回父节点 4: 所选即所得
    * @default 1
    */
   mode?: TreeModeType
@@ -71,11 +77,20 @@ export interface TreeProps<DataItem, Value extends any[]> extends StandardProps 
    * @cn 设置 onDrop 属性时，为可拖动状态
    */
   onDrop?: (data: DataItem[], key: KeygenResult, targetKey: KeygenResult, position: number) => void
+  /**
+   * @en Selected key (controlled)
+   * @cn 选中的 key （受控）
+   * @override (string | number)[]
+   */
   value?: Value
+  /**
+   * @inner 内部属性
+   */
   datum?: DatumTree<DataItem>
   /**
    * @en Expand by click parent node
    * @cn 点击父节点展开
+   * @default false
    */
   parentClickExpand?: boolean
   /**
@@ -84,6 +99,11 @@ export interface TreeProps<DataItem, Value extends any[]> extends StandardProps 
    * @default false
    */
   defaultExpandAll?: boolean
+  /**
+   * @en Whether to monitor data changes to update data
+   * @cn 是否监听 data 变化更新数据
+   * @default true
+   */
   dataUpdate?: boolean
   /**
    * @en specify the name of the subdata
@@ -98,11 +118,14 @@ export interface TreeProps<DataItem, Value extends any[]> extends StandardProps 
    */
   expandIcons?: [ExpandIconType<DataItem>, ExpandIconType<DataItem>]
   /**
-   * @en style when drap images
-   * @cn 拖拽图片的样式
+   * @en dom style when drop images
+   * @cn 拖拽图片的原生style样式
    */
-  dragImageStyle?: CSS.Properties<string>
+  dragImageStyle?: object
 
+  /**
+   * @inner 内部属性
+   */
   radioUpdate?: boolean
 
   /**
@@ -116,6 +139,9 @@ export interface TreeProps<DataItem, Value extends any[]> extends StandardProps 
    * @cn 是否只能平级拖拽
    */
   dragSibling?: boolean
+  /**
+   * @inner 内部属性
+   */
   unmatch?: boolean
   /**
    * @en Auxiliary method for generating key. When it is a function, use the return value of this function. When it is a string, use the data value corresponding to this string. For example, 'id' is the same thing as (d) => d.id.
@@ -139,8 +165,7 @@ export interface TreeProps<DataItem, Value extends any[]> extends StandardProps 
    */
   leafClass?: string | ((data: DataItem) => string)
   /**
-   * @en get datum
-   * @cn 获取 datum
+   * @inner 内部属性
    */
   bindDatum?: (datum: any) => void
   /**
