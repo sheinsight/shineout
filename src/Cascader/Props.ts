@@ -54,7 +54,7 @@ export interface OriginCascaderProps<DataItem, Value extends CascaderBaseValue>
     Pick<StandardProps, 'style'> {
   /**
    * @en Form field, used with Form
-   * @cn 表单字段,配合 Form 使用
+   * @cn 表单字段, 配合 Form 使用
    */
   name?: string
   /**

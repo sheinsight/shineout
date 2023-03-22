@@ -44,6 +44,10 @@ export interface FormDatumOptions<Value extends {}> {
 
 export interface ListDatumOptions<DataItem, Value> {
   value?: Value
+  /**
+   * @en Parameter is the selected value
+   * @cn 参数为当前选中值
+   */
   onChange?: (value: Value, data?: DataItem, checked?: boolean) => void
 
   /**

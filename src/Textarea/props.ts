@@ -6,6 +6,11 @@ import { ForceAdd } from '../@types/common'
 
 export interface OriginTextareaProps extends Pick<InputTitleProps, 'innerTitle' | 'placeTitle'> {
   /**
+   * @en Form field, used with Form
+   * @cn 表单字段, 配合 Form 使用
+   */
+  name?: string
+  /**
    * @en Whether the height changes automatically with the content
    * @cn 高度是否随内容自动变化
    * @default false
@@ -26,8 +31,16 @@ export interface OriginTextareaProps extends Pick<InputTitleProps, 'innerTitle' 
    * @cn 失去焦点后的回调
    */
   onBlur?: FocusEventHandler<HTMLTextAreaElement>
+  /**
+   * @en The callback function for changing value
+   * @cn 值改变回调函数
+   */
   onChange: (value: string) => void
   forceChange: (value: string) => void
+  /**
+   * @en The callback function for enter key
+   * @cn 回车键回调函数
+   */
   onEnterPress?: (value: string, e: KeyboardEvent<HTMLTextAreaElement>) => void
   /**
    * @en The minimum row height. Same as native textarea rows property.
@@ -35,6 +48,10 @@ export interface OriginTextareaProps extends Pick<InputTitleProps, 'innerTitle' 
    * @default 4
    */
   rows?: number
+  /**
+   * @cn DefaultValue and value can be set at the same time and defaultValue will be overridden by value.
+   * @en defaultValue 和 value 可以同时设置，defaultValue 会被value覆盖
+   */
   value?: string
   /**
    * @en support resize
@@ -48,18 +65,26 @@ export interface OriginTextareaProps extends Pick<InputTitleProps, 'innerTitle' 
    */
   renderFooter?: (value?: string) => ReactNode
   inputFocus?: boolean
+  /**
+   * @en When trim is true, blank characters are automatically deleted when lose focus
+   * @cn trim 为 true 时，失去焦点时会自动删除空白字符。
+   * @default false
+   */
   trim?: boolean
 }
 
-// 增加原生属性
-type TextareaPropsWithOrigin = ForceAdd<OriginTextareaProps, TextareaHTMLAttributes<HTMLTextAreaElement>>
-
 // hoc
-export type TextareaPropsWithDelay = GetDelayProps<TextareaPropsWithOrigin>
+export type TextareaPropsWithDelay = GetDelayProps<OriginTextareaProps>
 type TextareaPropsWithBorder = GetInputBorderProps<TextareaPropsWithDelay>
-type TextareaPropsWithInputAble = GetInputableProps<TextareaPropsWithBorder, string>
+/**
+ * @title Textarea
+ */
+type TextareaPropsWithInputAble = Omit<
+  GetInputableProps<TextareaPropsWithBorder, string>,
+  'innerTitle' | 'placeTitle' | 'reserveAble' | 'filterSameChange'
+>
 
-// 禁用一些属性
-type TextareaPropsBan = Omit<TextareaPropsWithInputAble, 'innerTitle' | 'placeTitle'>
+// 增加原生属性
+type TextareaPropsWithOrigin = ForceAdd<TextareaPropsWithInputAble, TextareaHTMLAttributes<HTMLTextAreaElement>>
 
-export type TextareaProps = TextareaPropsBan
+export type TextareaProps = TextareaPropsWithOrigin

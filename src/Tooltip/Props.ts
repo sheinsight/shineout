@@ -13,36 +13,35 @@ export interface ContainerOptions {
 export interface ContainerProps extends StandardProps {
   /**
    * @en use animation
-   * @cn 弹出是否使用动画，默认为 true
+   * @cn 弹出是否使用动画
    * @default true
    */
   animation?: boolean
   /**
    * @en The child element can only be a ReactElement.
    * @cn 子元素只能为一个 ReactElement
-   * @default required
    */
   children: ReactNode
   /**
-   * @en The position of the pop-up layer, options: ['left', 'top', 'right', 'bottom']
+   * @en The position of the pop-up layer
    * @cn 弹出层位置
    * @default 'top'
    */
   position?: ToolPosition
   /**
-   * 内部属性在 scrollContext 中获取
+   * @inner 内部属性在 scrollContext 中获取
    */
   scrollElement?: HTMLElement
   /**
-   * 内部属性在 scrollContext 中获取
+   * @inner 内部属性在 scrollContext 中获取
    */
   scrollLeft?: number
   /**
-   * 内部属性在 scrollContext 中获取
+   * @inner 内部属性在 scrollContext 中获取
    */
   scrollTop?: number
   /**
-   * @en Pop-up type, one of  ["hover", "click"]
+   * @en Pop-up type
    * @cn 弹出方式
    * @default "hover"
    */
@@ -56,7 +55,6 @@ export interface ContainerProps extends StandardProps {
   /**
    * @en Pop up texts
    * @cn 弹出文字
-   * @default required
    */
   tip: ReactNode
   /**
@@ -67,6 +65,9 @@ export interface ContainerProps extends StandardProps {
   delay?: number
 }
 
+/**
+ * @title Tooltip
+ */
 export type TooltipProps = GetScrollContextConsumerValue<ContainerProps>
 
 export type TooltipType = FC<TooltipProps>

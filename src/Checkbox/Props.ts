@@ -9,7 +9,7 @@ export type CheckType = 'radio' | 'switch' | 'checkbox'
 export interface CheckItemProps extends StandardProps {
   /**
    * @en Form field, used with Form
-   * @cn 表单字段,配合 Form 使用
+   * @cn 表单字段, 配合 Form 使用
    */
   name?: string
   /**
@@ -137,7 +137,7 @@ export type CheckboxProviderProps<U> = Omit<U, 'onRawChange'>
 export interface BaseCheckboxGroupProps<DataItem, Value> extends StandardProps {
   /**
    * @en Form field, used with Form
-   * @cn 表单字段,配合 Form 使用
+   * @cn 表单字段, 配合 Form 使用
    */
   name?: string
   /**

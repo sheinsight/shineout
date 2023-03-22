@@ -168,7 +168,7 @@ export interface Props
   placeholder?: string
   /**
    * @en Form field, used with Form
-   * @cn 表单字段,配合 Form 使用
+   * @cn 表单字段, 配合 Form 使用
    */
   name?: string
   /**

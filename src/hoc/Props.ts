@@ -69,9 +69,21 @@ export interface InputBorderProps extends StandardProps {
    * @default false
    */
   border?: boolean
-  // base props
-  disabled?: boolean | (() => boolean)
+  /**
+   * @en disabled
+   * @cn 是否禁用
+   * @default false
+   */
+  disabled?: boolean
+  /**
+   * @en callback function for blur event
+   * @cn blur 事件回调函数
+   */
   onBlur?: React.FocusEventHandler
+  /**
+   * @en callback function for blur focus
+   * @cn focus 事件回调函数
+   */
   onFocus?: React.FocusEventHandler
   /**
    * @en size
