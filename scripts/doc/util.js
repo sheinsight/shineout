@@ -192,7 +192,7 @@ function getPropertiesWithDocComments(pp) {
   })
   return results
 }
-const p = path.resolve(__dirname, '../../src/Table/Props.ts')
+const p = path.resolve(__dirname, '../../src/Tabs/Props.ts')
 console.log(getPropertiesWithDocComments(p))
 const ModuleMap = {
   List: 'DataList',

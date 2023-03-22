@@ -3,6 +3,9 @@ import { StandardProps } from '../@types/common'
 
 type ReactNode = React.ReactNode
 
+/**
+ * Tag
+ */
 export interface TagProps extends StandardProps {
   /**
    * @en Content, text or react component
@@ -38,7 +41,7 @@ export interface TagProps extends StandardProps {
   /**
    * @en types
    * @cn 类型
-   * @default *default*
+   * @default default
    */
   type?: 'success' | 'info' | 'warning' | 'danger' | 'error' | 'default'
 
@@ -49,23 +52,50 @@ export interface TagProps extends StandardProps {
   onCompleted?: (value: string) => void
 
   /**
-   * @cn 可编辑输入框回车事件
    * @en Editable input box enter event
+   * @cn 可编辑输入框回车事件
    */
   onEnterPress?: (value: string, e: React.KeyboardEvent<HTMLInputElement>) => void
 
   /**
-   * @cn 可编辑输入框 keyUp 事件
    * @en Editable input box keyUp event
+   * @cn 可编辑输入框 keyUp 事件
    */
   onKeyUp?: (e: React.KeyboardEvent<HTMLInputElement>) => void
 }
 
+/**
+ * Tag.Input
+ */
 export interface TagInputProps {
+  /**
+   * @en in control
+   * @cn 受控
+   */
   value?: string
+  /**
+   * @en callback of blur event
+   * @cn blur 事件回调
+   */
   onBlur?: (value: string, e: React.FocusEvent<HTMLInputElement>) => void
+  /**
+   * @en value change callback
+   * @cn value 改变 回调
+   */
   onChange?: (value: string) => void
+  /**
+   * @en callback of keyup event
+   * @cn keyup 事件回调
+   */
   onKeyUp?: (e: React.KeyboardEvent<HTMLInputElement>) => void
+  /**
+   * @en callback of enterPress event
+   * @cn enterPress 事件回调
+   */
   onEnterPress?: (value: string, e: React.KeyboardEvent<HTMLInputElement>) => void
+  /**
+   * @en callback of focus event
+   * @cn focus 事件回调
+   */
   onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void
 }

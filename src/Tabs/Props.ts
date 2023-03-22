@@ -144,27 +144,112 @@ export interface TabProps extends Required<BaseTabProps> {
   align?: 'left' | 'right' | 'vertical-left' | 'vertical-right'
 }
 export type TabsBaseValue = string | number
-export interface TabsProps<Key extends TabsBaseValue = TabsBaseValue> {
+
+/**
+ * @title Tabs
+ */
+export interface TabsProps<Key extends TabsBaseValue = TabsBaseValue> extends StandardProps {
+  /**
+   * @en Current active tab id or index
+   * @cn 当前选中标签页（受控）
+   * @default 0
+   * @override string | number
+   */
   active?: Key
+  /**
+   * @en set the label align
+   * @cn 设置标签对齐方式
+   */
   align?: 'left' | 'right' | 'vertical-left' | 'vertical-right' | 'bottom'
+  /**
+   * @en Active background color
+   * @cn 选中标签背景色
+   */
   background?: string
+  /**
+   * @en Border color
+   * @cn 边框颜色
+   */
   border?: string
+  /**
+   * @en must be Panel
+   * @cn 必须为 Panel 元素
+   */
   children?: any
-  className?: string
+  /**
+   * @en Whether can be collapsed
+   * @cn 是否可折叠
+   */
   collapsible?: boolean
+  /**
+   * @en the color of tab's text only when the shape is 'card'
+   * @cn 标签页文字颜色，仅当 shape 为 'card' 时生效
+   */
   color?: string
+  /**
+   * @en Default active tab id or index
+   * @cn 默认选中标签页（非受控）
+   * @override string | number
+   */
   defaultActive?: Key
+  /**
+   * @en default collapse state, effective when collapsible is set to true
+   * @cn 默认折叠状态,当 collapsible 设置为 true 时生效
+   */
   defaultCollapsed?: boolean
+  /**
+   * @en Inactive background color
+   * @cn 未选中标签背景色
+   */
   inactiveBackground?: string
+  /**
+   * @en If shape is not null, the style properties such as background, border will lose effect
+   * @cn shape 不为空时，background 等颜色参数将会无效
+   * @default 'card'
+   */
   shape?: 'card' | 'line' | 'button' | 'bordered' | 'dash'
-  style?: React.CSSProperties
+  /**
+   * @en extra element in tab bar
+   * @cn tab bar 上额外的元素
+   */
   tabBarExtraContent?: string | ReactNode
+  /**
+   * @en style in tab bar
+   * @cn tab bar 的样式对象
+   */
   tabBarStyle?: React.CSSProperties
+  /**
+   * @en lazy load
+   * @cn 是否开启懒加载
+   * @default true
+   */
   lazy?: boolean
+  /**
+   * @en auto fill the panel
+   * @cn 自动填充内容区域
+   * @default false
+   */
   autoFill?: boolean
+  /**
+   * @en sticky header
+   * @cn 开启头部附着
+   * @default false
+   */
   sticky?: boolean | number | StickyProps
+  /**
+   * @en switch tabs will scroll to Tabs
+   * @cn 切换tab将自动滚动到Tabs
+   */
   switchToTop?: boolean
+  /**
+   * @en whether to hide the dividing line
+   * @cn 是否隐藏分割线
+   */
   hideSplit?: boolean
+  /**
+   * @en Change callback
+   * @cn 标签选中时触发回调事件
+   */
   onChange?: (key: Key) => void
 }
 
@@ -195,19 +280,61 @@ export interface HeaderProps {
   hideSplit?: boolean
 }
 
-export interface PanelProps {
+/**
+ * @title Tabs.Panel
+ */
+export interface PanelProps extends StandardProps {
+  /**
+   * @en The default is index
+   * @cn 选填，默认为 index
+   */
   id?: string | number
+  /**
+   * @en Background color, override the Tab's background
+   * @cn 背景色，会覆盖 Tabs 的background
+   */
   background?: string
-  className?: string
+  /**
+   * @inner 内部属性
+   */
   collapsed?: boolean
+  /**
+   * @inner 内部属性
+   */
   collapsible?: boolean
+  /**
+   * @en same as style.color
+   * @cn 同 style.color
+   */
   color?: string
+  /**
+   * @en Panel Content
+   * @cn Panel 内容
+   */
   children?: ReactNode
+  /**
+   * @inner 内部属性
+   */
   isActive?: boolean
-  style?: React.CSSProperties
+  /**
+   * @inner 内部属性
+   */
   lazy?: boolean
+  /**
+   * @en lazy load
+   * @cn 懒加载
+   */
   tab?: string | ReactNode
+  /**
+   * @en Border color, override the Tab's border
+   * @cn 边框颜色，会覆盖 Tabs 的border
+   */
   border?: string
+  /**
+   * @en Specifies the Panel should be disabled
+   * @cn 是否禁用
+   * @default false
+   */
   disabled?: boolean
 }
 
