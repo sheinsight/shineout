@@ -69,7 +69,7 @@ function getPathType(pp, name) {
 }
 
 // 处理import
-function getImportType(text, de) {
+function getImportType(text) {
   // eslint-disable-next-line
   const reg = /import\("([^"]+)"\)\.(\w+)(<[\w\[\]]+>)?(\[\])?/g
   let currentMatch
@@ -91,16 +91,13 @@ function getImportType(text, de) {
             type: getPathType(`${pp}.ts`, name),
           }
         }
-        if (de) console.info('before', resultStr)
-        if (de) console.info('replace', str)
         resultStr = resultStr.replace(str, isArray ? `(${pathMap[name].type})[]` : pathMap[name].type)
-        if (de) console.info('after', resultStr)
       } else {
         resultStr = resultStr.replace(str, `${name}${fanXin}${isArray}`)
       }
     }
   } while (currentMatch !== null)
-  if (reg.test(resultStr)) return getImportType(resultStr, de)
+  if (reg.test(resultStr)) return getImportType(resultStr)
   return resultStr
 }
 
@@ -116,7 +113,7 @@ function getTypeStr(override, type, optional, name) {
       .filter(item => optional && item !== 'undefined')
       .join(' | ')
   }
-  text = getImportType(text, name === 'sorter')
+  text = getImportType(text)
   text = replaceStr(text)
   return text
 }

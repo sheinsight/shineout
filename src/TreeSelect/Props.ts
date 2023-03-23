@@ -264,6 +264,11 @@ export type TreeSelectPropsWithAdvancedFilter<Item, Value> = Omit<
 }
 
 export type TreeSelectPropsWithDatum<Item, Value> = Omit<TreeSelectPropsWithAdvancedFilter<Item, Value>, 'datum'> & {
+  /**
+   * @en render unmatch value
+   * @cn 是否展示data中不存在的值
+   * @default true
+   */
   unmatch?: boolean
 }
 
