@@ -70,8 +70,9 @@ export interface SimpleDropdownProps extends StandardProps, Pick<AbsoluteProps, 
   columns?: number
 
   /**
-   * @en same as Button
-   * @cn 同 Button
+   * @en same as [Button](/components/Button)
+   * @cn 同 [Button](/components/Button)
+   * @default false
    */
   outline?: boolean
 
@@ -90,8 +91,8 @@ export interface SimpleDropdownProps extends StandardProps, Pick<AbsoluteProps, 
   animation?: boolean
 
   /**
-   * @en data of dropdown
-   * @cn 下拉数据
+   * @en data of dropdown; See the detail in the DropdownNode
+   * @cn 下拉数据 详见 DropdownNode
    * @default []
    */
   data: DropdownItem[]
@@ -110,8 +111,8 @@ export interface SimpleDropdownProps extends StandardProps, Pick<AbsoluteProps, 
   placeholder?: React.ReactNode
 
   /**
-   * @en same as Button
-   * @cn 同 Button
+   * @en same as [Button](/components/Button)
+   * @cn 同 [Button](/components/Button)
    * @default 'default'
    * @override union
    */
@@ -121,6 +122,7 @@ export interface SimpleDropdownProps extends StandardProps, Pick<AbsoluteProps, 
    * @en type of Dropdown
    * @cn 类型
    * @override union
+   * @default 'default'
    */
   type?: RegularAttributes.Type | 'link'
 

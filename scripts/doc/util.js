@@ -143,6 +143,7 @@ function getPropertiesWithDocComments(pp) {
     const item = {
       title: mainTags.title,
       subTitle: mainTags.subTitle,
+      isDetail: mainTags.isDetail,
       properties: [],
       cn: convertQuotes(mainTags.cn),
       en: convertQuotes(mainTags.en),
@@ -179,6 +180,7 @@ function getPropertiesWithDocComments(pp) {
           default: convertQuotes(propertyJsDocTags.default),
           version: convertQuotes(propertyJsDocTags.version),
         },
+        required: !optional,
         type: convertQuotes(typeText),
       }
       item.properties.push(itemProperty)

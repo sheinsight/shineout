@@ -72,7 +72,6 @@ export interface CheckItemProps extends StandardProps {
   /**
    * @en Checkbox click callback
    * @cn 勾选框点击回调
-   * @default false
    */
   onClick?: React.MouseEventHandler<HTMLInputElement>
   /**
@@ -146,8 +145,8 @@ export interface BaseCheckboxGroupProps<DataItem, Value> extends StandardProps {
    */
   children?: ReactNode
   /**
-   * @en When it is a string, return d[string]. When it is a function, return the result of the function.
-   * @cn 为 string 时，返回 d[string]。 为 function 时，返回函数结果
+   * @en When it is a string, return d\\[string]. When it is a function, return the result of the function.
+   * @cn 为 string 时，返回 d\\[string]。 为 function 时，返回函数结果
    * @default d => d
    */
   renderItem?: ObjectKey<DataItem> | ((data: DataItem, index?: number) => React.ReactNode)
@@ -179,8 +178,8 @@ export interface BaseCheckboxGroupProps<DataItem, Value> extends StandardProps {
    */
   data?: DataItem[]
   /**
-   * @en 值改变回调
-   * @cn value change callback
+   * @en value change callback
+   * @cn 值改变回调
    */
   onChange: (value: Value) => void
 }

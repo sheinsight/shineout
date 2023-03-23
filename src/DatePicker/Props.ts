@@ -48,14 +48,14 @@ export interface BaseProps<Value = DatePickerValue>
     Pick<AbsoluteProps, 'absolute' | 'zIndex'>,
     Pick<InputTitleProps, 'innerTitle'> {
   /**
-   * @cn If clearable is true, show clear value icon
-   * @en  是否显示清除数据图标
+   * @en If clearable is true, show clear value icon
+   * @cn  是否显示清除数据图标
    * @default true
    */
   clearable?: boolean
   /**
-   * @cn onChange get undefined while clear
-   * @en 清空值时抛出 undefined
+   * @en onChange get undefined while clear
+   * @cn 清空值时抛出 undefined
    * @default false
    */
   clearWithUndefined?: boolean
@@ -68,8 +68,8 @@ export interface BaseProps<Value = DatePickerValue>
   disabled?: ((date: Date, type?: DisabledType, value0?: Date, value1?: Date) => boolean) | boolean
 
   /**
-   * @en default values for different types: 'date': 'YYYY-MM-DD'. 'time': 'HH:mm:ss'. 'week': 'GGGG WW'. 'month': 'YYYY-MM'. 'week': 'GGGG WW'. 'quarter': 'YYYY-[Q]Q'. 'year': 'YYYY'. 'datetime': 'YYYY-MM-DD HH:mm:ss'
-   * @cn 不同type对应的默认值。'date': 'YYYY-MM-DD'。'time': 'HH:mm:ss'。'week': 'GGGG WW'。'month': 'YYYY-MM'。'quarter': 'YYYY-[Q]Q'。 'year': 'YYYY' 。 'datetime': 'YYYY-MM-DD HH:mm:ss'
+   * @en default values for different types: 'date': 'YYYY-MM-DD'; 'time': 'HH:mm:ss'; 'week': 'GGGG WW'; 'month': 'YYYY-MM'; 'week': 'GGGG WW'; 'quarter': 'YYYY-\\[Q]Q'; 'year': 'YYYY'; 'datetime': 'YYYY-MM-DD HH:mm:ss'
+   * @cn 不同type对应的默认值。'date': 'YYYY-MM-DD'; 'time': 'HH:mm:ss'; 'week': 'GGGG WW'; 'month': 'YYYY-MM'; 'quarter': 'YYYY-\\[Q]Q';  'year': 'YYYY'; 'datetime': 'YYYY-MM-DD HH:mm:ss'
    */
   format?: string
 
@@ -121,7 +121,6 @@ export interface BaseProps<Value = DatePickerValue>
   /**
    * @en quick select, only in range can set, name: tip, value: range date
    * @cn 快速选择, 仅在 range 模式下有效, name: 文字提示, value: 时间范围
-   * @default false
    * @override {name: string, value: Value}[]
    */
   quickSelect?: Array<QuickSelectType<DatePickerValue>>
@@ -177,7 +176,7 @@ export interface BaseProps<Value = DatePickerValue>
   /**
    * @en horizontal align of the value
    * @cn 值水平排布方式
-   * @default center
+   * @default "center"
    *
    */
   align?: 'left' | 'right' | 'center'
@@ -191,6 +190,7 @@ export interface BaseProps<Value = DatePickerValue>
   /**
    * @en Allow enter something into DatePicker
    * @cn 可输入
+   * @default false
    */
   inputable?: boolean
 
@@ -204,6 +204,7 @@ export interface BaseProps<Value = DatePickerValue>
    * @en There are three built-in size: small、default、large.
    * @cn 不同尺寸
    * @override union
+   * @default 'default'
    */
   size?: RegularAttributes.Size
 

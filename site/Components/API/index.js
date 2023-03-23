@@ -1,12 +1,11 @@
 import React from 'react'
 import locate from 'doc/locate'
 import ReactMarkDown from 'react-markdown'
-import CodeBlock from 'doc/Components/CodeBlock'
-import Table from 'doc/Components/Table'
 import { Link } from 'react-router-dom'
 
 const APP = props => {
-  const { title, properties, cn, en, subTitle, single } = props
+  const { title, properties, cn, en, subTitle, single, isDetail } = props
+
   return (
     <>
       {!single ? (
@@ -26,7 +25,7 @@ const APP = props => {
             <tr>
               <th>{locate('属性', 'Property')}</th>
               <th>{locate('类型', 'Type')}</th>
-              <th>{locate('默认值', 'Default')}</th>
+              {isDetail ? null : <th>{locate('默认值', 'Default')}</th>}
               <th>{locate('说明', 'Description')}</th>
               <th>{locate('版本', 'Version')}</th>
             </tr>
@@ -34,35 +33,38 @@ const APP = props => {
           <tbody>
             {properties
               .sort((a, b) => a.name.localeCompare(b.name))
-              .map(({ name, tag, type } = {}) => (
-                <tr key={name}>
-                  <td>{name}</td>
-                  <td>{type}</td>
-                  <td>{tag.default || '-'}</td>
-                  <td>
-                    <ReactMarkDown
-                      source={locate(tag.cn, tag.en)}
-                      renderers={{
-                        link: prop => {
-                          const target = prop.href.indexOf('http') === 0 ? '_blank' : undefined
-                          if (target)
+              .map(({ name, tag, type, required } = {}) => {
+                const defaultV = required ? locate('必填', 'required') : undefined
+                return (
+                  <tr key={name}>
+                    <td>{name}</td>
+                    <td>{type}</td>
+                    {isDetail ? null : <td>{defaultV || tag.default || '-'}</td>}
+                    <td>
+                      <ReactMarkDown
+                        source={locate(tag.cn, tag.en)}
+                        renderers={{
+                          link: prop => {
+                            const target = prop.href.indexOf('http') === 0 ? '_blank' : undefined
+                            if (target)
+                              return (
+                                <a href={prop.href} target={target}>
+                                  {prop.children}
+                                </a>
+                              )
                             return (
-                              <a href={prop.href} target={target}>
+                              <Link to={prop.href} target={target}>
                                 {prop.children}
-                              </a>
+                              </Link>
                             )
-                          return (
-                            <Link to={prop.href} target={target}>
-                              {prop.children}
-                            </Link>
-                          )
-                        },
-                      }}
-                    />
-                  </td>
-                  <td>{tag.version || '-'}</td>
-                </tr>
-              ))}
+                          },
+                        }}
+                      />
+                    </td>
+                    <td>{tag.version || '-'}</td>
+                  </tr>
+                )
+              })}
           </tbody>
         </table>
       </div>

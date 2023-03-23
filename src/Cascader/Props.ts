@@ -7,8 +7,16 @@ import { AbsoluteProps, GetAbsoluteProps } from '../AnimationList/Props'
 import { GetTableConsumerProps } from '../Table/Props'
 import { InputTitleProps } from '../InputTitle/Props'
 
-interface componentRef {
-  close: (e: MouseEvent) => void
+/**
+ * @title CascaderRef
+ * @isDetail true
+ */
+interface ComponentRef {
+  /**
+   * @en Close the drop-down box
+   * @cn 关闭下拉框
+   */
+  close: (e?: MouseEvent) => void
 }
 
 export type CascaderBaseValue = (string | number)[]
@@ -58,8 +66,8 @@ export interface OriginCascaderProps<DataItem, Value extends CascaderBaseValue>
    */
   name?: string
   /**
-   * @en 自定义渲染下拉列表
-   * @cn Custom render dropdown
+   * @en Custom render dropdown
+   * @cn 自定义渲染下拉列表
    */
   renderOptionList?: (list: React.ReactElement, info: { loading: boolean }) => React.ReactElement
   /**
@@ -81,6 +89,7 @@ export interface OriginCascaderProps<DataItem, Value extends CascaderBaseValue>
   /**
    * @en data
    * @cn 数据
+   * @override any[]
    */
   data?: DataItem[]
   /**
@@ -197,17 +206,17 @@ export interface OriginCascaderProps<DataItem, Value extends CascaderBaseValue>
    *  @cn 绑定组件的引用, 可以调用某些组件的方法
    *
    */
-  getComponentRef?: ((comp: componentRef) => void) | { current: componentRef | undefined }
+  getComponentRef?: ((comp: ComponentRef) => void) | { current: ComponentRef | undefined }
   /**
    * @en When it is a string, return d[string]. When it is a function, return the result of the function.
-   * @cn 为 string 时，返回 d[string]。 为 function 时，返回函数结果
+   * @cn 为 string 时，返回 d\\[string]。 为 function 时，返回函数结果
    * @default d => d
    */
   renderItem: ObjectKey<DataItem> | ((data: DataItem, active?: boolean, id?: Value[0]) => React.ReactNode)
   /**
    * @en The content displayed in the result after selecting, if not set, use renderItem. not show while return null, result is current selected
    * @cn 选中后在结果中显示的内容，默认和 renderItem 相同
-   * default: renderItem
+   * @default renderItem
    */
   renderResult?: ObjectKey<DataItem> | ((data: DataItem, row: DataItem[]) => React.ReactNode)
   /**
@@ -340,9 +349,9 @@ type CascaderPropsWithFilter<Item, Value extends CascaderBaseValue> = GetFilterP
 type CascaderPropsWithBorder<Item, Value extends CascaderBaseValue> = GetInputBorderProps<
   CascaderPropsWithFilter<Item, Value>
 >
-type CascaderPropsWithInput<Item, Value extends CascaderBaseValue> = GetInputableProps<
-  CascaderPropsWithBorder<Item, Value>,
-  Value
+type CascaderPropsWithInput<Item, Value extends CascaderBaseValue> = Omit<
+  GetInputableProps<CascaderPropsWithBorder<Item, Value>, Value>,
+  'autoFocus'
 >
 
 /**

@@ -85,7 +85,8 @@ export interface OriginButtonProps extends StandardProps {
 
   /**
    * @en loading
-   * @cn loading状态
+   * @cn loading 状态
+   * @default false
    */
   loading?: boolean
 
@@ -114,7 +115,7 @@ export interface ButtonGroupProps extends StandardProps {
    * @en array of Button
    * @cn 由 Button 组成的 array
    */
-  children?: React.ReactNode
+  children: React.ReactNode
 
   /**
    * @en same as Button

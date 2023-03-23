@@ -31,8 +31,8 @@ export interface InputBorderProps extends StandardProps {
    */
   tip?: ReactNode
   /**
-   * @en The position where the text pop up
-   * @cn 信息弹出位置
+   * @en The position where the text pop up, see [Popover](/components/Popover)
+   * @cn 信息弹出位置，参考 [Popover](/components/Popover)
    * @override PopoverProps["position"]
    */
   popover?: PopoverPositionType
@@ -46,8 +46,8 @@ export interface InputBorderProps extends StandardProps {
    */
   error?: Error
   /**
-   * @en Vilidate popup properties, specific properties refer to Popover component description
-   * @cn 校验弹框接受的属性，具体属性参考Popover组件说明
+   * @en Vilidate popup properties, specific properties refer to [Popover](/components/Popover)
+   * @cn 校验弹框接受的属性，具体属性参考 [Popover](/components/Popover)
    * @type PopoverProps
    */
   popoverProps?: PopoverProps
@@ -145,8 +145,8 @@ export type GetHidableConsumerProps<Props> = Props
 /** ------ pagable ------ * */
 export type GetPagableProps<Props> = Props & {
   /**
-   * @en Show pagination See Pagination for details
-   * @cn 展示分页 详见 Pagination
+   * @en Show pagination See [Pagination](/components/Pagination) for details
+   * @cn 展示分页 详见 [Pagination](/components/Pagination)
    */
   pagination?: PaginationProps
 }

@@ -10,12 +10,12 @@ import { StandardProps } from '../@types/common'
 interface IconArgs {
   /**
    * @en The address of css or js file of the icon. If it has been introduced in the link/script tag, it can be empty.
-   * @cn 图标css或js文件地址，使用在线地址，不需要引入到项目中。如果在 link或script 中已经引用过，可以为空(null)
+   * @cn 图标css或js文件地址，使用在线地址，不需要引入到项目中。如果在 link或script 中已经引用过，可以为空字符串
    */
   url: string
   /**
-   * @en font-family 需要和引入的css/js文件内的font-family一致
-   * @cn The font-family needs to be the same as the font-family in the introduced CSS/JS file.
+   * @en The font-family needs to be the same as the font-family in the introduced CSS/JS file
+   * @cn font-family 需要和引入的css/js文件内的font-family一致
    * @default "iconfont"
    */
   fontFamily?: string
@@ -42,6 +42,7 @@ export interface IconCompProps extends StandardProps {
   /**
    * @en Icon class name (the part without the prefix)
    * @cn 图标类名（去除前缀的部分），值参照具体使用的图标库
+   * @default ''
    */
   name?: string
 
@@ -55,7 +56,6 @@ export interface IconCompProps extends StandardProps {
    * @en Built-in color type
    * @cn 内置颜色类型
    * @default 'default'
-   * @override 'union
    */
   type?: 'default' | 'primary' | 'secondary' | 'success' | 'info' | 'warning' | 'danger'
 

@@ -224,8 +224,8 @@ export interface InputableProps<Value> {
    */
   reserveAble?: boolean
   /**
-   * @en Validation rules, see Rule usage for details
-   * @cn 校验规则 详见 Rule 用法
+   * @en Validation rules, see [Rule](/components/rule) usage for details
+   * @cn 校验规则 详见 [Rule](/components/rule)
    * @override RuleItem[]
    */
   rules?: FormItemRule<Value>
