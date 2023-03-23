@@ -1,5 +1,9 @@
 import React from 'react'
 import locate from 'doc/locate'
+import ReactMarkDown from 'react-markdown'
+import CodeBlock from 'doc/Components/CodeBlock'
+import Table from 'doc/Components/Table'
+import { Link } from 'react-router-dom'
 
 const APP = props => {
   const { title, properties, cn, en, subTitle, single } = props
@@ -35,7 +39,27 @@ const APP = props => {
                   <td>{name}</td>
                   <td>{type}</td>
                   <td>{tag.default || '-'}</td>
-                  <td>{locate(tag.cn, tag.en)}</td>
+                  <td>
+                    <ReactMarkDown
+                      source={locate(tag.cn, tag.en)}
+                      renderers={{
+                        link: prop => {
+                          const target = prop.href.indexOf('http') === 0 ? '_blank' : undefined
+                          if (target)
+                            return (
+                              <a href={prop.href} target={target}>
+                                {prop.children}
+                              </a>
+                            )
+                          return (
+                            <Link to={prop.href} target={target}>
+                              {prop.children}
+                            </Link>
+                          )
+                        },
+                      }}
+                    />
+                  </td>
                   <td>{tag.version || '-'}</td>
                 </tr>
               ))}

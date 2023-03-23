@@ -6,45 +6,18 @@ import { GapProps } from '../Gap/Props'
 import { ButtonProps } from '../Button/Props'
 import { GetInputableProps } from '../Form/Props'
 
-/**
- * @title Upload
- */
 export interface FileRecord {
   name: string
   process: number
   status: number
   blob: File
-  xhr?: XhrType | void
+  xhr?: Xhr | void
   message?: string
 }
-/**
- * @title Validator
- */
-export interface Validator {
-  /**
-   * @en custom validator
-   * @cn 自定义校验
-   */
-  customValidator?: (file: File) => void | Error | Promise<any>
-  /**
-   * @en Judge the file extension, return the Error when the verification fails.
-   * @cn 判断后缀名，传入参数为文件后缀，校验失败返回 Error
-   */
-  ext?: (ext: string) => void | Error | Promise<any>
-  /**
-   * @en It is only valid for Image to determine the size of images and return the Error when the verification fails.
-   * @cn 只对 Image 有效，判断图片尺寸，校验失败返回 Error
-   * @override union
-   */
-  imageSize?: (image: { width: number; height: number }) => void | Error
-  /**
-   * @en Judge the size of the file and return the Error when the verification fails.
-   * @cn 判断文件大小，校验失败返回 Error
-   */
-  size?: (size: number) => void | Error | Promise<any>
-}
 
-export interface XhrType {
+export type XhrType = Xhr
+
+interface Xhr {
   status: number
   statusText?: string
   responseType?: XMLHttpRequestResponseType
@@ -54,53 +27,6 @@ export interface XhrType {
   [key: string]: any
 }
 
-export interface UploadOptions<T> {
-  url: string
-  name: string
-  cors?: SimpleUploadProps<T>['cors']
-  withCredentials: SimpleUploadProps<T>['withCredentials']
-  responseType: SimpleUploadProps<T>['responseType']
-  /**
-   * @en incoming file
-   * @cn 传入文件
-   */
-  file: File
-  /**
-   * @en request header information
-   * @cn 请求头部信息
-   */
-  headers?: ObjectType
-  /**
-   * @en onError callback
-   * @cn 上传出错事件(props 中为 onHttpError)
-   */
-  onError: (xhr: Partial<XhrType>) => void
-  /**
-   * @en onLoad
-   * @cn 上传事件
-   */
-  onLoad: (xhr?: XhrType) => void
-  /**
-   * @en onProgress
-   * @cn 上传中进度
-   */
-  onProgress: (event?: ProgressEvent, msg?: string) => any
-  /**
-   * @en onStart
-   * @cn 开始上传事件
-   */
-  onStart?: (file: File) => void
-  /**
-   * @en onSuccess
-   * @cn 上传成功事件
-   */
-  onSuccess?: (res?: string, file?: File, data?: any, xhr?: XhrType) => T | Error
-  /**
-   * @en params
-   * @cn 上传参数
-   */
-  params?: ObjectType
-}
 export interface SimpleUploadProps<ValueItem> extends StandardProps {
   /**
    * @en The type of the upload file, same as the standard,See details [accept](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept)
@@ -110,7 +36,6 @@ export interface SimpleUploadProps<ValueItem> extends StandardProps {
   /**
    * @en The address for uploading
    * @cn 上传地址
-   * @default 'required'
    */
   action?: string | ((file: File) => string)
   /**
@@ -124,7 +49,13 @@ export interface SimpleUploadProps<ValueItem> extends StandardProps {
    * @default 'required'
    */
   children?: React.ReactNode
+  /**
+   * @inner 废弃属性
+   */
   cors?: boolean
+  /**
+   * @inner 内部属性
+   */
   imageStyle?: React.CSSProperties
   /**
    * @en Request headers
@@ -148,6 +79,10 @@ export interface SimpleUploadProps<ValueItem> extends StandardProps {
    * @default false
    */
   multiple?: boolean
+  /**
+   * @en The key access data in the Form
+   * @cn Form 内存取数据的 key
+   */
   name?: string
   /**
    * @en The callback function when the value is changing(Upload successfully, delete). values: Array, the value is the onSuccess returns
@@ -163,22 +98,22 @@ export interface SimpleUploadProps<ValueItem> extends StandardProps {
    * @en onSuccess
    * @cn 上传成功事件
    */
-  onSuccess?: (res: any, file: File, data?: any, xhr?: XhrType) => ValueItem | Error
+  onSuccess?: (res: any, file: File, data?: any, xhr?: Xhr) => ValueItem | Error
   /**
    * @en onError callback
    * @cn 上传出错事件(props 中为 onHttpError)
    */
-  onError?: (xhr: XhrType, file: File) => string | undefined
+  onError?: (xhr: Xhr, file: File) => string | undefined
   /**
    * @en The callback function when to upload unsuccessfully. The returned result is as the error message.
    * @cn 上传失败时回调，返回结果作为错误内容提示
    */
-  onHttpError?: (xhr: XhrType, file: File) => string | undefined
+  onHttpError?: (xhr: Xhr, file: File) => string | undefined
   /**
    * @en The callback function before cancel upload file.
    * @cn 取消文件上传前的回调
    */
-  beforeCancel?: (xhr: XhrType) => void
+  beforeCancel?: (xhr: Xhr) => void
   /**
    * @en Additional parameters submitted to the server
    * @cn 提交到服务端的额外参数
@@ -199,8 +134,9 @@ export interface SimpleUploadProps<ValueItem> extends StandardProps {
   /**
    * @en Custom upload method. options: the options of upload
    * @cn 自定义上传方法。 options: 上传的配置
+   * @override (options: UploadOptions) => Xhr | void
    */
-  request?: (options: UploadOptions<ValueItem>) => XhrType | void
+  request?: (options: UploadOptions<ValueItem>) => Xhr | void
 
   validateHook: (func: () => Promise<any>) => void
   /**
@@ -208,7 +144,16 @@ export interface SimpleUploadProps<ValueItem> extends StandardProps {
    * @cn 上传前文件校验
    */
   validator?: Validator
+  /**
+   * @en value
+   * @cn defaultValue 和 value 可以同时设置，defaultValue 会被value覆盖 在 Form 中，value会被表单接管，value 无效
+   * @override any[]
+   */
   value: ValueItem[]
+  /**
+   * @en custom Result component
+   * @cn 自定义Result 组件
+   */
   customResult?: React.ComponentType<{
     value: any
     files: any
@@ -269,12 +214,10 @@ export interface SimpleUploadProps<ValueItem> extends StandardProps {
    * @en remove update failed callback
    * @cn 上传失败图片删除之后的回调
    */
-  onErrorRemove?: (xhr: XhrType, file: File, fileInfo?: any) => void
+  onErrorRemove?: (xhr: Xhr, file: File, fileInfo?: any) => void
   forceAccept?: boolean
   /**
-   * @en Add image view is displayed on the left
-   * @cn 添加图片视图是否在左侧展示
-   * @default false
+   * @inner 内部属性
    */
   leftHandler?: boolean
   /**
@@ -317,6 +260,11 @@ export interface SimpleUploadProps<ValueItem> extends StandardProps {
   responseType?: XMLHttpRequestResponseType
 }
 
+/**
+ * @title Upload
+ */
+export type UploadProps<ValueItem> = Omit<GetInputableProps<AcceptUpload<ValueItem>, ValueItem[]>, 'filterSameChange'>
+
 export interface FileInputProps extends Pick<SimpleUploadProps<any>, 'webkitdirectory' | 'accept' | 'multiple'> {
   onChange: (e: any) => void
 }
@@ -324,7 +272,7 @@ export interface FileInputProps extends Pick<SimpleUploadProps<any>, 'webkitdire
 export interface AcceptUpload<ValueItem> extends Omit<SimpleUploadProps<ValueItem>, 'forceAccept'> {
   /**
    * @en After disabled the file type filtering provided by accept, it is mandatory to check the file type, value same as accept
-   * @cn 在使用时关闭了 accept 提供的文件类型过滤后，强制对文件类型进行校验（值同accept
+   * @cn 在使用时关闭了 accept 提供的文件类型过滤后，强制对文件类型进行校验（值同accept)
    */
   forceAccept?: string
 }
@@ -365,8 +313,27 @@ export interface ImageFileProps {
   data?: string
 }
 
-export interface SimpleUploadImageProps<ValueItem> extends AcceptUpload<ValueItem> {
+/**
+ * @title Upload.Image
+ * @en The basic API is the same as Upload, and the specific API is as follows:
+ * @cn 基本 API 和 Upload 相同，特定的 API 如下：
+ */
+export interface SimpleUploadImagePropsSpec<ValueItem> {
+  /**
+   * @en Add image view is displayed on the left
+   * @cn 添加图片视图是否在左侧展示
+   * @default false
+   */
+  leftHandler?: AcceptUpload<ValueItem>['leftHandler']
+  /**
+   * @en same as style.height
+   * @cn 同 style.height
+   */
   height?: number
+  /**
+   * @en same as style.width
+   * @cn 同 style.width
+   */
   width?: number
   /**
    * @en ignore image preview
@@ -375,6 +342,10 @@ export interface SimpleUploadImageProps<ValueItem> extends AcceptUpload<ValueIte
    */
   ignorePreview?: boolean
 }
+
+export interface SimpleUploadImageProps<ValueItem>
+  extends AcceptUpload<ValueItem>,
+    SimpleUploadImagePropsSpec<ValueItem> {}
 
 export interface UploadImageHandlerProps {
   className?: string
@@ -404,13 +375,7 @@ export interface UploadImageResultProps {
   removeConfirm?: AcceptUpload<any>['removeConfirm']
 }
 
-// Upload.Button
-/**
- * @title Button
- */
-export interface UploadProgressProps<ValueItem>
-  extends AcceptUpload<ValueItem>,
-    Pick<ButtonProps, 'type' | 'size' | 'outline'> {
+export interface UploadProgressPropsSpec extends Pick<ButtonProps, 'type' | 'size' | 'outline'> {
   /**
    * @en button default content
    * @cn 按钮默认内容
@@ -422,6 +387,12 @@ export interface UploadProgressProps<ValueItem>
    */
   loading?: React.ReactNode
 }
+/**
+ * @title Upload.Button
+ * @en The basic API is the same as Upload, and the specific API is as follows:
+ * @cn 基本 API 和 Upload 相同，特定的 API 如下：
+ */
+export interface UploadProgressProps<ValueItem> extends AcceptUpload<ValueItem>, UploadProgressPropsSpec {}
 
 export interface UploadRemoveConfirmProps {
   confirm?: AcceptUpload<any>['removeConfirm']
@@ -443,8 +414,10 @@ export interface UploadResultProps {
   removeConfirm?: AcceptUpload<any>['removeConfirm']
 }
 
-// export
-export type UploadImageProps<ValueItem> = GetInputableProps<SimpleUploadImageProps<ValueItem>, ValueItem[]>
+export type UploadImageProps<ValueItem> = Omit<
+  GetInputableProps<SimpleUploadImageProps<ValueItem>, ValueItem[]>,
+  'filterSameChange'
+>
 
 export declare class Image<ValueItem> extends React.Component<UploadImageProps<ValueItem>, any> {
   render: () => JSX.Element
@@ -454,7 +427,108 @@ export declare class ImageHandler extends React.Component<UploadImageHandlerProp
   render: () => JSX.Element
 }
 
-export type UploadButtonProps<ValueItem> = GetInputableProps<UploadProgressProps<ValueItem>, ValueItem[]>
+export type UploadButtonProps<ValueItem> = Omit<
+  GetInputableProps<UploadProgressProps<ValueItem>, ValueItem[]>,
+  'filterSameChange'
+>
+
+/**
+ * @title UploadOptions
+ */
+export interface UploadOptions<T> {
+  /**
+   * @en The upload address can be obtained from action
+   * @cn 上传地址从 action 中获取
+   */
+  url: string
+  /**
+   * @en key of formData
+   * @cn formData 中存的字段名
+   */
+  name: string
+  /**
+   * @inner 内部属性
+   */
+  cors?: SimpleUploadProps<T>['cors']
+  /**
+   * @en same as withCredentials in props
+   * @cn 通过 props 中的 withCredentials
+   */
+  withCredentials: SimpleUploadProps<T>['withCredentials']
+  /**
+   * @en same as responseType in props
+   * @cn 通过 props 中的 responseType
+   */
+  responseType: SimpleUploadProps<T>['responseType']
+  /**
+   * @en incoming file
+   * @cn 传入文件
+   */
+  file: File
+  /**
+   * @en request header information
+   * @cn 请求头部信息
+   * @override object
+   */
+  headers?: ObjectType
+  /**
+   * @en onError callback
+   * @cn 上传出错事件(props 中为 onHttpError)
+   */
+  onError: (xhr: Partial<Xhr>) => void
+  /**
+   * @en onLoad
+   * @cn 上传事件
+   */
+  onLoad: (xhr?: Xhr) => void
+  /**
+   * @en onProgress
+   * @cn 上传中进度
+   */
+  onProgress: (event?: ProgressEvent, msg?: string) => any
+  /**
+   * @en onStart
+   * @cn 开始上传事件
+   */
+  onStart?: (file: File) => void
+  /**
+   * @en onSuccess
+   * @cn 上传成功事件
+   */
+  onSuccess?: (res?: string, file?: File, data?: any, xhr?: Xhr) => T | Error
+  /**
+   * @en params
+   * @cn 上传参数
+   */
+  params?: ObjectType
+}
+
+/**
+ * @title Validator
+ */
+export interface Validator {
+  /**
+   * @en custom validator
+   * @cn 自定义校验
+   */
+  customValidator?: (file: File) => void | Error | Promise<any>
+  /**
+   * @en Judge the file extension, return the Error when the verification fails.
+   * @cn 判断后缀名，传入参数为文件后缀，校验失败返回 Error
+   */
+  ext?: (ext: string) => void | Error | Promise<any>
+  /**
+   * @en It is only valid for Image to determine the size of images and return the Error when the verification fails.
+   * @cn 只对 Image 有效，判断图片尺寸，校验失败返回 Error
+   * @override union
+   */
+  imageSize?: (image: { width: number; height: number }) => void | Error
+  /**
+   * @en Judge the size of the file and return the Error when the verification fails.
+   * @cn 判断文件大小，校验失败返回 Error
+   */
+  size?: (size: number) => void | Error | Promise<any>
+}
 
 export declare class UploadButton<ValueItem> extends React.Component<UploadButtonProps<ValueItem>, any> {
   render: () => JSX.Element
@@ -464,8 +538,6 @@ export declare class UploadButton<ValueItem> extends React.Component<UploadButto
 export declare class UploadDragger extends React.Component<any, any> {
   render: () => JSX.Element
 }
-
-export type UploadProps<ValueItem> = GetInputableProps<AcceptUpload<ValueItem>, ValueItem[]>
 
 export declare class Upload<ValueItem> extends React.Component<UploadProps<ValueItem>, any> {
   static Image: typeof Image

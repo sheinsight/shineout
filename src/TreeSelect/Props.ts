@@ -38,14 +38,16 @@ type ExtendsTreeProps<Item, Value> = Pick<TreeProps<Item, Value extends any[] ? 
 export type SetTreeProps<Item, Value> = Partial<
   Pick<TreeProps<Item, Value extends any[] ? Value : Value[]>, SetTreePropsKey>
 >
-/**
- * @title TreeSelect
- */
+
 // 重写
-export interface OriginTreeSelectProps<Item, Value>
+export interface OriginTreeSelectProps<DataItem, Value>
   extends Pick<AbsoluteProps, 'absolute' | 'zIndex'>,
-    ExtendsTreeProps<Item, Value> {
-  datum: DatumTree<Item>
+    ExtendsTreeProps<DataItem, Value> {
+  datum: DatumTree<DataItem>
+  /**
+   * @en placeholder when value is empty
+   * @cn value 为空时的占位符
+   */
   placeholder?: ReactNode
   /**
    * @en when compressed is True,the comptessedBound can limit the numbers of multiple selected item's label
@@ -58,9 +60,15 @@ export interface OriginTreeSelectProps<Item, Value>
    * @default false
    */
   clearable?: boolean
+  /**
+   * @en size
+   * @cn 尺寸
+   * @override union
+   * @default 'default'
+   */
   size?: RegularAttributes.Size
   filterText?: string
-  result: ResultItem<Item>[]
+  result: ResultItem<DataItem>[]
   /**
    * @en ender unmatched value
    * @cn 渲染未匹配值的方式
@@ -71,12 +79,16 @@ export interface OriginTreeSelectProps<Item, Value>
    * @cn 内嵌标题
    */
   innerTitle?: ReactNode
-  data: Item[]
+  /**
+   * @en data source
+   * @cn 数据源
+   */
+  data: DataItem[]
   /**
    * @en Some methods of getting components Currently only support getDataByValue
    * @cn 获取组件的一些方法 目前只支持 getDataByValues
    */
-  getComponentRef?: ((ref: ComponentRef<Item, Value>) => void) | { current?: ComponentRef<Item, Value> }
+  getComponentRef?: ((ref: ComponentRef<DataItem, Value>) => void) | { current?: ComponentRef<DataItem, Value> }
   onFilter?: (text: string, from: FilterFormType) => void
   /**
    * @en Placeholder content when there is no data
@@ -89,23 +101,31 @@ export interface OriginTreeSelectProps<Item, Value>
    * @default false
    */
   multiple?: boolean
+  /**
+   * @en callback function of blur event
+   * @cn blur 事件回调函数
+   */
   onBlur: (e?: any) => void
+  /**
+   * @en callback function of focus event
+   * @cn focus 事件回调函数
+   */
   onFocus: (e?: any) => void
   /**
    * @en When it is true, all nodes disable the selection; when it is a function, it determines whether it is disabled according to the return result of the function.
    * @cn 为 true 时，所有节点禁用选择，为函数时，根据函数返回结果确定是否禁用
    * @default false
    */
-  disabled?: ((data: Item) => boolean) | boolean
+  disabled?: ((data: DataItem) => boolean) | boolean
   /**
    * @en The content displayed in the result after selecting, if not set, use renderItem. not show while return null, result is current selected
    * @cn 选中后在结果中显示的内容，默认和 renderItem 相同
    * @default renderItem
    */
-  renderResult?: (data: Item) => React.ReactNode
+  renderResult?: (data: DataItem) => React.ReactNode
   /**
-   * @en mode . 0: Returns only the fully selected node including the parent node.  1: Returns all selected nodes and semi-selected nodes. 2: Return only the selected child nodes. 3: If the parent node is full selected, only return the parent node.
-   * @cn 选中值模式。0: 只返回完全选中的节点，包含父节点。1: 返回全部选中的节点和半选中的父节点。2: 只返回选中的子节点。3: 如果父节点选中，只返回父节点
+   * @en mode 0: Returns only the fully selected node including the parent node. 1: Returns all selected nodes and semi-selected nodes. 2: Return only the selected child nodes. 3: If the parent node is full selected, only return the parent node. 4: What you choose is what you get.
+   * @cn 选中值模式，未设置值为单选 0: 只返回完全选中的节点，包含父节点 1: 返回全部选中的节点和半选中的父节点 2: 只返回选中的子节点 3: 如果父节点选中，只返回父节点 4: 所选即所得
    * @default 1
    */
   mode?: TreeModeType
@@ -119,6 +139,10 @@ export interface OriginTreeSelectProps<Item, Value>
    * @cn 下拉列表展开/收起回调
    */
   onCollapse?: (collapse: boolean) => void
+  /**
+   * @en Popup Position
+   * @cn 弹出位置
+   */
   position?: 'drop-up' | 'drop-down'
   /**
    * @en Expand option list while enter press
@@ -129,7 +153,7 @@ export interface OriginTreeSelectProps<Item, Value>
    * @en value is your picker now
    * @cn 参数 为 当前选中值
    */
-  onChange: (value: Value, selected?: Item, path?: (string | number)[]) => void
+  onChange: (value: Value, selected?: DataItem, path?: (string | number)[]) => void
 
   /**
    * @en onChange additional parameters (current is the data of the clicked node, data is the currently selected data, checked is whether it is selected or canceled in the multi-select state)
@@ -137,9 +161,9 @@ export interface OriginTreeSelectProps<Item, Value>
    */
   onChangeAddition?: (
     params: {
-      current?: Item
+      current?: DataItem
       checked?: 0 | 1 | 2
-      data?: Item[] | Item | null
+      data?: DataItem[] | DataItem | null
     }
   ) => void
   /**
@@ -147,6 +171,10 @@ export interface OriginTreeSelectProps<Item, Value>
    * @cn 选中的 key （受控），多选时必须为array
    */
   value?: Value
+  /**
+   * @en Merges selected values; the repeat value will not appear in the Popover when it is'no-repeat'.
+   * @cn 将选中值合并，只在多选模式下有效；为'no-repeat'时弹出框中不重复展示值
+   */
   compressed?: boolean | 'no-repeat'
 }
 
@@ -233,6 +261,9 @@ type TreeSelectPropsWithBorder<Item, Value> = GetInputBorderProps<TreeSelectProp
 
 type TreeSelectPropsWithInputable<Item, Value> = GetInputableProps<TreeSelectPropsWithBorder<Item, Value>, Value>
 
+/**
+ * @title TreeSelect
+ */
 export type TreeSelectProps<Item, Value extends TreeSelectValueType> = TreeSelectPropsWithInputable<Item, Value>
 
 export declare class TreeSelectClass<
