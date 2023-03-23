@@ -101,7 +101,7 @@ function getImportType(text) {
   return resultStr
 }
 
-function getTypeStr(override, type, optional, name) {
+function getTypeStr(override, type, optional) {
   if (override && override !== 'union') {
     return override
   }
@@ -191,8 +191,8 @@ function getPropertiesWithDocComments(pp) {
   })
   return results
 }
-const p = path.resolve(__dirname, '../../src/Upload/Props.ts')
-console.log(getPropertiesWithDocComments(p))
+const p = path.resolve(__dirname, '../../src/Tag/Props.ts')
+getPropertiesWithDocComments(p)
 const ModuleMap = {
   List: 'DataList',
 }

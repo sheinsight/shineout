@@ -148,7 +148,7 @@ export interface ModalProps extends StandardProps {
 
   /**
    * @en Modal Title show status icon
-   * @cn Modal title 显示状态icon
+   * @cn Modal title 显示状态 icon
    */
   type?: 'info' | 'success' | 'warning' | 'error' | 'normal' | 'default'
 
@@ -182,7 +182,7 @@ export interface ModalProps extends StandardProps {
 
   /**
    * @en When the theme is antd, Set the content style padding to 0
-   * @cn 当Sheinout采用 antd 主题时，取消内容区域的padding
+   * @cn 当 Sheinout 采用 antd 主题时，取消内容区域的 padding
    */
   noPadding?: boolean
 

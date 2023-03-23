@@ -1,8 +1,9 @@
 import { ReactNode, CSSProperties, FC } from 'react'
 import { StandardProps } from '../@types/common'
 import { GetScrollContextConsumerValue } from '../Scroll/Props'
+// import { PopoverPositionType } from '../Popover/Props'
 
-export type ToolPosition = 'top' | 'left' | 'right' | 'bottom' | 'bottom-right' | 'cover'
+export type ToolPosition = 'top' | 'left' | 'right' | 'bottom'
 export type TriggerType = 'click' | 'hover'
 export interface ContainerOptions {
   show: (props: ContainerProps, id: string, innerStyle?: CSSProperties) => void

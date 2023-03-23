@@ -60,9 +60,8 @@ export interface PanelProps extends StandardProps, PopoverProviderProps {
    */
   onOpen?: () => void
   /**
-   * @en The position of pop-up layer
-   * @cn 弹出层位置
-   * @default 'top'
+   * @en The position of pop-up layer, default is "auto"
+   * @cn 弹出层位置。若不设置，则默认为 auto
    */
   position?: PopoverPositionType
   /**
@@ -104,14 +103,14 @@ export interface PanelProps extends StandardProps, PopoverProviderProps {
    */
   mouseLeaveDelay?: number
   /**
-   * @en Popup location priority, default is left and right priority, only valid when position is not set, Options: ['vertical', 'horizontal']
-   * @cn 弹出位置优先级, 默认为左右优先, 只在未设置 position 时生效, 可选值['vertical', 'horizontal', 'auto']
+   * @en Popup location priority, default is left and right priority, only valid when position is not set
+   * @cn 弹出位置优先级, 默认为左右优先, 只在未设置 position 时生效
    * @default 'vertical'
    */
   priorityDirection?: PriorityDirectionType
   /**
    * @en Custom Popover container, override the default behavior which is rendering under the body, () => DOMElement
-   * @cn 自定义Popover容器，覆盖默认渲染在body下的行为, () => DOMElement
+   * @cn 自定义 Popover 容器，覆盖默认渲染在 body 下的行为, () => DOMElement
    */
   getPopupContainer?: () => HTMLElement | null
   /**
@@ -171,15 +170,14 @@ export interface PopoverConfirmSelfProps {
    */
   onCancel?: () => void | Promise<any>
   /**
-   * @en ok button's type, same with button type
-   * @cn 确认按钮的类型，与按钮类型相同
-   * @default danger
+   * @en ok button's type, same with [Button](/components/Button) type
+   * @cn 确认按钮的类型，与 [Button](/components/Button) 类型相同
+   * @default "danger"
    */
   okType?: ButtonType
   /**
-   * @en ok button's type, same with button type
-   * @cn 确认按钮的类型，与按钮类型相同
-   * @default danger
+   * @en custom icon
+   * @cn 自定义Icon
    */
   icon?: AlertProps['icon']
   /**
@@ -188,9 +186,9 @@ export interface PopoverConfirmSelfProps {
    */
   children: ReactNode
   /**
-   * @en same with Alert type
-   * @cn 类型同 Alert type 属性
-   * @default confirmwarning
+   * @en same with [Alert](/components/Alert) type
+   * @cn 类型同 [Alert](/components/Alert) type 属性
+   * @default "confirmwarning"
    */
   type?: AlertProps['type']
 }

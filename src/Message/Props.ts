@@ -56,6 +56,7 @@ export interface MessageOptions {
   /**
    * @en The position where the message display
    * @cn 消息显示的位置
+   * @default "top"
    */
   position?: 'top' | 'middle' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'
   /**
@@ -67,6 +68,7 @@ export interface MessageOptions {
   /**
    * @en show close button
    * @cn 是否隐藏关闭按钮
+   * @default false
    */
   hideClose?: boolean
 

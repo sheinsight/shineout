@@ -232,6 +232,10 @@ export type TreeSelectPropsWithFilter<Item, Value> = Omit<
   TreeSelectPropsWithTied<Item, Value>,
   'filterText' | 'result' | 'rawData' | 'onFilter'
 > & {
+  /**
+   * @en By default, the value of the cache corresponds to the label. If the data changes, set noCache = true
+   * @cn 默认会缓存 value 对应 label, 如果 data 会变化需要设置 noCache = true
+   */
   noCache?: boolean
   /**
    * @en Whether to show the descendant nodes of the hit node after filtering

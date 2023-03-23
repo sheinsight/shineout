@@ -4,7 +4,7 @@ import { StandardProps } from '../@types/common'
 type ReactNode = React.ReactNode
 
 /**
- * Tag
+ * @title Tag
  */
 export interface TagProps extends StandardProps {
   /**
@@ -21,13 +21,13 @@ export interface TagProps extends StandardProps {
 
   /**
    * @en When onClose is empty, no close is displayed. If you need to close and do not need to handle callbacks, set it true.
-   * @cn 当 onClose 为空时，不显示关闭。如果需要关闭又不需要处理回调，设置为true即可
+   * @cn 当 onClose 为空时，不显示关闭。如果需要关闭又不需要处理回调，设置为 true 即可
    */
   onClose?: ((e: React.MouseEvent<HTMLDivElement>) => void | Promise<any>) | boolean
 
   /**
    * @en the click callback
-   * @cn 点击tag事件
+   * @cn 点击 tag 事件
    */
   onClick?: (e: React.MouseEvent<HTMLDivElement>) => void
 
@@ -41,7 +41,7 @@ export interface TagProps extends StandardProps {
   /**
    * @en types
    * @cn 类型
-   * @default default
+   * @default "default"
    */
   type?: 'success' | 'info' | 'warning' | 'danger' | 'error' | 'default'
 
@@ -65,7 +65,7 @@ export interface TagProps extends StandardProps {
 }
 
 /**
- * Tag.Input
+ * @title Tag.Input
  */
 export interface TagInputProps {
   /**

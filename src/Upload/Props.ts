@@ -46,7 +46,6 @@ export interface SimpleUploadProps<ValueItem> extends StandardProps {
   /**
    * @en Upload placeholder
    * @cn 上传占位内容
-   * @default 'required'
    */
   children?: React.ReactNode
   /**
@@ -138,10 +137,14 @@ export interface SimpleUploadProps<ValueItem> extends StandardProps {
    */
   request?: (options: UploadOptions<ValueItem>) => Xhr | void
 
+  /**
+   * @inner 内部属性
+   */
   validateHook: (func: () => Promise<any>) => void
   /**
    * @en Check file before uploading
    * @cn 上传前文件校验
+   * @override Validator
    */
   validator?: Validator
   /**
@@ -247,8 +250,8 @@ export interface SimpleUploadProps<ValueItem> extends StandardProps {
    */
   canDelete?: ((value: ValueItem, index: number) => boolean) | boolean
   /**
-   * @en Adjust the spacing to be consistent with the Gap props
-   * @cn 调整间距 同 Gap 属性
+   * @en Adjust the spacing to be consistent with the [Gap](/components/Gap) props
+   * @cn 调整间距 同 [Gap](/components/Gap) 属性
    * @default {column: 12, row: 12}
    */
 
@@ -375,6 +378,11 @@ export interface UploadImageResultProps {
   removeConfirm?: AcceptUpload<any>['removeConfirm']
 }
 
+/**
+ * @title Upload.Button
+ * @en The basic API is the same as Upload, and the specific API is as follows:
+ * @cn 基本 API 和 Upload 相同，特定的 API 如下：
+ */
 export interface UploadProgressPropsSpec extends Pick<ButtonProps, 'type' | 'size' | 'outline'> {
   /**
    * @en button default content
@@ -386,12 +394,14 @@ export interface UploadProgressPropsSpec extends Pick<ButtonProps, 'type' | 'siz
    * @cn 上传中按钮的内容，如果是字符串默认会有spin loading
    */
   loading?: React.ReactNode
+  /**
+   * @en same as [Button](/components.Button) type
+   * @cn 同 [Button](/components.Button) type
+   * @default 'primary'
+   */
+  type?: ButtonProps['type']
 }
-/**
- * @title Upload.Button
- * @en The basic API is the same as Upload, and the specific API is as follows:
- * @cn 基本 API 和 Upload 相同，特定的 API 如下：
- */
+
 export interface UploadProgressProps<ValueItem> extends AcceptUpload<ValueItem>, UploadProgressPropsSpec {}
 
 export interface UploadRemoveConfirmProps {
@@ -434,6 +444,7 @@ export type UploadButtonProps<ValueItem> = Omit<
 
 /**
  * @title UploadOptions
+ * @isDetail true
  */
 export interface UploadOptions<T> {
   /**
@@ -452,12 +463,12 @@ export interface UploadOptions<T> {
   cors?: SimpleUploadProps<T>['cors']
   /**
    * @en same as withCredentials in props
-   * @cn 通过 props 中的 withCredentials
+   * @cn 同 props 中的 withCredentials
    */
   withCredentials: SimpleUploadProps<T>['withCredentials']
   /**
    * @en same as responseType in props
-   * @cn 通过 props 中的 responseType
+   * @cn 同 props 中的 responseType
    */
   responseType: SimpleUploadProps<T>['responseType']
   /**
