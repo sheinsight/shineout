@@ -3,7 +3,7 @@ import * as React from 'react'
 export interface StandardProps {
   /**
    * @en extend className
-   * @cn 扩展className
+   * @cn 扩展 className
    *
    */
   className?: string
@@ -52,4 +52,4 @@ export interface UnMatchedValue {
   IS_NOT_MATCHED_VALUE: boolean
   value: any
 }
-export type ResultItem<Item> = Item | UnMatchedValue
+export type ResultItem<DataItem> = DataItem | UnMatchedValue

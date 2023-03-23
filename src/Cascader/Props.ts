@@ -170,7 +170,7 @@ export interface OriginCascaderProps<DataItem, Value extends CascaderBaseValue>
   onCollapse?: (collapse: boolean) => void
   /**
    * @en If the loader attribute is a function, the node with no children is regarded as dynamically loaded node. Click expanded button to trigger the loader event. The children property is null or its length is 0 will be regarded as a leaf node.
-   * @cn 设置loader属性后，未定义children的节点视为动态加载节点，点击展开触发 loader事件，children 为 null 或者长度为 0 视为叶子节点
+   * @cn 设置 loader 属性后，未定义 children 的节点视为动态加载节点，点击展开触发 loader 事件，children 为 null 或者长度为 0 视为叶子节点
    */
   loader?: (key: KeygenResult, data: DataItem) => void
   /**
@@ -197,7 +197,7 @@ export interface OriginCascaderProps<DataItem, Value extends CascaderBaseValue>
   onFilter?: (text: string) => void
   /**
    * @en Auxiliary method for generating key. When it is a function, use the return value of this function. When it is a string, use the data value corresponding to this string. For example, 'id' is the same thing as (d) => d.id.
-   * @cn 生成key的辅助方法, 为函数时，使用此函数返回值, 为string时，使用这个string对应的数据值。如 'id'，相当于 (d) => d.id
+   * @cn 生成 key 的辅助方法, 为函数时，使用此函数返回值, 为 string 时，使用这个 string 对应的数据值。如 'id'，相当于 (d) => d.id
    * @default index
    */
   keygen: ((data: DataItem, parentKey?: KeygenResult) => KeygenResult) | ObjectKey<DataItem>
@@ -208,7 +208,7 @@ export interface OriginCascaderProps<DataItem, Value extends CascaderBaseValue>
    */
   getComponentRef?: ((comp: ComponentRef) => void) | { current: ComponentRef | undefined }
   /**
-   * @en When it is a string, return d[string]. When it is a function, return the result of the function.
+   * @en When it is a string, return d\\[string]. When it is a function, return the result of the function.
    * @cn 为 string 时，返回 d\\[string]。 为 function 时，返回函数结果
    * @default d => d
    */
@@ -346,12 +346,13 @@ type CascaderPropsWithFilter<Item, Value extends CascaderBaseValue> = GetFilterP
   CascaderPropsWithTableConsumber<Item, Value>,
   Item
 >
-type CascaderPropsWithBorder<Item, Value extends CascaderBaseValue> = GetInputBorderProps<
-  CascaderPropsWithFilter<Item, Value>
->
-type CascaderPropsWithInput<Item, Value extends CascaderBaseValue> = Omit<
-  GetInputableProps<CascaderPropsWithBorder<Item, Value>, Value>,
+type CascaderPropsWithBorder<Item, Value extends CascaderBaseValue> = Omit<
+  GetInputBorderProps<CascaderPropsWithFilter<Item, Value>>,
   'autoFocus'
+>
+type CascaderPropsWithInput<Item, Value extends CascaderBaseValue> = GetInputableProps<
+  CascaderPropsWithBorder<Item, Value>,
+  Value
 >
 
 /**

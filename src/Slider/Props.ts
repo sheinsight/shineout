@@ -17,14 +17,15 @@ export interface ContainerProps<Value extends number | number[]> extends Standar
 
   /**
    * @en Format displayed scale. When it is false, the scale is not displayed.
-   * @cn 格式化显示刻度，为false时，不显示刻度
+   * @cn 格式化显示刻度，为 false 时，不显示刻度
    * @default v => v
    */
   formatScale?: ((value: number, index?: number) => string | number) | false
 
   /**
    * @en Format displayed current value. When it is false, the current value is not displayed.
-   * @cn 格式化显示当前值，为false时，不显示当前值
+   * @cn 格式化显示当前值，为 false 时，不显示当前值
+   * @default v => v
    */
   formatValue?: ((value: number) => string) | false
 
@@ -36,9 +37,8 @@ export interface ContainerProps<Value extends number | number[]> extends Standar
   height?: number
 
   /**
-   * @en Drag over the maximum event
+   * @en The callback function when the value is changing.
    * @cn 值改变时回调函数
-   * @default [0, 100]
    */
   onChange: (value: Value) => void
 
@@ -59,6 +59,7 @@ export interface ContainerProps<Value extends number | number[]> extends Standar
   /**
    * @en current value
    * @cn 当前值
+   * @override number | number[]
    */
   value?: Value
 

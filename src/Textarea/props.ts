@@ -49,8 +49,8 @@ export interface OriginTextareaProps extends Pick<InputTitleProps, 'innerTitle' 
    */
   rows?: number
   /**
-   * @cn DefaultValue and value can be set at the same time and defaultValue will be overridden by value.
-   * @en defaultValue 和 value 可以同时设置，defaultValue 会被value覆盖
+   * @en DefaultValue and value can be set at the same time and defaultValue will be overridden by value.
+   * @cn defaultValue 和 value 可以同时设置，defaultValue 会被value覆盖
    */
   value?: string
   /**

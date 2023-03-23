@@ -54,11 +54,12 @@ export interface BaseTransferProps<DataItem, Value extends any[]> extends Standa
    */
   keygen: KeygenType<DataItem>
   /**
-   * @en When it is a string, return d[string]
+   * @en When it is a string, return d\\[string]
    * When it is a function, return the result of the function
    *
-   * @cn 为 string 时，返回 d[string]
+   * @cn 为 string 时，返回 d\\[string]
    * 为 function 时，返回函数结果
+   * @default d => d
    */
   renderItem?: ((data: DataItem) => React.ReactNode) | ObjectKey<DataItem>
   /**
@@ -158,8 +159,8 @@ export interface BaseTransferProps<DataItem, Value extends any[]> extends Standa
    */
   listHeight?: number
   /**
-   * @en custom render filter. The type filterProps: value : string; disabled : boolean; onFilter : Function; placeholder : string
-   * @cn 自定义过滤器渲染。自定义过滤器渲染。filterProps 包含参数如下：value : string; disabled : boolean; onFilter : Function; placeholder : string
+   * @en custom render filter
+   * @cn 自定义过滤器渲染。自定义过滤器渲染
    */
   renderFilter?: (value: FilterInfo) => React.ReactNode
   /**

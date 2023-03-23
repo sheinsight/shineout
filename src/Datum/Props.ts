@@ -79,7 +79,7 @@ export interface ListDatumOptions<DataItem, Value> {
 
   /**
    * @en Format value. The defaule value is return the original data. When it is a string, the value is fetched from the original data as a key equivalent to (d) => d\\[format] When it is a function, use its return value.
-   * @cn 格式化 value。 默认值，返回原始数据。 为string时，会作为key从原始数据中获取值，相当于 (d) => d\\[format]。为函数时，以函数返回结果作为 value。
+   * @cn 格式化 value, 默认值，返回原始数据。 为 string 时，会作为 key 从原始数据中获取值，相当于 (d) => d\\[format]; 为函数时，以函数返回结果作为 value。
    * @default d => d
    */
   format?: ObjectKey<DataItem> | ((data: DataItem) => Value extends (infer U)[] ? U : Value)

@@ -32,6 +32,7 @@ export interface CheckItemProps extends StandardProps {
   /**
    * @en if not set, use (value === htmlValue).
    * @cn checked 传入时为受控组件
+   * @override boolean | "indeterminate"
    */
   checked?: CheckValueType | ((htmlValue: any) => CheckValueType)
 
@@ -167,7 +168,7 @@ export interface BaseCheckboxGroupProps<DataItem, Value> extends StandardProps {
   datum: ListDatum<DataItem, Value>
   /**
    * @en In the Form, the value will be taken over by the form and the value will lose efficacy.
-   * @cn 在Form中，value会被表单接管，value无效
+   * @cn 在 Form中，value 会被表单接管，value 无效
    * @override any
    */
   value?: Value

@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 
 const APP = props => {
   const { title, properties, cn, en, subTitle, single, isDetail } = props
+  const hasVersion = properties.find(item => !!item.version)
 
   return (
     <>
@@ -27,7 +28,7 @@ const APP = props => {
               <th>{locate('类型', 'Type')}</th>
               {isDetail ? null : <th>{locate('默认值', 'Default')}</th>}
               <th>{locate('说明', 'Description')}</th>
-              <th>{locate('版本', 'Version')}</th>
+              {hasVersion ? <th>{locate('版本', 'Version')}</th> : null}
             </tr>
           </thead>
           <tbody>
@@ -61,7 +62,7 @@ const APP = props => {
                         }}
                       />
                     </td>
-                    <td>{tag.version || '-'}</td>
+                    {hasVersion ? <td>{tag.version || '-'}</td> : null}
                   </tr>
                 )
               })}

@@ -31,8 +31,8 @@ export interface InputBorderProps extends StandardProps {
    */
   tip?: ReactNode
   /**
-   * @en The position where the text pop up, see [Popover](/components/Popover)
-   * @cn 信息弹出位置，参考 [Popover](/components/Popover)
+   * @en The position where the validation info pop up, see [Popover](/components/Popover)
+   * @cn 校验信息弹出位置，参考 [Popover](/components/Popover)
    * @override PopoverProps["position"]
    */
   popover?: PopoverPositionType
@@ -129,7 +129,7 @@ export interface CoinProps {
   onMouseUp?: React.MouseEventHandler
   /**
    * @en Show as thousands separator, valid only when type is 'number'
-   * @cn 以千位分隔符展示,仅当type为number时有效
+   * @cn 以千位分隔符展示,仅当 type 为 number 时有效
    * @default false
    */
   coin?: boolean

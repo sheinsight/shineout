@@ -104,7 +104,6 @@ export interface ModalProps extends StandardProps {
   /**
    * @en the root element of modal, the mask parent element
    * @cn modal 的根元素类名, 为遮罩层的父元素
-   * @version 1.4.2
    */
   rootClassName?: string
 
@@ -150,7 +149,6 @@ export interface ModalProps extends StandardProps {
   /**
    * @en Modal Title show status icon
    * @cn Modal title 显示状态icon
-   * @version 1..6.1
    */
   type?: 'info' | 'success' | 'warning' | 'error' | 'normal' | 'default'
 

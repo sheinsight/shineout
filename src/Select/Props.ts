@@ -27,11 +27,11 @@ type ExpandTreeKeys =
   | 'expandIcons'
   | 'loader'
   | 'childrenKey'
-export interface BaseSelectProps<Item, Value>
+export interface BaseSelectProps<DataItem, Value>
   extends StandardProps,
     Pick<AbsoluteProps, 'absolute' | 'zIndex'>,
     Pick<InputableProps<Value>, 'formDatum'>,
-    Pick<TreeProps<Item, ValueArr<Value>>, ExpandTreeKeys> {
+    Pick<TreeProps<DataItem, ValueArr<Value>>, ExpandTreeKeys> {
   /**
    * @en Form field, used with Form
    * @cn 表单字段, 配合 Form 使用
@@ -55,14 +55,14 @@ export interface BaseSelectProps<Item, Value>
    * @cn 树形结构数据项，[{children: []}]
    * @override object[]
    */
-  treeData?: Item[]
+  treeData?: DataItem[]
 
   /**
    * @en When the value is true, disabled all checkboxes; When the value is function, disable the checkbox that this function returns true.
    * @cn 如果 disabled 为 true，禁用全部选项，如果 disabled 为函数，根据函数反回结果禁用选项
    * @default false
    */
-  disabled?: ((data: Item) => boolean) | boolean
+  disabled?: ((data: DataItem) => boolean) | boolean
 
   /**
    * @en height
@@ -73,7 +73,7 @@ export interface BaseSelectProps<Item, Value>
 
   /**
    * @en The maximum number of rows for a single render. Select uses lazy render to optimize performance under large amounts of data. If your table displays more than 10 rows, you can change the value of itemsInView.
-   * @cn 单次render的最大行数。Select 采用了lazy render的方式来优化在大量数据下的性能，如果你的表格显示的高度超出了10条，可以调整itemsInView
+   * @cn 单次 render 的最大行数。Select 采用了lazy render 的方式来优化在大量数据下的性能，如果你的表格显示的高度超出了 10 条，可以调整 itemsInView
    * @default 10
    */
   itemsInView?: number
@@ -87,7 +87,8 @@ export interface BaseSelectProps<Item, Value>
 
   /**
    * @en When it is true, a default [Spin](/components/Spin) component will be displayed, a custom loading icon can be passed in to replace.
-   * @cn 数据加载中，为true时会展示一个默认的[Spin](/components/Spin)组件，可以传入一个自定义的Spin代替
+   * @cn 数据加载中，为true时会展示一个默认的 [Spin](/components/Spin) 组件，可以传入一个自定义的Spin代替
+   * @override boolean | ReactNode
    * @default false
    */
   loading?: boolean | ReactNode
@@ -101,9 +102,9 @@ export interface BaseSelectProps<Item, Value>
 
   /**
    * @en If the onCreate event is set, the component is inputable. When onCreate is a function, the return value of this function is diaplay at the top as a new option. When onCreate is true, use the built-in functuon text => text.
-   * @cn 如果设置了 onCreate 事件，组件为可输入状态。onCreate为函数时，将此函数返回值作为新的选项拆入最上方。onCreate为true时，使用默认函数 text => text
+   * @cn 如果设置了 onCreate 事件，组件为可输入状态。onCreate 为函数时，将此函数返回值作为新的选项拆入最上方。onCreate 为 true 时，使用默认函数 text => text
    */
-  onCreate?: ((input: string | Item) => Item | string) | boolean
+  onCreate?: ((input: string | DataItem) => DataItem | string) | boolean
 
   onFilter?: (text: string, from?: string) => void
 
@@ -115,10 +116,11 @@ export interface BaseSelectProps<Item, Value>
   position?: RegularAttributes.ListPosition
 
   /**
-   * @en When it is a string, return d[string]. When it is a function, return the result of the function.
-   * @cn 为 string 时，返回 d[string]。 为 function 时，返回函数结果
+   * @en When it is a string, return d\\[string]. When it is a function, return the result of the function.
+   * @cn 为 string 时，返回 d\\[string]。 为 function 时，返回函数结果
+   * @default d => d
    */
-  renderItem?: ((data: Item, index?: number) => ReactNode) | ObjectKey<Item>
+  renderItem?: ((data: DataItem, index?: number) => ReactNode) | ObjectKey<DataItem>
 
   /**
    * @en size of select
@@ -130,7 +132,7 @@ export interface BaseSelectProps<Item, Value>
 
   /**
    * @en Merges selected values, valid only in multiselect mode
-   * @cn 将选中值合并，只在多选模式下有效
+   * @cn 将选中值合并，只在多选模式下有效; 为 'no-repeat' 时弹出框中不重复展示值
    * @default false
    */
   compressed?: boolean | 'no-repeat'
@@ -205,11 +207,11 @@ export interface BaseSelectProps<Item, Value>
    * @en The className of the selected result content container
    * @cn 选中结果内容容器的className
    */
-  resultClassName?: ((value: Item) => string) | string
+  resultClassName?: ((value: DataItem) => string) | string
 
   /**
    * @en There are onFilter and onCreate, select Option, automatically focus Input
-   * @cn 存在onFilter和onCreate，选中 Option，自动focus Input
+   * @cn 存在 onFilter 和 onCreate，选中 Option，自动 focus Input
    * @default false
    */
   reFocus?: boolean
@@ -217,7 +219,6 @@ export interface BaseSelectProps<Item, Value>
   /**
    * @en Custom render option list header
    * @cn 自定义渲染 Option List Header
-   * @default null
    */
   header?: ReactElement
 
@@ -274,10 +275,10 @@ export interface BaseSelectProps<Item, Value>
 
   /**
    * @en Auxiliary method for generating key. When it is a function, use the return value of this function. When it is a string, use the data value corresponding to this string. For example, 'id' is the same thing as (d) => d.id.
-   * @cn 生成key的辅助方法, 为函数时，使用此函数返回值, 为string时，使用这个string对应的数据值。如 'id'，相当于 (d) => d.id
+   * @cn 生成 key 的辅助方法, 为函数时，使用此函数返回值, 为 string 时，使用这个 string 对应的数据值。如 'id'，相当于 (d) => d.id
    * @default index
    */
-  keygen: KeygenType<Item>
+  keygen: KeygenType<DataItem>
 
   /**
    * @en Option column width, only effective when columns > 1
@@ -290,13 +291,13 @@ export interface BaseSelectProps<Item, Value>
    * @en group by
    * @cn 分组
    */
-  groupBy?: (record: Item, index: number, data: Item[]) => string
+  groupBy?: (record: DataItem, index: number, data: DataItem[]) => string
 
   /**
    * @en value is the datum.getValue().
    * @cn value 为 datum.getValue()
    */
-  onChange: (value: Value, data?: Item, checked?: boolean) => void
+  onChange: (value: Value, data?: DataItem, checked?: boolean) => void
 
   /**
    * @en title of columns multiple select
@@ -329,14 +330,14 @@ export interface BaseSelectProps<Item, Value>
    * @cn (val, d) => val===format(d) | 默认使用 format 函数执行的结果来比较是否匹配，在某些情况下（例如返回原始数据的对象，更新数据时，生成了一个值相同，非同一个对象的选项），需要借助 prediction 函数来判断是否匹配
    * @default (val, d) => val===format(d)
    */
-  prediction?: (value: ValueItem<Value>, data: Item) => boolean
+  prediction?: (value: ValueItem<Value>, data: DataItem) => boolean
 
   /**
-   * @en When it is a string, return d[string]. When it is a function, return the result of the function.
-   * @cn 为 string 时，返回 d[string]。为 function 时，返回函数结果
-   * @default (val, d) => val===format(d)
+   * @en The content displayed in the result after selecting, if not set, use renderItem
+   * @cn 为 选中后在结果中显示的内容，默认和 renderItem 相同
+   * @default renderItem
    */
-  renderResult?: ((data: Item, index?: number) => ReactNode)
+  renderResult?: ((data: DataItem, index?: number) => ReactNode)
 
   /**
    * @en show border bottom
@@ -350,20 +351,19 @@ export interface BaseSelectProps<Item, Value>
    * @cn 控制浮层显隐
    */
   open?: boolean
-  data: Item[]
+  data: DataItem[]
   /**
    * @en In the Form, the value will be taken over by the form and the value will be invalid.
-   * @cn 在Form中，value会被表单接管，value无效
+   * @cn 在 Form 中，value 会被表单接管，value 无效
    * @override any
    */
   value: Value
   /**
    * @en Initial value
-   * @cn 默认值
-   * @override any
+   * @cn 默认值 通过 Value 类型
    */
   defaultValue?: Value
-  datum: List<Item, Value>
+  datum: List<DataItem, Value>
   filterText?: string
   /**
    * @en blur callback
@@ -375,10 +375,10 @@ export interface BaseSelectProps<Item, Value>
    * @cn focus 回调
    */
   onFocus: (e?: any) => void
-  result: ResultItem<Item>[]
+  result: ResultItem<DataItem>[]
   inputText?: string
   groupKey: string
-  innerData: Item
+  innerData: DataItem
   inputable?: boolean
   /**
    * @inner 内部属性
@@ -673,7 +673,10 @@ export type SelectPropsWidthDatum<Item, Value> = GetDatumListProps<
 export type SelectPropsWidthLimitWrap<Item, Value> = GetLimitWrapProps<SelectPropsWidthDatum<Item, Value>>
 type DataListDatumKey = 'disabled' | 'limit' | 'format' | 'prediction' | 'separator'
 export type SelectPropsWidthInputBorder<Item, Value> = GetInputBorderProps<SelectPropsWidthLimitWrap<Item, Value>>
-export type SelectPropsWidthInputable<Item, Value> = GetInputableProps<SelectPropsWidthInputBorder<Item, Value>, Value>
+export type SelectPropsWidthInputable<Item, Value> = Omit<
+  GetInputableProps<SelectPropsWidthInputBorder<Item, Value>, Value>,
+  'autoFocus'
+>
 
 /**
  * @title Select

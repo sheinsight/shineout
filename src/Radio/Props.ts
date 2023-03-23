@@ -19,8 +19,8 @@ export interface BaseRadioGroupProps<DataItem, Value> extends StandardProps {
    */
   children?: ReactNode
   /**
-   * @en When it is a string, return d[string]. When it is a function, return the result of the function.
-   * @cn 为 string 时，返回 d[string]。 为 function 时，返回函数结果
+   * @en When it is a string, return d\\[string]. When it is a function, return the result of the function.
+   * @cn 为 string 时，返回 d\\[string]。 为 function 时，返回函数结果
    * @default  d => d
    */
   renderItem?: ObjectKey<DataItem> | ((data: DataItem, index?: number) => React.ReactNode)
@@ -50,6 +50,7 @@ export interface BaseRadioGroupProps<DataItem, Value> extends StandardProps {
   /**
    * @en the data items
    * @cn 数据项
+   * @override any[]
    */
   data?: DataItem[]
   /**
@@ -65,7 +66,7 @@ export interface BaseRadioGroupProps<DataItem, Value> extends StandardProps {
   onChange: (value: Value, Data: DataItem) => void
   /**
    * @en In the Form, value is taken over by the Form and the value will be invalid.
-   * @cn 在Form中，value会被表单接管，value无效
+   * @cn 在 Form中，value 会被表单接管，value 无效
    * @override any
    */
   value: Value

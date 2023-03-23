@@ -158,8 +158,8 @@ export interface OriginTableProps<DataItem, Value>
    */
   empty?: ReactNode
   /**
-   * @en When it is true, a default Spin component will be displayed, a custom loading icon can be passed in to replace.
-   * @cn 数据加载中，为true时会展示一个默认的Spin组件，可以传入一个自定义的Spin代替
+   * @en When it is true, a default [Spin](/components/Spin) component will be displayed, a custom loading icon can be passed in to replace.
+   * @cn 数据加载中，为true时会展示一个默认的 [Spin](/components/Spin) 组件，可以传入一个自定义的Spin代替
    * @default false
    */
   loading?: boolean | ReactNode

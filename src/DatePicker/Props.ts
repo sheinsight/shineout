@@ -431,7 +431,10 @@ export type GetDatePickerValueProps<Props> = Omit<Props, 'onValueBlur' | 'onChan
 
 export type DatePickerPropsWidthAbsolute<T = DatePickerValue> = GetTableConsumerProps<ContainerProps<T>>
 export type DatePickerPropsWidthValue<T = DatePickerValue> = GetDatePickerValueProps<DatePickerPropsWidthAbsolute<T>>
-export type DatePickerPropsWidthInputBorder<T = DatePickerValue> = GetInputBorderProps<DatePickerPropsWidthValue<T>>
+export type DatePickerPropsWidthInputBorder<T = DatePickerValue> = Omit<
+  GetInputBorderProps<DatePickerPropsWidthValue<T>>,
+  'autoFocus'
+>
 export type DatePickerPropsWidthInputable<T = DatePickerValue> = GetInputableProps<
   DatePickerPropsWidthInputBorder<T>,
   DatePickerValue
@@ -440,7 +443,7 @@ export type DatePickerPropsWidthInputable<T = DatePickerValue> = GetInputablePro
 /**
  * @title DatePicker
  */
-export type DatePickerProps<T = DatePickerValue> = Omit<DatePickerPropsWidthInputable<T>, 'autoFocus'>
+export type DatePickerProps<T = DatePickerValue> = DatePickerPropsWidthInputable<T>
 
 export declare class DatePickerClass<T = DatePickerValue> extends React.Component<DatePickerProps<T>, {}> {
   render(): JSX.Element

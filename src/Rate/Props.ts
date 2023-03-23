@@ -12,12 +12,13 @@ export type ArgProps = {
    * @cn 未选中元素背景
    * @override ReactElement | string | Array<string | ReactElement>
    */
-  background?: ReactElement | string | Array<string | ReactElement>
+  background: ReactElement | string | Array<string | ReactElement>
 
   /**
    * @en selected element background
    * @cn 选中元素背景
    * @override ReactElement | string | Array<string | ReactElement>
+   * @default background
    */
   front?: ReactElement | string | Array<string | ReactElement>
 }

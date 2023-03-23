@@ -106,13 +106,13 @@ export interface Props
 
   /**
    *  @en Integer bit limit (valid when type is number)
-   *  @cn 整数位数限制, 仅在type = number 下生效
+   *  @cn 整数位数限制, 仅在 type = number 下生效
    */
   integerLimit?: number
 
   /**
    *  @en Number type supports 'positive' and 'non-negative', only works when type = number
-   *  @cn 设置数字类型 支持 'positive' 和 'non-negative', 仅在type = number 下生效
+   *  @cn 设置数字类型 支持 'positive' 和 'non-negative', 仅在 type = number 下生效
    *
    */
   numType?: NumType
@@ -135,7 +135,7 @@ export interface Props
 
   /**
    *  @en The original property of html
-   *  @cn 原生html属性
+   *  @cn 原生 html 属性
    *
    */
   htmlName?: string
@@ -229,7 +229,7 @@ export interface InputNumber extends Omit<Props, 'value' | 'defaultValue' | 'onC
   defaultValue?: NumberValueType
   /**
    * @en allow value is null
-   * @cn 清空后值为null
+   * @cn 清空后值为 null
    * @default false
    */
   allowNull?: boolean

@@ -11,8 +11,16 @@ type ReactNode = React.ReactNode
 export type FilterFormType = 'blur' | 'edit'
 export type TreeSelectValueType = KeygenResult | KeygenResult[]
 
-export interface ComponentRef<Item, Value> {
-  getDataByValues: (values: Value) => Value extends any[] ? ResultItem<Item>[] : ResultItem<Item>
+/**
+ * @title TreeSelectRef
+ * @isDetail true
+ */
+export interface ComponentRef<DataItem, Value> {
+  /**
+   * @en Get the data corresponding to the value
+   * @cn 获取 value 对应的 data
+   */
+  getDataByValues: (values: Value) => Value extends any[] ? ResultItem<DataItem>[] : ResultItem<DataItem>
 }
 
 export type ExtendsTreePropsKey =
@@ -42,7 +50,7 @@ export type SetTreeProps<Item, Value> = Partial<
 // 重写
 export interface OriginTreeSelectProps<DataItem, Value>
   extends Pick<AbsoluteProps, 'absolute' | 'zIndex'>,
-    ExtendsTreeProps<DataItem, Value> {
+    Omit<ExtendsTreeProps<DataItem, Value>, 'data'> {
   datum: DatumTree<DataItem>
   /**
    * @en placeholder when value is empty
@@ -82,8 +90,9 @@ export interface OriginTreeSelectProps<DataItem, Value>
   /**
    * @en data source
    * @cn 数据源
+   * @default []
    */
-  data: DataItem[]
+  data?: DataItem[]
   /**
    * @en Some methods of getting components Currently only support getDataByValue
    * @cn 获取组件的一些方法 目前只支持 getDataByValues
@@ -132,6 +141,7 @@ export interface OriginTreeSelectProps<DataItem, Value>
   /**
    * @en The height of list
    * @cn 列表高度
+   * @default 300
    */
   height?: number
   /**
@@ -157,7 +167,7 @@ export interface OriginTreeSelectProps<DataItem, Value>
 
   /**
    * @en onChange additional parameters (current is the data of the clicked node, data is the currently selected data, checked is whether it is selected or canceled in the multi-select state)
-   * @cn onChange 额外参数 (current 为点击的节点的数据， data为当前选中的数据， checked为多选状态下是选中还是取消)
+   * @cn onChange 额外参数 (current 为点击的节点的数据， data 为当前选中的数据， checked 为多选状态下是选中还是取消)
    */
   onChangeAddition?: (
     params: {
@@ -173,7 +183,7 @@ export interface OriginTreeSelectProps<DataItem, Value>
   value?: Value
   /**
    * @en Merges selected values; the repeat value will not appear in the Popover when it is'no-repeat'.
-   * @cn 将选中值合并，只在多选模式下有效；为'no-repeat'时弹出框中不重复展示值
+   * @cn 将选中值合并，只在多选模式下有效；为 'no-repeat' 时弹出框中不重复展示值
    */
   compressed?: boolean | 'no-repeat'
 }
@@ -257,7 +267,10 @@ export type TreeSelectPropsWithDatum<Item, Value> = Omit<TreeSelectPropsWithAdva
   unmatch?: boolean
 }
 
-type TreeSelectPropsWithBorder<Item, Value> = GetInputBorderProps<TreeSelectPropsWithDatum<Item, Value>>
+type TreeSelectPropsWithBorder<Item, Value> = Omit<
+  GetInputBorderProps<TreeSelectPropsWithDatum<Item, Value>>,
+  'autoFocus'
+>
 
 type TreeSelectPropsWithInputable<Item, Value> = GetInputableProps<TreeSelectPropsWithBorder<Item, Value>, Value>
 

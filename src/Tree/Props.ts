@@ -48,7 +48,7 @@ export interface TreeProps<DataItem, Value extends any[]> extends StandardProps 
   line?: boolean
   /**
    * @en dynamically load nodes
-   * @cn 设置loader属性后，未定义children的节点视为动态加载节点，点击展开触发 loader事件，children 为 null 或者长度为 0 视为叶子节点
+   * @cn 设置 loader 属性后，未定义 children 的节点视为动态加载节点，点击展开触发 loader事件，children 为 null 或者长度为 0 视为叶子节点
    */
   loader?: (key: ValueItem<Value>, data: DataItem) => void
   /**
@@ -108,7 +108,7 @@ export interface TreeProps<DataItem, Value extends any[]> extends StandardProps 
   /**
    * @en specify the name of the subdata
    * @cn 指定子数据的属性名
-   * @default children
+   * @default 'children'
    */
   childrenKey?: ObjectKey<DataItem>
 
@@ -145,7 +145,7 @@ export interface TreeProps<DataItem, Value extends any[]> extends StandardProps 
   unmatch?: boolean
   /**
    * @en Auxiliary method for generating key. When it is a function, use the return value of this function. When it is a string, use the data value corresponding to this string. For example, 'id' is the same thing as (d) => d.id.
-   * @cn 生成key的辅助方法, 为函数时，使用此函数返回值, 为string时，使用这个string对应的数据值。如 'id'，相当于 (d) => d.id
+   * @cn 生成 key 的辅助方法, 为函数时，使用此函数返回值, 为 string 时，使用这个 string 对应的数据值。如 'id'，相当于 (d) => d.id
    * @default index
    */
   keygen: ObjectKey<DataItem> | ((data: DataItem, parentKey: KeygenResult) => KeygenResult)
@@ -169,8 +169,8 @@ export interface TreeProps<DataItem, Value extends any[]> extends StandardProps 
    */
   bindDatum?: (datum: any) => void
   /**
-   * @en When it is a string, return d[string]. When it is a function, return the result of the function.
-   * @cn 为 string 时，返回 d[string]。 为 function 时，返回函数结果
+   * @en When it is a string, return d\\[string]. When it is a function, return the result of the function.
+   * @cn 为 string 时，返回 d\\[string]。 为 function 时，返回函数结果
    */
   renderItem:
     | ObjectKey<DataItem>

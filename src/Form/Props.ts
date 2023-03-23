@@ -83,7 +83,7 @@ export interface FieldSetProps<Value = any> {
    *
    * @override ((opts: object) => ReactNode) |ReactNode
    */
-  children?: FieldSetChildrenFunc<Value> | React.ReactNode
+  children: FieldSetChildrenFunc<Value> | React.ReactNode
 }
 
 export type GetFieldSetConsumerProps<U> = Omit<U, 'innerFormNamePath' | 'fieldSetValidate'>
@@ -195,7 +195,7 @@ export interface InputableProps<Value> {
   disabled?: boolean
   /**
    * @en onChange is not triggered when two selected values are the same
-   * @cn 当两次选择的值相同时不触发onChange
+   * @cn 当两次选择的值相同时不触发 onChange
    * @default false
    */
   filterSameChange?: boolean
@@ -203,7 +203,7 @@ export interface InputableProps<Value> {
   required?: boolean
   /**
    * @en When the value changes, it will link to verify the fields in the bind, which needs to be used with Form
-   * @cn 当值改变是会联动校验 bind 中的字段, 需要配合Form 使用
+   * @cn 当值改变是会联动校验 bind 中的字段, 需要配合 Form 使用
    */
   bind?: string[]
   onItemError?: (id: string, error?: Error) => void
@@ -220,7 +220,7 @@ export interface InputableProps<Value> {
   defaultValue?: Value
   /**
    * @en If set to true, the form will not automatically delete the data after the component is uninstalled
-   * @cn 设置为true 组件卸载后表单不自动删除数据
+   * @cn 设置为 true 组件卸载后表单不自动删除数据
    */
   reserveAble?: boolean
   /**
@@ -370,7 +370,7 @@ export interface ItemProps extends StandardProps {
   keepErrorHeight?: boolean
   /**
    * @en When it is undefined, the tag does not be rendered or occupy space. If there is no content, but it needs to be occupied, you can use an empty string ''.
-   * @cn 未定义时，标签不会render，也不会占位。如果无内容需要占位，使用空字符串 ''。
+   * @cn 未定义时，标签不会 render，也不会占位。如果无内容需要占位，使用空字符串 ''。
    */
   label?: React.ReactNode
   /**
@@ -456,7 +456,7 @@ export interface FieldProps<Value> {
    *
    * @override ((opts: object) => ReactNode) | ReactNode
    */
-  children?: React.ReactNode | FieldChildrenFunc<Value>
+  children: React.ReactNode | FieldChildrenFunc<Value>
 }
 /** ----------------FieldError-----------------------* */
 export interface FieldErrorProps {
@@ -471,7 +471,7 @@ export interface FlowProps {
    * @cn datum 为 Datum.Form 对象
    * @override (datum: FormDatum) => ReactNode
    */
-  children?: (datum: FormDatum<ObjectType>) => ReactNode
+  children: (datum: FormDatum<ObjectType>) => ReactNode
   formDatum: FormDatum<ObjectType>
   /**
    * @en Specifying which fields to change trigger the Flow update.
@@ -568,48 +568,42 @@ export declare class FormFlow extends React.Component<FormFlowProps, any> {
  * @title FormRef
  * @en Form instance method
  * @cn Form 实例的一些方法
+ * @isDetail true
  */
 export interface FormRef<Value> {
   /**
    * @en return form value
    * @cn 返回表单的值
-   * @version 1.4.4
    */
   getValue: () => Value
   /**
    * @en Validate form
    * @cn 校验表单
-   * @version 1.4.4
    */
   validate: () => Promise<any>
   /**
    * @en Validation form fields
    * @cn 校验表单指定字段
-   * @version 1.7.1
    */
   validateFields: (fields: string | string[]) => Promise<any>
   /**
    * @en The verification can get the error message through Promise.catch
    * @cn 校验可以通过 catch 获取报错信息
-   * @version 1.7.3
    */
   validateFieldsWithError: (fields: string | string[]) => Promise<any>
   /**
    * @en Clear check
    * @cn 清除校验
-   * @version 1.4.4
    */
   clearValidate: () => void
   /**
    * @en Submit Form, withValidate: Whether to verify
    * @cn 提交表单, withValidate: 是否校验
-   * @version 1.4.4
    */
   submit: (withValidate?: boolean) => void
   /**
    * @en reset form
    * @cn 重置表单
-   * @version 1.4.4
    */
   reset: () => void
 }

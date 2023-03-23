@@ -354,7 +354,7 @@ export default class TreeSelect<Item, Value extends TreeSelectValueType> extends
       props.active = props.value.length ? props.value[0] : undefined
     }
     const content =
-      data.length === 0 ? (
+      data!.length === 0 ? (
         <span className={treeSelectClass(getDirectionClass('option'))}>{this.getText('noData')}</span>
       ) : (
         <Tree
