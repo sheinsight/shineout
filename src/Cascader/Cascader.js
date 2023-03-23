@@ -229,8 +229,10 @@ class Cascader extends PureComponent {
 
   handleRemove(node) {
     const { onChange } = this.props
-    this.datum.set(this.datum.getKey(node), 0)
-    if (onChange) onChange(this.datum.getValue(), node)
+    const { datum } = this
+    const dataKey = node && datum.isUnMatch(node) ? node.value : datum.getKey(node)
+    datum.set(dataKey, 0)
+    if (onChange) onChange(datum.getValue(), node)
   }
 
   handleState(focus, e) {
