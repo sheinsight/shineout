@@ -22,8 +22,8 @@ export interface CarouselProps extends StandardProps {
   indicatorPosition?: 'left' | 'center' | 'right'
 
   /**
-   * @en the style of indicator, string options: ['circle', 'number', 'line'], using function for custom styles
-   * @cn 指示标示样式，字符串可以是：['circle', 'number', 'line']，函数则可以自定义样式: (current, moveTo) => (<Component />)
+   * @en the style of indicator, using function for custom styles
+   * @cn 指示标示样式, 函数则可以自定义样式: (current, moveTo) => (<Component />)
    * @default 'circle'
    */
   indicatorType?: ((current: number, moveTo: (index: number) => void) => ReactNode) | 'circle' | 'number' | 'line'

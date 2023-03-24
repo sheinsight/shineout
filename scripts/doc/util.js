@@ -2,6 +2,16 @@ const path = require('path')
 const { Project } = require('ts-morph')
 const fs = require('fs')
 
+// 不解析的类型
+const noParseNames = ['ObjectKey', 'DropdownNode']
+// 替换类型
+const parseTypes = {
+  'boolean | React.ReactChild | React.ReactFragment | React.ReactPortal': 'ReactNode',
+  'string | number | boolean | {} | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactNodeArray | React.ReactPortal':
+    'ReactNode',
+  'React.ReactElement<any, string | React.JSXElementConstructor<any>>': 'ReactElement',
+  KeygenResult: 'string | number',
+}
 const project = new Project({ tsConfigFilePath: path.resolve(__dirname, '../../src/tsconfig.json') })
 const typeChecker = project.getTypeChecker()
 const pathMap = {}
@@ -24,13 +34,11 @@ function convertQuotes(str = '') {
 
 // 一些逻辑处理
 function replaceStr(str) {
-  return str
-    .replaceAll('boolean | React.ReactChild | React.ReactFragment | React.ReactPortal', 'ReactNode')
-    .replaceAll(
-      'string | number | boolean | {} | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactNodeArray | React.ReactPortal',
-      'ReactNode'
-    )
-    .replaceAll('React.ReactElement<any, string | React.JSXElementConstructor<any>>', 'ReactElement')
+  let result = str
+  Object.keys(parseTypes).forEach(item => {
+    result = result.replaceAll(item, parseTypes[item])
+  })
+  return result
     .replaceAll('| undefined', '')
     .replaceAll('React.', '')
     .replace(/\r?\n|\r/g, '')
@@ -84,7 +92,7 @@ function getImportType(text) {
       const isArray = currentMatch[4] || ''
       // console.log(str, pp, name, fanXin, isArray)
       // 过滤掉 xxxProps 和 ObjectKey 等不需要继续计算的属性
-      if (!name.endsWith('Props') && !name.endsWith('Ref') && !['ObjectKey', 'DropdownNode'].includes(name)) {
+      if (!name.endsWith('Props') && !name.endsWith('Ref') && !noParseNames.includes(name)) {
         if (!pathMap[name]) {
           pathMap[name] = {
             form: pp,
@@ -191,7 +199,7 @@ function getPropertiesWithDocComments(pp) {
   })
   return results
 }
-const p = path.resolve(__dirname, '../../src/Tag/Props.ts')
+const p = path.resolve(__dirname, '../../src/DropDown/Props.ts')
 getPropertiesWithDocComments(p)
 const ModuleMap = {
   List: 'DataList',

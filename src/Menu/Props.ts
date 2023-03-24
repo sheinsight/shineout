@@ -33,7 +33,7 @@ export interface RootProps<DataItem, Key extends KeygenResult = KeygenResult> ex
    * @default []
    * @override object[]
    */
-  data: DataItem[]
+  data?: DataItem[]
 
   /**
    * @en theme of menu
@@ -120,6 +120,7 @@ export interface RootProps<DataItem, Key extends KeygenResult = KeygenResult> ex
   /**
    * @en Whether to be disabled
    * @cn 是否禁用选项
+   * @default d => d.disabled
    */
   disabled?: (data: DataItem) => boolean
 
@@ -147,7 +148,7 @@ export interface RootProps<DataItem, Key extends KeygenResult = KeygenResult> ex
    * @cn 元素渲染方式,如果为字符串,则会以对应的值作为显示内容;如果为函数,则以函数返回的结果作为显示内容,函数参数为对应的数据对象
    * @default 'title'
    */
-  renderItem: ((data: DataItem, index: number) => React.ReactNode) | ObjectKey<DataItem>
+  renderItem?: ((data: DataItem, index: number) => React.ReactNode) | ObjectKey<DataItem>
 }
 
 export interface ListProps<Item extends BaseItemProps<Item>> {

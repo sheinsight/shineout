@@ -21,7 +21,7 @@ export interface PaginationProps extends StandardProps {
 
   /**
    * @en Current page.
-   * @cn 当前页，如果传入值，组件为受控组件，必须通过onChange来处理回调
+   * @cn 当前页，如果传入值，组件为受控组件，必须通过 onChange 来处理回调
    */
   current?: number
 
@@ -61,7 +61,7 @@ export interface PaginationProps extends StandardProps {
 
   /**
    * @en The list of number of each page
-   * @cn [10, 20, 30, 50, 100] | 每页数量可选列表
+   * @cn 每页数量可选列表
    * @default [10, 20, 30, 50, 100]
    */
   pageSizeList?: number[]
@@ -75,7 +75,7 @@ export interface PaginationProps extends StandardProps {
 
   /**
    * @en Replaced text。prev: the previous page。next: the next page。page:the text of pageSizeList。jumper: jump to input box text, '{input}' pilaceholder for input box
-   * @cn 替换文案。prev: 上一页。next: 下一页。page: pageSizeList文字。jumper: 跳转输入框文字, '{input}' 为输入框占位
+   * @cn 替换文案。prev: 上一页。next: 下一页。page: pageSizeList 文字。jumper: 跳转输入框文字, '{input}' 为输入框占位
    */
   text?: TextParams
 

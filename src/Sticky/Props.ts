@@ -8,8 +8,8 @@ export type Mode = 'top' | 'bottom'
  */
 export interface StickyProps extends StandardProps {
   /**
-   * @en Extend style. The default z-Index after triggering the float is 900, and you can modify the z-Index of the style to change.
-   * @cn 扩展样式。触发浮动后的默认zIndex为900，修改style的zIndex来改变。
+   * @en Extend style. The default z-Index after triggering the float is 900, and you can modify the z-Index of the style to change.
+   * @cn 扩展样式。触发浮动后的默认 zIndex 为900，修改 style的 zIndex 来改变。
    */
   style?: React.CSSProperties
   /**
@@ -20,7 +20,7 @@ export interface StickyProps extends StandardProps {
 
   /**
    * @en Attached target. the default is the document.body. You can pass in an HTMLElement or css selector, and the target must be an ancestor node of the Sticky component.
-   * @cn 附着的目标，默认为document.body。可以传入HTMLElement或者css selector，target 必须为 Sticky 组件的祖先节点
+   * @cn 附着的目标，默认为 document.body。可以传入 HTMLElement 或者 css selector，target 必须为 Sticky 组件的祖先节点
    */
   target?: string | HTMLElement
 
@@ -32,13 +32,13 @@ export interface StickyProps extends StandardProps {
 
   /**
    * @en use css position:sticky while target is ordered
-   * @cn 在指定 target 下，是否采用css方式实现附着效果
+   * @cn 在指定 target 下，是否采用 css 方式实现附着效果
    * @default true
    */
   css?: boolean
   /**
-   * @en When the adsorption effect, trigger the callback
-   * @cn 吸附效果时，触发该回调
+   * @en When the adsorption effect, trigger the callback，this method is invalid when native sticky is used
+   * @cn 吸附效果时，触发该回调，当使用原生 sticky 时该方法无效
    */
   onChange?: (isSticky: boolean) => void
 

@@ -12,10 +12,7 @@ export interface CardContextValueType {
 
 export type GetCardConsumerProps<U> = Omit<U, keyof CardContextValueType>
 
-/**
- * @title CardGroup
- */
-export interface CardGroupProps extends StandardProps {
+export interface OriginCardGroupProps extends StandardProps {
   /**
    * @en group height
    * @cn 卡片组高度
@@ -49,11 +46,16 @@ export interface CardGroupProps extends StandardProps {
   gutter?: number
 
   /**
-   * @cn children
-   * @en 子元素
+   * @en children
+   * @cn 子元素
    */
   children?: ReactNode
 }
+
+/**
+ * @title CardGroup
+ */
+export type CardGroupProps = OriginCardGroupProps
 
 export interface BaseCardGroupItemProps<Value> extends StandardProps, CardContextValueType {
   /**

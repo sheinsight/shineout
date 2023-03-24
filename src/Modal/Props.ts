@@ -10,28 +10,28 @@ export type Methods = 'success' | 'info' | 'warning' | 'error' | 'confirm' | 'no
 export interface ModalProps extends StandardProps {
   /**
    * @en Whether to force the mask transparency (in multi-layer Modal, the transparency of other Modal masks except the first layer will be adjusted to 0.01)
-   * @cn 是否强制设置遮罩透明度（多层Modal中，除第一层外的其他Modal遮罩透明度会被调整为0.01）
+   * @cn 是否强制设置遮罩透明度（多层Modal中，除第一层外的其他弹出层遮罩透明度会被调整为0.01）
    * @default false
    */
   forceMask?: boolean
 
   /**
    * @en Distance from top
-   * @cn 模态框距离顶部距离
+   * @cn 弹框距离顶部距离
    * @default 10vh
    */
   top?: number | string
 
   /**
-   * @en display modal with full screen
+   * @en display with full screen
    * @cn 是否全屏展示
    * @default false
    */
   fullScreen?: boolean
 
   /**
-   * @en Extend modal body style
-   * @cn 扩展 modal body 的样式
+   * @en Extend pop-up body style
+   * @cn 扩展弹出层 body 的样式
    */
   bodyStyle?: React.CSSProperties
 
@@ -88,22 +88,27 @@ export interface ModalProps extends StandardProps {
   visible?: boolean
 
   /**
-   * @en the width of the Modal ( only works under normal modal )
-   * @cn 对话框宽度 （仅在常规对话框下生效）
+   * @en the width of the pop-up (not work after setting position)
+   * @cn 弹出层宽度 （设置 position 后无效）
    * @default 500
    */
   width?: number | string
+  /**
+   * @en the height of the Modal (not work after setting position)
+   * @cn 对话框高度 （设置 position 后无效）
+   */
+  height?: string | number
 
   /**
-   * @en Modal z-index
-   * @cn 对话框 z-index 值，注意：如 Modal 嵌套 Select 组件，并且 Select 组件含有 absolute 字段，需要修改 Select 的 z-index的值
+   * @en pop-up z-index
+   * @cn 弹出层 z-index 值，注意：如果嵌套 Select 组件，并且 Select 组件含有 absolute 字段，需要修改 Select 的 z-index 的值
    * @default 1050
    */
   zIndex?: number
 
   /**
-   * @en the root element of modal, the mask parent element
-   * @cn modal 的根元素类名, 为遮罩层的父元素
+   * @en the root element of pop-up, the mask parent element
+   * @cn 弹出层的根元素类名, 为遮罩层的父元素
    */
   rootClassName?: string
 
@@ -115,7 +120,7 @@ export interface ModalProps extends StandardProps {
   container?: (() => HTMLElement) | HTMLElement
 
   /**
-   * @en modal support move
+   * @en pop-up support move
    * @cn 是否可移动
    * @default false
    */
@@ -128,8 +133,8 @@ export interface ModalProps extends StandardProps {
   maskBackground?: string
 
   /**
-   * @en modal close callback
-   * @cn 模态框关闭回调
+   * @en pop-up close callback
+   * @cn 弹出层关闭回调
    */
   onClose?: () => void
 
@@ -147,8 +152,8 @@ export interface ModalProps extends StandardProps {
   hideClose?: boolean
 
   /**
-   * @en Modal Title show status icon
-   * @cn Modal title 显示状态 icon
+   * @en pop-up Title show status icon
+   * @cn 弹出层 title 显示状态 icon
    */
   type?: 'info' | 'success' | 'warning' | 'error' | 'normal' | 'default'
 
@@ -185,20 +190,14 @@ export interface ModalProps extends StandardProps {
    * @cn 当 Sheinout 采用 antd 主题时，取消内容区域的 padding
    */
   noPadding?: boolean
-
-  /**
-   * @en the height of the Modal ( only works under normal modal )
-   * @cn 对话框高度 （仅在常规对话框下生效）
-   */
-  height?: string | number
   /**
    * @inner 内部属性
    */
   drawer?: boolean
 
   /**
-   * @en Modal 内容
-   * @cn Modal children
+   * @en pop-up children
+   * @cn 弹出层内容
    */
   children?: ReactNode
 }
@@ -252,7 +251,7 @@ interface ModalFunctionExternalOptions {
 
   /**
    * @en The event is triggered when the modal is closed.
-   * @cn 关闭Modal时触发
+   * @cn 关闭 Modal 时触发
    */
   onClose?: () => void
 
@@ -270,10 +269,10 @@ interface ModalFunctionExternalOptions {
   text?: { ok?: string; cancel?: string }
 
   /**
-   * @en auto focus button, one of ['ok', 'cancel']
-   * @cn 默认聚焦的按钮, 可选值 ['ok', 'cancel']
+   * @en auto focus button
+   * @cn 默认聚焦的按钮
    */
-  autoFocusButton?: string
+  autoFocusButton?: 'ok' | 'cancel'
 }
 export interface ModalFunctionOptions extends Omit<ModalProps, 'usePortal' | 'destroy'>, ModalFunctionExternalOptions {}
 

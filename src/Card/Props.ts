@@ -138,14 +138,14 @@ export interface CardFooterProps extends StandardProps {
 export interface CardAccordionProps<T> {
   /**
    * @en Active value. It is -1 when fully closed. Used in controlled state. be id while Card.id setted
-   * @cn 打开的值，全关闭时为 null，用于受控状态。默认为索引，若Card设置id后则为id。
+   * @cn 打开的值，全关闭时为 null，用于受控状态。默认为索引，若 Card 设置 id 后则为 id。
    * @override any
    */
   active?: T | null
 
   /**
    * @en The default active value for uncontrolled state, be id while Card.id setted
-   * @cn 默认打开的值，用于非受控状态。默认为索引，若Card设置id后则为id。
+   * @cn 默认打开的值，用于非受控状态。默认为索引，若 Card 设置 id 后则为 id。
    * @default 0
    * @override any
    */

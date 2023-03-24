@@ -1,8 +1,8 @@
 import React from 'react'
-import { ModalProps } from '../Modal/Props'
+import { DrawerProps } from './Props'
 import Modal from '../Modal'
 
-const Drawer = (props: ModalProps) => <Modal {...props} drawer />
+const Drawer = (props: DrawerProps) => <Modal {...props} drawer />
 Drawer.defaultProps = {
   position: 'right',
   width: 'auto',

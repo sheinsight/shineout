@@ -29,7 +29,9 @@ export interface GridProps extends StandardProps {
 
   /**
    * @en The min size of responsive: sm: 568px; md: 768px; lg: 992px; xl: 1200px
-   * @cn 激活响应式的最小尺寸。sm: 568px; md: 768px; lg: 992px; xl: 1200px
+   * @cn 激活响应式的最小尺寸。sm: 568px; md: 768px; lg: 992px; xl: 1200px;
+   * 例如：设置为 sm 时，屏幕尺寸若低于568px，栅格系统的响应性将不会生效。
+   *
    * @default 'md'
    */
   responsive?: ResponsiveType

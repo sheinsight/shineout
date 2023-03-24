@@ -1,1 +1,1 @@
-export { ModalProps as Props } from '../Modal/Props'
+export { DrawerProps as Props } from './Props'

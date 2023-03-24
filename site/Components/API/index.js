@@ -2,6 +2,7 @@ import React from 'react'
 import locate from 'doc/locate'
 import ReactMarkDown from 'react-markdown'
 import { Link } from 'react-router-dom'
+import { markdownClass } from 'doc/styles'
 
 const APP = props => {
   const { title, properties, cn, en, subTitle, single, isDetail } = props
@@ -43,6 +44,7 @@ const APP = props => {
                     {isDetail ? null : <td>{defaultV || tag.default || '-'}</td>}
                     <td>
                       <ReactMarkDown
+                        className={markdownClass('api-desc')}
                         source={locate(tag.cn, tag.en)}
                         renderers={{
                           link: prop => {

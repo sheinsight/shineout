@@ -4,115 +4,6 @@ import { StandardProps } from '../@types/common'
 import { StickyProps } from '../Sticky/Props'
 
 type ReactNode = React.ReactNode
-export interface Props extends StandardProps {
-  /**
-   * @en Current active tab id or index
-   * @cn 当前选中标签页（受控）
-   * @default 0
-   */
-  active?: string | number
-
-  /**
-   * @en set the label align
-   * @cn 设置标签对齐方式
-   * @default '无'
-   */
-  align?: 'left' | 'right' | 'vertical-left' | 'vertical-right'
-
-  /**
-   * @en Active background color
-   * @cn 选中标签背景色
-   */
-  background?: string
-
-  /**
-   * @en Border color
-   * @cn 边框颜色
-   */
-  border?: string
-
-  /**
-   * @en Whether can be collapsed
-   * @cn 是否可折叠
-   * @default false
-   */
-  collapsible?: boolean
-
-  /**
-   * @en Default active tab id or index
-   * @cn 默认选中标签页（非受控）
-   * @default 0
-   */
-  defaultActive?: string | number
-
-  /**
-   * @en Inactive background color
-   * @cn 未选中标签背景色
-   */
-  inactiveBackground?: string
-
-  /**
-   * @en extra element in tab bar
-   * @cn tab bar 上额外的元素
-   */
-  tabBarExtraContent?: string | ReactNode
-
-  /**
-   * @en style in tab bar
-   * @cn tab bar 的样式对象
-   */
-  tabBarStyle?: React.CSSProperties
-
-  /**
-   * @en Change callback
-   * @cn 标签选中时触发回调事件
-   */
-  onChange?: (key: any) => void
-
-  /**
-   * @en Options: ['card', 'line', 'button', 'bordered', 'dash']. If shape is not null, the style properties such as background, border will lose effect
-   * @cn shape 不为空时，background 等颜色参数将会无效
-   */
-  shape?: 'card' | 'line' | 'button' | 'bordered' | 'dash'
-
-  /**
-   * @en lazy load
-   * @cn 是否开启懒加载
-   * @default true
-   */
-  lazy?: boolean
-
-  /**
-   * @en sticky header
-   * @cn 头部浮动
-   */
-  sticky?: boolean | number | StickyProps
-
-  /**
-   * @en switch tabs will scroll to Tabs
-   * @cn 切换tab将自动滚动到Tabs
-   */
-  switchToTop?: boolean
-
-  /**
-   * @en Whether to hide the dividing line
-   * @cn 是否隐藏分割线
-   * @default false
-   */
-  hideSplit?: boolean
-
-  /**
-   * @en content
-   * @cn 内容
-   */
-  children: ReactNode
-
-  /**
-   * @en the color of tab's text
-   * @cn 标签页文字颜色，仅当 shape 为 'card' 时生效
-   */
-  color?: string
-}
 
 export interface TabsLinkProps extends AnchorHTMLAttributes<any> {
   /**
@@ -179,6 +70,7 @@ export interface TabsProps<Key extends TabsBaseValue = TabsBaseValue> extends St
   /**
    * @en Whether can be collapsed
    * @cn 是否可折叠
+   * @default false
    */
   collapsible?: boolean
   /**
@@ -190,6 +82,7 @@ export interface TabsProps<Key extends TabsBaseValue = TabsBaseValue> extends St
    * @en Default active tab id or index
    * @cn 默认选中标签页（非受控）
    * @override string | number
+   * @default 0
    */
   defaultActive?: Key
   /**
@@ -238,12 +131,13 @@ export interface TabsProps<Key extends TabsBaseValue = TabsBaseValue> extends St
   sticky?: boolean | number | StickyProps
   /**
    * @en switch tabs will scroll to Tabs
-   * @cn 切换tab将自动滚动到Tabs
+   * @cn 切换 tab 将自动滚动到 Tabs
    */
   switchToTop?: boolean
   /**
    * @en whether to hide the dividing line
    * @cn 是否隐藏分割线
+   * @default false
    */
   hideSplit?: boolean
   /**
@@ -321,10 +215,10 @@ export interface PanelProps extends StandardProps {
    */
   lazy?: boolean
   /**
-   * @en lazy load
-   * @cn 懒加载
+   * @en Tab content
+   * @cn 标签标题内容
    */
-  tab?: string | ReactNode
+  tab: string | ReactNode
   /**
    * @en Border color, override the Tab's border
    * @cn 边框颜色，会覆盖 Tabs 的border
@@ -338,8 +232,6 @@ export interface PanelProps extends StandardProps {
   disabled?: boolean
 }
 
-export interface WrapperProps {
+export interface WrapperProps extends PanelProps {
   active: string | number
-  children?: ReactNode
-  id?: string | number
 }

@@ -16,10 +16,11 @@ export interface TreeProps<DataItem, Value extends any[]> extends StandardProps 
   active?: KeygenResult
   /**
    * @en active nodes
-   * @cn 数据，子节点为children，如果 children 值为 null 或 长度为 0 时，视为叶子节点
+   * @cn 数据，子节点为 children，如果 children 值为 null 或 长度为 0 时，视为叶子节点
    * @default []
+   * @override object[]
    */
-  data: DataItem[]
+  data?: DataItem[]
   /**
    * @en default expanded nodes
    * @cn 默认展开的节点 key（非受控）
@@ -33,6 +34,7 @@ export interface TreeProps<DataItem, Value extends any[]> extends StandardProps 
   /**
    * @en control whether the node can be chosen
    * @cn 显示选择框时有效，为 true 时，所有节点禁用选择，为函数时，根据函数返回结果确定是否禁用
+   * @default false
    */
   disabled?: boolean | ((data: DataItem) => boolean)
   /**
@@ -119,7 +121,7 @@ export interface TreeProps<DataItem, Value extends any[]> extends StandardProps 
   expandIcons?: [ExpandIconType<DataItem>, ExpandIconType<DataItem>]
   /**
    * @en dom style when drop images
-   * @cn 拖拽图片的原生style样式
+   * @cn 拖拽图片的原生 style 样式
    */
   dragImageStyle?: object
 

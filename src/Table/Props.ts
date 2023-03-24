@@ -93,6 +93,7 @@ export interface TableIndexProps<DataItem, Value>
    * @en array，see TableColumn
    * @cn 数组，见 TableColumn
    * @override TableColumn[]
+   * @default []
    */
   columns?: ColumnItem<DataItem>[]
   /**
@@ -106,8 +107,8 @@ export interface TableIndexProps<DataItem, Value>
    * When sorting on multiple columns, sortedList returns information about all fields involved in sorting
    *
    * @cn 表格统一排序函数，参数分别为 Column.sorter 和 排序方式;
-   * 支持多列排序，sorter传入对象{ rule: string | function, weight: number }, rule为排序规则，为字符串时参考单列排序的用法, weight为权重，指明排序的优先级。
-   * 多列排序时，sortedList返回所有参与排序的字段信息
+   * 支持多列排序，sorter传入对象{ rule: string | function, weight: number }, rule为排序规则，为字符串时参考单列排序的用法, weight 为权重，指明排序的优先级。
+   * 多列排序时，sortedList 返回所有参与排序的字段信息
    *
    * @default alphaSort(Column.sorter, sorter)
    */
@@ -129,7 +130,7 @@ export interface OriginTableProps<DataItem, Value>
     Omit<GetResizeProps<SeperateTableProps<DataItem, Value>, DataItem>, 'rowsInView'> {
   /**
    * @en The maximum number of rows for a single render. Table uses lazy render to optimize performance under large amounts of data. If your table displays more than 20 rows, you can change the value of rowsInView. Value of 0 render all data.
-   * @cn 单次render的最大行数。Table 采用了lazy render的方式来优化在大量数据下的性能，如果你的表格显示的高度超出了20条，可以调整rowsInView的值。为 0 表示单次 render 所有数据。
+   * @cn 单次 render的 最大行数。Table 采用了 lazy render 的方式来优化在大量数据下的性能，如果你的表格显示的高度超出了20条，可以调整 rowsInView 的值。为 0 表示单次 render 所有数据。
    * @default 20
    */
   rowsInView?: number
@@ -143,7 +144,7 @@ export interface OriginTableProps<DataItem, Value>
   /**
    * @en row hover highlight
    * @cn 数据行鼠标悬浮高亮效果
-   * @default 'default'
+   * @default true
    */
   hover?: boolean
   /**
@@ -236,11 +237,13 @@ export interface SimpleTableProps<DataItem, Value> {
   /**
    * @en show expand button while children data is empty
    * @cn 树形表格子数据为空时依然展示展开按钮
+   * @default false
    */
   treeEmptyExpand?: boolean
   /**
    * @en Sets the attribute of inner element to trigger onRowClick as needed, and '*' to accept the row click
-   * @cn 设置行内元素的attribut来按需触发onRowClick, '*'表示接受行点击触发
+   * @cn 设置行内元素的 attribute 来按需触发 onRowClick, '*'表示接受行点击触发
+   * @default ['*']
    */
   rowClickAttr?: string[] | string | boolean
   /**
@@ -270,6 +273,7 @@ export interface SimpleTableProps<DataItem, Value> {
   /**
    * @en data
    * @cn 数据
+   * @override object[]
    */
   data: DataItem[]
   onSortChange: (
@@ -289,6 +293,7 @@ export interface SimpleTableProps<DataItem, Value> {
   /**
    * @en Whether to display the border
    * @cn 是否显示外边框
+   * @default false
    */
   bordered?: boolean
   /**
@@ -311,6 +316,7 @@ export interface SimpleTableProps<DataItem, Value> {
   /**
    * @en whether hide thead
    * @cn 是否隐藏表头
+   * @default false
    */
   hideHeader?: boolean
   /**
@@ -324,8 +330,8 @@ export interface SimpleTableProps<DataItem, Value> {
    */
   onResize?: (index: number, width: number, colgroup?: number[]) => void
   /**
-   * @en sticky header, When it is true, the distance from the top is 0. When it is an object, the attribute value reference [Sticky component] (/components/Sticky)
-   * @cn 表头是否附着顶部，为 true 时距离顶部为0，为对象时属性值参考Sticky组件
+   * @en sticky header, When it is true, the distance from the top is 0. When it is an object, the attribute value reference [Sticky component](/components/Sticky)
+   * @cn 表头是否附着顶部，为 true 时距离顶部为0，为对象时属性值参考 [Sticky](/components/Sticky) 组件
    */
   sticky?: boolean | StickyProps
   fixed?: TableFix
@@ -560,8 +566,8 @@ export type GetTreeExpandProps<Props, DataItem> = Omit<
    */
   defaultTreeExpandKeys?: KeygenResult[]
   /**
-   * @en expand row change, keys is expanded row keys
-   * @cn 展开行，keys为展开的行
+   * @en When treeExpandKeys is set, the callback is triggered when the row is expanded. Keys is expanded row key
+   * @cn 当设置 treeExpandKeys 后，展开行时会触发该回调，keys 为展开的行
    */
   onTreeExpand?: (openKeys: KeygenResult[], data: DataItem, expand: boolean, index: number) => void
   /**
@@ -597,7 +603,7 @@ export interface ColumnItem<DataItem> {
 
   /**
    * @en Fixed columns. If multiple adjacent columns need to be locked, specify only the outermost column
-   * @cn 固定列,如果相邻的多列需要锁定，只需指定最外侧的column即可
+   * @cn 固定列,如果相邻的多列需要锁定，只需指定最外侧的 column 即可
    */
   fixed?: ColumnFix
 
@@ -615,7 +621,7 @@ export interface ColumnItem<DataItem> {
 
   /**
    * @en The key of the column
-   * @cn 列的key，默认使用index
+   * @cn 列的key，默认使用 index
    */
   key?: string | number
 
@@ -633,7 +639,7 @@ export interface ColumnItem<DataItem> {
 
   /**
    * @en Select All to screen data. Valid only if type="checkbox"
-   * @cn 全选时用来筛除数据，仅当type="checkbox"的时候有效
+   * @cn 全选时用来筛除数据，仅当 type="checkbox" 时有效
    */
   filterAll?: (data: DataItem[]) => DataItem[]
 
@@ -680,6 +686,7 @@ export interface ColumnItem<DataItem> {
   /**
    * @en indent of each level
    * @cn 每一层缩进宽度
+   * @default 25
    */
   treeIndent?: number
 
@@ -691,7 +698,7 @@ export interface ColumnItem<DataItem> {
    *
    * @cn 特殊用途列
    * expand: 行展开列，render 函数返回函数时，表示此行可以展开，内容为此函数返回结果。
-   * row-expand: 同expand。不同为点击行内空白区域也可以折叠/展开行。
+   * row-expand: 同 expand。不同为点击行内空白区域也可以折叠/展开行。
    * checkbox: 选择列，仅用于固定选择列的场景
    */
   type?: ColumnType

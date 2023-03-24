@@ -14,11 +14,12 @@ export interface BaseListProps<DataItem, Value> extends StandardProps {
   /**
    * @en render data
    * @cn 渲染数据
+   * @override any[]
    */
   data: DataItem[]
   /**
    * @en Generate a auxiliary method for each key\nIf not filled, index will be used (not recommended, in some cases there may be problems)\nWhen it is a function, use its return value.\nWhen it is a string，ues the value of the string.For example, 'id' is the same thing as (d) => d.id .
-   * @cn 生成每一项key的辅助方法\n为 true 时，以数据项本身作为key，相当于 (d => d)\n为函数时，使用此函数返回值\n为string时，使用这个string对应的数据值。如 'id'，相当于 (d => d.id)
+   * @cn 生成每一项key的辅助方法\n为 true 时，以数据项本身作为 key，相当于 (d => d)\n为函数时，使用此函数返回值\n为 string 时，使用这个 string 对应的数据值。如 'id'，相当于 (d => d.id)
    */
   keygen: KeygenType<DataItem>
   /**
@@ -94,7 +95,7 @@ export interface BaseListProps<DataItem, Value> extends StandardProps {
   footer?: (() => React.ReactNode) | React.ReactNode
   /**
    * @en Select the row ,rowData is the selected data, rowIndex is the selected row number. If the data needs to be formatted, it is recommended to configure format
-   * @cn 选择行。rowData为选中的数据，rowIndex为选中行号。如果需要数据需要格式化的处理，建议配置 format。
+   * @cn 选择行。rowData 为选中的数据，rowIndex 为选中行号。如果需要数据需要格式化的处理，建议配置 format。
    */
   onChange?: (rowData: Value, index: number) => void
   /**
@@ -120,7 +121,7 @@ export interface ListBaseItemProps {
   title?: string
   /**
    * @en Item className
-   * @cn Item 容器的className
+   * @cn Item 容器的 className
    */
   className?: string
   /**
