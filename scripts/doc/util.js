@@ -199,8 +199,8 @@ function getPropertiesWithDocComments(pp) {
   })
   return results
 }
-const p = path.resolve(__dirname, '../../src/DropDown/Props.ts')
-getPropertiesWithDocComments(p)
+// const p = path.resolve(__dirname, '../../src/DropDown/Props.ts')
+// getPropertiesWithDocComments(p)
 const ModuleMap = {
   List: 'DataList',
 }
