@@ -23,37 +23,49 @@ import { sliderClass } from '../Slider/styles'
 import { tagClass } from '../Tag/styles'
 import { exposeClass } from '../styles/expose'
 import { CartType } from '../icons/Props'
+import { ObjectType } from '../@types/common'
 
-const config: any = {
+export interface ThemeConfig {
+  /**
+   * 'body': 作为 body 标签的内联样式； 'tag': 作为style标签插入
+   */
+  injectType: 'body' | 'tag'
+  /**
+   * 作用的元素; 当 injectType 为 'tag' 时必须传入string
+   */
+  target?: string | HTMLElement | (() => HTMLElement)
+}
+const config: ThemeConfig = {
   injectType: 'body',
   target: undefined,
 }
-const computedCache: { [x: string]: any } = {}
-let styleObj: { [x: string]: any } = {}
+const computedCache: ObjectType = {}
+let styleObj: ObjectType = {}
 
 export function getInjectType() {
   return config.injectType
 }
-export function setInjectType(type: string) {
+export function setInjectType(type: ThemeConfig['injectType']) {
   config.injectType = type
 }
-export function setThemeConfig(c: any = {}) {
-  Object.keys(c).forEach(key => {
+export function setThemeConfig(c: Partial<ThemeConfig>) {
+  Object.keys(c).forEach((key: keyof ThemeConfig) => {
     if (key in config) {
+      // @ts-ignore
       config[key] = c[key]
     }
   })
 }
-export function getThemeConfig(name: string) {
+export function getThemeConfig(name: keyof ThemeConfig) {
   return config[name]
 }
 export function getThemeTarget() {
   let { target } = config
   if (!target) return document.body
   if (isFunc(target)) {
-    target = config.target()
+    target = target()
   } else if (typeof target === 'string') {
-    target = document.querySelector(target)
+    target = document.querySelector(target) as HTMLElement
   }
   if (target instanceof HTMLElement) return target
   console.error(`can not find theme target dom from "${config.target}"`)
