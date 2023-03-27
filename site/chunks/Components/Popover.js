@@ -196,6 +196,19 @@ const examples = [
 
   },
   {
+    name: 'test-002-destroy',
+    isTs: true,
+    isTest: true,
+    title: locate(
+      'destroy \n 当popover 卸载后删除dom',
+      ''
+    ),
+    component: require('doc/pages/components/Popover/test-002-destroy.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Popover/test-002-destroy.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Popover/test-002-destroy.tsx'),
+
+  },
+  {
     name: 'test-13-nested',
     isTs: true,
     isTest: true,

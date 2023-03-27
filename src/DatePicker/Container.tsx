@@ -16,7 +16,6 @@ import { docSize } from '../utils/dom/document'
 import { getRTLPosition } from '../utils/strings'
 import List from '../AnimationList'
 import { getLocale } from '../locale'
-import DateFns from './utils'
 import { isRTL } from '../config'
 import InputTitle from '../InputTitle'
 import { inputTitleClass } from '../InputTitle/styles'
@@ -218,10 +217,10 @@ class Container extends PureComponent<ContainerProps, ContainerState> {
       let invalid = false
       if (!q.value) return { name: q.name, invalid: true }
       const date = (Array.isArray(q.value) ? q.value : [q.value]).map(v =>
-        DateFns.toDateWithFormat(v, format, undefined, this.getOptions())
+        utils.toDateWithFormat(v, format, undefined, this.getOptions())
       )
-      if (DateFns.isInvalid(date[0])) invalid = true
-      if (date[1] && DateFns.isInvalid(date[1])) invalid = true
+      if (utils.isInvalid(date[0])) invalid = true
+      if (date[1] && utils.isInvalid(date[1])) invalid = true
       if (invalid) return { name: q.name, invalid: true }
       return {
         name: q.name,
@@ -637,8 +636,8 @@ class Container extends PureComponent<ContainerProps, ContainerState> {
         showTimePicker={!!value}
         allowSingle={allowSingle}
         handleHover={this.handleHover}
-        min={DateFns.toDateWithFormat(min, format, undefined, this.getOptions())}
-        max={DateFns.toDateWithFormat(max, format, undefined, this.getOptions())}
+        min={utils.toDateWithFormat(min, format, undefined, this.getOptions())}
+        max={utils.toDateWithFormat(max, format, undefined, this.getOptions())}
         hourStep={hourStep}
         minuteStep={minuteStep}
         secondStep={secondStep}

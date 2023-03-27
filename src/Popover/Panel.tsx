@@ -276,9 +276,9 @@ class Panel extends Component<PanelProps, PanelState> {
   }
 
   render() {
-    const { background, border, children, type, visible, showArrow, useTextStyle } = this.props
+    const { background, border, children, type, visible, showArrow, useTextStyle, destroy } = this.props
     const show = typeof visible === 'boolean' ? visible : this.state.show
-    if ((!this.isRendered && !show) || !this.parentElement || !children) {
+    if (((!this.isRendered || destroy) && !show) || !this.parentElement || !children) {
       return <noscript ref={this.placeholderRef} />
     }
 

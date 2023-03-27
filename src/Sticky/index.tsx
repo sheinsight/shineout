@@ -11,6 +11,7 @@ import { StickyProps, Mode, StickyType } from './Props'
 
 const events = ['scroll', 'pageshow', 'load']
 const supportSticky = cssSupport('position', 'sticky')
+const defaultZIndex = 900
 const DefaultValue = {
   ...defaultProps,
   css: true,
@@ -61,7 +62,10 @@ class Sticky extends PureComponent<StickyProps, StickyState> {
     const { target } = this.props
     this.targetElement = getParent(this.element, target)
     this.handlePosition()
-    this.bindScroll()
+
+    if (!this.shouldUseCss) {
+      this.bindScroll()
+    }
   }
 
   componentDidUpdate(prevProps: StickyProps) {
@@ -74,6 +78,14 @@ class Sticky extends PureComponent<StickyProps, StickyState> {
     super.componentWillUnmount()
     this.unbindScroll()
     if (this.scrollTimer) clearTimeout(this.scrollTimer)
+  }
+
+  get shouldUseCss() {
+    const { css } = this.props
+    if (css && supportSticky && this.targetElement) {
+      return true
+    }
+    return false
   }
 
   getStyle(mode: Mode, offset: number, left?: number, width?: number) {
@@ -209,6 +221,7 @@ class Sticky extends PureComponent<StickyProps, StickyState> {
     if (placeholder !== undefined) {
       this.setState({ placeholder })
     }
+
     if (style) {
       this.style = style as React.CSSProperties
       this.setState({ style })
@@ -230,7 +243,6 @@ class Sticky extends PureComponent<StickyProps, StickyState> {
 
     this.locked = true
     this.scrollCount = 0
-
     this.setPosition()
     this.scrollTimer = setTimeout(() => {
       this.locked = false
@@ -275,13 +287,14 @@ class Sticky extends PureComponent<StickyProps, StickyState> {
   }
 
   render() {
-    const { children, className, target, css } = this.props
+    const { children, className, target, css, top, bottom } = this.props
     const { placeholder } = this.state
 
     let outerStyle = this.props.style
     let innerStyle = this.state.style
+
     if (target && supportSticky && css) {
-      outerStyle = Object.assign({}, outerStyle, innerStyle)
+      outerStyle = Object.assign({ zIndex: defaultZIndex }, outerStyle, { position: 'sticky', top, bottom })
       innerStyle = {}
     }
 

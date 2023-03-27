@@ -27,6 +27,11 @@ Cypress.Commands.add('setAttr', {prevSubject: true}, (selector, setter)=>{
     $destination.attr(setter)
   })
 })
+Cypress.Commands.add('text', {prevSubject: true}, (selector)=>{
+  cy.wrap(selector).then($destination => {
+    return $destination[0].innerText
+  })
+})
 
 Cypress.Commands.add("paste", { prevSubject: true }, (selector, pastePayload) => {
   // https://developer.mozilla.org/en-US/docs/Web/API/Element/paste_event
@@ -82,6 +87,7 @@ declare global {
       paste(text: string): Chainable<void>
       selectText(startIndex?: number, endIndex?:number): Chainable<void>
       setAttr(attr: {[attr: string]: any}): Chainable<void>
+      text(): Chainable<string>
       login(email: string, password: string): Chainable<void>
 //       drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
 //       dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>

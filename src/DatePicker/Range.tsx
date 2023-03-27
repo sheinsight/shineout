@@ -96,6 +96,7 @@ class Range extends PureComponent<RangeProps, RangeState> {
   }
 
   handleDayHover(date: Date) {
+    // will never in
     if (this.state.rangeDate.length === 1) {
       utils.cloneTime(date, this.props.value[1], this.props.format, this.getOptions())
       // this.setState({ hover: date })
@@ -111,8 +112,8 @@ class Range extends PureComponent<RangeProps, RangeState> {
         rangeDate[1] = utils.addSeconds(s, range, this.getOptions())
     }
     if (utils.compareAsc(s, e) > 0) {
-      const sWitheTime = utils.toDate(s, this.getOptions())
-      utils.setTime(sWitheTime, e)
+      let sWitheTime = utils.toDate(s, this.getOptions())
+      sWitheTime = utils.setTime(sWitheTime, e, this.getOptions())
       rangeDate[1] = utils.compareAsc(s, sWitheTime) > 0 ? s : sWitheTime
     }
   }
@@ -127,12 +128,13 @@ class Range extends PureComponent<RangeProps, RangeState> {
     _isQuickSelect: QuickSelectType | undefined,
     areaType: AreaType
   ) {
+    let newDate = (date ? utils.toDate(date, this.getOptions()) : '') as Date
     const { type, range, min, max } = this.props
 
     const handleOnChangeParams = paramUtils.handleOnChangeParams(areaType)
     if (!change) {
       const current = immer(this.props.current, draft => {
-        draft[index] = date
+        draft[index] = newDate
       })
       this.props.onChange(...handleOnChangeParams(current))
       return
@@ -142,7 +144,7 @@ class Range extends PureComponent<RangeProps, RangeState> {
       let endChangedDate: Date
       this.setState(
         immer(draft => {
-          draft.rangeDate[index] = date
+          draft.rangeDate[index] = newDate
           const [s, e] = draft.rangeDate
           if (index !== 0) {
             if (s && s.getHours() === e.getHours()) {
@@ -153,7 +155,7 @@ class Range extends PureComponent<RangeProps, RangeState> {
             return
           }
           if (range && utils.compareAsc(s, e) === 1) {
-            endChangedDate = date
+            endChangedDate = newDate
             draft.rangeDate[1] = endChangedDate
           }
           if (typeof range === 'number' && utils.compareAsc(s, utils.addSeconds(e, -range, this.getOptions())) < 0) {
@@ -163,7 +165,7 @@ class Range extends PureComponent<RangeProps, RangeState> {
         }),
         () => {
           const current = immer(this.props.value, draft => {
-            draft[index] = date
+            draft[index] = newDate
             if (endChangedDate) draft[1] = endChangedDate
             draft[1 - index] = draft[1 - index] || ''
           })
@@ -176,7 +178,7 @@ class Range extends PureComponent<RangeProps, RangeState> {
     if (type === 'month') {
       // eslint-disable-next-line
       const rangeDate = [...this.state.rangeDate]
-      rangeDate[index] = date
+      rangeDate[index] = newDate
       rangeDate[1 - index] = rangeDate[1 - index] || ''
 
       this.changeDateSmart(rangeDate)
@@ -187,17 +189,17 @@ class Range extends PureComponent<RangeProps, RangeState> {
       return
     }
 
-    utils.cloneTime(date, this.props.value[index], undefined, this.getOptions())
-    if (min && utils.compareAsc(date, min) <= 0) {
-      utils.setTime(date, min)
+    newDate = utils.cloneTime(newDate, this.props.value[index], undefined, this.getOptions())
+    if (min && utils.compareAsc(newDate, min) <= 0) {
+      newDate = utils.setTime(newDate, min, this.getOptions())
     }
-    if (max && utils.compareAsc(date, max) >= 0) {
-      utils.setTime(date, max)
+    if (max && utils.compareAsc(newDate, max) >= 0) {
+      newDate = utils.setTime(newDate, max, this.getOptions())
     }
 
     this.setState(
       immer(draft => {
-        draft.rangeDate[index] = date
+        draft.rangeDate[index] = newDate
         draft.rangeDate[1 - index] = draft.rangeDate[1 - index] || ''
         this.changeDateSmart(draft.rangeDate)
         draft.hover = undefined

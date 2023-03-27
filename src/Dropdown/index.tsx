@@ -188,6 +188,9 @@ class Dropdown extends PureComponent<DropdownProps, DropDownState> {
   }
 
   handleToggle(show: boolean) {
+    const { disabled } = this.props
+    if (disabled === true) return
+
     if (this.getTrigger() === 'click') return
 
     if (show) {
