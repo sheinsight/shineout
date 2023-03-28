@@ -42,7 +42,7 @@ const pages = [
     name: '从 v1 到 v2',
     level: 2,
     path: 'v1-v2',
-    component: createMarkDown(() => import(/* webpackChunkName: 'api.classname' */ './api-v1-v2.md'), true),
+    component: createMarkDown(() => import(/* webpackChunkName: 'api.classname' */ './v1-v2.md'), true),
   },
 
   'CHANGELOG',
