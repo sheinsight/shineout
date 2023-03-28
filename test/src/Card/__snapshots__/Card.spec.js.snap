@@ -3,7 +3,7 @@
 exports[`Card[Base] should render correct 1`] = `
 <div>
   <div
-    className="so-card so-moveable so-moveable-a86a346d3-cbc0-444d-ba58-ed231cd25715"
+    className="so-card"
     style={
       Object {
         "display": "inline-flex",
