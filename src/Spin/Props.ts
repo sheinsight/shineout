@@ -20,8 +20,12 @@ export type SpinName =
 export interface OriginSpinProps {
   wrapperClass?: string
   wrapperStyle?: CSSProperties
-
   size: number | string
+  /**
+   * @en color
+   * @cn 颜色
+   * @default #6c757d
+   */
   color?: string
   spinClass: (...args: (string | undefined)[]) => string
   render?: (spinClass: OriginSpinProps['spinClass'], i: number, props: OriginSpinProps) => ReactNode
@@ -35,13 +39,47 @@ export interface OriginSpinProps {
 export interface TypeSpinProps
   extends Omit<OriginSpinProps, 'style' | 'spinClass' | 'count' | 'render' | 'itemStyle' | 'itemClass' | 'itemSize'> {}
 
-export interface BaseSpinProps extends Omit<TypeSpinProps, 'size'> {
+/**
+ * @title Spin
+ */
+export interface BaseSpinProps extends Omit<TypeSpinProps, 'size' | 'wrapperClass' | 'wrapperStyle'> {
+  /**
+   * @en Spin external style
+   * @cn Spin 元素扩展样式
+   */
   style?: CSSProperties
+  /**
+   * @en Spin external class
+   * @cn Spin 元素扩展 class
+   */
   className?: string
+  /**
+   * @en type
+   * @cn 类型
+   * @default "fading-circle"
+   */
   name?: SpinName
+  /**
+   * @en custom tip
+   * @cn 提示文案
+   */
   tip?: ReactElement | string
+  /**
+   * @en Spin has children
+   * @cn 作为包裹元素使用
+   */
   children?: ReactElement | string
+  /**
+   * @en size
+   * @cn 尺寸
+   * @default 40
+   */
   size?: number | string
+  /**
+   * @en loading
+   * @cn 是否为加载中
+   * @default true
+   */
   loading?: boolean
 }
 

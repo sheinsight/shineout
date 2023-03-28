@@ -3,49 +3,41 @@ import { StandardProps } from '../@types/common'
 
 type ReactNode = React.ReactNode
 
+/**
+ * @title Carousel
+ */
 export interface CarouselProps extends StandardProps {
   /**
-   * animation effects, options: <br />slide - horizontal sliding<br />slide-y - vertical sliding<br />fade - fading
-   *
-   * 动画效果，可选值为 slide - 横向滑动 ，slide-y - 垂直滑动 ，fade - 淡入淡出
-   *
-   * default: 'slide'
+   * @en animation effects, options: \nslide - horizontal sliding\nslide-y - vertical sliding\nfade - fading
+   * @cn 动画效果，可选值为 slide - 横向滑动 ，slide-y - 垂直滑动 ，fade - 淡入淡出
+   * @default 'slide'
    */
   animation?: 'slide' | 'slide-y' | 'fade'
 
   /**
-   * the position of indicator
-   *
-   * 指示标示位置
-   *
-   * default: 'center'
+   * @en the position of indicator
+   * @cn 指示标示位置
+   * @default 'center'
    */
   indicatorPosition?: 'left' | 'center' | 'right'
 
   /**
-   * the style of indicator, string options: ['circle', 'number', 'line'], using function for custom styles
-   *
-   * 指示标示样式，字符串可以是：['circle', 'number', 'line']，函数则可以自定义样式: (current, moveTo) => (<Component />)
-   *
-   * default: 'circle'
+   * @en the style of indicator, using function for custom styles
+   * @cn 指示标示样式, 函数则可以自定义样式: (current, moveTo) => (<Component />)
+   * @default 'circle'
    */
   indicatorType?: ((current: number, moveTo: (index: number) => void) => ReactNode) | 'circle' | 'number' | 'line'
 
   /**
-   * the interval of animation, When it is not 0, play automatically
-   *
-   * 动画间隔时间，为 0 时，不自动播放
-   *
-   * default: 0
+   * @en the interval of animation, When it is not 0, play automatically
+   * @cn 动画间隔时间，为 0 时，不自动播放
+   * @default 0
    */
   interval?: number
 
   /**
-   * move callback
-   *
-   * 轮播后的回调
-   *
-   * default: none
+   * @en move callback
+   * @cn 轮播后的回调
    */
   onMove?: (
     current: number,
@@ -53,28 +45,21 @@ export interface CarouselProps extends StandardProps {
   ) => void
 
   /**
-   * children
+   * @en children
+   * @cn 子元素
    *
-   * 子元素
-   *
-   * default: -
    */
   children?: ReactNode
 
   /**
-   * When to show the switch trigger
+   * @en When to show the switch trigger
+   * @cn 切换箭头显示时机
    *
-   * 切换箭头显示时机
-   *
-   * default: -
    */
   showArrow?: 'always' | 'hover'
   /**
-   * The additional css class for arrow
-   *
-   * 箭头扩展 class
-   *
-   * default: -
+   * @en The additional css class for arrow
+   * @cn 箭头扩展 class
    */
   arrowClassName?: string
 }

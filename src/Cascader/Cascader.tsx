@@ -47,15 +47,15 @@ const DefaultProps = {
   childrenKey: 'children',
 }
 
-interface State {
+interface State<Value> {
   focus: boolean
-  path: string[]
+  path: Value
   position: RegularAttributes.ListPosition
 }
 
 class Cascader<DataItem, Value extends CascaderBaseValue> extends PureComponent<
   OriginCascaderProps<DataItem, Value>,
-  State
+  State<Value>
 > {
   static defaultProps = DefaultProps
 
@@ -92,7 +92,7 @@ class Cascader<DataItem, Value extends CascaderBaseValue> extends PureComponent<
 
     this.state = {
       focus: false,
-      path: [],
+      path: ([] as unknown) as Value,
       position: 'drop-down',
     }
 
@@ -147,7 +147,7 @@ class Cascader<DataItem, Value extends CascaderBaseValue> extends PureComponent<
     }
   }
 
-  componentDidUpdate(prevProps: OriginCascaderProps<DataItem, Value>, prevState: State) {
+  componentDidUpdate(prevProps: OriginCascaderProps<DataItem, Value>, prevState: State<Value>) {
     this.datum.mode = this.props.mode
     this.setOpenEvent()
     const { onFilter, filterDataChange, filterText } = this.props
@@ -358,7 +358,7 @@ class Cascader<DataItem, Value extends CascaderBaseValue> extends PureComponent<
   }
 
   renderList() {
-    const { data, keygen, renderItem, mode, loader, onItemClick, expandTrigger, childrenKey, height } = this.props
+    const { data, keygen, renderItem, mode, loader, expandTrigger, childrenKey, height } = this.props
     const { path } = this.state
 
     const props = {
@@ -368,7 +368,6 @@ class Cascader<DataItem, Value extends CascaderBaseValue> extends PureComponent<
       loader,
       onPathChange: this.handlePathChange,
       onChange: this.handleChange,
-      onItemClick,
       multiple: mode !== undefined,
       expandTrigger,
       childrenKey,

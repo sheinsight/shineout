@@ -1,5 +1,5 @@
 import { docScroll, docSize } from './document'
-import { PopoverPosition } from '../../Popover/Props'
+import { PopoverPositionType } from '../../Popover/Props'
 
 interface PositionInfo {
   top?: number
@@ -11,7 +11,7 @@ interface PositionInfo {
 const posKeys = ['left', 'top', 'bottom', 'right']
 
 export const getPosition = (
-  position: PopoverPosition,
+  position: PopoverPositionType,
   el: HTMLElement,
   container: HTMLElement | undefined = document.body
 ) => {

@@ -69,6 +69,8 @@ const examples = [
 
 const codes = undefined
 
+const api = '[{"title":"Grid","properties":[{"name":"gutter","tag":{"cn":"栅格之间间距","en":"Spacing between grids","default":"","version":""},"required":false,"type":"number "},{"name":"offset","tag":{"cn":"左偏移百分比，0 <= offset < 1","en":"Left offset percentage, 0 <= offset < 1","default":"0","version":""},"required":false,"type":"number "},{"name":"width","tag":{"cn":"宽度百分比，0 < number <= 1","en":"Percentage of width, 0 < number <= 1","default":"1","version":""},"required":false,"type":"number "},{"name":"responsive","tag":{"cn":"激活响应式的最小尺寸。sm: 568px; md: 768px; lg: 992px; xl: 1200px;\\n例如：设置为 sm 时，屏幕尺寸若低于568px，栅格系统的响应性将不会生效。","en":"The min size of responsive: sm: 568px; md: 768px; lg: 992px; xl: 1200px","default":"\\\"md\\\"","version":""},"required":false,"type":"\\\"sm\\\" | \\\"md\\\" | \\\"lg\\\" | \\\"xl\\\" "},{"name":"stretch","tag":{"cn":"是否撑满容器高度","en":"Stretch full height of content","default":"","version":""},"required":false,"type":"boolean "},{"name":"children","tag":{"cn":"子元素","en":"children","default":"","version":""},"required":false,"type":"ReactNode"},{"name":"className","tag":{"cn":"扩展 className","en":"extend className","default":"","version":""},"required":false,"type":"string "},{"name":"style","tag":{"cn":"最外层扩展样式","en":"Container element style","default":"","version":""},"required":false,"type":"CSSProperties "}],"cn":"","en":""}]';
+
 export default navable(props => (
-  <MarkDown {...props} codes={codes} source={source} examples={examples} />
+  <MarkDown {...props} codes={codes} source={source} examples={examples} api={api} />
 ))

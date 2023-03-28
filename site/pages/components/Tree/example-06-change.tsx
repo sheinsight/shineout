@@ -45,7 +45,7 @@ const modeList = [
   { value: 4, text: 'mode=4 (freedom)' },
 ]
 
-function getValue(list: TreeProps['data'], value: string[]) {
+function getValue(list: DataItem[], value: string[]) {
   const [node] = list
   if (!node) return
   value.push(node.id)

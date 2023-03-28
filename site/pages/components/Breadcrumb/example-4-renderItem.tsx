@@ -6,40 +6,19 @@
  */
 
 import React, { ReactNode } from 'react'
-import { Link } from 'react-router-dom'
-import { Breadcrumb, Message, Button, TYPE } from 'shineout'
+import { Breadcrumb, TYPE } from 'shineout'
 
-type BreadcrumbData = TYPE.Breadcrumb.Data
-
-type BreadcrumbProps = TYPE.Breadcrumb.Props<BreadcrumbData>
-
-const data: BreadcrumbProps['data'] = [
-  [{ title: 'Home', url: '#home' }, { title: 'aaa', url: '#aaa' }, { title: 'bbb', url: '#bbb' }],
-  { title: <Link to="/components/Button">Button</Link> },
-  { title: 'Self', onClick: () => Message.show('Clicked self') },
-]
+const data = [{ name: 'home', link: '#home' }, { name: 'menu' }, { name: 'self', link: 'https://www.google.com' }]
+type BreadcrumbProps = TYPE.Breadcrumb.Props<typeof data[0]>
 
 const renderItem: BreadcrumbProps['renderItem'] = value => {
-  let BreadcrumbItem: ReactNode = value.title
+  let BreadcrumbItem: ReactNode = value.name
 
-  if (value.onClick || value.url) {
-    const props: React.AreaHTMLAttributes<HTMLAnchorElement> = {
-      onClick: value.onClick,
-    }
+  if (value.link) BreadcrumbItem = <a href={value.link}>{value.name}</a>
 
-    if (value.url) props.href = value.url
-    BreadcrumbItem = (
-      <a {...props}>
-        {value.icon}
-        &nbsp;
-        {value.title}
-      </a>
-    )
+  return BreadcrumbItem
 
-    return BreadcrumbItem
-  }
-
-  return <Button size="small">{BreadcrumbItem}</Button>
+  return <b>{BreadcrumbItem}</b>
 }
 export default function() {
   return <Breadcrumb renderItem={renderItem} data={data} />

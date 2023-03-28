@@ -139,7 +139,7 @@ export default class TreeSelect<Item, Value extends TreeSelectValueType> extends
     return this.props.empty || getLocale(key)
   }
 
-  setInputReset(fn: (fn: () => void) => void) {
+  setInputReset(fn: (_fn: () => void) => void) {
     this.inputReset = fn
   }
 
@@ -354,7 +354,7 @@ export default class TreeSelect<Item, Value extends TreeSelectValueType> extends
       props.active = props.value.length ? props.value[0] : undefined
     }
     const content =
-      data.length === 0 ? (
+      data!.length === 0 ? (
         <span className={treeSelectClass(getDirectionClass('option'))}>{this.getText('noData')}</span>
       ) : (
         <Tree

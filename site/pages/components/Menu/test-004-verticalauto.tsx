@@ -13,7 +13,7 @@ interface MenuItem {
   onClick?: boolean
   children?: MenuItem[]
 }
-type MenuProps = TYPE.Menu.Props<MenuItem, MenuItem>
+type MenuProps = TYPE.Menu.Props<MenuItem, string>
 type MenuActive = MenuProps['active']
 type MenuOnClick = MenuProps['onClick']
 type MenuRenderItem = MenuProps['renderItem']

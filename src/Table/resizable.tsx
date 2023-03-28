@@ -17,7 +17,7 @@ export default <DataItem, Value, Props extends SimpleTableProps<DataItem, Value>
       }
     }
 
-    componentDidUpdate(prevProps: Props) {
+    componentDidUpdate(prevProps: GetResizeProps<Props, DataItem>) {
       const prevColumns = prevProps.columns
       const { columns, onColumnResize } = this.props
       if (prevColumns !== columns) {
@@ -68,13 +68,6 @@ export default <DataItem, Value, Props extends SimpleTableProps<DataItem, Value>
       const { columns } = this.state
       const { onColumnResize, ...other } = this.props
       const width = this.getWidth()
-      return (
-        <Table
-          {...other as GetResizeProps<Props, DataItem>}
-          width={width}
-          columns={columns}
-          onResize={this.handleResize}
-        />
-      )
+      return <Table {...other as Props} width={width} columns={columns} onResize={this.handleResize} />
     }
   }

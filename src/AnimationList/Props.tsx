@@ -15,11 +15,9 @@ export interface AbsoluteProps {
   parentElement?: HTMLElement
   position?: RegularAttributes.ListPosition | PickerPosition | DropdownPosition
   /**
-   * When it is true, the pop-up layer of option append into document.body.
-   *
-   * 为 true 时，选项弹出层在 DOM 中独立 render
-   *
-   * default: false
+   * @en When it is true, the pop-up layer of option append into document.body; When it is a function, the return value is used as the popup layer container
+   * @cn 为 true 时，选项弹出层在 DOM 中独立 render; 为函数时，返回值作为弹出层容器
+   * @default false
    */
   absolute?: boolean | (() => HTMLElement)
   scrollElement?: HTMLElement
@@ -27,11 +25,9 @@ export interface AbsoluteProps {
   scrollTop?: number
   rootClass?: string
   /**
-   * options z-index
-   *
-   * 选项列表 z-index 值
-   *
-   * default: 1000
+   * @en options z-index should use with absolute
+   * @cn 选项列表 z-index 值, 需要配合 absolute
+   * @default 1000
    */
   zIndex?: number
   style?: React.CSSProperties

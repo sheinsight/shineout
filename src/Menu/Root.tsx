@@ -356,7 +356,7 @@ class Root<U, T extends string> extends Component<RootProps<U, T>, State> {
 
   render() {
     const {
-      data,
+      data = DefaultProps.data,
       mode,
       style,
       theme,

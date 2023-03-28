@@ -6,78 +6,87 @@ import { ForceAdd } from '../@types/common'
 
 export interface OriginTextareaProps extends Pick<InputTitleProps, 'innerTitle' | 'placeTitle'> {
   /**
-   * Whether the height changes automatically with the content
-   *
-   * 高度是否随内容自动变化
-   *
-   * default: false
+   * @en Form field, used with Form
+   * @cn 表单字段, 配合 Form 使用
+   */
+  name?: string
+  /**
+   * @en Whether the height changes automatically with the content
+   * @cn 高度是否随内容自动变化
+   * @default false
    */
   autosize?: boolean
   /**
-   * Infomation
-   *
-   * 提示信息
-   *
-   * default: -
+   * @en Information
+   * @cn 提示信息
    */
   info?: number | ((value?: string) => ReactNode)
   /**
-   * the maxHeight of the textarea, scroll bars appear after more than
-   *
-   * 输入框的最大高度, 超过之后会出现滚动条
-   *
-   * default: -
+   * @en the maxHeight of the textarea, scroll bars appear after more than
+   * @cn 输入框的最大高度, 超过之后会出现滚动条
    */
   maxHeight?: number | string
   /**
-   * The callback when Textarea blur
-   *
-   * 失去焦点后的回调
-   *
-   * default: -
+   * @en The callback when Textarea blur
+   * @cn 失去焦点后的回调
    */
   onBlur?: FocusEventHandler<HTMLTextAreaElement>
+  /**
+   * @en The callback function for changing value
+   * @cn 值改变回调函数
+   */
   onChange: (value: string) => void
   forceChange: (value: string) => void
+  /**
+   * @en The callback function for enter key
+   * @cn 回车键回调函数
+   */
   onEnterPress?: (value: string, e: KeyboardEvent<HTMLTextAreaElement>) => void
   /**
-   * The minimum row height. Same as native textarea rows property.
-   *
-   * 最小行高，同原生 textarea rows 属性
-   *
-   * default: 4
+   * @en The minimum row height. Same as native textarea rows property.
+   * @cn 最小行高，同原生 textarea rows 属性
+   * @default 4
    */
   rows?: number
+  /**
+   * @en DefaultValue and value can be set at the same time and defaultValue will be overridden by value.
+   * @cn defaultValue 和 value 可以同时设置，defaultValue 会被value覆盖
+   */
   value?: string
   /**
-   * support resize
-   *
-   * 是否可以伸缩高度
-   *
-   * default: false
+   * @en support resize
+   * @cn 是否可以伸缩高度
+   * @default false
    */
   resize?: boolean
   /**
-   * render textarea footer
-   *
-   * 渲染 textarea footer
-   *
-   * default: -
+   * @en render textarea footer
+   * @cn 渲染 textarea footer
    */
   renderFooter?: (value?: string) => ReactNode
   inputFocus?: boolean
+  /**
+   * @en When trim is true, blank characters are automatically deleted when lose focus
+   * @cn trim 为 true 时，失去焦点时会自动删除空白字符。
+   * @default false
+   */
   trim?: boolean
 }
 
-// 增加原生属性
-type TextareaPropsWithOrigin = ForceAdd<OriginTextareaProps, TextareaHTMLAttributes<HTMLTextAreaElement>>
-
 // hoc
-export type TextareaPropsWithDelay = GetDelayProps<TextareaPropsWithOrigin>
+export type TextareaPropsWithDelay = GetDelayProps<OriginTextareaProps>
 type TextareaPropsWithBorder = GetInputBorderProps<TextareaPropsWithDelay>
-type TextareaPropsWithInputAble = GetInputableProps<TextareaPropsWithBorder, string>
+/**
+ * @title Textarea
+ * @en Supports all attributes of native textarea
+ * @cn 支持原生 textarea 所有属性
+ */
+type TextareaPropsWithInputAble = Omit<
+  GetInputableProps<TextareaPropsWithBorder, string>,
+  'innerTitle' | 'placeTitle' | 'reserveAble' | 'filterSameChange'
+>
 
-// 禁用一些属性
-type TextareaPropsBan = Omit<TextareaPropsWithInputAble, 'innerTitle' | 'placeTitle'>
+// 增加原生属性
+type TextareaPropsWithOrigin = ForceAdd<TextareaPropsWithInputAble, TextareaHTMLAttributes<HTMLTextAreaElement>>
 
-export type TextareaProps = TextareaPropsBan
+export type TextareaProps = TextareaPropsWithOrigin

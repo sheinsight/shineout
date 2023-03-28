@@ -4,6 +4,7 @@ import { GetInputBorderProps } from '../hoc/Props'
 import { GetInputableProps } from '../Form/Props'
 import { StandardProps, RegularAttributes } from '../@types/common'
 import { AbsoluteProps } from '../AnimationList/Props'
+import { InputTitleProps } from '../InputTitle/Props'
 
 export type DateTimeType = Date | number | string | undefined
 
@@ -27,9 +28,9 @@ export type QuickType = {
   name: string
 }
 
-export interface QuickSelectType<T = Date[]> {
+export interface QuickSelectType<Value = Date[]> {
   name: string
-  value: T
+  value: Value
 }
 
 export type DisabledRegister = (
@@ -42,296 +43,186 @@ export type PickMouseEvent = (e: React.MouseEvent) => void
 
 export type DisabledType = 'start' | 'end'
 
-export interface BaseProps<T = DatePickerValue> extends StandardProps, Pick<AbsoluteProps, 'absolute' | 'zIndex'> {
+export interface BaseProps<Value = DatePickerValue>
+  extends StandardProps,
+    Pick<AbsoluteProps, 'absolute' | 'zIndex'>,
+    Pick<InputTitleProps, 'innerTitle'> {
   /**
-   * If clearable is true, show clear value icon
-   *
-   * 是否显示清除数据图标
-   *
-   * default: true
+   * @en If clearable is true, show clear value icon
+   * @cn  是否显示清除数据图标
+   * @default true
    */
   clearable?: boolean
   /**
-   * onChange get undefined while clear
-   *
-   * 清空值时抛出 undefined
-   *
-   * default: false
+   * @en onChange get undefined while clear
+   * @cn 清空值时抛出 undefined
+   * @default false
    */
   clearWithUndefined?: boolean
 
   /**
-   * show border bottom
-   *
-   * 仅仅展示下边框
-   *
-   * default: false
-   */
-  underline?: boolean
-
-  /**
-   * width
-   *
-   * 宽度
-   *
-   * default: null
-   */
-  width?: number | string
-
-  /**
-   * When the value is true, disabled all options; When the value is function, disable the options that this function returns true.
-   *
-   * 如果 disabled 为 true，禁用全部选项，如果 disabled 为函数，根据函数反回结果禁用选项
-   *
-   * default: false
+   * @en When the value is true, disabled all options; When the value is function, disable the options that this function returns true.
+   * @cn 如果 disabled 为 true，禁用全部选项，如果 disabled 为函数，根据函数反回结果禁用选项
+   * @default false
    */
   disabled?: ((date: Date, type?: DisabledType, value0?: Date, value1?: Date) => boolean) | boolean
 
   /**
-   * default values for different types: 'date': 'YYYY-MM-DD'. 'time': 'HH:mm:ss'. 'week': 'GGGG WW'. 'month': 'YYYY-MM'. 'week': 'GGGG WW'. 'quarter': 'YYYY-[Q]Q'. 'year': 'YYYY'. 'datetime': 'YYYY-MM-DD HH:mm:ss'
-   *
-   *
-   * 不同type对应的默认值。'date': 'YYYY-MM-DD'。'time': 'HH:mm:ss'。'week': 'GGGG WW'。'month': 'YYYY-MM'。'quarter': 'YYYY-[Q]Q'。 'year': 'YYYY' 。 'datetime': 'YYYY-MM-DD HH:mm:ss'
-   *
-   *
-   * default:
+   * @en default values for different types: 'date': 'YYYY-MM-DD'; 'time': 'HH:mm:ss'; 'week': 'GGGG WW'; 'month': 'YYYY-MM'; 'week': 'GGGG WW'; 'quarter': 'YYYY-\\[Q]Q'; 'year': 'YYYY'; 'datetime': 'YYYY-MM-DD HH:mm:ss'
+   * @cn 不同type对应的默认值。'date': 'YYYY-MM-DD'; 'time': 'HH:mm:ss'; 'week': 'GGGG WW'; 'month': 'YYYY-MM'; 'quarter': 'YYYY-\\[Q]Q';  'year': 'YYYY'; 'datetime': 'YYYY-MM-DD HH:mm:ss'
    */
   format?: string
 
   /**
-   * Format the selected time
-   *
-   * 对选中时间进行格式化
-   *
-   * default: props.format
+   * @en Format the selected time
+   * @cn 对选中时间进行格式化
+   * @default props.format
    */
   formatResult?: string | ((date: Date) => string)
 
   /**
-   * a callback when the value is changing
-   *
-   * 值改变回调函数
-   *
-   * default: -
+   * @en a callback when the value is changing
+   * @cn 值改变回调函数
    */
-  onChange?: (value: T, quickSelect?: QuickSelectType | null) => void
+  onChange?: (value: Value, quickSelect?: QuickSelectType | null) => void
 
   /**
-   * placeholder text. When the range property is not empty, it is an array of length 2.
-   *
-   * 占位文字。range 属性不为空时，为长度为2的数组
-   *
-   * default: -
+   * @en placeholder text. When the range property is not empty, it is an array of length 2.
+   * @cn 占位文字。range 属性不为空时，为长度为2的数组
    */
   placeholder?: string | string[]
 
   /**
-   * range span，unit: **second**，When it is true, selection scope is not limited.
-   *
-   * 范围跨度，单位 **秒**，为 true 时表示不限制选择范围。
-   *
-   * default: -
+   * @en range span，unit: **second**，When it is true, selection scope is not limited.
+   * @cn 范围跨度，单位 **秒**，为 true 时表示不限制选择范围。
    */
   range?: boolean | number
 
   /**
-   * type of datepicker
-   *
-   * 时间类型
-   *
-   * default: 'date'
+   * @en type of datepicker
+   * @cn 时间类型
+   * @default 'date'
    */
   type?: 'date' | 'time' | 'datetime' | 'month' | 'week' | 'quarter' | 'year'
 
   /**
-   * Default time when selecting a date, the format is: 'HH:mm:ss'
-   *
-   * 选择日期时默认的时间, 格式为: 'HH:mm:ss'
-   *
-   * default: -
+   * @en Default time when selecting a date, the format is: 'HH:mm:ss'
+   * @cn 选择日期时默认的时间, 格式为: 'HH:mm:ss'
    */
   defaultTime?: DatePickerValue
 
   /**
-   * allow single select, only in range can set
-   *
-   * 是否允许单选, 仅在 range 模式下有效
-   *
-   * default: false
+   * @en allow single select, only in range can set
+   * @cn 是否允许单选, 仅在 range 模式下有效
+   * @default false
    */
   allowSingle?: boolean
 
   /**
-   * quick select, only in range can set, name: tip, value: range date
-   *
-   * 快速选择, 仅在 range 模式下有效, name: 文字提示, value: 时间范围
-   *
-   * default: false
+   * @en quick select, only in range can set, name: tip, value: range date
+   * @cn 快速选择, 仅在 range 模式下有效, name: 文字提示, value: 时间范围
+   * @override {name: string, value: Value}[]
    */
   quickSelect?: Array<QuickSelectType<DatePickerValue>>
 
   /**
-   * option min value
-   *
-   * 可选最小值
-   *
-   * default: none
+   * @en option min value
+   * @cn 可选最小值
    */
   min?: DateTimeType
 
   /**
-   * option max value
-   *
-   * 可选最大值
-   *
-   * default: none
+   * @en option max value
+   * @cn 可选最大值
    */
   max?: DateTimeType
 
   /**
-   * The initial month of range selection, the value is a time object, valid only in range mode, and the priority is lower than value and defaultValue
-   *
-   * 范围选择的初始月份, 值为时间对象 或者时间戳, 仅在 range 模式下生效, 优先级低于 value 和 defaultValue
-   *
-   * default: -
+   * @en The initial month of range selection, the value is a time object, valid only in range mode, and the priority is lower than value and defaultValue
+   * @cn 范围选择的初始月份, 值为时间对象 或者时间戳, 仅在 range 模式下生效, 优先级低于 value 和 defaultValue
    */
   defaultRangeMonth?: Array<DateTimeType>
 
   /**
-   *
-   * default date of panel，work under has no value
-   *
-   * 面板默认时间，在未选择日期时生效
-   *
-   * default: -
-   *
+   * @en default date of panel，work under has no value
+   * @cn 面板默认时间，在未选择日期时生效
    */
   defaultPickerValue?: DateTimeType | DateTimeType[]
 
   /**
-   * hour step
-   *
-   * 小时选项步长
-   *
-   * default: none
+   * @en hour step
+   * @cn 小时选项步长
    */
   hourStep?: number
 
   /**
-   * minute step
-   *
-   * 分钟选项步长
-   *
-   * default: none
+   * @en minute step
+   * @cn 分钟选项步长
    */
   minuteStep?: number
 
   /**
-   * second step
-   *
-   * 秒选项步长
-   *
-   * default: none
+   * @en second step
+   * @cn 秒选项步长
    */
   secondStep?: number
 
   /**
-   * Disable the specified Time.
-   *
-   * 禁用指定 Time。
-   *
-   * default: none
+   * @en Disable the specified Time.
+   * @cn 禁用指定 Time。
    */
   disabledTime?: string | ((time: string) => boolean)
 
   /**
-   * horizontal align of the value
-   *
-   * 值水平排布方式
-   *
-   * default: center
+   * @en horizontal align of the value
+   * @cn 值水平排布方式
+   * @default "center"
    *
    */
   align?: 'left' | 'right' | 'center'
 
   /**
-   * value onchange callback (every type of date)
-   *
-   * 值改变回调，有别于 onChange, onPickerChange会在每项值改变的时候执行
-   *
-   * default: none
+   * @en value onchange callback (every type of date)
+   * @cn 值改变回调，有别于 onChange, onPickerChange会在每项值改变的时候执行
    */
   onPickerChange?: (value: DatePickerValue, quickSelect: QuickSelectType | void | undefined, areaType: AreaType) => void
 
   /**
-   * inner title
-   *
-   * 内嵌标题
-   *
-   * default: -
-   */
-  innerTitle?: ReactNode
-
-  /**
-   * The name of a Form that accesses data
-   *
-   * Form 存取数据的名称
-   *
-   * default: -
-   */
-  name?: string | string[]
-
-  /**
-   * Allow enter something into DatePicker
-   *
-   * 可输入
-   *
-   * default: -
+   * @en Allow enter something into DatePicker
+   * @cn 可输入
+   * @default false
    */
   inputable?: boolean
 
   /**
-   * Set Position can control the different position of DatePicker
-   *
-   * 弹出框位置
-   *
-   * default: -
+   * @en Set Position can control the different position of DatePicker
+   * @cn 弹出框位置
    */
   position?: 'left-top' | 'left-bottom' | 'right-top' | 'right-bottom'
 
   /**
-   * There are three built-in size: small、default、large.
-   *
-   * 不同尺寸
-   *
-   * default: 'default'
+   * @en There are three built-in size: small、default、large.
+   * @cn 不同尺寸
+   * @override union
+   * @default 'default'
    */
   size?: RegularAttributes.Size
 
   /**
-   * set timeZone
-   *
-   * 设置时区
-   *
-   * default: -
+   * @en Set the default time zone, the format is /^([+-]\\d{2})$/ Support '-12' to '+13'
+   * @cn 设置默认时区,格式为/^([+-]\\d{2})$/ 支持 '-12' 到 '+13'
    */
   timeZone?: string
 
   /**
-   * Set visible of datepicker popup
-   *
-   * 控制浮层显隐
-   *
-   * default: -
+   * @en Set visible of datepicker popup
+   * @cn 控制浮层显隐
    */
   open?: boolean
 
   /**
-   * option list collapse callback
-   *
-   * 下拉列表展开/收起回调
-   *
-   * default: none
+   * @en option list collapse callback
+   * @cn 下拉列表展开/收起回调
    */
   onCollapse?: (collapse: boolean) => void
 }
@@ -371,16 +262,25 @@ export interface ContainerProps<T = DatePickerValue>
     | 'onCollapse'
   > {
   /**
-   * When the value is string, it needs to match the format attribute. When the range property is true, the value is an array of length 2.
-   *
-   * 值。为 string 时，需要和 format 属性匹配。range 属性为 true 时，值为长度为2的数组
-   *
-   * default: -
+   * @en When the value is string, it needs to match the format attribute.\n When the range property is true, the value is an array of length 2.
+   * @cn 值为 string 时，需要和 format 属性匹配。\n 非 string 会格式化为 string。\n range 属性为 true 时，值为长度为2的数组
    */
   value: DatePickerValue
+  /**
+   * @en extra children
+   * @cn 额外渲染的节点
+   */
   children?: ReactNode
   onValueBlur: () => void
+  /**
+   * @en blur event callback
+   * @cn blur 事件回调
+   */
   onBlur: (e: any) => void
+  /**
+   * @en focus event callback
+   * @cn focus 事件回调
+   */
   onFocus: (e: any) => void
   onChange: (value: T, callback?: () => void, quickSelect?: QuickSelectType) => void
 }
@@ -527,17 +427,23 @@ export interface UnionPannelProps
   ) => void
 }
 
-export type GetDatePickerProps<Props> = Props
 export type GetDatePickerValueProps<Props> = Omit<Props, 'onValueBlur' | 'onChange'> & Pick<BaseProps, 'onChange'>
 
 export type DatePickerPropsWidthAbsolute<T = DatePickerValue> = GetTableConsumerProps<ContainerProps<T>>
 export type DatePickerPropsWidthValue<T = DatePickerValue> = GetDatePickerValueProps<DatePickerPropsWidthAbsolute<T>>
-export type DatePickerPropsWidthInputBorder<T = DatePickerValue> = GetInputBorderProps<DatePickerPropsWidthValue<T>>
+export type DatePickerPropsWidthInputBorder<T = DatePickerValue> = Omit<
+  GetInputBorderProps<DatePickerPropsWidthValue<T>>,
+  'autoFocus'
+>
 export type DatePickerPropsWidthInputable<T = DatePickerValue> = GetInputableProps<
   DatePickerPropsWidthInputBorder<T>,
   DatePickerValue
 >
-export type DatePickerProps<T = DatePickerValue> = GetDatePickerProps<DatePickerPropsWidthInputable<T>>
+
+/**
+ * @title DatePicker
+ */
+export type DatePickerProps<T = DatePickerValue> = DatePickerPropsWidthInputable<T>
 
 export declare class DatePickerClass<T = DatePickerValue> extends React.Component<DatePickerProps<T>, {}> {
   render(): JSX.Element
