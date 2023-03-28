@@ -143,11 +143,9 @@ export interface PanelProps extends StandardProps, PopoverProviderProps {
    */
   useTextStyle?: boolean
   /**
-   * delete dom when close
-   *
-   * 关闭 Popover 后销毁 dom
-   *
-   * default: -
+   * @en delete content dom when close
+   * @cn 关闭 Popover 后销毁内容 dom
+   * default: false
    */
   destroy?: boolean
 }

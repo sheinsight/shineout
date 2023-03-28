@@ -3,7 +3,7 @@ import { exposeClass } from '../styles/expose'
 import cssAccessors, { cleanCache } from './css-accessors'
 import { capitalize } from './strings'
 import { entries } from './objects'
-import { setInjectType, injectTag, getInjectType, cleanStyleObj, setThemeConfig } from './vars-inject'
+import { setInjectType, injectTag, getInjectType, cleanStyleObj, setThemeConfig, ThemeConfig } from './vars-inject'
 
 const types = ['primary', 'warning', 'danger', 'success', 'secondary']
 const attrs = ['background', 'color', 'border']
@@ -54,7 +54,7 @@ function resetTheme() {
   })
 }
 
-function setStyle(options: ObjectProps, custom?: ObjectProps, config: any = {}) {
+function setStyle(options: ObjectProps, custom?: ObjectProps, config: Partial<ThemeConfig> = {}) {
   setThemeConfig(config)
   cleanStyleObj()
   if (!options) {
