@@ -52,6 +52,7 @@ exports[`Breadcrumb[snapshot] Snapshot test: Breadcrumb[site/pages/components/Br
     </span>
     <span>
       <b>
+         
         Self
       </b>
     </span>
@@ -70,6 +71,7 @@ exports[`Breadcrumb[snapshot] Snapshot test: Breadcrumb[site/pages/components/Br
     </span>
     <span>
       <b>
+         
         Self
       </b>
     </span>
@@ -91,6 +93,7 @@ exports[`Breadcrumb[snapshot] Snapshot test: Breadcrumb[site/pages/components/Br
   </span>
   <span>
     <b>
+       
       Menu
     </b>
     <span>
@@ -110,36 +113,22 @@ exports[`Breadcrumb[snapshot] Snapshot test: Breadcrumb[site/pages/components/Br
 <div>
   <div>
     <span>
-      <span>
-        <a>
-           
-          Home
-        </a>
-        <span>
-          <svg>
-            <path />
-          </svg>
-        </span>
-        <noscript />
-      </span>
+      <a>
+        home
+      </a>
       <span>
         /
       </span>
     </span>
     <span>
-      <button>
-        <a>
-          Button
-        </a>
-      </button>
+      menu
       <span>
         /
       </span>
     </span>
     <span>
       <a>
-         
-        Self
+        self
       </a>
     </span>
   </div>
