@@ -21,7 +21,7 @@ interface ListItem {
   lastName: string
   firstName: string
 }
-type ListProps = TYPE.List.Props<ListItem, number>
+type ListProps = TYPE.List.Props<ListItem, number[]>
 type ListOnChange = ListProps['onChange']
 type ListRenderItem = ListProps['renderItem']
 
@@ -86,6 +86,7 @@ const App: React.FC = () => {
         <div>{`Selected ${value.length}`}</div>
       </div>
       <List
+        disabled
         format="id"
         keygen="id"
         data={data}

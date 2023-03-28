@@ -4,11 +4,4 @@
 
 <example />
 
-## API
-
-| 属性 | 类型 | 默认值 | 说明 |
-| --- | --- | --- | --- |
-| color | string | #6c757d | 颜色 |
-| size | number \| string | 40 | 尺寸 |
-| tip | string  \| ReactNode | 无 | 提示文案  |
-| name | string | 'fading-circle' | 类型，可选值见示例 |
+<apis />

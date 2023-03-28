@@ -2,10 +2,10 @@ import * as React from 'react'
 import { ReactNode } from 'react'
 import ListDatum from '../Datum/List'
 import { GetDatumListProps } from '../Datum/Props'
-import { KeygenResult, LiteralUnion, StructKeygenType } from '../@types/common'
+import { KeygenResult, KeygenType, ObjectKey, StandardProps } from '../@types/common'
 import { GetInputableProps } from '../Form/Props'
 
-type filterProps = {
+export type FilterInfo = {
   value: string
   disabled: boolean
   onFilter?: (value: string) => void
@@ -24,110 +24,149 @@ export interface TransferContextValue {
 }
 
 /** ----------- transfer ------------*/
-export interface BaseTransferProps<DataItem, Value extends any[]> {
+export interface BaseTransferProps<DataItem, Value extends any[]> extends StandardProps {
+  /**
+   * @en Form field, used with Form
+   * @cn 表单字段, 配合 Form 使用
+   */
+  name?: string
+  /**
+   * @en Title on both sides, order from left to right
+   * @cn 两侧的标题, 顺序是从左到右
+   */
   titles?: [NodeItem, NodeItem]
+  /**
+   * @en data source
+   * @cn 数据源
+   */
   data: DataItem[]
   datum: ListDatum<DataItem, Value>
-  keygen: StructKeygenType<DataItem>
-  renderItem?: ((data: DataItem) => React.ReactNode) | LiteralUnion<DataItem>
+  /**
+   * @en Generate a auxiliary method for each key
+   * If not filled, index will be used(not recommended,there may be problems with more than 10 data)
+   * When it is a function, use its return value.
+   * When it is a string，ues the value of the string.For example, 'id' is the same thing as (d) => d.id.
+   *
+   * @cn 生成每一项key的辅助方法
+   * 为 true 时，以数据项本身作为key，相当于 (d => d)
+   * 为函数时，使用此函数返回值
+   * 为string时，使用这个string对应的数据值。如 'id'，相当于 (d => d.id)
+   */
+  keygen: KeygenType<DataItem>
+  /**
+   * @en When it is a string, return d\\[string]
+   * When it is a function, return the result of the function
+   *
+   * @cn 为 string 时，返回 d\\[string]
+   * 为 function 时，返回函数结果
+   * @default d => d
+   */
+  renderItem?: ((data: DataItem) => React.ReactNode) | ObjectKey<DataItem>
+  /**
+   * @en Bottom element, order from left to right
+   * @cn 底部元素, 顺序是从左到右
+   */
   footers?: [NodeItem, NodeItem]
+  /**
+   * @en Operational elements, the order is from top to bottom
+   * @cn 操作元素, 顺序是从上到下
+   */
   operations?: [NodeItem, NodeItem]
+  /**
+   * @en Whether to display the icon of the action button
+   * @cn 是否显示操作按钮的图标
+   * @default true
+   */
   operationIcon?: boolean
+  /**
+   * @en The set of values displayed in the box data on the right
+   * @cn 显示在右侧框数据的值集合
+   * @override any[]
+   */
   value: Value
-  className?: string
-  style?: React.CSSProperties
+  /**
+   * @en List extended class
+   * @cn 列表扩展的 class
+   */
   listClassName?: string
+  /**
+   * @en List extension style
+   * @cn 列表扩展的样式
+   */
   listStyle?: React.CSSProperties
   /**
-   * desc: checked lists
-   *
-   * 被勾选的列表, 勾选的值均使用的是 keygen 的结果
-   *
-   * default: none
+   * @en checked lists
+   * @cn 被勾选的列表, 勾选的值均使用的是 keygen 的结果
    */
   selectedKeys?: KeygenResult[]
   /**
-   * desc: checked by default
-   *
-   * 默认被勾选的列表
-   *
-   * default: none
+   * @en checked by default
+   * @cn 默认被勾选的列表
    */
   defaultSelectedKeys?: KeygenResult[]
   /**
-   * desc: select event
-   *
-   * 勾选触发的方法
-   *
-   * default: none
+   * @en select event
+   * @cn 勾选触发的方法
    */
   onSelectChange?: (sourceKeys: KeygenResult[], targetKeys: KeygenResult[]) => void
+  /**
+   * @en When the value is true, disabled all checkboxes; When the value is function, disable the checkbox that this function returns true.
+   * @cn 如果 disabled 为 true，禁用全部选项，如果 disabled 为函数，根据函数反回结果禁用选项
+   */
   disabled?: boolean | ((data: DataItem) => boolean)
   /**
-   * desc: contentless display
-   *
-   * 无内容的展示
-   *
-   * default: "无数据"
+   * @en ContentLess display
+   * @cn 无内容的展示
+   * @default getLocale("no data")
    */
   empty?: React.ReactNode
   /**
-   * desc: fileter data
-   *
-   * 筛选函数, 参数为: 输入文本, 数据, 是否为左侧数据
-   *
-   * default: none
+   * @en filter data
+   * @cn 筛选函数, 参数为: 输入文本, 数据, 是否为左侧数据
    */
   onFilter?: (text: string, data: DataItem, isSource: boolean) => boolean
+  /**
+   * @en item className
+   * @cn 选项 className
+   */
   itemClass?: string
   /**
-   * desc: loading
-   *
-   * 加载中, 如果需要两侧加载中状态不一致, 需要传入数组
-   *
-   * default: none
+   * @en loading
+   * @cn 加载中, 如果需要两侧加载中状态不一致, 需要传入数组
    */
   loading?: boolean | [boolean, boolean]
   /**
-   * desc: seach event
-   *
-   * 输入框值变化的回调, 参数为: 输入文本, 是否为左侧数据
-   *
-   * default: none
+   * @en search event
+   * @cn 输入框值变化的回调, 参数为: 输入文本, 是否为左侧数据
    */
   onSearch?: (text: string, isSource: boolean) => void
   /**
-   * desc: number of data loaded at one time
-   *
-   * 一次加载的数据条数
-   *
-   * default: 20
+   * @en number of data loaded at one time
+   * @cn 一次加载的数据条数
+   * @default 20
    */
   rowsInView?: number
   /**
-   * desc: line height of list
-   *
-   * 列表行高
-   *
-   * default: 32
+   * @en line height of list
+   * @cn 列表行高
+   * @default 32
    */
   lineHeight?: number
   /**
-   * desc: list height
-   *
-   * 列表高度
-   *
-   * default: 180
+   * @en list height
+   * @cn 列表高度
+   * @default 180
    */
   listHeight?: number
   /**
-   * desc: custom render filter. The type filterProps: value : string; disabled : boolean; onFilter : Function; placeholder : string
-   *
-   * 自定义过滤器渲染。自定义过滤器渲染。filterProps 包含参数如下：value : string; disabled : boolean; onFilter : Function; placeholder : string
-   *
-   * default: -
+   * @en custom render filter
+   * @cn 自定义过滤器渲染。自定义过滤器渲染
    */
-  renderFilter?: (value: filterProps) => React.ReactNode
+  renderFilter?: (value: FilterInfo) => React.ReactNode
+  /**
+   * @en custom render content
+   * @cn 自定义渲染内容
+   */
   children?: (
     props: {
       onSelected: (keys: KeygenResult) => void
@@ -210,6 +249,9 @@ export type TransferPropsWithInputable<DataItem, Value extends any[]> = GetInput
   Value
 >
 // separator 测试发现该属性有问题暂时屏蔽
+/**
+ * @title Transfer
+ */
 export type TransferProps<DataItem, Value extends any[]> = Omit<
   TransferPropsWithInputable<DataItem, Value>,
   'separator'

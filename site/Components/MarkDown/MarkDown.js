@@ -9,18 +9,21 @@ import CodeBlock from '../CodeBlock'
 import Example from '../Example'
 import Console from './Console'
 import Table from '../Table'
+import API from '../API'
 
 const codeReg = /^<code name="([\w|-]+)" /
 const exampleReg = /^<example name="([\w|-]+)"/
+const apiReg = /^<api name="([\w|-]+)"/
 
 const createId = (level, str) => {
   if (level === 4) return getUidStr()
   return `${level}-${(str || '').replace(/\s/g, '-')}`
 }
 
-export default function MarkDown({ onHeadingSetted, codes, examples, source }) {
+export default function MarkDown({ onHeadingSetted, codes, examples, source, api }) {
   let [headings] = useState([])
   const [cache] = useState({})
+  const apis = api ? JSON.parse(api) : []
 
   useEffect(() => {
     if (onHeadingSetted) {
@@ -78,6 +81,36 @@ export default function MarkDown({ onHeadingSetted, codes, examples, source }) {
     return cache.examples
   }
 
+  const renderApis = () => {
+    if (cache.apis) return cache.apis
+
+    if (!apis) return <div />
+    const id = `apis`
+    appendHeading({
+      id,
+      level: 2,
+      children: ['API'],
+    })
+    cache.apis = [
+      <h2 id={id} key="api">
+        API
+      </h2>,
+    ].concat(
+      apis.map((p = {}) => {
+        const sid = `api-${p.title}`
+        const { title } = p
+        appendHeading({
+          id: sid,
+          level: 3,
+          children: [title],
+        })
+        return <API key={sid} {...p} />
+      })
+    )
+
+    return cache.apis
+  }
+
   const renderExample = name => {
     const key = `example-${name}`
     if (!cache[key]) {
@@ -87,6 +120,20 @@ export default function MarkDown({ onHeadingSetted, codes, examples, source }) {
       else cache[key] = <Example {...example} />
     }
     return cache[key]
+  }
+
+  const renderAPI = name => {
+    const sid = `api-${name}`
+
+    if (!cache[sid]) {
+      const p = (apis || []).find(e => e.title === name)
+
+      if (!p) cache[sid] = null
+      else {
+        cache[sid] = <API key={sid} single {...p} />
+      }
+    }
+    return cache[sid]
   }
 
   const renderHeading = ({ level, children }) => {
@@ -120,9 +167,12 @@ export default function MarkDown({ onHeadingSetted, codes, examples, source }) {
         heading: renderHeading,
         html: prop => {
           if (prop.value === '<example />') return renderExamples()
+          if (prop.value === '<apis />') return renderApis()
 
           const example = prop.value.match(exampleReg)
+          const api1 = prop.value.match(apiReg)
           if (example) return renderExample(example[1], prop.value.indexOf('noExpand') >= 0)
+          if (api1) return renderAPI(api1[1])
 
           if (prop.value === '<br>' || prop.value === '<br />') return <br />
 

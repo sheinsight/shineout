@@ -7,6 +7,7 @@ import { buttonClass } from '../Button/styles'
 import { inputClass } from '../Input/styles'
 import { inputBorderClass } from '../Form/styles'
 import Popover from '../Popover'
+import { PopoverProps } from '../Popover/Props'
 import { isRTL } from '../config'
 import getDataset from '../utils/dom/getDataset'
 import { InputBorderProps, GetInputBorderProps } from './Props'
@@ -60,7 +61,7 @@ export default curry(
       }
 
       renderHelp(focus?: boolean) {
-        const { error, tip, popover, popoverProps = {} } = this.props
+        const { error, tip, popover, popoverProps = {} as PopoverProps } = this.props
         const classList = ['input-tip']
         const position = popover || (isRTL() ? 'bottom-right' : 'bottom-left')
 

@@ -211,7 +211,7 @@ class Result<DataItem, Value extends CascaderBaseValue> extends PureComponent<
     ...options
   }: {
     index: number
-    render: (data: DataItem, row: DataItem[]) => ReactNode
+    render: (_data: DataItem, row: DataItem[]) => ReactNode
     data: DataItem
     raw: DataItem[]
     className: string

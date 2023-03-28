@@ -1,8 +1,9 @@
 import { ReactNode, CSSProperties, FC } from 'react'
 import { StandardProps } from '../@types/common'
 import { GetScrollContextConsumerValue } from '../Scroll/Props'
+// import { PopoverPositionType } from '../Popover/Props'
 
-export type ToolPosition = 'top' | 'left' | 'right' | 'bottom' | 'bottom-right' | 'cover'
+export type ToolPosition = 'top' | 'left' | 'right' | 'bottom'
 export type TriggerType = 'click' | 'hover'
 export interface ContainerOptions {
   show: (props: ContainerProps, id: string, innerStyle?: CSSProperties) => void
@@ -12,75 +13,62 @@ export interface ContainerOptions {
 }
 export interface ContainerProps extends StandardProps {
   /**
-   * use animation
-   *
-   * 弹出是否使用动画，默认为 true
-   *
-   * default: true
+   * @en use animation
+   * @cn 弹出是否使用动画
+   * @default true
    */
   animation?: boolean
   /**
-   * The child element can only be a ReactElement.
-   *
-   * 子元素只能为一个 ReactElement
-   *
-   * default: required
+   * @en The child element can only be a ReactElement.
+   * @cn 子元素只能为一个 ReactElement
    */
   children: ReactNode
   /**
-   * The position of the pop-up layer, options: ['left', 'top', 'right', 'bottom']
-   *
-   * 弹出层位置
-   *
-   * default: 'top'
+   * @en The position of the pop-up layer
+   * @cn 弹出层位置
+   * @default 'top'
    */
   position?: ToolPosition
   /**
-   * 内部属性在 scrollContext 中获取
+   * @inner 内部属性在 scrollContext 中获取
    */
   scrollElement?: HTMLElement
   /**
-   * 内部属性在 scrollContext 中获取
+   * @inner 内部属性在 scrollContext 中获取
    */
   scrollLeft?: number
   /**
-   * 内部属性在 scrollContext 中获取
+   * @inner 内部属性在 scrollContext 中获取
    */
   scrollTop?: number
   /**
-   * Pop-up type, one of  ["hover", "click"]
-   *
-   * 弹出方式
-   *
-   * default: "hover"
+   * @en Pop-up type
+   * @cn 弹出方式
+   * @default "hover"
    */
   trigger?: TriggerType
   /**
-   * make disabled element work
-   *
-   * 使被禁用的元素正常显示提示
-   *
-   * default: false
+   * @en make disabled element work
+   * @cn 使被禁用的元素正常显示提示
+   * @default false
    */
   disabledChild?: boolean
   /**
-   * Pop up texts
-   *
-   * 弹出文字
-   *
-   * default: required
+   * @en Pop up texts
+   * @cn 弹出文字
    */
   tip: ReactNode
   /**
-   * Popup delay
-   *
-   * 弹出延迟
-   *
-   * default: 0
+   * @en Popup delay
+   * @cn 弹出延迟
+   * @default 0
    */
   delay?: number
 }
 
+/**
+ * @title Tooltip
+ */
 export type TooltipProps = GetScrollContextConsumerValue<ContainerProps>
 
 export type TooltipType = FC<TooltipProps>

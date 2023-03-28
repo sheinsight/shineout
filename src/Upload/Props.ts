@@ -11,17 +11,13 @@ export interface FileRecord {
   process: number
   status: number
   blob: File
-  xhr?: XhrType | void
+  xhr?: Xhr | void
   message?: string
 }
-export interface Validator {
-  customValidator?: (file: File) => void | Error | Promise<any>
-  ext?: (ext: string) => void | Error | Promise<any>
-  imageSize?: (image: { width: number; height: number }) => void | Error
-  size?: (size: number) => void | Error | Promise<any>
-}
 
-export interface XhrType {
+export type XhrType = Xhr
+
+interface Xhr {
   status: number
   statusText?: string
   responseType?: XMLHttpRequestResponseType
@@ -31,237 +27,142 @@ export interface XhrType {
   [key: string]: any
 }
 
-export interface UploadOptions<T> {
-  url: string
-  name: string
-  cors?: SimpleUploadProps<T>['cors']
-  withCredentials: SimpleUploadProps<T>['withCredentials']
-  responseType: SimpleUploadProps<T>['responseType']
-  /**
-   * File
-   *
-   * 传入文件
-   *
-   * default: -
-   */
-  file: File
-  /**
-   * header
-   *
-   * 请求头部信息
-   *
-   * default: -
-   */
-  headers?: ObjectType
-  /**
-   * onError callback
-   *
-   * 上传出错事件(props 中为 onHttpError)
-   *
-   * default: -
-   */
-  onError: (xhr: Partial<XhrType>) => void
-  /**
-   * onLoad
-   *
-   * 上传事件
-   *
-   * default: -
-   */
-  onLoad: (xhr?: XhrType) => void
-  /**
-   * onProgress
-   *
-   * 上传中进度
-   *
-   * default: -
-   */
-  onProgress: (event?: ProgressEvent, msg?: string) => any
-  /**
-   * onStart
-   *
-   * 开始上传事件
-   *
-   * default: -
-   */
-  onStart?: (file: File) => void
-  /**
-   * onSuccess
-   *
-   * 上传成功事件
-   *
-   * default: -
-   */
-  onSuccess?: (res?: string, file?: File, data?: any, xhr?: XhrType) => T | Error
-  /**
-   * params
-   *
-   * 上传参数
-   *
-   * default: -
-   */
-  params?: ObjectType
-}
 export interface SimpleUploadProps<ValueItem> extends StandardProps {
   /**
-   * The type of the upload file, same as the standard,See details [accept](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept)
-   *
-   * 上传文件类型, 和标准一致, 详见[accept](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept)
-   *
-   * default: none
+   * @en The type of the upload file, same as the standard,See details [accept](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept)
+   * @cn 上传文件类型, 和标准一致, 详见[accept](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept)
    */
   accept?: string
   /**
-   * The address for uploading
-   *
-   * 上传地址
-   *
-   * default: required
+   * @en The address for uploading
+   * @cn 上传地址
    */
   action?: string | ((file: File) => string)
   /**
-   *  The callback of before upload
-   *
-   *  上传前的回调
-   *
-   *  default: -
-   *
+   * @en The callback of before upload
+   * @cn 上传前的回调
    */
-  beforeUpload?: (file: File, validatorHandle: (error: Error, file: File) => boolean) => Promise<any>
+  beforeUpload?: (file: File, validatorHandle: (error: Error, _file: File) => boolean) => Promise<any>
   /**
-   * Upload placeholder
-   *
-   * 上传占位内容
-   *
-   * default: required
+   * @en Upload placeholder
+   * @cn 上传占位内容
    */
   children?: React.ReactNode
+  /**
+   * @inner 废弃属性
+   */
   cors?: boolean
+  /**
+   * @inner 内部属性
+   */
   imageStyle?: React.CSSProperties
   /**
-   * Request headers
-   *
-   * 请求头部信息
-   *
-   * default: none
+   * @en Request headers
+   * @cn 请求头部信息
+   * @override object
    */
   headers?: ObjectType
   /**
-   * The filename received by the server. If it is not filled in, use the name.
-   *
-   * 服务端接收的 filename，不填使用 name
-   *
-   * default: none
+   * @en The filename received by the server. If it is not filled in, use the name.
+   * @cn 服务端接收的 filename，不填使用 name
    */
   htmlName?: string
   /**
-   * Maximum number of uploaded files
-   *
-   * 最大上传文件数
-   *
-   * default: 100
+   * @en Maximum number of uploaded files
+   * @cn 最大上传文件数
+   * @default 100
    */
   limit?: number
   /**
-   * Whether multi-select files are supported
-   *
-   * 是否支持多选文件
-   *
-   * default: false
+   * @en Whether multi-select files are supported
+   * @cn 是否支持多选文件
+   * @default false
    */
   multiple?: boolean
+  /**
+   * @en The key access data in the Form
+   * @cn Form 内存取数据的 key
+   */
   name?: string
   /**
-   * The callback function when the value is changing(Upload successfully, delete). values: Array, the value is the onSuccess returns
-   *
-   * 值改变回调(上传成功，删除)。values: 数组, 其每个值是 onSuccess 的返回值
-   *
-   * default: none
+   * @en The callback function when the value is changing(Upload successfully, delete). values: Array, the value is the onSuccess returns
+   * @cn 值改变回调(上传成功，删除)。values: 数组, 其每个值是 onSuccess 的返回值
    */
   onChange: (values: ValueItem[]) => void
   /**
-   * onProgress
-   *
-   * 上传中进度
-   *
-   * default: -
+   * @en onProgress
+   * @cn 上传中进度
    */
   onProgress?: ((fileInfo: FileRecord) => any) | false
   /**
-   * onSuccess
-   *
-   * 上传成功事件
-   *
-   * default: -
+   * @en onSuccess
+   * @cn 上传成功事件
+   * res: 上传接口返回结果
+   * file: 选择的文件
+   * data: 请求的数据
+   * xhr: 返回的 response
    */
-  onSuccess?: (res: any, file: File, data?: any, xhr?: XhrType) => ValueItem | Error
+  onSuccess?: (res: any, file: File, data?: any, xhr?: Xhr) => ValueItem | Error
   /**
-   * onError callback
-   *
-   * 上传出错事件(props 中为 onHttpError)
-   *
-   * default: -
+   * @en onError callback
+   * @cn 上传出错事件(props 中为 onHttpError)
    */
-  onError?: (xhr: XhrType, file: File) => string | undefined
+  onError?: (xhr: Xhr, file: File) => string | undefined
   /**
-   * The callback function when to upload unsuccessfully. The returned result is as the error message.
-   *
-   * 上传失败时回调，返回结果作为错误内容提示
-   *
-   * default: none
+   * @en The callback function when to upload unsuccessfully. The returned result is as the error message.
+   * @cn 上传失败时回调，返回结果作为错误内容提示
    */
-  onHttpError?: (xhr: XhrType, file: File) => string | undefined
+  onHttpError?: (xhr: Xhr, file: File) => string | undefined
   /**
-   * The callback function before cancel upload file.
-   *
-   * 取消文件上传前的回调
-   *
-   * default: none
+   * @en The callback function before cancel upload file.
+   * @cn 取消文件上传前的回调
    */
-  beforeCancel?: (xhr: XhrType) => void
+  beforeCancel?: (xhr: Xhr) => void
   /**
-   * Additional parameters submitted to the server
-   *
-   * 提交到服务端的额外参数
-   *
-   * default: none
+   * @en Additional parameters submitted to the server
+   * @cn 提交到服务端的额外参数
+   * @override object
    */
   params?: ObjectType
   /**
-   * Whether to recover deleted values.
-   *
-   * 是否可以恢复已删除的value
-   *
-   * default: true
+   * @en Whether to recover deleted values.
+   * @cn 是否可以恢复已删除的value
+   * @default true
    */
   recoverAble?: boolean
   /**
-   * Display results
-   *
-   * 结果展示
-   *
-   * default: a => a
+   * @en Display results
+   * @cn 结果展示
+   * @default a => a
    */
   renderResult?: (data: any) => React.ReactNode
   /**
-   * Custom upload method. options: the options of upload
-   *
-   * 自定义上传方法。 options: 上传的配置
-   *
-   * default: -
+   * @en Custom upload method. options: the options of upload
+   * @cn 自定义上传方法。 options: 上传的配置
+   * @override (options: UploadOptions) => Xhr | void
    */
-  request?: (options: UploadOptions<ValueItem>) => XhrType | void
+  request?: (options: UploadOptions<ValueItem>) => Xhr | void
 
+  /**
+   * @inner 内部属性
+   */
   validateHook: (func: () => Promise<any>) => void
   /**
-   * Check file before uploading
-   *
-   * 上传前文件校验
-   *
-   * default: none
+   * @en Check file before uploading
+   * @cn 上传前文件校验，详见下方 Validator
+   * @override Validator
    */
   validator?: Validator
+  /**
+   * @en value
+   * @cn defaultValue 和 value 可以同时设置，defaultValue 会被value覆盖 在 Form 中，value会被表单接管，value 无效
+   * @override any[]
+   */
   value: ValueItem[]
+  /**
+   * @en custom Result component
+   * @cn 自定义Result 组件
+   */
   customResult?: React.ComponentType<{
     value: any
     files: any
@@ -269,157 +170,109 @@ export interface SimpleUploadProps<ValueItem> extends StandardProps {
     onFileRemove: (id: string) => void
   }>
   /**
-   * Whether to take the cookie
-   *
-   * 是否携带 cookie
-   *
-   * default: false
+   * @en Whether to take the cookie
+   * @cn 是否携带 cookie
+   * @default false
    */
   withCredentials?: boolean
   /**
-   *  callback when start
-   *
-   *  开始上传的回调函数
-   *
-   *  default: -
-   *
+   * @en callback when start
+   * @cn 开始上传的回调函数
    */
   onStart?: (file: File) => void
   /**
-   * show upload list
-   *
-   * 是否展示上传列表
-   *
-   * default: true
+   * @en show upload list
+   * @cn 是否展示上传列表
+   * @default true
    */
   showUploadList?: boolean
   /**
-   * Whether to handle the case of validation failure, if a function is provided, it is judged by the return value of the function.
-   *
-   * 是否处理校验失败的情况, 如果提供一个函数, 则以函数的返回值判断是否处理此 error
-   *
-   * default: true
+   * @en Whether to handle the case of validation failure, if a function is provided, it is judged by the return value of the function.
+   * @cn 是否处理校验失败的情况, 如果提供一个函数, 则以函数的返回值判断是否处理此 error
+   * @default true
    */
   validatorHandle?: ((error: any, file: File) => boolean) | boolean
   /**
-   * is disabled
-   *
-   * 是否禁用
-   *
-   * default: false
-   *
+   * @en is disabled
+   * @cn 是否禁用
+   * @default false
    */
   disabled?: boolean
   /**
-   *  The same as the native webkitdirectory tag
-   *
-   *  同原生 input 标签的 webkitdirectory 属性
-   *
-   *  default: -
-   *
+   * @en The same as the native webkitdirectory tag
+   * @cn 同原生 input 标签的 webkitdirectory 属性
    */
   webkitdirectory?: boolean | string
   /**
-   * Custom content of result
-   *
-   * 自定义结果的内容
-   *
-   * default: -
+   * @en Custom content of result
+   * @cn 自定义结果的内容
    */
   renderContent?: (res: any, value: ValueItem, index: number, values: ValueItem[]) => React.ReactNode
   /**
-   * drop to update
-   *
-   * 是否开启拖拽上传文件
-   *
-   * default: false
+   * @en drop to update
+   * @cn 是否开启拖拽上传文件
+   * @default false
    */
   drop?: boolean
   /**
-   * Filter after file selection, users can customize the list of files that need to be uploaded eventually. Need to return a new file list
-   *
-   * 文件选中后的筛选，用户可自定义最终需要上传的文件列表。需返回一个新的文件列表
-   *
-   * default: none
+   * @en Filter after file selection, users can customize the list of files that need to be uploaded eventually. Need to return a new file list
+   * @cn 文件选中后的筛选，用户可自定义最终需要上传的文件列表。需返回一个新的文件列表
    */
   filesFilter?: (fileList: File[]) => File[]
   /**
-   * remove update failed callback
-   *
-   * 上传失败图片删除之后的回调
-   *
-   * default: none
+   * @en remove update failed callback
+   * @cn 上传失败图片删除之后的回调
    */
-  onErrorRemove?: (xhr: XhrType, file: File, fileInfo?: any) => void
+  onErrorRemove?: (xhr: Xhr, file: File, fileInfo?: any) => void
   forceAccept?: boolean
   /**
-   * Add image view is displayed on the left
-   *
-   * 添加图片视图是否在左侧展示
-   *
-   * default: false
+   * @inner 内部属性
    */
   leftHandler?: boolean
   /**
-   *  how to preview the image
-   *
-   *  自定义预览图片操作，默认为画廊展示
-   *
-   *  default: none
+   * @en how to preview the image
+   * @cn 自定义预览图片操作，默认为画廊展示
    */
   onPreview?: (url: string, value: ValueItem, index: number, values: ValueItem[], fun: { preview: () => void }) => void
   /**
-   * Confirmation before deletion
-   *
-   * 是否在删除文件和图片前弹出确认
-   *
-   * default: -
+   * @en Confirmation before deletion
+   * @cn 是否在删除文件和图片前弹出确认
    */
   removeConfirm?: string | PopoverConfirmProps
   /**
-   * callback before remove
-   *
-   * 删除前的确认，返回一个Promise用于最终确定是否删除
-   *
-   * default: none
+   * @en callback before remove
+   * @cn 删除前的确认，返回一个Promise用于最终确定是否删除
    */
   beforeRemove?: (value: ValueItem) => Promise<any>
   /**
-   * Custom error prompt after forceAccept type verification fails
-   *
-   * forceAccept 类型校验失败后自定义错误提示
-   *
-   * default: none
+   * @en Custom error prompt after forceAccept type verification fails
+   * @cn forceAccept 类型校验失败后自定义错误提示
    */
   forceAcceptErrorMsg?: string
   /**
-   *  Can the file be deleted
-   *
-   *  文件是否可以删除
-   *
-   *  default: true
-   *
+   * @en Can the file be deleted
+   * @cn 文件是否可以删除
+   * @default true
    */
   canDelete?: ((value: ValueItem, index: number) => boolean) | boolean
   /**
-   * Adjust the spacing to be consistent with the Gap props
-   *
-   *  调整间距 同 Gap 属性
-   *
-   *  default: {column: 12, row: 12}
+   * @en Adjust the spacing to be consistent with the [Gap](/components/Gap) props
+   * @cn 调整间距 同 [Gap](/components/Gap) 属性
+   * @default {column: 12, row: 12}
    */
 
   gapProps?: GapProps
   /**
-   *  set xhr.responseType
-   *
-   *  设置 xhr.responseType
-   *
-   *  default: none
-   *
+   * @en set xhr.responseType
+   * @cn 设置 xhr.responseType
    */
   responseType?: XMLHttpRequestResponseType
 }
+
+/**
+ * @title Upload
+ */
+export type UploadProps<ValueItem> = Omit<GetInputableProps<AcceptUpload<ValueItem>, ValueItem[]>, 'filterSameChange'>
 
 export interface FileInputProps extends Pick<SimpleUploadProps<any>, 'webkitdirectory' | 'accept' | 'multiple'> {
   onChange: (e: any) => void
@@ -427,11 +280,8 @@ export interface FileInputProps extends Pick<SimpleUploadProps<any>, 'webkitdire
 
 export interface AcceptUpload<ValueItem> extends Omit<SimpleUploadProps<ValueItem>, 'forceAccept'> {
   /**
-   * After disabled the file type filtering provided by accept, it is mandatory to check the file type, value same as accept
-   *
-   * 在使用时关闭了 accept 提供的文件类型过滤后，强制对文件类型进行校验（值同accept
-   *
-   * default: none
+   * @en After disabled the file type filtering provided by accept, it is mandatory to check the file type, value same as accept
+   * @cn 在使用时关闭了 accept 提供的文件类型过滤后，强制对文件类型进行校验（值同accept)
    */
   forceAccept?: string
 }
@@ -472,18 +322,39 @@ export interface ImageFileProps {
   data?: string
 }
 
-export interface SimpleUploadImageProps<ValueItem> extends AcceptUpload<ValueItem> {
+/**
+ * @title Upload.Image
+ * @en The basic API is the same as Upload, and the specific API is as follows:
+ * @cn 基本 API 和 Upload 相同，特定的 API 如下：
+ */
+export interface SimpleUploadImagePropsSpec<ValueItem> {
+  /**
+   * @en Add image view is displayed on the left
+   * @cn 添加图片视图是否在左侧展示
+   * @default false
+   */
+  leftHandler?: AcceptUpload<ValueItem>['leftHandler']
+  /**
+   * @en same as style.height
+   * @cn 同 style.height
+   */
   height?: number
+  /**
+   * @en same as style.width
+   * @cn 同 style.width
+   */
   width?: number
   /**
-   * ignore image preview
-   *
-   * 是否忽略上传图片预览
-   *
-   * defualt: false
+   * @en ignore image preview
+   * @cn 是否忽略上传图片预览
+   * @default false
    */
   ignorePreview?: boolean
 }
+
+export interface SimpleUploadImageProps<ValueItem>
+  extends AcceptUpload<ValueItem>,
+    SimpleUploadImagePropsSpec<ValueItem> {}
 
 export interface UploadImageHandlerProps {
   className?: string
@@ -513,13 +384,31 @@ export interface UploadImageResultProps {
   removeConfirm?: AcceptUpload<any>['removeConfirm']
 }
 
-// Upload.Button
-export interface UploadProgressProps<ValueItem>
-  extends AcceptUpload<ValueItem>,
-    Pick<ButtonProps, 'type' | 'size' | 'outline'> {
+/**
+ * @title Upload.Button
+ * @en The basic API is the same as Upload, and the specific API is as follows:
+ * @cn 基本 API 和 Upload 相同，特定的 API 如下：
+ */
+export interface UploadProgressPropsSpec extends Pick<ButtonProps, 'type' | 'size' | 'outline'> {
+  /**
+   * @en button default content
+   * @cn 按钮默认内容
+   */
   placeholder?: React.ReactNode
+  /**
+   * @en content of uploading, will have spin if a string
+   * @cn 上传中按钮的内容，如果是字符串默认会有spin loading
+   */
   loading?: React.ReactNode
+  /**
+   * @en same as [Button](/components.Button) type
+   * @cn 同 [Button](/components.Button) type
+   * @default 'primary'
+   */
+  type?: ButtonProps['type']
 }
+
+export interface UploadProgressProps<ValueItem> extends AcceptUpload<ValueItem>, UploadProgressPropsSpec {}
 
 export interface UploadRemoveConfirmProps {
   confirm?: AcceptUpload<any>['removeConfirm']
@@ -541,8 +430,10 @@ export interface UploadResultProps {
   removeConfirm?: AcceptUpload<any>['removeConfirm']
 }
 
-// export
-export type UploadImageProps<ValueItem> = GetInputableProps<SimpleUploadImageProps<ValueItem>, ValueItem[]>
+export type UploadImageProps<ValueItem> = Omit<
+  GetInputableProps<SimpleUploadImageProps<ValueItem>, ValueItem[]>,
+  'filterSameChange'
+>
 
 export declare class Image<ValueItem> extends React.Component<UploadImageProps<ValueItem>, any> {
   render: () => JSX.Element
@@ -552,7 +443,110 @@ export declare class ImageHandler extends React.Component<UploadImageHandlerProp
   render: () => JSX.Element
 }
 
-export type UploadButtonProps<ValueItem> = GetInputableProps<UploadProgressProps<ValueItem>, ValueItem[]>
+export type UploadButtonProps<ValueItem> = Omit<
+  GetInputableProps<UploadProgressProps<ValueItem>, ValueItem[]>,
+  'filterSameChange'
+>
+
+/**
+ * @title UploadOptions
+ * @isDetail true
+ */
+export interface UploadOptions<T> {
+  /**
+   * @en The upload address can be obtained from action
+   * @cn 上传地址从 action 中获取
+   */
+  url: string
+  /**
+   * @en key of formData
+   * @cn formData 中存的字段名
+   */
+  name: string
+  /**
+   * @inner 内部属性
+   */
+  cors?: SimpleUploadProps<T>['cors']
+  /**
+   * @en same as withCredentials in props
+   * @cn 同 props 中的 withCredentials
+   */
+  withCredentials: SimpleUploadProps<T>['withCredentials']
+  /**
+   * @en same as responseType in props
+   * @cn 同 props 中的 responseType
+   */
+  responseType: SimpleUploadProps<T>['responseType']
+  /**
+   * @en incoming file
+   * @cn 传入文件
+   */
+  file: File
+  /**
+   * @en request header information
+   * @cn 请求头部信息
+   * @override object
+   */
+  headers?: ObjectType
+  /**
+   * @en onError callback
+   * @cn 上传出错事件(props 中为 onHttpError)
+   */
+  onError: (xhr: Partial<Xhr>) => void
+  /**
+   * @en onLoad
+   * @cn 上传事件
+   */
+  onLoad: (xhr?: Xhr) => void
+  /**
+   * @en onProgress
+   * @cn 上传中进度
+   */
+  onProgress: (event?: ProgressEvent, msg?: string) => any
+  /**
+   * @en onStart
+   * @cn 开始上传事件
+   */
+  onStart?: (file: File) => void
+  /**
+   * @en onSuccess
+   * @cn 上传成功事件
+   */
+  onSuccess?: (res?: string, file?: File, data?: any, xhr?: Xhr) => T | Error
+  /**
+   * @en params
+   * @cn 上传参数
+   * @override object
+   */
+  params?: ObjectType
+}
+
+/**
+ * @title Validator
+ */
+export interface Validator {
+  /**
+   * @en custom validator
+   * @cn 自定义校验
+   */
+  customValidator?: (file: File) => void | Error | Promise<any>
+  /**
+   * @en Judge the file extension, return the Error when the verification fails.
+   * @cn 判断后缀名，传入参数为文件后缀，校验失败返回 Error
+   */
+  ext?: (ext: string) => void | Error | Promise<any>
+  /**
+   * @en It is only valid for Image to determine the size of images and return the Error when the verification fails.
+   * @cn 只对 Image 有效，判断图片尺寸，校验失败返回 Error
+   * @override union
+   */
+  imageSize?: (image: { width: number; height: number }) => void | Error
+  /**
+   * @en Judge the size of the file and return the Error when the verification fails.
+   * @cn 判断文件大小，校验失败返回 Error
+   */
+  size?: (size: number) => void | Error | Promise<any>
+}
 
 export declare class UploadButton<ValueItem> extends React.Component<UploadButtonProps<ValueItem>, any> {
   render: () => JSX.Element
@@ -562,8 +556,6 @@ export declare class UploadButton<ValueItem> extends React.Component<UploadButto
 export declare class UploadDragger extends React.Component<any, any> {
   render: () => JSX.Element
 }
-
-export type UploadProps<ValueItem> = GetInputableProps<AcceptUpload<ValueItem>, ValueItem[]>
 
 export declare class Upload<ValueItem> extends React.Component<UploadProps<ValueItem>, any> {
   static Image: typeof Image

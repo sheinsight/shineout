@@ -43,119 +43,80 @@ export interface ValidFunc {
 // Rule 的内置结果
 export interface RuleCommonResult {
   /**
-   * whether to be required
-   *
-   * 是否必填
-   *
-   * default: -
+   * @en whether to be required
+   * @cn 是否必填
    */
   required: InnerRuleFunc<(message?: MessageType) => Required>
 
   /**
-   * The minimum value. When type is 'number', validate the value. Otherwise, validate the value.length.
-   *
-   * 最小值，type 为 'number' 时，判断数值大小，其他类型判断 length
-   *
-   * default: -
+   * @en The minimum value. When type is 'number', validate the value. Otherwise, validate the value.length.
+   * @cn 最小值，type 为 'number' 时，判断数值大小，其他类型判断 length
    */
   min: InnerRuleFunc<(number?: number, message?: MessageType) => Min>
 
   /**
-   * The maximum value. When type is 'number', validate the value. Otherwise, validate the value.length.
-   *
-   * 最大值，type 为 'number' 时，判断数值大小，其他类型判断 length
-   *
-   * default: -
+   * @en The maximum value. When type is 'number', validate the value. Otherwise, validate the value.length.
+   * @cn 最大值，type 为 'number' 时，判断数值大小，其他类型判断 length
    */
   max: InnerRuleFunc<(number?: number, message?: MessageType) => Max>
 
   /**
-   * Range check, automatically determines whether the check type is a string, number, or option base on the field type.
-   *
-   * 数值范围校验，会根据 Field 的 type 自动判断校验类型为字符串、数字或选项
-   *
-   * default: -
+   * @en Range check, automatically determines whether the check type is a string, number, or option base on the field type.
+   * @cn 数值范围校验，会根据 Field 的 type 自动判断校验类型为字符串、数字或选项
    */
   range: InnerRuleFunc<(min?: number, max?: number, message?: MessageType) => Range>
 
   /**
-   * regular expression
-   *
-   * 正则表达式
-   *
-   * default: -
+   * @en regular expression
+   * @cn 正则表达式
    */
   regExp: InnerRuleFunc<(reg?: RegExp | string, message?: MessageType) => RegExpParams>
 
   /**
-   * Email check
-   *
-   * 邮箱校验
-   *
-   * default: -
+   * @en Email check
+   * @cn 邮箱校验
    */
   email: InnerRuleFunc<(message?: MessageType) => Type>
 
   /**
-   * Integer check
-   *
-   * 整数校验
-   *
-   * default: -
+   * @en Integer check
+   * @cn 整数校验
    */
   integer: InnerRuleFunc<(message?: MessageType) => Type>
 
   /**
-   * Number check
-   *
-   * 数值校验
-   *
-   * default: -
+   * @en Number check
+   * @cn 数值校验
    */
   number: InnerRuleFunc<(message?: MessageType) => Type>
 
   /**
-   * Url check
-   *
-   * Url 校验
-   *
-   * default: -
+   * @en Url check
+   * @cn Url 校验
    */
   url: InnerRuleFunc<(message?: MessageType) => Type>
 
   /**
-   * Json check
-   *
-   * Json 校验
-   *
-   * default: -
+   * @en Json check
+   * @cn Json 校验
    */
   json: InnerRuleFunc<(message?: MessageType) => Type>
 
   /**
-   * Hex check
-   *
-   * Hex 校验
-   *
-   * default: -
+   * @en Hex check
+   * @cn Hex 校验
    */
   hex: InnerRuleFunc<(message?: MessageType) => Type>
 
   /**
-   * Rgb check
-   *
-   * Rgb 校验
-   *
-   * default: -
+   * @en Rgb check
+   * @cn Rgb 校验
    */
   rgb: InnerRuleFunc<(message?: MessageType) => Type>
 
   /**
-   * Ipv4 check
-   *
-   * Ipv4 校验
-   *
-   * default: -
+   * @en Ipv4 check
+   * @cn Ipv4 校验
    */
   ipv4: InnerRuleFunc<(message?: MessageType) => Type>
 }

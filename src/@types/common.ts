@@ -2,34 +2,29 @@ import * as React from 'react'
 
 export interface StandardProps {
   /**
-   * extend className
+   * @en extend className
+   * @cn 扩展 className
    *
-   * 扩展className
-   *
-   * default: -
    */
   className?: string
 
   /**
-   * style object
-   *
-   * 内联样式
-   *
-   * default: none
+   * @en Container element style
+   * @cn 最外层扩展样式
    */
   style?: React.CSSProperties
 }
 
 export type KeygenResult = string | number
 
-export type KeygenType<Item> = LiteralUnion<Item> | ((data: Item, index?: number) => KeygenResult) | true
-export type StructKeygenType<Item> = LiteralUnion<Item> | ((data: Item, index?: number) => KeygenResult)
+export type KeygenType<DataItem> = ObjectKey<DataItem> | ((data: DataItem, index?: number) => KeygenResult) | true
+export type StructKeygenType<DataItem> = ObjectKey<DataItem> | ((data: DataItem, index?: number) => KeygenResult)
 
 /**
  * 目前已知的最为简短的写法: @see https://github.com/Microsoft/TypeScript/issues/29729#issuecomment-1082546550
  * 在类型守卫中会存在问题: @see https://github.com/Microsoft/TypeScript/issues/29729#issuecomment-1082791844
  */
-export type LiteralUnion<T = any> = T extends ObjectType ? (keyof T & string) : never
+export type ObjectKey<T = any> = T extends ObjectType ? (keyof T & string) : never
 export declare namespace RegularAttributes {
   type Size = 'small' | 'default' | 'large'
   type Type = 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger'
@@ -57,4 +52,4 @@ export interface UnMatchedValue {
   IS_NOT_MATCHED_VALUE: boolean
   value: any
 }
-export type ResultItem<Item> = Item | UnMatchedValue
+export type ResultItem<DataItem> = DataItem | UnMatchedValue

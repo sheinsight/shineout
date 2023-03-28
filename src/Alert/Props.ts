@@ -1,95 +1,66 @@
 import * as React from 'react'
 import { StandardProps } from '../@types/common'
-
+/**
+ * @title Alert
+ */
 export interface AlertProps extends StandardProps {
   /**
-   * Content, text or react component
-   *
-   * 内容，文字或react组件
-   *
-   * default: -
+   * @en Content, text or react component
+   * @cn 内容，文字或 react 组件
    */
   children?: React.ReactNode
 
   /**
-   * When the type is true, the status icon is displayed according to the type property. If you need to display a custom icon, pass in ReactElement.
-   *
-   * 为true时，根据type属性显示状态图标。如果需要显示自定义图标，传入ReactElement。
-   *
-   * default: -
+   * @en When the type is true, the status icon is displayed according to the type property. If you need to display a custom icon, pass in ReactElement.
+   * @cn 为 true 时，根据 type 属性显示状态图标。如果需要显示自定义图标，传入 ReactElement。
    */
   icon?: React.ReactElement | boolean
 
   /**
-   * The size for icon
-   *
-   * icon 的尺寸
-   *
-   * default: 14
+   * @en The size for icon
+   * @cn icon 的尺寸
+   * @default 14
    */
   iconSize?: number
 
   /**
-   * When onClose is empty, no close is displayed. If you need to close and do not need to handle callbacks, set it true.
-   *
-   * 当 onClose 为空时，不显示关闭。如果需要关闭又不需要处理回调，设置为true即可
-   *
-   * default: -
+   * @en When onClose is empty, no close is displayed. If you need to close and do not need to handle callbacks, set it true.
+   * @cn 当 onClose 为空时，不显示关闭。如果需要关闭又不需要处理回调，设置为 true 即可
    */
   onClose?: ((duration?: number, offsetHeight?: number) => void) | boolean
 
   /**
-   * types
-   *
-   * 类型
-   *
-   * default: *warning*
-   *
+   * @en types
+   * @cn 类型
+   * @default 'warning'
    */
   type?: 'success' | 'info' | 'warning' | 'danger' | 'error' | 'confirmwarning'
 
   /**
-   * show close button
-   *
-   * 是否隐藏关闭按钮
-   *
-   * default: false
+   * @en show close button
+   * @cn 是否隐藏关闭按钮
+   * @default false
    */
   hideClose?: boolean
 
   /**
-   * -
-   *
-   * -
-   *
-   * default: none
+   * @inner 内部属性
    */
   outAnimation?: boolean
 
   /**
-   * custom close button
-   *
-   * 自定义关闭按钮
-   *
-   * default: -
+   * @cn custom close button
+   * @en 自定义关闭按钮
    */
   closeItem?: React.ReactNode
 
   /**
-   * -
-   *
-   * -
-   *
-   * default: -
+   * @inner 内部属性
    */
   dismiss?: boolean
 
   /**
-   * -
-   *
-   * -
-   *
-   * default: -
+   * @inner 内部属性
    */
   duration?: number
 }

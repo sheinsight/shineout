@@ -12,7 +12,7 @@ interface MenuItem {
   title: string
   children?: MenuItem[]
 }
-type MenuProps = TYPE.Menu.Props<MenuItem, MenuItem>
+type MenuProps = TYPE.Menu.Props<MenuItem, string>
 type MenuRenderItem = MenuProps['renderItem']
 
 const data: MenuItem[] = [

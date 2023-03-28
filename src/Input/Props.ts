@@ -2,336 +2,288 @@ import * as React from 'react'
 import { StandardProps, ObjectType } from '../@types/common'
 import { GetInputableProps } from '../Form/Props'
 import { GetInputBorderProps, GetDelayProps, GetCoinProps, CoinProps } from '../hoc/Props'
+import { InputTitleProps } from '../InputTitle/Props'
 
 type ReactNode = React.ReactNode
-export type numType = 'positive' | 'non-negative'
+export type NumType = 'positive' | 'non-negative'
 
 type InputValue = string
-export type NumberValue = InputValue | number | null
+export type NumberValueType = InputValue | number | null
 
 type WidthInputHTMLAttribute<U> = U & Omit<React.InputHTMLAttributes<any>, keyof U>
 
-export interface Props extends StandardProps, Pick<CoinProps, 'coin'> {
+export interface Props
+  extends StandardProps,
+    Pick<CoinProps, 'coin'>,
+    Pick<InputTitleProps, 'innerTitle' | 'placeTitle'> {
   /**
-   * value
-   *
-   * 输入值
-   *
-   * default: null
+   * @en value
+   * @cn 输入值
    */
   value?: InputValue
 
   /**
-   * onChange
-   *
-   * 值改变回调
-   *
-   * default: null
+   * @en onChange
+   * @cn 值改变回调
    */
   onChange: (value?: InputValue) => void
 
   /**
-   * width
-   *
-   * 宽度
-   *
-   * default: null
+   * @en width
+   * @cn 宽度
    */
   width?: number
 
   /**
-   * If clearable is true, show clear value icon
-   *
-   * 是否可清除值
-   *
-   * default: false
+   * @en Remove content of the input when clicking the clear icon, clear event function
+   * @cn 可点击清空图标删除输入框内容，为函数式表示清空回调
+   * @default false
    */
   clearable?: boolean | (() => void)
 
   /**
-   * The callback function for enter key
-   *
-   * 回车键回调函数
-   *
-   * default: -
+   * @en The callback function for enter key
+   * @cn 回车键回调函数
    */
   onEnterPress?: (value: InputValue, e?: any) => void
 
   /**
-   * The callback function for key down
-   *
-   * 键盘按下回调
-   *
-   * default: none
+   * @en The callback function for key down
+   * @cn 键盘按下回调
    */
   onKeyDown?: (e: React.KeyboardEvent) => void
 
   /**
-   * The callback function for key up
-   *
-   * 键盘按下后抬起的回调
-   *
-   * default: none
+   * @en The callback function for key up
+   * @cn 键盘按下后抬起的回调
    */
   onKeyUp?: (e: React.KeyboardEvent) => void
 
   /**
-   * Same as the type of the native input tag
-   *
-   * 同原生 input 标签的 type
-   *
-   * default: 'text'
+   * @en Same as the type of the native input tag
+   * @cn 同原生 input 标签的 type
+   * @default 'text'
    */
   type?: string
 
   /**
-   * Infomation
-   *
-   * 提示信息
-   *
-   * default: -
+   * @en Infomation
+   * @cn 提示信息
    */
   info?: ((msg: string) => string) | number
 
   /**
-   * input max length
-   *
-   * 可输入最大长度
-   *
-   * default: none
+   * @en input max length
+   * @cn 可输入最大长度
    */
   maxLength?: number
 
   /**
-   * get input element
-   *
-   * 获取 input dom 元素
-   *
-   * default: -
+   * @en get input element
+   * @cn 获取 input dom 元素
    */
   forwardedRef?: (el: HTMLElement) => void
 
   /**
-   * show border bottom
-   *
-   * 仅仅展示下边框
-   *
-   * default: false
+   * @en show border bottom
+   * @cn 仅仅展示下边框
+   * @default false
    */
   underline?: boolean
 
   /**
-   * inner title
-   *
-   * 内嵌标题
-   *
-   * default: -
-   */
-  innerTitle?: ReactNode
-
-  /**
-   * Placeholder title, which needs to be used together with innerTitle
-   *
-   * 占位标题，需要配合 innerTitle 一起使用
-   *
-   * default: -
-   */
-  placeTitle?: ReactNode
-
-  /**
-   *  After clicking the clear button, the data becomes undefined
-   *
-   *  点击清除按钮后数据变为 undefined
-   *
-   *  default: -
-   *
+   *  @en After clicking the clear button, the data becomes undefined
+   *  @cn 点击清除按钮后数据变为 undefined
+   *  @default false
    */
   clearToUndefined?: boolean
 
   /**
-   * Decimal place limit (valid when type is number)
-   *
-   * the digits of number 仅在type = number 下生效
-   *
-   * default: -
+   * @en Decimal place limit (valid when type is number)
+   * @cn 小数位限制(type 为 number 时生效)
    */
   digits?: number
 
   /**
-   *  Integer bit limit (valid when type is number)
-   *
-   *  整数位数限制, 仅在type = number 下生效
-   *
-   *  default: -
-   *
+   *  @en Integer bit limit (valid when type is number)
+   *  @cn 整数位数限制, 仅在 type = number 下生效
    */
   integerLimit?: number
 
   /**
-   *  Number type supports 'positive' and 'non-negative', only works when type = number
-   *
-   *  设置数字类型 支持 'positive' 和 'non-negative', 仅在type = number 下生效
-   *
-   *  default: -
+   *  @en Number type supports 'positive' and 'non-negative', only works when type = number
+   *  @cn 设置数字类型 支持 'positive' 和 'non-negative', 仅在 type = number 下生效
    *
    */
-  numType?: numType
+  numType?: NumType
 
   /**
-   *  Automatically select all data after mouse click
-   *
-   *  鼠标点击后自动全选数据
-   *
-   *  default: false
+   *  @en Automatically select all data after mouse click
+   *  @cn 鼠标点击后自动全选数据
+   *  @default false
    *
    */
   autoSelect?: boolean
 
   /**
-   *  Automatically fill up according to the precision limit of digits after out of focus
-   *
-   *  失焦后自动按照 digits 精度限制补足 (type 为 number 时生效)
-   *
-   *  default: false
+   *  @en Automatically fill up according to the precision limit of digits after out of focus
+   *  @cn 失焦后自动按照 digits 精度限制补足 (type 为 number 时生效)
+   *  @default false
    *
    */
   autoFix?: boolean
 
   /**
-   *  The original property of html
-   *
-   *  原生html属性
-   *
-   *  default: -
+   *  @en The original property of html
+   *  @cn 原生 html 属性
    *
    */
   htmlName?: string
-  disabled?: boolean
-  inputFocus?: boolean
 
   /**
-   *  The callback of blur
+   *  @en Disable component
+   *  @cn 禁用组件
+   *  @default false
    *
-   *  失去焦点后的回调
-   *
-   *  default: -
+   */
+  disabled?: boolean
+  inputFocus?: boolean
+  /**
+   *  @en The callback of blur
+   *  @cn 失去焦点后的回调
    *
    */
   onBlur: React.FocusEventHandler
   /**
-   * The callback when Textarea focus
-   *
-   * 聚焦后的回调
-   *
-   * default: -
+   * @en The callback when Textarea focus
+   * @cn 聚焦后的回调
    */
   onFocus: React.FocusEventHandler
   cancelChange?: () => void
   forceChange?: (value: unknown, ...args: unknown[]) => void
+  /**
+   * @en Same as the native input tag
+   * @cn 同原生 input 标签的 placeholder
+   */
   placeholder?: string
+  /**
+   * @en Form field, used with Form
+   * @cn 表单字段, 配合 Form 使用
+   */
   name?: string
+  /**
+   * @en default value
+   * @cn 默认值
+   */
   defaultValue?: InputValue
+  /**
+   * @en When trim is true, blank characters are automatically deleted when lose focus。
+   * @cn trim 为 true 时，失去焦点时会自动删除空白字符。
+   * @default false
+   */
   trim?: boolean
 }
 
-export type InputProps = WidthInputHTMLAttribute<
-  GetInputableProps<GetInputBorderProps<GetDelayProps<GetCoinProps<Props>>>, InputValue>
->
+export type InputPropsWithCoin = GetCoinProps<Props>
+export type InputPropsWithDelay = GetDelayProps<InputPropsWithCoin>
+export type InputPropsWithBorder = GetInputBorderProps<InputPropsWithDelay>
+/**
+ * @title Input
+ */
+export type InputPropsWithInputable = Omit<GetInputableProps<InputPropsWithBorder, InputValue>, 'filterSameChange'>
+export type InputProps = WidthInputHTMLAttribute<InputPropsWithInputable>
 
 export interface ClearProps {
   onClick: (e: React.ChangeEvent<Element>, clearClick: boolean) => void
   clearResult?: string
 }
 
-// Input.Number 对内
-export interface InputNumber extends Omit<Props, 'value' | 'defaultValue' | 'onChange'> {
+export interface InputNumber extends Omit<Props, 'value' | 'defaultValue' | 'onChange' | 'type'> {
   /**
-   * The minimum value
-   *
-   * 最小值
-   *
-   * default: -
+   * @en The minimum value
+   * @cn 最小值
    */
   min?: number
 
   /**
-   * The maximum value
-   *
-   * 最大值
-   *
-   * default: -
+   * @en The maximum value
+   * @cn 最大值
    */
   max?: number
 
   /**
-   * Change the digital span. It can be decimal.
-   *
-   * 改变数字跨度，可为小数
-   *
-   * default: 1
+   * @en Change the digital span. It can be decimal.
+   * @cn 改变数字跨度，可为小数
+   * @default 1
    */
   step?: number
-  value?: string | number
-  defaultValue?: NumberValue
-  disabled?: boolean
-
   /**
-   * allow value is null
-   *
-   * 允许空值
-   *
-   * default: false
+   * @en value
+   * @cn 值
+   */
+  value?: NumberValueType
+  /**
+   * @en default value
+   * @cn 默认值
+   */
+  defaultValue?: NumberValueType
+  /**
+   * @en allow value is null
+   * @cn 清空后值为 null
+   * @default false
    */
   allowNull?: boolean
 
   /**
-   * Whether to show increase/decrease buttons
-   *
-   * 是否展示增减按钮
-   *
-   * default: false
+   * @en Whether to hide increase/decrease buttons
+   * @cn 是否隐藏增减按钮
+   * @default false
    */
   hideArrow?: boolean
-  onChange: (value?: NumberValue) => void
   /**
-   * The callback function for mouse down
-   *
-   * 鼠标按下后的回调
-   *
-   * default: none
+   * @en onChange
+   * @cn 值改变回调
+   */
+  onChange: (value?: NumberValueType) => void
+  /**
+   * @en The callback function for mouse down
+   * @cn 鼠标按下后的回调
    */
   onMouseDown?: (e: React.MouseEvent) => void
 
   /**
-   * The callback function for mouse up
-   *
-   * 鼠标按下后抬起的回调
-   *
-   * default: none
+   * @en The callback function for mouse up
+   * @cn 鼠标按下后抬起的回调
    */
   onMouseUp?: (e: React.MouseEvent) => void
 }
-// Input.Number 对外
-export type InputNumberProps<Value = string> = WidthInputHTMLAttribute<
-  GetInputableProps<GetInputBorderProps<GetCoinProps<InputNumber>>, Value>
->
 
-// Input.Password 对内
+export type InputNumberPropsWithCoin = GetCoinProps<InputNumber>
+export type InputNumberPropsWithBorder = GetInputBorderProps<InputNumberPropsWithCoin>
+/**
+ * @title Input.Number
+ */
+export type InputNumberPropsWithInputable = Omit<
+  GetInputableProps<InputNumberPropsWithBorder, NumberValueType>,
+  'filterSameChange' | 'forceChange' | 'cancelChange' | 'type'
+>
+export type InputNumberProps = WidthInputHTMLAttribute<InputNumberPropsWithInputable>
+
 export interface InputPassword extends Props {
   /**
-   * password symbol
-   *
-   * 密码符号
-   *
-   * default: '.'
+   * @en password symbol
+   * @cn 密码符号
+   * @default "."
    */
   point?: string
 }
 
-// Input.Password 对外
-export type InputPasswordProps<Value = string> = WidthInputHTMLAttribute<
-  GetInputableProps<GetInputBorderProps<InputPassword>, Value>
+export type InputPasswordPropsWithInputable = Omit<
+  GetInputableProps<GetInputBorderProps<InputPassword>, string>,
+  'filterSameChange' | 'forceChange' | 'cancelChange'
 >
+
+export type InputPasswordProps = WidthInputHTMLAttribute<InputPasswordPropsWithInputable>
 export interface InputGroupBaseProps {
   children?: ReactNode
 }
