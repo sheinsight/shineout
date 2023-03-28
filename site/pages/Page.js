@@ -17,7 +17,7 @@ function getUrl(base, page, search) {
       search,
     }
   }
-  return `${base}/${page.path || page.name}${search || ''}`
+  return `${base}/${page.path || page.name}`
 }
 
 export default function(pages) {
