@@ -35,6 +35,11 @@ const pages = [
     level: 2,
     component: createMarkDown(() => import(/* webpackChunkName: 'api.classname' */ './api-classname.md'), true),
   },
+  {
+    name: '从 v1 到 v2',
+    level: 2,
+    component: createMarkDown(() => import(/* webpackChunkName: 'api.classname' */ './v1-v2.md'), true),
+  },
 
   'CHANGELOG',
 
