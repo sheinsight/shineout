@@ -1,6 +1,8 @@
 import { darken, fade } from './color'
 import { set as configSet } from '../config'
 import { entries } from './objects'
+import { isFunc } from './is'
+import hash from './hash'
 
 import { paginationClass } from '../Pagination/styles'
 import { checkinputClass } from '../Checkbox/styles'
@@ -21,17 +23,53 @@ import { sliderClass } from '../Slider/styles'
 import { tagClass } from '../Tag/styles'
 import { exposeClass } from '../styles/expose'
 import { CartType } from '../icons/Props'
+import { ObjectType } from '../@types/common'
 
-const computedCache: { [x: string]: any } = {}
-let injectType = 'body'
-let styleObj: { [x: string]: any } = {}
+export interface ThemeConfig {
+  /**
+   * 'body': 作为 body 标签的内联样式； 'tag': 作为style标签插入
+   */
+  injectType: 'body' | 'tag'
+  /**
+   * 作用的元素; 当 injectType 为 'tag' 时必须传入string
+   */
+  target?: string | HTMLElement | (() => HTMLElement)
+}
+const config: ThemeConfig = {
+  injectType: 'body',
+  target: undefined,
+}
+const computedCache: ObjectType = {}
+let styleObj: ObjectType = {}
 
 export function getInjectType() {
-  return injectType
+  return config.injectType
 }
-
-export function setInjectType(type: string) {
-  injectType = type
+export function setInjectType(type: ThemeConfig['injectType']) {
+  config.injectType = type
+}
+export function setThemeConfig(c: Partial<ThemeConfig>) {
+  Object.keys(c).forEach((key: keyof ThemeConfig) => {
+    if (key in config) {
+      // @ts-ignore
+      config[key] = c[key]
+    }
+  })
+}
+export function getThemeConfig(name: keyof ThemeConfig) {
+  return config[name]
+}
+export function getThemeTarget() {
+  let { target } = config
+  if (!target) return document.body
+  if (isFunc(target)) {
+    target = target()
+  } else if (typeof target === 'string') {
+    target = document.querySelector(target) as HTMLElement
+  }
+  if (target instanceof HTMLElement) return target
+  console.error(`can not find theme target dom from "${config.target}"`)
+  return document.body
 }
 
 export function cleanStyleObj() {
@@ -39,9 +77,14 @@ export function cleanStyleObj() {
 }
 
 export function injectTag(custom = {}) {
-  const id = '__shineoutThemeStyleContainer__'
-  const styleText = `body{${Object.keys({ ...styleObj, ...custom })
-    .map(key => `${key}: ${styleObj[key]}`)
+  if (config.target && typeof config.target !== 'string') {
+    console.error('The target of themeConfig must use string when injectType = "tag"')
+  }
+  const selector = config.target || 'body'
+  const id = `__shineoutThemeStyleContainer__${hash(selector)}`
+  const varObj: any = { ...styleObj, ...custom }
+  const styleText = `${selector}{${Object.keys(varObj)
+    .map(key => `${key}: ${varObj[key]}`)
     .join(';')}}`
   const el = document.getElementById(id)
   if (el) {
@@ -53,6 +96,7 @@ export function injectTag(custom = {}) {
     stylee.innerText = styleText
     document.head.appendChild(stylee)
   }
+  return id
 }
 
 function getProperty(name = '--btn-hover-darken', cache = true) {
@@ -65,14 +109,15 @@ function getProperty(name = '--btn-hover-darken', cache = true) {
 
 function setBodyProperty(colors: { [x: string]: any }, value?: string | number) {
   for (const [cssVar, cssValue] of entries(colors)) {
-    if (injectType === 'body') {
+    if (config.injectType === 'body') {
+      const target = getThemeTarget()
       if (value === undefined) {
-        document.body.style.removeProperty(cssVar)
+        target.style.removeProperty(cssVar)
       } else {
-        document.body.style.setProperty(cssVar, cssValue)
+        target.style.setProperty(cssVar, cssValue)
       }
     }
-    if (injectType === 'tag') {
+    if (config.injectType === 'tag') {
       if (value === undefined) {
         delete styleObj[cssVar]
       } else {

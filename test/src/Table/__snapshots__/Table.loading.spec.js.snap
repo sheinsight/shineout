@@ -3,11 +3,7 @@
 exports[`Table[loading] should render loading 1`] = `
 <div
   className="so-table so-table-default so-table-hover so-table-vertical-top"
-  style={
-    Object {
-      "overflow": "hidden",
-    }
-  }
+  style={Object {}}
 >
   <div
     className="so-table-head so-table-simple-head"

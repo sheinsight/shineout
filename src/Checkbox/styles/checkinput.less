@@ -49,8 +49,7 @@
 
   &-button {
     > .@{checkinput-prefix}.@{checkinput-prefix}-disabled {
-
-      &.@{checkinput-prefix} {
+      &.@{checkinput-prefix}:not(.@{checkinput-prefix}-checked) {
         background: @button-disabled-bg;
         color: @button-disabled-color;
         &:hover {
@@ -65,6 +64,9 @@
         &:not(:last-child)::after {
           background-color: @button-disabled-delimiter;
         }
+      }
+      &.@{checkinput-prefix}-checked {
+        opacity: 0.4;
       }
     }
 
@@ -213,18 +215,18 @@
         }
         .button-variant(@btn-primary-color; @btn-primary-bg; @btn-primary-border; 'primary');
 
-        &[disabled],
-        fieldset[disabled] & {
-          &:hover,
-          &:focus {
-            background: @button-disabled-bg;
-            color: @button-disabled-color;
-          }
-
-          &:active {
-            animation: none;
-          }
-        }
+        //&[disabled],
+        //fieldset[disabled] & {
+        //  &:hover,
+        //  &:focus {
+        //    background: @button-disabled-bg;
+        //    color: @button-disabled-color;
+        //  }
+        //
+        //  &:active {
+        //    animation: none;
+        //  }
+        //}
 
         &:before {
           background: @btn-primary-bg;

@@ -74,7 +74,7 @@ function transDateWithZone(dd: Date, options: DateOptions = {}, back = false) {
     }
     console.error(new Error(`timeZone is not supported: ${options.timeZone}`))
   }
-  return dd
+  return new Date(dd)
 }
 
 function addDays(date: Date, offset: number, options: DateOptions) {
@@ -320,19 +320,22 @@ function newDate(defaultDate?: Date | DateTimeType, options?: DateOptions) {
   return ud
 }
 
-function setTime(date: Date, old: Date) {
-  date.setHours(old.getHours())
-  date.setMinutes(old.getMinutes())
-  date.setSeconds(old.getSeconds())
-  date.setMilliseconds(old.getMilliseconds())
-  return date
+function setTime(date: Date, old: Date, options?: DateOptions) {
+  const zd = transDateWithZone(date, options)
+  const oldZd = transDateWithZone(old, options)
+  zd.setHours(oldZd.getHours())
+  zd.setMinutes(oldZd.getMinutes())
+  zd.setSeconds(oldZd.getSeconds())
+  zd.setMilliseconds(oldZd.getMilliseconds())
+  const ud = transDateWithZone(zd, options, true)
+  return ud
 }
 
 function cloneTime(date: Date, old: Date, fmt?: string, options?: DateOptions) {
   if (!date) return date
   const oldDate = toDateWithFormat(old, fmt, undefined, options)
   if (isInvalid(oldDate)) return date
-  return setTime(date, oldDate)
+  return setTime(date, oldDate, options)
 }
 
 function formatDateWithDefaultTime(
@@ -343,7 +346,7 @@ function formatDateWithDefaultTime(
   options: DateOptions
 ) {
   if (!date) return date
-  if (value) return setTime(date, value)
+  if (value) return setTime(date, value, options)
   if (!defaultTime) return date
 
   const dateHMS = toDateWithFormat(defaultTime, TIME_FORMAT, undefined, options)
@@ -391,7 +394,8 @@ function resetTimeByFormat(value: Date | undefined, fo: string, options: DateOpt
 }
 
 function formatted(date: Date, fmt: string | Function, options: DateOptions) {
-  if (typeof fmt === 'function') return fmt(date)
+  const offsetDate = transDateWithZone(date, options)
+  if (typeof fmt === 'function') return fmt(date, offsetDate)
   return format(date, fmt, options)
 }
 
@@ -427,4 +431,5 @@ export default {
   changeDate,
   getDateInfo,
   compatibleFmt,
+  transDateWithZone,
 }
