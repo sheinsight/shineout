@@ -11,7 +11,7 @@
 // 获取 Button 属性的 type 类型
  type ButtonType = ButtonProps['type']
 ```
-## 组件API 调整
+## 废弃的 API
 - Popover 不支持 Content 属性
 ```
 // 旧API 不再支持
@@ -28,7 +28,7 @@
 - 废弃 Form.Field 可以使用 Form.Field
 - 废弃 Form.Loop 可以使用 Form.FieldSet
 
-## 潜在的 breakChange
+## 组件 API 调整
 Cascader 渲染未匹配数据需要使用 renderUnmatched
 ```
 //在之前的版本可能存在的用法
