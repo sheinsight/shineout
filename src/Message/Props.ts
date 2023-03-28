@@ -73,8 +73,9 @@ export interface MessageOptions {
   hideClose?: boolean
 
   /**
-   * @en Distance from the top
-   * @cn 距离顶部的距离
+   * @en Distance from the top. Note that the Message container is 20px from the top by default. If you need the distance to be 0px from the top, you need to set it to -20px.
+   * @cn 距离顶部的距离。注意，Message 容器距离顶部默认为 20px，如果需要距离顶部 0px，需要设置为 -20px
+   * @default "auto"
    */
   top?: string
 

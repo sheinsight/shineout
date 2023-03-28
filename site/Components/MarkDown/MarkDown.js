@@ -85,7 +85,6 @@ export default function MarkDown({ onHeadingSetted, codes, examples, source, api
     if (cache.apis) return cache.apis
 
     if (!apis) return <div />
-    console.log(apis)
     const id = `apis`
     appendHeading({
       id,

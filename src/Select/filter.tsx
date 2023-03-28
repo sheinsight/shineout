@@ -45,7 +45,7 @@ export default <Item, Value>(Origin: React.ComponentType<SelectPropsWidthTiled<I
       }
     }
 
-    getTreeResult(value: Value, prediction: (value: Value, data: Item) => boolean) {
+    getTreeResult(value: Value, prediction: (_value: Value, data: Item) => boolean) {
       const { treeData, childrenKey = 'children' } = this.props
       let finded: Item | undefined
       const treeNode = (children?: Item[]) => {
@@ -67,7 +67,7 @@ export default <Item, Value>(Origin: React.ComponentType<SelectPropsWidthTiled<I
       const { data, treeData, datum, onCreate } = this.props
 
       const prediction = datum.prediction || ((v, d) => v === datum.format(d))
-      if (treeData) return this.getTreeResult(value, prediction as (value: Value, data: Item) => boolean)
+      if (treeData) return this.getTreeResult(value, prediction as (_value: Value, _data: Item) => boolean)
 
       for (let i = 0, count = data!.length; i < count; i++) {
         const d = data![i]

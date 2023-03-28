@@ -39,7 +39,6 @@ export interface GridProps extends StandardProps {
   /**
    * @en Stretch full height of content
    * @cn 是否撑满容器高度
-   * @default 1
    */
   stretch?: boolean
 

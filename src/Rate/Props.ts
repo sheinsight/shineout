@@ -80,6 +80,7 @@ export declare interface OriginRateProps extends ArgProps, StandardProps {
   /**
    * @en Selected key (controlled)
    * @cn 选中的 key （受控)
+   * @default 0
    */
   value: number
 

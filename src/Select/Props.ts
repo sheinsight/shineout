@@ -294,8 +294,8 @@ export interface BaseSelectProps<DataItem, Value>
   groupBy?: (record: DataItem, index: number, data: DataItem[]) => string
 
   /**
-   * @en value is the datum.getValue().
-   * @cn value 为 datum.getValue()
+   * @en change callback
+   * @cn 值改变回调
    */
   onChange: (value: Value, data?: DataItem, checked?: boolean) => void
 

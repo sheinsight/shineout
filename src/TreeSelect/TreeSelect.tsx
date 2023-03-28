@@ -139,7 +139,7 @@ export default class TreeSelect<Item, Value extends TreeSelectValueType> extends
     return this.props.empty || getLocale(key)
   }
 
-  setInputReset(fn: (fn: () => void) => void) {
+  setInputReset(fn: (_fn: () => void) => void) {
     this.inputReset = fn
   }
 

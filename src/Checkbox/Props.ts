@@ -86,7 +86,7 @@ export interface CheckItemProps extends StandardProps {
    * @en content with checked and unchecked
    * @cn 选中和未选中时的内容
    */
-  content?: [ReactNode, ReactNode] | []
+  content?: [ReactNode, ReactNode]
 }
 
 export type SimpleCheckProps = Omit<CheckItemProps, 'content' | 'onChange' | 'loading' | 'small'> & {

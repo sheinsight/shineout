@@ -260,6 +260,7 @@ export interface SimpleTableProps<DataItem, Value> {
   /**
    * @en Specify row className
    * @cn 指定单行className
+   * @override (rowData: DataItem, index: number) => string | undefined
    */
   rowClassName?: (rowData: DataItem, index: number) => string | undefined
   treeExpandKeys?: Map<KeygenResult, boolean>
@@ -288,6 +289,7 @@ export interface SimpleTableProps<DataItem, Value> {
   /**
    * @en Whether to show being fully selected.
    * @cn 是否显示全选
+   * @default true
    */
   showSelectAll?: boolean
   /**

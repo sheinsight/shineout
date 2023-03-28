@@ -79,6 +79,7 @@ export interface BaseListProps<DataItem, Value> extends StandardProps {
   /**
    * @en size
    * @cn 尺寸
+   * @default 'default'
    * @override union
    */
   size?: RegularAttributes.Size
@@ -102,7 +103,7 @@ export interface BaseListProps<DataItem, Value> extends StandardProps {
    * @en custom row className
    * @cn 自定义行 className
    */
-  rowClassName?: (rowData: DataItem, index: number) => string
+  rowClassName?: ((rowData: DataItem, index: number) => string | undefined) | string
 }
 
 /**

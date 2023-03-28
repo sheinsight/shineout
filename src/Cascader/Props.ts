@@ -31,7 +31,14 @@ export interface FilterProps<DataItem> extends Pick<TreeDatumOptions<DataItem>, 
    */
   childrenKey?: ObjectKey<DataItem>
   data: DataItem[]
-  filterDelay: number
+
+  /**
+   * @en The delay in milliseconds before the filter event is triggered by user input.
+   * @cn 用户输入触发 fitler 事件的延时，单位为毫秒。
+   * @default 'children'
+   */
+  filterDelay?: number
+
   keygen: KeygenType<DataItem>
   /**
    *
@@ -52,7 +59,7 @@ export type GetFilterProps<Props, DataItem> = Omit<
   Props,
   'filterText' | 'filterDataChange' | 'firstMatchNode' | 'onFilter' | 'childrenKey'
 > &
-  Pick<FilterProps<DataItem>, 'onFilter' | 'childrenKey'>
+  Pick<FilterProps<DataItem>, 'onFilter' | 'childrenKey' | 'filterDelay'>
 
 /** ------ Cascader ------ * */
 export interface OriginCascaderProps<DataItem, Value extends CascaderBaseValue>
@@ -87,8 +94,8 @@ export interface OriginCascaderProps<DataItem, Value extends CascaderBaseValue>
    */
   value?: Value
   /**
-   * @en data
-   * @cn 数据
+   * @en data. The child node is children. If the children value is null or its length is 0, it is render as a leaf node
+   * @cn 数据，子节点为children，如果 children 值为 null 或 长度为 0 时，视为叶子节点
    * @override any[]
    */
   data?: DataItem[]
@@ -131,7 +138,6 @@ export interface OriginCascaderProps<DataItem, Value extends CascaderBaseValue>
   /**
    * @en Support single node deletion
    * @cn 支持单个节点删除
-   * @default none
    */
   singleRemove?: boolean
   /**
@@ -142,6 +148,7 @@ export interface OriginCascaderProps<DataItem, Value extends CascaderBaseValue>
   /**
    *  @en dropdown list loading state
    *  @cn 下拉列表加载状态
+   *  @override boolean | ReactNode
    *
    */
   loading?: boolean | ReactNode
@@ -149,6 +156,7 @@ export interface OriginCascaderProps<DataItem, Value extends CascaderBaseValue>
    * @en size
    * @cn 尺寸
    * @override union
+   * @default 'default'
    */
   size?: RegularAttributes.Size
   /**
@@ -158,8 +166,8 @@ export interface OriginCascaderProps<DataItem, Value extends CascaderBaseValue>
    */
   childrenKey: ObjectKey<DataItem>
   /**
-   * @en Merges selected values
-   * @cn 将选中值合并
+   * @en Merges selected values; the repeat value will not appear in the Popover when it is'no-repeat'
+   * @cn 将选中值合并。为'no-repeat'时弹出框中不重复展示值
    * @default false
    */
   compressed?: boolean | 'no-repeat'
@@ -175,7 +183,7 @@ export interface OriginCascaderProps<DataItem, Value extends CascaderBaseValue>
   loader?: (key: KeygenResult, data: DataItem) => void
   /**
    * @en When it is true, all nodes disable the selection; when it is a function, it determines whether it is disabled according to the return result of the function.
-   * @cn 如果 disabled 为 true，禁用全部选项，如果 disabled 为函数，根据函数反回结果禁用选项
+   * @cn 当 disabled 为 true 时，禁用整个选择框。如果 disabled 为函数，根据函数反回结果禁用选项
    * @default false
    */
   disabled?: ((data: DataItem) => boolean) | boolean
@@ -208,8 +216,8 @@ export interface OriginCascaderProps<DataItem, Value extends CascaderBaseValue>
    */
   getComponentRef?: ((comp: ComponentRef) => void) | { current: ComponentRef | undefined }
   /**
-   * @en When it is a string, return d\\[string]. When it is a function, return the result of the function.
-   * @cn 为 string 时，返回 d\\[string]。 为 function 时，返回函数结果
+   * @en When 'renderItem' is a string, it returns DataItem[string]. If it's a function, it returns the result of the function.
+   * @cn 当 renderItem 为 string 时，返回 DataItem\\[string]。 若为函数时，则返回函数结果
    * @default d => d
    */
   renderItem: ObjectKey<DataItem> | ((data: DataItem, active?: boolean, id?: Value[0]) => React.ReactNode)

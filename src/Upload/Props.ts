@@ -42,7 +42,7 @@ export interface SimpleUploadProps<ValueItem> extends StandardProps {
    * @en The callback of before upload
    * @cn 上传前的回调
    */
-  beforeUpload?: (file: File, validatorHandle: (error: Error, file: File) => boolean) => Promise<any>
+  beforeUpload?: (file: File, validatorHandle: (error: Error, _file: File) => boolean) => Promise<any>
   /**
    * @en Upload placeholder
    * @cn 上传占位内容
@@ -59,6 +59,7 @@ export interface SimpleUploadProps<ValueItem> extends StandardProps {
   /**
    * @en Request headers
    * @cn 请求头部信息
+   * @override object
    */
   headers?: ObjectType
   /**
@@ -96,6 +97,10 @@ export interface SimpleUploadProps<ValueItem> extends StandardProps {
   /**
    * @en onSuccess
    * @cn 上传成功事件
+   * res: 上传接口返回结果
+   * file: 选择的文件
+   * data: 请求的数据
+   * xhr: 返回的 response
    */
   onSuccess?: (res: any, file: File, data?: any, xhr?: Xhr) => ValueItem | Error
   /**
@@ -116,6 +121,7 @@ export interface SimpleUploadProps<ValueItem> extends StandardProps {
   /**
    * @en Additional parameters submitted to the server
    * @cn 提交到服务端的额外参数
+   * @override object
    */
   params?: ObjectType
   /**
@@ -143,7 +149,7 @@ export interface SimpleUploadProps<ValueItem> extends StandardProps {
   validateHook: (func: () => Promise<any>) => void
   /**
    * @en Check file before uploading
-   * @cn 上传前文件校验
+   * @cn 上传前文件校验，详见下方 Validator
    * @override Validator
    */
   validator?: Validator
@@ -510,6 +516,7 @@ export interface UploadOptions<T> {
   /**
    * @en params
    * @cn 上传参数
+   * @override object
    */
   params?: ObjectType
 }

@@ -57,6 +57,7 @@ export interface BaseRadioGroupProps<DataItem, Value> extends StandardProps {
    * @en size
    * @cn 尺寸
    * @override union
+   * @default 'defaule'
    */
   size?: RegularAttributes.Size
   /**

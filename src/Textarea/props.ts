@@ -78,6 +78,8 @@ export type TextareaPropsWithDelay = GetDelayProps<OriginTextareaProps>
 type TextareaPropsWithBorder = GetInputBorderProps<TextareaPropsWithDelay>
 /**
  * @title Textarea
+ * @en Supports all attributes of native textarea
+ * @cn 支持原生 textarea 所有属性
  */
 type TextareaPropsWithInputAble = Omit<
   GetInputableProps<TextareaPropsWithBorder, string>,

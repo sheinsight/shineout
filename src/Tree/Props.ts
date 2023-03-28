@@ -3,7 +3,7 @@ import { KeygenResult, ObjectKey, StandardProps, ValueItem } from '../@types/com
 import DatumTree, { TreePathType, TreeModeType } from '../Datum/Tree'
 import { GetInputableProps } from '../Form/Props'
 
-type ExpandIconType<Item> = React.ReactNode | ((d: Item) => React.ReactNode)
+export type ExpandIconType<Item> = React.ReactNode | ((d: Item) => React.ReactNode)
 /** ------------ Tree -------------- */
 /**
  * @title Tree
