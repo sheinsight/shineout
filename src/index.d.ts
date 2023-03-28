@@ -94,7 +94,7 @@ declare const __default: {
   version: number
 }
 export default __default
-
+  
 export { utils }
 export { setLocale } from './locale'
 export { color, style } from './utils/expose'
