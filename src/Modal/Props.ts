@@ -9,6 +9,12 @@ export type Methods = 'success' | 'info' | 'warning' | 'error' | 'confirm' | 'no
  */
 export interface ModalProps extends StandardProps {
   /**
+   * @en Whether to hide mask
+   * @cn 是否隐藏 mask
+   * @default false
+   */
+  hideMask?: boolean
+  /**
    * @en Whether to force the mask transparency (in multi-layer Modal, the transparency of other Modal masks except the first layer will be adjusted to 0.01)
    * @cn 是否强制设置遮罩透明度（多层Modal中，除第一层外的其他弹出层遮罩透明度会被调整为0.01）
    * @default false
@@ -224,6 +230,7 @@ export interface ModalPanelProps
       | 'fullScreen'
       | 'top'
       | 'bodyStyle'
+      | 'hideMask'
     > {
   id?: string
   from?: string

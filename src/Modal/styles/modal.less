@@ -32,6 +32,17 @@
   height: 100%;
   text-align: center;
   opacity: 0;
+  &-hide-mask {
+    pointer-events: none;
+    background-color: transparent;
+    .@{modal-prefix}-mask {
+      pointer-events: none;
+      background-color: transparent;
+    }
+    .@{modal-prefix}-panel {
+      pointer-events: all;
+    }
+  }
   &-rtl {
     direction: rtl;
   }

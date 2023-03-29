@@ -10,6 +10,7 @@ const DefaultValue = {
   ...defaultProps,
   usePortal: true,
   visible: false,
+  hideMask: false,
   esc: true,
 }
 
