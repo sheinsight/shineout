@@ -10,7 +10,7 @@ export type Methods = 'success' | 'info' | 'warning' | 'error' | 'confirm' | 'no
 export interface ModalProps extends StandardProps {
   /**
    * @en Whether to hide mask
-   * @cn 是否隐藏 mask
+   * @cn 是否隐藏遮罩
    * @default false
    */
   hideMask?: boolean
