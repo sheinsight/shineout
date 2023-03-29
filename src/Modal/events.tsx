@@ -28,12 +28,12 @@ function getContainer(id: string) {
   return mod ? mod.container : null
 }
 
-function hasVisible() {
-  return Object.keys(containers).some(k => containers[k].visible)
+function hasVisibleMask() {
+  return Object.keys(containers).some(k => containers[k].visible && !containers[k].props.hideMask)
 }
 
 function isMask(id: string) {
-  const ids = Object.keys(containers).filter(k => containers[k].visible)
+  const ids = Object.keys(containers).filter(k => containers[k].visible && !containers[k].props.hideMask)
   if (ids.length === 0) return true
   return ids[0] === id
 }
@@ -63,7 +63,7 @@ export function close(props: Options, callback?: Function) {
     div.classList.remove(modalClass('end'))
     if (props.destroy) destroy(id!, !props.usePortal)
 
-    if (!hasVisible()) {
+    if (!hasVisibleMask()) {
       const doc = document.body.parentNode as HTMLElement
       doc.style.overflow = ''
       doc.style.paddingRight = ''
@@ -74,7 +74,7 @@ export function close(props: Options, callback?: Function) {
 
 export function createDiv(props: Options) {
   const defaultContainer = getDefaultContainer()
-  const { id, position, fullScreen, container = defaultContainer } = props
+  const { id, position, fullScreen, container = defaultContainer, hideMask } = props
   let div = getDiv(props.id)
   if (div) return div
 
@@ -82,7 +82,7 @@ export function createDiv(props: Options) {
   div = document.createElement('div')
   parent.appendChild(div)
   div.className = classnames(
-    modalClass('_', position && 'position', isRTL() && 'rtl', fullScreen && 'full-screen'),
+    modalClass('_', position && 'position', isRTL() && 'rtl', fullScreen && 'full-screen', hideMask && 'hide-mask'),
     props.rootClassName
   )
 
@@ -100,10 +100,9 @@ export function open(props: Options, isPortal?: boolean) {
   const parsed = parseInt(String(zIndex), 10)
   if (!Number.isNaN(parsed)) div.style.zIndex = (parsed as unknown) as string
   const doc = document.body.parentNode as HTMLElement
-  if (!doc.style.paddingRight) {
-    const scrollWidth = window.innerWidth - docSize.width
+  if (!props.hideMask) {
+    if (!doc.style.paddingRight) doc.style.paddingRight = `${window.innerWidth - docSize.width}px`
     doc.style.overflow = 'hidden'
-    doc.style.paddingRight = `${scrollWidth}px`
   }
   const handleClose = () => {
     if (onClose) onClose()
@@ -112,7 +111,7 @@ export function open(props: Options, isPortal?: boolean) {
 
   const opacityDefault = props.maskOpacity === undefined ? 0.25 : props.maskOpacity
   const maskOpacity = isMask(props.id!) || forceMask ? opacityDefault : 0.01
-  div.style.background = props.maskBackground || `rgba(0,0,0,${maskOpacity})`
+  if (!props.hideMask) div.style.background = props.maskBackground || `rgba(0,0,0,${maskOpacity})`
 
   containers[props.id!].visible = true
 
