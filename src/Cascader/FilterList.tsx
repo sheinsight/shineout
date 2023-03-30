@@ -22,8 +22,9 @@ class FilterItem<DataItem, T extends CascaderBaseValue> extends Component<Filter
   }
 
   handleSelectItem(index: number, e?: MouseEvent) {
-    const { data, datum, onChange, onPathChange, onFilter, filterText, expandTrigger } = this.props
-    if (data && expandTrigger === 'hover-only' && index !== data.length - 1) return
+    const { data, datum, onChange, onPathChange, onFilter, filterText, shouldFinal } = this.props
+    const isFinal = data && index === data.length - 1
+    if (data && shouldFinal && !isFinal) return
     if (e) e.stopPropagation()
     const item = this.props.data![index]
     if (this.checkDisabled(item)) return
@@ -127,6 +128,7 @@ class FilterList<U, T extends CascaderBaseValue> extends Component<FilterListPro
       placeholder,
       renderOptionList,
       loading,
+      shouldFinal,
       ...others
     } = this.props
     if (!focus) return null
@@ -135,10 +137,7 @@ class FilterList<U, T extends CascaderBaseValue> extends Component<FilterListPro
       <div
         {...others}
         ref={getRef}
-        className={classnames(
-          selectClass('options'),
-          cascaderClass('filter', expandTrigger === 'hover-only' && 'leaf-only')
-        )}
+        className={classnames(selectClass('options'), cascaderClass('filter', shouldFinal && 'leaf-only'))}
       >
         {renderOptionList ? renderOptionList(list, { loading: !!loading }) : list}
       </div>

@@ -157,14 +157,17 @@ class Cascader<DataItem, Value extends CascaderBaseValue> extends PureComponent<
       this.updatePathByValue()
     }
 
-    if (onFilter) {
-      if (
-        (prevState.focus !== this.state.focus && !this.state.focus) ||
-        (prevProps.open !== this.props.open && !this.props.open)
-      ) {
+    if (
+      (prevState.focus !== this.state.focus && !this.state.focus) ||
+      (prevProps.open !== this.props.open && !this.props.open)
+    ) {
+      if (onFilter) {
         setTimeout(() => {
           onFilter('')
         }, 400)
+      }
+      if (this.shouldFinal) {
+        this.updatePathByValue(true)
       }
     }
     if (filterText !== undefined && prevProps.filterText !== filterText) {
@@ -182,6 +185,11 @@ class Cascader<DataItem, Value extends CascaderBaseValue> extends PureComponent<
       return !!this.props.open
     }
     return this.state.focus
+  }
+
+  get shouldFinal() {
+    const { expandTrigger, final } = this.props
+    return expandTrigger === 'hover-only' || !!final
   }
 
   setOpenEvent() {
@@ -232,10 +240,10 @@ class Cascader<DataItem, Value extends CascaderBaseValue> extends PureComponent<
     )
   }
 
-  updatePathByValue() {
+  updatePathByValue(force?: boolean) {
     const { mode, value } = this.props
     if (mode !== undefined) return
-    if (value === this.lastValue) return
+    if (value === this.lastValue && !force) return
     if (!value || !value.length) {
       this.setState({ path: [] })
     } else {
@@ -371,6 +379,7 @@ class Cascader<DataItem, Value extends CascaderBaseValue> extends PureComponent<
       multiple: mode !== undefined,
       expandTrigger,
       childrenKey,
+      shouldFinal: this.shouldFinal,
     }
 
     let tempData: any = data
@@ -477,6 +486,7 @@ class Cascader<DataItem, Value extends CascaderBaseValue> extends PureComponent<
 
     return (
       <FilterList
+        shouldFinal={this.shouldFinal}
         fixed="min"
         rootClass={className}
         position={position}

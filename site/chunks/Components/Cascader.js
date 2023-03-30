@@ -144,6 +144,19 @@ const examples = [
 
   },
   {
+    name: '10-final',
+    isTs: true,
+    isTest: false,
+    title: locate(
+      '只能选末级 \n 设置 final 属性',
+      'Can only choose the last level \n Set the final property'
+    ),
+    component: require('doc/pages/components/Cascader/example-10-final.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Cascader/example-10-final.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Cascader/example-10-final.tsx'),
+
+  },
+  {
     name: 'test-001-compressed',
     isTs: true,
     isTest: true,
