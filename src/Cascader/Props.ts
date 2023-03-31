@@ -61,7 +61,6 @@ export type GetFilterProps<Props, DataItem> = Omit<
 > &
   Pick<FilterProps<DataItem>, 'onFilter' | 'childrenKey' | 'filterDelay'>
 
-/** ------ Cascader ------ * */
 export interface OriginCascaderProps<DataItem, Value extends CascaderBaseValue>
   extends Pick<AbsoluteProps, 'absolute' | 'zIndex'>,
     Pick<InputTitleProps, 'innerTitle'>,
@@ -72,6 +71,11 @@ export interface OriginCascaderProps<DataItem, Value extends CascaderBaseValue>
    * @cn 表单字段, 配合 Form 使用
    */
   name?: string
+  /**
+   * @en Only the last node can be selected
+   * @cn 单选只支持选末级节点
+   */
+  final?: boolean
   /**
    * @en Custom render dropdown
    * @cn 自定义渲染下拉列表
@@ -273,6 +277,7 @@ export interface FilterListProps<DataItem, Value extends CascaderBaseValue>
     | 'placeholder'
     | 'renderOptionList'
   > {
+  shouldFinal: boolean
   fixed: string
   focus: boolean
   parentElement: HTMLElement
@@ -303,6 +308,7 @@ export interface CascaderListProps<DataItem, Value extends CascaderBaseValue>
     OriginCascaderProps<DataItem, Value>,
     'renderItem' | 'keygen' | 'loader' | 'expandTrigger' | 'childrenKey' | 'data'
   > {
+  shouldFinal: boolean
   datum: FilterListProps<DataItem, Value>['datum']
   onChange: FilterListProps<DataItem, Value>['onChange']
   onPathChange: FilterListProps<DataItem, Value>['onPathChange']

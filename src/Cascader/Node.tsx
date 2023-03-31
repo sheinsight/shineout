@@ -48,7 +48,11 @@ class Node<U, T extends CascaderBaseValue> extends PureComponent<NodeProps<U, T>
   }
 
   handleClick(e: MouseEvent) {
-    const { id, data, path, onChange, onPathChange, loader, multiple, datum } = this.props
+    const { id, data, path, onChange, onPathChange, loader, multiple, datum, shouldFinal } = this.props
+    if (shouldFinal && this.hasChildren) {
+      this.handlePathChange()
+      return
+    }
     if (onPathChange) onPathChange(id, data, path, true)
     if (!multiple) {
       if (onChange && path) onChange([...path, id] as T, datum.getDataById(id) as U)
@@ -85,12 +89,18 @@ class Node<U, T extends CascaderBaseValue> extends PureComponent<NodeProps<U, T>
     return render(data, active, id) as ReactNode
   }
 
+  get hasChildren() {
+    const { data, childrenKey } = this.props
+    const children = (data[childrenKey!] as unknown) as U[]
+    return children && children.length > 0
+  }
+
   render() {
-    const { active, data, multiple, datum, id, loader, expandTrigger, childrenKey } = this.props
+    const { active, data, multiple, datum, id, loader, expandTrigger, childrenKey, shouldFinal } = this.props
     const { loading } = this.state
     const disabled = this.checkDisabled()
     const children = (data[childrenKey!] as unknown) as U[]
-    const hasChildren = children && children.length > 0
+    const { hasChildren } = this
     const mayChildren = loader && !loading && children === undefined
     const className = cascaderClass(
       'node',
@@ -105,7 +115,7 @@ class Node<U, T extends CascaderBaseValue> extends PureComponent<NodeProps<U, T>
     const events: {
       [x: string]: (e: MouseEvent) => void
     } = {}
-    if (!disabled && (expandTrigger !== 'hover-only' || !children || children.length === 0)) {
+    if (!disabled && (expandTrigger !== 'hover-only' || !hasChildren)) {
       events.onClick = this.handleClick
       style.cursor = 'pointer'
     }
@@ -121,7 +131,7 @@ class Node<U, T extends CascaderBaseValue> extends PureComponent<NodeProps<U, T>
 
     return (
       <div className={className} style={style} {...events}>
-        {multiple && (
+        {multiple && !(shouldFinal && this.hasChildren) && (
           <Checkbox
             checked={datum.getChecked(id)}
             disabled={disabled}
