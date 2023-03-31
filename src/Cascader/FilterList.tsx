@@ -24,7 +24,7 @@ class FilterItem<DataItem, T extends CascaderBaseValue> extends Component<Filter
   handleSelectItem(index: number, e?: MouseEvent) {
     const { data, datum, onChange, onPathChange, onFilter, filterText, shouldFinal } = this.props
     const isFinal = data && index === data.length - 1
-    if (data && shouldFinal && !isFinal) return
+    if (shouldFinal && !isFinal) return
     if (e) e.stopPropagation()
     const item = this.props.data![index]
     if (this.checkDisabled(item)) return
