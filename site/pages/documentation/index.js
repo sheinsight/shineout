@@ -22,7 +22,7 @@ const changelogs = versions.reduce((result, v) => {
 
 // path 属性需要和 scripts/build-html 中 getDocumentation 生成的html 路径一致
 const pages = [
-  'API',
+  'GUIDE',
 
   {
     name: 'Props',
@@ -43,6 +43,12 @@ const pages = [
     level: 2,
     path: 'v1-v2',
     component: createMarkDown(() => import(/* webpackChunkName: 'api.classname' */ './v1-v2.md'), true),
+  },
+  {
+    name: 'FAQ',
+    level: 2,
+    path: 'faq',
+    component: createMarkDown(() => import(/* webpackChunkName: 'api.classname' */ './faq.md'), true),
   },
 
   'CHANGELOG',
