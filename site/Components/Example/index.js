@@ -19,7 +19,7 @@ export default function Example({ component, id, name, rawText, title: propsTitl
   const [showcode, setShowCode] = useState(false)
   const [com] = useState(createElement(component))
   const [codeHeight, setCodeHeight] = useState()
-  const [codeType, setCodeType] = useState('js')
+  const [codeType, setCodeType] = useState('ts')
   let [bottom] = useState()
 
   const commendReg = /(^|\n|\r)\s*\/\*[\s\S]*?\*\/\s*(?:\r|\n|$)/

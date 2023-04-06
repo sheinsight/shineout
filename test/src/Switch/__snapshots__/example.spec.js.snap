@@ -70,3 +70,56 @@ exports[`Switch[snapshot] Snapshot test: Switch[site/pages/components/Switch/exa
   </label>
 </div>
 `;
+
+exports[`Switch[snapshot] Snapshot test: Switch[site/pages/components/Switch/example-5-loading.tsx] 1`] = `
+<div>
+  <label>
+    <input />
+    <i />
+    <span>
+      <div />
+    </span>
+  </label>
+  <label>
+    <input />
+    <i />
+    <span>
+      <div />
+    </span>
+  </label>
+  <br />
+  <label>
+    <span />
+    <input />
+    <i />
+    <span>
+      <div />
+    </span>
+  </label>
+  <label>
+    <span />
+    <input />
+    <i />
+    <span>
+      <div />
+    </span>
+  </label>
+  <br />
+  <label>
+    <span />
+    <input />
+    <i />
+    <span>
+      <div />
+    </span>
+  </label>
+  <label>
+    <span />
+    <input />
+    <i />
+    <span>
+      <div />
+    </span>
+  </label>
+</div>
+`;

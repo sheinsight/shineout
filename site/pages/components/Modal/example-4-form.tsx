@@ -14,7 +14,7 @@ type ModalProps = TYPE.Modal.Props
 type ModalFooter = ModalProps['footer']
 type ModalVisible = ModalProps['visible']
 
-const rules = {
+const rules: FormProps['rules'] = {
   email: [
     { required: true, message: 'Please enter your email.' },
     { type: 'email', message: 'Please enter a valid email.' },

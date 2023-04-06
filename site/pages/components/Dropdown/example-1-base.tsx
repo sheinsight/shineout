@@ -7,10 +7,8 @@
 import React from 'react'
 import { Dropdown, Message, TYPE } from 'shineout'
 
-type DropdownProps = TYPE.Dropdown.Props
-type DropdownData = DropdownProps['data']
-
-const data: DropdownData = [
+type DropdownItem = TYPE.Dropdown.Item
+const data: DropdownItem[] = [
   {
     content: 'Submenu',
     children: [
@@ -34,6 +32,11 @@ const data: DropdownData = [
   },
 ]
 
-const App: React.FC = () => <Dropdown placeholder="Dropdown" data={data} />
+const App: React.FC = () => {
+  const handleCollapse = (collapsed: boolean) => {
+    console.log('Dropdown collapsed:', collapsed)
+  }
+  return <Dropdown trigger="click" onCollapse={handleCollapse} placeholder="Dropdown" data={data} />
+}
 
 export default App

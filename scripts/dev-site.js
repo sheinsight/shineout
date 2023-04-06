@@ -3,10 +3,12 @@ const path = require('path')
 const chokidar = require('chokidar')
 const rimraf = require('rimraf')
 const ejs = require('./ejs')
+const { getPropertiesWithDocComments, ModuleMap } = require('./doc/util')
 
 const pagesPath = path.resolve(__dirname, '../site/pages')
 const chunkPath = path.resolve(__dirname, '../site/chunks')
 const componentPath = path.resolve(pagesPath, './components')
+const srcPath = path.resolve(__dirname, '../src')
 
 const componentsCache = {}
 let lastComponentText = null
@@ -32,10 +34,12 @@ function getComponentPage(name, file) {
     return page
   }
 
+  const api = getPropertiesWithDocComments(path.resolve(srcPath, ModuleMap[name] || name, 'Props.ts'))
   page = {
     codes: [],
     examples: [],
     group: '',
+    api,
     name,
   }
 
@@ -85,7 +89,7 @@ function getComponentPage(name, file) {
       } else if (e.indexOf('test-') === 0) {
         page.examples.push(exam)
       } else {
-        page.codes.push(exam.path.replace('code-', '').replace('.js', ''))
+        page.codes.push(exam.path.replace('code-', ''))
       }
     })
 

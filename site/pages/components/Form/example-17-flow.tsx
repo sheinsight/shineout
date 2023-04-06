@@ -56,7 +56,7 @@ const App: React.FC = () => (
               digits={0}
               title="age"
               type="number"
-              defaultValue={18}
+              defaultValue="18"
               style={{ width: 100 }}
               rules={[rule.range(18, 60)]}
             />

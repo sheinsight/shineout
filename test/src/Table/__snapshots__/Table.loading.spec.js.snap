@@ -228,7 +228,6 @@ exports[`Table[loading] should render loading 1`] = `
           "borderWidth": "4px",
           "color": "#1890ff",
           "height": 40,
-          "margin": undefined,
           "width": 40,
         }
       }

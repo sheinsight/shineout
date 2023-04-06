@@ -39,8 +39,8 @@ const highlight = (Component: any) => (props: SelectProps) => {
       )
     })
   }
-
-  const handleReset = (...args: string[]) => {
+  type BeforeChange = Exclude<SelectProps['beforeChange'], undefined>
+  const handleReset = (...args: Parameters<BeforeChange>) => {
     const { beforeChange } = props
     if (beforeChange) beforeChange(...args)
     setFilterText('')

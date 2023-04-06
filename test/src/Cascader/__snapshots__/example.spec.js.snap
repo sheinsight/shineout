@@ -150,3 +150,83 @@ exports[`Cascader[snapshot] Snapshot test: Cascader[site/pages/components/Cascad
   </div>
 </span>
 `;
+
+exports[`Cascader[snapshot] Snapshot test: Cascader[site/pages/components/Cascader/example-08-unmatch.tsx] 1`] = `
+<span>
+  <div>
+    <div>
+      <a>
+        未匹配值aaa
+      </a>
+      <span>
+         
+      </span>
+      <a>
+        <svg>
+          <path />
+        </svg>
+      </a>
+      <a />
+    </div>
+  </div>
+</span>
+`;
+
+exports[`Cascader[snapshot] Snapshot test: Cascader[site/pages/components/Cascader/example-09-renderlist.tsx] 1`] = `
+<span>
+  <div>
+    <div>
+      <span>
+         
+      </span>
+      <a>
+        <svg>
+          <path />
+        </svg>
+      </a>
+    </div>
+  </div>
+</span>
+`;
+
+exports[`Cascader[snapshot] Snapshot test: Cascader[site/pages/components/Cascader/example-10-final.tsx] 1`] = `
+<div>
+  <div>
+    <div>
+      Single
+    </div>
+    <div>
+      <span>
+        <div>
+          <div>
+            <span>
+               
+            </span>
+            <a>
+              <svg>
+                <path />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </span>
+    </div>
+  </div>
+  <div>
+    <div>
+      multiple
+    </div>
+    <div>
+      <span>
+        <div>
+          <div>
+            <span>
+               
+            </span>
+          </div>
+        </div>
+      </span>
+    </div>
+  </div>
+</div>
+`;

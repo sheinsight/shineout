@@ -11,13 +11,11 @@ type SelectProps = TYPE.Select.Props<string, string>
 type SelectData = SelectProps['data']
 
 type DropdownProps = TYPE.Dropdown.Props
-type DropdownData = DropdownProps['data']
+type DropdownItem = TYPE.Dropdown.Item
 type DropdownSize = DropdownProps['size']
 type DropdownType = DropdownProps['type']
-type DropdownOutline = DropdownProps['outline']
-type DropdownDisabled = DropdownProps['disabled']
 
-const menu: DropdownData = [
+const menu: DropdownItem[] = [
   {
     content: 'Submenu',
     children: [
@@ -45,8 +43,8 @@ const style: React.CSSProperties = { marginInlineEnd: 20 }
 const App: React.FC = () => {
   const [type, setType] = useState<DropdownType>('primary')
   const [size, setSize] = useState<DropdownSize>('default')
-  const [outline, setOutline] = useState<DropdownOutline>(false)
-  const [disabled, setDisabled] = useState<DropdownDisabled>(false)
+  const [outline, setOutline] = useState<boolean>(false)
+  const [disabled, setDisabled] = useState<boolean>(false)
   const sizes: SelectData = ['small', 'default', 'large']
   const types: SelectData = ['primary', 'success', 'warning', 'danger']
 

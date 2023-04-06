@@ -5,16 +5,9 @@
  *    -- A series of checkboxes group by Checkbox.Group.
  */
 import React from 'react'
-import { Checkbox, TYPE } from 'shineout'
+import { Checkbox } from 'shineout'
 
-interface GroupData {
-  id: number
-  color: string
-}
-type CheckboxGroupProps = TYPE.Checkbox.GroupProps<GroupData, number>
-type CheckboxGroupData = CheckboxGroupProps['data']
-
-const data: CheckboxGroupData = [
+const data = [
   { id: 1, color: 'red' },
   { id: 2, color: 'cyan' },
   { id: 3, color: 'blue' },

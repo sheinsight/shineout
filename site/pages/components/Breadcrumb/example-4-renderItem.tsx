@@ -6,40 +6,19 @@
  */
 
 import React, { ReactNode } from 'react'
-import { Link } from 'react-router-dom'
-import { Breadcrumb, Message, Button, TYPE } from 'shineout'
+import { Breadcrumb, TYPE } from 'shineout'
 
-type BreadcrumbData = TYPE.Breadcrumb.Data
+const data = [{ name: 'home', link: '#home' }, { name: 'menu' }, { name: 'self', link: 'https://www.google.com' }]
+type BreadcrumbProps = TYPE.Breadcrumb.Props<typeof data[0]>
 
-type BreadcrumbProps = TYPE.Breadcrumb.Props<BreadcrumbData>
+const renderItem: BreadcrumbProps['renderItem'] = value => {
+  let BreadcrumbItem: ReactNode = value.name
 
-const data: BreadcrumbProps['data'] = [
-  [{ title: 'Home', url: '#home' }, { title: 'aaa', url: '#aaa' }, { title: 'bbb', url: '#bbb' }],
-  { title: <Link to="/components/Button">Button</Link> },
-  { title: 'Self', onClick: () => Message.show('Clicked self') },
-]
+  if (value.link) BreadcrumbItem = <a href={value.link}>{value.name}</a>
 
-const renderItem = (value: BreadcrumbData) => {
-  let BreadcrumbItem: ReactNode = value.title
+  return BreadcrumbItem
 
-  if (value.onClick || value.url) {
-    const props: BreadcrumbProps = {
-      onClick: value.onClick,
-    }
-
-    if (value.url) props.href = value.url
-    BreadcrumbItem = (
-      <a {...props}>
-        {value.icon}
-        &nbsp;
-        {value.title}
-      </a>
-    )
-
-    return BreadcrumbItem
-  }
-
-  return <Button size="small">{BreadcrumbItem}</Button>
+  return <b>{BreadcrumbItem}</b>
 }
 export default function() {
   return <Breadcrumb renderItem={renderItem} data={data} />

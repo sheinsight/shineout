@@ -18,8 +18,8 @@ const examples = [
     isTs: true,
     isTest: false,
     title: locate(
-      '基本用法 \n 内置了四个弹出方向',
-      'Base \n There are four pop-up directions built in.'
+      '基本用法 \n children 只能为一个 ReactElement并且不可以使用 Fragment \n 内置了四个弹出方向',
+      'Base \n children can only be a ReactElement and cannot be a Fragment \n There are four pop-up directions built in.'
     ),
     component: require('doc/pages/components/Tooltip/example-1-base.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Tooltip/example-1-base.tsx'),
@@ -69,6 +69,8 @@ const examples = [
 
 const codes = undefined
 
+const api = '[{"title":"Tooltip","properties":[{"name":"children","tag":{"cn":"子元素只能为一个 ReactElement","en":"The child element can only be a ReactElement.","default":"","version":""},"required":true,"type":"ReactNode"},{"name":"className","tag":{"cn":"扩展 className","en":"extend className","default":"","version":""},"required":false,"type":"string "},{"name":"style","tag":{"cn":"最外层扩展样式","en":"Container element style","default":"","version":""},"required":false,"type":"CSSProperties "},{"name":"tip","tag":{"cn":"弹出文字","en":"Pop up texts","default":"","version":""},"required":true,"type":"ReactNode"},{"name":"position","tag":{"cn":"弹出层位置","en":"The position of the pop-up layer","default":"\\\"top\\\"","version":""},"required":false,"type":"\\\"top\\\" | \\\"left\\\" | \\\"right\\\" | \\\"bottom\\\" "},{"name":"trigger","tag":{"cn":"弹出方式","en":"Pop-up type","default":"\\\"hover\\\"","version":""},"required":false,"type":"\\\"click\\\" | \\\"hover\\\" "},{"name":"delay","tag":{"cn":"弹出延迟","en":"Popup delay","default":"0","version":""},"required":false,"type":"number "},{"name":"animation","tag":{"cn":"弹出是否使用动画","en":"use animation","default":"true","version":""},"required":false,"type":"boolean "},{"name":"disabledChild","tag":{"cn":"使被禁用的元素正常显示提示","en":"make disabled element work","default":"false","version":""},"required":false,"type":"boolean "}],"cn":"","en":""}]';
+
 export default navable(props => (
-  <MarkDown {...props} codes={codes} source={source} examples={examples} />
+  <MarkDown {...props} codes={codes} source={source} examples={examples} api={api} />
 ))

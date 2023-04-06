@@ -2,7 +2,7 @@ const path = require('path')
 const fs = require('fs')
 
 const versions = {}
-;['react', 'react-dom', 'prop-types', 'jszip', 'docsearch.js'].forEach(lib => {
+;['react', 'react-dom', 'jszip', 'docsearch.js'].forEach(lib => {
   const pkg = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'node_modules/', lib, 'package.json')))
   versions[lib] = pkg.version
 })
@@ -10,13 +10,12 @@ const versions = {}
 module.exports = {
   appName: 'Shineout',
   dev: {
-    publishPort: 3000,
-    webpackPort: 3001,
+    publishPort: 4000,
+    webpackPort: 4001,
     scriptPath: '/*.*',
     scripts: [
       `/react@${versions.react}/umd/react.production.min.js`,
       `/react-dom@${versions['react-dom']}/umd/react-dom.production.min.js`,
-      `/prop-types@${versions['prop-types']}/prop-types.min.js`,
       `/jszip@${versions.jszip}/dist/jszip.min.js`,
     ],
     styles: [
@@ -52,12 +51,6 @@ module.exports = {
         commonjs2: 'react-dom',
         commonjs: 'react-dom',
         amd: 'react-dom',
-      },
-      'prop-types': {
-        root: 'PropTypes',
-        commonjs2: 'prop-types',
-        commonjs: 'prop-types',
-        amd: 'prop-types',
       },
     },
   },

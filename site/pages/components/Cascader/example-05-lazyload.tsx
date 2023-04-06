@@ -18,7 +18,6 @@ type CascaderProps = TYPE.Cascader.Props<DataItem, string[]>
 type CascaderKeygen = CascaderProps['keygen']
 type CascaderLoader = CascaderProps['loader']
 type CascaderChange = CascaderProps['onChange']
-type CascaderValue = CascaderProps['value']
 type CascaderRenderItem = CascaderProps['renderItem']
 
 const initData = ['0', '1', '2', '3', '4', '5', '6', '7', '8'].map(i => ({ id: i }))
@@ -26,7 +25,7 @@ const createRange = () => Array.from({ length: Math.round(Math.random() * 4) }, 
 
 const App: React.FC = () => {
   const [_data, setData] = useState(initData)
-  const [value, setValue] = useState<CascaderValue>([])
+  const [value, setValue] = useState<string[]>([])
 
   const handleChange: CascaderChange = v => setValue(v)
   const renderItem: CascaderRenderItem = node => `node ${node.id}`

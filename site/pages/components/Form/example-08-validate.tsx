@@ -7,15 +7,14 @@
 import React from 'react'
 import { Form, Input, Rule, Checkbox, TYPE } from 'shineout'
 
-type RuleParams = TYPE.Rule.Params
-type RuleFunc = TYPE.Rule.validFunc
+type RuleFunc = TYPE.Rule.ValidFunc
 
 const isExist: RuleFunc = (value, _, callback) => {
   if (value.indexOf('so') >= 0) callback(new Error(`"${value}" is existed.`))
   else callback(true)
 }
 
-const password: RuleParams = {
+const password = {
   func: (value: string, _formData: any, _cb: any, props: { message: string; title: string }) =>
     new Promise((resolve, reject) => {
       if (!/\d+/.test(value) || !/[a-z]+/i.test(value)) {
@@ -59,7 +58,6 @@ const App: React.FC = () => (
         name="colors"
         keygen={d => d}
         defaultValue={[]}
-        title="Favorite Colors"
         data={['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'violet']}
         rules={[rules.required('At least select one favorite color'), rules.min(2), rules.max(3)]}
       />

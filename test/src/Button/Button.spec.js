@@ -10,7 +10,7 @@ import ButtonLoading from '../../../site/pages/components/Button/example-5-loadi
 import ButtonHref from '../../../site/pages/components/Button/example-6-href'
 import ButtonGroup from '../../../site/pages/components/Button/example-8-group'
 
-import { defaultProps } from '../../../src/utils/proptypes'
+import { defaultProps } from '../../../src/utils/defaultProps'
 
 /* global SO_PREFIX */
 

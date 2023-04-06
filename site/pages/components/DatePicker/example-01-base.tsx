@@ -9,7 +9,7 @@ import { DatePicker } from 'shineout'
 
 const App: React.FC = () => (
   <div>
-    <DatePicker type="date" placeholder="Select date" />
+    <DatePicker inputable type="date" placeholder="Select date" />
     <br />
     <DatePicker type="datetime" style={{ marginTop: '12px' }} placeholder="Select datetime" />
   </div>

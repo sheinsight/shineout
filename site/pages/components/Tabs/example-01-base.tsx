@@ -13,8 +13,8 @@ import lorem from 'doc/utils/faker/lorem'
 const panelStyle: React.CSSProperties = { padding: '12px 0' }
 
 const App: React.FC = () => (
-  <Tabs defaultActive={1}>
-    <Tabs.Panel style={panelStyle} tab="Home">
+  <Tabs defaultActive={1} color="red" shape="dash">
+    <Tabs.Panel style={panelStyle} tab="Home" color="red">
       {lorem(5)}
     </Tabs.Panel>
 

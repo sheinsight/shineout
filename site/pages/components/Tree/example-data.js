@@ -8,6 +8,7 @@ export default class extends Component {
   }
 
   toggle = () => {
+    // eslint-disable-next-line react/no-access-state-in-setstate
     this.setState({ expand: !this.state.expand })
   }
 
@@ -15,9 +16,12 @@ export default class extends Component {
     const { expand } = this.state
     return (
       <div>
-        Current node count: {allIds.length}.{' '}
+        Current node count: &nbsp;
+        <span>{allIds.length}</span>
+        <span>. </span>
         <a onClick={this.toggle}>
-          {expand ? 'Collapse' : 'Expand'} Code
+          {expand ? 'Collapse' : 'Expand'}
+          <span> Code</span>
         </a>
         <pre style={{ display: expand ? 'block' : 'none' }}>{JSON.stringify(data, null, 2)}</pre>
       </div>

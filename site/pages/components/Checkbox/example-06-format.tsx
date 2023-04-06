@@ -12,10 +12,9 @@ interface DataItem {
   color: string
 }
 type CheckboxGroupProps = TYPE.Checkbox.GroupProps<DataItem, string>
-type CheckboxGroupData = CheckboxGroupProps['data']
 type CheckboxGroupRenderItem = CheckboxGroupProps['renderItem']
 
-const data: CheckboxGroupData = [
+const data: DataItem[] = [
   { id: 1, color: 'red' },
   { id: 2, color: 'cyan' },
   { id: 3, color: 'blue' },

@@ -5,12 +5,10 @@
  *    --Set the range property to select range, the input value and return value is an array of length 2.
  */
 import React from 'react'
-import { DatePicker, TYPE } from 'shineout'
-
-type DatePickerDateTimeType = TYPE.DatePicker.DateTimeType
+import { DatePicker } from 'shineout'
 
 const style = { marginBottom: 12 }
-const Now: DatePickerDateTimeType = Date.now()
+const Now = Date.now()
 
 const App: React.FC = () => (
   <div>

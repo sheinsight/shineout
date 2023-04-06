@@ -5,11 +5,7 @@
  *    -- set timeZone
  */
 import React, { useState } from 'react'
-import { DatePicker, Select, TYPE } from 'shineout'
-
-type DatePickerValue = TYPE.DatePicker.Value
-type DatePickerProps = TYPE.DatePicker.Props<DatePickerValue>
-type DateTimeZone = DatePickerProps['timeZone']
+import { DatePicker, Select } from 'shineout'
 
 const offsetList = new Array(26).fill(undefined).map((_, index) => {
   const num = index - 12
@@ -19,17 +15,17 @@ const offsetList = new Array(26).fill(undefined).map((_, index) => {
 })
 
 const App: React.FC = () => {
-  const [tz, setTz] = useState<DateTimeZone>('+08')
+  const [tz, setTz] = useState('+08')
   return (
     <div>
       <DatePicker
-        format="T"
+        format="X"
         timeZone={tz}
         type="datetime"
         defaultValue={new Date()}
         placeholder="Select datetime"
         onChange={d => console.log(d)}
-        formatResult="yyyy-MM-dd HH:mm:ss"
+        formatResult="YYYY-MM-DD HH:mm:ss"
       />
       <Select
         keygen

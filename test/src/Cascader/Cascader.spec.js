@@ -218,7 +218,6 @@ describe('Cascader[Lazyload]', () => {
     const wrapper = mount(<CascaderLazyload />)
     wrapper.find(`.${SO_PREFIX}-cascader`).simulate('click')
 
-    // console.log(wrapper.html())
     wrapper.update()
     wrapper.find('Node').forEach(node => {
       expect(node.find(`.${SO_PREFIX}-cascader-may-be-children`).length).toBe(1)
@@ -469,7 +468,7 @@ describe('Cascader[showArrow]', () => {
   })
 })
 
-describe('Cascader[unmatch]', () => {
+describe('Cascader[unmatch, renderUnmatched]', () => {
   it('should render unmatch options', () => {
     const wrapper = mount(
       <Cascader
@@ -479,10 +478,21 @@ describe('Cascader[unmatch]', () => {
         renderItem={d => `id-${d.id}`}
         unmatch
         showArrow={false}
-        defaultValue={['aaa', 'bbb']}
+        value={['aaa', 'bbb']}
+        onChange={() => {}}
       />
     )
     expect(wrapper.find('.so-cascader .so-cascader-item').length).toBe(2)
+    wrapper.setProps({ value: [{ name: 'hi' }, { name: 'div' }] })
+    expect(wrapper.find('.so-cascader .so-cascader-item').length).toBe(0)
+    wrapper.setProps({ renderUnmatched: d => d.name })
+    expect(wrapper.find('.so-cascader .so-cascader-item').length).toBe(2)
+    expect(
+      wrapper
+        .find('.so-cascader .so-cascader-item')
+        .at(0)
+        .text()
+    ).toBe('hi')
   })
 })
 

@@ -318,10 +318,24 @@
       display: inline-block;
       border-radius: 50%;
       box-shadow: @switch-uncheck-box-shadow;
+      font-size: @switch-indicator-size;
+      color: @switch-uncheck-bg;
       .@{checkinput-prefix}-rtl & {
         left: auto;
         right: @switch-indicator-padding-horizontal;
       }
+      .@{checkinput-prefix}-loading & {
+       .@{so-prefix}-spin-ring {
+         position: absolute;
+         top: 12%;
+         left: 12%;
+         right: 12%;
+         bottom: 12%;
+         border-width: 0.12em;
+         border-top-color: currentColor;
+       }
+      }
+
     }
 
     &-children {
@@ -342,6 +356,7 @@
     .@{checkinput-prefix}-switch-indicator {
       box-shadow: @switch-checked-box-shadow;
       background: @switch-indicator-checked-bg;
+      color: @switch-checked-bg;
       &-ltr {
         left: 100%;
         margin-left: @switch-indicator-padding-horizontal-negative;
@@ -391,6 +406,7 @@
       top: @switch-small-indicator-top;
       padding-left: @switch-small-indicator-padding;
       padding-right: @switch-small-indicator-padding;
+      font-size: @switch-small-indicator-size;
     }
   }
 
@@ -410,6 +426,7 @@
       width: @switch-large-indicator-size;
       height: @switch-large-indicator-size;
       top: @switch-large-indicator-top;
+      font-size: @switch-large-indicator-size;
     }
   }
 

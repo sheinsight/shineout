@@ -1,8 +1,6 @@
 /**
  * cn - 控制浮层显隐
  *    -- open 控制浮层显隐
- * en - Base
- *   -- open set visible of cascader popup
  */
 
 import React from 'react'
@@ -69,6 +67,7 @@ const App: React.FC = () => {
           console.log('blur')
         }}
         onCollapse={v => {
+          console.log('cccc', v)
           setOpen(v)
         }}
         keygen="value"

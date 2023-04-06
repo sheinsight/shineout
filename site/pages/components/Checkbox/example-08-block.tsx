@@ -5,16 +5,14 @@
  *    -- The default is horizontal layout, and setting the block property can change it to be vertical layout.
  */
 import React from 'react'
-import { Checkbox, TYPE } from 'shineout'
+import { Checkbox } from 'shineout'
 
 interface DataItem {
   id: number
   color: string
 }
-type CheckboxGroupProps = TYPE.Checkbox.GroupProps<DataItem, string>
-type CheckboxGroupData = CheckboxGroupProps['data']
 
-const data: CheckboxGroupData = [
+const data: DataItem[] = [
   { id: 1, color: 'red' },
   { id: 2, color: 'cyan' },
   { id: 3, color: 'blue' },

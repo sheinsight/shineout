@@ -37,11 +37,24 @@ npm 安装的组件有三个目录，'es/'，'lib/'，'css/'，默认的目录�
 
 npm 安装的方式可以通过修改 webpack 的 less-loader 配置来切换主题。
 ```
+//  less-loader < 6.0.0
 {
   loader: 'less-loader',
   options: {
     modifyVars: {
       'so-theme': 'shineout'
+    }
+  }
+}
+// less-loader >= 6.0.0
+{
+  loader: 'less-loader',
+  options: {
+     lessOptions: {
+        modifyVars: {
+          'so-theme': 'shineout'
+        }
+     }
     }
   }
 }
@@ -61,11 +74,24 @@ CDN 引用的方式，可以修改引用路径
 
 默认通过前缀来隔离 css 代码，默认的前缀是 'so'。通常情况下，不需要修改。如果想修改这个值，修改 webpack 的 less-loader 配置
 ```
+//  less-loader < 6.0.0
 {
   loader: 'less-loader',
   options: {
     modifyVars: {
       'so-prefix': 'your-prefix'
+    }
+  }
+}
+// less-loader >= 6.0.0
+{
+  loader: 'less-loader',
+  options: {
+     lessOptions: {
+        modifyVars: {
+          'so-prefix': 'your-prefix'
+        }
+     }
     }
   }
 }

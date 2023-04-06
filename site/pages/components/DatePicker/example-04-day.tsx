@@ -5,14 +5,10 @@
  *    -- Set type to be date to select day.
  */
 import React from 'react'
-import { DatePicker, TYPE } from 'shineout'
+import { DatePicker } from 'shineout'
 
-type DatePickerValue = TYPE.DatePicker.Value
-type DatePickerProps = TYPE.DatePicker.Props<DatePickerValue>
-type DatePickerDefaultValue = DatePickerProps['defaultValue']
+const Now = Date.now()
 
-const Now: DatePickerDefaultValue = Date.now()
-
-const App: React.FC = () => <DatePicker type="date" format="yyyy-MM-dd" defaultValue={Now} />
+const App: React.FC = () => <DatePicker type="date" format="YYYY-MM-DD" defaultValue={Now} />
 
 export default App

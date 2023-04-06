@@ -7,7 +7,7 @@
 import React from 'react'
 import { Form, Input, Rule, TYPE } from 'shineout'
 
-type RuleFunc = TYPE.Rule.validFunc
+type RuleFunc = TYPE.Rule.ValidFunc
 
 const password: RuleFunc = (value, form, callback) => {
   if (form.repeat && value !== form.repeat) callback(new Error('twice password must equal'))

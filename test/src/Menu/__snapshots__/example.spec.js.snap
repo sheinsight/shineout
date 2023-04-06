@@ -6,25 +6,33 @@ exports[`Menu[snapshot] Snapshot test: Menu[site/pages/components/Menu/example-1
     <ul>
       <li>
         <a>
-          Navigation One
+          <span>
+            Navigation One
+          </span>
           <span />
         </a>
       </li>
       <li>
         <a>
-          Navigation Two
+          <span>
+            Navigation Two
+          </span>
           <span />
         </a>
         <ul>
           <li>
             <a>
-              Option 1
+              <span>
+                Option 1
+              </span>
               <span />
             </a>
           </li>
           <li>
             <a>
-              Option 2
+              <span>
+                Option 2
+              </span>
               <span />
             </a>
           </li>
@@ -32,31 +40,41 @@ exports[`Menu[snapshot] Snapshot test: Menu[site/pages/components/Menu/example-1
       </li>
       <li>
         <a>
-          Navigation Three
+          <span>
+            Navigation Three
+          </span>
           <span />
         </a>
         <ul>
           <li>
             <a>
-              Option 3
+              <span>
+                Option 3
+              </span>
               <span />
             </a>
           </li>
           <li>
             <a>
-              Option 4
+              <span>
+                Option 4
+              </span>
               <span />
             </a>
             <ul>
               <li>
                 <a>
-                  Optic 1
+                  <span>
+                    Optic 1
+                  </span>
                   <span />
                 </a>
               </li>
               <li>
                 <a>
-                  Optic 2
+                  <span>
+                    Optic 2
+                  </span>
                   <span />
                 </a>
               </li>
@@ -66,7 +84,17 @@ exports[`Menu[snapshot] Snapshot test: Menu[site/pages/components/Menu/example-1
       </li>
       <li>
         <a>
-          Navigation Four
+          <span>
+            Navigation Four
+          </span>
+          <span />
+        </a>
+      </li>
+      <li>
+        <a>
+          <span>
+            This is a very very very very long menu title
+          </span>
           <span />
         </a>
       </li>
@@ -81,19 +109,25 @@ exports[`Menu[snapshot] Snapshot test: Menu[site/pages/components/Menu/example-1
     <ul>
       <li>
         <a>
-          Google
+          <span>
+            Google
+          </span>
           <span />
         </a>
       </li>
       <li>
         <a>
-          strackoverflow
+          <span>
+            strackoverflow
+          </span>
           <span />
         </a>
       </li>
       <li>
         <a>
-          github
+          <span>
+            github
+          </span>
           <span />
         </a>
       </li>
@@ -108,19 +142,25 @@ exports[`Menu[snapshot] Snapshot test: Menu[site/pages/components/Menu/example-1
     <ul>
       <li>
         <a>
-          Parent 1
+          <span>
+            Parent 1
+          </span>
           <span />
         </a>
         <ul>
           <li>
             <a>
-              Option 2
+              <span>
+                Option 2
+              </span>
               <span />
             </a>
           </li>
           <li>
             <a>
-              Option 3
+              <span>
+                Option 3
+              </span>
               <span />
             </a>
           </li>
@@ -128,19 +168,25 @@ exports[`Menu[snapshot] Snapshot test: Menu[site/pages/components/Menu/example-1
       </li>
       <li>
         <a>
-          Parent 4
+          <span>
+            Parent 4
+          </span>
           <span />
         </a>
         <ul>
           <li>
             <a>
-              Option 5
+              <span>
+                Option 5
+              </span>
               <span />
             </a>
           </li>
           <li>
             <a>
-              Option 6
+              <span>
+                Option 6
+              </span>
               <span />
             </a>
           </li>
@@ -148,7 +194,9 @@ exports[`Menu[snapshot] Snapshot test: Menu[site/pages/components/Menu/example-1
       </li>
       <li>
         <a>
-          Option 7
+          <span>
+            Option 7
+          </span>
           <span />
         </a>
       </li>
@@ -163,25 +211,33 @@ exports[`Menu[snapshot] Snapshot test: Menu[site/pages/components/Menu/example-2
     <ul>
       <li>
         <a>
-          Navigation One
+          <span>
+            Navigation One
+          </span>
           <span />
         </a>
       </li>
       <li>
         <a>
-          Navigation Two
+          <span>
+            Navigation Two
+          </span>
           <span />
         </a>
         <ul>
           <li>
             <a>
-              Option 1
+              <span>
+                Option 1
+              </span>
               <span />
             </a>
           </li>
           <li>
             <a>
-              Option 2
+              <span>
+                Option 2
+              </span>
               <span />
             </a>
           </li>
@@ -189,19 +245,25 @@ exports[`Menu[snapshot] Snapshot test: Menu[site/pages/components/Menu/example-2
       </li>
       <li>
         <a>
-          Navigation Three
+          <span>
+            Navigation Three
+          </span>
           <span />
         </a>
         <ul>
           <li>
             <a>
-              Option 3
+              <span>
+                Option 3
+              </span>
               <span />
             </a>
           </li>
           <li>
             <a>
-              Option 4
+              <span>
+                Option 4
+              </span>
               <span />
             </a>
           </li>
@@ -209,7 +271,9 @@ exports[`Menu[snapshot] Snapshot test: Menu[site/pages/components/Menu/example-2
       </li>
       <li>
         <a>
-          Navigation Four
+          <span>
+            Navigation Four
+          </span>
           <span />
         </a>
       </li>
@@ -224,25 +288,33 @@ exports[`Menu[snapshot] Snapshot test: Menu[site/pages/components/Menu/example-4
     <ul>
       <li>
         <a>
-          Navigation One
+          <span>
+            Navigation One
+          </span>
           <span />
         </a>
       </li>
       <li>
         <a>
-          Navigation Two
+          <span>
+            Navigation Two
+          </span>
           <span />
         </a>
         <ul>
           <li>
             <a>
-              Option 1
+              <span>
+                Option 1
+              </span>
               <span />
             </a>
           </li>
           <li>
             <a>
-              Option 2
+              <span>
+                Option 2
+              </span>
               <span />
             </a>
           </li>
@@ -250,31 +322,41 @@ exports[`Menu[snapshot] Snapshot test: Menu[site/pages/components/Menu/example-4
       </li>
       <li>
         <a>
-          Navigation Three
+          <span>
+            Navigation Three
+          </span>
           <span />
         </a>
         <ul>
           <li>
             <a>
-              Option 3
+              <span>
+                Option 3
+              </span>
               <span />
             </a>
           </li>
           <li>
             <a>
-              Option 4
+              <span>
+                Option 4
+              </span>
               <span />
             </a>
             <ul>
               <li>
                 <a>
-                  Optic 1
+                  <span>
+                    Optic 1
+                  </span>
                   <span />
                 </a>
               </li>
               <li>
                 <a>
-                  Optic 2
+                  <span>
+                    Optic 2
+                  </span>
                   <span />
                 </a>
               </li>
@@ -284,7 +366,9 @@ exports[`Menu[snapshot] Snapshot test: Menu[site/pages/components/Menu/example-4
       </li>
       <li>
         <a>
-          Navigation Four
+          <span>
+            Navigation Four
+          </span>
           <span />
         </a>
       </li>
@@ -299,25 +383,33 @@ exports[`Menu[snapshot] Snapshot test: Menu[site/pages/components/Menu/example-5
     <ul>
       <li>
         <a>
-          Navigation One
+          <span>
+            Navigation One
+          </span>
           <span />
         </a>
       </li>
       <li>
         <a>
-          Navigation Two
+          <span>
+            Navigation Two
+          </span>
           <span />
         </a>
         <ul>
           <li>
             <a>
-              Option 1
+              <span>
+                Option 1
+              </span>
               <span />
             </a>
           </li>
           <li>
             <a>
-              Option 2
+              <span>
+                Option 2
+              </span>
               <span />
             </a>
           </li>
@@ -325,31 +417,41 @@ exports[`Menu[snapshot] Snapshot test: Menu[site/pages/components/Menu/example-5
       </li>
       <li>
         <a>
-          Navigation Three
+          <span>
+            Navigation Three
+          </span>
           <span />
         </a>
         <ul>
           <li>
             <a>
-              Option 3
+              <span>
+                Option 3
+              </span>
               <span />
             </a>
           </li>
           <li>
             <a>
-              Option 4
+              <span>
+                Option 4
+              </span>
               <span />
             </a>
             <ul>
               <li>
                 <a>
-                  Optic 1
+                  <span>
+                    Optic 1
+                  </span>
                   <span />
                 </a>
               </li>
               <li>
                 <a>
-                  Optic 2
+                  <span>
+                    Optic 2
+                  </span>
                   <span />
                 </a>
               </li>
@@ -359,7 +461,9 @@ exports[`Menu[snapshot] Snapshot test: Menu[site/pages/components/Menu/example-5
       </li>
       <li>
         <a>
-          Navigation Four
+          <span>
+            Navigation Four
+          </span>
           <span />
         </a>
       </li>
@@ -392,13 +496,17 @@ exports[`Menu[snapshot] Snapshot test: Menu[site/pages/components/Menu/example-6
         <ul>
           <li>
             <a>
-              Option 1
+              <span>
+                Option 1
+              </span>
               <span />
             </a>
           </li>
           <li>
             <a>
-              Option 2
+              <span>
+                Option 2
+              </span>
               <span />
             </a>
           </li>
@@ -415,25 +523,33 @@ exports[`Menu[snapshot] Snapshot test: Menu[site/pages/components/Menu/example-6
         <ul>
           <li>
             <a>
-              Option 3
+              <span>
+                Option 3
+              </span>
               <span />
             </a>
           </li>
           <li>
             <a>
-              Option 4
+              <span>
+                Option 4
+              </span>
               <span />
             </a>
             <ul>
               <li>
                 <a>
-                  Optic 1
+                  <span>
+                    Optic 1
+                  </span>
                   <span />
                 </a>
               </li>
               <li>
                 <a>
-                  Optic 2
+                  <span>
+                    Optic 2
+                  </span>
                   <span />
                 </a>
               </li>
@@ -461,25 +577,33 @@ exports[`Menu[snapshot] Snapshot test: Menu[site/pages/components/Menu/example-7
     <ul>
       <li>
         <a>
-          Navigation One
+          <span>
+            Navigation One
+          </span>
           <span />
         </a>
       </li>
       <li>
         <a>
-          Navigation Two
+          <span>
+            Navigation Two
+          </span>
           <span />
         </a>
         <ul>
           <li>
             <a>
-              Option 1
+              <span>
+                Option 1
+              </span>
               <span />
             </a>
           </li>
           <li>
             <a>
-              Option 2
+              <span>
+                Option 2
+              </span>
               <span />
             </a>
           </li>
@@ -487,31 +611,41 @@ exports[`Menu[snapshot] Snapshot test: Menu[site/pages/components/Menu/example-7
       </li>
       <li>
         <a>
-          Navigation Three
+          <span>
+            Navigation Three
+          </span>
           <span />
         </a>
         <ul>
           <li>
             <a>
-              Option 3
+              <span>
+                Option 3
+              </span>
               <span />
             </a>
           </li>
           <li>
             <a>
-              Option 4
+              <span>
+                Option 4
+              </span>
               <span />
             </a>
             <ul>
               <li>
                 <a>
-                  Optic 1
+                  <span>
+                    Optic 1
+                  </span>
                   <span />
                 </a>
               </li>
               <li>
                 <a>
-                  Optic 2
+                  <span>
+                    Optic 2
+                  </span>
                   <span />
                 </a>
               </li>
@@ -521,7 +655,9 @@ exports[`Menu[snapshot] Snapshot test: Menu[site/pages/components/Menu/example-7
       </li>
       <li>
         <a>
-          Navigation Four
+          <span>
+            Navigation Four
+          </span>
           <span />
         </a>
       </li>
@@ -536,25 +672,33 @@ exports[`Menu[snapshot] Snapshot test: Menu[site/pages/components/Menu/example-8
     <ul>
       <li>
         <a>
-          Navigation One
+          <span>
+            Navigation One
+          </span>
           <span />
         </a>
       </li>
       <li>
         <a>
-          Navigation Two
+          <span>
+            Navigation Two
+          </span>
           <span />
         </a>
         <ul>
           <li>
             <a>
-              Option 1
+              <span>
+                Option 1
+              </span>
               <span />
             </a>
           </li>
           <li>
             <a>
-              Option 2
+              <span>
+                Option 2
+              </span>
               <span />
             </a>
           </li>
@@ -562,31 +706,41 @@ exports[`Menu[snapshot] Snapshot test: Menu[site/pages/components/Menu/example-8
       </li>
       <li>
         <a>
-          Navigation Three
+          <span>
+            Navigation Three
+          </span>
           <span />
         </a>
         <ul>
           <li>
             <a>
-              Option 3
+              <span>
+                Option 3
+              </span>
               <span />
             </a>
           </li>
           <li>
             <a>
-              Option 4
+              <span>
+                Option 4
+              </span>
               <span />
             </a>
             <ul>
               <li>
                 <a>
-                  Optic 1
+                  <span>
+                    Optic 1
+                  </span>
                   <span />
                 </a>
               </li>
               <li>
                 <a>
-                  Optic 2
+                  <span>
+                    Optic 2
+                  </span>
                   <span />
                 </a>
               </li>
@@ -596,7 +750,9 @@ exports[`Menu[snapshot] Snapshot test: Menu[site/pages/components/Menu/example-8
       </li>
       <li>
         <a>
-          Navigation Four
+          <span>
+            Navigation Four
+          </span>
           <span />
         </a>
       </li>
@@ -613,25 +769,33 @@ exports[`Menu[snapshot] Snapshot test: Menu[site/pages/components/Menu/example-1
         <li>
           <a>
             <div />
-            Navigation One
+            <span>
+              Navigation One
+            </span>
           </a>
         </li>
         <li>
           <a>
             <div />
-            Navigation Two
+            <span>
+              Navigation Two
+            </span>
           </a>
           <ul>
             <li>
               <a>
                 <div />
-                Option 1
+                <span>
+                  Option 1
+                </span>
               </a>
             </li>
             <li>
               <a>
                 <div />
-                Option 2
+                <span>
+                  Option 2
+                </span>
               </a>
             </li>
           </ul>
@@ -639,31 +803,41 @@ exports[`Menu[snapshot] Snapshot test: Menu[site/pages/components/Menu/example-1
         <li>
           <a>
             <div />
-            Navigation Three
+            <span>
+              Navigation Three
+            </span>
           </a>
           <ul>
             <li>
               <a>
                 <div />
-                Option 3
+                <span>
+                  Option 3
+                </span>
               </a>
             </li>
             <li>
               <a>
                 <div />
-                Option 4
+                <span>
+                  Option 4
+                </span>
               </a>
               <ul>
                 <li>
                   <a>
                     <div />
-                    Optic 1
+                    <span>
+                      Optic 1
+                    </span>
                   </a>
                 </li>
                 <li>
                   <a>
                     <div />
-                    Optic 2
+                    <span>
+                      Optic 2
+                    </span>
                   </a>
                 </li>
               </ul>
@@ -673,7 +847,9 @@ exports[`Menu[snapshot] Snapshot test: Menu[site/pages/components/Menu/example-1
         <li>
           <a>
             <div />
-            Navigation Four
+            <span>
+              Navigation Four
+            </span>
           </a>
         </li>
       </ul>
@@ -685,25 +861,33 @@ exports[`Menu[snapshot] Snapshot test: Menu[site/pages/components/Menu/example-1
         <li>
           <a>
             <div />
-            Navigation One
+            <span>
+              Navigation One
+            </span>
           </a>
         </li>
         <li>
           <a>
             <div />
-            Navigation Two
+            <span>
+              Navigation Two
+            </span>
           </a>
           <ul>
             <li>
               <a>
                 <div />
-                Option 1
+                <span>
+                  Option 1
+                </span>
               </a>
             </li>
             <li>
               <a>
                 <div />
-                Option 2
+                <span>
+                  Option 2
+                </span>
               </a>
             </li>
           </ul>
@@ -711,31 +895,41 @@ exports[`Menu[snapshot] Snapshot test: Menu[site/pages/components/Menu/example-1
         <li>
           <a>
             <div />
-            Navigation Three
+            <span>
+              Navigation Three
+            </span>
           </a>
           <ul>
             <li>
               <a>
                 <div />
-                Option 3
+                <span>
+                  Option 3
+                </span>
               </a>
             </li>
             <li>
               <a>
                 <div />
-                Option 4
+                <span>
+                  Option 4
+                </span>
               </a>
               <ul>
                 <li>
                   <a>
                     <div />
-                    Optic 1
+                    <span>
+                      Optic 1
+                    </span>
                   </a>
                 </li>
                 <li>
                   <a>
                     <div />
-                    Optic 2
+                    <span>
+                      Optic 2
+                    </span>
                   </a>
                 </li>
               </ul>
@@ -745,7 +939,9 @@ exports[`Menu[snapshot] Snapshot test: Menu[site/pages/components/Menu/example-1
         <li>
           <a>
             <div />
-            Navigation Four
+            <span>
+              Navigation Four
+            </span>
           </a>
         </li>
       </ul>
@@ -757,25 +953,33 @@ exports[`Menu[snapshot] Snapshot test: Menu[site/pages/components/Menu/example-1
         <li>
           <a>
             <div />
-            Navigation One
+            <span>
+              Navigation One
+            </span>
           </a>
         </li>
         <li>
           <a>
             <div />
-            Navigation Two
+            <span>
+              Navigation Two
+            </span>
           </a>
           <ul>
             <li>
               <a>
                 <div />
-                Option 1
+                <span>
+                  Option 1
+                </span>
               </a>
             </li>
             <li>
               <a>
                 <div />
-                Option 2
+                <span>
+                  Option 2
+                </span>
               </a>
             </li>
           </ul>
@@ -783,31 +987,41 @@ exports[`Menu[snapshot] Snapshot test: Menu[site/pages/components/Menu/example-1
         <li>
           <a>
             <div />
-            Navigation Three
+            <span>
+              Navigation Three
+            </span>
           </a>
           <ul>
             <li>
               <a>
                 <div />
-                Option 3
+                <span>
+                  Option 3
+                </span>
               </a>
             </li>
             <li>
               <a>
                 <div />
-                Option 4
+                <span>
+                  Option 4
+                </span>
               </a>
               <ul>
                 <li>
                   <a>
                     <div />
-                    Optic 1
+                    <span>
+                      Optic 1
+                    </span>
                   </a>
                 </li>
                 <li>
                   <a>
                     <div />
-                    Optic 2
+                    <span>
+                      Optic 2
+                    </span>
                   </a>
                 </li>
               </ul>
@@ -817,7 +1031,9 @@ exports[`Menu[snapshot] Snapshot test: Menu[site/pages/components/Menu/example-1
         <li>
           <a>
             <div />
-            Navigation Four
+            <span>
+              Navigation Four
+            </span>
           </a>
         </li>
       </ul>

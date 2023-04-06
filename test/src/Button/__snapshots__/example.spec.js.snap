@@ -424,3 +424,18 @@ exports[`Button[snapshot] Snapshot test: Button[site/pages/components/Button/exa
   </div>
 </div>
 `;
+
+exports[`Button[snapshot] Snapshot test: Button[site/pages/components/Button/example-9-shape.tsx] 1`] = `
+<div>
+  <button>
+    <span>
+      Default
+    </span>
+  </button>
+  <button>
+    <span>
+      hi
+    </span>
+  </button>
+</div>
+`;

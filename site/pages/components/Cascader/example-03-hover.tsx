@@ -11,7 +11,7 @@ import { Cascader, TYPE } from 'shineout'
 import { cascader as data } from 'doc/data/tree'
 
 type DateItem = { text: string; id: string; children?: DateItem[] }
-type CascaderProps = TYPE.Cascader.Props<DateItem, string>
+type CascaderProps = TYPE.Cascader.Props<DateItem, string[]>
 type RenderResult = CascaderProps['renderResult']
 type CascaderRenderItem = CascaderProps['renderItem']
 

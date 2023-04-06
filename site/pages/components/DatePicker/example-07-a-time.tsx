@@ -5,13 +5,9 @@
  *    -- Set type to be time to select time and automatically load the corresponding selection column according to the format property.
  */
 import React from 'react'
-import { DatePicker, TYPE } from 'shineout'
+import { DatePicker } from 'shineout'
 
-type DatePickerValue = TYPE.DatePicker.Value
-type DatePickerProps = TYPE.DatePicker.Props<DatePickerValue>
-type DatePickerDefaultValue = DatePickerProps['defaultValue']
-
-const Now: DatePickerDefaultValue = Date.now()
+const Now = Date.now()
 
 const style = { marginInlineEnd: 12 }
 
