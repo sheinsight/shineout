@@ -270,7 +270,7 @@ class Result extends PureComponent {
 
   renderResult() {
     const { datum, value, renderItem, renderResult, compressed } = this.props
-    const nodes = value.map(v => datum.getDataById(v))
+    const nodes = (value || []).map(v => datum.getDataById(v))
     let render = renderResult || renderItem
     if (typeof render === 'string') {
       const copyRender = render
