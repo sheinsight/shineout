@@ -54,7 +54,11 @@ function resetTheme() {
   })
 }
 
-function setStyle(options: ObjectProps, custom?: ObjectProps, config: Partial<ThemeConfig> = {}) {
+function setStyle(
+  options: ObjectProps,
+  custom?: ObjectProps,
+  config: Partial<ThemeConfig> = { target: 'body', injectType: 'body' }
+) {
   setThemeConfig(config)
   cleanStyleObj()
   if (!options) {
