@@ -34,6 +34,9 @@ export function getInjectType() {
   return config.injectType
 }
 export function setInjectType(type) {
+  console.error(
+    `[shineout:] setInjectType is not support; please use setStyle(your_theme_config, your_custom_config, {injectType: ${type})`
+  )
   config.injectType = type
 }
 export function setThemeConfig(c = {}) {

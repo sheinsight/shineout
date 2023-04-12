@@ -45,7 +45,7 @@ function resetTheme() {
   })
 }
 
-function setStyle(options, custom, config = {}) {
+function setStyle(options, custom, config = { injectType: 'body', target: 'body' }) {
   setThemeConfig(config)
   cleanStyleObj()
   if (!options) {
