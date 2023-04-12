@@ -524,7 +524,7 @@ export type FormItemWithFormConsumerKeys =
   | 'keepErrorHeight'
 
 /**
- * @title From.Item
+ * @title Form.Item
  * @cn 表单项，主要用来布局，显示标签，提示文案信息等
  * @en Used to layout, display labels, tips, errors, etc
  */

@@ -29,70 +29,20 @@ exports[`Upload[snapshot] Snapshot test: Upload[site/pages/components/Upload/exa
 `;
 
 exports[`Upload[snapshot] Snapshot test: Upload[site/pages/components/Upload/example-02-image.tsx] 1`] = `
-Array [
-  "aaa",
-  <div
-    className="so-upload"
-  >
-    <div
-      className="so-gap"
-      style={
-        Object {
-          "marginBottom": -8,
-        }
-      }
-    >
-      <div
-        className="so-gap-item"
-        style={
-          Object {
-            "marginBottom": 8,
-            "marginRight": 8,
-          }
-        }
-      >
-        <span
-          className=""
-          onDragLeave={[Function]}
-          onDragOver={[Function]}
-          onDrop={[Function]}
-        >
-          <span
-            className="so-upload-handle"
-            onClick={[Function]}
-          >
-            <div
-              className="so-upload-image-plus so-upload-image-item"
-              onKeyDown={[Function]}
-              onMouseDown={[Function]}
-              style={
-                Object {
-                  "height": 80,
-                  "width": 80,
-                }
-              }
-              tabIndex={0}
-            >
-              <div
-                className="so-upload-indicator"
-              />
-            </div>
-            <input
-              accept="image/*"
-              onChange={[Function]}
-              style={
-                Object {
-                  "display": "none",
-                }
-              }
-              type="file"
-            />
-          </span>
+<div>
+  <div>
+    <div>
+      <span>
+        <span>
+          <div>
+            <div />
+          </div>
+          <input />
         </span>
-      </div>
+      </span>
     </div>
-  </div>,
-]
+  </div>
+</div>
 `;
 
 exports[`Upload[snapshot] Snapshot test: Upload[site/pages/components/Upload/example-02-show-image.tsx] 1`] = `
