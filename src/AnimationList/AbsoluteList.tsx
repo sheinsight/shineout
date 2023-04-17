@@ -27,7 +27,7 @@ function getRoot() {
   return root
 }
 
-const getOverDocStyle = (right: boolean) => (right ? { left: 0, right: 'auto' } : { right: 0, left: 'auto' })
+const getOverDocStyle = (position: { left: number | string; right: number | string }) => position
 
 const listPosition = ['drop-down', 'drop-up']
 const pickerPosition = ['left-bottom', 'left-top', 'right-bottom', 'right-top']
@@ -37,6 +37,10 @@ export default function<U extends {}>(List: ComponentType<U>) {
   class AbsoluteList extends Component<AbsoluteProps> {
     state = {
       overdoc: false,
+      overdocPosition: {
+        left: 0,
+        right: 0,
+      },
     }
 
     lastStyle: React.CSSProperties
@@ -125,31 +129,22 @@ export default function<U extends {}>(List: ComponentType<U>) {
 
       const { container } = this
       const defaultContainer = getDefaultContainer()
-      const rootContainer = container === getRoot() || !container ? defaultContainer : container
+      const realContainer = container === getRoot() || !container ? defaultContainer : container
+      const nearestPositionDom = this.getNearestPositionDom(realContainer)
+
+      const rootContainer = nearestPositionDom === realContainer ? realContainer : nearestPositionDom
       const containerRect = rootContainer.getBoundingClientRect()
-      const nearestPositionDom = this.getNearestPositionDom(rootContainer)
-      const nearestPositionDomRect = nearestPositionDom.getBoundingClientRect()
 
       const containerScroll = {
         left: rootContainer.scrollLeft,
         top: rootContainer.scrollTop,
       }
 
-      const nearestPositionDomScroll = {
-        left: nearestPositionDom.scrollLeft,
-        top: nearestPositionDom.scrollTop,
-      }
-
       this.containerRect = containerRect
       this.containerScroll = containerScroll
 
-      const isRelative = getComputedStyle(rootContainer).position === 'relative'
-
-      const positionContainerRect = isRelative ? containerRect : nearestPositionDomRect
-      const positionContainerScroll = isRelative ? containerScroll : nearestPositionDomScroll
-
       if (listPosition.includes(position)) {
-        style.left = rect.left - positionContainerRect.left + positionContainerScroll.left
+        style.left = rect.left - containerRect.left + containerScroll.left
 
         if (isRTL()) {
           style.right = containerRect.width - rect.width - style.left
@@ -157,42 +152,30 @@ export default function<U extends {}>(List: ComponentType<U>) {
         }
 
         if (position === 'drop-down') {
-          style.top = rect.top + rect.height - positionContainerRect.top + positionContainerScroll.top
+          style.top = rect.top - containerRect.top + rect.height + containerScroll.top
         } else {
-          style.bottom = -(rect.top - positionContainerRect.top + positionContainerScroll.top)
+          style.bottom = -(rect.top - containerRect.top + containerScroll.top)
         }
       } else if (pickerPosition.includes(position)) {
         const [h, v] = position.split('-')
         if (h === 'left') {
-          style.left = rect.left - positionContainerRect.left + positionContainerScroll.left
+          style.left = rect.left - containerRect.left + containerScroll.left
         } else {
-          style.right =
-            positionContainerRect.width -
-            rect.width -
-            rect.left +
-            positionContainerRect.left -
-            positionContainerScroll.left
+          style.right = containerRect.width - rect.width - rect.left + containerRect.left - containerScroll.left
           style.left = 'auto'
         }
         if (v === 'bottom') {
-          style.top = rect.bottom - positionContainerRect.top + positionContainerScroll.top + PICKER_V_MARGIN
+          style.top = rect.bottom - containerRect.top + containerScroll.top + PICKER_V_MARGIN
         } else {
-          style.top = rect.top - positionContainerRect.top + positionContainerScroll.top - PICKER_V_MARGIN
+          style.top = rect.top - containerRect.top + containerScroll.top - PICKER_V_MARGIN
           style.transform = 'translateY(-100%)'
         }
       }
       return style
     }
 
-    // eslint-disable-next-line class-methods-use-this
     getNearestPositionDom(target: HTMLElement): HTMLElement {
       if (target) {
-        const parent = target.parentElement
-
-        if (parent && parent.tagName === 'BODY') {
-          return document.body
-        }
-
         const { position } = getComputedStyle(target)
 
         if (position !== 'static') {
@@ -251,7 +234,7 @@ export default function<U extends {}>(List: ComponentType<U>) {
     }
 
     resetPosition(clean?: boolean) {
-      const { focus, parentElement, absolute } = this.props
+      const { focus, parentElement } = this.props
       if (!this.el || !focus || (this.ajustdoc && !clean)) return
       const width = this.el.offsetWidth
       const pos = (parentElement && parentElement.getBoundingClientRect()) || { left: 0, right: 0 }
@@ -270,14 +253,16 @@ export default function<U extends {}>(List: ComponentType<U>) {
         // this condition  the style right: 0 will not meet expect so not set overdoc
         overdoc = false
       } else {
-        overdoc =
-          pos.left + width + containerScroll.left - containerRect.left >
-          ((absolute ? docSize.width : containerRect.width) || docSize.width)
+        overdoc = pos.left + width + containerScroll.left - containerRect.left > (containerRect.width || docSize.width)
       }
       if (this.state.overdoc === overdoc) return
       this.ajustdoc = true
       this.setState({
         overdoc,
+        overdocPosition: {
+          left: overdoc ? 'auto' : -containerRect.left,
+          right: overdoc ? -(docSize.width - containerRect.left - containerRect.width) : 'auto',
+        },
       })
     }
 
@@ -306,7 +291,11 @@ export default function<U extends {}>(List: ComponentType<U>) {
         if (!Number.isNaN(parsed)) style.zIndex = parsed
       }
 
-      const mergeStyle = Object.assign({}, style, this.state.overdoc ? getOverDocStyle(this.isRight()) : undefined)
+      const mergeStyle = Object.assign(
+        {},
+        style,
+        this.state.overdoc ? getOverDocStyle(this.state.overdocPosition) : undefined
+      )
       return <List getRef={this.handleRef} {...props as U} focus={focus} style={mergeStyle} />
     }
 
@@ -343,7 +332,7 @@ export default function<U extends {}>(List: ComponentType<U>) {
         {},
         style,
         props.style,
-        this.state.overdoc ? getOverDocStyle(this.isRight()) : undefined
+        this.state.overdoc ? getOverDocStyle(this.state.overdocPosition) : undefined
       )
       if (zIndex || typeof zIndex === 'number') mergeStyle.zIndex = parseInt((zIndex as unknown) as string, 10)
       return ReactDOM.createPortal(
