@@ -129,11 +129,9 @@ export default function<U extends {}>(List: ComponentType<U>) {
 
       const { container } = this
       const defaultContainer = getDefaultContainer()
-      const realContainer = container === getRoot() || !container ? defaultContainer : container
-      const nearestPositionDom = this.getNearestPositionDom(realContainer)
-
-      const rootContainer = nearestPositionDom === realContainer ? realContainer : nearestPositionDom
-      const containerRect = rootContainer.getBoundingClientRect()
+      const rootContainer = container === getRoot() || !container ? defaultContainer : container
+      const realContainer = this.getNearestPositionDom(rootContainer)
+      const containerRect = realContainer.getBoundingClientRect()
 
       const containerScroll = {
         left: rootContainer.scrollLeft,
