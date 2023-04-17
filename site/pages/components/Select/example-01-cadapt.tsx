@@ -12,7 +12,7 @@ type SelectItem = string
 const data: SelectItem[] = [
   'red',
   'orange',
-  'this option is so long long long long long this option is so long long long long long this option is so long long long long long',
+  'this option is so long long long long long',
   'green',
   'cyan',
   'blue',
