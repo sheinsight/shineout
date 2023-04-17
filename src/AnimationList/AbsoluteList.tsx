@@ -187,16 +187,16 @@ export default function<U extends {}>(List: ComponentType<U>) {
     // eslint-disable-next-line class-methods-use-this
     getNearestPositionDom(target: HTMLElement): HTMLElement {
       if (target) {
-        const { position } = getComputedStyle(target)
-
-        if (position !== 'static') {
-          return target
-        }
-
         const parent = target.parentElement
 
         if (parent && parent.tagName === 'BODY') {
           return document.body
+        }
+
+        const { position } = getComputedStyle(target)
+
+        if (position !== 'static') {
+          return target
         }
 
         if (target.parentElement) {
