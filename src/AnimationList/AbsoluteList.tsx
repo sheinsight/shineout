@@ -67,6 +67,7 @@ export default function<U extends {}>(List: ComponentType<U>) {
         props.getResetPosition(this.resetPosition.bind(this))
       }
       this.zoomChangeHandler = this.zoomChangeHandler.bind(this)
+      this.getNearestPositionDom = this.getNearestPositionDom.bind(this)
     }
 
     componentDidMount() {
@@ -126,40 +127,83 @@ export default function<U extends {}>(List: ComponentType<U>) {
       const defaultContainer = getDefaultContainer()
       const rootContainer = container === getRoot() || !container ? defaultContainer : container
       const containerRect = rootContainer.getBoundingClientRect()
+      const nearestPositionDom = this.getNearestPositionDom(rootContainer)
+      const nearestPositionDomRect = nearestPositionDom.getBoundingClientRect()
+
       const containerScroll = {
         left: rootContainer.scrollLeft,
         top: rootContainer.scrollTop,
       }
+
+      const nearestPositionDomScroll = {
+        left: nearestPositionDom.scrollLeft,
+        top: nearestPositionDom.scrollTop,
+      }
+
       this.containerRect = containerRect
       this.containerScroll = containerScroll
 
+      const isRelative = getComputedStyle(rootContainer).position === 'relative'
+
+      const positionContainerRect = isRelative ? containerRect : nearestPositionDomRect
+      const positionContainerScroll = isRelative ? containerScroll : nearestPositionDomScroll
+
       if (listPosition.includes(position)) {
-        style.left = rect.left - containerRect.left + containerScroll.left
+        style.left = rect.left - positionContainerRect.left + positionContainerScroll.left
+
         if (isRTL()) {
           style.right = containerRect.width - rect.width - style.left
           style.left = 'auto'
         }
+
         if (position === 'drop-down') {
-          style.top = rect.top - containerRect.top + rect.height + containerScroll.top
+          style.top = rect.top + rect.height - positionContainerRect.top + positionContainerScroll.top
         } else {
-          style.bottom = -(rect.top - containerRect.top + containerScroll.top)
+          style.bottom = -(rect.top - positionContainerRect.top + positionContainerScroll.top)
         }
       } else if (pickerPosition.includes(position)) {
         const [h, v] = position.split('-')
         if (h === 'left') {
-          style.left = rect.left - containerRect.left + containerScroll.left
+          style.left = rect.left - positionContainerRect.left + positionContainerScroll.left
         } else {
-          style.right = containerRect.width - rect.width - rect.left + containerRect.left - containerScroll.left
+          style.right =
+            positionContainerRect.width -
+            rect.width -
+            rect.left +
+            positionContainerRect.left -
+            positionContainerScroll.left
           style.left = 'auto'
         }
         if (v === 'bottom') {
-          style.top = rect.bottom - containerRect.top + containerScroll.top + PICKER_V_MARGIN
+          style.top = rect.bottom - positionContainerRect.top + positionContainerScroll.top + PICKER_V_MARGIN
         } else {
-          style.top = rect.top - containerRect.top + containerScroll.top - PICKER_V_MARGIN
+          style.top = rect.top - positionContainerRect.top + positionContainerScroll.top - PICKER_V_MARGIN
           style.transform = 'translateY(-100%)'
         }
       }
       return style
+    }
+
+    // eslint-disable-next-line class-methods-use-this
+    getNearestPositionDom(target: HTMLElement): HTMLElement {
+      if (target) {
+        const { position } = getComputedStyle(target)
+
+        if (position !== 'static') {
+          return target
+        }
+
+        const parent = target.parentElement
+
+        if (parent && parent.tagName === 'BODY') {
+          return document.body
+        }
+
+        if (target.parentElement) {
+          return this.getNearestPositionDom(target.parentElement)
+        }
+      }
+      return document.body
     }
 
     getStyle() {
@@ -207,13 +251,14 @@ export default function<U extends {}>(List: ComponentType<U>) {
     }
 
     resetPosition(clean?: boolean) {
-      const { focus, parentElement } = this.props
+      const { focus, parentElement, absolute } = this.props
       if (!this.el || !focus || (this.ajustdoc && !clean)) return
       const width = this.el.offsetWidth
       const pos = (parentElement && parentElement.getBoundingClientRect()) || { left: 0, right: 0 }
       const containerRect = this.containerRect || { left: 0, width: 0 }
       const containerScroll = this.containerScroll || { left: 0 }
       let overdoc
+
       if (this.isRight()) {
         if (isRTL() && containerScroll.left) {
           // this condition  the style left: 0 will not meet expect so not set overdoc
@@ -225,7 +270,9 @@ export default function<U extends {}>(List: ComponentType<U>) {
         // this condition  the style right: 0 will not meet expect so not set overdoc
         overdoc = false
       } else {
-        overdoc = pos.left - containerRect.left + width + containerScroll.left > (containerRect.width || docSize.width)
+        overdoc =
+          pos.left + width + containerScroll.left - containerRect.left >
+          ((absolute ? docSize.width : containerRect.width) || docSize.width)
       }
       if (this.state.overdoc === overdoc) return
       this.ajustdoc = true
