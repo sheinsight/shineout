@@ -27,7 +27,8 @@ function getRoot() {
   return root
 }
 
-const getOverDocStyle = (position: { left: number | string; right: number | string }) => position
+const getOverDocStyle = (isRight: boolean, offset: number) =>
+  isRight ? { left: offset, right: 'auto' } : { right: offset, left: 'auto' }
 
 const listPosition = ['drop-down', 'drop-up']
 const pickerPosition = ['left-bottom', 'left-top', 'right-bottom', 'right-top']
@@ -37,10 +38,7 @@ export default function<U extends {}>(List: ComponentType<U>) {
   class AbsoluteList extends Component<AbsoluteProps> {
     state = {
       overdoc: false,
-      overdocPosition: {
-        left: 0,
-        right: 0,
-      },
+      overdocOffset: 0,
     }
 
     lastStyle: React.CSSProperties
@@ -234,8 +232,8 @@ export default function<U extends {}>(List: ComponentType<U>) {
     resetPosition(clean?: boolean) {
       const { focus, parentElement } = this.props
       if (!this.el || !focus || (this.ajustdoc && !clean)) return
-      const width = this.el.offsetWidth
-      const pos = (parentElement && parentElement.getBoundingClientRect()) || { left: 0, right: 0 }
+      const pos = (parentElement && parentElement.getBoundingClientRect()) || { left: 0, right: 0, width: 0 }
+      const elRect = this.el.getBoundingClientRect()
       const containerRect = this.containerRect || { left: 0, width: 0 }
       const containerScroll = this.containerScroll || { left: 0 }
       let overdoc
@@ -245,22 +243,22 @@ export default function<U extends {}>(List: ComponentType<U>) {
           // this condition  the style left: 0 will not meet expect so not set overdoc
           overdoc = false
         } else {
-          overdoc = pos.right - width < containerRect.left
+          // overdoc = pos.right - width < containerRect.left
+          overdoc = pos.left + pos.width < elRect.width
         }
       } else if (!isRTL() && containerScroll.left) {
         // this condition  the style right: 0 will not meet expect so not set overdoc
         overdoc = false
       } else {
-        overdoc = pos.left + width + containerScroll.left - containerRect.left > (containerRect.width || docSize.width)
+        overdoc = pos.left + elRect.width > docSize.width
       }
       if (this.state.overdoc === overdoc) return
       this.ajustdoc = true
       this.setState({
         overdoc,
-        overdocPosition: {
-          left: overdoc ? 'auto' : -containerRect.left,
-          right: overdoc ? -(docSize.width - containerRect.left - containerRect.width) : 'auto',
-        },
+        overdocOffset: this.isRight()
+          ? -containerRect.left
+          : -(docSize.width - containerRect.left - containerRect.width),
       })
     }
 
@@ -292,7 +290,7 @@ export default function<U extends {}>(List: ComponentType<U>) {
       const mergeStyle = Object.assign(
         {},
         style,
-        this.state.overdoc ? getOverDocStyle(this.state.overdocPosition) : undefined
+        this.state.overdoc ? getOverDocStyle(this.isRight(), this.state.overdocOffset) : undefined
       )
       return <List getRef={this.handleRef} {...props as U} focus={focus} style={mergeStyle} />
     }
@@ -330,7 +328,7 @@ export default function<U extends {}>(List: ComponentType<U>) {
         {},
         style,
         props.style,
-        this.state.overdoc ? getOverDocStyle(this.state.overdocPosition) : undefined
+        this.state.overdoc ? getOverDocStyle(this.isRight(), this.state.overdocOffset) : undefined
       )
       if (zIndex || typeof zIndex === 'number') mergeStyle.zIndex = parseInt((zIndex as unknown) as string, 10)
       return ReactDOM.createPortal(
