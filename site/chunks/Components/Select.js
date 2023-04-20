@@ -416,6 +416,45 @@ const examples = [
     parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Select/test-006-open.tsx'),
 
   },
+  {
+    name: 'test-007-popupContainer-absolute',
+    isTs: true,
+    isTest: true,
+    title: locate(
+      '指定无定位属性容器后，下拉菜单是否正常定位 \n 检查容器位置是否在下拉菜单之下。该示例需要单独运行，否则 setConfig 会干扰其他示例',
+      ' \n '
+    ),
+    component: require('doc/pages/components/Select/test-007-popupContainer-absolute.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/test-007-popupContainer-absolute.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Select/test-007-popupContainer-absolute.tsx'),
+
+  },
+  {
+    name: 'test-008-popupContainer-absolute-relative',
+    isTs: true,
+    isTest: true,
+    title: locate(
+      '指定容器后，下拉菜单是否正常定位 \n 检查容器位置是否在下拉菜单之下。该示例需要单独运行，否则 setConfig 会干扰其他示例',
+      ' \n '
+    ),
+    component: require('doc/pages/components/Select/test-008-popupContainer-absolute-relative.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/test-008-popupContainer-absolute-relative.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Select/test-008-popupContainer-absolute-relative.tsx'),
+
+  },
+  {
+    name: 'test-009-popupContainer-absolute-long',
+    isTs: true,
+    isTest: true,
+    title: locate(
+      '指定无定位属性容器后，超长下拉菜单是否正常定位 \n ',
+      ' \n options auto adapt width'
+    ),
+    component: require('doc/pages/components/Select/test-009-popupContainer-absolute-long.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/test-009-popupContainer-absolute-long.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Select/test-009-popupContainer-absolute-long.tsx'),
+
+  },
 ]
 
 const codes = undefined
