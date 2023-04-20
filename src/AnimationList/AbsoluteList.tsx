@@ -232,7 +232,7 @@ export default function<U extends {}>(List: ComponentType<U>) {
     resetPosition(clean?: boolean) {
       const { focus, parentElement } = this.props
       if (!this.el || !focus || (this.ajustdoc && !clean)) return
-      const pos = (parentElement && parentElement.getBoundingClientRect()) || { left: 0, right: 0, width: 0 }
+      const pos = (parentElement && parentElement.getBoundingClientRect()) || ({ left: 0, right: 0 } as DOMRect)
       const elRect = this.el.getBoundingClientRect()
       const containerRect = this.containerRect || { left: 0, width: 0 }
       const containerScroll = this.containerScroll || { left: 0 }
