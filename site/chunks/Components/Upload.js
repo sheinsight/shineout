@@ -23,7 +23,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Upload/example-01-base.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Upload/example-01-base.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Upload/example-01-base.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Upload/example-01-base.tsx'),
 
   },
   {
@@ -36,7 +36,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Upload/example-01-onChange.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Upload/example-01-onChange.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Upload/example-01-onChange.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Upload/example-01-onChange.tsx'),
 
   },
   {
@@ -49,7 +49,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Upload/example-02-image.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Upload/example-02-image.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Upload/example-02-image.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Upload/example-02-image.tsx'),
 
   },
   {
@@ -62,7 +62,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Upload/example-02-show-image.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Upload/example-02-show-image.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Upload/example-02-show-image.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Upload/example-02-show-image.tsx'),
 
   },
   {
@@ -75,7 +75,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Upload/example-03-button.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Upload/example-03-button.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Upload/example-03-button.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Upload/example-03-button.tsx'),
 
   },
   {
@@ -88,7 +88,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Upload/example-03-confirm.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Upload/example-03-confirm.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Upload/example-03-confirm.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Upload/example-03-confirm.tsx'),
 
   },
   {
@@ -101,7 +101,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Upload/example-04-validator.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Upload/example-04-validator.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Upload/example-04-validator.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Upload/example-04-validator.tsx'),
 
   },
   {
@@ -114,7 +114,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Upload/example-05-filesize.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Upload/example-05-filesize.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Upload/example-05-filesize.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Upload/example-05-filesize.tsx'),
 
   },
   {
@@ -127,7 +127,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Upload/example-06-error.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Upload/example-06-error.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Upload/example-06-error.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Upload/example-06-error.tsx'),
 
   },
   {
@@ -140,7 +140,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Upload/example-08-request-a.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Upload/example-08-request-a.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Upload/example-08-request-a.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Upload/example-08-request-a.tsx'),
 
   },
   {
@@ -153,7 +153,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Upload/example-08-request-ignore.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Upload/example-08-request-ignore.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Upload/example-08-request-ignore.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Upload/example-08-request-ignore.tsx'),
 
   },
   {
@@ -166,7 +166,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Upload/example-09-zip.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Upload/example-09-zip.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Upload/example-09-zip.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Upload/example-09-zip.tsx'),
 
   },
   {
@@ -179,7 +179,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Upload/example-10-defaultValue.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Upload/example-10-defaultValue.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Upload/example-10-defaultValue.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Upload/example-10-defaultValue.tsx'),
 
   },
   {
@@ -192,7 +192,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Upload/example-11-dragger.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Upload/example-11-dragger.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Upload/example-11-dragger.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Upload/example-11-dragger.tsx'),
 
   },
   {
@@ -205,7 +205,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Upload/test-001-tip.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Upload/test-001-tip.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Upload/test-001-tip.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Upload/test-001-tip.tsx'),
 
   },
 ]

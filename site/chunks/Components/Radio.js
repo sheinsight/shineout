@@ -23,7 +23,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Radio/example-1-base.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Radio/example-1-base.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Radio/example-1-base.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Radio/example-1-base.tsx'),
 
   },
   {
@@ -36,7 +36,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Radio/example-2-group.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Radio/example-2-group.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Radio/example-2-group.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Radio/example-2-group.tsx'),
 
   },
   {
@@ -49,7 +49,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Radio/example-3-format.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Radio/example-3-format.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Radio/example-3-format.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Radio/example-3-format.tsx'),
 
   },
   {
@@ -62,7 +62,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Radio/example-5-block.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Radio/example-5-block.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Radio/example-5-block.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Radio/example-5-block.tsx'),
 
   },
   {
@@ -75,7 +75,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Radio/example-6-button-1.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Radio/example-6-button-1.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Radio/example-6-button-1.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Radio/example-6-button-1.tsx'),
 
   },
   {
@@ -88,7 +88,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Radio/example-6-button-2.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Radio/example-6-button-2.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Radio/example-6-button-2.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Radio/example-6-button-2.tsx'),
 
   },
   {
@@ -101,7 +101,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Radio/example-6-button-3.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Radio/example-6-button-3.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Radio/example-6-button-3.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Radio/example-6-button-3.tsx'),
 
   },
   {
@@ -114,7 +114,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Radio/example-7-disabled.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Radio/example-7-disabled.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Radio/example-7-disabled.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Radio/example-7-disabled.tsx'),
 
   },
   {
@@ -127,7 +127,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Radio/example-8-disabled.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Radio/example-8-disabled.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Radio/example-8-disabled.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Radio/example-8-disabled.tsx'),
 
   },
   {
@@ -140,7 +140,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Radio/example-9-toggle.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Radio/example-9-toggle.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Radio/example-9-toggle.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Radio/example-9-toggle.tsx'),
 
   },
 ]

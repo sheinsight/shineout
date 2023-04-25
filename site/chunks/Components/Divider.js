@@ -23,7 +23,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Divider/example-1-base.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Divider/example-1-base.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Divider/example-1-base.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Divider/example-1-base.tsx'),
 
   },
   {
@@ -36,7 +36,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Divider/example-2-base.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Divider/example-2-base.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Divider/example-2-base.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Divider/example-2-base.tsx'),
 
   },
   {
@@ -49,7 +49,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Divider/example-3-base.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Divider/example-3-base.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Divider/example-3-base.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Divider/example-3-base.tsx'),
 
   },
 ]

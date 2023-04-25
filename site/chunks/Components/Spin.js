@@ -23,7 +23,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Spin/example-01-01-default.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Spin/example-01-01-default.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Spin/example-01-01-default.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Spin/example-01-01-default.tsx'),
 
   },
   {
@@ -36,7 +36,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Spin/example-01-02-tip.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Spin/example-01-02-tip.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Spin/example-01-02-tip.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Spin/example-01-02-tip.tsx'),
 
   },
   {
@@ -49,7 +49,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Spin/example-01-wrapper.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Spin/example-01-wrapper.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Spin/example-01-wrapper.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Spin/example-01-wrapper.tsx'),
 
   },
   {
@@ -62,7 +62,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Spin/example-02-chasing-dots.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Spin/example-02-chasing-dots.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Spin/example-02-chasing-dots.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Spin/example-02-chasing-dots.tsx'),
 
   },
   {
@@ -75,7 +75,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Spin/example-03-cube-grid.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Spin/example-03-cube-grid.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Spin/example-03-cube-grid.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Spin/example-03-cube-grid.tsx'),
 
   },
   {
@@ -88,7 +88,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Spin/example-04-double-bounce.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Spin/example-04-double-bounce.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Spin/example-04-double-bounce.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Spin/example-04-double-bounce.tsx'),
 
   },
   {
@@ -101,7 +101,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Spin/example-05-fading-circle.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Spin/example-05-fading-circle.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Spin/example-05-fading-circle.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Spin/example-05-fading-circle.tsx'),
 
   },
   {
@@ -114,7 +114,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Spin/example-06-four-dots.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Spin/example-06-four-dots.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Spin/example-06-four-dots.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Spin/example-06-four-dots.tsx'),
 
   },
   {
@@ -127,7 +127,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Spin/example-07-plane.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Spin/example-07-plane.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Spin/example-07-plane.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Spin/example-07-plane.tsx'),
 
   },
   {
@@ -140,7 +140,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Spin/example-08-pulse.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Spin/example-08-pulse.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Spin/example-08-pulse.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Spin/example-08-pulse.tsx'),
 
   },
   {
@@ -153,7 +153,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Spin/example-09-ring.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Spin/example-09-ring.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Spin/example-09-ring.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Spin/example-09-ring.tsx'),
 
   },
   {
@@ -166,7 +166,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Spin/example-10-scale-circle.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Spin/example-10-scale-circle.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Spin/example-10-scale-circle.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Spin/example-10-scale-circle.tsx'),
 
   },
   {
@@ -179,7 +179,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Spin/example-11-three-bounce.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Spin/example-11-three-bounce.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Spin/example-11-three-bounce.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Spin/example-11-three-bounce.tsx'),
 
   },
   {
@@ -192,7 +192,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Spin/example-12-wave.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Spin/example-12-wave.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Spin/example-12-wave.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Spin/example-12-wave.tsx'),
 
   },
   {
@@ -205,7 +205,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Spin/example-13-chasing-ring.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Spin/example-13-chasing-ring.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Spin/example-13-chasing-ring.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Spin/example-13-chasing-ring.tsx'),
 
   },
 ]

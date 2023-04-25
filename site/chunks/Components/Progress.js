@@ -23,7 +23,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Progress/example-1-base.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Progress/example-1-base.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Progress/example-1-base.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Progress/example-1-base.tsx'),
 
   },
   {
@@ -36,7 +36,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Progress/example-1-popup.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Progress/example-1-popup.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Progress/example-1-popup.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Progress/example-1-popup.tsx'),
 
   },
   {
@@ -49,7 +49,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Progress/example-2-type.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Progress/example-2-type.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Progress/example-2-type.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Progress/example-2-type.tsx'),
 
   },
   {
@@ -62,7 +62,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Progress/example-3-color.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Progress/example-3-color.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Progress/example-3-color.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Progress/example-3-color.tsx'),
 
   },
   {
@@ -75,7 +75,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Progress/example-3-linear.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Progress/example-3-linear.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Progress/example-3-linear.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Progress/example-3-linear.tsx'),
 
   },
   {
@@ -88,7 +88,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Progress/example-4-circle.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Progress/example-4-circle.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Progress/example-4-circle.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Progress/example-4-circle.tsx'),
 
   },
   {
@@ -101,7 +101,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Progress/example-5-size.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Progress/example-5-size.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Progress/example-5-size.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Progress/example-5-size.tsx'),
 
   },
   {
@@ -114,7 +114,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Progress/example-6-animation.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Progress/example-6-animation.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Progress/example-6-animation.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Progress/example-6-animation.tsx'),
 
   },
 ]

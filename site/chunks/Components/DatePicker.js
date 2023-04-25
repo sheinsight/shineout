@@ -23,7 +23,7 @@ const examples = [
     ),
     component: require('doc/pages/components/DatePicker/example-01-base.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-01-base.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/DatePicker/example-01-base.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/DatePicker/example-01-base.tsx'),
 
   },
   {
@@ -36,7 +36,7 @@ const examples = [
     ),
     component: require('doc/pages/components/DatePicker/example-02-format.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-02-format.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/DatePicker/example-02-format.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/DatePicker/example-02-format.tsx'),
 
   },
   {
@@ -49,7 +49,7 @@ const examples = [
     ),
     component: require('doc/pages/components/DatePicker/example-03-size.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-03-size.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/DatePicker/example-03-size.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/DatePicker/example-03-size.tsx'),
 
   },
   {
@@ -62,7 +62,7 @@ const examples = [
     ),
     component: require('doc/pages/components/DatePicker/example-04-day.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-04-day.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/DatePicker/example-04-day.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/DatePicker/example-04-day.tsx'),
 
   },
   {
@@ -75,7 +75,7 @@ const examples = [
     ),
     component: require('doc/pages/components/DatePicker/example-04-minmax.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-04-minmax.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/DatePicker/example-04-minmax.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/DatePicker/example-04-minmax.tsx'),
 
   },
   {
@@ -88,7 +88,7 @@ const examples = [
     ),
     component: require('doc/pages/components/DatePicker/example-05-week.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-05-week.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/DatePicker/example-05-week.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/DatePicker/example-05-week.tsx'),
 
   },
   {
@@ -101,7 +101,7 @@ const examples = [
     ),
     component: require('doc/pages/components/DatePicker/example-06-a-month.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-06-a-month.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/DatePicker/example-06-a-month.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/DatePicker/example-06-a-month.tsx'),
 
   },
   {
@@ -114,7 +114,7 @@ const examples = [
     ),
     component: require('doc/pages/components/DatePicker/example-06-b-quarter.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-06-b-quarter.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/DatePicker/example-06-b-quarter.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/DatePicker/example-06-b-quarter.tsx'),
 
   },
   {
@@ -127,7 +127,7 @@ const examples = [
     ),
     component: require('doc/pages/components/DatePicker/example-06-c-year.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-06-c-year.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/DatePicker/example-06-c-year.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/DatePicker/example-06-c-year.tsx'),
 
   },
   {
@@ -140,7 +140,7 @@ const examples = [
     ),
     component: require('doc/pages/components/DatePicker/example-07-a-time.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-07-a-time.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/DatePicker/example-07-a-time.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/DatePicker/example-07-a-time.tsx'),
 
   },
   {
@@ -153,7 +153,7 @@ const examples = [
     ),
     component: require('doc/pages/components/DatePicker/example-07-b-time-step.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-07-b-time-step.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/DatePicker/example-07-b-time-step.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/DatePicker/example-07-b-time-step.tsx'),
 
   },
   {
@@ -166,7 +166,7 @@ const examples = [
     ),
     component: require('doc/pages/components/DatePicker/example-08-datetime.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-08-datetime.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/DatePicker/example-08-datetime.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/DatePicker/example-08-datetime.tsx'),
 
   },
   {
@@ -179,7 +179,7 @@ const examples = [
     ),
     component: require('doc/pages/components/DatePicker/example-09-range-date.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-09-range-date.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/DatePicker/example-09-range-date.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/DatePicker/example-09-range-date.tsx'),
 
   },
   {
@@ -192,7 +192,7 @@ const examples = [
     ),
     component: require('doc/pages/components/DatePicker/example-09-range-month.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-09-range-month.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/DatePicker/example-09-range-month.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/DatePicker/example-09-range-month.tsx'),
 
   },
   {
@@ -205,7 +205,7 @@ const examples = [
     ),
     component: require('doc/pages/components/DatePicker/example-09-single.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-09-single.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/DatePicker/example-09-single.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/DatePicker/example-09-single.tsx'),
 
   },
   {
@@ -218,7 +218,7 @@ const examples = [
     ),
     component: require('doc/pages/components/DatePicker/example-09-squick.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-09-squick.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/DatePicker/example-09-squick.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/DatePicker/example-09-squick.tsx'),
 
   },
   {
@@ -231,7 +231,7 @@ const examples = [
     ),
     component: require('doc/pages/components/DatePicker/example-10-disabled.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-10-disabled.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/DatePicker/example-10-disabled.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/DatePicker/example-10-disabled.tsx'),
 
   },
   {
@@ -244,7 +244,7 @@ const examples = [
     ),
     component: require('doc/pages/components/DatePicker/example-11-disabled-date-time.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-11-disabled-date-time.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/DatePicker/example-11-disabled-date-time.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/DatePicker/example-11-disabled-date-time.tsx'),
 
   },
   {
@@ -257,7 +257,7 @@ const examples = [
     ),
     component: require('doc/pages/components/DatePicker/example-11-disabled-type.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-11-disabled-type.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/DatePicker/example-11-disabled-type.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/DatePicker/example-11-disabled-type.tsx'),
 
   },
   {
@@ -270,7 +270,7 @@ const examples = [
     ),
     component: require('doc/pages/components/DatePicker/example-11-disabled.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-11-disabled.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/DatePicker/example-11-disabled.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/DatePicker/example-11-disabled.tsx'),
 
   },
   {
@@ -283,7 +283,7 @@ const examples = [
     ),
     component: require('doc/pages/components/DatePicker/example-12-inputable.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-12-inputable.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/DatePicker/example-12-inputable.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/DatePicker/example-12-inputable.tsx'),
 
   },
   {
@@ -296,7 +296,7 @@ const examples = [
     ),
     component: require('doc/pages/components/DatePicker/example-13-absolute.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-13-absolute.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/DatePicker/example-13-absolute.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/DatePicker/example-13-absolute.tsx'),
 
   },
   {
@@ -309,7 +309,7 @@ const examples = [
     ),
     component: require('doc/pages/components/DatePicker/example-14-innertitle.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-14-innertitle.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/DatePicker/example-14-innertitle.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/DatePicker/example-14-innertitle.tsx'),
 
   },
   {
@@ -322,7 +322,7 @@ const examples = [
     ),
     component: require('doc/pages/components/DatePicker/example-15-position.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-15-position.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/DatePicker/example-15-position.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/DatePicker/example-15-position.tsx'),
 
   },
   {
@@ -335,7 +335,7 @@ const examples = [
     ),
     component: require('doc/pages/components/DatePicker/example-16-timezone.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-16-timezone.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/DatePicker/example-16-timezone.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/DatePicker/example-16-timezone.tsx'),
 
   },
   {
@@ -348,7 +348,7 @@ const examples = [
     ),
     component: require('doc/pages/components/DatePicker/example-17-clearable.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-17-clearable.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/DatePicker/example-17-clearable.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/DatePicker/example-17-clearable.tsx'),
 
   },
   {
@@ -361,7 +361,7 @@ const examples = [
     ),
     component: require('doc/pages/components/DatePicker/example-18-clearable.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-18-clearable.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/DatePicker/example-18-clearable.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/DatePicker/example-18-clearable.tsx'),
 
   },
   {
@@ -374,7 +374,7 @@ const examples = [
     ),
     component: require('doc/pages/components/DatePicker/example-19-default-picker-value.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-19-default-picker-value.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/DatePicker/example-19-default-picker-value.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/DatePicker/example-19-default-picker-value.tsx'),
 
   },
   {
@@ -387,7 +387,7 @@ const examples = [
     ),
     component: require('doc/pages/components/DatePicker/test-001-control.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/test-001-control.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/DatePicker/test-001-control.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/DatePicker/test-001-control.tsx'),
 
   },
   {
@@ -400,7 +400,7 @@ const examples = [
     ),
     component: require('doc/pages/components/DatePicker/test-002-time-range-max.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/test-002-time-range-max.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/DatePicker/test-002-time-range-max.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/DatePicker/test-002-time-range-max.tsx'),
 
   },
   {
@@ -413,7 +413,7 @@ const examples = [
     ),
     component: require('doc/pages/components/DatePicker/test-003-open.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/test-003-open.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/DatePicker/test-003-open.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/DatePicker/test-003-open.tsx'),
 
   },
 ]

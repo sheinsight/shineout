@@ -23,7 +23,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Transfer/example-1-base.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Transfer/example-1-base.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Transfer/example-1-base.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Transfer/example-1-base.tsx'),
 
   },
   {
@@ -36,7 +36,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Transfer/example-2-controlled.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Transfer/example-2-controlled.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Transfer/example-2-controlled.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Transfer/example-2-controlled.tsx'),
 
   },
   {
@@ -49,7 +49,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Transfer/example-3-customTitle.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Transfer/example-3-customTitle.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Transfer/example-3-customTitle.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Transfer/example-3-customTitle.tsx'),
 
   },
   {
@@ -62,7 +62,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Transfer/example-4-selected.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Transfer/example-4-selected.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Transfer/example-4-selected.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Transfer/example-4-selected.tsx'),
 
   },
   {
@@ -75,7 +75,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Transfer/example-5-filter.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Transfer/example-5-filter.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Transfer/example-5-filter.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Transfer/example-5-filter.tsx'),
 
   },
   {
@@ -88,7 +88,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Transfer/example-6-loading.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Transfer/example-6-loading.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Transfer/example-6-loading.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Transfer/example-6-loading.tsx'),
 
   },
   {
@@ -101,7 +101,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Transfer/example-6-mloading.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Transfer/example-6-mloading.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Transfer/example-6-mloading.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Transfer/example-6-mloading.tsx'),
 
   },
   {
@@ -114,7 +114,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Transfer/example-7-bigdata.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Transfer/example-7-bigdata.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Transfer/example-7-bigdata.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Transfer/example-7-bigdata.tsx'),
 
   },
   {
@@ -127,7 +127,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Transfer/example-8-renderFilter.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Transfer/example-8-renderFilter.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Transfer/example-8-renderFilter.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Transfer/example-8-renderFilter.tsx'),
 
   },
 ]

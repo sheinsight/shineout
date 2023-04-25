@@ -23,7 +23,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Input/example-01-base.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Input/example-01-base.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Input/example-01-base.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Input/example-01-base.tsx'),
 
   },
   {
@@ -36,7 +36,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Input/example-02-size.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Input/example-02-size.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Input/example-02-size.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Input/example-02-size.tsx'),
 
   },
   {
@@ -49,7 +49,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Input/example-03-number.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Input/example-03-number.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Input/example-03-number.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Input/example-03-number.tsx'),
 
   },
   {
@@ -62,7 +62,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Input/example-04-number.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Input/example-04-number.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Input/example-04-number.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Input/example-04-number.tsx'),
 
   },
   {
@@ -75,7 +75,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Input/example-05-group.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Input/example-05-group.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Input/example-05-group.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Input/example-05-group.tsx'),
 
   },
   {
@@ -88,7 +88,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Input/example-06-tip.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Input/example-06-tip.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Input/example-06-tip.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Input/example-06-tip.tsx'),
 
   },
   {
@@ -101,7 +101,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Input/example-07-validate.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Input/example-07-validate.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Input/example-07-validate.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Input/example-07-validate.tsx'),
 
   },
   {
@@ -114,7 +114,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Input/example-08-disabled.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Input/example-08-disabled.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Input/example-08-disabled.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Input/example-08-disabled.tsx'),
 
   },
   {
@@ -127,7 +127,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Input/example-09-password.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Input/example-09-password.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Input/example-09-password.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Input/example-09-password.tsx'),
 
   },
   {
@@ -140,7 +140,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Input/example-1-clearable.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Input/example-1-clearable.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Input/example-1-clearable.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Input/example-1-clearable.tsx'),
 
   },
   {
@@ -153,7 +153,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Input/example-1-underline.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Input/example-1-underline.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Input/example-1-underline.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Input/example-1-underline.tsx'),
 
   },
   {
@@ -166,7 +166,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Input/example-10-innertitle.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Input/example-10-innertitle.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Input/example-10-innertitle.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Input/example-10-innertitle.tsx'),
 
   },
   {
@@ -179,7 +179,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Input/example-11-autoSelect.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Input/example-11-autoSelect.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Input/example-11-autoSelect.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Input/example-11-autoSelect.tsx'),
 
   },
   {
@@ -204,7 +204,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Input/example-13-keypress.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Input/example-13-keypress.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Input/example-13-keypress.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Input/example-13-keypress.tsx'),
 
   },
   {
@@ -217,7 +217,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Input/example-14-limit.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Input/example-14-limit.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Input/example-14-limit.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Input/example-14-limit.tsx'),
 
   },
   {
@@ -230,7 +230,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Input/test-001-blurAndTrim.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Input/test-001-blurAndTrim.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Input/test-001-blurAndTrim.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Input/test-001-blurAndTrim.tsx'),
 
   },
 ]
