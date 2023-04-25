@@ -23,7 +23,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Pagination/example-1-base.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Pagination/example-1-base.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Pagination/example-1-base.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Pagination/example-1-base.tsx'),
 
   },
   {
@@ -36,7 +36,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Pagination/example-10-span.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Pagination/example-10-span.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Pagination/example-10-span.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Pagination/example-10-span.tsx'),
 
   },
   {
@@ -49,7 +49,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Pagination/example-2-size.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Pagination/example-2-size.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Pagination/example-2-size.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Pagination/example-2-size.tsx'),
 
   },
   {
@@ -62,7 +62,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Pagination/example-3-layout.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Pagination/example-3-layout.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Pagination/example-3-layout.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Pagination/example-3-layout.tsx'),
 
   },
   {
@@ -75,7 +75,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Pagination/example-4-text.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Pagination/example-4-text.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Pagination/example-4-text.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Pagination/example-4-text.tsx'),
 
   },
   {
@@ -88,7 +88,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Pagination/example-5-align.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Pagination/example-5-align.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Pagination/example-5-align.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Pagination/example-5-align.tsx'),
 
   },
   {
@@ -101,7 +101,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Pagination/example-7-controlled.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Pagination/example-7-controlled.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Pagination/example-7-controlled.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Pagination/example-7-controlled.tsx'),
 
   },
   {
@@ -114,7 +114,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Pagination/example-8-disabled.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Pagination/example-8-disabled.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Pagination/example-8-disabled.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Pagination/example-8-disabled.tsx'),
 
   },
   {
@@ -127,7 +127,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Pagination/example-9-simple.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Pagination/example-9-simple.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Pagination/example-9-simple.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Pagination/example-9-simple.tsx'),
 
   },
 ]

@@ -23,7 +23,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Sticky/example-1-top.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Sticky/example-1-top.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Sticky/example-1-top.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Sticky/example-1-top.tsx'),
 
   },
   {
@@ -36,7 +36,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Sticky/example-2-element.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Sticky/example-2-element.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Sticky/example-2-element.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Sticky/example-2-element.tsx'),
 
   },
   {
@@ -49,7 +49,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Sticky/example-3-bottom.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Sticky/example-3-bottom.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Sticky/example-3-bottom.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Sticky/example-3-bottom.tsx'),
 
   },
   {
@@ -62,7 +62,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Sticky/test-001-bottom.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Sticky/test-001-bottom.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Sticky/test-001-bottom.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Sticky/test-001-bottom.tsx'),
 
   },
 ]

@@ -23,7 +23,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Image/example-01-base.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Image/example-01-base.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Image/example-01-base.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Image/example-01-base.tsx'),
 
   },
   {
@@ -36,7 +36,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Image/example-02-shape.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Image/example-02-shape.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Image/example-02-shape.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Image/example-02-shape.tsx'),
 
   },
   {
@@ -49,7 +49,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Image/example-03-fit.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Image/example-03-fit.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Image/example-03-fit.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Image/example-03-fit.tsx'),
 
   },
   {
@@ -62,7 +62,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Image/example-04-alt.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Image/example-04-alt.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Image/example-04-alt.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Image/example-04-alt.tsx'),
 
   },
   {
@@ -75,7 +75,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Image/example-05-error.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Image/example-05-error.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Image/example-05-error.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Image/example-05-error.tsx'),
 
   },
   {
@@ -88,7 +88,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Image/example-06-target.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Image/example-06-target.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Image/example-06-target.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Image/example-06-target.tsx'),
 
   },
   {
@@ -101,7 +101,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Image/example-07-group.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Image/example-07-group.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Image/example-07-group.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Image/example-07-group.tsx'),
 
   },
   {
@@ -114,7 +114,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Image/example-08-group.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Image/example-08-group.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Image/example-08-group.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Image/example-08-group.tsx'),
 
   },
   {
@@ -127,7 +127,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Image/example-09-lazy.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Image/example-09-lazy.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Image/example-09-lazy.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Image/example-09-lazy.tsx'),
 
   },
   {
@@ -140,7 +140,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Image/example-10-lazy.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Image/example-10-lazy.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Image/example-10-lazy.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Image/example-10-lazy.tsx'),
 
   },
 ]

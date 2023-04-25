@@ -23,7 +23,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Switch/example-1-base.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Switch/example-1-base.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Switch/example-1-base.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Switch/example-1-base.tsx'),
 
   },
   {
@@ -36,7 +36,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Switch/example-2-disabled.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Switch/example-2-disabled.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Switch/example-2-disabled.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Switch/example-2-disabled.tsx'),
 
   },
   {
@@ -49,7 +49,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Switch/example-3-content.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Switch/example-3-content.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Switch/example-3-content.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Switch/example-3-content.tsx'),
 
   },
   {
@@ -62,7 +62,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Switch/example-4-size.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Switch/example-4-size.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Switch/example-4-size.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Switch/example-4-size.tsx'),
 
   },
   {
@@ -75,7 +75,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Switch/example-5-loading.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Switch/example-5-loading.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Switch/example-5-loading.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Switch/example-5-loading.tsx'),
 
   },
 ]

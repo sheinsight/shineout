@@ -23,7 +23,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Popover/example-1-base.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Popover/example-1-base.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Popover/example-1-base.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Popover/example-1-base.tsx'),
 
   },
   {
@@ -36,7 +36,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Popover/example-1-controll.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Popover/example-1-controll.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Popover/example-1-controll.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Popover/example-1-controll.tsx'),
 
   },
   {
@@ -49,7 +49,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Popover/example-10-container.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Popover/example-10-container.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Popover/example-10-container.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Popover/example-10-container.tsx'),
 
   },
   {
@@ -62,7 +62,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Popover/example-11-disabled.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Popover/example-11-disabled.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Popover/example-11-disabled.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Popover/example-11-disabled.tsx'),
 
   },
   {
@@ -75,7 +75,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Popover/example-12-content.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Popover/example-12-content.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Popover/example-12-content.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Popover/example-12-content.tsx'),
 
   },
   {
@@ -88,7 +88,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Popover/example-13-useTextStyle.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Popover/example-13-useTextStyle.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Popover/example-13-useTextStyle.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Popover/example-13-useTextStyle.tsx'),
 
   },
   {
@@ -101,7 +101,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Popover/example-2-delay.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Popover/example-2-delay.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Popover/example-2-delay.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Popover/example-2-delay.tsx'),
 
   },
   {
@@ -114,7 +114,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Popover/example-2-position.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Popover/example-2-position.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Popover/example-2-position.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Popover/example-2-position.tsx'),
 
   },
   {
@@ -127,7 +127,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Popover/example-3-click.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Popover/example-3-click.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Popover/example-3-click.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Popover/example-3-click.tsx'),
 
   },
   {
@@ -140,7 +140,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Popover/example-4-confirm.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Popover/example-4-confirm.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Popover/example-4-confirm.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Popover/example-4-confirm.tsx'),
 
   },
   {
@@ -153,7 +153,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Popover/example-5-func.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Popover/example-5-func.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Popover/example-5-func.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Popover/example-5-func.tsx'),
 
   },
   {
@@ -166,7 +166,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Popover/example-6-type.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Popover/example-6-type.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Popover/example-6-type.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Popover/example-6-type.tsx'),
 
   },
   {
@@ -179,7 +179,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Popover/example-7-type.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Popover/example-7-type.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Popover/example-7-type.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Popover/example-7-type.tsx'),
 
   },
   {
@@ -192,7 +192,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Popover/example-9-event.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Popover/example-9-event.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Popover/example-9-event.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Popover/example-9-event.tsx'),
 
   },
   {
@@ -205,7 +205,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Popover/test-002-destroy.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Popover/test-002-destroy.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Popover/test-002-destroy.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Popover/test-002-destroy.tsx'),
 
   },
   {
@@ -218,7 +218,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Popover/test-13-nested.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Popover/test-13-nested.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Popover/test-13-nested.tsx'),
+    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Popover/test-13-nested.tsx'),
 
   },
 ]
