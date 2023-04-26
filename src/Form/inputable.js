@@ -322,6 +322,7 @@ export default curry(Origin =>
           scuSkip,
           defaultValue,
           reserveAble,
+          rules,
           ...other
         } = this.props
         return (
