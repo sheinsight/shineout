@@ -1,6 +1,6 @@
 import nullable from './nullable'
 
-export default (options: {min?: number, max?: number, message: string}) =>
+export default (options: { min?: number; max?: number; message: string }) =>
   nullable((value: unknown, _formdata: any, callback: (x: boolean | Error) => void) => {
     const { min, max, message } = options
 
@@ -19,10 +19,7 @@ export default (options: {min?: number, max?: number, message: string}) =>
 
     if ((typeof min === 'number' && val < min) || (typeof max === 'number' && val > max)) {
       callback(new Error(message))
-
-      return
     } else {
       callback(true)
-      return
     }
   })
