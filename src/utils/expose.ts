@@ -3,7 +3,7 @@ import { exposeClass } from '../styles/expose'
 import cssAccessors, { cleanCache } from './css-accessors'
 import { capitalize } from './strings'
 import { entries } from './objects'
-import { setInjectType, injectTag, getInjectType, cleanStyleObj, setThemeConfig, ThemeConfig } from './vars-inject'
+import { injectTag, cleanStyleObj, setThemeConfig, ThemeConfig } from './vars-inject'
 
 const types = ['primary', 'warning', 'danger', 'success', 'secondary']
 const attrs = ['background', 'color', 'border']
@@ -54,8 +54,17 @@ function resetTheme() {
   })
 }
 
-function setStyle(options: ObjectProps, custom?: ObjectProps, config: Partial<ThemeConfig> = {}) {
-  setThemeConfig(config)
+let defaultInjectType: ThemeConfig['injectType']
+function getInjectType() {
+  return defaultInjectType
+}
+function setInjectType(type: ThemeConfig['injectType']) {
+  defaultInjectType = type
+}
+
+function setStyle(options: ObjectProps, custom?: ObjectProps, config: Partial<ThemeConfig> = { target: 'body' }) {
+  const injectType: ThemeConfig['injectType'] = config.injectType || getInjectType() || 'body'
+  setThemeConfig({ ...config, injectType })
   cleanStyleObj()
   if (!options) {
     resetTheme()
@@ -66,7 +75,7 @@ function setStyle(options: ObjectProps, custom?: ObjectProps, config: Partial<Th
       if (module && module[setterName]) module[setterName](values)
     }
   }
-  if (config.injectType === 'tag') {
+  if (injectType === 'tag') {
     const id = injectTag(custom)
     return () => {
       const target = document.getElementById(id)
