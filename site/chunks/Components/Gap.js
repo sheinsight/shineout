@@ -23,7 +23,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Gap/example-1-base.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Gap/example-1-base.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Gap/example-1-base.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Gap/example-1-base.tsx'),
 
   },
   {
@@ -36,7 +36,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Gap/example-2-custom.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Gap/example-2-custom.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Gap/example-2-custom.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Gap/example-2-custom.tsx'),
 
   },
 ]

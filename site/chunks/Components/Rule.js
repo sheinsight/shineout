@@ -23,7 +23,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Rule/example-locale.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Rule/example-locale.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Rule/example-locale.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Rule/example-locale.tsx'),
 
   },
 ]

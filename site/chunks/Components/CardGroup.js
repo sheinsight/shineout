@@ -23,7 +23,7 @@ const examples = [
     ),
     component: require('doc/pages/components/CardGroup/example-1-base.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/CardGroup/example-1-base.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/CardGroup/example-1-base.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/CardGroup/example-1-base.tsx'),
 
   },
   {
@@ -36,7 +36,7 @@ const examples = [
     ),
     component: require('doc/pages/components/CardGroup/example-2-width.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/CardGroup/example-2-width.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/CardGroup/example-2-width.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/CardGroup/example-2-width.tsx'),
 
   },
   {
@@ -49,7 +49,7 @@ const examples = [
     ),
     component: require('doc/pages/components/CardGroup/example-3-lazyload.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/CardGroup/example-3-lazyload.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/CardGroup/example-3-lazyload.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/CardGroup/example-3-lazyload.tsx'),
 
   },
   {
@@ -62,7 +62,7 @@ const examples = [
     ),
     component: require('doc/pages/components/CardGroup/example-4-checkbox.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/CardGroup/example-4-checkbox.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/CardGroup/example-4-checkbox.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/CardGroup/example-4-checkbox.tsx'),
 
   },
   {
@@ -75,7 +75,7 @@ const examples = [
     ),
     component: require('doc/pages/components/CardGroup/example-5-disabled.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/CardGroup/example-5-disabled.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/CardGroup/example-5-disabled.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/CardGroup/example-5-disabled.tsx'),
 
   },
 ]

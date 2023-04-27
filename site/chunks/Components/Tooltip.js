@@ -23,7 +23,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Tooltip/example-1-base.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Tooltip/example-1-base.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Tooltip/example-1-base.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Tooltip/example-1-base.tsx'),
 
   },
   {
@@ -36,7 +36,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Tooltip/example-2-click.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Tooltip/example-2-click.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Tooltip/example-2-click.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Tooltip/example-2-click.tsx'),
 
   },
   {
@@ -49,7 +49,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Tooltip/example-3-disabled-inner.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Tooltip/example-3-disabled-inner.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Tooltip/example-3-disabled-inner.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Tooltip/example-3-disabled-inner.tsx'),
 
   },
   {
@@ -62,7 +62,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Tooltip/test-001-scroll.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Tooltip/test-001-scroll.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Tooltip/test-001-scroll.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Tooltip/test-001-scroll.tsx'),
 
   },
 ]

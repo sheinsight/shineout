@@ -23,7 +23,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Cascader/example-01-base.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Cascader/example-01-base.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Cascader/example-01-base.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Cascader/example-01-base.tsx'),
 
   },
   {
@@ -36,7 +36,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Cascader/example-02-multiple.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Cascader/example-02-multiple.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Cascader/example-02-multiple.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Cascader/example-02-multiple.tsx'),
 
   },
   {
@@ -49,7 +49,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Cascader/example-03-hover.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Cascader/example-03-hover.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Cascader/example-03-hover.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Cascader/example-03-hover.tsx'),
 
   },
   {
@@ -62,7 +62,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Cascader/example-04-disabled.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Cascader/example-04-disabled.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Cascader/example-04-disabled.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Cascader/example-04-disabled.tsx'),
 
   },
   {
@@ -75,7 +75,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Cascader/example-05-lazyload.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Cascader/example-05-lazyload.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Cascader/example-05-lazyload.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Cascader/example-05-lazyload.tsx'),
 
   },
   {
@@ -88,7 +88,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Cascader/example-06-filter.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Cascader/example-06-filter.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Cascader/example-06-filter.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Cascader/example-06-filter.tsx'),
 
   },
   {
@@ -101,7 +101,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Cascader/example-07-filter-widematch.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Cascader/example-07-filter-widematch.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Cascader/example-07-filter-widematch.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Cascader/example-07-filter-widematch.tsx'),
 
   },
   {
@@ -114,7 +114,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Cascader/example-07-innertitle.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Cascader/example-07-innertitle.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Cascader/example-07-innertitle.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Cascader/example-07-innertitle.tsx'),
 
   },
   {
@@ -127,7 +127,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Cascader/example-08-unmatch.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Cascader/example-08-unmatch.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Cascader/example-08-unmatch.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Cascader/example-08-unmatch.tsx'),
 
   },
   {
@@ -140,7 +140,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Cascader/example-09-renderlist.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Cascader/example-09-renderlist.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Cascader/example-09-renderlist.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Cascader/example-09-renderlist.tsx'),
 
   },
   {
@@ -153,7 +153,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Cascader/example-10-final.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Cascader/example-10-final.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Cascader/example-10-final.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Cascader/example-10-final.tsx'),
 
   },
   {
@@ -166,7 +166,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Cascader/test-001-compressed.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Cascader/test-001-compressed.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Cascader/test-001-compressed.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Cascader/test-001-compressed.tsx'),
 
   },
   {
@@ -179,7 +179,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Cascader/test-002-expandtrigger-finaldismiss.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Cascader/test-002-expandtrigger-finaldismiss.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Cascader/test-002-expandtrigger-finaldismiss.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Cascader/test-002-expandtrigger-finaldismiss.tsx'),
 
   },
   {
@@ -192,7 +192,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Cascader/test-003-open.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Cascader/test-003-open.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Cascader/test-003-open.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Cascader/test-003-open.tsx'),
 
   },
 ]
