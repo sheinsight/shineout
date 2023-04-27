@@ -42,15 +42,6 @@ const config: ThemeConfig = {
 const computedCache: ObjectType = {}
 let styleObj: ObjectType = {}
 
-export function getInjectType() {
-  return config.injectType
-}
-export function setInjectType(type: ThemeConfig['injectType']) {
-  console.error(
-    `[shineout:] setInjectType is not support; please use setStyle(your_theme_config, your_custom_config, {injectType: ${type})`
-  )
-  config.injectType = type
-}
 export function setThemeConfig(c: Partial<ThemeConfig>) {
   Object.keys(c).forEach((key: keyof ThemeConfig) => {
     if (key in config) {
