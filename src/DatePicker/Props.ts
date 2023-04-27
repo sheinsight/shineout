@@ -262,7 +262,7 @@ export interface ContainerProps<T = DatePickerValue>
     | 'onCollapse'
   > {
   /**
-   * inner 内部属性
+   * @inner 内部属性
    */
   inputFocus: boolean
   /**
