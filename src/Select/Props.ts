@@ -33,6 +33,10 @@ export interface BaseSelectProps<DataItem, Value>
     Pick<InputableProps<Value>, 'formDatum'>,
     Pick<TreeProps<DataItem, ValueArr<Value>>, ExpandTreeKeys> {
   /**
+   * @inner 内部属性
+   */
+  inputFocus: boolean
+  /**
    * @en Form field, used with Form
    * @cn 表单字段, 配合 Form 使用
    */
@@ -476,7 +480,7 @@ export type ResultValue<Value> = Value | UnMatchedValue<Value>
 export interface ResultProps<Item, Value>
   extends Omit<
     BaseSelectProps<Item, Value>,
-    'renderItem' | 'onChange' | 'onBlur' | 'onFocus' | 'groupKey' | 'innerData' | 'value'
+    'renderItem' | 'onChange' | 'onBlur' | 'onFocus' | 'groupKey' | 'innerData' | 'value' | 'inputFocus'
   > {
   datum: List<Item, Value>
   filterText?: string

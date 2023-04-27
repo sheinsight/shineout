@@ -178,13 +178,14 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
   }
 
   setOpenEvent() {
-    if (this.lastFoucs !== this.focus)
-      if (this.focus) {
+    const focus = this.focus || this.props.inputFocus
+    if (this.lastFoucs !== focus)
+      if (focus) {
         this.bindClickAway()
       } else if (this.lastFoucs !== undefined) {
         this.clearClickAway()
       }
-    this.lastFoucs = this.focus
+    this.lastFoucs = focus
   }
 
   getDisabledStatus() {
@@ -259,7 +260,6 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
       if (!getParent(e.target, `[data-id=${this.selectId}]`)) {
         this.blured = true
         this.props.onBlur()
-        // this.clearClickAway()
         if (this.element) this.element.blur()
       }
       this.handleState(false, null)
@@ -358,7 +358,6 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
   handleFocus(e: React.FocusEvent<HTMLDivElement>) {
     if (!this.shouldFocus(e.target)) return
     this.props.onFocus(e)
-    this.bindClickAway()
   }
 
   handleInputFocus() {
