@@ -71,6 +71,7 @@ const App: React.FC = () => {
           setOpen(v)
         }}
         keygen="value"
+        finalDismiss
         renderItem={n => `${n.value}`}
       />
     </div>

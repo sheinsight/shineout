@@ -262,6 +262,10 @@ export interface ContainerProps<T = DatePickerValue>
     | 'onCollapse'
   > {
   /**
+   * @inner 内部属性
+   */
+  inputFocus: boolean
+  /**
    * @en When the value is string, it needs to match the format attribute.\n When the range property is true, the value is an array of length 2.
    * @cn 值为 string 时，需要和 format 属性匹配。\n 非 string 会格式化为 string。\n range 属性为 true 时，值为长度为2的数组
    */

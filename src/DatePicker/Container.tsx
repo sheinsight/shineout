@@ -147,13 +147,14 @@ class Container extends PureComponent<ContainerProps, ContainerState> {
   }
 
   setOpenEvent() {
-    if (this.lastFoucs !== this.focus)
-      if (this.focus) {
+    const focus = this.focus || this.props.inputFocus
+    if (this.lastFoucs !== focus)
+      if (focus) {
         this.bindClickAway()
       } else if (this.lastFoucs !== undefined) {
         this.clearClickAway()
       }
-    this.lastFoucs = this.focus
+    this.lastFoucs = focus
   }
 
   getOptions() {
