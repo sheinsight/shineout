@@ -23,7 +23,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Form/example-01-base.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-01-base.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Form/example-01-base.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Form/example-01-base.tsx'),
 
   },
   {
@@ -36,7 +36,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Form/example-02-controlform.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-02-controlform.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Form/example-02-controlform.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Form/example-02-controlform.tsx'),
 
   },
   {
@@ -49,7 +49,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Form/example-02-label.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-02-label.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Form/example-02-label.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Form/example-02-label.tsx'),
 
   },
   {
@@ -62,7 +62,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Form/example-03-label-vertical.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-03-label-vertical.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Form/example-03-label-vertical.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Form/example-03-label-vertical.tsx'),
 
   },
   {
@@ -75,7 +75,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Form/example-03-label.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-03-label.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Form/example-03-label.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Form/example-03-label.tsx'),
 
   },
   {
@@ -88,7 +88,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Form/example-04-inline.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-04-inline.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Form/example-04-inline.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Form/example-04-inline.tsx'),
 
   },
   {
@@ -101,7 +101,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Form/example-05-tip.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-05-tip.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Form/example-05-tip.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Form/example-05-tip.tsx'),
 
   },
   {
@@ -114,7 +114,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Form/example-06-tip.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-06-tip.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Form/example-06-tip.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Form/example-06-tip.tsx'),
 
   },
   {
@@ -127,7 +127,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Form/example-07-validate.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-07-validate.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Form/example-07-validate.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Form/example-07-validate.tsx'),
 
   },
   {
@@ -140,7 +140,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Form/example-08-validate.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-08-validate.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Form/example-08-validate.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Form/example-08-validate.tsx'),
 
   },
   {
@@ -153,7 +153,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Form/example-08-x-validate-bind.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-08-x-validate-bind.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Form/example-08-x-validate-bind.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Form/example-08-x-validate-bind.tsx'),
 
   },
   {
@@ -166,7 +166,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Form/example-08-y-validate-keep-height.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-08-y-validate-keep-height.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Form/example-08-y-validate-keep-height.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Form/example-08-y-validate-keep-height.tsx'),
 
   },
   {
@@ -179,7 +179,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Form/example-09-server-validate.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-09-server-validate.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Form/example-09-server-validate.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Form/example-09-server-validate.tsx'),
 
   },
   {
@@ -192,7 +192,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Form/example-11-disabled.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-11-disabled.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Form/example-11-disabled.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Form/example-11-disabled.tsx'),
 
   },
   {
@@ -205,7 +205,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Form/example-12-field.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-12-field.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Form/example-12-field.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Form/example-12-field.tsx'),
 
   },
   {
@@ -218,7 +218,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Form/example-13-func-field.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-13-func-field.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Form/example-13-func-field.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Form/example-13-func-field.tsx'),
 
   },
   {
@@ -231,7 +231,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Form/example-14-fieldset.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-14-fieldset.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Form/example-14-fieldset.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Form/example-14-fieldset.tsx'),
 
   },
   {
@@ -244,7 +244,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Form/example-15-fieldset.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-15-fieldset.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Form/example-15-fieldset.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Form/example-15-fieldset.tsx'),
 
   },
   {
@@ -257,7 +257,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Form/example-16-fieldset.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-16-fieldset.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Form/example-16-fieldset.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Form/example-16-fieldset.tsx'),
 
   },
   {
@@ -270,7 +270,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Form/example-17-flow.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-17-flow.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Form/example-17-flow.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Form/example-17-flow.tsx'),
 
   },
   {
@@ -283,7 +283,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Form/example-19-nested.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-19-nested.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Form/example-19-nested.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Form/example-19-nested.tsx'),
 
   },
   {
@@ -296,7 +296,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Form/example-20-array.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-20-array.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Form/example-20-array.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Form/example-20-array.tsx'),
 
   },
   {
@@ -309,7 +309,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Form/example-21-mode.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Form/example-21-mode.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Form/example-21-mode.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Form/example-21-mode.tsx'),
 
   },
 ]

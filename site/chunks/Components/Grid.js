@@ -23,7 +23,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Grid/example-01-base.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Grid/example-01-base.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Grid/example-01-base.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Grid/example-01-base.tsx'),
 
   },
   {
@@ -36,7 +36,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Grid/example-02-offset.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Grid/example-02-offset.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Grid/example-02-offset.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Grid/example-02-offset.tsx'),
 
   },
   {
@@ -49,7 +49,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Grid/example-03-nested.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Grid/example-03-nested.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Grid/example-03-nested.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Grid/example-03-nested.tsx'),
 
   },
   {
@@ -62,7 +62,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Grid/example-04-gutter.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Grid/example-04-gutter.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Grid/example-04-gutter.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Grid/example-04-gutter.tsx'),
 
   },
 ]

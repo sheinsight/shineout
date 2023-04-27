@@ -23,7 +23,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Menu/example-1-base.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Menu/example-1-base.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Menu/example-1-base.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Menu/example-1-base.tsx'),
 
   },
   {
@@ -36,7 +36,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Menu/example-1-link.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Menu/example-1-link.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Menu/example-1-link.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Menu/example-1-link.tsx'),
 
   },
   {
@@ -49,7 +49,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Menu/example-1-onClick.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Menu/example-1-onClick.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Menu/example-1-onClick.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Menu/example-1-onClick.tsx'),
 
   },
   {
@@ -62,7 +62,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Menu/example-10-frontCaret.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Menu/example-10-frontCaret.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Menu/example-10-frontCaret.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Menu/example-10-frontCaret.tsx'),
 
   },
   {
@@ -75,7 +75,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Menu/example-2-horizontal.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Menu/example-2-horizontal.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Menu/example-2-horizontal.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Menu/example-2-horizontal.tsx'),
 
   },
   {
@@ -88,7 +88,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Menu/example-3-vertical.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Menu/example-3-vertical.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Menu/example-3-vertical.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Menu/example-3-vertical.tsx'),
 
   },
   {
@@ -101,7 +101,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Menu/example-4-disabled.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Menu/example-4-disabled.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Menu/example-4-disabled.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Menu/example-4-disabled.tsx'),
 
   },
   {
@@ -114,7 +114,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Menu/example-5-selected.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Menu/example-5-selected.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Menu/example-5-selected.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Menu/example-5-selected.tsx'),
 
   },
   {
@@ -127,7 +127,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Menu/example-6-itemRender.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Menu/example-6-itemRender.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Menu/example-6-itemRender.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Menu/example-6-itemRender.tsx'),
 
   },
   {
@@ -140,7 +140,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Menu/example-7-click.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Menu/example-7-click.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Menu/example-7-click.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Menu/example-7-click.tsx'),
 
   },
   {
@@ -153,7 +153,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Menu/example-8-dark.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Menu/example-8-dark.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Menu/example-8-dark.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Menu/example-8-dark.tsx'),
 
   },
   {
@@ -166,7 +166,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Menu/test-001-link-func.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Menu/test-001-link-func.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Menu/test-001-link-func.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Menu/test-001-link-func.tsx'),
 
   },
   {
@@ -179,7 +179,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Menu/test-002-tooggleDuration.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Menu/test-002-tooggleDuration.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Menu/test-002-tooggleDuration.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Menu/test-002-tooggleDuration.tsx'),
 
   },
   {
@@ -192,7 +192,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Menu/test-003-renderLink-click.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Menu/test-003-renderLink-click.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Menu/test-003-renderLink-click.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Menu/test-003-renderLink-click.tsx'),
 
   },
   {
@@ -205,7 +205,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Menu/test-004-verticalauto.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Menu/test-004-verticalauto.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Menu/test-004-verticalauto.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Menu/test-004-verticalauto.tsx'),
 
   },
   {
@@ -218,7 +218,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Menu/test-005-openKeys.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Menu/test-005-openKeys.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Menu/test-005-openKeys.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Menu/test-005-openKeys.tsx'),
 
   },
   {
@@ -231,7 +231,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Menu/test-006-defaultOpenKeys.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Menu/test-006-defaultOpenKeys.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Menu/test-006-defaultOpenKeys.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Menu/test-006-defaultOpenKeys.tsx'),
 
   },
 ]

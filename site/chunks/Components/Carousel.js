@@ -23,7 +23,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Carousel/example-1-base.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Carousel/example-1-base.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Carousel/example-1-base.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Carousel/example-1-base.tsx'),
 
   },
   {
@@ -36,7 +36,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Carousel/example-2-custom-indicator.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Carousel/example-2-custom-indicator.tsx'),
-    parseTsText: require('!raw-loader?{"compilerOptions"!doc/pages/components/Carousel/example-2-custom-indicator.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Carousel/example-2-custom-indicator.tsx'),
 
   },
 ]
