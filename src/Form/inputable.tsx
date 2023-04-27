@@ -317,6 +317,7 @@ export default <Value, U extends BaseInputProps, Item = any>(Origin: ComponentTy
         unbindInputFromItem,
         scuSkip,
         defaultValue,
+        rules,
         reserveAble,
         ...other
       } = this.props
