@@ -4,7 +4,7 @@ import createReactContext from '../context'
 import { Component } from '../component'
 import { filterProps } from '../utils/objects'
 import validate from '../utils/validate'
-import { FormError, isSameError } from '../utils/errors'
+import { wrapFormError, isSameError } from '../utils/errors'
 import { ERROR_TYPE, FORCE_PASS, IGNORE_VALIDATE } from '../Datum/types'
 import FieldError from './FieldError'
 
@@ -55,7 +55,7 @@ class FieldSet extends Component {
       },
       e => {
         this.handleError(e)
-        return new FormError(e)
+        return wrapFormError(e)
       }
     )
   }
