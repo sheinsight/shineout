@@ -23,7 +23,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Rate/example-01-base.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Rate/example-01-base.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Rate/example-01-base.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Rate/example-01-base.tsx'),
 
   },
   {
@@ -36,7 +36,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Rate/example-01-half.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Rate/example-01-half.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Rate/example-01-half.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Rate/example-01-half.tsx'),
 
   },
   {
@@ -49,7 +49,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Rate/example-02-color.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Rate/example-02-color.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Rate/example-02-color.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Rate/example-02-color.tsx'),
 
   },
   {
@@ -62,7 +62,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Rate/example-04-max.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Rate/example-04-max.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Rate/example-04-max.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Rate/example-04-max.tsx'),
 
   },
   {
@@ -75,7 +75,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Rate/example-05-size.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Rate/example-05-size.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Rate/example-05-size.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Rate/example-05-size.tsx'),
 
   },
   {
@@ -88,7 +88,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Rate/example-06-text.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Rate/example-06-text.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Rate/example-06-text.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Rate/example-06-text.tsx'),
 
   },
   {
@@ -101,7 +101,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Rate/example-07-disabled.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Rate/example-07-disabled.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Rate/example-07-disabled.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Rate/example-07-disabled.tsx'),
 
   },
   {
@@ -114,7 +114,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Rate/example-08-face.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Rate/example-08-face.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Rate/example-08-face.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Rate/example-08-face.tsx'),
 
   },
   {
@@ -127,7 +127,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Rate/example-09-array.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Rate/example-09-array.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Rate/example-09-array.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Rate/example-09-array.tsx'),
 
   },
   {
@@ -140,7 +140,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Rate/example-10-clearable.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Rate/example-10-clearable.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Rate/example-10-clearable.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Rate/example-10-clearable.tsx'),
 
   },
 ]

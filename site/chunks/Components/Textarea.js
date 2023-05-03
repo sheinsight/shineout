@@ -23,7 +23,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Textarea/example-1-base.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Textarea/example-1-base.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Textarea/example-1-base.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Textarea/example-1-base.tsx'),
 
   },
   {
@@ -36,7 +36,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Textarea/example-2-autosize.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Textarea/example-2-autosize.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Textarea/example-2-autosize.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Textarea/example-2-autosize.tsx'),
 
   },
   {
@@ -49,7 +49,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Textarea/example-3-info.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Textarea/example-3-info.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Textarea/example-3-info.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Textarea/example-3-info.tsx'),
 
   },
   {
@@ -62,7 +62,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Textarea/example-4-custom.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Textarea/example-4-custom.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Textarea/example-4-custom.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Textarea/example-4-custom.tsx'),
 
   },
   {
@@ -75,7 +75,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Textarea/example-5-renderFooter.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Textarea/example-5-renderFooter.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Textarea/example-5-renderFooter.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Textarea/example-5-renderFooter.tsx'),
 
   },
 ]
