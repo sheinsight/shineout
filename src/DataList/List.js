@@ -31,9 +31,9 @@ class Index extends Component {
     this.id = null
   }
 
-  getItemClassName(value, index, flag) {
+  getItemClassName(value, index, flag, isLast) {
     const { rowClassName } = this.props
-    const base = listClass('item', flag && 'checkbox')
+    const base = listClass('item', flag && 'checkbox', isLast && 'item-last')
     if (isFunc(rowClassName)) return classnames(base, rowClassName(value, index))
     if (isString(rowClassName)) return classnames(base, rowClassName)
     return base
@@ -78,13 +78,14 @@ class Index extends Component {
   }
 
   renderItem(value, index) {
-    const { keygen, onChange } = this.props
+    const { keygen, onChange, data, colNum } = this.props
     const haveRowSelected = isFunc(onChange)
 
     const content = this.getContent(value, index)
-
+    const lastColStart = data.length - (data.length % colNum || colNum)
+    const isLast = index >= lastColStart
     return (
-      <div className={this.getItemClassName(value, index, haveRowSelected)} key={getKey(value, keygen, index)}>
+      <div className={this.getItemClassName(value, index, haveRowSelected, isLast)} key={getKey(value, keygen, index)}>
         {this.renderCheckBox(haveRowSelected, value, index)}
         {haveRowSelected ? <div className={listClass('item-meta')}>{content}</div> : content}
       </div>

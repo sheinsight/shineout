@@ -44,7 +44,7 @@
     position: relative;
     padding: @list-default-padding;
 
-    &:not(:last-child)::after {
+    &:not(:last-child):not(.@{list-prefix}-item-last)::after {
       content: "";
       position: absolute;
       bottom: 0px;
@@ -58,7 +58,7 @@
       display: flex;
       justify-content: flex-start;
       align-items: center;
-      
+
       .@{list-prefix}-item-meta {
         flex: 1;
       }
