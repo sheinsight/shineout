@@ -5,7 +5,7 @@ import inputable from '../Form/inputable'
 import inputBorder from '../hoc/inputBorder'
 import Component from './Textarea'
 import { inputClass } from '../Input/styles'
-import { TextareaProps, TextareaPropsWithDelay } from './props'
+import { TextareaProps, TextareaPropsWithDelay } from './Props'
 
 const input = compose(
   inputable,

@@ -1,1 +1,1 @@
-export { TextareaProps as Props } from './props'
+export { TextareaProps as Props } from './Props'

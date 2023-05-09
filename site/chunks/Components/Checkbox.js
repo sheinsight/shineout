@@ -23,7 +23,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Checkbox/example-01-base.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Checkbox/example-01-base.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Checkbox/example-01-base.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Checkbox/example-01-base.tsx'),
 
   },
   {
@@ -36,7 +36,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Checkbox/example-02-checked.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Checkbox/example-02-checked.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Checkbox/example-02-checked.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Checkbox/example-02-checked.tsx'),
 
   },
   {
@@ -49,7 +49,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Checkbox/example-03-value.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Checkbox/example-03-value.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Checkbox/example-03-value.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Checkbox/example-03-value.tsx'),
 
   },
   {
@@ -62,7 +62,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Checkbox/example-04-rawgroup.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Checkbox/example-04-rawgroup.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Checkbox/example-04-rawgroup.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Checkbox/example-04-rawgroup.tsx'),
 
   },
   {
@@ -75,7 +75,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Checkbox/example-05-group.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Checkbox/example-05-group.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Checkbox/example-05-group.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Checkbox/example-05-group.tsx'),
 
   },
   {
@@ -88,7 +88,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Checkbox/example-06-format.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Checkbox/example-06-format.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Checkbox/example-06-format.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Checkbox/example-06-format.tsx'),
 
   },
   {
@@ -101,7 +101,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Checkbox/example-08-block.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Checkbox/example-08-block.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Checkbox/example-08-block.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Checkbox/example-08-block.tsx'),
 
   },
   {
@@ -114,7 +114,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Checkbox/example-09-disabled.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Checkbox/example-09-disabled.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Checkbox/example-09-disabled.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Checkbox/example-09-disabled.tsx'),
 
   },
   {
@@ -127,7 +127,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Checkbox/example-10-disabled.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Checkbox/example-10-disabled.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Checkbox/example-10-disabled.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Checkbox/example-10-disabled.tsx'),
 
   },
   {
@@ -140,7 +140,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Checkbox/example-11-input.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Checkbox/example-11-input.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Checkbox/example-11-input.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Checkbox/example-11-input.tsx'),
 
   },
   {
@@ -153,7 +153,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Checkbox/example-12-onClick.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Checkbox/example-12-onClick.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Checkbox/example-12-onClick.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Checkbox/example-12-onClick.tsx'),
 
   },
 ]

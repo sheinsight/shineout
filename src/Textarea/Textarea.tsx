@@ -6,7 +6,7 @@ import { inputClass } from '../Input/styles'
 import cleanProps from '../utils/cleanProps'
 import InputTitle from '../InputTitle'
 import { inputTitleClass } from '../InputTitle/styles'
-import { OriginTextareaProps } from './props'
+import { OriginTextareaProps } from './Props'
 
 interface TextareaState {
   height: number

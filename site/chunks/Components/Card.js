@@ -23,7 +23,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Card/example-1-base.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Card/example-1-base.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Card/example-1-base.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Card/example-1-base.tsx'),
 
   },
   {
@@ -36,7 +36,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Card/example-2-boxshadow.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Card/example-2-boxshadow.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Card/example-2-boxshadow.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Card/example-2-boxshadow.tsx'),
 
   },
   {
@@ -49,7 +49,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Card/example-3-form.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Card/example-3-form.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Card/example-3-form.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Card/example-3-form.tsx'),
 
   },
   {
@@ -62,7 +62,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Card/example-4-collapse.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Card/example-4-collapse.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Card/example-4-collapse.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Card/example-4-collapse.tsx'),
 
   },
   {
@@ -75,7 +75,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Card/example-5-accordion.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Card/example-5-accordion.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Card/example-5-accordion.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Card/example-5-accordion.tsx'),
 
   },
 ]
