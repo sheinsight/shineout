@@ -23,7 +23,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Icon/example-1-awesome.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Icon/example-1-awesome.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Icon/example-1-awesome.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Icon/example-1-awesome.tsx'),
 
   },
   {
@@ -36,7 +36,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Icon/example-2-iconfont.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Icon/example-2-iconfont.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Icon/example-2-iconfont.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Icon/example-2-iconfont.tsx'),
 
   },
   {
@@ -49,7 +49,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Icon/example-3-size.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Icon/example-3-size.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Icon/example-3-size.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Icon/example-3-size.tsx'),
 
   },
 ]
