@@ -95,9 +95,9 @@ class Card<DataItem, Value extends any[]> extends PureComponent<CardProps<DataIt
     )
   }
 
-  customSetSelected(value: KeygenResult) {
+  customSetSelected(value: KeygenResult | KeygenResult[]) {
     const { index, setSelecteds, selecteds } = this.props
-    if (typeof value === 'string') {
+    if (typeof value === 'string' || typeof value === 'number') {
       setSelecteds(index, [...selecteds, value])
       return
     }
