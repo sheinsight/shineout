@@ -48,9 +48,9 @@ class Index<U, T> extends Component<BaseListProps<U, T>> {
     this.id = null
   }
 
-  getItemClassName(value: U, index: number, flag?: boolean) {
+  getItemClassName(value: U, index: number, flag?: boolean, isLastCol?: boolean) {
     const { rowClassName } = this.props
-    const base = listClass('item', flag && 'checkbox')
+    const base = listClass('item', flag && 'checkbox', isLastCol && 'item-last')
     if (isFunc(rowClassName) && rowClassName) return classnames(base, rowClassName(value, index))
     if (isString(rowClassName)) return classnames(base, rowClassName)
     return base
@@ -95,14 +95,16 @@ class Index<U, T> extends Component<BaseListProps<U, T>> {
   }
 
   renderItem(value: U, index: number) {
-    const { keygen, onChange } = this.props
+    const { keygen, onChange, data, colNum = 1 } = this.props
     const haveRowSelected = isFunc(onChange)
 
     const content = this.getContent(value, index)
+    const lastColStart = data.length - (data.length % colNum || colNum)
+    const isLast = index >= lastColStart
 
     return (
       <div
-        className={this.getItemClassName(value, index, haveRowSelected)}
+        className={this.getItemClassName(value, index, haveRowSelected, isLast)}
         key={getKey(value, keygen, index) as React.Key}
       >
         {this.renderCheckBox(haveRowSelected, value, index)}

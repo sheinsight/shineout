@@ -113,9 +113,10 @@ class LazyList<DataItem> extends PureComponent<LazyListProps<DataItem>, LazyList
     const { currentIndex, fixed } = this.state
     const scrollHeight = this.getScrollHeight()
     const ms = Object.assign({}, style, height && { height })
+    const start = currentIndex * colNum
     const items = data
-      .slice(currentIndex * colNum, (currentIndex + itemsInView) * colNum)
-      .map((d, i) => <Fragment key={getKey(d, keygen, i)}>{renderItem(d, i)}</Fragment>)
+      .slice(start, (currentIndex + itemsInView) * colNum)
+      .map((d, i) => <Fragment key={getKey(d, keygen, i)}>{renderItem(d, i + start)}</Fragment>)
     const fr = Array(colNum)
       .fill('1fr')
       .join(' ')
