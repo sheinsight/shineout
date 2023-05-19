@@ -169,7 +169,7 @@ export interface BaseTransferProps<DataItem, Value extends any[]> extends Standa
    */
   children?: (
     props: {
-      onSelected: (keys: KeygenResult) => void
+      onSelected: (keys: KeygenResult | KeygenResult[]) => void
       direction: 'left' | 'right'
       selectedKeys: KeygenResult[]
       value: Value
