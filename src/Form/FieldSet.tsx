@@ -3,7 +3,7 @@ import createReactContext from '../context'
 import { Component } from '../component'
 import { filterProps } from '../utils/objects'
 import validate from '../utils/validate'
-import { FormError, isSameError } from '../utils/errors'
+import { wrapFormError, FormError, isSameError } from '../utils/errors'
 import { ERROR_TYPE, FORCE_PASS, IGNORE_VALIDATE } from '../Datum/types'
 import FieldError from './FieldError'
 import { FieldSetProviderValueType, FieldSetProps, GetFieldSetConsumerProps } from './Props'
@@ -68,7 +68,7 @@ class FieldSet<Value extends any[]> extends Component<FieldSetProps<Value>, {}> 
       },
       e => {
         this.handleError(e)
-        return new FormError(e)
+        return wrapFormError(e)
       }
     )
   }

@@ -124,7 +124,7 @@ class Form<Value> extends Component<SimpleFormProps<Value>> {
     }
 
     if (onError) onError(err)
-    if (!(err instanceof FormError)) throw err
+    if (err instanceof Error && !(err instanceof FormError)) throw err
   }
 
   handleSubmit(e?: Event) {
