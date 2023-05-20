@@ -11,8 +11,8 @@ import Caret from '../icons/Caret'
 import { isRTL } from '../config'
 import More, { getResetMore } from './More'
 import InputTitle from '../InputTitle'
-import { getKey } from '../utils/uid'
 import { getDirectionClass } from '../utils/classname'
+import ShallowEqual from '../utils/shallowEqual'
 
 export const IS_NOT_MATCHED_VALUE = 'IS_NOT_MATCHED_VALUE'
 
@@ -41,9 +41,15 @@ const getResultContent = (data, renderResult, renderUnmatched) => {
 }
 
 // eslint-disable-next-line
-function Item({ content, data, disabled, onClick, resultClassName, title = false, only }) {
-  const value = data
-  const click = disabled || !onClick ? undefined : () => onClick(value)
+function Item(props) {
+  // eslint-disable-next-line react/prop-types
+  const { value, onClick, resultClassName, title = false, only, getDataByValue, getContent, isDisabled } = props
+
+  const data = getDataByValue(value)
+  const disabled = isDisabled(data)
+  const content = getContent(data)
+  if (data === null) return null
+  const click = disabled || !onClick ? undefined : () => onClick(data)
   const synDisabled = disabled || !click
   return (
     <a
@@ -111,29 +117,15 @@ class Result extends PureComponent {
   }
 
   updateMore(preProps) {
-    const { result, compressed, onFilter, keygen, data } = this.props
+    const { compressed, onFilter, values, data } = this.props
 
     if (compressed) {
       if (this.isCompressedBound()) return
 
-      let shouldRest = false
-      if (preProps.result.length !== result.length || (data || []).length !== (preProps.data || []).length) {
-        shouldRest = true
-      } else if (preProps.result !== result) {
-        const getUnMatchKey = (d, k) => (d && d.IS_NOT_MATCHED_VALUE ? d.value : getKey(d, k))
-        const isSameData = (data1, data2, k) => getUnMatchKey(data1, k) === getUnMatchKey(data2, k)
-        let i = preProps.result.length - 1
-        while (i >= 0) {
-          if (!isSameData(result[i], preProps.result[i], keygen)) {
-            shouldRest = true
-            break
-          }
-          i -= 1
-        }
-      }
+      const shouldRest = !ShallowEqual(preProps.values, values) || (data || []).length !== (preProps.data || []).length
       if (shouldRest) {
         this.resetMore()
-      } else if (result.length && this.shouldResetMore) {
+      } else if ((values || []).length && this.shouldResetMore) {
         this.shouldResetMore = false
         this.state.more = getResetMore(
           onFilter,
@@ -160,34 +152,32 @@ class Result extends PureComponent {
   }
 
   isEmptyResult() {
-    const { result, renderResult, renderUnmatched } = this.props
-    if (result.length <= 0) return true
-    const res = result.reduce((acc, cur) => {
+    const { values, renderResult, renderUnmatched, getResultByValue } = this.props
+    if (values.length <= 0) return true
+    const hasValue = values.find(item => {
+      const cur = getResultByValue(item)
       const r = getResultContent(cur, renderResult, renderUnmatched)
-      if (!isEmpty(r)) {
-        acc.push(cur)
-      }
-      return acc
-    }, [])
-    return res.length <= 0
+      return !isEmpty(r)
+    })
+    return !hasValue
   }
 
   handelMore(more) {
     this.setState({ more })
   }
 
-  renderItem(data, index) {
-    const { renderResult, renderUnmatched, datum, resultClassName } = this.props
-    const content = getResultContent(data, renderResult, renderUnmatched)
-    if (content === null) return null
+  renderItem(value, index) {
+    const { renderResult, renderUnmatched, datum, resultClassName, getResultByValue } = this.props
+    if (value === null) return null
     const more = this.getCompressedBound()
     return (
       <Item
         key={index}
         only={more === 1}
-        content={content}
-        data={data}
-        disabled={datum.disabled(data)}
+        value={value}
+        getDataByValue={getResultByValue}
+        getContent={data => getResultContent(data, renderResult, renderUnmatched)}
+        isDisabled={data => datum.disabled(data)}
         onClick={this.handleRemove}
         resultClassName={resultClassName}
         title
@@ -216,9 +206,9 @@ class Result extends PureComponent {
   }
 
   renderClear() {
-    const { onClear, result, disabled } = this.props
+    const { onClear, disabled, values } = this.props
 
-    if (onClear && result.length > 0 && disabled !== true) {
+    if (onClear && values.length && disabled !== true) {
       /* eslint-disable */
       return (
         <div key="clear" onClick={onClear} className={selectClass('close-warpper')}>
@@ -298,39 +288,42 @@ class Result extends PureComponent {
     const {
       multiple,
       compressed,
-      result,
       renderResult,
       renderUnmatched,
       onFilter,
       focus,
       filterText,
       resultClassName,
+      getResultByValue,
     } = this.props
+    const values = this.props.values || []
+
     if (multiple) {
-      let items = result.map((n, i) => this.renderItem(n, i)).filter(n => !isEmpty(n))
+      let items = values.map((n, i) => this.renderItem(n, i)).filter(n => !isEmpty(n))
 
       if (compressed) {
         items = this.renderMore(items)
       }
 
       if (focus && onFilter) {
-        items.push(this.renderInput(filterText, result.length))
+        items.push(this.renderInput(filterText, values.length))
       }
       return items
     }
 
+    const result0 = getResultByValue(values[0])
     if (onFilter) {
-      return this.renderInput(getResultContent(result[0], renderResult, renderUnmatched))
+      return this.renderInput(getResultContent(result0, renderResult, renderUnmatched))
     }
 
-    const v = getResultContent(result[0], renderResult, renderUnmatched)
+    const v = getResultContent(result0, renderResult, renderUnmatched)
     const title = isString(v) ? v : undefined
 
     return (
       <span
         key="result"
         title={title}
-        className={classnames(selectClass('ellipsis'), getResultClassName(resultClassName, result[0]))}
+        className={classnames(selectClass('ellipsis'), getResultClassName(resultClassName, result0))}
       >
         {v}
       </span>
@@ -398,12 +391,12 @@ Result.propTypes = {
   onFilter: PropTypes.func,
   onInputBlur: PropTypes.func,
   onInputFocus: PropTypes.func,
-  result: PropTypes.array.isRequired,
   renderResult: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
   placeholder: PropTypes.string,
   setInputReset: PropTypes.func,
   bindFocusInputFunc: PropTypes.func,
   // collapse: PropTypes.func,
+  data: PropTypes.array,
   compressed: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   compressedBound: PropTypes.number,
   trim: PropTypes.bool,
@@ -414,8 +407,8 @@ Result.propTypes = {
   resultClassName: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   maxLength: PropTypes.number,
   innerTitle: PropTypes.node,
-  keygen: PropTypes.any,
-  data: PropTypes.array,
+  values: PropTypes.array.isRequired,
+  getResultByValue: PropTypes.func,
   convertBr: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 }
 
