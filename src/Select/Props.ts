@@ -35,6 +35,10 @@ export interface BaseSelectProps<DataItem, Value>
   /**
    * @inner 内部属性
    */
+  getResultByValue: (value: Value) => ResultItem<DataItem>
+  /**
+   * @inner 内部属性
+   */
   inputFocus: boolean
   /**
    * @en Form field, used with Form
@@ -480,7 +484,7 @@ export type ResultValue<Value> = Value | UnMatchedValue<Value>
 export interface ResultProps<Item, Value>
   extends Omit<
     BaseSelectProps<Item, Value>,
-    'renderItem' | 'onChange' | 'onBlur' | 'onFocus' | 'groupKey' | 'innerData' | 'value' | 'inputFocus'
+    'renderItem' | 'onChange' | 'onBlur' | 'onFocus' | 'groupKey' | 'innerData' | 'value' | 'inputFocus' | 'result'
   > {
   datum: List<Item, Value>
   filterText?: string
@@ -489,12 +493,12 @@ export interface ResultProps<Item, Value>
   onClear?: () => void
   onInputBlur: (text: string) => void
   onInputFocus: () => void
-  result: ResultItem<Item>[]
   renderResult: ((data: Item | ResultValue<Value>, index?: number) => ReactNode)
   setInputReset: (fn: () => void) => void
   bindFocusInputFunc: (fn: (flag?: boolean) => void) => void
   // collapse: PropTypes.func,
   data: Item[]
+  values: any[]
 }
 
 /** ---------- more ---------- */
