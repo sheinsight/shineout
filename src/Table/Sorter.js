@@ -18,19 +18,19 @@ class Sorter extends PureComponent {
   }
 
   defaultSorterOrder() {
-    const { defaultOrder, current, index } = this.props
+    const { defaultOrder, current, keyStr } = this.props
     if (current.length !== 1) return
     const item = current[0]
-    const changed = index === item.index && defaultOrder === item.order
+    const changed = keyStr === item.key && defaultOrder === item.order
     if (defaultOrder && !changed && !item.manual) this.handleChange(defaultOrder, false)
   }
 
   handleChange(order, manual = true) {
-    const { sorter, index, onChange, current } = this.props
-    const item = current.find(v => v.index === index)
+    const { sorter, keyStr, onChange, current } = this.props
+    const item = current.find(v => v.key === keyStr)
     const isCancel = !!item && order === item.order
     const finalOrder = isCancel ? undefined : order
-    onChange(finalOrder, sorter, index, order, manual)
+    onChange(finalOrder, sorter, keyStr, order, manual)
   }
 
   handleAsc() {
@@ -42,8 +42,8 @@ class Sorter extends PureComponent {
   }
 
   render() {
-    const { current, index, renderSorter } = this.props
-    const item = current.find(v => v.index === index)
+    const { current, keyStr, renderSorter } = this.props
+    const item = current.find(v => v.key === keyStr)
     const active = !!item
     const isCustomRender = renderSorter && typeof renderSorter === 'function'
 
@@ -80,11 +80,11 @@ class Sorter extends PureComponent {
 
 Sorter.propTypes = {
   current: PropTypes.array,
-  index: PropTypes.number.isRequired,
   onChange: PropTypes.func.isRequired,
   sorter: PropTypes.oneOfType([PropTypes.func, PropTypes.string, PropTypes.object]).isRequired,
   defaultOrder: PropTypes.oneOf(['desc', 'asc']),
   renderSorter: PropTypes.func,
+  keyStr: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 }
 
 export default Sorter

@@ -25,10 +25,12 @@ describe('Table[sort]', () => {
       {
         title: 'id',
         render: 'id',
+        key: 'id',
       },
       {
         title: 'name',
         render: 'name',
+        key: 'name',
         sorter: order => (a, b) => {
           if (order === 'asc') return b.name.localeCompare(a.name)
           return a.name.localeCompare(b.name)
@@ -55,5 +57,20 @@ describe('Table[sort]', () => {
         .prop('data')
         .map(v => v.name)
     ).toEqual(['Tom', 'Lucy', 'Jerry', 'Jack'])
+    console.log(
+      wrapper
+        .find('thead th')
+        .at(1)
+        .html()
+    )
+
+    // 换columns顺序
+    wrapper.setProps({ columns: columns.reverse() })
+    console.log(
+      wrapper
+        .find('thead th')
+        .at(0)
+        .html()
+    )
   })
 })
