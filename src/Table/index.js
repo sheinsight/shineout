@@ -128,13 +128,13 @@ export default class extends React.Component {
     return undefined
   }
 
-  handleSortChange(order, sorter, index, cancelOrder, manual) {
+  handleSortChange(order, sorter, key, cancelOrder, manual) {
     const { onSortCancel } = this.props
     // cancel sorter
     if (!order) {
       this.setState(
         immer(state => {
-          const item = state.sorter.find(v => v.index === index)
+          const item = state.sorter.find(v => v.key === key)
           if (item) {
             item.order = undefined
             item.manual = true
@@ -144,11 +144,11 @@ export default class extends React.Component {
         () => {
           const rpm = this.state.sorter
             .filter(v => v.order && !v.deleted)
-            .map(v => ({ order: v.order, index: v.index, weight: v.weight, manual: v.manual }))
+            .map(v => ({ order: v.order, key: v.key, weight: v.weight, manual: v.manual }))
           if (typeof sorter === 'object' && typeof sorter.rule === 'function') {
             sorter.rule(rpm)
           }
-          if (onSortCancel) onSortCancel(cancelOrder, index, rpm, sorter)
+          if (onSortCancel) onSortCancel(cancelOrder, key, rpm, sorter)
         }
       )
       return
@@ -156,8 +156,8 @@ export default class extends React.Component {
     if (typeof sorter === 'object') {
       this.setState(
         immer(state => {
-          let rpm = state.sorter.map(v => ({ order: v.order, index: v.index, weight: v.weight, manual: v.manual }))
-          const item = state.sorter.find(v => v.index === index)
+          let rpm = state.sorter.map(v => ({ order: v.order, key: v.key, weight: v.weight, manual: v.manual }))
+          const item = state.sorter.find(v => v.key === key)
           if (state.sorter.length === 1 && !state.sorter[0].multiple) {
             state.sorter = []
             rpm = []
@@ -166,7 +166,7 @@ export default class extends React.Component {
             item.order = order
             item.manual = manual
             item.deleted = false
-            const rpmItem = rpm.find(v => v.index === index)
+            const rpmItem = rpm.find(v => v.key === key)
             rpmItem.order = order
             rpmItem.manual = manual
             rpm = rpm.filter(v => v.order && !v.deleted)
@@ -175,17 +175,17 @@ export default class extends React.Component {
           } else {
             if (manual) {
               this.cacheDefaultSorterList = []
-              rpm.push({ order, index, weight: sorter.weight, manual })
+              rpm.push({ order, key, weight: sorter.weight, manual })
               rpm = rpm.filter(v => v.order && !v.deleted)
             }
             if (!manual) {
-              this.cacheDefaultSorterList.push({ order, index, weight: sorter.weight, manual })
+              this.cacheDefaultSorterList.push({ order, key, weight: sorter.weight, manual })
               rpm = this.cacheDefaultSorterList
             }
             const sort = typeof sorter.rule === 'string' ? this.getTableSorter()(sorter.rule, order, rpm) : undefined
             state.sorter.push({
               order,
-              index,
+              key,
               sort,
               manual,
               multiple: true,
@@ -205,13 +205,13 @@ export default class extends React.Component {
         })
       )
     } else {
-      const sort = typeof sorter === 'string' ? this.getTableSorter()(sorter, order, [{ order, index }]) : sorter(order)
+      const sort = typeof sorter === 'string' ? this.getTableSorter()(sorter, order, [{ order, key }]) : sorter(order)
       this.setState(
         immer(state => {
           state.sorter = []
           state.sorter.push({
             order,
-            index,
+            key,
             sort,
             manual,
             multiple: false,
