@@ -19,9 +19,9 @@ export interface SorterInfo {
    */
   manual: boolean
   /**
-   * @cn 列 index
+   * @cn 列 key
    */
-  index: number
+  key: number
   /**
    * @cn 设置的权重
    */
@@ -280,7 +280,7 @@ export interface SimpleTableProps<DataItem, Value> {
   onSortChange: (
     finalOrder: ColumnOrder | undefined,
     sorter: ColumnItem<DataItem>['sorter'],
-    index: number,
+    keyStr: number | string,
     cancelOrder: ColumnOrder,
     // 是否是自动触发
     manual: boolean
@@ -456,7 +456,7 @@ export interface TheadProps<DataItem, Value> extends SimpleTableProps<DataItem, 
 }
 export interface SorterState<DataItem> {
   order: ColumnOrder | undefined
-  index: number
+  key: number
   manual: boolean
   deleted?: boolean
   multiple?: boolean
@@ -488,6 +488,7 @@ export interface ColgroupProps<DataItem> {
 export interface SorterProps<DataItem, Value> extends Pick<TheadProps<DataItem, Value>, 'renderSorter'> {
   current?: SorterState<DataItem>[]
   index: number
+  keyStr: string | number
   onChange: TheadProps<DataItem, Value>['onSortChange']
   sorter: ColumnItem<DataItem>['sorter']
   defaultOrder?: ColumnOrder
