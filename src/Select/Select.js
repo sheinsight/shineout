@@ -573,7 +573,7 @@ class Select extends PureComponent {
       datum,
       filterText,
       onCreate,
-      result,
+      // result,
       compressed,
       compressedBound,
       trim,
@@ -588,6 +588,7 @@ class Select extends PureComponent {
       data,
       onFilter,
       treeData,
+      getResultByValue,
     } = this.props
     const disabled = this.getDisabledStatus()
     const className = selectClass(
@@ -623,7 +624,9 @@ class Select extends PureComponent {
           datum={datum}
           disabled={disabled}
           focus={this.state.focus}
-          result={result}
+          // result={result}
+          values={datum.values}
+          getResultByValue={getResultByValue}
           multiple={multiple}
           placeholder={placeholder}
           renderResult={this.renderResult}
