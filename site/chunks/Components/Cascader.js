@@ -156,6 +156,19 @@ const examples = [
     parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Cascader/test-003-open.tsx'),
 
   },
+  {
+    name: 'test-004-filter-dynamic-data',
+    isTs: true,
+    isTest: true,
+    title: locate(
+      '异步动态数据筛选问题 \n 点击加载数据，然后输入2进行筛选，等待数据加载完成后选项会显示出来但是点击选项后会报错。',
+      ''
+    ),
+    component: require('doc/pages/components/Cascader/test-004-filter-dynamic-data.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Cascader/test-004-filter-dynamic-data.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Cascader/test-004-filter-dynamic-data.tsx'),
+
+  },
 ]
 
 const codes = undefined

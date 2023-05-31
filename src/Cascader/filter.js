@@ -64,6 +64,7 @@ export default Origin =>
         <Origin
           {...this.props}
           data={data}
+          sourceData={this.props.data}
           filterText={filterText}
           onFilter={this.handleFilter}
           filterDataChange={filter}
