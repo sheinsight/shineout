@@ -286,13 +286,13 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
     if (focus && e && e.target.classList.contains(selectClass('close'))) return
     const { height = DefaultValue.height, onCollapse } = this.props
     let { position } = this.props
-    const windowHeight = docSize.height
-
-    const rect = this.element.getBoundingClientRect()
-    const bottom = height + rect.bottom
-    const canDropUp = rect.top > windowHeight - rect.bottom
-    if (bottom > windowHeight && canDropUp) position = 'drop-up'
-
+    if (!position) {
+      const windowHeight = docSize.height
+      const rect = this.element.getBoundingClientRect()
+      const bottom = height + rect.bottom
+      const canDropUp = rect.top > windowHeight - rect.bottom
+      if (bottom > windowHeight && canDropUp) position = 'drop-up'
+    }
     if (onCollapse) onCollapse(focus)
     this.setState({ focus, position: position || 'drop-down' })
 
