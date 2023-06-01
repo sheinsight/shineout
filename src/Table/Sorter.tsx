@@ -18,19 +18,19 @@ class Sorter<DataItem, Value> extends PureComponent<SorterProps<DataItem, Value>
   }
 
   defaultSorterOrder() {
-    const { defaultOrder, current = [], index } = this.props
+    const { defaultOrder, current = [], keyStr } = this.props
     if (current.length !== 1) return
     const item = current[0]
-    const changed = index === item.index && defaultOrder === item.order
+    const changed = keyStr === item.key && defaultOrder === item.order
     if (defaultOrder && !changed && !item.manual) this.handleChange(defaultOrder, false)
   }
 
   handleChange(order: ColumnOrder, manual = true) {
-    const { sorter, index, onChange, current = [] } = this.props
-    const item = current.find(v => v.index === index)
+    const { sorter, keyStr, onChange, current = [] } = this.props
+    const item = current.find(v => v.key === keyStr)
     const isCancel = !!item && order === item.order
     const finalOrder = isCancel ? undefined : order
-    onChange(finalOrder, sorter, index, order, manual)
+    onChange(finalOrder, sorter, keyStr, order, manual)
   }
 
   handleAsc() {
@@ -42,8 +42,8 @@ class Sorter<DataItem, Value> extends PureComponent<SorterProps<DataItem, Value>
   }
 
   render() {
-    const { current = [], index, renderSorter } = this.props
-    const item = current.find(v => v.index === index)
+    const { current = [], keyStr, renderSorter } = this.props
+    const item = current.find(v => v.key === keyStr)
     const active = !!item
     const isCustomRender = renderSorter && typeof renderSorter === 'function'
 
