@@ -13,6 +13,7 @@ import { consumer, Provider } from './context'
 import { getUidStr } from '../utils/uid'
 import { isInDocument } from '../utils/dom/isInDocument'
 import getCommonContainer from '../utils/dom/popContainer'
+import { Provider as ScrollProvider } from '../Scroll/context'
 import { PanelProps, PopoverPositionType } from './Props'
 
 const emptyEvent = <U extends { stopPropagation: () => void }>(e: U) => e.stopPropagation()
@@ -307,7 +308,9 @@ class Panel extends Component<PanelProps, PanelState> {
         showArrow && <div key="arrow" className={popoverClass('arrow')} style={colorStyle} />,
         <div key="content" onClick={emptyEvent} className={popoverClass('content')} style={innerStyle}>
           <Provider value={this.bindChain}>
-            <AbsoluteProvider value={false}>{childrened}</AbsoluteProvider>
+            <ScrollProvider value={{ element: undefined }}>
+              <AbsoluteProvider value={false}>{childrened}</AbsoluteProvider>
+            </ScrollProvider>
           </Provider>
         </div>,
       ],
