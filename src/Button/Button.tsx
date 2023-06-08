@@ -69,7 +69,7 @@ class Button extends PureComponent<ButtonProps> {
 
     if (href && !disabled) {
       return (
-        <a href={href} {...others} className={className} ref={onRef}>
+        <a href={href} {...others} target={target} className={className} ref={onRef}>
           {this.props.children}
         </a>
       )
