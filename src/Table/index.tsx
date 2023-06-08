@@ -258,16 +258,10 @@ export default class TableIndex<DataItem, Value> extends React.Component<
   render() {
     const { onRowSelect, ...props } = this.props
     const columns = this.getFilteredColumn()
-    let { sorter } = this.state
+    const { sorter } = this.state
     if (!columns) return <Table {...(props as unknown) as TableProps<DataItem, Value>} />
 
     let { data } = this.props
-    if (!sorter.length) {
-      sorter = immer(sorter, draft => {
-        // @ts-ignore
-        draft.push({})
-      })
-    }
     sorter
       .filter(v => !v.deleted)
       .forEach(v => {
