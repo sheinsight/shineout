@@ -78,6 +78,19 @@ const examples = [
     parseTsText: require('!raw-loader!ts-loader!doc/pages/components/EditableArea/example-05-renderResult.tsx'),
 
   },
+  {
+    name: '06-innerTitle',
+    isTs: true,
+    isTest: false,
+    title: locate(
+      '内嵌标题 \n 内嵌标题',
+      'InnerTitle \n Embedded heading.'
+    ),
+    component: require('doc/pages/components/EditableArea/example-06-innerTitle.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/EditableArea/example-06-innerTitle.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/EditableArea/example-06-innerTitle.tsx'),
+
+  },
 ]
 
 const codes = undefined
