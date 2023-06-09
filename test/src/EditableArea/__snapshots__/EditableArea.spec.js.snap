@@ -56,3 +56,24 @@ exports[`EditableArea[snapshot] Snapshot test: EditableArea[site/pages/component
   </div>
 </div>
 `;
+
+exports[`EditableArea[snapshot] Snapshot test: EditableArea[site/pages/components/EditableArea/example-06-innerTitle.tsx] 1`] = `
+<div>
+  <label>
+    <div>
+      <div>
+        input something
+      </div>
+      <div>
+        <input />
+      </div>
+      <div>
+        <div>
+          input something
+        </div>
+      </div>
+    </div>
+  </label>
+  <noscript />
+</div>
+`;

@@ -6,7 +6,7 @@ import React from 'react'
 import { Button, Popover } from 'shineout'
 
 const App: React.FC = () => (
-  <Button destroy>
+  <Button>
     <Popover destroy style={{ padding: '4px 8px' }}>
       Some text
     </Popover>

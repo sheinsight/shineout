@@ -147,6 +147,8 @@ describe('editableArea[maxHeight, onBlur, onFocus, getPopoverContainer]', () => 
   wrapper.update()
   it('should call onFocus', () => {
     wrapper.find('input').simulate('focus')
+    expect(wrapper.find(`.so-input-focus`).length).toBe(2)
+    wrapper.find('input').simulate('blur')
     expect(wrapper.find(`.so-input-focus`).length).toBe(1)
   })
   //
