@@ -3,7 +3,7 @@ import * as utils from './utils'
 
 declare const __default: {
   utils: typeof utils,
-  version: '1.12.13-beta.4'
+  version: '1.12.13-beta.6'
 }
 
 export default __default
