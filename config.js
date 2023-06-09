@@ -10,8 +10,8 @@ const versions = {}
 module.exports = {
   appName: 'Shineout',
   dev: {
-    publishPort: 4000,
-    webpackPort: 4001,
+    publishPort: 3000,
+    webpackPort: 3001,
     scriptPath: '/*.*',
     scripts: [
       `/react@${versions.react}/umd/react.production.min.js`,
