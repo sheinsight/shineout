@@ -209,6 +209,19 @@ const examples = [
 
   },
   {
+    name: 'test-003-controll',
+    isTs: true,
+    isTest: true,
+    title: locate(
+      '受控加载dom \n 当 popover 受控时，检查是否加载 dom',
+      ''
+    ),
+    component: require('doc/pages/components/Popover/test-003-controll.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Popover/test-003-controll.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Popover/test-003-controll.tsx'),
+
+  },
+  {
     name: 'test-13-nested',
     isTs: true,
     isTest: true,
