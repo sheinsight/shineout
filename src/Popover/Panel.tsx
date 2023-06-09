@@ -91,6 +91,9 @@ class Panel extends Component<PanelProps, PanelState> {
   }
 
   componentDidUpdate(prevProps: PanelProps) {
+    if (this.props.visible) {
+      this.createContainer()
+    }
     if (this.props.trigger !== prevProps.trigger) {
       this.bindEvents()
     }

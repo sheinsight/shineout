@@ -1,0 +1,15 @@
+describe('Popover[content]', () => {
+  it('should custom container', () => {
+    cy.visit('/cn/components/Popover?example=test-003-controll')
+    cy.get('.so-popover-content').should('have.length', 0)
+    cy.get('.doc-example-body .so-button')
+      .first()
+      .trigger('click')
+    cy.get('.so-popover-content').should('have.length', 1)
+    cy.get('.doc-example-body .so-button')
+      .first()
+      .trigger('click')
+    cy.get('.so-popover-content').should('have.length', 1)
+    cy.get('.so-popover').should('have.css', 'display', 'none')
+  })
+})
