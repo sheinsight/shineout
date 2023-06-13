@@ -26,7 +26,7 @@ class SeperateTable extends PureComponent {
     this.state = {
       currentIndex: 0,
       scrollLeft: 0,
-      scrollTop: 0,
+      // scrollTop: 0,
       floatFixed: true,
       resize: false,
     }
@@ -45,6 +45,8 @@ class SeperateTable extends PureComponent {
     this.cachedRowHeight = []
     this.lastScrollArgs = {}
     this.lastScrollTop = 0
+
+    this.scrollTop = 0
 
     if (props.tableRef) props.tableRef(this)
   }
@@ -76,7 +78,7 @@ class SeperateTable extends PureComponent {
     if (this.rmOverScrollListener) this.rmOverScrollListener()
   }
 
-  getIndex(scrollTop = this.state.scrollTop) {
+  getIndex(scrollTop = this.scrollTop) {
     const { data, rowsInView } = this.props
     const max = data.length
     const mcf = scrollTop > 0.5 ? Math.ceil : Math.floor
@@ -146,8 +148,9 @@ class SeperateTable extends PureComponent {
       }
 
       const scrollTop = this.lastScrollTop / contentHeight
-      this.setState({ scrollTop })
-      if (scrollTop === this.state.scrollTop) {
+      // this.setState({ scrollTop })
+      this.scrollTop = scrollTop
+      if (scrollTop === this.scrollTop) {
         this.forceUpdate()
       }
     }
@@ -172,7 +175,8 @@ class SeperateTable extends PureComponent {
     this.lastScrollTop = fullHeight * top
     setTranslate(this.tbody, `-${offsetLeft}px`, `-${this.lastScrollTop}px`)
     setTimeout(() => {
-      this.setState({ scrollTop: top })
+      this.scrollTop = top
+      // this.setState({ scrollTop: top })
       this.lastScrollArgs[1] = top
     })
   }
@@ -212,7 +216,7 @@ class SeperateTable extends PureComponent {
       if (scrollLeft < 0) scrollLeft = 0
       if (scrollLeft > this.getContentWidth() - bodyWidth) scrollLeft = this.getContentWidth() - bodyWidth
       args[0] = scrollLeft / (this.getContentWidth() - args[4])
-      args[1] = this.state.scrollTop
+      args[1] = this.scrollTop
       args[6] = 0
       args[7] = 0
       this.handleScroll(...args)
@@ -249,10 +253,10 @@ class SeperateTable extends PureComponent {
   }
 
   resetHeight() {
-    const { scrollTop } = this.state
+    // const { scrollTop } = this.state
     const { treeColumnsName, changedByExpand } = this.props
     const fullHeight = this.getContentHeight()
-    const height = fullHeight * scrollTop
+    const height = fullHeight * this.scrollTop
 
     const scrollHeight = this.lastScrollArgs[5]
     // Height reduced
@@ -300,7 +304,8 @@ class SeperateTable extends PureComponent {
     } else if (this.lastScrollTop - height < 1) {
       setTimeout(() => {
         this.lastScrollArgs[1] = this.lastScrollTop / fullHeight
-        this.setState({ scrollTop: this.lastScrollTop / fullHeight })
+        // this.setState({ scrollTop: this.lastScrollTop / fullHeight })
+        this.scrollTop = this.lastScrollTop / fullHeight
       })
     }
   }
@@ -366,8 +371,8 @@ class SeperateTable extends PureComponent {
     }
 
     this.lastScrollArgs[1] = scrollTop
-
-    this.setState({ currentIndex, scrollTop }, callback)
+    this.scrollTop = scrollTop
+    this.setState({ currentIndex }, callback)
     this.lastScrollTop = offsetScrollTop
 
     this.tbody.style.marginTop = `${marginTop}px`
@@ -380,7 +385,7 @@ class SeperateTable extends PureComponent {
     const { currentIndex } = this.state
     const outerHeight = getParent(this.realTbody, `.${tableClass('body')}`).clientHeight - 12
     const lastRowHeight = this.cachedRowHeight[this.cachedRowHeight.length - 1]
-    if (this.state.scrollTop === 1 && index >= 0) return
+    if (this.scrollTop === 1 && index >= 0) return
     if (lastRowHeight && this.realTbody.clientHeight - outerHeight < lastRowHeight && index >= 0) return
     let scrollIndex = currentIndex + index + 1
     if (currentIndex === 1 && index === -1) {
@@ -462,10 +467,10 @@ class SeperateTable extends PureComponent {
       setTranslate(this.tbody, `-${left}px`, `-${this.lastScrollTop}px`)
     }
     /* set y end */
-
+    this.scrollTop = scrollTop
     this.setState({
       scrollLeft: x,
-      scrollTop,
+      // scrollTop,
       offsetLeft: left,
       offsetRight: right,
       colgroup: isResize ? undefined : colgroup,
@@ -508,7 +513,7 @@ class SeperateTable extends PureComponent {
       bordered,
       ...others
     } = this.props
-    const { colgroup, scrollTop, scrollLeft, offsetLeft, offsetRight, currentIndex, resize } = this.state
+    const { colgroup, scrollLeft, offsetLeft, offsetRight, currentIndex, resize } = this.state
     const contentWidth = this.getContentWidth()
     const minWidthSup = columns.find(d => d.minWidth)
 
@@ -527,7 +532,7 @@ class SeperateTable extends PureComponent {
 
     return (
       <Scroll
-        scrollTop={scrollTop}
+        scrollTop={this.scrollTop}
         scrollLeft={scrollLeft}
         scroll={fixed}
         scrollHeight={this.getContentHeight()}
