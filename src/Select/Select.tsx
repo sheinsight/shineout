@@ -293,8 +293,8 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
       // 计算时要算上 marginTop/marginBottom 4
       const margin = 4
       const bottom = height + rect.bottom + margin
-      const canDropUp = rect.top + rect.height + height + margin > windowHeight
-
+      const canDropUp = rect.top > windowHeight - rect.bottom
+      console.log(bottom > windowHeight , canDropUp)
       if (bottom > windowHeight && canDropUp) position = 'drop-up'
     }
     if (onCollapse) onCollapse(focus)
