@@ -190,11 +190,12 @@ class Result<Item, Value> extends PureComponent<ResultProps<Item, Value>, Result
   isEmptyResult() {
     const { values, renderResult, renderUnmatched, getResultByValue } = this.props
     if (values.length <= 0) return true
-    const hasValue = values.find(item => {
-      const cur = getResultByValue(item)
-      const r = getResultContent(cur, renderResult, renderUnmatched)
-      return !isEmpty(r)
-    })
+    const hasValue =
+      values.findIndex(item => {
+        const cur = getResultByValue(item)
+        const r = getResultContent(cur, renderResult, renderUnmatched)
+        return !isEmpty(r)
+      }) >= 0
     return !hasValue
   }
 
