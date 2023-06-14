@@ -225,15 +225,10 @@ export default class extends React.Component {
   render() {
     const { onRowSelect, ...props } = this.props
     const columns = this.getFilteredColumn()
-    let { sorter } = this.state
+    const { sorter } = this.state
     if (!columns) return <Table {...props} />
 
     let { data } = this.props
-    if (!sorter.length) {
-      sorter = immer(sorter, draft => {
-        draft.push({})
-      })
-    }
     sorter
       .filter(v => !v.deleted)
       .forEach(v => {
