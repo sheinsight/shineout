@@ -65,6 +65,7 @@ export default <DataItem, Props>(Origin: React.ComponentType<Props>) =>
         <Origin
           {...(this.props as unknown) as Props}
           data={data}
+          sourceData={this.props.data}
           filterText={filterText}
           onFilter={this.handleFilter}
           filterDataChange={filter}

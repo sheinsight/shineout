@@ -57,7 +57,7 @@ export interface FilterProps<DataItem> extends Pick<TreeDatumOptions<DataItem>, 
 
 export type GetFilterProps<Props, DataItem> = Omit<
   Props,
-  'filterText' | 'filterDataChange' | 'firstMatchNode' | 'onFilter' | 'childrenKey'
+  'filterText' | 'filterDataChange' | 'firstMatchNode' | 'onFilter' | 'childrenKey' | 'sourceData'
 > &
   Pick<FilterProps<DataItem>, 'onFilter' | 'childrenKey' | 'filterDelay'>
 
@@ -66,6 +66,10 @@ export interface OriginCascaderProps<DataItem, Value extends CascaderBaseValue>
     Pick<InputTitleProps, 'innerTitle'>,
     Pick<TreeDatumOptions<DataItem>, 'mode'>,
     Pick<StandardProps, 'style'> {
+  /**
+   * @inner 源数据
+   */
+  sourceData?: DataItem[]
   /**
    * @en Form field, used with Form
    * @cn 表单字段, 配合 Form 使用

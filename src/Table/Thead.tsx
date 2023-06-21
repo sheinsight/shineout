@@ -177,6 +177,7 @@ class Thead<DataItem, Value> extends PureComponent<TheadProps<DataItem, Value>> 
                 {...colTemp}
                 sorter={colTemp.sorter}
                 current={sorter}
+                keyStr={col.key}
                 onChange={onSortChange}
                 renderSorter={this.props.renderSorter}
               />

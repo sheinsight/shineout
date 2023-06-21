@@ -150,8 +150,8 @@ class Cascader<DataItem, Value extends CascaderBaseValue> extends PureComponent<
   componentDidUpdate(prevProps: OriginCascaderProps<DataItem, Value>, prevState: State<Value>) {
     this.datum.mode = this.props.mode
     this.setOpenEvent()
-    const { onFilter, filterDataChange, filterText } = this.props
-    if (!filterDataChange && prevProps.data !== this.props.data) this.datum.setData(this.props.data, true)
+    const { onFilter, filterText } = this.props
+    if (prevProps.sourceData !== this.props.sourceData) this.datum.setData(this.props.sourceData, true)
     if (prevProps.value !== this.props.value) {
       this.datum.setValue(this.props.value || (([] as unknown) as Value))
       this.updatePathByValue()
