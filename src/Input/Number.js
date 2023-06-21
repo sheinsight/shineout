@@ -186,6 +186,7 @@ class Number extends PureComponent {
         onKeyDown={this.handleKeyDown}
         onKeyUp={this.handleKeyUp}
         onBlur={this.handleBlur}
+        cancelBlurChange
         type="number"
       />,
     ]
@@ -206,6 +207,7 @@ class Number extends PureComponent {
         onKeyDown={this.handleKeyDown}
         onKeyUp={this.handleKeyUp}
         onBlur={this.handleBlur}
+        cancelBlurChange
         type="number"
       />,
       ...this.renderArrowGroup(),
