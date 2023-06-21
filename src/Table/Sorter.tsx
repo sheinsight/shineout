@@ -19,8 +19,8 @@ class Sorter<DataItem, Value> extends PureComponent<SorterProps<DataItem, Value>
 
   defaultSorterOrder() {
     const { defaultOrder, current = [], keyStr } = this.props
-    if (current.length !== 1) return
-    const item = current[0]
+    if (current.length > 1) return
+    const item = current[0] || {}
     const changed = keyStr === item.key && defaultOrder === item.order
     if (defaultOrder && !changed && !item.manual) this.handleChange(defaultOrder, false)
   }
