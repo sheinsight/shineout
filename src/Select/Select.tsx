@@ -678,7 +678,6 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
       datum,
       filterText,
       onCreate,
-      result,
       compressed,
       compressedBound,
       trim,
@@ -727,7 +726,8 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
           datum={datum}
           disabled={disabled}
           focus={this.focus}
-          result={result}
+          values={datum.values}
+          getResultByValue={this.props.getResultByValue}
           multiple={multiple}
           placeholder={placeholder}
           renderResult={this.renderResult}

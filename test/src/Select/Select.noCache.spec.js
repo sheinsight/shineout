@@ -45,6 +45,7 @@ describe('Select noCache', () => {
     options.at(0).simulate('click')
     // change the data
     wrapper.setProps({ data: data2 })
-    expect(wrapper.find('Select').prop('result')).toEqual([data2[0]])
+    wrapper.update()
+    expect(wrapper.find('.so-select-input').text()).toBe('name')
   })
 })

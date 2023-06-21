@@ -33,7 +33,8 @@ export default <Item, Value>(Origin: React.ComponentType<SelectPropsWidthTiled<I
       }
       this.handleCreate = this.handleCreate.bind(this)
       this.handleFilter = this.handleFilter.bind(this)
-      this.getResultByValues = this.getResultByValues.bind(this)
+      // this.getResultByValues = this.getResultByValues.bind(this)
+      this.getCachedResult = this.getCachedResult.bind(this)
 
       this.resultCache = new Map()
     }
@@ -79,24 +80,30 @@ export default <Item, Value>(Origin: React.ComponentType<SelectPropsWidthTiled<I
       return undefined
     }
 
-    getResultByValues() {
-      const { datum, noCache } = this.props
-      const { values = [] }: { values: Value[] } = datum
-      const result: (Item | ResultValue<Value>)[] = []
-      values.forEach(v => {
-        let res: Item | ResultValue<Value> | undefined = noCache ? undefined : this.resultCache.get(v)
-        if (!res) {
-          res = this.getResult(v)
-          if (res !== undefined && !noCache) this.resultCache.set(v, res)
-          else if (res === undefined) res = { [IS_NOT_MATCHED_VALUE]: true, value: v }
-        }
-        if (res !== undefined) {
-          result.push(res)
-        }
-      })
-
-      return result
+    getCachedResult(value: Value) {
+      const { noCache } = this.props
+      let res: Item | ResultValue<Value> | undefined = noCache ? undefined : this.resultCache.get(value)
+      if (!res) {
+        res = this.getResult(value)
+        if (res !== undefined && !noCache) this.resultCache.set(value, res)
+        else if (res === undefined) res = { [IS_NOT_MATCHED_VALUE]: true, value }
+      }
+      return res
     }
+
+    // getResultByValues() {
+    //   const { datum } = this.props
+    //   const { values = [] }: { values: Value[] } = datum
+    //   const result: (Item | ResultValue<Value>)[] = []
+    //   values.forEach(v => {
+    //     const res = this.getCachedResult(v)
+    //     if (res !== undefined) {
+    //       result.push(res)
+    //     }
+    //   })
+    //
+    //   return result
+    // }
 
     handleFilter(text: string, from = 'edit') {
       const { filterDelay, onFilter, onCreate } = this.props
@@ -184,7 +191,8 @@ export default <Item, Value>(Origin: React.ComponentType<SelectPropsWidthTiled<I
         ...other,
         filterText,
         inputText: text,
-        result: this.getResultByValues(),
+        // result: this.getResultByValues(),
+        getResultByValue: this.getCachedResult,
         inputable: !!onCreate,
         onCreate: onCreate ? this.handleCreate : undefined,
         onFilter: filterFn,

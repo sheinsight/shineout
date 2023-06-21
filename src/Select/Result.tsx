@@ -10,10 +10,10 @@ import Caret from '../icons/Caret'
 import { isRTL } from '../config'
 import More, { getResetMore } from './More'
 import InputTitle from '../InputTitle'
-import { getKey } from '../utils/uid'
 import { getDirectionClass } from '../utils/classname'
 import { ResultProps } from './Props'
 import { ResultItem, UnMatchedValue } from '../@types/common'
+import ShallowEqual from '../utils/shallowEqual'
 
 export const IS_NOT_MATCHED_VALUE = 'IS_NOT_MATCHED_VALUE'
 
@@ -50,24 +50,30 @@ const getResultContent = <Item, Value>(
 
 // eslint-disable-next-line
 function Item<Item, Value>({
-  content,
-  data,
-  disabled,
+  isDisabled,
   onClick,
   resultClassName,
+  value,
+  getDataByValue,
+  getContent,
   title = false,
   only,
 }: {
-  content: React.ReactNode | string
-  data: ResultItem<Item>
-  disabled: boolean
+  value: Value
+  getDataByValue: (value: Value) => ResultItem<Item>
+  getContent: (data: ResultItem<Item>) => React.ReactNode | string
+  isDisabled: (value: ResultItem<Item>) => boolean
   onClick: (value: ResultItem<Item>) => void
   resultClassName: ResultProps<Item, Value>['resultClassName']
   title: boolean
   only: boolean
 }) {
-  const value = data
-  const click = disabled || !onClick ? undefined : () => onClick(value)
+  const data = getDataByValue(value)
+  if (data === null) return null
+  const content = getContent(data)
+
+  const disabled = isDisabled(data)
+  const click = disabled || !onClick ? undefined : () => onClick(data)
   const synDisabled = disabled || !click
   return (
     <a
@@ -145,36 +151,15 @@ class Result<Item, Value> extends PureComponent<ResultProps<Item, Value>, Result
   }
 
   updateMore(preProps: ResultProps<Item, Value>) {
-    const { result, compressed, onFilter, keygen, data } = this.props
+    const { compressed, onFilter, values, data } = this.props
 
     if (compressed) {
       if (this.isCompressedBound()) return
 
-      let shouldRest = false
-      if (preProps.result.length !== result.length || (data || []).length !== (preProps.data || []).length) {
-        shouldRest = true
-      } else if (preProps.result !== result) {
-        const getUnMatchKey = (d: ResultItem<Item>, k: ResultProps<Item, Value>['keygen']) => {
-          const unMatchedData = d as UnMatchedValue
-          return d && isObject(unMatchedData) && unMatchedData.IS_NOT_MATCHED_VALUE
-            ? unMatchedData.value
-            : getKey(d, k as any)
-        }
-
-        const isSameData = (data1: ResultItem<Item>, data2: ResultItem<Item>, k: ResultProps<Item, Value>['keygen']) =>
-          getUnMatchKey(data1, k) === getUnMatchKey(data2, k)
-        let i = preProps.result.length - 1
-        while (i >= 0) {
-          if (!isSameData(result[i], preProps.result[i], keygen)) {
-            shouldRest = true
-            break
-          }
-          i -= 1
-        }
-      }
+      const shouldRest = !ShallowEqual(preProps.values, values) || (data || []).length !== (preProps.data || []).length
       if (shouldRest) {
         this.resetMore()
-      } else if (result.length && this.shouldResetMore) {
+      } else if ((values || []).length && this.shouldResetMore) {
         this.shouldResetMore = false
         // @ts-ignore
         this.state.more = getResetMore(
@@ -203,34 +188,33 @@ class Result<Item, Value> extends PureComponent<ResultProps<Item, Value>, Result
   }
 
   isEmptyResult() {
-    const { result, renderResult, renderUnmatched } = this.props
-    if (result.length <= 0) return true
-    const res = result.reduce((acc: ResultItem<Item>[], cur) => {
-      const r = getResultContent(cur, renderResult, renderUnmatched)
-      if (!isEmpty(r)) {
-        acc.push(cur)
-      }
-      return acc
-    }, [])
-    return res.length <= 0
+    const { values, renderResult, renderUnmatched, getResultByValue } = this.props
+    if (values.length <= 0) return true
+    const hasValue =
+      values.findIndex(item => {
+        const cur = getResultByValue(item)
+        const r = getResultContent(cur, renderResult, renderUnmatched)
+        return !isEmpty(r)
+      }) >= 0
+    return !hasValue
   }
 
   handelMore(more: number) {
     this.setState({ more })
   }
 
-  renderItem(data: ResultItem<Item>, index: number) {
-    const { renderResult, renderUnmatched, datum, resultClassName } = this.props
-    const content = getResultContent(data, renderResult, renderUnmatched)
-    if (content === null) return null
+  renderItem(value: any, index: number) {
+    const { renderResult, renderUnmatched, datum, resultClassName, getResultByValue } = this.props
+    if (value === null) return null
     const more = this.getCompressedBound()
     return (
       <Item
         key={index}
         only={more === 1}
-        content={content}
-        data={data}
-        disabled={datum.disabled(data)}
+        value={value}
+        getDataByValue={getResultByValue}
+        getContent={data => getResultContent(data, renderResult, renderUnmatched)}
+        isDisabled={data => datum.disabled(data)}
         onClick={this.handleRemove}
         resultClassName={resultClassName}
         title
@@ -259,9 +243,8 @@ class Result<Item, Value> extends PureComponent<ResultProps<Item, Value>, Result
   }
 
   renderClear() {
-    const { onClear, result, disabled } = this.props
-
-    if (onClear && result.length > 0 && disabled !== true) {
+    const { onClear, disabled, values } = this.props
+    if (onClear && values && values.length && disabled !== true) {
       /* eslint-disable */
       return (
         <div key="clear" onClick={onClear} className={selectClass('close-warpper')}>
@@ -337,39 +320,42 @@ class Result<Item, Value> extends PureComponent<ResultProps<Item, Value>, Result
     const {
       multiple,
       compressed,
-      result,
       renderResult,
       renderUnmatched,
       onFilter,
       focus,
       filterText,
       resultClassName,
+      getResultByValue,
     } = this.props
+
+    const values = this.props.values || []
+
     if (multiple) {
-      let items = result.map((n, i) => this.renderItem(n, i)).filter(n => !isEmpty(n))
+      let items = values.map((n, i) => this.renderItem(n, i)).filter(n => !isEmpty(n))
 
       if (compressed) {
         items = this.renderMore(items)
       }
 
       if (focus && onFilter) {
-        items.push(this.renderInput(filterText, result.length))
+        items.push(this.renderInput(filterText, values.length))
       }
       return items
     }
-
+    const result0 = getResultByValue(values[0])
     if (onFilter) {
-      return this.renderInput(getResultContent(result[0], renderResult, renderUnmatched))
+      return this.renderInput(getResultContent(result0, renderResult, renderUnmatched))
     }
 
-    const v = getResultContent(result[0], renderResult, renderUnmatched)
+    const v = getResultContent(result0, renderResult, renderUnmatched)
     const title = isString(v) ? v : undefined
 
     return (
       <span
         key="result"
         title={title as string}
-        className={classnames(selectClass('ellipsis'), getResultClassName(resultClassName, result[0]))}
+        className={classnames(selectClass('ellipsis'), getResultClassName(resultClassName, result0))}
       >
         {v}
       </span>
