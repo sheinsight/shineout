@@ -178,7 +178,8 @@ class Input extends PureComponent<Props> {
     if (!shouldKeepUndefined && !this.invalidNumber(newVal)) {
       if (this.getTrim()) newVal = newVal.trim()
       const change = forceChange || onChange
-      change(newVal)
+      // @ts-ignore cancelBlurChange 内部属性
+      if (!this.props.cancelBlurChange) change(newVal)
       e.target.value = newVal
     }
     if (onBlur) onBlur(e)
