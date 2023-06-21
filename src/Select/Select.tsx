@@ -288,8 +288,11 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
     let { position } = this.props
     if (!position) {
       const windowHeight = docSize.height
-      const rect = this.element.getBoundingClientRect()
-      const bottom = height + rect.bottom
+      const rectElement = this.element.parentElement || this.element
+      const rect = rectElement.getBoundingClientRect()
+      // 计算时要算上 marginTop/marginBottom 4
+      const margin = 4
+      const bottom = height + rect.bottom + margin
       const canDropUp = rect.top > windowHeight - rect.bottom
       if (bottom > windowHeight && canDropUp) position = 'drop-up'
     }

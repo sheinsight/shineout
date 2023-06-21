@@ -416,6 +416,19 @@ const examples = [
     parseTsText: require('!raw-loader!doc/pages/components/Select/test-006-open.tsx'),
 
   },
+  {
+    name: 'test-007-droplist',
+    isTs: true,
+    isTest: true,
+    title: locate(
+      'T:菜单下拉上拉判断错误 \n ',
+      ' \n '
+    ),
+    component: require('doc/pages/components/Select/test-007-droplist.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Select/test-007-droplist.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Select/test-007-droplist.tsx'),
+
+  },
 ]
 
 const codes = undefined
