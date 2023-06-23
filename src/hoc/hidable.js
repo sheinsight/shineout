@@ -59,7 +59,9 @@ export default function(Component, { type = ['fade'], duration = 360, display = 
     }
 
     show() {
-      const es = this.getElement().style
+      const el = this.getElement()
+      if (!el) return
+      const es = el.style
       es.display = display
 
       setTimeout(() => {

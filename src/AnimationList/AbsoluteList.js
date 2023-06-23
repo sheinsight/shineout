@@ -16,15 +16,21 @@ import { isInDocument } from '../utils/dom/isInDocument'
 const PICKER_V_MARGIN = 4
 let root
 
-function initRoot() {
+function initRoot(element) {
   const defaultContainer = getDefaultContainer()
   root = document.createElement('div')
   root.className = listClass('root', isRTL() && 'rtl')
   defaultContainer.appendChild(root)
+  if (element) {
+    root.appendChild(element)
+  }
 }
 
-function getRoot() {
-  if (!root || isInDocument(root) === false) initRoot()
+function getRoot(element) {
+  if (!root || isInDocument(root) === false) initRoot(element)
+  if (element && isInDocument(element) === false) {
+    root.appendChild(element)
+  }
   return root
 }
 
@@ -111,7 +117,7 @@ export default function(List) {
 
       const { container } = this
       const defaultContainer = getDefaultContainer()
-      const rootContainer = container === getRoot() || !container ? defaultContainer : container
+      const rootContainer = container === getRoot(this.element) || !container ? defaultContainer : container
       const containerRect = rootContainer.getBoundingClientRect()
       const containerScroll = {
         left: rootContainer.scrollLeft,
