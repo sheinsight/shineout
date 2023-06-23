@@ -15,15 +15,24 @@ import { AbsoluteProps, GetAbsoluteProps } from './Props'
 
 const PICKER_V_MARGIN = 4
 let root: HTMLDivElement
-function initRoot() {
+
+function initRoot(element?: HTMLElement) {
   const defaultContainer = getDefaultContainer()
   root = document.createElement('div')
   root.className = listClass('root', isRTL() && 'rtl')
   defaultContainer.appendChild(root)
+
+  if (element && isInDocument(element) === false) {
+    root.appendChild(element)
+  }
 }
 
-function getRoot() {
-  if (!root || isInDocument(root) === false) initRoot()
+function getRoot(element?: HTMLElement) {
+  if (!root || isInDocument(root) === false) initRoot(element)
+
+  if (element && isInDocument(element) === false) {
+    root.appendChild(element)
+  }
   return root
 }
 
@@ -33,7 +42,7 @@ const listPosition = ['drop-down', 'drop-up']
 const pickerPosition = ['left-bottom', 'left-top', 'right-bottom', 'right-top']
 const dropdownPosition = ['bottom-left', 'bottom-right', 'top-left', 'top-right']
 
-export default function<U extends {}>(List: ComponentType<U>) {
+export default function <U extends {}>(List: ComponentType<U>) {
   class AbsoluteList extends Component<AbsoluteProps> {
     state = {
       overdoc: false,
@@ -60,7 +69,7 @@ export default function<U extends {}>(List: ComponentType<U>) {
       this.lastStyle = {}
 
       if (!root) initRoot()
-      this.container = typeof this.props.absolute === 'function' ? this.props.absolute() : getRoot()
+      this.container = this.getContainer()
       this.element = document.createElement('div')
       if (this.container) this.container.appendChild(this.element)
       if (props.getResetPosition) {
@@ -71,7 +80,7 @@ export default function<U extends {}>(List: ComponentType<U>) {
 
     componentDidMount() {
       if (this.props.absolute && !this.container) {
-        this.container = typeof this.props.absolute === 'function' ? this.props.absolute() : getRoot()
+        this.container = this.getContainer()
         this.container.appendChild(this.element)
         if (this.props.focus) {
           this.forceUpdate()
@@ -99,6 +108,10 @@ export default function<U extends {}>(List: ComponentType<U>) {
       }
     }
 
+    getContainer(element?: HTMLElement) {
+      return typeof this.props.absolute === 'function' ? this.props.absolute() : getRoot(element)
+    }
+
     getPosition(rect: DOMRect) {
       const { fixed } = this.props
       let { position } = this.props as { position: string }
@@ -121,8 +134,7 @@ export default function<U extends {}>(List: ComponentType<U>) {
       if (rtl) {
         position = getRTLPosition(position)
       }
-
-      const { container } = this
+      const container = this.getContainer(this.element)
       const defaultContainer = getDefaultContainer()
       const rootContainer = container === getRoot() || !container ? defaultContainer : container
       const containerRect = rootContainer.getBoundingClientRect()
