@@ -10,10 +10,9 @@ export default (regExp: string | RegExp | undefined, options: {message: string})
       return
     }
     if (reg.global) reg.lastIndex = 0
-    if (typeof value === 'string' && reg.test(value)) {
+    if (reg.test(value as string)) {
       callback(true)
     } else {
       callback(new Error(message))
-      return
     }
   })
