@@ -17,7 +17,7 @@ export interface FieldSetChildrenFunc<Value = any> {
     params: {
       list: any
       value: Value
-      onChange: (value: Value) => void
+      onChange: (value: Value[]) => void
       onRemove: () => void
       index: number
       onInsert: (value: Value) => void
