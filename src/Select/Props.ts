@@ -615,7 +615,7 @@ export interface GroupProps<Item, Value> extends Omit<BaseSelectProps<Item, Valu
 
 export type GetFilterProps<Props, Item> = Omit<
   Props,
-  'filterText' | 'result' | 'innerData' | 'onFilter' | 'data' | 'inputText' | 'inputable'
+  'filterText' | 'result' | 'innerData' | 'onFilter' | 'data' | 'inputText' | 'inputable' | 'getResultByValue'
 > & {
   /**
    * @en Options data
