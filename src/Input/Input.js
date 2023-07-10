@@ -166,7 +166,7 @@ class Input extends PureComponent {
     if (!shouldKeepUndefined && !this.invalidNumber(newVal)) {
       if (this.getTrim()) newVal = newVal.trim()
       const change = forceChange || onChange
-      change(newVal)
+      if (!this.props.cancelBlurChange) change(newVal)
       e.target.value = newVal
     }
     if (onBlur) onBlur(e)
@@ -287,6 +287,7 @@ Input.propTypes = {
   placeholder: PropTypes.string,
   coin: PropTypes.bool,
   trim: PropTypes.bool,
+  cancelBlurChange: PropTypes.bool,
 }
 
 Input.defaultProps = {
