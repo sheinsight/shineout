@@ -1,3 +1,4 @@
+import { ReactNode } from 'react'
 import { StandardProps } from '../@types/common'
 import { SelectProps } from '../Select/Props'
 
@@ -44,7 +45,7 @@ export interface PaginationProps extends StandardProps {
    * @cn 子组件布局，可选值为:'links': 页码；'simple': 简约页码(和links不要同时使用)；'list': 每页数量选择。'jumper': 跳转页码；function({ current, total, pageSize }): 匿名函数，用来信息展示
    * @default ['links']
    */
-  layout?: Array<'links' | 'simple' | 'list' | 'jumper' | ((props: PaginationProps) => string)>
+  layout?: Array<'links' | 'simple' | 'list' | 'jumper' | ((props: PaginationProps) => ReactNode)>
 
   /**
    * @en The callback function when current page or pageSize is changing。current: new page number。pageSize: number of each page
