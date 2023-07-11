@@ -64,6 +64,13 @@ export interface BaseCardGroupItemProps<Value> extends StandardProps, CardContex
    *
    */
   placeholder?: ReactNode
+  /**
+   * @en lazyLoad offset
+   * @cn 懒加载渲染时与容器的距离
+   * @default 0
+   *
+   */
+  lazyOffset?: number
 
   /**
    * @en checked status, hide while not set

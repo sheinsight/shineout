@@ -12,10 +12,10 @@ class Item<T> extends React.Component<BaseCardGroupItemProps<T>, {}> {
   }
 
   renderChildren(content: ReactNode) {
-    const { placeholder, container } = this.props
+    const { placeholder, container, lazyOffset } = this.props
     if (!placeholder) return content
     return (
-      <Lazyload container={container} placeholder={placeholder}>
+      <Lazyload container={container} placeholder={placeholder} offset={lazyOffset}>
         {content}
       </Lazyload>
     )
