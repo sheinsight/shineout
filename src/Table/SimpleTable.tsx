@@ -39,6 +39,8 @@ class SimpleTable<DataItem, Value> extends PureComponent<SimpleTableProps<DataIt
 
   lastColGroup: number[]
 
+  cyclicCounter: number
+
   constructor(props: SimpleTableProps<DataItem, Value>) {
     super(props)
 
@@ -55,6 +57,10 @@ class SimpleTable<DataItem, Value> extends PureComponent<SimpleTableProps<DataIt
     this.handleScroll = this.handleScroll.bind(this)
     this.handleColgroup = this.handleColgroup.bind(this)
     this.resetColGroup = this.resetColGroup.bind(this)
+
+    // 循环计数器。某些情况[*]下滚动条的出现会导致死循环问题，这里做一个计数器，超过一定次数就不再重置，认定最大 10 次为死循环
+    // [*] 横向滚动条的出现可能导致竖向滚动条从有到无。此时需要重新计算表头的宽度，否则会出现表头与表格内容不对齐的问题。纵向滚动条消失后，可能导致横向滚动条宽度足够，纵向滚动条再次出现，又导致横向滚动条消失，如此循环。
+    this.cyclicCounter = 0
   }
 
   componentDidMount() {
@@ -94,10 +100,20 @@ class SimpleTable<DataItem, Value> extends PureComponent<SimpleTableProps<DataIt
 
   scrollCheck() {
     if (!this.body) return
+    if (this.cyclicCounter > 10) {
+      this.setState({ overHeight: true })
+      return
+    }
     const overHeight = this.body.scrollHeight > this.body.clientHeight
     const overWidth = this.body.scrollWidth > this.body.clientWidth
     if (overWidth !== this.state.overWidth) this.setState({ overWidth })
     if (overHeight !== this.state.overHeight) this.setState({ overHeight })
+
+    this.cyclicCounter += 1
+
+    setTimeout(() => {
+      this.cyclicCounter = 0
+    })
   }
 
   handleSortChange(
