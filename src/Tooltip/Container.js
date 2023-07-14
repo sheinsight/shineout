@@ -4,6 +4,7 @@ import { tooltipClass } from './styles'
 import { scrollConsumer } from '../Scroll/context'
 import { getUidStr } from '../utils/uid'
 import { getPosition } from '../utils/dom/popover'
+import getCommonContainer from '../utils/dom/popContainer'
 
 export default function(options) {
   const { show, hide, move, isCurrent } = options
@@ -39,9 +40,10 @@ export default function(options) {
     }
 
     getPosition() {
+      const container = getCommonContainer()
       const { position } = this.props
       const el = this.getElement()
-      return getPosition(position, el)
+      return getPosition(position, el, container)
     }
 
     elementRef(el) {
@@ -129,10 +131,7 @@ export default function(options) {
     animation: PropTypes.bool,
     children: PropTypes.element.isRequired,
     // eslint-disable-next-line
-    content: PropTypes.oneOfType([
-      PropTypes.element,
-      PropTypes.func,
-    ]),
+    content: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
     delay: PropTypes.number,
     position: PropTypes.oneOf([
       'top-left',
