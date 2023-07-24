@@ -344,7 +344,7 @@ class Container extends PureComponent<ContainerProps, ContainerState> {
     }
 
     if (focus === true) {
-      this.firstRender = true
+      // this.firstRender = true
       // this.props.onFocus()
       this.bindClickAway()
     } else {
@@ -601,7 +601,9 @@ class Container extends PureComponent<ContainerProps, ContainerState> {
   }
 
   renderPicker() {
-    if (!this.firstRender) return undefined
+    if (!this.firstRender && !this.focus) return undefined
+
+    this.firstRender = true
 
     const {
       range,
