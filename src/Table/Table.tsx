@@ -56,7 +56,7 @@ class Table<DataItem, Value> extends Component<OriginTableProps<DataItem, Value>
   }
 
   componentDidMount() {
-    if (this.props.sticky && this.table && global.IntersectionObserver) {
+    if (this.props.sticky && this.table && window.IntersectionObserver) {
       const observer = new IntersectionObserver(entries => {
         const entry = entries[0]
         this.setState({
