@@ -220,6 +220,7 @@ class Input extends PureComponent {
       clearToUndefined,
       placeholder,
       coin,
+      cancelBlurChange,
       ...other
     } = this.props
     const value = this.props.value == null || this.props.value === undefined ? '' : this.props.value
