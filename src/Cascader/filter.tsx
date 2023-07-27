@@ -59,7 +59,7 @@ export default <DataItem, Props>(Origin: React.ComponentType<Props>) =>
     render() {
       const { onFilter } = this.props
       const { filterText, filter } = this.state
-      if (!onFilter) return <Origin {...(this.props as unknown) as Props} />
+      if (!onFilter) return <Origin {...(this.props as unknown) as Props} sourceData={this.props.data} />
       const data = this.getData()
       return (
         <Origin
