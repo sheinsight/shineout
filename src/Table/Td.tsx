@@ -3,6 +3,7 @@ import classnames from 'classnames'
 import { tableClass } from './styles'
 import Checkbox from './Checkbox'
 import { TdProps } from './Props'
+import { getDirectionX } from '../utils/dom/translate'
 
 export const CLASS_FIXED_LEFT = 'fixed-left'
 export const CLASS_FIXED_RIGHT = 'fixed-right'
@@ -136,7 +137,19 @@ class Td<DataItem, Value> extends PureComponent<TdProps<DataItem, Value>> {
   }
 
   render() {
-    const { rowSpan, colSpan, fixed, style, firstFixed, lastFixed, type, align, ignoreBorderRight } = this.props
+    const {
+      rowSpan,
+      colSpan,
+      fixed,
+      style = {},
+      firstFixed,
+      lastFixed,
+      type,
+      align,
+      ignoreBorderRight,
+      offsetLeft,
+      offsetRight,
+    } = this.props
 
     const className = classnames(
       this.props.className,
@@ -151,8 +164,16 @@ class Td<DataItem, Value> extends PureComponent<TdProps<DataItem, Value>> {
       )
     )
 
+    const newStyle = { ...style }
+    if (fixed === 'left' && offsetLeft) {
+      newStyle.transform = `translateX(${getDirectionX(`${offsetLeft}px`)})`
+    }
+    if (fixed === 'right' && offsetRight) {
+      newStyle.transform = `translateX(${getDirectionX(`-${offsetRight}px`)})`
+    }
+
     return (
-      <td style={style} className={className} rowSpan={rowSpan} colSpan={colSpan}>
+      <td style={newStyle} className={className} rowSpan={rowSpan} colSpan={colSpan}>
         {this.renderContent()}
       </td>
     )

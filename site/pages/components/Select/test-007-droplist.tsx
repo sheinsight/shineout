@@ -26,7 +26,7 @@ const data: SelectItem[] = [
 
 const App: React.FC = () => (
   <div id="scrollContainer" style={{ height: 200, overflow: 'auto', width: 500 }}>
-    <div style={{ height: 300, width: 500 }}>
+    <div style={{ height: 300 }}>
       <Select
         height={350}
         keygen

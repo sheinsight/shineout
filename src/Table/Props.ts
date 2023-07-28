@@ -432,6 +432,8 @@ export interface TdProps<DataItem, Value>
       | 'treeExpandLevel'
       | 'treeIndent'
       | 'treeEmptyExpand'
+      | 'offsetLeft'
+      | 'offsetRight'
     >,
     Row<DataItem> {
   render?: ColumnItem<DataItem>['render']
