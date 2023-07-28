@@ -1,10 +1,9 @@
 import React, { Component, ReactNode } from 'react'
 import classnames from 'classnames'
-import { setTranslate } from '../utils/dom/translate'
 import { tableClass } from './styles'
 import { inputClass } from '../Input/styles'
 import { checkinputClass } from '../Checkbox/styles'
-import Td, { CLASS_FIXED_LEFT, CLASS_FIXED_RIGHT } from './Td'
+import Td from './Td'
 import Expand from './Expand'
 import { TrProps } from './Props'
 import { isFunc } from '../utils/is'
@@ -61,17 +60,6 @@ class Tr<DataItem, Value> extends Component<TrProps<DataItem, Value>> {
   }
 
   componentDidMount() {
-    const { offsetLeft, offsetRight } = this.props
-    if (offsetLeft) {
-      ;[].forEach.call(this.element.querySelectorAll(`.${tableClass(CLASS_FIXED_LEFT)}`), (td: HTMLElement) => {
-        setTranslate(td, `${offsetLeft}px`, '0')
-      })
-    }
-    if (offsetRight) {
-      ;[].forEach.call(this.element.querySelectorAll(`.${tableClass(CLASS_FIXED_RIGHT)}`), (td: HTMLElement) => {
-        setTranslate(td, `-${offsetRight}px`, '0')
-      })
-    }
     this.manualExpand = true
     this.setRowHeight()
   }
@@ -244,6 +232,8 @@ class Tr<DataItem, Value> extends Component<TrProps<DataItem, Value>> {
             // @ts-ignore  这儿重复了
             index={index}
             {...data[i]}
+            offsetLeft={offsetLeft}
+            offsetRight={offsetRight}
           />
         )
         tds.push(td)

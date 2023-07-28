@@ -11,7 +11,7 @@ interface TranslateStyleType extends CSSStyleDeclaration {
 
 let use3d: boolean
 
-const getDirectionX = (xs: string) => {
+export const getDirectionX = (xs: string) => {
   const num = Number.parseFloat(xs)
   const numStr = String(num)
   const start = xs.indexOf(numStr) + numStr.length
