@@ -24,6 +24,7 @@ function Item<DataItem>({
   singleRemove,
   click,
   only,
+  isDisabled,
 }: ResultItemProps<DataItem>) {
   const onClose = close
     ? (e: any) => {
@@ -38,11 +39,14 @@ function Item<DataItem>({
   return (
     <a
       tabIndex={-1}
-      className={classnames(cascaderClass(getDirectionClass('item'), only && 'item-only'), className)}
+      className={classnames(
+        cascaderClass(getDirectionClass('item'), only && 'item-only', isDisabled && 'item-disabled'),
+        className
+      )}
       onClick={onClick}
     >
       {children}
-      {singleRemove && (
+      {singleRemove && !isDisabled && (
         <span className={cascaderClass(getDirectionClass('single-remove'))} onClick={onClose}>
           {icons.Close}
         </span>
@@ -189,13 +193,7 @@ class Result<DataItem, Value extends CascaderBaseValue> extends PureComponent<
 
     if (clearable && value.length > 0) {
       /* eslint-disable */
-      return (
-        <a
-          tabIndex={-1}
-          className={className}
-          onClick={onClear}
-        />
-      )
+      return <a tabIndex={-1} className={className} onClick={onClear} />
       /* eslint-enable */
     }
 
@@ -240,6 +238,7 @@ class Result<DataItem, Value extends CascaderBaseValue> extends PureComponent<
         singleRemove={singleRemove}
         close={this.removeTargetNode}
         isPopover
+        isDisabled={datum.isDisabled(datum.getKey(data))}
         click={this.handleNodeClick}
       >
         {res}
