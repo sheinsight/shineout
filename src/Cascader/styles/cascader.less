@@ -28,10 +28,10 @@
     overflow-y: auto;
     flex-grow: 1;
     &-ltr {
-      padding: @padding-base-vertical @padding-base-horizontal+@baseOffset 0 @padding-base-horizontal;
+      padding: @padding-base-vertical @padding-base-horizontal+ @baseOffset 0 @padding-base-horizontal;
     }
     &-rtl {
-      padding: @padding-base-vertical   @padding-base-horizontal 0  @padding-base-horizontal+@baseOffset;
+      padding: @padding-base-vertical @padding-base-horizontal 0 @padding-base-horizontal+ @baseOffset;
     }
 
     .@{so-prefix}-input-placeholder {
@@ -59,7 +59,7 @@
       &-compressed {
         padding: 0 8px;
         font-size: 80%;
-        opacity: .9;
+        opacity: 0.9;
         > span {
           //vertical-align: middle;
           letter-spacing: 2px;
@@ -108,7 +108,7 @@
           transform: translateY(-1px);
 
           path {
-            transition: all .2s;
+            transition: all 0.2s;
             fill: @gray-500;
           }
         }
@@ -124,6 +124,10 @@
       background: @select-result-bg;
       font-size: @font-size-base;
       color: @gray-700;
+      &-disabled {
+        cursor: not-allowed;
+        color: @input-disabled-color;
+      }
     }
 
     .@{cascader-prefix}-input {
@@ -145,7 +149,7 @@
     }
   }
 
-  &-disabled &-result{
+  &-disabled &-result {
     cursor: not-allowed;
     .so-cascader-item {
       cursor: not-allowed;
@@ -161,15 +165,13 @@
   &:not(&-disabled) {
     &.@{cascader-prefix}-focus .@{cascader-prefix}-close,
     .@{cascader-prefix}-result:hover .@{cascader-prefix}-close,
-    .@{cascader-prefix}-title-box:hover .@{cascader-prefix}-close
-    {
+    .@{cascader-prefix}-title-box:hover .@{cascader-prefix}-close {
       display: block;
     }
 
     &.@{cascader-prefix}-focus .@{cascader-prefix}-result-clearable .@{select-prefix}-multi,
     .@{cascader-prefix}-result-clearable:hover .@{select-prefix}-multi,
-    .@{cascader-prefix}-title-box:hover .@{cascader-prefix}-result-clearable .@{select-prefix}-multi
-    {
+    .@{cascader-prefix}-title-box:hover .@{cascader-prefix}-result-clearable .@{select-prefix}-multi {
       visibility: hidden;
     }
   }
@@ -180,7 +182,7 @@
         right: 19px;
       }
       &-rtl {
-        left: 19px
+        left: 19px;
       }
     }
   }
@@ -204,10 +206,10 @@
     flex-wrap: nowrap;
     align-items: flex-start;
     &-ltr {
-      padding: @padding-base-vertical @padding-base-horizontal+@multiOffset 0 @padding-base-horizontal;
+      padding: @padding-base-vertical @padding-base-horizontal+ @multiOffset 0 @padding-base-horizontal;
     }
     &-rtl {
-      padding: @padding-base-vertical @padding-base-horizontal 0 @padding-base-horizontal+@multiOffset;
+      padding: @padding-base-vertical @padding-base-horizontal 0 @padding-base-horizontal+ @multiOffset;
     }
     .@{cascader-prefix}-item {
       text-overflow: ellipsis;
@@ -226,11 +228,9 @@
         right: 9px;
       }
       &-rtl {
-        left: 9px
+        left: 9px;
       }
-
     }
-
   }
 
   &-no-data {
@@ -245,8 +245,9 @@
     text-overflow: ellipsis;
     transition: none;
     white-space: nowrap;
-    .@{input-prefix}-rtl &, .@{list-prefix}-rtl & {
-      padding: @dropdown-item-padding-y @dropdown-padding-x @dropdown-item-padding-y @dropdown-padding-x +12;
+    .@{input-prefix}-rtl &,
+    .@{list-prefix}-rtl & {
+      padding: @dropdown-item-padding-y @dropdown-padding-x @dropdown-item-padding-y @dropdown-padding-x + 12;
     }
     &:hover {
       color: @dropdown-link-active-color;
@@ -274,7 +275,8 @@
   &-node {
     position: relative;
     padding: @dropdown-item-padding-y @dropdown-padding-x+16 @dropdown-item-padding-y @dropdown-padding-x;
-    .@{input-prefix}-rtl &, .@{list-prefix}-rtl & {
+    .@{input-prefix}-rtl &,
+    .@{list-prefix}-rtl & {
       padding: @dropdown-item-padding-y @dropdown-padding-x @dropdown-item-padding-y @dropdown-padding-x+16;
     }
     color: @dropdown-link-color;
@@ -298,7 +300,8 @@
     position: absolute;
     top: 10px;
     right: 12px;
-    .@{input-prefix}-rtl &, .@{list-prefix}-rtl & {
+    .@{input-prefix}-rtl &,
+    .@{list-prefix}-rtl & {
       right: auto;
       left: 12px;
     }
@@ -351,7 +354,7 @@
       }
       &-content {
         display: inline-block;
-        transition: all .2s;
+        transition: all 0.2s;
         &.@{cascader-prefix}-disabled {
           color: @gray-400;
           cursor: not-allowed;
@@ -370,14 +373,13 @@
     }
   }
 
-
   &-popover {
     .@{cascader-prefix}-result {
       max-height: 112px;
       max-width: 300px;
       padding: 14px 14px 8px 14px;
 
-      .@{cascader-prefix}-item  {
+      .@{cascader-prefix}-item {
         max-width: none;
       }
     }
@@ -389,8 +391,7 @@
   text-align: start;
 }
 
-
-.@{input-prefix}  {
+.@{input-prefix} {
   &.@{input-prefix}-small {
     .@{cascader-prefix}-result {
       padding-top: 2px;
@@ -431,11 +432,13 @@
 }
 
 .@{cascader-prefix} {
-  &-title-box &-title-box-title, .@{input-title-prefix}&-title-box &-result {
-    .inner-title-responsive-offset(@cascader-prefix,0, @baseOffset)
+  &-title-box &-title-box-title,
+  .@{input-title-prefix}&-title-box &-result {
+    .inner-title-responsive-offset(@cascader-prefix, 0, @baseOffset);
   }
-  &-title-box &-title-box-title-compressed&-title-box-title, &-title-box &-compressed&-result {
-    .inner-title-responsive-offset(@cascader-prefix, 0, @multiOffset)
+  &-title-box &-title-box-title-compressed&-title-box-title,
+  &-title-box &-compressed&-result {
+    .inner-title-responsive-offset(@cascader-prefix, 0, @multiOffset);
   }
   &-title-box {
     > .@{input-title-prefix}-content {
@@ -446,7 +449,7 @@
     .@{input-prefix}-placeholder,
     .@{cascader-prefix}-item,
     .@{cascader-prefix}-input {
-      .inner-title-responsive-scroll-item-bottom(@cascader-prefix)
+      .inner-title-responsive-scroll-item-bottom(@cascader-prefix);
     }
   }
 }

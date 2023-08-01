@@ -354,6 +354,7 @@ export interface ResultItemProps<DataItem> {
   singleRemove?: boolean
   click: (data: DataItem, isPopover: boolean) => void
   only: boolean
+  isDisabled: boolean
 }
 
 /** ------ CascaderProps ------ * */
