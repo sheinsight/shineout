@@ -147,16 +147,28 @@ class Day extends PureComponent<UnionPannelProps, DayState> {
   }
 
   handleDisabled(date: Date, minDate?: Date, maxDate?: Date) {
-    const { index, disabled, range, rangeTemp, min, max } = this.props
+    const { index, disabled, range, rangeTemp, min, max, type } = this.props
     const minD = minDate || (min && utils.toDate(utils.format(min, minStr, this.getOptions()), this.getOptions()))
     const maxD = maxDate || (max && utils.toDate(utils.format(max, maxStr, this.getOptions()), this.getOptions()))
     let isDisabled = disabled && typeof disabled === 'function' ? disabled(date) : false
     // only for single, single picker don't has index
     if (index === undefined && !isDisabled) {
-      if ((minD && utils.compareAsc(date, minD) < 0) || (maxD && utils.compareAsc(date, maxD) > 0)) isDisabled = true
+      if (type === 'week') {
+        if (minD && utils.compareWeek(date, minD, 0, this.getOptions()) < 0) isDisabled = true
+        if (maxD && utils.compareWeek(date, maxD, 0, this.getOptions()) > 0) isDisabled = true
+      } else if ((minD && utils.compareAsc(date, minD) < 0) || (maxD && utils.compareAsc(date, maxD) > 0))
+        isDisabled = true
     }
     if (!isDisabled && index === 1 && rangeTemp) {
-      if (
+      if (type === 'week') {
+        if (
+          (typeof range === 'number' &&
+            utils.compareWeek(date, utils.addSeconds(rangeTemp, range, this.getOptions()), 0, this.getOptions()) > 0) ||
+          utils.compareWeek(date, utils.clearHMS(rangeTemp, this.getOptions()), 0, this.getOptions()) < 0
+        ) {
+          isDisabled = true
+        }
+      } else if (
         (typeof range === 'number' &&
           utils.compareAsc(date, utils.addSeconds(rangeTemp, range, this.getOptions())) > 0) ||
         utils.compareAsc(date, utils.clearHMS(rangeTemp, this.getOptions())) < 0 ||
@@ -169,7 +181,14 @@ class Day extends PureComponent<UnionPannelProps, DayState> {
     }
 
     if (!isDisabled && index === 0) {
-      if (
+      if (type === 'week') {
+        if (
+          (min && utils.compareWeek(date, utils.clearHMS(min, this.getOptions()), 0, this.getOptions()) < 0) ||
+          (max && utils.compareWeek(date, max, 0, this.getOptions()) > 0)
+        ) {
+          isDisabled = true
+        }
+      } else if (
         (min && utils.compareAsc(date, utils.clearHMS(min, this.getOptions())) < 0) ||
         utils.compareAsc(date, max) > 0
       ) {
