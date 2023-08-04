@@ -286,6 +286,18 @@ function compareMonth(dateLeft: Date, dateRight: Date, pad = 0, options: DateOpt
   return compareAsc(left, right)
 }
 
+function compareWeek(dateLeft: Date, dateRight: Date, pad = 0, options: DateOptions) {
+  if (!dateLeft || !dateRight) return 0
+  const left = dayjs(transDateWithZone(dateLeft, options))
+    .startOf('isoWeek')
+    .toDate()
+  const right = dayjs(transDateWithZone(dateRight, options))
+    .startOf('isoWeek')
+    .add(pad, 'week')
+    .toDate()
+  return compareAsc(left, right)
+}
+
 function compareYear(dateLeft: Date, dateRight: Date, pad = 0, options: DateOptions) {
   if (!dateLeft || !dateRight) return 0
   const left = dayjs(transDateWithZone(dateLeft, options))
@@ -408,6 +420,7 @@ export default {
   cloneTime,
   compareAsc,
   compareMonth,
+  compareWeek,
   compareDay,
   compareQuarter,
   getDaysOfMonth,

@@ -329,11 +329,19 @@
   &-range-picker {
     display: flex;
 
-    & > div:nth-last-child(2) {
-      margin-right: 12px;
+    & > div:nth-child(2) {
+      padding-left: 6px;
       .@{datepicker-prefix}-rtl & {
-        margin-right: 0;
-        margin-left: 12px;
+        padding-left: 0;
+        padding-right: 6px;
+      }
+    }
+    & > div:nth-last-child(2) {
+      padding-right: 6px;
+      .@{datepicker-prefix}-rtl & {
+
+        padding-left: 6px;
+        padding-right: 0;
       }
     }
 
@@ -344,7 +352,7 @@
       &:before {
         content: ' ';
         position: absolute;
-        left: -6px;
+        left: 0px;
         height: 100%;
         border-left: 1px solid @divider-color;
         .@{datepicker-prefix}-rtl & {
@@ -705,7 +713,7 @@
     &-right .@{datepicker-prefix}-result {
       text-align: right;
     }
-    
+
     &-center .@{datepicker-prefix}-result {
       text-align: center;
     }
