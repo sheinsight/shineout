@@ -59,7 +59,9 @@ function setStyle(options, custom, config = { injectType: 'body', target: 'body'
   if (config.injectType === 'tag') {
     const id = injectTag(custom)
     return () => {
-      document.getElementById(id).remove()
+      if (document.getElementById(id)) {
+        document.getElementById(id).remove()
+      }
     }
   }
   return () => {}
