@@ -14,4 +14,6 @@ const Cascader = compose(
   absolute
 )(Component)
 
+Cascader.displayName = 'ShineoutCascader'
+
 export default Cascader as CascaderType
