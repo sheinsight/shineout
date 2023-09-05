@@ -434,6 +434,10 @@ class Select extends PureComponent {
   handleFilter(...args) {
     const { onFilter, onCreate, hideCreateOption } = this.props
     const hideCreate = onCreate && hideCreateOption
+    if (onCreate && !hideCreateOption) {
+      // 创建选项的时候 选择第一个
+      if (this.optionList.handleHover) this.optionList.handleHover(0, true)
+    }
     if (hideCreate) {
       this.optionList.handleHover(-1, true)
     }
