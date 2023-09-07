@@ -113,12 +113,17 @@ class SeperateTable<DataItem, Value> extends PureComponent<SeperateTableProps<Da
   // reset scrollTop when data changed
   componentDidUpdate(prevProps: SeperateTableProps<DataItem, Value>) {
     if (!this.tbody) return
+    // sticky 表头进入视图后需要重新计算宽度
+    const inViewChange = prevProps.inView !== this.props.inView
     const dataChange = this.props.data !== prevProps.data
     if (dataChange) {
       const resize = prevProps.data.length === 0 && this.props.data.length
       // eslint-disable-next-line react/no-did-update-set-state
       if (resize || this.props.dataChangeResize) this.setState({ resize: true, colgroup: undefined })
       this.resetHeight()
+    }
+    if (inViewChange && this.props.inView) {
+      this.resetWidth()
     }
     this.updateScrollLeft()
     if (!compareColumns(prevProps.columns, this.props.columns)) {

@@ -127,7 +127,7 @@ export interface TableIndexProps<DataItem, Value>
 /** ------ table ---------- */
 export interface OriginTableProps<DataItem, Value>
   extends StandardProps,
-    Omit<GetResizeProps<SeperateTableProps<DataItem, Value>, DataItem>, 'rowsInView'> {
+    Omit<GetResizeProps<SeperateTableProps<DataItem, Value>, DataItem>, 'rowsInView' | 'inView'> {
   /**
    * @en The maximum number of rows for a single render. Table uses lazy render to optimize performance under large amounts of data. If your table displays more than 20 rows, you can change the value of rowsInView. Value of 0 render all data.
    * @cn 单次 render的 最大行数。Table 采用了 lazy render 的方式来优化在大量数据下的性能，如果你的表格显示的高度超出了20条，可以调整 rowsInView 的值。为 0 表示单次 render 所有数据。
@@ -375,6 +375,8 @@ export interface SeperateTableProps<DataItem, Value> extends SimpleTableProps<Da
    * @default "无"
    */
   innerScrollAttr?: string[]
+
+  inView: boolean
 }
 
 /** ------ Tbody ---------- */
