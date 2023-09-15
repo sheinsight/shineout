@@ -31,7 +31,7 @@ class Password extends PureComponent<InputPassword> {
 
   render() {
     const { point = DefaultValue.point, value = DefaultValue.value, ...others } = this.props
-    const transValue = Array.from({ length: value.length }, () => point).join('')
+    const transValue = Array.from({ length: (value || '').length }, () => point).join('')
     return <Input {...others} type="text" value={transValue} onChange={this.handleChange} />
   }
 }

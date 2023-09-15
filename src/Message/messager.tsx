@@ -50,7 +50,7 @@ export function getComponent({
 }: {
   position: PositionType
   container?: (() => HTMLElement) | HTMLElement
-}): Promise<{ addMessage: (message: any) => void }> {
+}): Promise<{ addMessage: (message: any) => () => void }> {
   return new Promise(resolve => {
     const component = components[position!]
     if (component) {
