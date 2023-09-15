@@ -9,7 +9,7 @@ import { Button, Message } from 'shineout'
 
 const App: React.FC = () => {
   const msg = async () => {
-    const close: any = await Message.success(
+    const close = await Message.success(
       <div>
         I will always show until
         <a onClick={() => close()}> manually closed</a>
