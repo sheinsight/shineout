@@ -20,7 +20,7 @@ class Password extends PureComponent {
 
   render() {
     const { point, ...others } = this.props
-    const value = Array.from({ length: this.props.value.length }, () => point).join('')
+    const value = Array.from({ length: (this.props.value || '').length }, () => point).join('')
     return (
       <Input {...others} type="text" value={value} onChange={this.handleChange} />
     )
