@@ -28,51 +28,51 @@ const examples = [
 ]
 
 log.start()
-log.setType('custom')
-require('doc/pages/components/Rule/code-custom.js')
-log.setType('max')
-require('doc/pages/components/Rule/code-max.js')
-log.setType('min')
-require('doc/pages/components/Rule/code-min.js')
-log.setType('range')
-require('doc/pages/components/Rule/code-range.js')
-log.setType('regExp')
-require('doc/pages/components/Rule/code-regExp.js')
-log.setType('required')
-require('doc/pages/components/Rule/code-required.js')
-log.setType('type')
-require('doc/pages/components/Rule/code-type.js')
+log.setType('custom.js')
+require('doc/pages/components/Rule/code-custom.js.js')
+log.setType('max.js')
+require('doc/pages/components/Rule/code-max.js.js')
+log.setType('min.js')
+require('doc/pages/components/Rule/code-min.js.js')
+log.setType('range.js')
+require('doc/pages/components/Rule/code-range.js.js')
+log.setType('regExp.js')
+require('doc/pages/components/Rule/code-regExp.js.js')
+log.setType('required.js')
+require('doc/pages/components/Rule/code-required.js.js')
+log.setType('type.js')
+require('doc/pages/components/Rule/code-type.js.js')
 
 const logs = log.end()
 
 const codes = {
-  'custom': {
-    text: require('!raw-loader!doc/pages/components/Rule/code-custom.js'),
-    log: logs['custom'],
+  'custom.js': {
+    text: require('!raw-loader!doc/pages/components/Rule/code-custom.js.js'),
+    log: logs['custom.js'],
   },
-  'max': {
-    text: require('!raw-loader!doc/pages/components/Rule/code-max.js'),
-    log: logs['max'],
+  'max.js': {
+    text: require('!raw-loader!doc/pages/components/Rule/code-max.js.js'),
+    log: logs['max.js'],
   },
-  'min': {
-    text: require('!raw-loader!doc/pages/components/Rule/code-min.js'),
-    log: logs['min'],
+  'min.js': {
+    text: require('!raw-loader!doc/pages/components/Rule/code-min.js.js'),
+    log: logs['min.js'],
   },
-  'range': {
-    text: require('!raw-loader!doc/pages/components/Rule/code-range.js'),
-    log: logs['range'],
+  'range.js': {
+    text: require('!raw-loader!doc/pages/components/Rule/code-range.js.js'),
+    log: logs['range.js'],
   },
-  'regExp': {
-    text: require('!raw-loader!doc/pages/components/Rule/code-regExp.js'),
-    log: logs['regExp'],
+  'regExp.js': {
+    text: require('!raw-loader!doc/pages/components/Rule/code-regExp.js.js'),
+    log: logs['regExp.js'],
   },
-  'required': {
-    text: require('!raw-loader!doc/pages/components/Rule/code-required.js'),
-    log: logs['required'],
+  'required.js': {
+    text: require('!raw-loader!doc/pages/components/Rule/code-required.js.js'),
+    log: logs['required.js'],
   },
-  'type': {
-    text: require('!raw-loader!doc/pages/components/Rule/code-type.js'),
-    log: logs['type'],
+  'type.js': {
+    text: require('!raw-loader!doc/pages/components/Rule/code-type.js.js'),
+    log: logs['type.js'],
   },
 }
 
