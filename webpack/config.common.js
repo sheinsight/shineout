@@ -59,6 +59,7 @@ module.exports = function getCommon(config) {
         new UglifyWebpackPlugin({
           cache: true,
           parallel: true,
+          sourceMap: true,
           uglifyOptions: {
             output: {
               comments: false,
