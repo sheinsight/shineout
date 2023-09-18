@@ -19,6 +19,7 @@ const cssConfig = config.themes.map(name =>
 const jsConfig = merge(common({ ...config.webpack, IGNORE_LESS: true }), {
   stats: { children: false },
   entry: './src/index.js',
+  devtool: 'source-map',
   output: {
     path: path.join(__dirname, '../publish/dist'),
     libraryTarget: 'umd',
