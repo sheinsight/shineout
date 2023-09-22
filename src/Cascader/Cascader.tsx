@@ -306,7 +306,8 @@ class Cascader<DataItem, Value extends CascaderBaseValue> extends PureComponent<
 
   handleRemove(node: DataItem) {
     const { onChange } = this.props
-    this.datum.set(this.datum.getKey(node), 0)
+    const key = this.datum.isUnMatch(node) ? node.value : this.datum.getKey(node)
+    this.datum.set(key, 0)
     if (onChange) onChange(this.datum.getValue() as Value, node)
   }
 
