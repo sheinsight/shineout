@@ -109,7 +109,7 @@ export default class<Item> {
     if (typeof dis === 'function') {
       this.disabled = dis
     } else {
-      this.disabled = undefined
+      this.disabled = () => false
     }
   }
 
