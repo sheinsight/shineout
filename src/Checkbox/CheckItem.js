@@ -61,6 +61,7 @@ export default function(type) {
     }
 
     handleEnter(e) {
+      if (type === 'radio' && this.getChecked()) return
       if (isEnterPress(e)) {
         this.handleChange({
           target: {
