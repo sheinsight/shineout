@@ -100,7 +100,18 @@ class Time extends PureComponent<UnionPannelProps> {
   }
 
   renderTimeScroller(value: Date, min: Date | null, max: Date | null, hours: number) {
-    const { format, hourStep, minuteStep, secondStep, range, disabled, disabledTime, index, rangeDate } = this.props
+    const {
+      format,
+      hourStep,
+      minuteStep,
+      secondStep,
+      range,
+      disabled,
+      disabledTime,
+      index,
+      rangeDate,
+      timeZone,
+    } = this.props
 
     const rtl = isRTL()
     let res = [
@@ -120,6 +131,7 @@ class Time extends PureComponent<UnionPannelProps> {
           disabledTime={disabledTime}
           index={index}
           rangeDate={rangeDate}
+          timeZone={timeZone}
         />
       ),
       format.indexOf('h') >= 0 && (
@@ -138,6 +150,7 @@ class Time extends PureComponent<UnionPannelProps> {
           disabledTime={disabledTime}
           index={index}
           rangeDate={rangeDate}
+          timeZone={timeZone}
         />
       ),
       format.indexOf('m') >= 0 && (
@@ -155,6 +168,7 @@ class Time extends PureComponent<UnionPannelProps> {
           disabledTime={disabledTime}
           index={index}
           rangeDate={rangeDate}
+          timeZone={timeZone}
         />
       ),
       format.indexOf('s') >= 0 && (
@@ -172,6 +186,7 @@ class Time extends PureComponent<UnionPannelProps> {
           disabledTime={disabledTime}
           index={index}
           rangeDate={rangeDate}
+          timeZone={timeZone}
         />
       ),
       /a|A/.test(format) && (
@@ -190,6 +205,7 @@ class Time extends PureComponent<UnionPannelProps> {
           disabledTime={disabledTime}
           index={index}
           rangeDate={rangeDate}
+          timeZone={timeZone}
         />
       ),
     ]
