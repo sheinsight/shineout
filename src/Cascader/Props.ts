@@ -261,6 +261,12 @@ export interface OriginCascaderProps<DataItem, Value extends CascaderBaseValue>
    * @inner 内部属性
    */
   trim?: boolean
+  /**
+   * @en empty input after select value
+   * @cn 选中后是否清空输入框内容
+   * @default true
+   */
+  emptyAfterSelect?: boolean
 }
 
 /** ------ filterList ------ * */
@@ -343,6 +349,7 @@ export interface ResultProps<DataItem, Value extends CascaderBaseValue>
   multiple: boolean
   bindInput: (Input: any) => void
   selectId: string
+  emptyAfterSelect?: boolean
 }
 
 export interface ResultItemProps<DataItem> {

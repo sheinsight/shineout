@@ -11,6 +11,8 @@ interface Props {
   trim: boolean
   focus: boolean
   filterText: string
+  emptyAfterSelect?: boolean
+  multiple: boolean
 }
 
 interface State {
@@ -48,7 +50,12 @@ class FilterInput extends Component<Props, State> {
   }
 
   reset() {
-    if (this.editElement) this.editElement.innerText = ''
+    const { emptyAfterSelect = true, multiple } = this.props
+    if (this.editElement) {
+      if (!(multiple && !emptyAfterSelect)) {
+        this.editElement.innerText = ''
+      }
+    }
     if (this.blurTimer) clearTimeout(this.blurTimer)
   }
 
