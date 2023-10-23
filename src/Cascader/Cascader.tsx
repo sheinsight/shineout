@@ -353,7 +353,7 @@ class Cascader<DataItem, Value extends CascaderBaseValue> extends PureComponent<
   }
 
   handleChange(...args: [Value, DataItem?]) {
-    const { onChange, onFilter, filterText } = this.props
+    const { onChange, onFilter, mode, emptyAfterSelect, filterText } = this.props
     if (this.input) {
       this.input.reset()
       this.input.focus()
@@ -364,7 +364,11 @@ class Cascader<DataItem, Value extends CascaderBaseValue> extends PureComponent<
       onChange(...args)
     }
 
-    if (onFilter && filterText) onFilter('')
+    if (onFilter && filterText) {
+      if (!(mode !== undefined && !emptyAfterSelect)) {
+        onFilter('')
+      }
+    }
   }
 
   renderList() {

@@ -2,7 +2,7 @@
 
 import * as utils from './utils'
 
-export default { utils, version: '2.0.10-beta.3' }
+export default { utils, version: '2.0.10-beta.4' }
 export { utils }
 export { setLocale } from './locale'
 export { color, style } from './utils/expose'
