@@ -77,7 +77,18 @@ class Time extends PureComponent {
   }
 
   renderTimeScroller(value, min, max, hours) {
-    const { format, hourStep, minuteStep, secondStep, range, disabled, disabledTime, index, rangeDate } = this.props
+    const {
+      format,
+      hourStep,
+      minuteStep,
+      secondStep,
+      range,
+      disabled,
+      disabledTime,
+      index,
+      rangeDate,
+      timeZone,
+    } = this.props
 
     const rtl = isRTL()
     let res = [
@@ -97,6 +108,7 @@ class Time extends PureComponent {
           disabledTime={disabledTime}
           index={index}
           rangeDate={rangeDate}
+          timeZone={timeZone}
         />
       ),
       format.indexOf('h') >= 0 && (
@@ -115,6 +127,7 @@ class Time extends PureComponent {
           disabledTime={disabledTime}
           index={index}
           rangeDate={rangeDate}
+          timeZone={timeZone}
         />
       ),
       format.indexOf('m') >= 0 && (
@@ -132,6 +145,7 @@ class Time extends PureComponent {
           disabledTime={disabledTime}
           index={index}
           rangeDate={rangeDate}
+          timeZone={timeZone}
         />
       ),
       format.indexOf('s') >= 0 && (
@@ -167,6 +181,7 @@ class Time extends PureComponent {
           disabledTime={disabledTime}
           index={index}
           rangeDate={rangeDate}
+          timeZone={timeZone}
         />
       ),
     ]
