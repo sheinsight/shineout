@@ -264,12 +264,14 @@ class Result<DataItem, Value extends CascaderBaseValue> extends PureComponent<
   }
 
   renderInput() {
-    const { onFilter, focus, trim, bindInput, filterText } = this.props
+    const { onFilter, focus, trim, bindInput, filterText, multiple, emptyAfterSelect } = this.props
     return (
       <Input
         filterText={filterText}
         ref={bindInput}
         trim={!!trim}
+        multiple={multiple}
+        emptyAfterSelect={emptyAfterSelect}
         key={`input.${focus ? 1 : 0}`}
         focus
         onFilter={onFilter!}

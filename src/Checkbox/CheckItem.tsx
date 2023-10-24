@@ -91,6 +91,7 @@ function checkItem(type: CheckType): React.ComponentClass<CheckItemProps, Checkb
 
     handleEnter(e: KeyboardEvent) {
       if (isEnterPress(e)) {
+        if (type === 'radio' && this.getChecked()) return
         this.handleChange({
           target: {
             checked: !this.getChecked(),
