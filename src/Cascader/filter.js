@@ -58,7 +58,7 @@ export default Origin =>
     render() {
       const { onFilter } = this.props
       const { filterText, filter } = this.state
-      if (!onFilter) return <Origin {...this.props} />
+      if (!onFilter) return <Origin {...this.props} sourceData={this.props.data} />
       const data = this.getData()
       return (
         <Origin
