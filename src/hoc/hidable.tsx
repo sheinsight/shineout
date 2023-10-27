@@ -64,13 +64,15 @@ export default function<U extends HideableProps>(
       const el = this.getElement()
       if (!el) return
 
+      if (hasCollapse) this.height = el.offsetHeight
+
       if (this.props.show) {
         this.show()
         return
       }
-      if (hasCollapse) this.height = el.offsetHeight
 
       el.style.display = 'none'
+
       if (hasCollapse) {
         el.style.overflow = 'hidden'
         el.style.height = '0px'
