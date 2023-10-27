@@ -67,7 +67,7 @@ export default function<U extends HideableProps>(
       if (hasCollapse) this.height = el.offsetHeight
 
       if (this.props.show) {
-        this.show()
+        this.show(true)
         return
       }
 
@@ -90,9 +90,12 @@ export default function<U extends HideableProps>(
       return document.querySelector(`.${this.id}`) as HTMLElement
     }
 
-    show() {
+    show(immediately?: boolean) {
       const es = this.getElement().style
       es.display = display
+
+      if (immediately) return
+
       setTimeout(() => {
         if (this.$isMounted) {
           this.setState({ show: true })
