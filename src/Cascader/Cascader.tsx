@@ -253,10 +253,9 @@ class Cascader<DataItem, Value extends CascaderBaseValue> extends PureComponent<
       const data = this.datum.getDataById(v)
       if (data === null || this.datum.isUnMatch(data)) return
       try {
-        const id = this.datum.getKey(data, '')
-        let { path } = this.datum.getPath(id) || {}
+        let { path } = this.datum.getPath(v) || {}
         path = path || []
-        this.handlePathChange(id, null, path)
+        this.handlePathChange(v, null, path)
       } catch (e) {
         console.error(e)
       }
