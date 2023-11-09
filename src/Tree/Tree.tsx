@@ -5,6 +5,7 @@ import DatumTree, { TreeModeType } from '../Datum/Tree'
 import Root from './Root'
 import { TreeProps, UpdateFunc } from './Props'
 import { KeygenResult } from '../@types/common'
+import { deepClone } from '../utils/clone'
 
 interface TreeState {
   active: null | KeygenResult
@@ -157,7 +158,8 @@ class Tree<DataItem, Value extends any[]> extends PureComponent<TreeProps<DataIt
     const current = this.datum.getPath(id)
     const target = this.datum.getPath(targetId)
     if (!current || !target) return
-    const data = immer(this.props.data!, draft => {
+    const cloneData = deepClone(this.props.data) as DataItem[]
+    const data = immer(cloneData!, draft => {
       let node: any = draft
       let temp: DataItem[]
       let removeNode: () => void = () => {}
