@@ -25,6 +25,9 @@ export const shallowClone = val => {
 }
 
 export const deepClone = source => {
+  if (window.structuredClone) {
+    return window.structuredClone(source)
+  }
   if (isArray(source)) return cloneArray(source)
   if (isMergeable(source)) return cloneObject(source)
   return shallowClone(source)

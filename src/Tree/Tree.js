@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import immer from 'immer'
+import { deepClone } from '../utils/clone'
 import { PureComponent } from '../component'
 import { getProps } from '../utils/proptypes'
 import DatumTree from '../Datum/Tree'
@@ -130,7 +131,8 @@ class Tree extends PureComponent {
     const { childrenKey } = this.props
     const current = this.datum.getPath(id)
     const target = this.datum.getPath(targetId)
-    const data = immer(this.props.data, draft => {
+    const cloneData = deepClone(this.props.data)
+    const data = immer(cloneData, draft => {
       let node = draft
       let temp
       let removeNode
