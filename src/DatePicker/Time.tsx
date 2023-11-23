@@ -96,7 +96,6 @@ class Time extends PureComponent<UnionPannelProps> {
 
     if (isDisabled) return
     this.props.onChange(...paramUtils.timeHandleChangeParams(date, true, false, true))
-    this.props.onChange(paramUtils.timeHandleChangeParams(date, true, false)[0])
   }
 
   renderTimeScroller(value: Date, min: Date | null, max: Date | null, hours: number) {
