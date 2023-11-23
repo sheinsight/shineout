@@ -66,7 +66,7 @@ export default class<Item> {
 
   unmatch: TreeDatumOptions<Item>['unmatch']
 
-  disabled?: ((data: Item, ...rest: any) => boolean)
+  disabled: ((data: Item, ...rest: any) => boolean)
 
   childrenKey: TreeDatumOptions<Item>['childrenKey']
 
