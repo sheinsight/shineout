@@ -40,7 +40,12 @@ export default <DataItem, Value, Props extends SimpleTableProps<DataItem, Value>
 
     getWidth() {
       const { width } = this.props
-      if (typeof width === 'number') return width + this.state.delta
+      const { columns } = this.state
+      if (typeof width === 'number') {
+        const sum = columns.reduce((s, col) => s + (col.width || 0), 0)
+        const w = width + this.state.delta
+        return w > sum ? w : sum
+      }
       return width
     }
 
