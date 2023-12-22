@@ -40,6 +40,7 @@ class Tree<DataItem, Value extends any[]> extends PureComponent<TreeProps<DataIt
     this.state = { active: null }
 
     this.nodes = new Map()
+
     this.datum =
       props.datum ||
       new DatumTree({
@@ -57,6 +58,7 @@ class Tree<DataItem, Value extends any[]> extends PureComponent<TreeProps<DataIt
     this.handleToggle = this.handleToggle.bind(this)
     this.handleNodeClick = this.handleNodeClick.bind(this)
     this.bindNode = this.bindNode.bind(this)
+    this.getNodeInitState = this.getNodeInitState.bind(this)
     this.unbindNode = this.unbindNode.bind(this)
     this.handleDragImageSelector = this.handleProps.bind(this, 'dragImageSelector')
     this.handleClidrenClass = this.handleProps.bind(this, 'childrenClass')
@@ -84,6 +86,16 @@ class Tree<DataItem, Value extends any[]> extends PureComponent<TreeProps<DataIt
     return active === undefined ? this.state.active : active
   }
 
+  getNodeInitState(id: KeygenResult) {
+    const active = this.props.active === id
+    const expanded = this.props.expanded || this.props.defaultExpanded
+    if (this.props.defaultExpandAll) {
+      return { active, expanded: true }
+    }
+
+    return { active, expanded: !!(expanded && expanded.indexOf(id) >= 0) }
+  }
+
   bindDatum() {
     const { bindDatum } = this.props
     if (bindDatum) bindDatum(this.datum)
@@ -97,14 +109,6 @@ class Tree<DataItem, Value extends any[]> extends PureComponent<TreeProps<DataIt
     }
     */
     this.nodes.set(id, update)
-
-    const active = this.props.active === id
-    const expanded = this.props.expanded || this.props.defaultExpanded
-    if (this.props.defaultExpandAll) {
-      return { active, expanded: true }
-    }
-
-    return { active, expanded: !!(expanded && expanded.indexOf(id) >= 0) }
   }
 
   unbindNode(id: KeygenResult) {
@@ -247,6 +251,7 @@ class Tree<DataItem, Value extends any[]> extends PureComponent<TreeProps<DataIt
         datum={this.datum}
         disabled={typeof disabled !== 'function' && !!disabled}
         bindNode={this.bindNode}
+        getNodeInitState={this.getNodeInitState}
         keygen={keygen}
         line={line}
         loader={loader}

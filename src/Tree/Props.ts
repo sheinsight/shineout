@@ -219,7 +219,8 @@ export interface RootProps<DataItem, Value extends any[]>
   datum: DatumTree<DataItem>
   disabled: boolean
   unbindNode: (id: KeygenResult) => void
-  bindNode: (id: KeygenResult, update: UpdateFunc) => { active: boolean; expanded: boolean }
+  bindNode: (id: KeygenResult, update: UpdateFunc) => void
+  getNodeInitState: (id: KeygenResult) => { active: boolean; expanded: boolean }
   onDrop?: (id: KeygenResult, targetId: KeygenResult, position: number) => void
   onToggle?: (id: KeygenResult, expanded: boolean) => void
   onNodeClick: (node: DataItem, id: KeygenResult) => void

@@ -37,7 +37,7 @@ class Node<DataItem, Value extends any[]> extends PureComponent<NodeProps<DataIt
   constructor(props: NodeProps<DataItem, Value>) {
     super(props)
 
-    const { active, expanded } = props.bindNode(props.id, this.update.bind(this))
+    const { active, expanded } = props.getNodeInitState(props.id)
     this.state = { active, expanded, fetching: false }
 
     this.bindElement = this.bindElement.bind(this)
@@ -47,6 +47,10 @@ class Node<DataItem, Value extends any[]> extends PureComponent<NodeProps<DataIt
     this.handleDragEnd = this.handleDragEnd.bind(this)
     this.setFetching = this.setFetching.bind(this)
     this.isLeaf = this.isLeaf.bind(this)
+  }
+
+  componentDidMount(): void {
+    this.props.bindNode(this.props.id, this.update.bind(this))
   }
 
   componentWillUnmount() {
