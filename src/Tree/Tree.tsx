@@ -32,6 +32,8 @@ class Tree<DataItem, Value extends any[]> extends PureComponent<TreeProps<DataIt
 
   datum: DatumTree<DataItem>
 
+  repetSet: Map<KeygenResult, UpdateFunc>
+
   static defaultProps = DefaultProps as any
 
   constructor(props: TreeProps<DataItem, Value>) {
@@ -40,6 +42,8 @@ class Tree<DataItem, Value extends any[]> extends PureComponent<TreeProps<DataIt
     this.state = { active: null }
 
     this.nodes = new Map()
+    this.repetSet = new Map()
+
     this.datum =
       props.datum ||
       new DatumTree({
@@ -96,6 +100,9 @@ class Tree<DataItem, Value extends any[]> extends PureComponent<TreeProps<DataIt
       return {}
     }
     */
+    if (this.nodes.get(id)) {
+      this.repetSet.set(id, update)
+    }
     this.nodes.set(id, update)
 
     const active = this.props.active === id
@@ -108,6 +115,10 @@ class Tree<DataItem, Value extends any[]> extends PureComponent<TreeProps<DataIt
   }
 
   unbindNode(id: KeygenResult) {
+    if (this.repetSet.has(id)) {
+      this.repetSet.delete(id)
+      return
+    }
     this.nodes.delete(id)
   }
 
