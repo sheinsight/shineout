@@ -15,7 +15,7 @@ export function split(total: number, nums: number[]) {
   const ratios = nums.map(n => {
     if (n) {
       const r = n / total
-      remain -= n
+      remain -= r
       return r
     }
     nilCount += 1
