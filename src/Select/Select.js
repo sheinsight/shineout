@@ -427,14 +427,20 @@ class Select extends PureComponent {
     e.preventDefault()
     const raws = Array.isArray(value) ? value : [value]
     const values = [...raws]
-    // find last deleteable value
     if (isFunc(datum.disabled)) {
-      const deleteable = values.reverse().find(item => !datum.disabled(datum.getDataByValue(data, item)))
-      const deleteableIndex = values.findIndex(item => item === deleteable)
-      if (deleteableIndex > -1) {
-        values.splice(deleteableIndex, 1)
+      let deleteable = null
+      // find last deleteable value
+      for (let i = values.length - 1; i >= 0; i--) {
+        const item = values[i]
+        if (!datum.disabled(datum.getDataByValue(data, item))) {
+          values.splice(i, 1)
+          deleteable = item
+          break
+        }
       }
-      datum.handleChange(values.reverse(), datum.getDataByValue(data, deleteable), false)
+      if (deleteable) {
+        datum.handleChange(values, datum.getDataByValue(data, deleteable), false)
+      }
     }
   }
 
