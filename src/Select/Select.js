@@ -434,7 +434,7 @@ class Select extends PureComponent {
         if (!datum.disabled(datum.getDataByValue(data, item))) {
           values.splice(i, 1)
           datum.handleChange(values, datum.getDataByValue(data, item), false)
-          break
+          return
         }
       }
     }
