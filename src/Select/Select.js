@@ -9,7 +9,7 @@ import Result from './Result'
 import OptionList from './OptionList'
 import OptionTree from './OptionTree'
 import BoxList from './BoxList'
-import { isObject } from '../utils/is'
+import { isObject, isFunc } from '../utils/is'
 import { docSize } from '../utils/dom/document'
 import { getParent } from '../utils/dom/element'
 import { isRTL } from '../config'
@@ -427,8 +427,17 @@ class Select extends PureComponent {
     e.preventDefault()
     const raws = Array.isArray(value) ? value : [value]
     const values = [...raws]
-    const last = values.pop()
-    datum.handleChange(values, datum.getDataByValue(data, last), false)
+    if (isFunc(datum.disabled)) {
+      // find last deleteable value
+      for (let i = values.length - 1; i >= 0; i--) {
+        const item = values[i]
+        if (!datum.disabled(datum.getDataByValue(data, item))) {
+          values.splice(i, 1)
+          datum.handleChange(values, datum.getDataByValue(data, item), false)
+          return
+        }
+      }
+    }
   }
 
   handleFilter(...args) {
