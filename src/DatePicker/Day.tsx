@@ -257,7 +257,6 @@ class Day extends PureComponent<UnionPannelProps, DayState> {
   renderTimepicker() {
     const { rangeDate, index, showTimePicker } = this.props
     if (this.props.type !== 'datetime') return undefined
-    if (!showTimePicker) return undefined
 
     let { format } = this.props
     if (/^[X|x]$/.test(utils.compatibleFmt(format)!)) {
@@ -272,10 +271,11 @@ class Day extends PureComponent<UnionPannelProps, DayState> {
       rangeDate && index !== undefined
         ? utils.toDateWithFormat(rangeDate[index], format, undefined, this.getOptions())
         : this.props.value
-    if (!value) return undefined
+
+    const isShow = showTimePicker && value
 
     return (
-      <div className={datepickerClass('datetime')}>
+      <div className={datepickerClass('datetime')} style={{ display: isShow ? undefined : 'none' }}>
         <Icon name="Clock" className="clock" />
         <Time {...this.props} format={format} value={value} onChange={this.handleTimeChange} />
         <span>{utils.format(value, format, this.getOptions())}</span>
