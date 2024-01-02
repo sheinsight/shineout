@@ -204,7 +204,7 @@ class Day extends PureComponent {
   renderTimepicker() {
     const { rangeDate, index, showTimePicker } = this.props
     if (this.props.type !== 'datetime') return undefined
-    if (!showTimePicker) return undefined
+    // if (!showTimePicker) return undefined
 
     let { format } = this.props
     if (/^[T|t]$/.test(format)) {
@@ -218,10 +218,10 @@ class Day extends PureComponent {
     const value = rangeDate
       ? utils.toDateWithFormat(rangeDate[index], format, undefined, this.getOptions())
       : this.props.value
-    if (!value) return undefined
 
+    const isShow = showTimePicker && value
     return (
-      <div className={datepickerClass('datetime')}>
+      <div className={datepickerClass('datetime')} style={{ display: !isShow ? 'none' : undefined }}>
         <Icon name="Clock" className="clock" />
         <Time {...this.props} format={format} value={value} onChange={this.handleTimeChange} />
         <span>{utils.format(value, format, this.getOptions())}</span>
