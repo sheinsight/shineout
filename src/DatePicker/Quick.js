@@ -30,14 +30,14 @@ export default class Quick extends React.Component {
     if (!quicks) return children || null
     return (
       <div className={datepickerClass('quick-select')}>
-        {quicks.map(q => (
+        {quicks.map((q, i) => (
           <div
             onClick={this.handleQuick.bind(this, q)}
             className={datepickerClass(
               'quick-select-item',
               this.compareDate(q.value, currentArray) && 'quick-select-item-active'
             )}
-            key={q.name}
+            key={i}
           >
             {q.name}
           </div>
