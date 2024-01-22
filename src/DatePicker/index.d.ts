@@ -15,7 +15,7 @@ interface Base {
 }
 
 export interface QuickSelect extends Base {
-  name?: string;
+  name?: React.ReactNode;
   value?: Array<DateTimeType> | DateTimeType;
 }
 
