@@ -29,7 +29,7 @@ export type QuickType = {
 }
 
 export interface QuickSelectType<Value = Date[]> {
-  name: string
+  name: React.ReactNode
   value: Value
 }
 
