@@ -67,8 +67,8 @@ export default WrappedComponent => {
 
       const storeExpandKeys = new Map()
       expandKeys.forEach((value, key) => storeExpandKeys.set(key, value))
-
-      return immer(data, draft => {
+      const cloneData = JSON.parse(JSON.stringify(data))
+      return immer(cloneData, draft => {
         let dataCo = draft
         for (let i = 0; i < dataCo.length; i++) {
           if (storeExpandKeys.size === 0) break
