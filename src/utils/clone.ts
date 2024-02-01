@@ -38,13 +38,6 @@ export const shallowClone = (val: any) => {
 }
 
 export const deepClone = (source: any) => {
-  try {
-    if (window.structuredClone) {
-      return window.structuredClone(source)
-    }
-  } catch (e) {
-    // eslint-disable-next-line
-  }
   if (isArray(source)) return cloneArray(source)
   if (isMergeable(source)) return cloneObject(source)
   return shallowClone(source)
