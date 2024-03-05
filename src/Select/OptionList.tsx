@@ -32,7 +32,6 @@ class OptionList<Item, Value> extends Component<OptionListProps<Item, Value>, Op
       hoverIndex: props.hideCreateOption ? -1 : 0,
       scrollTop: 0,
     }
-
     this.hoverMove = this.hoverMove.bind(this)
 
     this.handleHover = this.handleHover.bind(this)
@@ -132,7 +131,7 @@ class OptionList<Item, Value> extends Component<OptionListProps<Item, Value>, Op
     pixelY?: number
   ) {
     if (!this.optionInner) return
-    const { data, itemsInView, lineHeight } = this.props
+    const { data, itemsInView, lineHeight, autoAdapt, resetPosition } = this.props
     const fullHeight = itemsInView * lineHeight
     const contentHeight = data.length * lineHeight - h
     let scrollTop = h > fullHeight ? 0 : y
@@ -158,6 +157,10 @@ class OptionList<Item, Value> extends Component<OptionListProps<Item, Value>, Op
     setTranslate(this.optionInner, '0px', `-${this.lastScrollTop + scrollTop * h}px`)
 
     this.setState({ scrollTop, currentIndex: index })
+
+    if (autoAdapt && resetPosition) {
+      resetPosition(true)
+    }
   }
 
   handleHover(index: number, force: boolean) {

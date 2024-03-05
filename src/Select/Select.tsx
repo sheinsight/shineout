@@ -660,6 +660,7 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
       <WrappedOptionList<Item, Value>
         {...props}
         style={style}
+        autoAdapt={autoAdapt}
         rootClass={selectClass(position, isRTL() && 'rtl')}
         autoClass={selectClass(autoAdapt && 'auto-adapt')}
         bindOptionFunc={this.bindOptionFunc}

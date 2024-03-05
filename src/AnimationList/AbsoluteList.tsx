@@ -42,7 +42,7 @@ const listPosition = ['drop-down', 'drop-up']
 const pickerPosition = ['left-bottom', 'left-top', 'right-bottom', 'right-top']
 const dropdownPosition = ['bottom-left', 'bottom-right', 'top-left', 'top-right']
 
-export default function <U extends {}>(List: ComponentType<U>) {
+export default function<U extends {}>(List: ComponentType<U>) {
   class AbsoluteList extends Component<AbsoluteProps> {
     state = {
       overdoc: false,
@@ -312,7 +312,14 @@ export default function <U extends {}>(List: ComponentType<U>) {
       )
       if (zIndex || typeof zIndex === 'number') mergeStyle.zIndex = parseInt((zIndex as unknown) as string, 10)
       return ReactDOM.createPortal(
-        <List getRef={this.handleRef} {...props as U} focus={focus} style={mergeStyle} />,
+        <List
+          getRef={this.handleRef}
+          {...props as U}
+          focus={focus}
+          style={mergeStyle}
+          autoAdapt={autoAdapt}
+          resetPosition={this.resetPosition.bind(this)}
+        />,
         this.element
       )
     }
