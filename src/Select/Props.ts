@@ -407,6 +407,7 @@ export interface OptionListProps<Item, Value>
       | 'data'
       | 'datum'
       | 'text'
+      | 'autoAdapt'
       | 'groupKey'
       | 'emptyText'
     >,
@@ -424,6 +425,7 @@ export interface OptionListProps<Item, Value>
   customHeader?: ReactNode
   filterText?: string
   style: React.CSSProperties
+  resetPosition?: (clean?: boolean) => void
 }
 export declare class WrappedOptionListComp<Item, Value> extends React.Component<
   GetAbsoluteProps<OptionListProps<Item, Value>>,
