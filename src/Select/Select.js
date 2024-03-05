@@ -557,6 +557,7 @@ class Select extends PureComponent {
       <List
         {...props}
         style={style}
+        autoAdapt={autoAdapt}
         rootClass={selectClass(position, isRTL() && 'rtl')}
         autoClass={selectClass(autoAdapt && 'auto-adapt')}
         bindOptionFunc={this.bindOptionFunc}

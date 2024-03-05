@@ -285,7 +285,14 @@ export default function(List) {
       )
       if (zIndex || typeof zIndex === 'number') mergeStyle.zIndex = parseInt(zIndex, 10)
       return ReactDOM.createPortal(
-        <List getRef={this.handleRef} {...props} focus={focus} style={mergeStyle} />,
+        <List
+          getRef={this.handleRef}
+          {...props}
+          focus={focus}
+          autoAdapt={autoAdapt}
+          style={mergeStyle}
+          resetPosition={this.resetPosition.bind(this)}
+        />,
         this.element
       )
     }

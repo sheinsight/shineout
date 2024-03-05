@@ -113,7 +113,7 @@ class OptionList extends Component {
 
   handleScroll(x, y, max, bar, v, h, pixelX, pixelY) {
     if (!this.optionInner) return
-    const { data, itemsInView, lineHeight } = this.props
+    const { data, itemsInView, lineHeight, autoAdapt, resetPosition } = this.props
     const fullHeight = itemsInView * lineHeight
     const contentHeight = data.length * lineHeight - h
     let scrollTop = h > fullHeight ? 0 : y
@@ -139,6 +139,9 @@ class OptionList extends Component {
     setTranslate(this.optionInner, '0px', `-${this.lastScrollTop + scrollTop * h}px`)
 
     this.setState({ scrollTop, currentIndex: index })
+    if (autoAdapt && resetPosition) {
+      resetPosition(autoAdapt)
+    }
   }
 
   handleHover(index, force) {
@@ -268,6 +271,8 @@ OptionList.propTypes = {
   hideCreateOption: PropTypes.bool,
   emptyText: PropTypes.node,
   renderOptionList: PropTypes.func,
+  autoAdapt: PropTypes.bool,
+  resetPosition: PropTypes.func,
 }
 
 export default OptionList
