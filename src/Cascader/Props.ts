@@ -294,6 +294,8 @@ export interface FilterListProps<DataItem, Value extends CascaderBaseValue>
   'data-id': string
   datum: DatumTree<DataItem>
   getRef: () => void
+  autoAdapt?: boolean
+  resetPosition?: (clean?: boolean) => void
   onChange: (value: Value, Data?: DataItem) => void
   onPathChange: (key: Value[0], item: DataItem | null, keys: Value, is?: boolean) => void
 }

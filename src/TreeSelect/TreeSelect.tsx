@@ -38,8 +38,12 @@ const DefaultValue = {
 const ScaleList = List(['fade', 'scale-y'], 'fast')
 interface ScaleListProps extends ListProps {
   focus: boolean
+  autoAdapt?: boolean
+  resetPosition?: (clean?: boolean) => void
 }
-const OptionList = absoluteList(({ focus, ...other }: ScaleListProps) => <ScaleList show={focus} {...other} />)
+const OptionList = absoluteList(({ focus, autoAdapt, resetPosition, ...other }: ScaleListProps) => (
+  <ScaleList show={focus} {...other} />
+))
 
 const isDescendent = (el: Element, id: string): boolean => {
   if (el.getAttribute('data-id') === id) return true
