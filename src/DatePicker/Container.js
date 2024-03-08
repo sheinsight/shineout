@@ -23,7 +23,7 @@ import { inputTitleClass } from '../InputTitle/styles'
 import { getDirectionClass } from '../utils/classname'
 
 const FadeList = List(['fade'], 'fast')
-const OptionList = absoluteList(({ focus, ...other }) => <FadeList show={focus} {...other} />)
+const OptionList = absoluteList(({ focus, autoAdapt, resetPosition, ...other }) => <FadeList show={focus} {...other} />)
 const getCurrentPosition = position => {
   if (isRTL()) {
     return getRTLPosition(position)

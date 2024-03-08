@@ -84,7 +84,9 @@ class Dropdown extends PureComponent {
   bindList() {
     const { animation } = this.props
     const FadeList = List('fade', animation ? 'fast' : 0)
-    this.DropdownList = absoluteList(({ focus, ...other }) => <FadeList show={focus} {...other} />)
+    this.DropdownList = absoluteList(({ focus, autoAdapt, resetPosition, ...other }) => (
+      <FadeList show={focus} {...other} />
+    ))
   }
 
   toggleDocumentEvent(bind) {
