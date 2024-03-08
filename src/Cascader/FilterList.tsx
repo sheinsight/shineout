@@ -29,7 +29,8 @@ class FilterItem<DataItem, T extends CascaderBaseValue> extends Component<Filter
     const item = this.props.data![index]
     if (this.checkDisabled(item)) return
     const keys = data!.slice(0, index + 1).map((i: DataItem) => datum.getKey(i)) as T
-    if (onChange) onChange(keys)
+    const id = datum.getKey(item)
+    if (onChange) onChange(keys, datum.getDataById(id) as DataItem)
     onPathChange(datum.getKey(item), item, keys.slice(0, keys.length - 1) as T, true)
     if (onFilter && filterText) onFilter('')
   }
@@ -129,6 +130,9 @@ class FilterList<U, T extends CascaderBaseValue> extends Component<FilterListPro
       renderOptionList,
       loading,
       shouldFinal,
+      // omit autoAdapt resetPosition
+      autoAdapt,
+      resetPosition,
       ...others
     } = this.props
     if (!focus) return null

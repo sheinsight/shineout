@@ -23,12 +23,16 @@ const OptionList = absoluteList(
   ({
     focus,
     getRef,
+    autoAdapt,
+    resetPosition,
     ...other
   }: {
     children?: ReactNode
     focus: boolean
     getRef: (e: HTMLDivElement) => void
     className: string
+    autoAdapt?: boolean
+    resetPosition?: (clean: boolean) => void
   }) => (focus ? <div {...other} ref={getRef} /> : null)
 )
 

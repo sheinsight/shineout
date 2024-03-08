@@ -32,7 +32,9 @@ import {
 } from './Props'
 
 const FadeList = List(['fade'], 'fast')
-const OptionList = absoluteList(({ focus, ...other }: any) => <FadeList show={focus} {...other} />)
+const OptionList = absoluteList(({ focus, autoAdapt, resetPosition, ...other }: any) => (
+  <FadeList show={focus} {...other} />
+))
 const getCurrentPosition = (position: BaseProps['position']) => {
   if (isRTL()) {
     return getRTLPosition(position!)
