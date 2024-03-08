@@ -17,7 +17,9 @@ import absoluteList from '../AnimationList/AbsoluteList'
 import { isRTL } from '../config'
 import { getKey } from '../utils/uid'
 
-const OptionList = absoluteList(({ focus, getRef, ...other }) => (focus ? <div {...other} ref={getRef} /> : null))
+const OptionList = absoluteList(({ focus, getRef, autoAdapt, resetPosition, ...other }) =>
+  focus ? <div {...other} ref={getRef} /> : null
+)
 
 const isDescendent = (el, id) => {
   if (el.getAttribute('data-id') === id) return true

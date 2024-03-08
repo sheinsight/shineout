@@ -16,7 +16,9 @@ import { isRTL } from '../config'
 import { getDirectionClass } from '../utils/classname'
 
 const ScaleList = List(['fade', 'scale-y'], 'fast')
-const OptionList = absoluteList(({ focus, ...other }) => <ScaleList show={focus} {...other} />)
+const OptionList = absoluteList(({ focus, autoAdapt, resetPosition, ...other }) => (
+  <ScaleList show={focus} {...other} />
+))
 
 const isDescendent = (el, id) => {
   if (el.getAttribute('data-id') === id) return true

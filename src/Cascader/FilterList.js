@@ -39,7 +39,8 @@ class FilterItem extends Component {
     const item = this.props.data[index]
     if (this.checkDisabled(item)) return
     const keys = data.slice(0, index + 1).map(i => datum.getKey(i))
-    onChange(keys)
+    const id = datum.getKey(item)
+    onChange(keys, datum.getDataById(id))
     onPathChange(datum.getKey(item), item, keys.slice(0, keys.length - 1), true)
     if (onFilter && filterText) onFilter('')
   }
@@ -103,6 +104,8 @@ class FilterList extends Component {
     onFilter: PropTypes.func,
     wideMatch: PropTypes.bool,
     height: PropTypes.number,
+    autoAdapt: PropTypes.bool,
+    resetPosition: PropTypes.func,
     filterDataChange: PropTypes.func,
     loading: PropTypes.oneOfType([PropTypes.bool, PropTypes.node]),
   }
@@ -153,6 +156,9 @@ class FilterList extends Component {
       onFilter,
       wideMatch,
       height,
+      // omit autoAdapt resetPosition
+      autoAdapt,
+      resetPosition,
       filterDataChange,
       ...others
     } = this.props
