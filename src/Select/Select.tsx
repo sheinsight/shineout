@@ -155,7 +155,7 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
         (prevProps.open !== this.props.open && !this.props.open)
       ) {
         setTimeout(() => {
-          onFilter('')
+          onFilter('', 'blur')
         }, 400)
       }
     }
