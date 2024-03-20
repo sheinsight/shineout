@@ -123,10 +123,12 @@ export default <T extends DatePickerValueType>(Origin: React.ComponentType<DateP
 
     handleChange(value: DatePickerValueType, callback?: () => void, quickSelect?: QuickSelectType) {
       const { range } = this.props
-      const newState: { value: DatePickerValueType; quickSelect?: QuickSelectType } = { value }
+      const newState: { value: DatePickerValueType; quickSelect?: QuickSelectType | null } = { ...this.state, value }
       if (range) {
         newState.quickSelect = quickSelect
       }
+      // fix handleBlur can not get state in react 18
+      this.state = newState
       this.setState(newState, callback)
     }
 
