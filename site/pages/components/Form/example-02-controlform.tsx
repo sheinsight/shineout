@@ -5,11 +5,13 @@
  *    -- You can use formRef to get some methods of the form, including validation, clear validation, submission, etc.
  */
 import React, { useEffect, useState } from 'react'
-import { Form, Input, Button, Rule, TYPE } from 'shineout'
+import { Form, Input, Button, Rule, Select, TYPE } from 'shineout'
 
 type FormRef = TYPE.Form.Ref<any>
 type FormProps = TYPE.Form.Props<any>
 type FormValue = FormProps['value']
+
+const data = ['red', 'blue', 'yellow']
 
 const rules = Rule()
 
@@ -26,8 +28,8 @@ const App: React.FC = () => {
         setForm(f)
       }}
       onChange={setValue}
-      onSubmit={data => {
-        console.log(data)
+      onSubmit={d => {
+        console.log(d)
       }}
     >
       <div style={{ margin: '20px 0' }}>
@@ -45,6 +47,9 @@ const App: React.FC = () => {
 
       <Form.Item label="Password">
         <Input.Password name="password" type="password" rules={[rules.required]} />
+      </Form.Item>
+      <Form.Item label="Color">
+        <Select keygen name="color" data={data} rules={[rules.required]} />
       </Form.Item>
 
       <Form.Item label="">
