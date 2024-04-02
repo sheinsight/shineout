@@ -159,25 +159,26 @@ class Day extends PureComponent<UnionPannelProps, DayState> {
       } else if ((minD && utils.compareAsc(date, minD) < 0) || (maxD && utils.compareAsc(date, maxD) > 0))
         isDisabled = true
     }
-    if (!isDisabled && index === 1 && rangeTemp) {
+    if (!isDisabled && index === 1) {
       if (type === 'week') {
         if (
           (typeof range === 'number' &&
+            rangeTemp &&
             utils.compareWeek(date, utils.addSeconds(rangeTemp, range, this.getOptions()), 0, this.getOptions()) > 0) ||
-          utils.compareWeek(date, utils.clearHMS(rangeTemp, this.getOptions()), 0, this.getOptions()) < 0
+          (rangeTemp && utils.compareWeek(date, utils.clearHMS(rangeTemp, this.getOptions()), 0, this.getOptions()) < 0)
         ) {
           isDisabled = true
         }
       } else if (
         (typeof range === 'number' &&
+          rangeTemp &&
           utils.compareAsc(date, utils.addSeconds(rangeTemp, range, this.getOptions())) > 0) ||
-        utils.compareAsc(date, utils.clearHMS(rangeTemp, this.getOptions())) < 0 ||
+        (rangeTemp && utils.compareAsc(date, utils.clearHMS(rangeTemp, this.getOptions())) < 0) ||
         (min && utils.compareAsc(date, utils.clearHMS(min, this.getOptions())) < 0) ||
         utils.compareAsc(date, max) > 0
       ) {
         isDisabled = true
       }
-      // if (utils.compareAsc(date, min) < 0) isDisabled = true
     }
 
     if (!isDisabled && index === 0) {
