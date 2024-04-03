@@ -58,6 +58,7 @@ class Item<U extends BaseItemProps<U>> extends PureComponent<ItemProps<U>, State
     this.handleMouseEnter = this.handleToggle.bind(this, true)
     this.handleMouseLeave = this.handleToggle.bind(this, false)
     this.renderLink = this.renderLink.bind(this)
+    this.isItemDisabled = this.isItemDisabled.bind(this)
   }
 
   componentDidMount() {
@@ -144,7 +145,9 @@ class Item<U extends BaseItemProps<U>> extends PureComponent<ItemProps<U>, State
       if (parentSelectable && expandClick) return
     }
 
-    if (data.disabled) return
+    const disabled = this.isItemDisabled(data)
+
+    if (disabled) return
     if (typeof data.onClick === 'function') {
       data.onClick(this.id, data)
     } else if (
@@ -170,6 +173,13 @@ class Item<U extends BaseItemProps<U>> extends PureComponent<ItemProps<U>, State
     } else {
       this.handleClick(e)
     }
+  }
+
+  isItemDisabled(data: any) {
+    const { disabled } = this.props
+    if (data && data.disabled) return true
+    if (typeof disabled === 'function') return disabled(data)
+    return !!disabled
   }
 
   renderLink(data: U) {
@@ -237,7 +247,7 @@ class Item<U extends BaseItemProps<U>> extends PureComponent<ItemProps<U>, State
     const { children: dChildren } = data
     const children = dChildren || []
 
-    const isDisabled = typeof disabled === 'function' ? disabled(data) : disabled
+    const isDisabled = this.isItemDisabled(data)
 
     let isUp = false
     if (mode === 'vertical-auto' && this.element) {
