@@ -56,6 +56,33 @@ class Table<DataItem, Value> extends Component<OriginTableProps<DataItem, Value>
   }
 
   componentDidMount() {
+    this.bindStickyInView()
+  }
+
+  componentDidUpdate(preProps: OriginTableProps<DataItem, Value>) {
+    const { datum, treeCheckAll } = this.props
+    datum.dispatch(ROW_HEIGHT_UPDATE_EVENT)
+    datum.dispatch(RENDER_COL_GROUP_EVENT)
+    if (treeCheckAll && this.props.data !== preProps.data) {
+      datum.cleanDataCache()
+    }
+    if (!!this.props.sticky !== !!preProps.sticky) {
+      this.bindStickyInView()
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.visibleObserver) {
+      this.visibleObserver.disconnect()
+      this.visibleObserver = null
+    }
+  }
+
+  bindStickyInView() {
+    if (this.visibleObserver) {
+      this.visibleObserver.disconnect()
+      this.visibleObserver = null
+    }
     if (this.props.sticky && this.table && window.IntersectionObserver) {
       const observer = new IntersectionObserver(entries => {
         const entry = entries[0]
@@ -68,22 +95,6 @@ class Table<DataItem, Value> extends Component<OriginTableProps<DataItem, Value>
     }
   }
 
-  componentDidUpdate(preProps: OriginTableProps<DataItem, Value>) {
-    const { datum, treeCheckAll } = this.props
-    datum.dispatch(ROW_HEIGHT_UPDATE_EVENT)
-    datum.dispatch(RENDER_COL_GROUP_EVENT)
-    if (treeCheckAll && this.props.data !== preProps.data) {
-      datum.cleanDataCache()
-    }
-  }
-
-  componentWillUnmount() {
-    if (this.visibleObserver) {
-      this.visibleObserver.disconnect()
-      this.visibleObserver = null
-    }
-  }
-
   getRowsInView() {
     const { rowsInView = DefaultProps.rowsInView, data, fixed } = this.props
     const dataLength = data.length
@@ -92,7 +103,7 @@ class Table<DataItem, Value> extends Component<OriginTableProps<DataItem, Value>
   }
 
   getShouldSticky() {
-    return this.state.inView && this.props.sticky
+    return this.state.inView && this.props.sticky && (this.props.data || []).length > 0
   }
 
   bindTable(el: HTMLDivElement) {
