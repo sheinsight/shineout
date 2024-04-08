@@ -179,7 +179,12 @@ class Table<DataItem, Value> extends Component<OriginTableProps<DataItem, Value>
 
     return (
       <div className={className} ref={this.bindTable} style={newStyle} {...events}>
-        <RenderTable {...props} bordered={bordered} sticky={this.getShouldSticky()} inView={this.state.inView} />
+        <RenderTable
+          {...props}
+          bordered={bordered}
+          sticky={this.getShouldSticky() ? props.sticky : false}
+          inView={this.state.inView}
+        />
         {loading && (
           <div className={tableClass('loading')}>{typeof loading === 'boolean' ? <Spin size={40} /> : loading}</div>
         )}
