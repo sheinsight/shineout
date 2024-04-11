@@ -592,10 +592,10 @@ export interface FormRef<Value> {
    */
   validateFieldsWithError: (fields: string | string[]) => Promise<any>
   /**
-   * @en Clear check
-   * @cn 清除校验
+   * @en Clear verification. Not passing names will clear the verification of all fields.
+   * @cn 清除校验, 不传 names 会清空所有字段的校验
    */
-  clearValidate: () => void
+  clearValidate: (names?: string[]) => void
   /**
    * @en Submit Form, withValidate: Whether to verify
    * @cn 提交表单, withValidate: 是否校验
