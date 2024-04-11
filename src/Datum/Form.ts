@@ -384,11 +384,13 @@ export default class<V extends ObjectType> {
     return promiseAll(validates)
   }
 
-  validateClear() {
-    const keys = Object.keys(this.$validator)
+  validateClear(names?: string[]) {
+    const keys = names || Object.keys(this.$validator)
     const validates = keys.map(k => this.$validator[k](FORCE_PASS))
-    Promise.all(validates).then(() => {
-      this.$errors = {}
-    })
+    if (!names) {
+      Promise.all(validates).then(() => {
+        this.$errors = {}
+      })
+    }
   }
 }

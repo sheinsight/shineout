@@ -52,8 +52,8 @@ class Form<Value> extends Component<SimpleFormProps<Value>> {
       validate: () => this.props.datum.validate(),
       validateFields: fields => this.props.datum.validateFields(fields).catch(() => {}),
       validateFieldsWithError: fields => this.props.datum.validateFields(fields),
-      clearValidate: () => {
-        this.props.datum.validateClear()
+      clearValidate: (names?: string[]) => {
+        this.props.datum.validateClear(names)
       },
       submit: (withValidate = true) => {
         if (withValidate) this.handleSubmit()
