@@ -23,7 +23,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Modal/example-1-base.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Modal/example-1-base.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Modal/example-1-base.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Modal/example-1-base.tsx'),
 
   },
   {
@@ -36,7 +36,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Modal/example-10-noPadding.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Modal/example-10-noPadding.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Modal/example-10-noPadding.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Modal/example-10-noPadding.tsx'),
 
   },
   {
@@ -49,7 +49,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Modal/example-2-special.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Modal/example-2-special.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Modal/example-2-special.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Modal/example-2-special.tsx'),
 
   },
   {
@@ -62,7 +62,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Modal/example-3-confirm.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Modal/example-3-confirm.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Modal/example-3-confirm.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Modal/example-3-confirm.tsx'),
 
   },
   {
@@ -75,7 +75,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Modal/example-3-focus.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Modal/example-3-focus.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Modal/example-3-focus.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Modal/example-3-focus.tsx'),
 
   },
   {
@@ -88,7 +88,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Modal/example-3-full-screen.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Modal/example-3-full-screen.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Modal/example-3-full-screen.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Modal/example-3-full-screen.tsx'),
 
   },
   {
@@ -101,7 +101,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Modal/example-3-gcontainer.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Modal/example-3-gcontainer.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Modal/example-3-gcontainer.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Modal/example-3-gcontainer.tsx'),
 
   },
   {
@@ -114,7 +114,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Modal/example-4-form.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Modal/example-4-form.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Modal/example-4-form.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Modal/example-4-form.tsx'),
 
   },
   {
@@ -127,7 +127,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Modal/example-4-moveable.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Modal/example-4-moveable.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Modal/example-4-moveable.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Modal/example-4-moveable.tsx'),
 
   },
   {
@@ -140,7 +140,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Modal/example-5-multistage.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Modal/example-5-multistage.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Modal/example-5-multistage.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Modal/example-5-multistage.tsx'),
 
   },
   {
@@ -153,7 +153,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Modal/example-6-close.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Modal/example-6-close.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Modal/example-6-close.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Modal/example-6-close.tsx'),
 
   },
   {
@@ -166,7 +166,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Modal/example-7-position.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Modal/example-7-position.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Modal/example-7-position.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Modal/example-7-position.tsx'),
 
   },
   {
@@ -179,7 +179,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Modal/example-8-type.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Modal/example-8-type.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Modal/example-8-type.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Modal/example-8-type.tsx'),
 
   },
   {
@@ -192,7 +192,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Modal/example-9-zoom.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Modal/example-9-zoom.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Modal/example-9-zoom.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Modal/example-9-zoom.tsx'),
 
   },
 ]

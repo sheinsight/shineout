@@ -23,7 +23,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Message/example-1-base.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Message/example-1-base.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Message/example-1-base.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Message/example-1-base.tsx'),
 
   },
   {
@@ -36,7 +36,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Message/example-2-duration.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Message/example-2-duration.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Message/example-2-duration.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Message/example-2-duration.tsx'),
 
   },
   {
@@ -49,7 +49,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Message/example-3-position.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Message/example-3-position.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Message/example-3-position.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Message/example-3-position.tsx'),
 
   },
   {
@@ -62,7 +62,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Message/example-4-close.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Message/example-4-close.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Message/example-4-close.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Message/example-4-close.tsx'),
 
   },
   {
@@ -75,7 +75,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Message/example-5-manual-close.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Message/example-5-manual-close.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Message/example-5-manual-close.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Message/example-5-manual-close.tsx'),
 
   },
   {
@@ -88,7 +88,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Message/example-6-container.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Message/example-6-container.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Message/example-6-container.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Message/example-6-container.tsx'),
 
   },
 ]

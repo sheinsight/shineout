@@ -82,7 +82,7 @@ export default <DataItem, Value>(WrappedComponent: ComponentType<TableProps<Data
       const storeExpandKeys = new Map()
       expandKeys.forEach((value, key) => storeExpandKeys.set(key, value))
       const cloneData = JSON.parse(JSON.stringify(data))
-      return immer(cloneData, draft => {
+      return immer(cloneData, (draft: any) => {
         let dataCo = draft
         for (let i = 0; i < dataCo.length; i++) {
           if (storeExpandKeys.size === 0) break
@@ -123,7 +123,7 @@ export default <DataItem, Value>(WrappedComponent: ComponentType<TableProps<Data
     render() {
       const { treeColumnsName } = this.props
       const expandKeys = this.getExpandKeys()
-      const data = this.getExpandData()
+      const data = this.getExpandData() as any[]
       const rootTree =
         data.filter(v => v && v[treeColumnsName!] && ((v[treeColumnsName!] as unknown) as DataItem[]).length).length ===
         0

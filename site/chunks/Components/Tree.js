@@ -23,7 +23,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Tree/example-01-base.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Tree/example-01-base.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Tree/example-01-base.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Tree/example-01-base.tsx'),
 
   },
   {
@@ -36,7 +36,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Tree/example-02-icon.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Tree/example-02-icon.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Tree/example-02-icon.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Tree/example-02-icon.tsx'),
 
   },
   {
@@ -49,7 +49,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Tree/example-03-click.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Tree/example-03-click.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Tree/example-03-click.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Tree/example-03-click.tsx'),
 
   },
   {
@@ -62,7 +62,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Tree/example-04-noline.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Tree/example-04-noline.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Tree/example-04-noline.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Tree/example-04-noline.tsx'),
 
   },
   {
@@ -75,7 +75,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Tree/example-05-expanded.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Tree/example-05-expanded.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Tree/example-05-expanded.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Tree/example-05-expanded.tsx'),
 
   },
   {
@@ -88,7 +88,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Tree/example-06-change.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Tree/example-06-change.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Tree/example-06-change.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Tree/example-06-change.tsx'),
 
   },
   {
@@ -101,7 +101,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Tree/example-07-disabled.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Tree/example-07-disabled.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Tree/example-07-disabled.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Tree/example-07-disabled.tsx'),
 
   },
   {
@@ -114,7 +114,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Tree/example-08-drag.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Tree/example-08-drag.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Tree/example-08-drag.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Tree/example-08-drag.tsx'),
 
   },
   {
@@ -127,7 +127,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Tree/example-08-styledrag.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Tree/example-08-styledrag.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Tree/example-08-styledrag.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Tree/example-08-styledrag.tsx'),
 
   },
   {
@@ -140,7 +140,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Tree/example-09-lazyload.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Tree/example-09-lazyload.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Tree/example-09-lazyload.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Tree/example-09-lazyload.tsx'),
 
   },
   {
