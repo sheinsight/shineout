@@ -49,16 +49,15 @@ class Node<U, T extends CascaderBaseValue> extends PureComponent<NodeProps<U, T>
 
   handleClick(e: MouseEvent) {
     const { id, data, path, onChange, onPathChange, loader, multiple, datum, shouldFinal } = this.props
-    if (shouldFinal && this.hasChildren) {
-      this.handlePathChange()
-      return
-    }
+    const { mayChildren, hasChildren } = this
     if (onPathChange) onPathChange(id, data, path, true)
     if (!multiple) {
-      if (onChange && path) onChange([...path, id] as T, datum.getDataById(id) as U)
+      // 单选设置了 final 属性后 如果不是末节点不触发onChange
+      const shouldJump = shouldFinal && hasChildren
+      if ((onChange as any) && path && !shouldJump) onChange([...path, id] as T, datum.getDataById(id) as U)
     }
-
-    if (loader && !this.state.loading && !getParent(e.target as HTMLElement, `.${checkinputClass('_')}`)) {
+    // Cascader 在多选模式下，点击勾选框后仅触发勾选功能，不会触发 loader
+    if (loader && mayChildren && !getParent(e.target as HTMLElement, `.${checkinputClass('_')}`)) {
       this.setState({ loading: true })
       loader(id, data)
     }
@@ -95,13 +94,19 @@ class Node<U, T extends CascaderBaseValue> extends PureComponent<NodeProps<U, T>
     return children && children.length > 0
   }
 
+  get mayChildren() {
+    const { loader, data, childrenKey } = this.props
+    const children = (data[childrenKey!] as unknown) as U[]
+    const { loading } = this.state
+    return loader && !loading && children === undefined
+  }
+
   render() {
-    const { active, data, multiple, datum, id, loader, expandTrigger, childrenKey, shouldFinal } = this.props
+    const { active, data, multiple, datum, id, expandTrigger, childrenKey, shouldFinal } = this.props
     const { loading } = this.state
     const disabled = this.checkDisabled()
     const children = (data[childrenKey!] as unknown) as U[]
-    const { hasChildren } = this
-    const mayChildren = loader && !loading && children === undefined
+    const { hasChildren, mayChildren } = this
     const className = cascaderClass(
       'node',
       active && 'active',
@@ -131,7 +136,7 @@ class Node<U, T extends CascaderBaseValue> extends PureComponent<NodeProps<U, T>
 
     return (
       <div className={className} style={style} {...events}>
-        {multiple && !(shouldFinal && this.hasChildren) && (
+        {multiple && !(shouldFinal && hasChildren) && (
           <Checkbox
             checked={datum.getChecked(id)}
             disabled={disabled}
