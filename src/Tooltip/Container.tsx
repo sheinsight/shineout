@@ -3,6 +3,7 @@ import { tooltipClass } from './styles'
 import { scrollConsumer } from '../Scroll/context'
 import { getUidStr } from '../utils/uid'
 import { getPosition } from '../utils/dom/popover'
+import getCommonContainer from '../utils/dom/popContainer'
 import { ContainerOptions, ContainerProps, ToolPosition, TriggerType } from './Props'
 import { ObjectType } from '../@types/common'
 
@@ -49,6 +50,11 @@ export default function(options: ContainerOptions) {
       hide()
     }
 
+    // eslint-disable-next-line class-methods-use-this
+    getContainer() {
+      return getCommonContainer()
+    }
+
     getElement() {
       return this.placeholderElement.nextSibling as HTMLElement
     }
@@ -56,7 +62,7 @@ export default function(options: ContainerOptions) {
     getPosition() {
       const { position = DefaultProps.position } = this.props
       const el = this.getElement()
-      return getPosition(position, el)
+      return getPosition(position, el, this.getContainer())
     }
 
     elementRef(el: HTMLElement) {
@@ -108,7 +114,7 @@ export default function(options: ContainerOptions) {
         {} as CSSProperties
       )
       const props = Object.assign({}, this.props, { style })
-      show(props, this.id, this.props.style)
+      show(props, this.id, this.props.style, getCommonContainer())
     }
 
     render() {

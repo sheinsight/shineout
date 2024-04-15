@@ -6,7 +6,7 @@ import { GetScrollContextConsumerValue } from '../Scroll/Props'
 export type ToolPosition = 'top' | 'left' | 'right' | 'bottom'
 export type TriggerType = 'click' | 'hover'
 export interface ContainerOptions {
-  show: (props: ContainerProps, id: string, innerStyle?: CSSProperties) => void
+  show: (props: ContainerProps, id: string, innerStyle?: CSSProperties, container?: HTMLElement) => void
   hide: () => void
   move: (id: string, pos: Pick<CSSProperties, 'left' | 'right' | 'top' | 'bottom'>) => void
   isCurrent: (id: string) => boolean
