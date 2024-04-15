@@ -23,7 +23,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Alert/example-1-base.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Alert/example-1-base.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Alert/example-1-base.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Alert/example-1-base.tsx'),
 
   },
   {
@@ -36,7 +36,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Alert/example-2-type.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Alert/example-2-type.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Alert/example-2-type.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Alert/example-2-type.tsx'),
 
   },
   {
@@ -49,7 +49,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Alert/example-3-close.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Alert/example-3-close.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Alert/example-3-close.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Alert/example-3-close.tsx'),
 
   },
   {
@@ -62,7 +62,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Alert/example-4-icon.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Alert/example-4-icon.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Alert/example-4-icon.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Alert/example-4-icon.tsx'),
 
   },
 ]

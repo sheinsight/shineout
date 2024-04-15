@@ -23,7 +23,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Button/example-1-base.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Button/example-1-base.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Button/example-1-base.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Button/example-1-base.tsx'),
 
   },
   {
@@ -36,7 +36,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Button/example-1-text.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Button/example-1-text.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Button/example-1-text.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Button/example-1-text.tsx'),
 
   },
   {
@@ -49,7 +49,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Button/example-2-icon.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Button/example-2-icon.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Button/example-2-icon.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Button/example-2-icon.tsx'),
 
   },
   {
@@ -62,7 +62,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Button/example-3-size.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Button/example-3-size.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Button/example-3-size.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Button/example-3-size.tsx'),
 
   },
   {
@@ -75,7 +75,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Button/example-4-disabled.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Button/example-4-disabled.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Button/example-4-disabled.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Button/example-4-disabled.tsx'),
 
   },
   {
@@ -88,7 +88,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Button/example-5-loading.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Button/example-5-loading.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Button/example-5-loading.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Button/example-5-loading.tsx'),
 
   },
   {
@@ -101,7 +101,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Button/example-6-href.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Button/example-6-href.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Button/example-6-href.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Button/example-6-href.tsx'),
 
   },
   {
@@ -114,7 +114,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Button/example-7-outline.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Button/example-7-outline.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Button/example-7-outline.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Button/example-7-outline.tsx'),
 
   },
   {
@@ -127,7 +127,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Button/example-8-group.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Button/example-8-group.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Button/example-8-group.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Button/example-8-group.tsx'),
 
   },
   {
@@ -140,7 +140,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Button/example-9-shape.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Button/example-9-shape.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Button/example-9-shape.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Button/example-9-shape.tsx'),
 
   },
 ]

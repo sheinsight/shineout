@@ -23,7 +23,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Tag/example-1-base.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Tag/example-1-base.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Tag/example-1-base.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Tag/example-1-base.tsx'),
 
   },
   {
@@ -36,7 +36,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Tag/example-2-type.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Tag/example-2-type.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Tag/example-2-type.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Tag/example-2-type.tsx'),
 
   },
   {
@@ -49,7 +49,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Tag/example-3-bgcolor.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Tag/example-3-bgcolor.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Tag/example-3-bgcolor.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Tag/example-3-bgcolor.tsx'),
 
   },
   {
@@ -62,7 +62,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Tag/example-4-close.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Tag/example-4-close.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Tag/example-4-close.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Tag/example-4-close.tsx'),
 
   },
   {
@@ -75,7 +75,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Tag/example-5-disabled.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Tag/example-5-disabled.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Tag/example-5-disabled.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Tag/example-5-disabled.tsx'),
 
   },
   {
@@ -88,7 +88,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Tag/example-6-dynamic.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Tag/example-6-dynamic.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Tag/example-6-dynamic.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Tag/example-6-dynamic.tsx'),
 
   },
   {
@@ -101,7 +101,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Tag/example-7-editable.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Tag/example-7-editable.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Tag/example-7-editable.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Tag/example-7-editable.tsx'),
 
   },
 ]

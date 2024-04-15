@@ -23,7 +23,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Breadcrumb/example-1-base.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Breadcrumb/example-1-base.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Breadcrumb/example-1-base.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Breadcrumb/example-1-base.tsx'),
 
   },
   {
@@ -36,7 +36,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Breadcrumb/example-2-separator.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Breadcrumb/example-2-separator.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Breadcrumb/example-2-separator.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Breadcrumb/example-2-separator.tsx'),
 
   },
   {
@@ -49,7 +49,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Breadcrumb/example-3-icon.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Breadcrumb/example-3-icon.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Breadcrumb/example-3-icon.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Breadcrumb/example-3-icon.tsx'),
 
   },
   {
@@ -62,7 +62,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Breadcrumb/example-4-renderItem.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Breadcrumb/example-4-renderItem.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Breadcrumb/example-4-renderItem.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Breadcrumb/example-4-renderItem.tsx'),
 
   },
 ]

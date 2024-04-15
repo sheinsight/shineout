@@ -23,7 +23,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Slider/example-01-base.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Slider/example-01-base.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Slider/example-01-base.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Slider/example-01-base.tsx'),
 
   },
   {
@@ -36,7 +36,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Slider/example-01-input.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Slider/example-01-input.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Slider/example-01-input.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Slider/example-01-input.tsx'),
 
   },
   {
@@ -49,7 +49,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Slider/example-02-range.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Slider/example-02-range.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Slider/example-02-range.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Slider/example-02-range.tsx'),
 
   },
   {
@@ -62,7 +62,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Slider/example-03-scale.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Slider/example-03-scale.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Slider/example-03-scale.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Slider/example-03-scale.tsx'),
 
   },
   {
@@ -75,7 +75,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Slider/example-04-format.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Slider/example-04-format.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Slider/example-04-format.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Slider/example-04-format.tsx'),
 
   },
   {
@@ -88,7 +88,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Slider/example-05-step.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Slider/example-05-step.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Slider/example-05-step.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Slider/example-05-step.tsx'),
 
   },
   {
@@ -101,7 +101,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Slider/example-06-step.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Slider/example-06-step.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Slider/example-06-step.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Slider/example-06-step.tsx'),
 
   },
   {
@@ -114,7 +114,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Slider/example-07-hide.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Slider/example-07-hide.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Slider/example-07-hide.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Slider/example-07-hide.tsx'),
 
   },
   {
@@ -127,7 +127,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Slider/example-08-hide.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Slider/example-08-hide.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Slider/example-08-hide.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Slider/example-08-hide.tsx'),
 
   },
   {
@@ -140,7 +140,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Slider/example-09-disabled.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Slider/example-09-disabled.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Slider/example-09-disabled.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Slider/example-09-disabled.tsx'),
 
   },
   {
@@ -153,7 +153,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Slider/example-10-vertical.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Slider/example-10-vertical.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Slider/example-10-vertical.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Slider/example-10-vertical.tsx'),
 
   },
   {
@@ -166,7 +166,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Slider/example-11-increase.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Slider/example-11-increase.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Slider/example-11-increase.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Slider/example-11-increase.tsx'),
 
   },
 ]

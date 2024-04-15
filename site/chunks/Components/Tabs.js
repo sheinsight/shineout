@@ -23,7 +23,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Tabs/example-01-base.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Tabs/example-01-base.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Tabs/example-01-base.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Tabs/example-01-base.tsx'),
 
   },
   {
@@ -36,7 +36,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Tabs/example-02-disable.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Tabs/example-02-disable.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Tabs/example-02-disable.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Tabs/example-02-disable.tsx'),
 
   },
   {
@@ -49,7 +49,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Tabs/example-03-color.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Tabs/example-03-color.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Tabs/example-03-color.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Tabs/example-03-color.tsx'),
 
   },
   {
@@ -62,7 +62,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Tabs/example-04-scroll.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Tabs/example-04-scroll.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Tabs/example-04-scroll.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Tabs/example-04-scroll.tsx'),
 
   },
   {
@@ -75,7 +75,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Tabs/example-05-active.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Tabs/example-05-active.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Tabs/example-05-active.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Tabs/example-05-active.tsx'),
 
   },
   {
@@ -88,7 +88,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Tabs/example-06-shape-line.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Tabs/example-06-shape-line.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Tabs/example-06-shape-line.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Tabs/example-06-shape-line.tsx'),
 
   },
   {
@@ -101,7 +101,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Tabs/example-07-shape-button.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Tabs/example-07-shape-button.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Tabs/example-07-shape-button.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Tabs/example-07-shape-button.tsx'),
 
   },
   {
@@ -114,7 +114,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Tabs/example-07-shape-dash.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Tabs/example-07-shape-dash.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Tabs/example-07-shape-dash.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Tabs/example-07-shape-dash.tsx'),
 
   },
   {
@@ -127,7 +127,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Tabs/example-08-align-right.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Tabs/example-08-align-right.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Tabs/example-08-align-right.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Tabs/example-08-align-right.tsx'),
 
   },
   {
@@ -140,7 +140,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Tabs/example-09-align-vertical-left.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Tabs/example-09-align-vertical-left.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Tabs/example-09-align-vertical-left.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Tabs/example-09-align-vertical-left.tsx'),
 
   },
   {
@@ -153,7 +153,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Tabs/example-10-align-vertical-right.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Tabs/example-10-align-vertical-right.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Tabs/example-10-align-vertical-right.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Tabs/example-10-align-vertical-right.tsx'),
 
   },
   {
@@ -166,7 +166,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Tabs/example-11-collapsible.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Tabs/example-11-collapsible.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Tabs/example-11-collapsible.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Tabs/example-11-collapsible.tsx'),
 
   },
   {
@@ -179,7 +179,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Tabs/example-12-auto-fill.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Tabs/example-12-auto-fill.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Tabs/example-12-auto-fill.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Tabs/example-12-auto-fill.tsx'),
 
   },
   {
@@ -192,7 +192,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Tabs/example-12-extra.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Tabs/example-12-extra.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Tabs/example-12-extra.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Tabs/example-12-extra.tsx'),
 
   },
   {
@@ -205,7 +205,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Tabs/example-12-link.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Tabs/example-12-link.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Tabs/example-12-link.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Tabs/example-12-link.tsx'),
 
   },
   {
@@ -218,7 +218,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Tabs/example-13-sticky.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Tabs/example-13-sticky.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Tabs/example-13-sticky.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Tabs/example-13-sticky.tsx'),
 
   },
 ]

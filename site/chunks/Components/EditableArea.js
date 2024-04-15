@@ -23,7 +23,7 @@ const examples = [
     ),
     component: require('doc/pages/components/EditableArea/example-01-base.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/EditableArea/example-01-base.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/EditableArea/example-01-base.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/EditableArea/example-01-base.tsx'),
 
   },
   {
@@ -36,7 +36,7 @@ const examples = [
     ),
     component: require('doc/pages/components/EditableArea/example-02-controlled.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/EditableArea/example-02-controlled.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/EditableArea/example-02-controlled.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/EditableArea/example-02-controlled.tsx'),
 
   },
   {
@@ -49,7 +49,7 @@ const examples = [
     ),
     component: require('doc/pages/components/EditableArea/example-03-container.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/EditableArea/example-03-container.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/EditableArea/example-03-container.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/EditableArea/example-03-container.tsx'),
 
   },
   {
@@ -62,7 +62,7 @@ const examples = [
     ),
     component: require('doc/pages/components/EditableArea/example-04-renderFooter.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/EditableArea/example-04-renderFooter.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/EditableArea/example-04-renderFooter.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/EditableArea/example-04-renderFooter.tsx'),
 
   },
   {
@@ -75,7 +75,7 @@ const examples = [
     ),
     component: require('doc/pages/components/EditableArea/example-05-renderResult.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/EditableArea/example-05-renderResult.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/EditableArea/example-05-renderResult.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/EditableArea/example-05-renderResult.tsx'),
 
   },
 ]

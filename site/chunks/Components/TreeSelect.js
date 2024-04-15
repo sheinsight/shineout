@@ -23,7 +23,7 @@ const examples = [
     ),
     component: require('doc/pages/components/TreeSelect/example-01-base.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/TreeSelect/example-01-base.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/TreeSelect/example-01-base.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/TreeSelect/example-01-base.tsx'),
 
   },
   {
@@ -36,7 +36,7 @@ const examples = [
     ),
     component: require('doc/pages/components/TreeSelect/example-02-mutiple.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/TreeSelect/example-02-mutiple.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/TreeSelect/example-02-mutiple.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/TreeSelect/example-02-mutiple.tsx'),
 
   },
   {
@@ -49,7 +49,7 @@ const examples = [
     ),
     component: require('doc/pages/components/TreeSelect/example-03-filter.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/TreeSelect/example-03-filter.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/TreeSelect/example-03-filter.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/TreeSelect/example-03-filter.tsx'),
 
   },
   {
@@ -62,7 +62,7 @@ const examples = [
     ),
     component: require('doc/pages/components/TreeSelect/example-03-h-advanced-filter.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/TreeSelect/example-03-h-advanced-filter.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/TreeSelect/example-03-h-advanced-filter.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/TreeSelect/example-03-h-advanced-filter.tsx'),
 
   },
   {
@@ -75,7 +75,7 @@ const examples = [
     ),
     component: require('doc/pages/components/TreeSelect/example-04-disabled.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/TreeSelect/example-04-disabled.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/TreeSelect/example-04-disabled.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/TreeSelect/example-04-disabled.tsx'),
 
   },
   {
@@ -88,7 +88,7 @@ const examples = [
     ),
     component: require('doc/pages/components/TreeSelect/example-05-loader.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/TreeSelect/example-05-loader.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/TreeSelect/example-05-loader.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/TreeSelect/example-05-loader.tsx'),
 
   },
   {
@@ -101,7 +101,7 @@ const examples = [
     ),
     component: require('doc/pages/components/TreeSelect/example-06-innertitle.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/TreeSelect/example-06-innertitle.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/TreeSelect/example-06-innertitle.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/TreeSelect/example-06-innertitle.tsx'),
 
   },
   {
@@ -114,7 +114,7 @@ const examples = [
     ),
     component: require('doc/pages/components/TreeSelect/example-07-componentref.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/TreeSelect/example-07-componentref.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/TreeSelect/example-07-componentref.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/TreeSelect/example-07-componentref.tsx'),
 
   },
 ]
