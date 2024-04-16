@@ -27,10 +27,10 @@ function clickaway() {
   document.removeEventListener('click', clickaway)
 }
 
-export const show: ContainerOptions['show'] = (props, id, innerStyle) => {
+export const show: ContainerOptions['show'] = (props, id, innerStyle, container1) => {
   const { position, style = {}, tip, trigger, animation, className: cn } = props
 
-  const container = getCommonContainer()
+  const container = container1 || getCommonContainer()
   // create
   if (!container.contains(div)) {
     div = null

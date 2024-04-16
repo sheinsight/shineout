@@ -23,7 +23,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Dropdown/example-1-base.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Dropdown/example-1-base.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Dropdown/example-1-base.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Dropdown/example-1-base.tsx'),
 
   },
   {
@@ -36,7 +36,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Dropdown/example-2-hover.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Dropdown/example-2-hover.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Dropdown/example-2-hover.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Dropdown/example-2-hover.tsx'),
 
   },
   {
@@ -49,7 +49,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Dropdown/example-3-position.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Dropdown/example-3-position.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Dropdown/example-3-position.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Dropdown/example-3-position.tsx'),
 
   },
   {
@@ -62,7 +62,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Dropdown/example-4-items.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Dropdown/example-4-items.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Dropdown/example-4-items.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Dropdown/example-4-items.tsx'),
 
   },
   {
@@ -75,7 +75,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Dropdown/example-5-split.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Dropdown/example-5-split.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Dropdown/example-5-split.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Dropdown/example-5-split.tsx'),
 
   },
   {
@@ -88,7 +88,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Dropdown/example-6-type.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Dropdown/example-6-type.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Dropdown/example-6-type.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Dropdown/example-6-type.tsx'),
 
   },
   {
@@ -101,7 +101,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Dropdown/example-7-base.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Dropdown/example-7-base.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Dropdown/example-7-base.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Dropdown/example-7-base.tsx'),
 
   },
   {
@@ -114,7 +114,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Dropdown/test-001-disabled.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Dropdown/test-001-disabled.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Dropdown/test-001-disabled.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Dropdown/test-001-disabled.tsx'),
 
   },
   {
@@ -127,7 +127,7 @@ const examples = [
     ),
     component: require('doc/pages/components/Dropdown/test-001-open.tsx').default,
     rawText: require('!raw-loader!doc/pages/components/Dropdown/test-001-open.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Dropdown/test-001-open.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Dropdown/test-001-open.tsx'),
 
   },
 ]
