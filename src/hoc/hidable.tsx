@@ -91,7 +91,9 @@ export default function<U extends HideableProps>(
     }
 
     show() {
-      const es = this.getElement().style
+      const el = this.getElement()
+      if (!el) return
+      const es = el.style
       es.display = display
       setTimeout(() => {
         if (this.$isMounted) {
