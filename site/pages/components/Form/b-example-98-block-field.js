@@ -84,7 +84,7 @@ export default class extends PureComponent {
               <Select
                 name="city"
                 data={citys}
-                datum={{ format: 'id' }}
+                format="id"
                 keygen="id"
                 renderItem="city"
                 rules={rules.account.city}

@@ -56,6 +56,33 @@ exports[`Form[snapshot] Snapshot test: Form[site/pages/components/Form/example-0
   </div>
   <div>
     <div>
+      Color
+    </div>
+    <div>
+      <div>
+        <div>
+          <div>
+            <span>
+              <span />
+               
+            </span>
+            <a>
+              <svg>
+                <path />
+              </svg>
+            </a>
+          </div>
+          <div>
+            <span>
+              Data not found
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
       
     </div>
     <div>

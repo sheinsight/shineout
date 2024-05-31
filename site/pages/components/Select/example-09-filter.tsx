@@ -51,7 +51,7 @@ const App: React.FC = () => {
       style={{ width: 240 }}
       onFilter={handleFilter}
       renderItem={renderItem}
-      datum={{ format: 'id' }}
+      format="id"
       placeholder="Select user"
     />
   )
