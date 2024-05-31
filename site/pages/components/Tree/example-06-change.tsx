@@ -64,7 +64,7 @@ const App: React.FC = () => {
   }
   const handleModeChange = (v: TreeProps['mode']) => {
     setMode(v)
-    setValue([])
+    // setValue([])
   }
   const renderItem: TreeProps['renderItem'] = node => `node ${node.id}`
 
@@ -83,6 +83,7 @@ const App: React.FC = () => {
 
       <Tree
         data={data}
+        disabled={mode === 1}
         defaultExpanded={['0', '2']}
         keygen="id"
         mode={mode}

@@ -39,7 +39,7 @@ const App: React.FC = () => {
       style={style}
       defaultValue={3}
       renderItem={renderItem}
-      datum={{ format: 'id' }}
+      format="id"
       renderResult={renderResult}
       placeholder="Select a user"
     />
