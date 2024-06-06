@@ -251,7 +251,8 @@ class Input extends PureComponent<Props> {
         className={isNumber ? inputClass('number-title-box') : undefined}
         key="input"
         innerTitle={innerTitle}
-        open={!!inputFocus || !!value}
+        // @ts-ignore
+        open={!!inputFocus || !!value || value === 0}
       >
         <input
           {...cleanProps(other)}
