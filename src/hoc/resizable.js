@@ -59,8 +59,8 @@ export default curry(
           immer(draft => {
             x += draft.x
             y += draft.y
-            if (this.active.indexOf('x') >= 0) draft.x = x
-            if (this.active.indexOf('y') >= 0) draft.y = y
+            if (this.active && this.active.indexOf('x') >= 0) draft.x = x
+            if (this.active && this.active.indexOf('y') >= 0) draft.y = y
           })
         )
       }
