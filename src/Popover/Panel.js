@@ -85,7 +85,7 @@ class Panel extends Component {
     this.parentElement.removeEventListener('mouseleave', this.handleHide)
     this.parentElement.removeEventListener('click', this.handleShow)
 
-    document.removeEventListener('mousedown', this.clickAway)
+    document.removeEventListener('mousedown', this.clickAway, { capture: true })
 
     if (!this.container) return
     if (this.container === getCommonContainer()) {
@@ -112,7 +112,7 @@ class Panel extends Component {
           document.addEventListener('mousedown', this.clickAway, { capture: true })
         } else {
           this.bindScrollDismiss(false)
-          document.removeEventListener('mousedown', this.clickAway)
+          document.removeEventListener('mousedown', this.clickAway, { capture: true })
         }
       },
       trigger === 'hover' ? delay : 0
