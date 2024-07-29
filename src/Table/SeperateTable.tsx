@@ -418,11 +418,17 @@ class SeperateTable<DataItem, Value> extends PureComponent<SeperateTableProps<Da
     if (index < 0) index = 0
     const contentHeight = this.getContentHeight()
     const outerHeight = getParent(this.realTbody, `.${tableClass('body')}`)!.clientHeight - 12
+
     let currentIndex = this.checkScrollToIndex(index, outerHeight)
     const sumHeight = this.getSumHeight(0, currentIndex)
     let scrollTop = sumHeight / contentHeight
     let marginTop = scrollTop * outerHeight
     let offsetScrollTop = sumHeight + marginTop
+
+    // 容器高度大于总高度，未出现 y 滚动条的情况无需进行跳转
+    if (outerHeight >= contentHeight) {
+      return
+    }
 
     if (offsetScrollTop > contentHeight) {
       offsetScrollTop = contentHeight
