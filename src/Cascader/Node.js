@@ -103,6 +103,11 @@ class Node extends PureComponent {
       events.onClick = this.handleClick
       style.cursor = 'pointer'
     }
+
+    if (disabled && expandTrigger === 'click') {
+      events.onClick = this.handlePathChange
+    }
+
     if (expandTrigger === 'hover' || expandTrigger === 'hover-only') {
       events.onMouseEnter = this.handlePathChange
       if (multiple) events.onClick = this.handleSelect
