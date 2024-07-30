@@ -70,6 +70,12 @@ class Image<ValueItem> extends PureComponent<SimpleUploadImageProps<ValueItem>, 
   }
 
   beforeUpload(blob: File, validatorHandle: (error: Error, file: File) => boolean) {
+    const { beforeUpload } = this.props
+
+    if (beforeUpload) {
+      return beforeUpload(blob, validatorHandle)
+    }
+
     return new Promise((resolve, reject) => {
       const { imageSize } = this.props.validator || {}
       const file: { data?: any; status?: number; message?: string } = {}
