@@ -8,7 +8,7 @@ import Input from './Input'
 import icons from '../icons'
 import More, { getResetMore } from '../Select/More'
 import { addResizeObserver } from '../utils/dom/element'
-import { isEmpty, isNumber } from '../utils/is'
+import { isEmpty, isNumber, isFunc } from '../utils/is'
 import { CHANGE_TOPIC } from '../Datum/types'
 import Caret from '../icons/Caret'
 import { getDirectionClass } from '../utils/classname'
@@ -16,7 +16,7 @@ import InputTitle from '../InputTitle'
 import { inputTitleClass } from '../InputTitle/styles'
 
 // eslint-disable-next-line react/prop-types
-function Item({ children, close, className, data, isPopover, singleRemove, click, only }) {
+function Item({ children, close, className, data, isPopover, singleRemove, click, only, disabled }) {
   const onClose = close
     ? e => {
         close(data, isPopover, e)
@@ -27,6 +27,14 @@ function Item({ children, close, className, data, isPopover, singleRemove, click
         click(data, isPopover)
       }
     : undefined
+
+  let isDisabled = false
+  if (isFunc(disabled)) {
+    isDisabled = disabled(data)
+  } else {
+    isDisabled = disabled
+  }
+
   return (
     <a
       tabIndex={-1}
@@ -34,7 +42,7 @@ function Item({ children, close, className, data, isPopover, singleRemove, click
       onClick={onClick}
     >
       {children}
-      {singleRemove && (
+      {singleRemove && isDisabled !== true && (
         <span className={cascaderClass(getDirectionClass('single-remove'))} onClick={onClose}>
           {icons.Close}
         </span>
@@ -136,10 +144,8 @@ class Result extends PureComponent {
   }
 
   handleNode(nodes, render) {
-    const { singleRemove } = this.props
-
+    const { singleRemove, disabled, datum } = this.props
     const removeContainerClassName = cascaderClass(singleRemove && getDirectionClass('remove-container'))
-
     return nodes
       .map((n, i) =>
         this.renderItem({
@@ -148,6 +154,8 @@ class Result extends PureComponent {
           data: n,
           raw: nodes,
           render,
+          disabled,
+          datum,
         })
       )
       .filter(n => !isEmpty(n))
@@ -168,13 +176,7 @@ class Result extends PureComponent {
 
     if (clearable && value.length > 0 && !disabled) {
       /* eslint-disable */
-      return (
-        <a
-          tabIndex={-1}
-          className={className}
-          onClick={onClear}
-        />
-      )
+      return <a tabIndex={-1} className={className} onClick={onClear} />
       /* eslint-enable */
     }
 
@@ -323,7 +325,7 @@ class Result extends PureComponent {
 Result.propTypes = {
   clearable: PropTypes.bool,
   datum: PropTypes.object,
-  disabled: PropTypes.bool,
+  disabled: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
   multiple: PropTypes.bool,
   onClear: PropTypes.func,
   onPathChange: PropTypes.func,

@@ -64,7 +64,7 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
    *
    * default: false
    */
-  disabled?: (data: Item) => boolean | boolean;
+  disabled?: ((data: Item) => boolean) | boolean;
 
   /**
    * Expand mode
