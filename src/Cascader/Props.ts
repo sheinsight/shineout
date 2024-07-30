@@ -352,6 +352,7 @@ export interface ResultProps<DataItem, Value extends CascaderBaseValue>
   bindInput: (Input: any) => void
   selectId: string
   emptyAfterSelect?: boolean
+  disabled?: ((data: DataItem) => boolean) | boolean
 }
 
 export interface ResultItemProps<DataItem> {
@@ -364,6 +365,7 @@ export interface ResultItemProps<DataItem> {
   click: (data: DataItem, isPopover: boolean) => void
   only: boolean
   isDisabled: boolean
+  disabled?: ((data: DataItem) => boolean) | boolean
 }
 
 /** ------ CascaderProps ------ * */

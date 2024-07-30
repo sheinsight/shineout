@@ -574,6 +574,7 @@ class Cascader<DataItem, Value extends CascaderBaseValue> extends PureComponent<
           handleRemove={this.handleRemove}
           selectId={this.selectId}
           showList={this.handleClick}
+          disabled={disabled}
           size={size}
         />
 
