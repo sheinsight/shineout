@@ -20,6 +20,7 @@ const DefaultProps = {
   target: '_modal',
   width: '100%',
   height: '100%',
+  zIndex: 1100,
 }
 
 const PLACEHOLDER = 0
@@ -82,8 +83,8 @@ export default class Image extends PureComponent<ImageProps, State> {
   }
 
   preview() {
-    const { src, href } = this.props
-    showGallery({ thumb: src, src: href || src, key: 'key' })
+    const { src, href, zIndex } = this.props
+    showGallery({ thumb: src, src: href || src, key: 'key' }, undefined, { zIndex })
   }
 
   bindElement(el: HTMLElement | null) {
@@ -141,14 +142,14 @@ export default class Image extends PureComponent<ImageProps, State> {
   }
 
   handleClick(e: React.MouseEvent) {
-    const { onClick, target, src, href } = this.props
+    const { onClick, target, src, href, zIndex } = this.props
     if (onClick) {
       onClick(e)
       return
     }
     if (href && target === '_modal') {
       e.preventDefault()
-      showGallery({ thumb: src, src: href || src, key: 'key' })
+      showGallery({ thumb: src, src: href || src, key: 'key' }, undefined, { zIndex })
     }
   }
 
