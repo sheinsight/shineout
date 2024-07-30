@@ -7,7 +7,7 @@ import Input from './Input'
 import icons from '../icons'
 import More, { getResetMore } from '../Select/More'
 import { addResizeObserver } from '../utils/dom/element'
-import { isEmpty, isNumber } from '../utils/is'
+import { isEmpty, isNumber, isFunc } from '../utils/is'
 import { CHANGE_TOPIC } from '../Datum/types'
 import Caret from '../icons/Caret'
 import { getDirectionClass } from '../utils/classname'
@@ -25,6 +25,7 @@ function Item<DataItem>({
   click,
   only,
   isDisabled,
+  disabled,
 }: ResultItemProps<DataItem>) {
   const onClose = close
     ? (e: any) => {
@@ -36,6 +37,15 @@ function Item<DataItem>({
         click(data, isPopover)
       }
     : undefined
+
+  let allowRemove: undefined | boolean = false
+
+  if (isFunc(disabled)) {
+    allowRemove = disabled(data)
+  } else {
+    allowRemove = disabled
+  }
+
   return (
     <a
       tabIndex={-1}
@@ -46,7 +56,7 @@ function Item<DataItem>({
       onClick={onClick}
     >
       {children}
-      {singleRemove && !isDisabled && (
+      {singleRemove && !isDisabled && allowRemove !== true && (
         <span className={cascaderClass(getDirectionClass('single-remove'))} onClick={onClose}>
           {icons.Close}
         </span>
@@ -162,7 +172,7 @@ class Result<DataItem, Value extends CascaderBaseValue> extends PureComponent<
   }
 
   handleNode(nodes: any[], render: (data: DataItem, row: DataItem[]) => ReactNode) {
-    const { singleRemove } = this.props
+    const { singleRemove, disabled } = this.props
 
     const removeContainerClassName = cascaderClass(singleRemove && getDirectionClass('remove-container'))
 
@@ -174,6 +184,7 @@ class Result<DataItem, Value extends CascaderBaseValue> extends PureComponent<
           data: n,
           raw: nodes,
           render,
+          disabled,
         })
       )
       .filter(n => !isEmpty(n))
@@ -211,6 +222,7 @@ class Result<DataItem, Value extends CascaderBaseValue> extends PureComponent<
     index: number
     render: (_data: DataItem, row: DataItem[]) => ReactNode
     data: DataItem
+    disabled?: ((data: DataItem) => boolean) | boolean
     raw: DataItem[]
     className: string
   }) {
