@@ -116,6 +116,13 @@ export interface ImageProps extends StandardProps {
    * @default false
    */
   noImgDrag?: boolean
+
+  /**
+   * @en The z-index of the image preview mask layer
+   * @cn 图片预览遮罩层的 z-index
+   * @default 1050
+   */
+  zIndex?: number
 }
 
 /**

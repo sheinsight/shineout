@@ -4,12 +4,17 @@ import Gallery from './Gallery'
 import { getDefaultContainer } from '../config'
 import { imageClass } from './styles'
 
-let container: Element | null
+let container: HTMLDivElement | null
 
 export interface GalleryImage {
   src?: string
   thumb?: string
   key?: number | string
+  zIndex?: number
+}
+
+export interface GalleryProps {
+  zIndex?: number
 }
 
 function close() {
@@ -35,9 +40,12 @@ function getContainer() {
   return container
 }
 
-export default function events(images: GalleryImage | GalleryImage[], current = 0) {
+export default function events(images: GalleryImage | GalleryImage[], current = 0, props?: GalleryProps) {
+  const { zIndex } = props || {}
   if (!Array.isArray(images)) images = [images]
   const div = getContainer()
+
+  if (zIndex) div.style.zIndex = zIndex.toString()
 
   document.addEventListener('keydown', keyClose)
 
