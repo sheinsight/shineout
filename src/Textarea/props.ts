@@ -43,6 +43,11 @@ export interface OriginTextareaProps extends Pick<InputTitleProps, 'innerTitle' 
    */
   onEnterPress?: (value: string, e: KeyboardEvent<HTMLTextAreaElement>) => void
   /**
+   * @en Key up callback function
+   * @cn 按键抬起回调函数
+   */
+  onKeyUp?: (e: KeyboardEvent<HTMLTextAreaElement>) => void
+  /**
    * @en The minimum row height. Same as native textarea rows property.
    * @cn 最小行高，同原生 textarea rows 属性
    * @default 4

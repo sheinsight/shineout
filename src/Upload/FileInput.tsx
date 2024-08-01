@@ -33,7 +33,13 @@ class FileInput extends PureComponent<FileInputProps> {
 
   render() {
     const { accept, onChange, multiple, webkitdirectory } = this.props
-    const OriginProps = { webkitdirectory }
+    const OriginProps: {
+      webkitdirectory?: string
+      [props: string]: unknown
+    } = {}
+    if (webkitdirectory) {
+      OriginProps.webkitdirectory = ''
+    }
     return (
       <input
         ref={this.bindElement}
