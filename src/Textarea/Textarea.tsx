@@ -79,10 +79,11 @@ class Textarea extends PureComponent<OriginTextareaProps, TextareaState> {
   }
 
   handleKeyUp(e: KeyboardEvent<HTMLTextAreaElement>) {
-    const { onEnterPress } = this.props
+    const { onEnterPress, onKeyUp } = this.props
     if (e.keyCode === 13 && onEnterPress) {
       onEnterPress((e.target as HTMLTextAreaElement).value, e)
     }
+    if (onKeyUp) onKeyUp(e)
   }
 
   handleBlur(e: FocusEvent<HTMLTextAreaElement>) {
