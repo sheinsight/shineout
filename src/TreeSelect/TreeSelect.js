@@ -225,7 +225,7 @@ export default class TreeSelect extends PureComponent {
       this.handleState(false)
     }
     const value = this.getValue()
-    onChange(value, current, id && datum.getPath(id).path)
+    onChange(value, current, id != null || id !== undefined ? (datum.getPath(id) || {}).path : undefined)
     if (typeof onChangeAddition === 'function') {
       onChangeAddition({
         data: this.getDataByValue(value),
@@ -364,7 +364,7 @@ export default class TreeSelect extends PureComponent {
     return (
       <div
         // eslint-disable-next-line
-        tabIndex={ disabled === true ? -1 : 0}
+        tabIndex={disabled === true ? -1 : 0}
         ref={this.bindElement}
         className={className}
         data-id={this.treeSelectId}
