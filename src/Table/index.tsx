@@ -194,6 +194,7 @@ export default class TableIndex<DataItem, Value> extends React.Component<
             const rpmItem = rpm.find(v => v.key === key)!
             rpmItem.order = order
             rpmItem.manual = manual
+            rpmItem.deleted = false
             rpm = rpm.filter(v => v.order && !v.deleted)
             const sort = typeof sorter.rule === 'string' ? this.getTableSorter()(sorter.rule, order, rpm) : undefined
             item.sort = sort!
