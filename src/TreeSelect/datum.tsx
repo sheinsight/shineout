@@ -5,7 +5,7 @@ import { TreeSelectPropsWithAdvancedFilter, TreeSelectPropsWithDatum, TreeSelect
 import { KeygenResult } from '../@types/common'
 
 function toArray<Value>(value: Value) {
-  if (!value) return []
+  if (value == null || value === undefined) return []
   if (!Array.isArray(value)) return [value]
   return value
 }
@@ -55,7 +55,8 @@ export default function datum<Item, Value extends TreeSelectValueType>(
       }
 
       if (!shallowEqual(toArray(value), this.datum.getValue())) {
-        this.datum.setValue(toArray(value) as KeygenResult[])
+        console.log('value', value)
+        this.datum.setValue(toArray(value) as KeygenResult[], 666)
       }
       return <Origin {...props} />
     }
