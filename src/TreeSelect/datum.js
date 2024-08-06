@@ -4,7 +4,7 @@ import DatumTree from '../Datum/Tree'
 import shallowEqual from '../utils/shallowEqual'
 
 function toArray(value) {
-  if (!value) return []
+  if (value == null || value === undefined) return []
   if (!Array.isArray(value)) return [value]
   return value
 }
