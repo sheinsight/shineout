@@ -265,12 +265,14 @@ class Scroll extends PureComponent<ScrollProps> {
   }
 
   handleTouchStart(e: TouchEvent) {
+    if (!e?.changedTouches?.[0]) return
     this.setStartPoint(e.changedTouches[0])
   }
 
   handleTouchMove(e: TouchEvent) {
     const { scrollX, scrollY } = this.props
     e.preventDefault()
+    if (!e?.changedTouches?.[0]) return
     const position = e.changedTouches[0]
     const moveX = position.clientX - this.touchStartX
     const moveY = position.clientY - this.touchStartY
