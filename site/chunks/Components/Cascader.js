@@ -195,6 +195,19 @@ const examples = [
     parseTsText: require('!raw-loader!doc/pages/components/Cascader/test-003-open.tsx'),
 
   },
+  {
+    name: 'test-004-dynamic-disabled',
+    isTs: true,
+    isTest: true,
+    title: locate(
+      '动态disabled \n 树形数据的禁用逻辑存在层级关系，为了提高计算性能禁用状态会被缓存，当 data 更新或组件重新挂载才会更新缓存。',
+      'Dynamic disabled \n The disable logic of tree data has a hierarchical relationship. To improve the calculation performance, the disable status will be cached. The cache will be updated when the data is updated or the component is re-mounted.'
+    ),
+    component: require('doc/pages/components/Cascader/test-004-dynamic-disabled.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Cascader/test-004-dynamic-disabled.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Cascader/test-004-dynamic-disabled.tsx'),
+
+  },
 ]
 
 const codes = undefined
