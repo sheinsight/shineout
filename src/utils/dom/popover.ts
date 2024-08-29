@@ -1,5 +1,6 @@
 import { docScroll, docSize } from './document'
 import { PopoverPositionType } from '../../Popover/Props'
+import { isChromeLowerThan } from '../is'
 
 interface PositionInfo {
   top?: number
@@ -77,6 +78,26 @@ export const getPosition = (
       pos.top = scrollTop + rect.top - containerRect.top
       break
     default:
+  }
+
+  // TODO: 如果是版本大于chrome128，需要根据currentCSSZoom处理chrome的bug
+  if (!isChromeLowerThan(128) && document) {
+    // @ts-ignore currentCSSZoom
+    const { currentCSSZoom } = document.body
+    if (currentCSSZoom && currentCSSZoom !== 1) {
+      if (pos.left && typeof pos.left === 'number') {
+        pos.left *= 1 / currentCSSZoom
+      }
+      if (pos.top && typeof pos.top === 'number') {
+        pos.top *= 1 / currentCSSZoom
+      }
+      if (pos.right && typeof pos.right === 'number') {
+        pos.right *= 1 / currentCSSZoom
+      }
+      if (pos.bottom && typeof pos.bottom === 'number') {
+        pos.bottom *= 1 / currentCSSZoom
+      }
+    }
   }
 
   return posKeys.reduce(
