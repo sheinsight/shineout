@@ -535,7 +535,6 @@ class SeperateTable<DataItem, Value> extends PureComponent<SeperateTableProps<Da
       setTranslate(this.tbody, `-${left}px`, `-${this.lastScrollTop}px`)
     }
     /* set y end */
-
     this.setState({
       scrollLeft: x,
       scrollTop,

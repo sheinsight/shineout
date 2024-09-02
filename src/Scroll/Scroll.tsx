@@ -9,6 +9,7 @@ import Bar from './Bar'
 import config from '../config'
 import { Provider } from './context'
 import { throttleWrapper } from '../utils/lazyload'
+import getZoomBoundingClientRect from '../utils/dom/getZoomBoundingRect'
 import { isRTL } from '../config'
 import { ScrollProps } from './Props'
 
@@ -111,7 +112,7 @@ class Scroll extends PureComponent<ScrollProps> {
 
   getWheelRect() {
     if (!this.wheelElement) return { width: 0, height: 0 }
-    let { width, height } = this.wheelElement.getBoundingClientRect()
+    let { width, height } = getZoomBoundingClientRect(this.wheelElement)
     // display none
     if (width === 0 && height === 0) {
       width = this.cacheWidth
