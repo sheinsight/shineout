@@ -7,6 +7,7 @@ import Td from './Td'
 import Expand from './Expand'
 import { TrProps } from './Props'
 import { isFunc } from '../utils/is'
+import getZoomBoundingClientRect from '../utils/dom/getZoomBoundingRect'
 
 export const ROW_HEIGHT_UPDATE_EVENT = 'ROW_HEIGHT_UPDATE_EVENT_NAME'
 
@@ -77,7 +78,7 @@ class Tr<DataItem, Value> extends Component<TrProps<DataItem, Value>> {
   setRowHeight(expand?: boolean) {
     const { setRowHeight, dataUpdated, datum, lazy } = this.props
     if (!lazy || !setRowHeight || !this.element) return
-    let { height } = this.element.getBoundingClientRect()
+    let { height } = getZoomBoundingClientRect(this.element)
     if (Number.isNaN(height)) height = this.lastRowHeight || 0
     datum.unsubscribe(ROW_HEIGHT_UPDATE_EVENT, this.setRowHeight)
     if (height === 0) {
