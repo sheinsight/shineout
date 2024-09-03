@@ -12,7 +12,7 @@ import Colgroup from './Colgroup'
 import Thead from './Thead'
 import Tbody from './Tbody'
 import Tfoot from './Tfoot'
-import { isNumber } from '../utils/is'
+import { isNumber, isChromeLowerThan } from '../utils/is'
 import { Provider as AbsoluteProvider } from './context'
 import { CLASS_FIXED_LEFT, CLASS_FIXED_RIGHT } from './Td'
 import Sticky from '../Sticky'
@@ -155,6 +155,14 @@ class SeperateTable<DataItem, Value> extends PureComponent<SeperateTableProps<Da
   }
 
   getContentWidth() {
+    if (!isChromeLowerThan(128)) {
+      // @ts-ignore currentCSSZoom
+      const { currentCSSZoom } = document.body
+      const zoomRatio = currentCSSZoom && currentCSSZoom > 1 ? 1 / currentCSSZoom : 1
+      if (this.props.width) return this.props.width / zoomRatio
+      if (this.tbody) return this.tbody.offsetWidth / zoomRatio
+      return 0
+    }
     if (this.props.width) return this.props.width
     if (this.tbody) return this.tbody.offsetWidth
     return 0
@@ -509,7 +517,6 @@ class SeperateTable<DataItem, Value> extends PureComponent<SeperateTableProps<Da
       this.setState({ currentIndex: 0 })
     } else {
       // wheel scroll
-
       this.lastScrollTop += pixelY
       if (this.lastScrollTop < 0) this.lastScrollTop = 0
 
