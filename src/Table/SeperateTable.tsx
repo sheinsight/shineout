@@ -161,11 +161,10 @@ class SeperateTable<DataItem, Value> extends PureComponent<SeperateTableProps<Da
       const zoomRatio = currentCSSZoom && currentCSSZoom > 1 ? 1 / currentCSSZoom : 1
       if (this.props.width) return this.props.width / zoomRatio
       if (this.tbody) return this.tbody.offsetWidth / zoomRatio
-    } else {
-      if (this.props.width) return this.props.width
-      if (this.tbody) return this.tbody.offsetWidth
+      return 0
     }
-
+    if (this.props.width) return this.props.width
+    if (this.tbody) return this.tbody.offsetWidth
     return 0
   }
 
