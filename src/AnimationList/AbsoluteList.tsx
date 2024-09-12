@@ -12,6 +12,7 @@ import { isRTL, getDefaultContainer } from '../config'
 import { addZoomListener, removeZoomListener } from '../utils/zoom'
 import { isInDocument } from '../utils/dom/isInDocument'
 import { AbsoluteProps, GetAbsoluteProps } from './Props'
+import { isChromeLowerThan } from '../utils/is'
 
 const PICKER_V_MARGIN = 4
 let root: HTMLDivElement
@@ -178,7 +179,7 @@ export default function<U extends {}>(List: ComponentType<U>) {
       const { parentElement, scrollElement, focus } = this.props
       const lazyResult = { focus, style: this.lastStyle }
       if (!focus) return lazyResult
-      let style = {}
+      let style: React.CSSProperties = {}
       if (parentElement) {
         const rect = parentElement.getBoundingClientRect()
         const scrollRect: any = scrollElement ? scrollElement.getBoundingClientRect() : {}
@@ -196,6 +197,26 @@ export default function<U extends {}>(List: ComponentType<U>) {
 
       if (shallowEqual(style, this.lastStyle)) return lazyResult
 
+      if (!isChromeLowerThan(128)) {
+        // @ts-ignore currentCSSZoom
+        const { currentCSSZoom } = document.body
+        if (currentCSSZoom === 1 || !currentCSSZoom) {
+          this.lastStyle = style
+          return { focus, style }
+        }
+        if (style.left && typeof style.left === 'number') {
+          style.left *= 1 / currentCSSZoom
+        }
+        if (style.top && typeof style.top === 'number') {
+          style.top *= 1 / currentCSSZoom
+        }
+        if (style.right && typeof style.right === 'number') {
+          style.right *= 1 / currentCSSZoom
+        }
+        if (style.bottom && typeof style.bottom === 'number') {
+          style.bottom *= 1 / currentCSSZoom
+        }
+      }
       this.lastStyle = style
       return { focus, style }
     }
@@ -272,7 +293,7 @@ export default function<U extends {}>(List: ComponentType<U>) {
       }
 
       const mergeStyle = Object.assign({}, style, this.state.overdoc ? getOverDocStyle(this.isRight()) : undefined)
-      return <List getRef={this.handleRef} {...props as U} focus={focus} style={mergeStyle} />
+      return <List getRef={this.handleRef} {...(props as U)} focus={focus} style={mergeStyle} />
     }
 
     render() {
@@ -301,6 +322,8 @@ export default function<U extends {}>(List: ComponentType<U>) {
         autoAdapt: ignore,
         ...props
       } = this.props
+      const currentCssZoom = parseFloat(document.body.style.zoom) || 1
+
       const mergeClass = classnames(listClass('absolute-wrapper'), rootClass, autoClass)
       const { focus, style } = props.focus ? this.getStyle() : { style: this.lastStyle, focus: undefined }
       this.element.className = mergeClass
@@ -314,7 +337,7 @@ export default function<U extends {}>(List: ComponentType<U>) {
       return ReactDOM.createPortal(
         <List
           getRef={this.handleRef}
-          {...props as U}
+          {...(props as U)}
           focus={focus}
           style={mergeStyle}
           autoAdapt={autoAdapt}
@@ -325,8 +348,5 @@ export default function<U extends {}>(List: ComponentType<U>) {
     }
   }
 
-  return compose(
-    scrollConsumer,
-    zIndexConsumer
-  )(AbsoluteList) as ComponentType<GetAbsoluteProps<U>>
+  return compose(scrollConsumer, zIndexConsumer)(AbsoluteList) as ComponentType<GetAbsoluteProps<U>>
 }
