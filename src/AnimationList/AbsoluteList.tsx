@@ -12,7 +12,7 @@ import { isRTL, getDefaultContainer } from '../config'
 import { addZoomListener, removeZoomListener } from '../utils/zoom'
 import { isInDocument } from '../utils/dom/isInDocument'
 import { AbsoluteProps, GetAbsoluteProps } from './Props'
-import { isChromeLowerThan } from '../utils/is'
+import { getCurrentCSSZoom } from '../utils/dom/document'
 
 const PICKER_V_MARGIN = 4
 let root: HTMLDivElement
@@ -197,13 +197,8 @@ export default function<U extends {}>(List: ComponentType<U>) {
 
       if (shallowEqual(style, this.lastStyle)) return lazyResult
 
-      if (!isChromeLowerThan(128)) {
-        // @ts-ignore currentCSSZoom
-        const { currentCSSZoom } = document.body
-        if (currentCSSZoom === 1 || !currentCSSZoom) {
-          this.lastStyle = style
-          return { focus, style }
-        }
+      const currentCSSZoom = getCurrentCSSZoom()
+      if (currentCSSZoom !== 1) {
         if (style.left && typeof style.left === 'number') {
           style.left *= 1 / currentCSSZoom
         }
@@ -322,8 +317,6 @@ export default function<U extends {}>(List: ComponentType<U>) {
         autoAdapt: ignore,
         ...props
       } = this.props
-      const currentCssZoom = parseFloat(document.body.style.zoom) || 1
-
       const mergeClass = classnames(listClass('absolute-wrapper'), rootClass, autoClass)
       const { focus, style } = props.focus ? this.getStyle() : { style: this.lastStyle, focus: undefined }
       this.element.className = mergeClass

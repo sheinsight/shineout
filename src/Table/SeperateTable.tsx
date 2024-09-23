@@ -12,7 +12,8 @@ import Colgroup from './Colgroup'
 import Thead from './Thead'
 import Tbody from './Tbody'
 import Tfoot from './Tfoot'
-import { isNumber, isChromeLowerThan } from '../utils/is'
+import { isNumber } from '../utils/is'
+import { getCurrentCSSZoom } from '../utils/dom/document'
 import { Provider as AbsoluteProvider } from './context'
 import { CLASS_FIXED_LEFT, CLASS_FIXED_RIGHT } from './Td'
 import Sticky from '../Sticky'
@@ -155,9 +156,8 @@ class SeperateTable<DataItem, Value> extends PureComponent<SeperateTableProps<Da
   }
 
   getContentWidth() {
-    if (!isChromeLowerThan(128)) {
-      // @ts-ignore currentCSSZoom
-      const { currentCSSZoom } = document.body
+    const currentCSSZoom = getCurrentCSSZoom()
+    if (currentCSSZoom !== 1) {
       const zoomRatio = currentCSSZoom && currentCSSZoom > 1 ? 1 / currentCSSZoom : 1
       if (this.props.width) return this.props.width / zoomRatio
       if (this.tbody) return this.tbody.offsetWidth / zoomRatio
@@ -566,7 +566,10 @@ class SeperateTable<DataItem, Value> extends PureComponent<SeperateTableProps<Da
       const { width } = tds[i].getBoundingClientRect()
       const colSpan = parseInt(tds[i].getAttribute('colspan')!, 10)
       if (colSpan && colSpan > 1) {
-        split(width, range(colSpan).map(j => columns[i + j].width!)).forEach(w => colgroup.push(w))
+        split(
+          width,
+          range(colSpan).map(j => columns[i + j].width!)
+        ).forEach(w => colgroup.push(w))
       } else {
         colgroup.push(width)
       }

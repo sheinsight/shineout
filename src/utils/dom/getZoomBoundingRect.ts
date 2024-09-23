@@ -1,9 +1,8 @@
-import { isChromeLowerThan } from '../is'
+import { getCurrentCSSZoom } from './document'
 
 const getZoomBoundingClientRect = (element: HTMLElement) => {
-  if (!isChromeLowerThan(128)) {
-    // @ts-ignore currentCSSZoom
-    const { currentCSSZoom } = document.body
+  const currentCSSZoom = getCurrentCSSZoom()
+  if (currentCSSZoom !== 1) {
     const isNotZoom = currentCSSZoom === 1 || !currentCSSZoom
 
     if (isNotZoom) {
