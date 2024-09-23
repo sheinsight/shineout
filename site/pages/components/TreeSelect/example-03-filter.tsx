@@ -18,7 +18,11 @@ const data = [
     id: '1',
     title: '1',
     children: [
-      { id: '1-1', title: '1-1', children: [{ id: '1-1-1', title: '1-1-1' }, { id: '1-1-2', title: '1-1-2' }] },
+      {
+        id: '1-1',
+        title: '1-1',
+        children: [{ id: '1-1-1', title: '1-1-1' }, { id: '1-1-2', title: '1-1-2' }],
+      },
       { id: '1-2', title: '1-2' },
     ],
   },
@@ -50,6 +54,7 @@ const App: React.FC = () => {
         keygen="id"
         renderItem={node => `node ${node.title}`}
         data={data}
+        absolute
       />
       <br />
       <TreeSelect
