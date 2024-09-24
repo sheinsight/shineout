@@ -41,13 +41,14 @@ const validateFile = () => {
 
 const publishPackage = () => {
   const distPath = path.resolve(__dirname, `../publish`)
-  exec(`npm publish ${distPath} --access public${tag ? ` --tag ${tag}` : ''}`, (error, stdout) => {
+  exec(`npm publish ${distPath} --access public${tag ? ` --tag ${tag}` : ''}`, (error, stdout, stderr) => {
     if (error) {
-      console.error(error)
+      console.error('Error occurred:', error)
+      console.error('Standard error output:', stderr)
       process.exit(1)
       return
     }
-    console.log(stdout)
+    console.log('Standard output:', stdout)
   })
 }
 
@@ -55,6 +56,6 @@ try {
   validateFile()
   publishPackage()
 } catch (error) {
-  console.error(error)
+  console.log('Publish error:', error)
   process.exit(1)
 }
