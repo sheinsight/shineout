@@ -23,3 +23,4 @@ cypress/screenshots
 jest-coverage
 cypress-coverage
 reports
+.env
