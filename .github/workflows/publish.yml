@@ -34,7 +34,6 @@ jobs:
         run: echo -e //registry.npmjs.org/:_authToken=${NPM_TOKEN} >> .npmrc
         env:
           NPM_TOKEN: ${{ secrets.SHINEOUT_PUBLISH_TOKEN }}
-
       - name: publish
         run: yarn release
 
