@@ -1,0 +1,40 @@
+name: publish
+
+on:
+  push:
+    tags:
+      - 'version-*'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.19.1]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          ref: ${{ github.event.release.tag_name}}
+
+      - name: Use Pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.4.0
+
+      - name: dependencies
+        run: yarn
+
+      - name: build
+        run: yarn build
+
+      - name: set token
+        run: echo -e //registry.npmjs.org/:_authToken=${NPM_TOKEN} >> .npmrc
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
+
+      - name: publish
+        run: yarn release
+
+
