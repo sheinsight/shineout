@@ -12,6 +12,8 @@ import { isRTL, getDefaultContainer } from '../config'
 import { addZoomListener, removeZoomListener } from '../utils/zoom'
 import { isInDocument } from '../utils/dom/isInDocument'
 import { AbsoluteProps, GetAbsoluteProps } from './Props'
+import { getCurrentCSSZoom } from '../utils/dom/document'
+import { addResizeObserver } from '../utils/dom/element'
 
 const PICKER_V_MARGIN = 4
 let root: HTMLDivElement
@@ -62,6 +64,8 @@ export default function<U extends {}>(List: ComponentType<U>) {
 
     el: HTMLElement
 
+    cancelResizeObserver: () => void
+
     constructor(props: AbsoluteProps) {
       super(props)
       this.handleRef = this.handleRef.bind(this)
@@ -73,7 +77,7 @@ export default function<U extends {}>(List: ComponentType<U>) {
       this.element = document.createElement('div')
       if (this.container) this.container.appendChild(this.element)
       if (props.getResetPosition) {
-        props.getResetPosition(this.resetPosition.bind(this))
+        props.getResetPosition(this.resetPosition)
       }
       this.zoomChangeHandler = this.zoomChangeHandler.bind(this)
     }
@@ -88,6 +92,16 @@ export default function<U extends {}>(List: ComponentType<U>) {
       }
       if (this.props.absolute) {
         addZoomListener(this.zoomChangeHandler)
+      }
+
+      if (this.el) {
+        this.cancelResizeObserver = addResizeObserver(
+          this.el,
+          () => {
+            this.resetPosition(true)
+          },
+          { direction: true }
+        )
       }
     }
 
@@ -106,6 +120,7 @@ export default function<U extends {}>(List: ComponentType<U>) {
       if (this.container) {
         if (this.element && this.element.parentNode) this.element.parentNode.removeChild(this.element)
       }
+      if (this.cancelResizeObserver) this.cancelResizeObserver()
     }
 
     getContainer(element?: HTMLElement) {
@@ -178,7 +193,7 @@ export default function<U extends {}>(List: ComponentType<U>) {
       const { parentElement, scrollElement, focus } = this.props
       const lazyResult = { focus, style: this.lastStyle }
       if (!focus) return lazyResult
-      let style = {}
+      let style: React.CSSProperties = {}
       if (parentElement) {
         const rect = parentElement.getBoundingClientRect()
         const scrollRect: any = scrollElement ? scrollElement.getBoundingClientRect() : {}
@@ -196,6 +211,21 @@ export default function<U extends {}>(List: ComponentType<U>) {
 
       if (shallowEqual(style, this.lastStyle)) return lazyResult
 
+      const currentCSSZoom = getCurrentCSSZoom()
+      if (currentCSSZoom !== 1) {
+        if (style.left && typeof style.left === 'number') {
+          style.left *= 1 / currentCSSZoom
+        }
+        if (style.top && typeof style.top === 'number') {
+          style.top *= 1 / currentCSSZoom
+        }
+        if (style.right && typeof style.right === 'number') {
+          style.right *= 1 / currentCSSZoom
+        }
+        if (style.bottom && typeof style.bottom === 'number') {
+          style.bottom *= 1 / currentCSSZoom
+        }
+      }
       this.lastStyle = style
       return { focus, style }
     }
@@ -218,7 +248,7 @@ export default function<U extends {}>(List: ComponentType<U>) {
       return isRight
     }
 
-    resetPosition(clean?: boolean) {
+    resetPosition = (clean?: boolean) => {
       const { focus, parentElement } = this.props
       if (!this.el || !focus || (this.ajustdoc && !clean)) return
       const width = this.el.offsetWidth
@@ -304,13 +334,14 @@ export default function<U extends {}>(List: ComponentType<U>) {
       const mergeClass = classnames(listClass('absolute-wrapper'), rootClass, autoClass)
       const { focus, style } = props.focus ? this.getStyle() : { style: this.lastStyle, focus: undefined }
       this.element.className = mergeClass
-      const mergeStyle = Object.assign(
-        {},
-        style,
-        props.style,
-        this.state.overdoc ? getOverDocStyle(this.isRight()) : undefined
-      )
+      const overdocStyle = this.state.overdoc ? getOverDocStyle(this.isRight()) : undefined
+      const mergeStyle = Object.assign({}, style, props.style, overdocStyle)
       if (zIndex || typeof zIndex === 'number') mergeStyle.zIndex = parseInt((zIndex as unknown) as string, 10)
+      // console.log('======================')
+      // console.log('this.state.overdoc: >>', this.state.overdoc)
+      // console.log('overdocStyle: >>', overdocStyle)
+      // console.log('mergeStyle: >>', mergeStyle)
+      // console.log('======================')
       return ReactDOM.createPortal(
         <List
           getRef={this.handleRef}
@@ -318,7 +349,7 @@ export default function<U extends {}>(List: ComponentType<U>) {
           focus={focus}
           style={mergeStyle}
           autoAdapt={autoAdapt}
-          resetPosition={this.resetPosition.bind(this)}
+          resetPosition={this.resetPosition}
         />,
         this.element
       )
