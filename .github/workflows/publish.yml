@@ -18,16 +18,17 @@ jobs:
           fetch-depth: 1
           ref: ${{ github.event.release.tag_name}}
 
-      - name: Use Pnpm
-        uses: pnpm/action-setup@v4
+      - name: Run install
+        uses: borales/actions-yarn@v4
+        env:
+          NODE_TLS_REJECT_UNAUTHORIZED: '0'
         with:
-          version: 9.4.0
+          cmd: install
 
-      - name: dependencies
-        run: yarn
-
-      - name: build
-        run: yarn build
+      - name: Build production bundle
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: build
 
       - name: set token
         run: echo -e //registry.npmjs.org/:_authToken=${NPM_TOKEN} >> .npmrc
