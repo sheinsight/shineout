@@ -35,6 +35,6 @@ jobs:
         env:
           NPM_TOKEN: ${{ secrets.SHINEOUT_PUBLISH_TOKEN }}
       - name: publish
-        run: yarn release
+        run: npm run release
 
 
