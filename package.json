@@ -36,7 +36,7 @@
     "build-es5": "node scripts/build-es5.js",
     "build-ts": "node scripts/build-ts.js",
     "build-css": "node scripts/build-css.js",
-    "build": "npm-run-all build-*",
+    "build": "NODE_OPTIONS=--openssl-legacy-provider npm-run-all build-*",
     "cypress:open": "cross-env NODE_ENV=development cypress open",
     "cypress:run": "cross-env NODE_ENV=development cypress run --browser chrome",
     "release": "node scripts/publish.js"
