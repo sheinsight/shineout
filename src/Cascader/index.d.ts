@@ -203,6 +203,15 @@ export interface CascaderProps<Item, Value> extends StandardProps, FormItemStand
    */
    onFilter?: (text: string) => (data: any) => boolean;
 
+   /**
+   * After selecting the value, the search text is retained
+   *
+   * 在选择值之后，已经保留搜索文本
+   *
+   * default: false
+   */
+   keepFilter?: boolean;
+
   /**
    * Allows all possible matching options to be choosed
    *

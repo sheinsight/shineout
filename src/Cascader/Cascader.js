@@ -279,16 +279,16 @@ class Cascader extends PureComponent {
   }
 
   handleChange(...args) {
-    const { onChange, onFilter, filterText } = this.props
+    const { onChange, onFilter, filterText, keepFilter } = this.props
     if (this.input) {
-      this.input.reset()
+      if (!keepFilter) this.input.reset()
       this.input.focus()
     }
     const [value] = args
     this.lastValue = value
     onChange(...args)
 
-    if (onFilter && filterText) onFilter('')
+    if (!keepFilter && onFilter && filterText) onFilter('')
   }
 
   renderList() {
@@ -510,6 +510,7 @@ Cascader.propTypes = {
   onCollapse: PropTypes.func,
   filterText: PropTypes.string,
   onFilter: PropTypes.func,
+  keepFilter: PropTypes.bool,
   filterDataChange: PropTypes.any,
   firstMatchNode: PropTypes.object,
   unmatch: PropTypes.bool,
