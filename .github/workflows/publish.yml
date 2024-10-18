@@ -1,0 +1,40 @@
+name: publish
+
+on:
+  push:
+    tags:
+      - 'version-*'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.19.1]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          ref: ${{ github.event.release.tag_name}}
+
+      - name: Run install
+        uses: borales/actions-yarn@v4
+        env:
+          NODE_TLS_REJECT_UNAUTHORIZED: '0'
+        with:
+          cmd: install
+
+      - name: Build production bundle
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: build
+
+      - name: set token
+        run: echo -e //registry.npmjs.org/:_authToken=${NPM_TOKEN} >> .npmrc
+        env:
+          NPM_TOKEN: ${{ secrets.SHINEOUT_PUBLISH_TOKEN }}
+      - name: publish
+        run: npm run release
+
+
