@@ -86,7 +86,7 @@ const Header = ({ versions }) => {
     if (searchInput) {
       docsearch({
         appId: 'QZ4V4FVOGI',
-        apiKey: '221731045c2ba6c166d98d78dcf4461a',
+        apiKey: process.env.DOC_SEARCH_API_KEY,
         indexName: process.env.LOG_ENV === 'rc' ? `shineout-rc` : `shineout-wiki`,
         inputSelector: '#algolia-doc-search',
         algoliaOptions: { facetFilters: [`${locate('cn', 'en')}`] },
