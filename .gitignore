@@ -24,3 +24,4 @@ jest-coverage
 cypress-coverage
 reports
 .env
+.local.env
