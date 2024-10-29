@@ -42,6 +42,7 @@ module.exports = function getCommon(config) {
         CSS_MODULE: !!process.env.LOCAL_IDENT_NAME,
         LOG_ENV: JSON.stringify(process.env.LOG_ENV || ''),
         CASE_ENV: JSON.stringify(process.env.CASE_ENV || ''),
+        DOC_SEARCH_API_KEY: JSON.stringify(process.env.DOC_SEARCH_API_KEY || ''),
       },
     }),
   ]

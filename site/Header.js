@@ -80,7 +80,8 @@ const Header = ({ versions }) => {
   let version = versions.find(v => pathname.indexOf(v.content) >= 0)
   if (version) version = version.content
 
-  const searchInput = !version || version === (versions[versions.length - 1] || {}).content
+  const searchInput =
+    !version || (version === (versions[versions.length - 1] || {}).content && process.env.DOC_SEARCH_API_KEY)
 
   useEffect(() => {
     if (searchInput) {
