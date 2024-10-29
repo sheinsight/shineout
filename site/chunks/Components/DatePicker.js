@@ -376,32 +376,6 @@ const examples = [
     parseTsText: require('!raw-loader!ts-loader!doc/pages/components/DatePicker/example-19-default-picker-value.tsx'),
 
   },
-  {
-    name: 'test-001-control',
-    isTs: true,
-    isTest: true,
-    title: locate(
-      '完全受控 \n 通过封装实现完全受控',
-      '完全受控 \n 通过封装实现完全受控'
-    ),
-    component: require('doc/pages/components/DatePicker/test-001-control.tsx').default,
-    rawText: require('!raw-loader!doc/pages/components/DatePicker/test-001-control.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/DatePicker/test-001-control.tsx'),
-
-  },
-  {
-    name: 'test-002-time-range-max',
-    isTs: true,
-    isTest: true,
-    title: locate(
-      'timepicker range max \n timepicker max 和 range 一起使用导致禁用逻辑错误',
-      ''
-    ),
-    component: require('doc/pages/components/DatePicker/test-002-time-range-max.tsx').default,
-    rawText: require('!raw-loader!doc/pages/components/DatePicker/test-002-time-range-max.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/DatePicker/test-002-time-range-max.tsx'),
-
-  },
 ]
 
 const codes = undefined

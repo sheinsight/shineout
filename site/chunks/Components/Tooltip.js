@@ -52,19 +52,6 @@ const examples = [
     parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Tooltip/example-3-disabled-inner.tsx'),
 
   },
-  {
-    name: 'test-001-scroll',
-    isTs: true,
-    isTest: true,
-    title: locate(
-      '在 Scroll 中滚动会自动Tooltip更新位置 \n Scroll 中滚动',
-      '在 Scroll 中滚动会自动Tooltip更新位置 \n Scroll 中滚动'
-    ),
-    component: require('doc/pages/components/Tooltip/test-001-scroll.tsx').default,
-    rawText: require('!raw-loader!doc/pages/components/Tooltip/test-001-scroll.tsx'),
-    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Tooltip/test-001-scroll.tsx'),
-
-  },
 ]
 
 const codes = undefined
