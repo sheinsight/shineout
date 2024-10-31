@@ -34,6 +34,8 @@ class Thead<DataItem, Value> extends PureComponent<TheadProps<DataItem, Value>> 
 
   lastX?: number
 
+  newResizingWidth: number
+
   rightBorderRecord: ObjectType<boolean>
 
   constructor(props: TheadProps<DataItem, Value>) {
@@ -81,8 +83,26 @@ class Thead<DataItem, Value> extends PureComponent<TheadProps<DataItem, Value>> 
         columns: sub,
       })
     }
-
     return colSpan
+  }
+
+  get resizingColspan() {
+    return parseInt(this.resizingTh.getAttribute('colspan') || '', 10)
+  }
+
+  getNewColgroup() {
+    const { colgroup } = this.props
+    if (!colgroup) return []
+    const colElements = this.resizingCol.parentElement?.children as HTMLCollection
+    const startIndex = this.resizingIndex
+    const endIndex = startIndex + this.resizingColspan - 1
+    const colElementsArray = Array.from(colElements)
+    return colgroup.map((col, index) => {
+      if (index >= startIndex && index <= endIndex) {
+        return colElementsArray[index].getBoundingClientRect().width || col
+      }
+      return col
+    })
   }
 
   resizeColgroup(deltaX: number) {
@@ -104,6 +124,40 @@ class Thead<DataItem, Value> extends PureComponent<TheadProps<DataItem, Value>> 
       w = Math.min(w, maxWidth)
     }
     this.resizingCol.style.width = `${w}px`
+    this.newResizingWidth = w
+  }
+
+  resizeMultipleColgroup(deltaX: number, colspan: number) {
+    const { columns } = this.props
+    const siblings = this.resizingCol.parentElement?.children as HTMLCollection
+    const startIndex = this.resizingIndex
+    const endIndex = startIndex + colspan - 1
+    const resizingCols = Array.from(siblings).filter((_, index) => index >= startIndex && index <= endIndex)
+    const resizingItems = columns.filter((_, index) => index >= startIndex && index <= endIndex)
+    const minWidthTotal = resizingItems.reduce((total, item) => (item.minWidth ? total + (item.minWidth || 0) : 0), 0)
+    const maxWidthTotal = resizingItems.reduce((total, item) => (item.maxWidth ? total + (item.maxWidth || 0) : 0), 0)
+
+    let oWidth = resizingCols.reduce((total, col: HTMLTableColElement) => total + parseInt(col.style.width, 10), 0)
+    const colWidthRate = resizingCols.map((col: HTMLTableColElement) => col.getBoundingClientRect().width / oWidth)
+
+    if (Number.isNaN(oWidth) || oWidth === 0) {
+      oWidth = resizingCols.reduce((total, col: HTMLTableColElement) => total + col.getBoundingClientRect().width, 0)
+    }
+    let w = oWidth + deltaX
+    if (isNumber(minWidthTotal) && minWidthTotal > 0) {
+      w = Math.max(w, minWidthTotal)
+    } else {
+      w = Math.max(w, MIN_RESIZABLE_WIDTH)
+    }
+
+    if (isNumber(maxWidthTotal) && maxWidthTotal > 0) {
+      w = Math.min(w, maxWidthTotal)
+    }
+    // 将w按照它们原本的比例分配
+    resizingCols.forEach((col: HTMLTableColElement, index: number) => {
+      col.style.width = `${w * colWidthRate[index]}px`
+    })
+    this.newResizingWidth = w
   }
 
   handleResize(type: 'mousedown' | 'mousemove' | 'mouseup', e: MouseEvent) {
@@ -129,17 +183,22 @@ class Thead<DataItem, Value> extends PureComponent<TheadProps<DataItem, Value>> 
       const x = e.clientX
       if (typeof this.lastX === 'number') {
         const deltaX = x - this.lastX
-        this.resizeColgroup(deltaX)
+        if (this.resizingColspan > 1) {
+          this.resizeMultipleColgroup(deltaX, this.resizingColspan)
+        } else {
+          this.resizeColgroup(deltaX)
+        }
       }
       this.lastX = x
     } else if (type === 'mouseup') {
-      const { onColChange, colgroup } = this.props
+      const { onColChange } = this.props
       document.removeEventListener('mousemove', this.handleMouseMove)
       document.removeEventListener('mouseup', this.handleMouseUp)
       this.resizingTable.classList.remove(tableClass('resizing'))
       this.resizingTh.classList.remove(tableClass('resizing-item'))
       this.lastX = undefined
-      if (onColChange) onColChange(this.resizingIndex, parseInt(this.resizingCol.style.width, 10), colgroup)
+      const newColgroup = this.getNewColgroup()
+      if (onColChange) onColChange(this.resizingIndex, this.newResizingWidth, newColgroup, this.resizingColspan)
     }
   }
 
