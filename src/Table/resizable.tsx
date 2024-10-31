@@ -49,14 +49,17 @@ export default <DataItem, Value, Props extends SimpleTableProps<DataItem, Value>
       return width
     }
 
-    handleResize(index: number, width: number, colgroup: number[]) {
+    handleResize(startIndex: number, newResizingwidth: number, colgroup: number[], colspan: number) {
       if (colgroup === undefined) return
       const { onColumnResize } = this.props
+      const endIndex = startIndex + colspan - 1
+      const oldRsizingColsWidth = colgroup
+        .filter((_, i) => i >= startIndex && i <= endIndex)
+        .reduce((sum, w) => sum + w, 0)
+
       const changed = immer(this.state, draft => {
-        const column = draft.columns[index]
-        // @ts-ignore
-        draft.delta += parseFloat(width - (column.width || colgroup[index] || 0))
-        colgroup[index] = width
+        draft.delta += newResizingwidth - oldRsizingColsWidth
+
         draft.columns.forEach((col, i) => {
           const w = colgroup[i]
           if (w) col.width = w
@@ -73,6 +76,6 @@ export default <DataItem, Value, Props extends SimpleTableProps<DataItem, Value>
       const { columns } = this.state
       const { onColumnResize, ...other } = this.props
       const width = this.getWidth()
-      return <Table {...other as Props} width={width} columns={columns} onResize={this.handleResize} />
+      return <Table {...(other as Props)} width={width} columns={columns} onResize={this.handleResize} />
     }
   }

@@ -330,7 +330,7 @@ export interface SimpleTableProps<DataItem, Value> {
    * @en
    * @cn
    */
-  onResize?: (index: number, width: number, colgroup?: number[]) => void
+  onResize?: (index: number, width: number, colgroup?: number[], colspan?: number) => void
   /**
    * @en sticky header, When it is true, the distance from the top is 0. When it is an object, the attribute value reference [Sticky component](/components/Sticky)
    * @cn 表头是否附着顶部，为 true 时距离顶部为0，为对象时属性值参考 [Sticky](/components/Sticky) 组件

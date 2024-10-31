@@ -135,7 +135,10 @@ class SimpleTable<DataItem, Value> extends PureComponent<SimpleTableProps<DataIt
       const { width } = tds[i].getBoundingClientRect()
       const colSpan = parseInt(tds[i].getAttribute('colspan') || '', 10)
       if (colSpan > 1) {
-        split(width, range(colSpan).map(j => columns[i + j].width!)).forEach(w => colgroup.push(w))
+        split(
+          width,
+          range(colSpan).map(j => columns[i + j].width!)
+        ).forEach(w => colgroup.push(w))
       } else {
         colgroup.push(width)
       }
@@ -218,6 +221,9 @@ class SimpleTable<DataItem, Value> extends PureComponent<SimpleTableProps<DataIt
     const { columns, width, fixed, columnResizable, bordered, ...others } = this.props
     const { colgroup, resize } = this.state
     const minWidthSup = columns.find(d => d.minWidth)
+    console.log('======================')
+    console.log('renderBody width: >>', width)
+    console.log('======================')
     return (
       <div key="body" className={tableClass('simple-body')} ref={this.bindBody} onScroll={this.handleScroll}>
         <table
