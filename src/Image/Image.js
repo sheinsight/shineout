@@ -72,6 +72,12 @@ class Image extends PureComponent {
         offset: typeof this.props.lazy === 'number' ? this.props.lazy : 0,
         element: this.element,
         render: this.markToRender,
+        offscreen: () => {
+          this.setState({
+            status: PLACEHOLDER,
+          })
+        },
+        noRemove: this.props.inViewOnly,
         container: typeof container === 'string' ? document.querySelector(container) : container,
       })
     }
@@ -212,6 +218,7 @@ Image.propTypes = {
   error: PropTypes.node,
   autoSSL: PropTypes.bool,
   onError: PropTypes.func,
+  inViewOnly: PropTypes.bool,
 }
 
 Image.defaultProps = {

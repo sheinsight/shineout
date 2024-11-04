@@ -171,6 +171,15 @@ export interface ImageGroupProps {
   lazy?: boolean;
 
   /**
+   * whether to only load images in view
+   *
+   * 是否仅加载在视图内的图片
+   *
+   * default: false
+   */
+  inViewOnly?: boolean
+
+  /**
    * whether to stack
    *
    * 是否堆叠

@@ -117,6 +117,58 @@ const examples = [
     parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Cascader/example-07-innertitle.tsx'),
 
   },
+  {
+    name: 'test-001-compressed',
+    isTs: true,
+    isTest: true,
+    title: locate(
+      '超长合并选项 \n 设置 compressed 属性，当选项超长的时候会合并选项',
+      'Extra long merge option \n Set the compressed attribute, when the option is too long, the option will be merged'
+    ),
+    component: require('doc/pages/components/Cascader/test-001-compressed.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Cascader/test-001-compressed.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Cascader/test-001-compressed.tsx'),
+
+  },
+  {
+    name: 'test-002-expandtrigger-finaldismiss',
+    isTs: true,
+    isTest: true,
+    title: locate(
+      'expandTrigger 和 finalDismiss 示例',
+      'Hover'
+    ),
+    component: require('doc/pages/components/Cascader/test-002-expandtrigger-finaldismiss.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Cascader/test-002-expandtrigger-finaldismiss.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Cascader/test-002-expandtrigger-finaldismiss.tsx'),
+
+  },
+  {
+    name: 'test-003-open',
+    isTs: true,
+    isTest: true,
+    title: locate(
+      '控制浮层显隐 \n open 控制浮层显隐',
+      'Base \n open set visible of cascader popup'
+    ),
+    component: require('doc/pages/components/Cascader/test-003-open.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Cascader/test-003-open.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Cascader/test-003-open.tsx'),
+
+  },
+  {
+    name: 'test-004-filter-dynamic-data',
+    isTs: true,
+    isTest: true,
+    title: locate(
+      '异步动态数据筛选问题 \n 点击加载数据，然后输入2进行筛选，等待数据加载完成后选项会显示出来但是点击选项后会报错。',
+      ''
+    ),
+    component: require('doc/pages/components/Cascader/test-004-filter-dynamic-data.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Cascader/test-004-filter-dynamic-data.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Cascader/test-004-filter-dynamic-data.tsx'),
+
+  },
 ]
 
 const codes = undefined

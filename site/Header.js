@@ -83,7 +83,7 @@ const Header = ({ versions }) => {
   const searchInput = !version || version === (versions[versions.length - 1] || {}).content
 
   useEffect(() => {
-    if (searchInput) {
+    if (searchInput && process.env.DOC_SEARCH_API_KEY) {
       docsearch({
         appId: 'QZ4V4FVOGI',
         apiKey: process.env.DOC_SEARCH_API_KEY,

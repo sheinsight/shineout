@@ -58,13 +58,15 @@ export function removeStack(id, removeListener) {
 }
 
 function getObserver(obj, id) {
-  const { container = null, offset, render, noRemove } = obj
+  const { container = null, offset, render, offscreen, noRemove } = obj
   const observer = new IntersectionObserver(
     entries => {
       entries.forEach(en => {
         if (en.isIntersecting || en.intersectionRatio > 0) {
           render()
           if (!noRemove) removeStack(id)
+        } else if (offscreen) {
+          offscreen()
         }
       })
     },

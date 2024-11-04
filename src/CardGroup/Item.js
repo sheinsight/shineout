@@ -6,6 +6,46 @@ import { cardGroupClass } from './styles'
 import Lazyload from '../Lazyload'
 
 class Item extends React.Component {
+  observerIns = null
+
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      isInView: true,
+    }
+
+    this.containerRef = React.createRef()
+  }
+
+  componentDidMount() {
+    if (typeof window === 'undefined' || !window.IntersectionObserver || !this.containerRef.current) {
+      return
+    }
+
+    this.observerIns = new IntersectionObserver(
+      ([entry]) => {
+        const inView = entry.isIntersecting
+        this.setState({
+          isInView: inView,
+        })
+      },
+      {
+        root: this.props.container,
+        rootMargin: `${this.props.container?.offsetHeight || 0}px`,
+        threshold: [0, 1],
+      }
+    )
+
+    this.observerIns.observe(this.containerRef.current)
+  }
+
+  componentWillUnmount() {
+    if (this.observerIns) {
+      this.observerIns.disconnect()
+    }
+  }
+
   handleChange(value, _, checked) {
     const { onChange } = this.props
     if (onChange) onChange(checked, value)
@@ -15,7 +55,7 @@ class Item extends React.Component {
     const { placeholder, container } = this.props
     if (!placeholder) return content
     return (
-      <Lazyload container={container} placeholder={placeholder}>
+      <Lazyload container={container} placeholder={placeholder} isInView={this.state.isInView}>
         {content}
       </Lazyload>
     )
@@ -33,8 +73,12 @@ class Item extends React.Component {
         )}
       </Fragment>
     )
+
+    const hiddenStyle = this.state.isInView ? undefined : { visibility: 'hidden' }
+    const itemStyle = { ...style, ...hiddenStyle }
+
     return (
-      <div style={style} className={cls}>
+      <div style={itemStyle} className={cls} ref={this.containerRef}>
         {this.renderChildren(content)}
       </div>
     )

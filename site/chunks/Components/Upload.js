@@ -195,6 +195,19 @@ const examples = [
     parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Upload/example-11-dragger.tsx'),
 
   },
+  {
+    name: 'test-001-tip',
+    isTs: true,
+    isTest: true,
+    title: locate(
+      'Tip不恢复问题 \n 修复删除错误后Tip不恢复的问题',
+      ''
+    ),
+    component: require('doc/pages/components/Upload/test-001-tip.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Upload/test-001-tip.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Upload/test-001-tip.tsx'),
+
+  },
 ]
 
 const codes = undefined

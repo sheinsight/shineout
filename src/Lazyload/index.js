@@ -30,9 +30,9 @@ class Lazyload extends PureComponent {
 
   render() {
     const { ready } = this.state
-    const { children, placeholder } = this.props
+    const { children, placeholder, isInView = true } = this.props
 
-    if (ready) return children
+    if (ready && isInView) return children
     return (
       <span ref={this.placeholderRef} className={lazyloadClass('_')}>
         {placeholder}
@@ -46,6 +46,7 @@ Lazyload.propTypes = {
   placeholder: PropTypes.element,
   container: PropTypes.oneOfType([PropTypes.element, PropTypes.object]),
   offset: PropTypes.number,
+  isInView: PropTypes.bool,
 }
 
 Lazyload.defaultProps = {
