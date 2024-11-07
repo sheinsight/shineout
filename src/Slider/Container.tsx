@@ -39,7 +39,10 @@ class Container<Value extends number | number[]> extends PureComponent<Container
   getValue() {
     const { range, value, scale = DefaultValue.scale } = this.props
     const from = scale[0]
-    if (!range) return value || from
+    if (!range) {
+      if (value === 0) return value
+      return value || from
+    }
 
     let val: number | number[] | undefined = value
     if (range && !isArray(value)) val = [from, from]
