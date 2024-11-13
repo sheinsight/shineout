@@ -1,0 +1,28 @@
+{
+  "plugins": [
+    "@babel/plugin-transform-runtime",
+    "@babel/plugin-proposal-class-properties",
+    [
+      "@babel/plugin-proposal-object-rest-spread",
+      {
+        "useBuiltIns": true
+      }
+    ]
+  ],
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "browsers": [
+            "last 2 versions",
+            "ie >= 9"
+          ]
+        },
+        "loose": true,
+        "modules": false
+      }
+    ],
+    "@babel/preset-react"
+  ]
+}
