@@ -2,15 +2,22 @@
   "env": {
     "development": {
       "presets": [["react-app", { "flow": false, "typescript": true }]],
-      "plugins": ["istanbul"]
+      "plugins": [
+        "istanbul",
+        "@babel/plugin-proposal-optional-chaining"
+      ]
     },
     "production": {
-      "presets": ["react-app"]
+      "presets": ["react-app"],
+      "plugins": [
+        "@babel/plugin-proposal-optional-chaining"
+      ]
     },
     "publish": {
       "plugins": [
         "@babel/plugin-transform-runtime",
         "@babel/plugin-proposal-class-properties",
+        "@babel/plugin-proposal-optional-chaining",
         [
           "@babel/plugin-proposal-object-rest-spread",
           {
@@ -34,7 +41,10 @@
       ]
     },
     "test": {
-      "presets": ["react-app"]
+      "presets": ["react-app"],
+      "plugins": [
+        "@babel/plugin-proposal-optional-chaining"
+      ]
     }
   }
 }
