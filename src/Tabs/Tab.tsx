@@ -34,14 +34,15 @@ class Tab extends PureComponent<TabProps> {
 
     if (shape === 'bordered') return { background }
 
-    if (shape !== 'line' && !isVertical)
-      style.borderColor = `${border} ${border} ${isActive ? background : border} ${border}`
+    const borderColor = (isActive ? background : border) || 'transparent'
+
+    if (shape !== 'line' && !isVertical) style.borderColor = `${border} ${border} ${borderColor} ${border}`
 
     if (shape !== 'line' && align === 'vertical-left')
-      style.borderColor = `${border} ${isActive ? background : border}  ${border} ${border}`
+      style.borderColor = `${border} ${borderColor}  ${border} ${border}`
 
     if (shape !== 'line' && align === 'vertical-right')
-      style.borderColor = `${border} ${border} ${border} ${isActive ? background : border}`
+      style.borderColor = `${border} ${border} ${border} ${borderColor}`
 
     return style
   }
