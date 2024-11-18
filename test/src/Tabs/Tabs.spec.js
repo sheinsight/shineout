@@ -448,7 +448,7 @@ describe('Tabs.Panel[border]', () => {
           .find(`.${SO_PREFIX}-tabs-tab`)
           .at(index)
           .getDOMNode().style.borderColor
-      ).toBe(`${pannel[index].border} ${pannel[index].border} ${pannel[index].border} ${pannel[index].border}`)
+      ).toBe(`${pannel[index].border} ${pannel[index].border} transparent ${pannel[index].border}`)
     })
   })
 })
