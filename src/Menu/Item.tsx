@@ -300,6 +300,7 @@ class Item<U extends BaseItemProps<U>> extends PureComponent<ItemProps<U>, State
             frontCaret={frontCaret}
             looseChildren={looseChildren}
             parentSelectable={parentSelectable}
+            frontCaretType={frontCaretType}
           />
         )}
       </li>
