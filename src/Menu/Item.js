@@ -270,6 +270,7 @@ class Item extends PureComponent {
             frontCaret={frontCaret}
             looseChildren={looseChildren}
             parentSelectable={parentSelectable}
+            frontCaretType={frontCaretType}
           />
         )}
       </li>
