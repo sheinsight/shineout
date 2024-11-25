@@ -6,8 +6,6 @@ import { cardGroupClass } from './styles'
 import Lazyload from '../Lazyload'
 
 class Item extends React.Component {
-  observerIns = null
-
   constructor(props) {
     super(props)
 
@@ -23,21 +21,23 @@ class Item extends React.Component {
       return
     }
 
-    this.observerIns = new IntersectionObserver(
-      ([entry]) => {
-        const inView = entry.isIntersecting
-        this.setState({
-          isInView: inView,
-        })
-      },
-      {
-        root: this.props.container,
-        rootMargin: `${this.props.container?.offsetHeight || 0}px`,
-        threshold: [0, 1],
-      }
-    )
+    if (this.props.placeholder) {
+      this.observerIns = new IntersectionObserver(
+        ([entry]) => {
+          const inView = entry.isIntersecting
+          this.setState({
+            isInView: inView,
+          })
+        },
+        {
+          root: this.props.container,
+          rootMargin: `${this.props.container?.offsetHeight || 0}px`,
+          threshold: [0, 1],
+        }
+      )
 
-    this.observerIns.observe(this.containerRef.current)
+      this.observerIns.observe(this.containerRef.current)
+    }
   }
 
   componentWillUnmount() {
@@ -45,6 +45,8 @@ class Item extends React.Component {
       this.observerIns.disconnect()
     }
   }
+
+  observerIns = null
 
   handleChange(value, _, checked) {
     const { onChange } = this.props
