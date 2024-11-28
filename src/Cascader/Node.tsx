@@ -126,7 +126,11 @@ class Node<U, T extends CascaderBaseValue> extends PureComponent<NodeProps<U, T>
     }
     if (expandTrigger === 'hover' || expandTrigger === 'hover-only') {
       events.onMouseEnter = this.handlePathChange
-      if (multiple) events.onClick = this.handleSelect
+      if (multiple) {
+        if (!(expandTrigger === 'hover-only' && hasChildren)) {
+          events.onClick = this.handleSelect
+        }
+      }
     }
     const caret = <span className={cascaderClass(getDirectionClass('caret'))}>{<Caret />}</span>
 
