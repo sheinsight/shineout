@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import DatumTree from '../Datum/Tree'
 import shallowEqual from '../utils/shallowEqual'
 
-function toArray(value) {
-  if (value == null || value === undefined) return []
+function toArray(value, multiple) {
+  if (value == null || value === undefined || (multiple && value === '')) return []
   if (!Array.isArray(value)) return [value]
   return value
 }
@@ -61,9 +61,8 @@ export default function datum(Origin) {
         ...this.props,
         datum: this.datum,
       }
-
-      if (!shallowEqual(toArray(value), this.datum.getValue())) {
-        this.datum.setValue(toArray(value))
+      if (!shallowEqual(toArray(value, this.props.multiple), this.datum.getValue())) {
+        this.datum.setValue(toArray(value, this.props.multiple))
       }
       return <Origin {...props} />
     }
