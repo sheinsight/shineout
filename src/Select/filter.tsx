@@ -107,20 +107,20 @@ export default <Item, Value>(Origin: React.ComponentType<SelectPropsWidthTiled<I
 
     handleFilter(text: string, from = 'edit') {
       const { filterDelay, onFilter, onCreate } = this.props
-
       this.setState({ text })
       // not filter
       if (!text) {
         this.setState({ filterText: '', innerFilter: undefined, innerData: undefined })
         if (this.timer) clearTimeout(this.timer)
         if (onFilter) onFilter(text, from)
-        return
       }
 
       if (onCreate) {
         const innerData = this.handleCreate(text)
         this.setState({ innerData })
       }
+
+      if (!text) return
 
       if (!onFilter) return
 
