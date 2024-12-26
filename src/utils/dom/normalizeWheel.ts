@@ -13,6 +13,14 @@ interface OldWheelEvent extends WheelEvent {
   wheelDeltaX?: number
   HORIZONTAL_AXIS?: number
 }
+
+// 确保 spinX 和 spinY 是 -1, 0, 或 1
+const normalizeSpin = (value: number) => {
+  if (value > 0) return 1
+  if (value < 0) return -1
+  return 0
+}
+
 export default function(event: OldWheelEvent) {
   let sX = 0
   let sY = 0
@@ -64,10 +72,23 @@ export default function(event: OldWheelEvent) {
     sY = pY < 1 ? -1 : 1
   }
 
-  return {
-    spinX: sX,
-    spinY: sY,
+  const result = {
+    spinX: normalizeSpin(sX),
+    spinY: normalizeSpin(sY),
     pixelX: pX,
     pixelY: pY,
   }
+
+  // 判断滚动方向
+  if (Math.abs(result.pixelX) > Math.abs(result.pixelY)) {
+    // 水平方向变化更大
+    result.spinY = 0
+    result.pixelY = 0
+  } else {
+    // 垂直方向变化更大
+    result.spinX = 0
+    result.pixelX = 0
+  }
+
+  return result
 }
