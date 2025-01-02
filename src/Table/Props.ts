@@ -342,6 +342,13 @@ export interface SimpleTableProps<DataItem, Value> {
    * @cn Table 实例（请谨慎使用：仅固定表格）
    */
   tableRef?: (table: TableRef) => void
+
+  /**
+   * @cn 是否开启原生滚动; 使用限制：开启nativeScroll后无法使用sticky表头吸附功能
+   * @en Whether to enable native scrolling; Usage restrictions: After enabling nativeScroll, the sticky header adsorption function cannot be used
+   * @default false
+   */
+  nativeScroll?: boolean
 }
 
 /** ------ SeperateTable ---------- */
@@ -451,6 +458,7 @@ export interface TdProps<DataItem, Value>
   treeExpand?: boolean
   expanded: boolean
   ignoreBorderRight?: boolean
+  columnIndex: number
 }
 
 /** ------ thead ---------- */
@@ -476,6 +484,7 @@ export interface GroupColumn<DataItem> {
   firstFixed?: boolean
   columns: TheadColumn<DataItem>[]
   lastFixed?: boolean
+  index: number
 }
 export type TheadColumn<DataItem> = ColumnItemWithFixed<DataItem> | GroupColumn<DataItem>
 

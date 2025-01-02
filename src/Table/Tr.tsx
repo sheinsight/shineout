@@ -235,6 +235,7 @@ class Tr<DataItem, Value> extends Component<TrProps<DataItem, Value>> {
             {...data[i]}
             offsetLeft={offsetLeft}
             offsetRight={offsetRight}
+            columnIndex={i}
           />
         )
         tds.push(td)

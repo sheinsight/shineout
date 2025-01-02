@@ -1,9 +1,11 @@
-import React, { PureComponent, ReactNode } from 'react'
+import React, { ReactNode, useCallback, useContext, useRef } from 'react'
 import classnames from 'classnames'
 import { tableClass } from './styles'
 import Checkbox from './Checkbox'
 import { TdProps } from './Props'
 import { getDirectionX } from '../utils/dom/translate'
+import TableContext from './TableContext'
+import { TABLE_CELL_STICKY_Z_INDEX } from './Table'
 
 export const CLASS_FIXED_LEFT = 'fixed-left'
 export const CLASS_FIXED_RIGHT = 'fixed-right'
@@ -13,34 +15,68 @@ const DefaultProps: any = {
   style: {},
   align: 'left',
 }
-class Td<DataItem, Value> extends PureComponent<TdProps<DataItem, Value>> {
-  static defaultProps = DefaultProps
 
-  cachedRender: () => ReactNode
+function Td<DataItem, Value>(props: TdProps<DataItem, Value>) {
+  const {
+    originKey,
+    expanded,
+    data,
+    expandKeys,
+    expandClick,
+    resetFixAuto,
+    onExpand,
+    onTreeExpand,
+    index,
+    columnIndex,
+    datum,
+    treeColumnsName,
+    treeCheckAll,
+    disabled,
+    render,
+    treeRoot,
+    treeExpand,
+    treeExpandLevel,
+    treeIndent,
+    treeEmptyExpand,
+    treeExpandShow,
+    type,
+    rowSpan,
+    colSpan,
+    fixed,
+    style = {},
+    firstFixed,
+    lastFixed,
+    align,
+    ignoreBorderRight,
+    offsetLeft,
+    offsetRight,
+    className: propClassName,
+  } = props
 
-  constructor(props: TdProps<DataItem, Value>) {
-    super(props)
-    this.handleExpandClick = this.handleExpandClick.bind(this)
-    this.handleTreeExpand = this.handleTreeExpand.bind(this)
-  }
+  const { colgroup, fixed: tableFixedProp } = useContext(TableContext)
 
-  handleExpandClick() {
-    const { originKey, expanded, data, expandKeys, expandClick, resetFixAuto } = this.props
-    if (expandKeys) {
-      if (expandClick) expandClick(data, !expanded)
-    } else {
-      this.props.onExpand(originKey, expanded ? undefined : this.cachedRender)
-    }
-    resetFixAuto(true)
-  }
+  const cachedRenderRef = useRef<() => ReactNode>()
 
-  handleTreeExpand() {
-    const { data, onTreeExpand, index } = this.props
-    onTreeExpand(data, index)
-  }
+  const handleExpandClick = useCallback(
+    () => {
+      if (expandKeys) {
+        if (expandClick) expandClick(data, !expanded)
+      } else {
+        onExpand(originKey, expanded ? undefined : cachedRenderRef.current)
+      }
+      resetFixAuto(true)
+    },
+    [expandKeys, expandClick, data, expanded, onExpand, originKey, resetFixAuto]
+  )
 
-  renderCheckbox(): ReactNode {
-    const { index, data, datum, treeColumnsName, treeCheckAll, disabled, render } = this.props
+  const handleTreeExpand = useCallback(
+    () => {
+      onTreeExpand(data, index)
+    },
+    [data, index, onTreeExpand]
+  )
+
+  const renderCheckbox = () => {
     const checkbox = (
       <Checkbox
         force={datum.check(data)}
@@ -57,37 +93,28 @@ class Td<DataItem, Value> extends PureComponent<TdProps<DataItem, Value>> {
     return checkbox
   }
 
-  renderExpand(index: number) {
-    const { expanded, render, data } = this.props
+  const renderExpand = (_index: number) => {
     if (typeof render !== 'function') return null
 
-    let cachedRender = render(data, index) as () => ReactNode
+    let cachedRender = render(data, _index) as () => ReactNode
 
     if (!cachedRender) return null
 
     if (typeof cachedRender !== 'function') {
       cachedRender = () => cachedRender as ReactNode
     }
-    this.cachedRender = cachedRender
+
+    cachedRenderRef.current = cachedRender
+
     return (
       <span
         className={tableClass('expand-indicator', `icon-expand-${expanded ? 'sub' : 'plus'}`)}
-        onClick={this.handleExpandClick}
+        onClick={handleExpandClick}
       />
     )
   }
 
-  renderTreeExpand(content: ReactNode) {
-    const {
-      data,
-      treeRoot,
-      treeColumnsName,
-      treeExpand,
-      originKey,
-      treeExpandLevel,
-      treeIndent,
-      treeEmptyExpand,
-    } = this.props
+  const renderTreeExpand = (content: ReactNode) => {
     const level = treeExpandLevel.get(originKey) || 0
     const className = tableClass('expand-wrapped')
     if (
@@ -105,7 +132,7 @@ class Td<DataItem, Value> extends PureComponent<TdProps<DataItem, Value>> {
       <span className={className} style={{ marginLeft: level * treeIndent }}>
         <span
           key="expand-icon"
-          onClick={this.handleTreeExpand}
+          onClick={handleTreeExpand}
           className={tableClass('icon-tree-expand', `icon-tree-${treeExpand ? 'sub' : 'plus'}`)}
         />
         {content}
@@ -113,71 +140,65 @@ class Td<DataItem, Value> extends PureComponent<TdProps<DataItem, Value>> {
     )
   }
 
-  renderResult(): ReactNode {
-    const { render, data, index, treeColumnsName, treeExpandShow } = this.props
+  const renderResult = () => {
     const content =
       typeof render === 'function'
         ? (render(data, index) as ReactNode)
         : ((data[render as keyof DataItem] as unknown) as ReactNode)
     if (!treeColumnsName || !treeExpandShow) return content
-    return this.renderTreeExpand(content)
+    return renderTreeExpand(content)
   }
 
-  renderContent(): ReactNode {
-    const { type, index } = this.props
+  const renderContent = () => {
     switch (type) {
       case 'checkbox':
-        return this.renderCheckbox()
+        return renderCheckbox()
       case 'expand':
       case 'row-expand':
-        return this.renderExpand(index)
+        return renderExpand(index)
       default:
-        return this.renderResult()
+        return renderResult()
     }
   }
 
-  render() {
-    const {
-      rowSpan,
-      colSpan,
-      fixed,
-      style = {},
-      firstFixed,
-      lastFixed,
-      type,
-      align,
-      ignoreBorderRight,
-      offsetLeft,
-      offsetRight,
-    } = this.props
-
-    const className = classnames(
-      this.props.className,
-      tableClass(
-        fixed === 'left' && CLASS_FIXED_LEFT,
-        fixed === 'right' && CLASS_FIXED_RIGHT,
-        firstFixed && 'fixed-first',
-        lastFixed && 'fixed-last',
-        (type === 'checkbox' || type === 'expand' || type === 'row-expand') && 'checkbox',
-        align !== 'left' && `align-${align}`,
-        ignoreBorderRight && 'ignore-right-border'
-      )
+  const className = classnames(
+    propClassName,
+    tableClass(
+      fixed === 'left' && CLASS_FIXED_LEFT,
+      fixed === 'right' && CLASS_FIXED_RIGHT,
+      firstFixed && 'fixed-first',
+      lastFixed && 'fixed-last',
+      (type === 'checkbox' || type === 'expand' || type === 'row-expand') && 'checkbox',
+      align !== 'left' && `align-${align}`,
+      ignoreBorderRight && 'ignore-right-border'
     )
+  )
 
-    const newStyle = { ...style }
-    if (fixed === 'left' && offsetLeft) {
-      newStyle.transform = `translateX(${getDirectionX(`${offsetLeft}px`)})`
+  const stickyStyle: React.CSSProperties = {}
+  if (tableFixedProp === 'x' && colgroup) {
+    if (fixed === 'left') {
+      stickyStyle.position = 'sticky'
+      stickyStyle.zIndex = TABLE_CELL_STICKY_Z_INDEX
+      const stickyLeft = colgroup.slice(0, columnIndex).reduce((sum, value) => sum + value, 0)
+      stickyStyle.left = stickyLeft
+    } else if (fixed === 'right') {
+      stickyStyle.position = 'sticky'
+      stickyStyle.zIndex = TABLE_CELL_STICKY_Z_INDEX
+      const stickyRight = colgroup.slice(columnIndex + 1).reduce((sum, value) => sum + value, 0)
+      stickyStyle.right = stickyRight
     }
-    if (fixed === 'right' && offsetRight) {
-      newStyle.transform = `translateX(${getDirectionX(`-${offsetRight}px`)})`
-    }
-
-    return (
-      <td style={newStyle} className={className} rowSpan={rowSpan} colSpan={colSpan}>
-        {this.renderContent()}
-      </td>
-    )
+  } else if (fixed === 'left' && offsetLeft) {
+    stickyStyle.transform = `translateX(${getDirectionX(`${offsetLeft}px`)})`
+  } else if (fixed === 'right' && offsetRight) {
+    stickyStyle.transform = `translateX(${getDirectionX(`-${offsetRight}px`)})`
   }
+
+  return (
+    <td style={{ ...style, ...stickyStyle }} className={className} rowSpan={rowSpan} colSpan={colSpan}>
+      {renderContent()}
+    </td>
+  )
 }
 
+Td.defaultProps = DefaultProps
 export default Td

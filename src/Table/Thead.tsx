@@ -7,11 +7,17 @@ import CheckboxAll from './CheckboxAll'
 import { getParent } from '../utils/dom/element'
 import { isNumber } from '../utils/is'
 import { ColumnItemWithFixed, TheadColumn, TheadProps, GroupColumn } from './Props'
+import Th from './Th'
 import { ObjectType } from '../@types/common'
 
 const cacheGroup = new Map()
 const MIN_RESIZABLE_WIDTH = 20
-class Thead<DataItem, Value> extends PureComponent<TheadProps<DataItem, Value>> {
+
+interface TheadState {
+  trHeights: number[];
+}
+
+class Thead<DataItem, Value> extends PureComponent<TheadProps<DataItem, Value>, TheadState> {
   static defaultProps = {
     showSelectAll: true,
   }
@@ -38,11 +44,32 @@ class Thead<DataItem, Value> extends PureComponent<TheadProps<DataItem, Value>> 
 
   rightBorderRecord: ObjectType<boolean>
 
+  trs: (HTMLTableRowElement | null)[]
+
   constructor(props: TheadProps<DataItem, Value>) {
     super(props)
+    this.state = {
+      trHeights: [],
+    }
+    this.trs = []
     this.handleMouseDown = this.handleResize.bind(this, 'mousedown')
     this.handleMouseMove = this.handleResize.bind(this, 'mousemove')
     this.handleMouseUp = this.handleResize.bind(this, 'mouseup')
+  }
+
+  componentDidMount() {
+    this.recordTrHeights()
+  }
+
+  componentDidUpdate(prevProps: TheadProps<DataItem, Value>) {
+    if (prevProps.columns !== this.props.columns) {
+      this.recordTrHeights()
+    }
+  }
+
+  recordTrHeights() {
+    const trHeights = this.trs.map(tr => tr ? tr.offsetHeight || 0 : 0)
+    this.setState({ trHeights })
   }
 
   setColumns(columns: TheadColumn<DataItem>[], col: ColumnItemWithFixed<DataItem>, level: number, index = 0) {
@@ -78,6 +105,7 @@ class Thead<DataItem, Value> extends PureComponent<TheadProps<DataItem, Value>> 
             : cacheGroup.get(group) || cacheGroup.set(group, getUidStr()).get(group),
         colSpan,
         level,
+        index,
         fixed: col.fixed,
         firstFixed: col.firstFixed,
         columns: sub,
@@ -95,7 +123,7 @@ class Thead<DataItem, Value> extends PureComponent<TheadProps<DataItem, Value>> 
     if (!colgroup) return []
     const colElements = this.resizingCol.parentElement?.children as HTMLCollection
     const startIndex = this.resizingIndex
-    const endIndex = startIndex + this.resizingColspan - 1
+    const endIndex = startIndex + (this.resizingColspan || 1) - 1
     const colElementsArray = Array.from(colElements)
     return colgroup.map((col, index) => {
       if (index >= startIndex && index <= endIndex) {
@@ -219,15 +247,20 @@ class Thead<DataItem, Value> extends PureComponent<TheadProps<DataItem, Value>> 
       level === 0 && !isEmpty && columnResizable && (col as ColumnItemWithFixed<DataItem>).columnResizable !== false ? (
         <span onMouseDown={this.handleMouseDown} className={tableClass('resize-spanner')} />
       ) : null
+    const stickyTop = level > 0 ? this.state.trHeights.slice(0, level).reduce((sum, height) => sum + height, 0) : 0
     if (colTemp.title) {
       trs[level].push(
-        <th
+        <Th
           className={classnames(
             tableClass(level > 0 && 'condensed', align, ignoreBorderRight, ...fixed),
             (col as ColumnItemWithFixed<DataItem>).className
           )}
           rowSpan={this.columnLevel - level + 1}
+          top={stickyTop}
           key={col.key}
+          fixed={col.fixed}
+          index={col.index}
+          sticky={this.props.sticky}
         >
           <div className={tableClass(colTemp.sorter && 'has-sorter')}>
             <span>{typeof colTemp.title === 'function' ? colTemp.title(data) : colTemp.title}</span>
@@ -243,7 +276,7 @@ class Thead<DataItem, Value> extends PureComponent<TheadProps<DataItem, Value>> 
             )}
             {resize}
           </div>
-        </th>
+        </Th>
       )
 
       return
@@ -251,8 +284,12 @@ class Thead<DataItem, Value> extends PureComponent<TheadProps<DataItem, Value>> 
 
     if (colTemp.type === 'checkbox') {
       trs[level].push(
-        <th
+        <Th
           key="checkbox"
+          top={stickyTop}
+          fixed={col.fixed}
+          index={col.index}
+          sticky={this.props.sticky}
           rowSpan={trs.length}
           className={classnames(tableClass('checkbox', ...fixed), colTemp.className)}
         >
@@ -265,14 +302,14 @@ class Thead<DataItem, Value> extends PureComponent<TheadProps<DataItem, Value>> 
               col={col}
             />
           )}
-        </th>
+        </Th>
       )
       return
     }
 
     const style = typeof colTemp2.name === 'string' ? undefined : { padding: 0 }
     trs[level].push(
-      <th
+      <Th
         className={classnames(
           tableClass('center', 'condensed', ignoreBorderRight, ...fixed),
           (col as ColumnItemWithFixed<DataItem>).className
@@ -280,10 +317,14 @@ class Thead<DataItem, Value> extends PureComponent<TheadProps<DataItem, Value>> 
         colSpan={colTemp2.colSpan}
         key={col.key}
         style={style}
+        fixed={col.fixed}
+        index={col.index}
+        sticky={this.props.sticky}
+        top={stickyTop}
       >
         {colTemp2.name}
         {resize}
-      </th>
+      </Th>
     )
 
     if (colTemp2.columns) {
@@ -327,7 +368,14 @@ class Thead<DataItem, Value> extends PureComponent<TheadProps<DataItem, Value>> 
     return (
       <thead>
         {trs.map((tr, i) => (
-          <tr key={i}>{tr}</tr>
+          <tr
+            key={i}
+            ref={el => {
+              this.trs[i] = el
+            }}
+          >
+            {tr}
+          </tr>
         ))}
       </thead>
     )
