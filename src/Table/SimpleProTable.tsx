@@ -4,16 +4,14 @@ import { tableClass } from './styles'
 import { range, split } from '../utils/numbers'
 import Colgroup from './Colgroup'
 import Tbody from './Tbody'
-import Thead from './Thead'
+import TheadComponent from './Thead'
 import Tfoot from './Tfoot'
 import { compareColumns } from '../utils/shallowEqual'
-import Sticky from '../Sticky'
-import { addResizeObserver } from '../utils/dom/element'
-import { StickyProps } from '../Sticky/Props'
-import { ColumnItem, ColumnOrder, SimpleTableProps } from './Props'
+import { ColumnItem, ColumnOrder, SimpleTableProps, TheadProps } from './Props'
+import TableContext from './TableContext'
 
 function setScrollLeft(target: HTMLElement, scrollLeft: number) {
-  if (target && target.scrollLeft !== scrollLeft) target.scrollLeft = scrollLeft
+  target.scrollLeft = scrollLeft
 }
 
 interface SimpleTableState {
@@ -21,22 +19,19 @@ interface SimpleTableState {
   overHeight: boolean
   overWidth: boolean
   resize: boolean
+  scrollLeft: number
 }
 
-class SimpleTable<DataItem, Value> extends PureComponent<SimpleTableProps<DataItem, Value>, SimpleTableState> {
-  bindHeader: (el: HTMLDivElement) => void
+const Thead = (props: TheadProps<any, any>) => (
+  <TableContext.Consumer>
+    {({ colgroup, fixed }) => <TheadComponent {...props} colgroup={colgroup} fixed={fixed} />}
+  </TableContext.Consumer>
+)
 
+class SimpleTable<DataItem, Value> extends PureComponent<SimpleTableProps<DataItem, Value>, SimpleTableState> {
   bindBody: (el: HTMLDivElement) => void
 
-  bindFooter: (el: HTMLDivElement) => void
-
-  removeReiszeObserver: () => void
-
   body: HTMLDivElement
-
-  header: HTMLDivElement
-
-  footer: HTMLDivElement
 
   lastColGroup: number[]
 
@@ -50,11 +45,9 @@ class SimpleTable<DataItem, Value> extends PureComponent<SimpleTableProps<DataIt
       overHeight: false,
       overWidth: false,
       resize: false,
+      scrollLeft: 0,
     }
     this.handleSortChange = this.handleSortChange.bind(this)
-    this.bindHeader = this.bindElement.bind(this, 'header')
-    this.bindBody = this.bindElement.bind(this, 'body')
-    this.bindFooter = this.bindElement.bind(this, 'footer')
     this.handleScroll = this.handleScroll.bind(this)
     this.handleColgroup = this.handleColgroup.bind(this)
     this.resetColGroup = this.resetColGroup.bind(this)
@@ -82,16 +75,6 @@ class SimpleTable<DataItem, Value> extends PureComponent<SimpleTableProps<DataIt
 
   componentWillUnmount() {
     if (this.body) this.body.removeEventListener('wheel', this.handleScroll as any)
-    if (this.removeReiszeObserver) this.removeReiszeObserver()
-  }
-
-  bindElement(key: 'header' | 'body' | 'footer', el: HTMLDivElement) {
-    this[key] = el
-    // this.body will be undefined on componentDidMount when columns length is 0
-    if (key === 'body' && el) {
-      el.addEventListener('wheel', this.handleScroll as any, { passive: false })
-      this.removeReiszeObserver = addResizeObserver(el, this.resetColGroup, { direction: 'x' })
-    }
   }
 
   resetColGroup() {
@@ -146,86 +129,47 @@ class SimpleTable<DataItem, Value> extends PureComponent<SimpleTableProps<DataIt
 
   handleScroll({ currentTarget }: { currentTarget: HTMLElement }) {
     const { scrollLeft } = currentTarget
-    setScrollLeft(this.header, scrollLeft)
-    setScrollLeft(this.body, scrollLeft)
-    setScrollLeft(this.footer, scrollLeft)
+    if (this.body) setScrollLeft(this.body, scrollLeft)
+    this.setState({ scrollLeft })
   }
 
   renderHeader() {
-    const { columns, width, data, onResize, columnResizable, sticky, bordered } = this.props
-    const { colgroup, overHeight } = this.state
-    const inner = (
-      <table style={{ width }} className={tableClass(bordered && 'table-bordered')}>
-        {/* keep thead colgroup stable */}
-        <Colgroup colgroup={colgroup || this.lastColGroup} columns={columns} resizable={columnResizable} />
-        <Thead {...this.props} colgroup={colgroup} onSortChange={this.handleSortChange} onColChange={onResize} />
-      </table>
-    )
-    const empty = data.length === 0
-    const headerStyle: React.CSSProperties = {}
-    if (!empty) headerStyle.overflowY = overHeight ? 'scroll' : 'hidden'
+    const { hideHeader, onResize, sticky } = this.props
+    if (hideHeader) return null
 
-    const header = (
-      <div
-        key="head"
-        style={headerStyle}
-        className={tableClass('head', 'simple-head', empty && 'empty-head')}
-        ref={this.bindHeader}
-      >
-        {inner}
-      </div>
+    const { colgroup } = this.state
+
+    return (
+      <Thead
+        {...this.props}
+        colgroup={colgroup}
+        onSortChange={this.handleSortChange}
+        onColChange={onResize}
+        sticky={sticky}
+      />
     )
-    if (sticky) {
-      const stickyProps = Object.assign({ top: 0 }, sticky) as StickyProps
-      return (
-        <Sticky {...stickyProps} key="head">
-          {header}
-        </Sticky>
-      )
-    }
-    return header
   }
 
   renderFooter() {
-    const { columns, width, data, columnResizable, bordered, summary } = this.props
-    const { colgroup, overHeight, overWidth } = this.state
+    const { data, summary } = this.props
     if (!(data && data.length)) return null
     if (!(summary && summary.length)) return null
 
-    const inner = (
-      <table style={{ width }} className={tableClass(bordered && 'table-bordered')}>
-        <Colgroup colgroup={colgroup || this.lastColGroup} columns={columns} resizable={columnResizable} />
-        <Tfoot {...this.props} />
-      </table>
-    )
-    const footStyle: React.CSSProperties = {}
-    footStyle.overflowY = overHeight ? 'scroll' : 'hidden'
-
-    const footer = (
-      <div
-        key="foot"
-        style={footStyle}
-        className={tableClass('foot', overWidth && 'foot-scroll-x', 'simple-foot')}
-        ref={this.bindFooter}
-        onScroll={this.handleScroll}
-      >
-        {inner}
-      </div>
-    )
-    return footer
+    return <Tfoot {...this.props} />
   }
 
-  renderBody() {
+  renderBody(floatClass: string[]) {
     const { columns, width, fixed, columnResizable, bordered, ...others } = this.props
     const { colgroup, resize } = this.state
     const minWidthSup = columns.find(d => d.minWidth)
     return (
-      <div key="body" className={tableClass('simple-body')} ref={this.bindBody} onScroll={this.handleScroll}>
+      <div key="body" className={tableClass('simple-body', ...floatClass)} onScroll={this.handleScroll}>
         <table
           style={{ width }}
           className={tableClass(!colgroup && minWidthSup && 'init', bordered && 'table-bordered')}
         >
-          <Colgroup colgroup={colgroup} columns={columns} resizable={columnResizable} />
+          <Colgroup colgroup={colgroup || this.lastColGroup} columns={columns} resizable={columnResizable} />
+          {this.renderHeader()}
           <Tbody
             colgroup={colgroup}
             lazy={false}
@@ -237,20 +181,43 @@ class SimpleTable<DataItem, Value> extends PureComponent<SimpleTableProps<DataIt
             columnResizable={columnResizable}
             {...others}
           />
+          {this.renderFooter()}
         </table>
       </div>
     )
   }
 
   render() {
-    const { columns, width, children, hideHeader, bordered } = this.props
+    const { columns, width, children, bordered } = this.props
+    const { scrollLeft } = this.state
     if (!columns || columns.length === 0)
       return (
         <table style={{ width }} className={tableClass(bordered && 'table-bordered')}>
           {children}
         </table>
       )
-    return [hideHeader ? null : this.renderHeader(), this.renderBody(), this.renderFooter(), children]
+
+    const floatClass = []
+    if (this.props.fixed === 'x') {
+      if (scrollLeft > 0) {
+        floatClass.push('float-left')
+      }
+      if (scrollLeft !== 1) {
+        floatClass.push('float-right')
+      }
+    }
+
+    return (
+      <TableContext.Provider
+        value={{
+          colgroup: this.state.colgroup,
+          fixed: this.props.fixed,
+        }}
+      >
+        {this.renderBody(floatClass)}
+        {children}
+      </TableContext.Provider>
+    )
   }
 }
 

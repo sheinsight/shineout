@@ -13,13 +13,17 @@ import resizableHOC from './resizable'
 import { consumer as hideableConsumer } from '../hoc/hidable'
 import SeperateTable from './SeperateTable'
 import SimpleTable from './SimpleTable'
+import SimpleProTable from './SimpleProTable'
 import { ROW_HEIGHT_UPDATE_EVENT } from './Tr'
 import { RENDER_COL_GROUP_EVENT } from './Tbody'
 import select from './select'
 import { GetRadioProps, OriginTableProps, TableDatumBindKey, TableType } from './Props'
 
+export const TABLE_CELL_STICKY_Z_INDEX = 100
+
 const ResizeSeperateTable = resizableHOC(SeperateTable)
 const ResizeSimpleTable = resizableHOC(SimpleTable)
+const ResizeSimpleProTable = resizableHOC(SimpleProTable)
 
 const RadioWrapper = <Props extends { limit: any; distinct: any }>(
   Origin: ComponentType<Props>
@@ -169,9 +173,14 @@ class Table<DataItem, Value> extends Component<OriginTableProps<DataItem, Value>
     }
 
     const isEmpty = (!data || data.length === 0) && !children
-    const useSeparate = fixed && !isEmpty
+    const useSeparate = fixed && !isEmpty && !props.nativeScroll
     const ResizeSepTable = columnResizable ? ResizeSeperateTable : SeperateTable
-    const ResizeSimTable = columnResizable ? ResizeSimpleTable : SimpleTable
+    let ResizeSimTable
+    if (columnResizable) {
+      ResizeSimTable = props.nativeScroll ? ResizeSimpleProTable : ResizeSimpleTable
+    } else {
+      ResizeSimTable = props.nativeScroll ? SimpleProTable : SimpleTable
+    }
     const RenderTable = useSeparate ? ResizeSepTable : ResizeSimTable
     const newStyle = Object.assign({}, style)
     if (height) newStyle.height = height

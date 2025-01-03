@@ -68,14 +68,34 @@ export default class TableIndex<DataItem, Value> extends React.Component<
     const { onRowSelect, datum } = this.props
     columns = columns.filter(c => typeof c === 'object')
 
+    // 是否渲染内置的 checkbox 列
+    let checkboxColumn
+    const haveCheckbox = columns.find(v => v.type === 'checkbox')
+    if ((onRowSelect || datum) && columns.length && !haveCheckbox) {
+      checkboxColumn = {
+        index: 0,
+        width: 48,
+        key: 'checkbox',
+        type: 'checkbox',
+      }
+    }
+
+    const sourceColumns = (checkboxColumn ? [checkboxColumn, ...columns] : columns) as ColumnItem<DataItem>[]
+
     let left = -1
     let right = -1
-    columns.forEach((c, i) => {
+    sourceColumns.forEach((c, i) => {
       if (c.fixed === 'left') left = i
       if (c.fixed === 'right' && right < 0) right = i
     })
+
+    // 如果有固定列，则将 checkbox 列固定到最左边
+    if (checkboxColumn && left >= 0) {
+      Object.assign(checkboxColumn, { fixed: 'left' })
+    }
+
     let setDefaultOrder = false
-    this.cachedColumns = (columns as ColumnItemWithFixed<DataItem>[]).map((c, i) =>
+    this.cachedColumns = (sourceColumns as ColumnItemWithFixed<DataItem>[]).map((c, i) =>
       immer(c, draft => {
         draft.index = i
         if (draft.key === undefined) draft.key = i
@@ -96,17 +116,6 @@ export default class TableIndex<DataItem, Value> extends React.Component<
           if (typeof draft.sorter === 'object' && draft.defaultOrder) delete draft.defaultOrder
         })
       )
-    }
-    // filter checkbox
-    const haveCheckbox = columns.find(v => v.type === 'checkbox')
-    if ((onRowSelect || datum) && this.cachedColumns[0] && this.cachedColumns[0].type !== 'checkbox' && !haveCheckbox) {
-      this.cachedColumns.unshift({
-        index: -1,
-        key: 'checkbox',
-        type: 'checkbox',
-        // width: 48,
-        fixed: left >= 0 ? 'left' : undefined,
-      })
     }
 
     this.oldColumns = columns
