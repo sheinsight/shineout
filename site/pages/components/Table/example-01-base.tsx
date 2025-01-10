@@ -5,88 +5,91 @@
  *    -- Basic table usage.
  */
 import React from 'react'
-import { Table, Image } from 'shineout'
-import Ellipsis from '@shein-components/Ellipsis'
-import Icon from '@shein-components/Icon'
-import testData from './z-test-big-data'
+import { Table, TYPE } from 'shineout'
 
-const chanelIconMap = {
-  '3': 'pc-facebook-shineout-fill',
-  '5': 'pc-tiktok-multic',
+interface TableRowData {
+  id: number
+  time: string
+  start: string
+  height: number
+  salary: number
+  office: string
+  country: string
+  office5: string
+  position: string
+  lastName: string
+  firstName: string
 }
+type TableColumnItem = TYPE.Table.ColumnItem<TableRowData>
 
-const name = <span style={{ background: '#ccc', display: 'block', lineHeight: '40px', color: '#fff' }}>Name</span>
+const data: TableRowData[] = [
+  {
+    id: 1,
+    firstName: 'Ephraim',
+    lastName: 'Wisozk',
+    position: 'Marketing Designer',
+    start: '2012-01-29',
+    time: '01:42',
+    salary: 115777,
+    country: 'Reunion',
+    office: 'Miami',
+    office5: 'Istanbul',
+    height: 113.74,
+  },
+  {
+    id: 2,
+    firstName: 'Osvaldo',
+    lastName: 'Beer',
+    position: 'Financial Controller',
+    start: '2007-09-04',
+    time: '03:26',
+    salary: 396093,
+    country: 'Syrian Arab Republic',
+    office: 'San Paulo',
+    office5: 'Shenzhen',
+    height: 82.13,
+  },
+  {
+    id: 3,
+    firstName: 'Dylan',
+    lastName: 'Ratke',
+    position: 'Development Lead',
+    start: '2009-10-16',
+    time: '01:45',
+    salary: 236064,
+    country: 'Peru',
+    office: 'Boston',
+    office5: 'Delhi',
+    height: 179.53,
+  },
+  {
+    id: 4,
+    firstName: 'Shaniya',
+    lastName: 'Jacobs',
+    position: 'Developer',
+    start: '2014-06-30',
+    time: '02:17',
+    salary: 338985,
+    country: 'Peru',
+    office: 'Chengdu',
+    office5: 'Dallas-Fort Worth',
+    height: 190.11,
+  },
+]
 
-const App: React.FC = () => {
-  const columns = [
-    // { title: 'id', width: 120, render: (_, index) => index, fixed: 'left' },
-    // { title: 'First Name', width: 120, render: () => 'firstName', group: [name, 'True Name'] },
-    // { title: 'Last Name', width: 120, render: () => 'lastName', group: [name, 'True Name'] },
-    // { title: 'Nick Name', fixed: 'left', width: 120, render: () => 'nickname', group: name },
-    {
-      title: 'KOL信息/账号信息',
-      width: 200,
-      render: row => (
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <Image src={row.avatar} />
-          <div>
-            <Ellipsis autoSize value={`${row.partnerId} ${row.username}`} />
-            <div>
-              {(row.channels || []).map(item => (
-                <Icon name={chanelIconMap[item]} />
-              ))}
-            </div>
-          </div>
-        </div>
-      ),
-      fixed: 'left',
-      group: ['KOL信息/账号信息群组1', 'KOL信息/账号信息群组2'],
-    },
-    {
-      title: 'KOL信息/账号信息2',
-      group: ['KOL信息/账号信息群组1', 'KOL信息/账号信息群组2'],
-      render: () => '123',
-      width: 200,
-      fixed: 'left',
-    },
+const columns: TableColumnItem[] = [
+  { title: 'id', render: 'id', width: 50 },
+  { title: 'Name', render: d => `${d.firstName} ${d.lastName}` },
+  { title: 'Country', render: 'country' },
+  { title: 'Position', render: 'position' },
+  { title: 'Office', render: 'office' },
+  { title: 'Start Date', render: 'start' },
+  {
+    title: 'Salary',
+    render: d => `$${d.salary.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,')}`,
+  },
+]
 
-    { title: 'id', render: (_, index) => index, width: 200 },
-    { title: 'Name', width: 200, render: d => `${d.firstName} ${d.lastName}` },
-    { title: 'Country', width: 200, render: 'country' },
-    { title: 'Position', width: 200, render: 'position' },
-    { title: 'Office', width: 200, render: 'office' },
-    { title: 'Start Date', width: 200, render: 'start' },
-    {
-      title: 'Salary',
-      width: 200,
-      render: (d: any) => 'Salary',
-    },
-    { title: 'First Name2', width: 120, render: () => 'firstName', group: [name, 'True Name'] },
-    { title: 'Last Name2', width: 120, render: () => 'lastName', group: [name, 'True Name'] },
-    { title: 'Name2', width: 110, render: () => 'nick2', group: name },
-  ]
-
-  const tableWidth = columns.reduce((acc, item) => acc + item.width, 0)
-
-  return (
-    <div style={{ overflow: 'auto', height: 500 }} id="xxxxxx">
-      <Table
-        // keygen="id"
-        keygen={d => d.cooperateId || d.channelId || d.partnerId}
-        columns={columns}
-        // data={testData.slice(0, 10)}
-        data={testData}
-        height="auto"
-        hover={false}
-        columnResizable
-        onRowSelect={() => {}}
-        width={tableWidth}
-        fixed="x"
-        bordered
-        nativeScroll
-      />
-    </div>
-  )
-}
+const App: React.FC = () => <Table keygen="id" width={1500} columns={columns} data={data} />
 
 export default App
