@@ -195,7 +195,9 @@ class Table<DataItem, Value> extends Component<OriginTableProps<DataItem, Value>
           inView={this.state.inView}
         />
         {loading && (
-          <div className={tableClass('loading')}>{typeof loading === 'boolean' ? <Spin size={40} /> : loading}</div>
+          <div className={tableClass('loading', this.props.onScroll && 'scroll-loading')}>
+            {typeof loading === 'boolean' ? <Spin size={40} /> : loading}
+          </div>
         )}
         {isEmpty && (
           <div
