@@ -572,6 +572,19 @@ const examples = [
     parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Table/test-003-sticky.tsx'),
 
   },
+  {
+    name: 'test-005-proxy-freeze-data',
+    isTs: true,
+    isTest: true,
+    title: locate(
+      '测试冻结对象 \n 测试冻结对象',
+      'Test freeze object \n Test freeze object'
+    ),
+    component: require('doc/pages/components/Table/test-005-proxy-freeze-data.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/test-005-proxy-freeze-data.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Table/test-005-proxy-freeze-data.tsx'),
+
+  },
 ]
 
 const codes = undefined

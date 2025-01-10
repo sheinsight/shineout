@@ -67,7 +67,23 @@ export default WrappedComponent => {
 
       const storeExpandKeys = new Map()
       expandKeys.forEach((value, key) => storeExpandKeys.set(key, value))
-      const cloneData = JSON.parse(JSON.stringify(data))
+
+      // 尝试用immer修改数据，如果失败则认定它是冻结的对象
+      function tryImmer(source) {
+        try {
+          return immer(source, draft => {
+            if (draft[0]) {
+              const old = draft[0]
+              draft[0] = JSON.parse(JSON.stringify(draft?.[0]))
+              draft[0] = old
+            }
+          })
+        } catch (e) {
+          return false
+        }
+      }
+      // 检查数据是否被冻结，如果是，则创建一个可变的副本
+      const cloneData = tryImmer(data) ? data : JSON.parse(JSON.stringify(data))
       return immer(cloneData, draft => {
         let dataCo = draft
         for (let i = 0; i < dataCo.length; i++) {
