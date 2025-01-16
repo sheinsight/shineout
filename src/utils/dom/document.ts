@@ -55,6 +55,7 @@ export const getCurrentCSSZoom = (): number => {
   if (window.ResizeObserver) {
     // 监听document.body的变化，更新缓存的zoom
     const resizeObserver = new ResizeObserver(() => {
+      if (!document.body) return
       cachedZoom = Math.round(document.body.getBoundingClientRect().width) / document.body.clientWidth
     })
 
