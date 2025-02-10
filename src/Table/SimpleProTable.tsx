@@ -119,7 +119,7 @@ class SimpleTable<DataItem, Value> extends PureComponent<SimpleTableProps<DataIt
       const { width } = tds[i].getBoundingClientRect()
       const colSpan = parseInt(tds[i].getAttribute('colspan') || '', 10)
       if (colSpan > 1) {
-        split(width, range(colSpan).map(j => columns[i + j].width!)).forEach(w => colgroup.push(w))
+        split(width, range(colSpan).map(j => columns[i + j]?.width || 0)).forEach(w => colgroup.push(w))
       } else {
         colgroup.push(width)
       }
