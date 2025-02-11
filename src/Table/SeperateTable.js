@@ -61,7 +61,9 @@ class SeperateTable extends PureComponent {
     if (dataChange) {
       const resize = prevProps.data.length === 0 && this.props.data.length
       if (resize || this.props.dataChangeResize) this.setState({ resize: true, colgroup: undefined })
-      this.resetHeight()
+      setTimeout(() => {
+        this.resetHeight()
+      })
     }
     this.updateScrollLeft()
     if (!compareColumns(prevProps.columns, this.props.columns)) {
