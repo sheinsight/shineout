@@ -8,7 +8,7 @@ class Group extends PureComponent<ImageGroupProps> {
   static displayName: string
 
   handleClick(index: number) {
-    const { children } = this.props
+    const { children, zIndex = 1100 } = this.props
     const images: {}[] = []
     let current = 0
     Children.toArray(children).forEach((child: ReactElement<ImageProps> & { type: { symbolType: {} } }, i) => {
@@ -19,7 +19,7 @@ class Group extends PureComponent<ImageGroupProps> {
       }
     })
 
-    showGallery(images, current)
+    showGallery(images, current, { zIndex })
   }
 
   render() {
