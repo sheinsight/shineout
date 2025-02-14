@@ -120,7 +120,7 @@ export interface ImageProps extends StandardProps {
   /**
    * @en The z-index of the image preview mask layer
    * @cn 图片预览遮罩层的 z-index
-   * @default 1050
+   * @default 1100
    */
   zIndex?: number
 }
@@ -169,4 +169,11 @@ export interface ImageGroupProps extends StandardProps {
    * @cn 子元素
    */
   children?: ReactNode
+
+  /**
+   * @en The z-index of the image preview mask layer
+   * @cn 图片预览遮罩层的 z-index
+   * @default 1100
+   */
+  zIndex?: number
 }
