@@ -26,7 +26,7 @@ function createStyle(text, id) {
 
 function generateGrid(width, className, responsive) {
   const minWidth = RESPONSIVE[responsive]
-  const text = `@media screen and (min-width: ${minWidth}px) { .${className}{width: ${width}%} }`
+  const text = `@media screen and (min-width: ${minWidth}px) { .${GridClassName}.${className}{width: ${width}%} }`
   createStyle(text, className)
 }
 
@@ -44,11 +44,14 @@ function generate(w, type, res) {
     return ''
   }
 
-  if (width > 1) { width = 1 }
+  if (width > 1) {
+    width = 1
+  }
   width = (width * 100).toFixed(4)
   width = width.substr(0, width.length - 1)
 
   const className = `${config.prefix}-${type}-${responsive}-${width.replace('.', '-')}`
+
   if (!CACHES[className]) {
     if (type === 'grid') {
       generateGrid(width, className, responsive)
