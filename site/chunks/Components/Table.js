@@ -585,6 +585,19 @@ const examples = [
     parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Table/test-005-proxy-freeze-data.tsx'),
 
   },
+  {
+    name: 'test-006-expand-scroll',
+    isTs: true,
+    isTest: true,
+    title: locate(
+      'expand bug \n 修复了展开行在滚动时的问题',
+      'expand bug \n Fixed the problem of expanding rows when scrolling'
+    ),
+    component: require('doc/pages/components/Table/test-006-expand-scroll.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/test-006-expand-scroll.tsx'),
+    parseTsText: require('!raw-loader!ts-loader!doc/pages/components/Table/test-006-expand-scroll.tsx'),
+
+  },
 ]
 
 const codes = undefined

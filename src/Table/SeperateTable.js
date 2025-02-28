@@ -154,6 +154,13 @@ class SeperateTable extends PureComponent {
       }
     }
 
+    // why setTimeout: 获取最新的tbody高度
+    setTimeout(() => {
+      if (this.tbodyContainer && this.tbody.clientHeight <= this.tbodyContainer.clientHeight) {
+        this.resetTop()
+      }
+    }, 0)
+
     /**
      * if press and hold bar to scroll to the bottom, reset scroll
      */
@@ -177,6 +184,13 @@ class SeperateTable extends PureComponent {
       this.setState({ scrollTop: top })
       this.lastScrollArgs[1] = top
     })
+  }
+
+  resetTop() {
+    this.lastScrollTop = 0
+    this.tbody.style.marginTop = 0
+    this.setState({ scrollTop: 0 })
+    setTranslate(this.tbody, `-${this.state.offsetLeft}px`, '0px')
   }
 
   checkScrollToIndex(index, outerHeight) {
@@ -341,6 +355,9 @@ class SeperateTable extends PureComponent {
         this.rmOverScrollListener()
         this.rmOverScrollListener = null
       }
+    } else if (key === 'tbody') {
+      // 标记tbodyContainer：真正的滚动容器，用于判断是否需要滚动
+      this.tbodyContainer = getParent(this[key], `.${tableClass('body')}`)
     }
   }
 
