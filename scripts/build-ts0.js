@@ -20,16 +20,11 @@ function transTs() {
     return
   }
   // 删除 ts 文件
-  glob('**/*.@(ts|tsx)', { cwd: tempDir }, (error, files) => {
-    try {
-      files.forEach(file => {
-        const filePath = path.resolve(tempDir, file)
-        if (!filePath.endsWith('.d.ts')) {
-          fs.unlinkSync(filePath)
-        }
-      })
-    } catch (e) {
-      console.error(e)
+  const files = glob.sync('**/*.@(ts|tsx)', { cwd: tempDir })
+  files.forEach(file => {
+    const filePath = path.resolve(tempDir, file)
+    if (!filePath.endsWith('.d.ts')) {
+      fs.unlinkSync(filePath)
     }
   })
 }
