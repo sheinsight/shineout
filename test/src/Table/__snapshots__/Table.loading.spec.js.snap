@@ -63,6 +63,7 @@ exports[`Table[loading] should render loading 1`] = `
           <th
             className=""
             rowSpan={1}
+            style={Object {}}
           >
             <div
               className=""
@@ -75,6 +76,7 @@ exports[`Table[loading] should render loading 1`] = `
           <th
             className=""
             rowSpan={1}
+            style={Object {}}
           >
             <div
               className=""
@@ -87,6 +89,7 @@ exports[`Table[loading] should render loading 1`] = `
           <th
             className=""
             rowSpan={1}
+            style={Object {}}
           >
             <div
               className=""
@@ -99,6 +102,7 @@ exports[`Table[loading] should render loading 1`] = `
           <th
             className=""
             rowSpan={1}
+            style={Object {}}
           >
             <div
               className=""
@@ -111,6 +115,7 @@ exports[`Table[loading] should render loading 1`] = `
           <th
             className=""
             rowSpan={1}
+            style={Object {}}
           >
             <div
               className=""

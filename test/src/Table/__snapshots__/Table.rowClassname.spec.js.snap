@@ -42,6 +42,7 @@ exports[`Table[rowClassname] should render correct 1`] = `
           <th
             className=""
             rowSpan={1}
+            style={Object {}}
           >
             <div
               className=""
@@ -54,6 +55,7 @@ exports[`Table[rowClassname] should render correct 1`] = `
           <th
             className=""
             rowSpan={1}
+            style={Object {}}
           >
             <div
               className=""

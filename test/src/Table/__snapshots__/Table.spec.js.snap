@@ -42,6 +42,7 @@ exports[`Table[Border&striped] should render border & striped 1`] = `
           <th
             className=""
             rowSpan={1}
+            style={Object {}}
           >
             <div
               className=""
@@ -54,6 +55,7 @@ exports[`Table[Border&striped] should render border & striped 1`] = `
           <th
             className="so-table-ignore-right-border"
             rowSpan={1}
+            style={Object {}}
           >
             <div
               className=""
@@ -220,6 +222,7 @@ exports[`Table[small] should render compact table 1`] = `
           <th
             className=""
             rowSpan={1}
+            style={Object {}}
           >
             <div
               className=""
@@ -232,6 +235,7 @@ exports[`Table[small] should render compact table 1`] = `
           <th
             className=""
             rowSpan={1}
+            style={Object {}}
           >
             <div
               className=""

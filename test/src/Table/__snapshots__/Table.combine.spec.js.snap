@@ -71,6 +71,7 @@ Array [
             <th
               className=""
               rowSpan={2}
+              style={Object {}}
             >
               <div
                 className=""
@@ -83,12 +84,14 @@ Array [
             <th
               className="so-table-center so-table-condensed"
               colSpan={2}
+              style={Object {}}
             >
               Name
             </th>
             <th
               className=""
               rowSpan={2}
+              style={Object {}}
             >
               <div
                 className=""
@@ -101,6 +104,7 @@ Array [
             <th
               className=""
               rowSpan={2}
+              style={Object {}}
             >
               <div
                 className=""
@@ -113,6 +117,7 @@ Array [
             <th
               className=""
               rowSpan={2}
+              style={Object {}}
             >
               <div
                 className=""
@@ -127,6 +132,7 @@ Array [
             <th
               className="so-table-condensed"
               rowSpan={1}
+              style={Object {}}
             >
               <div
                 className=""
@@ -139,6 +145,7 @@ Array [
             <th
               className="so-table-condensed"
               rowSpan={1}
+              style={Object {}}
             >
               <div
                 className=""
@@ -764,6 +771,7 @@ exports[`Table[combine] should combine without pagination 1`] = `
           <th
             className=""
             rowSpan={2}
+            style={Object {}}
           >
             <div
               className=""
@@ -776,12 +784,14 @@ exports[`Table[combine] should combine without pagination 1`] = `
           <th
             className="so-table-center so-table-condensed"
             colSpan={2}
+            style={Object {}}
           >
             Name
           </th>
           <th
             className=""
             rowSpan={2}
+            style={Object {}}
           >
             <div
               className=""
@@ -794,6 +804,7 @@ exports[`Table[combine] should combine without pagination 1`] = `
           <th
             className=""
             rowSpan={2}
+            style={Object {}}
           >
             <div
               className=""
@@ -806,6 +817,7 @@ exports[`Table[combine] should combine without pagination 1`] = `
           <th
             className=""
             rowSpan={2}
+            style={Object {}}
           >
             <div
               className=""
@@ -820,6 +832,7 @@ exports[`Table[combine] should combine without pagination 1`] = `
           <th
             className="so-table-condensed"
             rowSpan={1}
+            style={Object {}}
           >
             <div
               className=""
@@ -832,6 +845,7 @@ exports[`Table[combine] should combine without pagination 1`] = `
           <th
             className="so-table-condensed"
             rowSpan={1}
+            style={Object {}}
           >
             <div
               className=""
