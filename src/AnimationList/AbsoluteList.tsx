@@ -153,13 +153,13 @@ export default function<U extends {}>(List: ComponentType<U>) {
       const defaultContainer = getDefaultContainer()
       const rootContainer = container === getRoot() || !container ? defaultContainer : container
       const containerRect = rootContainer.getBoundingClientRect()
+      const currentCSSZoom = getCurrentCSSZoom()
       const containerScroll = {
-        left: rootContainer.scrollLeft,
-        top: rootContainer.scrollTop,
+        left: rootContainer.scrollLeft * currentCSSZoom,
+        top: rootContainer.scrollTop * currentCSSZoom,
       }
       this.containerRect = containerRect
       this.containerScroll = containerScroll
-
       if (listPosition.includes(position)) {
         style.left = rect.left - containerRect.left + containerScroll.left
         if (isRTL()) {
@@ -337,11 +337,6 @@ export default function<U extends {}>(List: ComponentType<U>) {
       const overdocStyle = this.state.overdoc ? getOverDocStyle(this.isRight()) : undefined
       const mergeStyle = Object.assign({}, style, props.style, overdocStyle)
       if (zIndex || typeof zIndex === 'number') mergeStyle.zIndex = parseInt((zIndex as unknown) as string, 10)
-      // console.log('======================')
-      // console.log('this.state.overdoc: >>', this.state.overdoc)
-      // console.log('overdocStyle: >>', overdocStyle)
-      // console.log('mergeStyle: >>', mergeStyle)
-      // console.log('======================')
       return ReactDOM.createPortal(
         <List
           getRef={this.handleRef}
