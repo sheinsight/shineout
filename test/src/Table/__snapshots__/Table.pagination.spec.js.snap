@@ -51,6 +51,7 @@ Array [
             <th
               className=""
               rowSpan={1}
+              style={Object {}}
             >
               <div
                 className=""

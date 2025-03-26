@@ -66,6 +66,7 @@ exports[`Table[Empty] should render empty table 1`] = `
           <th
             className=""
             rowSpan={1}
+            style={Object {}}
           >
             <div
               className=""
@@ -78,6 +79,7 @@ exports[`Table[Empty] should render empty table 1`] = `
           <th
             className=""
             rowSpan={1}
+            style={Object {}}
           >
             <div
               className=""
@@ -90,6 +92,7 @@ exports[`Table[Empty] should render empty table 1`] = `
           <th
             className=""
             rowSpan={1}
+            style={Object {}}
           >
             <div
               className=""
@@ -102,6 +105,7 @@ exports[`Table[Empty] should render empty table 1`] = `
           <th
             className=""
             rowSpan={1}
+            style={Object {}}
           >
             <div
               className=""
@@ -114,6 +118,7 @@ exports[`Table[Empty] should render empty table 1`] = `
           <th
             className=""
             rowSpan={1}
+            style={Object {}}
           >
             <div
               className=""
@@ -126,6 +131,7 @@ exports[`Table[Empty] should render empty table 1`] = `
           <th
             className=""
             rowSpan={1}
+            style={Object {}}
           >
             <div
               className=""
@@ -279,6 +285,7 @@ exports[`Table[Empty] should render empty table with emtpyText 1`] = `
           <th
             className=""
             rowSpan={1}
+            style={Object {}}
           >
             <div
               className=""
@@ -291,6 +298,7 @@ exports[`Table[Empty] should render empty table with emtpyText 1`] = `
           <th
             className=""
             rowSpan={1}
+            style={Object {}}
           >
             <div
               className=""
@@ -303,6 +311,7 @@ exports[`Table[Empty] should render empty table with emtpyText 1`] = `
           <th
             className=""
             rowSpan={1}
+            style={Object {}}
           >
             <div
               className=""
@@ -315,6 +324,7 @@ exports[`Table[Empty] should render empty table with emtpyText 1`] = `
           <th
             className=""
             rowSpan={1}
+            style={Object {}}
           >
             <div
               className=""
@@ -327,6 +337,7 @@ exports[`Table[Empty] should render empty table with emtpyText 1`] = `
           <th
             className=""
             rowSpan={1}
+            style={Object {}}
           >
             <div
               className=""
@@ -339,6 +350,7 @@ exports[`Table[Empty] should render empty table with emtpyText 1`] = `
           <th
             className=""
             rowSpan={1}
+            style={Object {}}
           >
             <div
               className=""
@@ -510,6 +522,7 @@ exports[`Table[Empty] should render empty table with fixed column 1`] = `
           <th
             className="so-table-fixed-left"
             rowSpan={2}
+            style={Object {}}
           >
             <div
               className=""
@@ -522,12 +535,14 @@ exports[`Table[Empty] should render empty table with fixed column 1`] = `
           <th
             className="so-table-center so-table-condensed so-table-fixed-left so-table-fixed-last"
             colSpan={2}
+            style={Object {}}
           >
             Name
           </th>
           <th
             className=""
             rowSpan={2}
+            style={Object {}}
           >
             <div
               className=""
@@ -540,6 +555,7 @@ exports[`Table[Empty] should render empty table with fixed column 1`] = `
           <th
             className=""
             rowSpan={2}
+            style={Object {}}
           >
             <div
               className=""
@@ -552,6 +568,7 @@ exports[`Table[Empty] should render empty table with fixed column 1`] = `
           <th
             className=""
             rowSpan={2}
+            style={Object {}}
           >
             <div
               className=""
@@ -564,6 +581,7 @@ exports[`Table[Empty] should render empty table with fixed column 1`] = `
           <th
             className=""
             rowSpan={2}
+            style={Object {}}
           >
             <div
               className=""
@@ -576,6 +594,7 @@ exports[`Table[Empty] should render empty table with fixed column 1`] = `
           <th
             className="so-table-ignore-right-border so-table-fixed-right so-table-fixed-first"
             rowSpan={2}
+            style={Object {}}
           >
             <div
               className=""
@@ -590,6 +609,7 @@ exports[`Table[Empty] should render empty table with fixed column 1`] = `
           <th
             className="so-table-condensed so-table-fixed-left"
             rowSpan={1}
+            style={Object {}}
           >
             <div
               className=""
@@ -602,6 +622,7 @@ exports[`Table[Empty] should render empty table with fixed column 1`] = `
           <th
             className="so-table-condensed so-table-fixed-left so-table-fixed-last"
             rowSpan={1}
+            style={Object {}}
           >
             <div
               className=""
@@ -769,6 +790,7 @@ exports[`Table[Empty] should render loading status while empty 1`] = `
           <th
             className=""
             rowSpan={1}
+            style={Object {}}
           >
             <div
               className=""
@@ -781,6 +803,7 @@ exports[`Table[Empty] should render loading status while empty 1`] = `
           <th
             className=""
             rowSpan={1}
+            style={Object {}}
           >
             <div
               className=""
@@ -793,6 +816,7 @@ exports[`Table[Empty] should render loading status while empty 1`] = `
           <th
             className=""
             rowSpan={1}
+            style={Object {}}
           >
             <div
               className=""
@@ -805,6 +829,7 @@ exports[`Table[Empty] should render loading status while empty 1`] = `
           <th
             className=""
             rowSpan={1}
+            style={Object {}}
           >
             <div
               className=""
@@ -817,6 +842,7 @@ exports[`Table[Empty] should render loading status while empty 1`] = `
           <th
             className=""
             rowSpan={1}
+            style={Object {}}
           >
             <div
               className=""
@@ -829,6 +855,7 @@ exports[`Table[Empty] should render loading status while empty 1`] = `
           <th
             className=""
             rowSpan={1}
+            style={Object {}}
           >
             <div
               className=""
