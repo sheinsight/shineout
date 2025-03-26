@@ -25,6 +25,11 @@ jobs:
         with:
           cmd: install
 
+      - name: Clean build artifacts
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: build-clean
+
       - name: Build production bundle
         uses: borales/actions-yarn@v4
         env:
