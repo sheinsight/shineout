@@ -98,6 +98,12 @@
       &:after {
         content: '\feff ';
       }
+
+      &.@{treeSelect-prefix}-full[contenteditable="true"] {
+        > br {
+          display: none;
+        }
+      }
     }
 
     .@{treeSelect-prefix}-item {

@@ -68,6 +68,10 @@
 
       &.@{select-prefix}-full {
         display: block;
+
+        &[contenteditable="true"] > br {
+          display: none;
+        }
       }
     }
 
