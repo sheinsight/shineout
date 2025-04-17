@@ -8,24 +8,56 @@
 
 import React from 'react'
 import { Cascader, TYPE } from 'shineout'
-import { cascader as data } from 'doc/data/tree'
 
-type DateItem = { text: string; id: string; children?: DateItem[] }
+type DateItem = { value: string; children?: DateItem[] }
 type CascaderProps = TYPE.Cascader.Props<DateItem, string[]>
 type RenderResult = CascaderProps['renderResult']
 type CascaderRenderItem = CascaderProps['renderItem']
 
 const App: React.FC = () => {
-  const renderItem: CascaderRenderItem = node => `node ${node.text}`
-  const renderResult: RenderResult = node => (node.children && node.children.length > 0 ? '' : node.text)
+  const renderItem: CascaderRenderItem = node => node.value
+  const renderResult: RenderResult = node => (node.children && node.children.length > 0 ? '' : node.value)
 
   return (
     <Cascader
-      keygen="id"
-      data={data}
+      keygen="value"
+      data={[
+        {
+          value: 'jiangsu',
+          children: [
+            {
+              value: 'nanjing',
+              children: [
+                {
+                  value: 'jiangning',
+                },
+                {
+                  value: 'yuhuatai',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          value: 'anhui',
+          children: [
+            {
+              value: 'hefei',
+              children: [
+                {
+                  value: 'feidong',
+                },
+                {
+                  value: 'feixi',
+                },
+              ],
+            },
+          ],
+        },
+      ]}
       style={{ width: 300 }}
       renderItem={renderItem}
-      expandTrigger="hover-only"
+      expandTrigger="hover"
       renderResult={renderResult}
     />
   )

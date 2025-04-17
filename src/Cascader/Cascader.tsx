@@ -171,9 +171,7 @@ class Cascader<DataItem, Value extends CascaderBaseValue> extends PureComponent<
           onFilter('')
         }, 400)
       }
-      if (this.shouldFinal) {
-        this.updatePathByValue(true)
-      }
+      this.updatePathByValue(true)
     }
     if (filterText !== undefined && prevProps.filterText !== filterText) {
       this.updatePath()
