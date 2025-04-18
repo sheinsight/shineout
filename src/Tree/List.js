@@ -12,6 +12,7 @@ class List extends PureComponent {
     this.bindLines = this.bindElement.bind(this, 'lines')
     this.bindElement = this.bindElement.bind(this, 'element')
     this.renderNode = this.renderNode.bind(this)
+    this.checkIsNoChildren = this.checkIsNoChildren.bind(this)
   }
 
   getKey(data, index) {
@@ -21,6 +22,12 @@ class List extends PureComponent {
     return id + (id ? ',' : '') + index
   }
 
+  // 检查节点是否全都没有 children
+  checkIsNoChildren() {
+    const { data } = this.props
+    return data.every(d => !d.children || d.children.length === 0)
+  }
+
   bindElement(name, el) {
     this[name] = el
   }
@@ -28,8 +35,20 @@ class List extends PureComponent {
   renderNode(child, index) {
     const { data, isRoot, expanded, keygen, line, className, style, ...other } = this.props
     const id = this.getKey(child, index)
+    const isNoChildren = isRoot && this.checkIsNoChildren()
+
     return (
-      <Node {...other} data={child} id={id} index={index} key={id} line={line} keygen={keygen} listComponent={List} />
+      <Node
+        {...other}
+        data={child}
+        id={id}
+        index={index}
+        key={id}
+        line={line}
+        keygen={keygen}
+        listComponent={List}
+        isNoChildren={isNoChildren}
+      />
     )
   }
 
