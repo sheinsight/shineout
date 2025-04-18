@@ -23,6 +23,12 @@
         margin-right: @tree-level-indent;
       }
     }
+    &-ltr&-no-children {
+      padding-left: 0;
+    }
+    &-rtl&-no-children {
+      padding-right: 0;
+    }
     line-height: @line-height-base;
 
     & > div {
@@ -45,12 +51,18 @@
         bottom: 0;
         left: 6px;
         width: 1px;
-        background: linear-gradient(to bottom, @tree-line-color, @tree-line-color @tree-line-value, transparent @tree-transparent-value, transparent);
+        background: linear-gradient(
+          to bottom,
+          @tree-line-color,
+          @tree-line-color @tree-line-value,
+          transparent @tree-transparent-value,
+          transparent
+        );
         background-size: 100% @tree-line-value * @tree-transparent-value;
         content: ' ';
         .@{tree-prefix}-rtl& {
           left: auto;
-          right: 6px
+          right: 6px;
         }
       }
 
@@ -60,12 +72,18 @@
         left: 7px;
         width: 14px;
         height: 1px;
-        background: linear-gradient(to right, @tree-line-color, @tree-line-color @tree-line-value, transparent @tree-transparent-value, transparent);
+        background: linear-gradient(
+          to right,
+          @tree-line-color,
+          @tree-line-color @tree-line-value,
+          transparent @tree-transparent-value,
+          transparent
+        );
         background-size: @tree-line-value * @tree-transparent-value 100%;
         content: ' ';
         .@{tree-prefix}-rtl& {
           left: auto;
-          right: 7px
+          right: 7px;
         }
       }
 
@@ -100,7 +118,7 @@
       }
 
       &:focus span.@{tree-prefix}-default-icon {
-        .input-focus()
+        .input-focus();
       }
 
       span.@{tree-prefix}-default-icon {
@@ -149,7 +167,7 @@
       top: 0px;
       left: 0px;
       width: 16px;
-      .@{tree-prefix}-rtl&{
+      .@{tree-prefix}-rtl& {
         left: auto;
         right: 0px;
       }
@@ -161,9 +179,9 @@
         left: 0;
         display: inline-block;
         padding: 12px;
-        transition: all .2s;
+        transition: all 0.2s;
         z-index: -1;
-        .@{tree-prefix}-rtl&{
+        .@{tree-prefix}-rtl& {
           left: auto;
           right: 0;
         }
@@ -191,7 +209,7 @@
         border-color: transparent transparent transparent @tree-indicator-color;
         transform-origin: 2px 4px;
         transition: transform 0.2s linear;
-        .@{tree-prefix}-rtl&{
+        .@{tree-prefix}-rtl& {
           left: auto;
           right: 10px;
           border-color: transparent @tree-indicator-color transparent transparent;
@@ -202,7 +220,7 @@
 
     .@{tree-prefix}-icon-sub span.@{tree-prefix}-default-icon {
       transform: rotate(90deg);
-      .@{tree-prefix}-rtl&{
+      .@{tree-prefix}-rtl& {
         transform: rotate(-90deg);
       }
     }
@@ -216,7 +234,7 @@
     width: 12px;
     height: 12px;
     background: #fff;
-    .@{tree-prefix}-rtl &{
+    .@{tree-prefix}-rtl & {
       right: 0px;
       left: auto;
     }
@@ -234,7 +252,7 @@
 
   &-checkbox {
     z-index: 10;
-    &-ltr{
+    &-ltr {
       margin-right: 6px;
     }
     font-size: 0;
@@ -254,7 +272,6 @@
       background: @gray-100;
     }
   }
-
 
   &.@{tree-prefix}-rtl {
     direction: rtl;
