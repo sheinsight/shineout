@@ -182,7 +182,7 @@ class Node extends PureComponent {
       isNoChildren,
       ...other
     } = this.props
-    
+
     const children = data[other.childrenKey]
     const hasChildren = children && children.length > 0
     const { expanded, fetching } = this.state
