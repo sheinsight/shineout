@@ -328,6 +328,14 @@ export interface FormFieldProps<Value> {
    */
   onReset?: () => void
 
+  /**
+   * Whether to keep the field value after unmounting
+   *
+   * 卸载后是否保留字段值
+   *
+   * default:
+   */
+  reserveAble?: boolean;
 }
 
 export interface FormFieldSetProps<Value> {
@@ -408,6 +416,14 @@ export interface FormFieldSetProps<Value> {
    */
   rules?: RuleParamsType<Value>;
 
+  /**
+   * Whether to keep the field value after unmounting
+   *
+   * 卸载后是否保留字段值
+   *
+   * default:
+   */
+  reserveAble?: boolean;
 }
 
 export interface FormFlowProps {

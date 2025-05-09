@@ -255,7 +255,7 @@ export default class {
 
   unbind(name, cb, reserveAble) {
     if (Array.isArray(name)) {
-      name.forEach(n => this.unbind(n))
+      name.forEach(n => this.unbind(n, cb, reserveAble))
       return
     }
 

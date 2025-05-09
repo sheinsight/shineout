@@ -33,8 +33,8 @@ class FieldSet extends Component {
 
   componentWillUnmount() {
     super.componentWillUnmount()
-    const { formDatum, name } = this.props
-    formDatum.unbind(name, this.handleUpdate)
+    const { formDatum, name, reserveAble } = this.props
+    formDatum.unbind(name, this.handleUpdate, reserveAble)
   }
 
   validate() {
@@ -158,6 +158,7 @@ FieldSet.propTypes = {
   name: PropTypes.string.isRequired,
   onError: PropTypes.func,
   rules: PropTypes.array,
+  reserveAble: PropTypes.bool,
 }
 
 FieldSet.defaultProps = {
