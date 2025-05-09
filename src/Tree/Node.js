@@ -171,7 +171,17 @@ class Node extends PureComponent {
   }
 
   render() {
-    const { data, expandedMap, listComponent, onDrop, childrenClass, leafClass, nodeClass, ...other } = this.props
+    const {
+      data,
+      expandedMap,
+      listComponent,
+      onDrop,
+      childrenClass,
+      leafClass,
+      nodeClass,
+      isNoChildren,
+      ...other
+    } = this.props
 
     const children = data[other.childrenKey]
     const hasChildren = children && children.length > 0
@@ -210,7 +220,12 @@ class Node extends PureComponent {
       <div
         {...wrapProps}
         ref={this.bindElement}
-        className={classnames(treeClass(getDirectionClass('node')), this.isLeaf() && leafClass(data), nodeClassName)}
+        className={classnames(
+          treeClass(getDirectionClass('node')),
+          this.isLeaf() && leafClass(data),
+          nodeClassName,
+          isNoChildren && treeClass('node-no-children')
+        )}
       >
         <Content
           {...other}
