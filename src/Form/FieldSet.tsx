@@ -45,8 +45,8 @@ class FieldSet<Value extends any[]> extends Component<FieldSetProps<Value>, {}> 
 
   componentWillUnmount() {
     super.componentWillUnmount()
-    const { formDatum, name } = this.props
-    formDatum.unbind(name, this.handleUpdate)
+    const { formDatum, name, reserveAble } = this.props
+    formDatum.unbind(name, this.handleUpdate, reserveAble)
   }
 
   validate(): Promise<FormError | true> {

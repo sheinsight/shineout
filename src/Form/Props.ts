@@ -84,6 +84,12 @@ export interface FieldSetProps<Value = any> {
    * @override ((opts: object) => ReactNode) |ReactNode
    */
   children: FieldSetChildrenFunc<Value> | React.ReactNode
+
+  /**
+   * @en If set to true, the form will not automatically delete the data after the component is uninstalled
+   * @cn 设置为 true 组件卸载后表单不自动删除数据
+   */
+  reserveAble?: boolean
 }
 
 export type GetFieldSetConsumerProps<U> = Omit<U, 'innerFormNamePath' | 'fieldSetValidate'>
