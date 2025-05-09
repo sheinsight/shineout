@@ -297,7 +297,7 @@ export default class<V extends ObjectType> {
 
   unbind(name: string | string[], _cb?: any, reserveAble?: boolean) {
     if (Array.isArray(name)) {
-      name.forEach(n => this.unbind(n))
+      name.forEach(n => this.unbind(n, _cb, reserveAble))
       return
     }
 
