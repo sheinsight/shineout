@@ -156,7 +156,7 @@ class Dropdown extends PureComponent<DropdownProps, DropDownState> {
 
   toggleDocumentEvent(bind: boolean) {
     const method = bind ? 'addEventListener' : 'removeEventListener'
-    document[method]('mousedown', (this.clickAway as unknown) as EventListener, true)
+    document[method]('click', (this.clickAway as unknown) as EventListener, true)
   }
 
   clickAway(e: React.MouseEvent) {
@@ -174,11 +174,12 @@ class Dropdown extends PureComponent<DropdownProps, DropDownState> {
     if (this.closeTimer) {
       clearTimeout(this.closeTimer)
     }
-    if (this.show) return
-    if (onCollapse) onCollapse(true)
+
+    const newShow = !this.show
     this.setState({
-      show: true,
+      show: newShow,
     })
+    if (onCollapse) onCollapse(newShow)
   }
 
   handleHide(delay = 200) {
