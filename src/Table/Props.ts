@@ -388,6 +388,7 @@ export interface SeperateTableProps<DataItem, Value> extends SimpleTableProps<Da
 
 /** ------ Tbody ---------- */
 export interface TbodyProps<DataItem, Value> extends Omit<SimpleTableProps<DataItem, Value>, 'width' | 'fixed'> {
+  fixed?: TableFix
   lazy?: boolean
   colgroup?: number[]
   index: number
