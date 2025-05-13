@@ -566,10 +566,7 @@ class SeperateTable<DataItem, Value> extends PureComponent<SeperateTableProps<Da
       const { width } = tds[i].getBoundingClientRect()
       const colSpan = parseInt(tds[i].getAttribute('colspan')!, 10)
       if (colSpan && colSpan > 1) {
-        split(
-          width,
-          range(colSpan).map(j => columns[i + j].width!)
-        ).forEach(w => colgroup.push(w))
+        split(width, range(colSpan).map(j => columns[i + j].width!)).forEach(w => colgroup.push(w))
       } else {
         colgroup.push(width)
       }
@@ -629,6 +626,7 @@ class SeperateTable<DataItem, Value> extends PureComponent<SeperateTableProps<Da
             <Colgroup colgroup={colgroup} columns={columns} resizable={columnResizable && this.lastScrollArgs[4]} />
             <Tbody
               {...others}
+              fixed={fixed}
               bordered={bordered}
               columns={columns}
               onBodyRender={this.handleColgroup}
