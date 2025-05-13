@@ -50,6 +50,8 @@ class Tr<DataItem, Value> extends Component<TrProps<DataItem, Value>> {
 
   cachedExpand: ReactNode
 
+  observer: ResizeObserver
+
   constructor(props: TrProps<DataItem, Value>) {
     super(props)
     this.manualExpand = false
@@ -63,6 +65,22 @@ class Tr<DataItem, Value> extends Component<TrProps<DataItem, Value>> {
   componentDidMount() {
     this.manualExpand = true
     this.setRowHeight()
+
+    if (!this.props.fixed) return
+    // 监听tr高度变化
+    if (this.element && window.ResizeObserver) {
+      const observer = new ResizeObserver(() => {
+        this.setRowHeight()
+      })
+      observer.observe(this.element)
+      this.observer = observer
+    }
+  }
+
+  componentWillUnmount(): void {
+    if (this.observer) {
+      this.observer.disconnect()
+    }
   }
 
   componentDidUpdate(prevProps: TrProps<DataItem, Value>) {
