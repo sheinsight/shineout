@@ -85,6 +85,8 @@ class Cascader<DataItem, Value extends CascaderBaseValue> extends PureComponent<
 
   input: Input
 
+  timer: NodeJS.Timeout | null
+
   lastValue?: Value
 
   element: HTMLDivElement
@@ -112,6 +114,7 @@ class Cascader<DataItem, Value extends CascaderBaseValue> extends PureComponent<
       unmatch: props.unmatch,
     })
 
+    this.timer = null
     this.isRendered = false
 
     this.selectId = `select_${getUidStr()}`
@@ -180,6 +183,7 @@ class Cascader<DataItem, Value extends CascaderBaseValue> extends PureComponent<
 
   componentWillUnmount() {
     super.componentWillUnmount()
+    if (this.timer !== null) clearTimeout(this.timer)
     this.clearClickAway()
   }
 
@@ -302,7 +306,7 @@ class Cascader<DataItem, Value extends CascaderBaseValue> extends PureComponent<
     this.handleChange([] as any)
 
     // force close
-    setTimeout(() => this.handleState(false), 10)
+    this.timer = setTimeout(() => this.handleState(false), 10)
   }
 
   handleRemove(node: DataItem) {
@@ -325,6 +329,7 @@ class Cascader<DataItem, Value extends CascaderBaseValue> extends PureComponent<
     let { position } = this.props
     if (!position) {
       const windowHeight = docSize.height
+      if (!this.element) return
       const bottom = height + this.element.getBoundingClientRect().bottom
       if (bottom > windowHeight) position = 'drop-up'
     }
