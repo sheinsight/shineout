@@ -11,6 +11,7 @@ const App: React.FC = () => (
   <Upload.Button
     action="//jsonplaceholder.typicode.com/posts"
     name="file"
+    multiple
     onSuccess={(_res, file) => file.name}
     loading="正在上传..."
     placeholder="点击上传"
