@@ -305,6 +305,12 @@ export default curry(Origin =>
           this.updateTimer = setTimeout(() => {
             this.validate(newValue, undefined, type).catch(() => {})
           })
+        } else {
+          const currentError = this.getError()
+          // 设置其他字段时同时设置了本字段的值，但没有清空本字段的错误，故需要手动触发校验
+          if (currentError) {
+            this.validate(newValue, undefined, IGNORE_BIND).catch(() => {})
+          }
         }
         this.forceUpdate()
       }
