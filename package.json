@@ -20,7 +20,7 @@
     "docs-build-clean": "node scripts/gh-clean.js",
     "docs-build-features": "node scripts/build-features.js",
     "docs-build-chunk": "cross-env NODE_ENV=production node scripts/dev-site.js",
-    "docs-build-js": "cross-env NODE_ENV=production webpack --config webpack/config.doc.js",
+    "docs-build-js": "cross-env NODE_ENV=production webpack --config webpack/config.doc.js --display-error-details --verbose",
     "docs-build-html": "node scripts/build-html.js",
     "docs-build": "npm-run-all docs-build-*",
     "docs-rc-build": "cross-env LOG_ENV=rc npm-run-all docs-build-*",
