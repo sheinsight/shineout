@@ -7,6 +7,7 @@ import Clear from './clear'
 import { inputClass } from './styles'
 import InputTitle from '../InputTitle'
 import { Props } from './Props'
+import { preciseString } from '../utils/strings'
 
 function regLength(size?: number) {
   return /\d+/.test(String(size)) && size! > 0 ? `{0,${size}}` : '*'
@@ -98,7 +99,8 @@ class Input extends PureComponent<Props> {
 
     if (digits !== undefined && autoFix) {
       if (digits > 0) {
-        fixVal = parseFloat(fixVal).toFixed(digits)
+        // fixVal = parseFloat(fixVal).toFixed(digits)
+        fixVal = preciseString(fixVal, digits)
       } else {
         fixVal = parseInt(fixVal, 10).toString()
       }
