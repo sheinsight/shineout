@@ -6,7 +6,6 @@
  */
 import React, { useState } from 'react'
 import { Table } from 'shineout'
-import { create } from '@shined/reactive'
 
 const data = [
   {
@@ -198,14 +197,14 @@ const App = () => {
     <div>
       <Table
         bordered
-        keygen={d => d.id || +d.supplierCategoryId}
+        keygen={(d: any) => d.id || +d.supplierCategoryId}
         data={data}
         // data={proxyData}
         // data={reactiveData}
         treeCheckAll
         columns={columns}
         value={selected}
-        onRowSelect={selected => setSelected(selected)}
+        onRowSelect={selected2 => setSelected(selected2)}
       />
       <div>
         勾选数：

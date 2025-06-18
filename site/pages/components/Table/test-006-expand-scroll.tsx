@@ -16,11 +16,11 @@ const TableData = Array.from({ length: 2 }, (_, i) => ({
 
 const columns = [
   { title: 'id', render: 'id', width: 50 },
-  {
-    type: 'row-expand',
-    width: 50,
-    render: d => () => <div style={{ height: 150 }}>{JSON.stringify(d)}</div>,
-  },
+  // {
+  //   type: 'row-expand',
+  //   width: 50,
+  //   render: d => () => <div style={{ height: 150 }}>{JSON.stringify(d)}</div>,
+  // },
   { title: 'Name', render: 'name', width: 120 },
   { title: 'Office', render: 'office', width: 120 },
   { title: 'Start Date', render: 'start', width: 120 },

@@ -1,5 +1,6 @@
 const path = require('path')
 const merge = require('webpack-merge')
+const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
 const config = require('../config')
 const common = require('./config.common')
 const pkg = require('../package.json')
@@ -24,11 +25,28 @@ const cssConfig = config.themes.map(name =>
     output: { path: path.join(__dirname, `../gh-pages/${dir}x`) },
     clean: true,
     prefix: '',
+    plugins: [
+      new FriendlyErrorsWebpackPlugin({
+        clearConsole: false,
+        logLevel: 'ERROR',
+        // 你可以配置日志输出目录或钩子，具体看插件文档
+      }),
+    ],
+    stats: 'errors-only',
+    bail: true,
   })
 )
 
 const jsConfig = merge(common({ ...config.webpack, DEV: true }), {
-  stats: { children: false },
+  plugins: [
+    new FriendlyErrorsWebpackPlugin({
+      clearConsole: false,
+      logLevel: 'ERROR',
+      // 你可以配置日志输出目录或钩子，具体看插件文档
+    }),
+  ],
+  stats: 'errors-only',
+  bail: true,
   devtool: config.webpack.devtool,
   entry: config.webpack.entry,
   output: {

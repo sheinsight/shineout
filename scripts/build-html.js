@@ -12,10 +12,10 @@ const documentPaths = path.resolve(__dirname, '../site/pages/documentation')
 
 function createDir(lang) {
   if (!lang) return
-  fs.mkdirSync(`${dir}/${lang}`)
-  fs.mkdirSync(`${dir}/${lang}/index`)
-  fs.mkdirSync(`${dir}/${lang}/components`)
-  fs.mkdirSync(`${dir}/${lang}/documentation`)
+  fs.mkdirSync(`${dir}/${lang}`, { recursive: true })
+  fs.mkdirSync(`${dir}/${lang}/index`, { recursive: true })
+  fs.mkdirSync(`${dir}/${lang}/components`, { recursive: true })
+  fs.mkdirSync(`${dir}/${lang}/documentation`, { recursive: true })
 }
 
 function getDocumentation() {
