@@ -136,7 +136,7 @@
     "react-markdown": "^3.1.4",
     "react-router-dom": "^4.4.0-beta.6",
     "react-test-renderer": "^16.8.3",
-    "rimraf": "^6.0.1",
+    "rimraf": "^3",
     "style-loader": "^0.21.0",
     "stylelint": "^9.10.1",
     "stylelint-config-idiomatic-order": "^6.2.0",
