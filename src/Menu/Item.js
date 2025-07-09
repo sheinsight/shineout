@@ -4,7 +4,6 @@ import classnames from 'classnames'
 import { PureComponent } from '../component'
 import { getKey, getUidStr } from '../utils/uid'
 import { menuClass } from './styles'
-import List from './List'
 import { consumer } from './context'
 import { isLink } from '../utils/is'
 import { isRTL } from '../config'
@@ -248,6 +247,7 @@ class Item extends PureComponent {
       events.onMouseEnter = this.handleMouseEnter
       events.onMouseLeave = this.handleMouseLeave
     }
+    const List = this.props.listComponent
     return (
       <li className={className} {...events} ref={this.bindElement}>
         {this.renderItem(hasChilds, style)}
@@ -279,6 +279,7 @@ class Item extends PureComponent {
 }
 
 Item.propTypes = {
+  listComponent: PropTypes.func,
   bindItem: PropTypes.func,
   bottomLine: PropTypes.number,
   topLine: PropTypes.number,

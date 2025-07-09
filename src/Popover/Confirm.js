@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Popover from './index'
+import Popover from './Panel'
 import Button from '../Button'
 import Alert from '../Alert'
 import { Component } from '../component'
@@ -67,6 +67,7 @@ export default class Confirm extends Component {
 
 Confirm.propTypes = {
   ...getProps(PropTypes, 'type'),
+  type: PropTypes.oneOf(['success', 'info', 'warning', 'danger', 'confirmwarning']),
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
   text: PropTypes.object,
   onOk: PropTypes.func,

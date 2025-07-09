@@ -58,6 +58,7 @@ class List extends PureComponent {
             caretColor={caretColor}
             looseChildren={looseChildren}
             parentSelectable={parentSelectable}
+            listComponent={List}
           />
         ))}
       </ul>
