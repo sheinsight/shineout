@@ -213,6 +213,7 @@ class Panel extends Component<PanelProps, PanelState> {
 
   bindEvents() {
     const { trigger, clickToCancelDelay, mouseEnterDelay = DefaultProps.mouseEnterDelay } = this.props
+    if (!this.parentElement || !this.element) return
     if (trigger === 'hover') {
       this.parentElement.addEventListener('mouseenter', this.handleShow)
       this.parentElement.addEventListener('mouseleave', this.handleHide)
