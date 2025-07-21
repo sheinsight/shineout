@@ -77,6 +77,7 @@ export function createDiv(props) {
 
   const parent = typeof container === 'function' ? container() : container
   div = document.createElement('div')
+  if (!parent) return null
   parent.appendChild(div)
   div.className = classnames(
     modalClass('_', position && 'position', isRTL() && 'rtl', fullScreen && 'full-screen'),
@@ -92,6 +93,7 @@ export function createDiv(props) {
 export function open(props, isPortal) {
   const { content, onClose, zIndex, forceMask, ...otherProps } = props
   const div = createDiv(props)
+  if (!div) return null
   div.style.display = 'block'
   const parsed = parseInt(zIndex, 10)
   if (!Number.isNaN(parsed)) div.style.zIndex = parsed
