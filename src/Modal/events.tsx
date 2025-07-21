@@ -80,6 +80,7 @@ export function createDiv(props: Options) {
 
   const parent = typeof container === 'function' ? container() : container
   div = document.createElement('div')
+  if (!parent) return null
   parent.appendChild(div)
   div.className = classnames(
     modalClass('_', position && 'position', isRTL() && 'rtl', fullScreen && 'full-screen', hideMask && 'hide-mask'),
@@ -96,6 +97,7 @@ export function open(props: Options, isPortal?: boolean) {
   const { content, onClose, zIndex, forceMask, ...otherProps } = props
   const options = { ...props, usePortal: isPortal }
   const div = createDiv(options)
+  if (!div) return null
   div.style.display = 'block'
   const parsed = parseInt(String(zIndex), 10)
   if (!Number.isNaN(parsed)) div.style.zIndex = (parsed as unknown) as string
