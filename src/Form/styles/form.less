@@ -54,7 +54,7 @@
       word-break: break-word;
     }
 
-    &.@{form-prefix}-required .@{form-prefix}-label {
+    &.@{form-prefix}-required > .@{form-prefix}-label {
       &:before {
         margin-right: @required-margin;
         color: @colors-danger;
@@ -198,7 +198,7 @@
 
     direction: rtl;
     .@{form-prefix}-item {
-      &.@{form-prefix}-required .@{form-prefix}-label {
+      &.@{form-prefix}-required > .@{form-prefix}-label {
         &:before {
           margin-right: 0;
           margin-left: @required-margin;
