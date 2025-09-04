@@ -416,6 +416,19 @@ const examples = [
     parseTsText: require('!raw-loader!doc/pages/components/DatePicker/test-003-open.tsx'),
 
   },
+  {
+    name: 'test-004-half-control',
+    isTs: true,
+    isTest: true,
+    title: locate(
+      '半受控 \n 通过封装实现半受控',
+      '半受控 \n 通过封装实现半受控'
+    ),
+    component: require('doc/pages/components/DatePicker/test-004-half-control.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/DatePicker/test-004-half-control.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/DatePicker/test-004-half-control.tsx'),
+
+  },
 ]
 
 const codes = undefined

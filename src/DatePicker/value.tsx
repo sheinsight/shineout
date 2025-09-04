@@ -87,8 +87,13 @@ export default <T extends DatePickerValueType>(Origin: React.ComponentType<DateP
           format as string,
           this.getOptions()
         )
-        if (newValue !== value && onChange) onChange(newValue)
-        else if (newValue !== this.state.value) this.setState({ value: newValue })
+        if (newValue !== value && onChange){
+          onChange(newValue)
+        }
+
+        if (newValue !== this.state.value){
+          this.setState({ value: newValue })
+        }
         return newValue
       }
 
