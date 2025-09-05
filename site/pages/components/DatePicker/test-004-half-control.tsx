@@ -8,6 +8,24 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { DatePicker, Button, Input } from 'shineout'
 
+const App2: React.FC = () => {
+  const [value, setValue] = useState(1759238000000);
+
+  console.log('value:>>', value)
+  return (
+    <>
+      <Button onClick={() => setValue(1760832000000)}>点击</Button>
+      <DatePicker value={value}
+        onChange={val => {
+          setValue(new Date(val).getTime())
+        }}
+      />
+
+      <pre>{value}</pre>
+    </>
+  )
+}
+
 const App: React.FC = () => {
   const [type, setType] = useState(false)
   const value = useMemo(() => {
@@ -24,6 +42,9 @@ const App: React.FC = () => {
     <DatePicker value={value}  />
     <Input value={value.toString()} />
     <input value={value} />
+
+    <h4>App2:</h4>
+    <App2 />
   </>
 )
 }
