@@ -24,8 +24,8 @@ class List extends PureComponent {
 
   // 检查节点是否全都没有 children
   checkIsNoChildren() {
-    const { data } = this.props
-    return data.every(d => !d.children || d.children.length === 0)
+    const { data, childrenKey = 'children' } = this.props
+    return data.every(d => !d[childrenKey] || d[childrenKey].length === 0)
   }
 
   bindElement(name, el) {
@@ -85,6 +85,7 @@ List.propTypes = {
   setLine: PropTypes.func,
   style: PropTypes.object,
   childrenClassName: PropTypes.string,
+  childrenKey: PropTypes.string,
 }
 
 List.defaultProps = {
