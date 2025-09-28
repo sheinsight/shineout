@@ -22,8 +22,10 @@ const request: UploadProps['request'] = options => {
 }
 
 const App: React.FC = () => (
-  <Upload.Image
+  <Upload.Button
     accept="image/*"
+    limit={1}
+    placeholder="点击上传"
     onSuccess={(dataURL, file) => ({ name: file.name, src: dataURL })}
     request={request}
     renderResult={d => d.src}

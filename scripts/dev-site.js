@@ -54,7 +54,13 @@ function getComponentPage(name, file) {
   })
 
   fs.readdirSync(pagePath)
-    .filter(n => n.indexOf('example-') === 0 || n.indexOf('code-') === 0 || n.indexOf('test-') === 0)
+    .filter(n => {
+      if (process.env.CASE_ENV === 'test') {
+        return n.indexOf('example-') === 0 || n.indexOf('code-') === 0 || n.indexOf('test-') === 0
+      }
+
+      return n.indexOf('example-') === 0 || n.indexOf('code-') === 0
+    })
     .forEach(e => {
       const text = fs.readFileSync(path.resolve(pagePath, e))
       const comment = /(^|\n|\r)\s*\/\*[\s\S]*?\*\/\s*(?:\r|\n|$)/.exec(text)
@@ -87,7 +93,10 @@ function getComponentPage(name, file) {
       if (e.indexOf('example-') === 0) {
         page.examples.push(exam)
       } else if (e.indexOf('test-') === 0) {
-        page.examples.push(exam)
+        // 只有在 CASE_ENV=test 时才包含 test 文件
+        if (process.env.CASE_ENV === 'test') {
+          page.examples.push(exam)
+        }
       } else {
         page.codes.push(exam.path.replace('code-', ''))
       }
