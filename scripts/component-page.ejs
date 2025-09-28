@@ -26,7 +26,7 @@ const examples = [
     component: require('doc/pages/components/<%= name %>/<%= exam.path %>').default,
     rawText: require('!raw-loader!doc/pages/components/<%= name %>/<%= exam.path %>'),
 <% if (exam.path.endsWith(".tsx")) { -%>
-    parseTsText: require('!raw-loader<%= process.env.CASE_ENV === 'test' ? '': '!ts-loader' %>!doc/pages/components/<%= name %>/<%= exam.path %>'),
+    parseTsText: require('!raw-loader!doc/pages/components/<%= name %>/<%= exam.path %>'),
 <% } -%>
 
   },

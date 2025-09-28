@@ -22,7 +22,7 @@
     "docs-build-chunk": "cross-env NODE_ENV=production node scripts/dev-site.js",
     "docs-build-js": "NODE_OPTIONS=--openssl-legacy-provider cross-env NODE_ENV=production webpack --config webpack/config.doc.js --display-error-details --verbose",
     "docs-build-html": "node scripts/build-html.js",
-    "docs-build": "NODE_OPTIONS=--openssl-legacy-provider CASE_ENV=test npm-run-all docs-build-*",
+    "docs-build": "NODE_OPTIONS=--openssl-legacy-provider npm-run-all docs-build-*",
     "docs-rc-build": "cross-env LOG_ENV=rc npm-run-all docs-build-*",
     "build-clean": "rimraf publish .temp",
     "build-index": "node scripts/src-index.js",
@@ -154,5 +154,6 @@
   "resolutions": {
     "@types/react": "17.0.0",
     "@types/react-dom": "17.0.0"
-  }
+  },
+  "packageManager": "yarn@1.22.19+sha1.4ba7fc5c6e704fce2066ecbfb0b0d8976fe62447"
 }

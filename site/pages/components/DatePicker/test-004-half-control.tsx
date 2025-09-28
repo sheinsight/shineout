@@ -17,7 +17,7 @@ const App2: React.FC = () => {
       <Button onClick={() => setValue(1760832000000)}>点击</Button>
       <DatePicker value={value}
         onChange={val => {
-          setValue(new Date(val).getTime())
+          setValue(new Date(val as any).getTime())
         }}
       />
 

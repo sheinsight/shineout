@@ -4,7 +4,7 @@
  * en - FieldSet (Loop)
  *    -- When FieldSet's children is a function, takes the value (type is array) from the form by the name property, and generate a set of subcomponents.
  */
-import React from 'react'
+import React, { useState } from 'react'
 import { Form, Input, Button, Rule, TYPE } from 'shineout'
 import FontAwesome from '../Icon/FontAwesome'
 
@@ -30,9 +30,17 @@ const isExist: RuleFunc = (values, _, callback: any) => {
   callback(result.length > 0 ? result : true)
 }
 
-const rules = Rule({ isExist })
+const stockValidate: RuleFunc = (values, _, callback) => {
+  console.log('stockValidate:>', values)
+  callback(true)
+}
+
+const rules = Rule({ isExist, stockValidate })
 
 const App: React.FC = () => {
+  const [formValue, setFormValue] = useState<Value>({
+    friends: [{ name: 'Hermione Granger', age: 16 }, {}],
+  })
   const renderEmpty: FieldSetEmpty = onAppend => (
     <Button key="empty" onClick={() => onAppend({ name: '' })}>
       Add new friend
@@ -41,6 +49,8 @@ const App: React.FC = () => {
 
   return (
     <Form
+      value={formValue}
+      onChange={setFormValue}
       onSubmit={data => {
         console.log(data)
       }}
@@ -49,8 +59,37 @@ const App: React.FC = () => {
         <Input name="name" defaultValue="Harry Potter" />
       </Form.Item>
 
-      <Form.Item label="Friends">
-        <Form.FieldSet
+      <div label="Friends">
+        {formValue.friends.map((friend, index) => (
+          <Form.FieldSet key={index} name={`friends[${index}]`}>
+            <Form.Item style={{ display: 'flex', alignItems: 'center', marginBottom: 12 }}>
+              <Form.Field name="name" rules={[rules.required, rules.stockValidate]}>
+                {({ value, onChange }) => <Input value={value} onChange={onChange} />}
+              </Form.Field>
+              <Form.Field name="age">{({ value, onChange }) => <Input value={value} onChange={onChange} />}</Form.Field>
+              <a
+                style={{ margin: '0 12px' }}
+                onClick={() => {
+                  const newFriends = [...formValue.friends]
+                  newFriends.push({ name: '', age: 16 })
+                  setFormValue({ ...formValue, friends: newFriends })
+                }}
+              >
+                <FontAwesome name="plus" />
+              </a>
+              <a
+                onClick={() => {
+                  const newFriends = [...formValue.friends]
+                  newFriends.splice(index, 1)
+                  setFormValue({ ...formValue, friends: newFriends })
+                }}
+              >
+                <FontAwesome name="close" />
+              </a>
+            </Form.Item>
+          </Form.FieldSet>
+        ))}
+        {/* <Form.FieldSet
           name="friends"
           empty={renderEmpty}
           rules={[rules.min(2), rules.isExist]}
@@ -62,7 +101,7 @@ const App: React.FC = () => {
                 name="name"
                 placeholder="Name"
                 title="Friend name"
-                rules={[rules.required]}
+                rules={[rules.required, rules.stockValidate]}
                 style={{ width: 180, marginInlineEnd: 8 }}
               />
               <Input
@@ -81,8 +120,8 @@ const App: React.FC = () => {
               </a>
             </Form.Item>
           )}
-        </Form.FieldSet>
-      </Form.Item>
+        </Form.FieldSet> */}
+      </div>
 
       <Form.Item label="">
         <Form.Submit>Submit</Form.Submit>
