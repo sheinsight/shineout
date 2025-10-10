@@ -533,6 +533,45 @@ const examples = [
     parseTsText: require('!raw-loader!doc/pages/components/Table/example-34-summary-02-fixed.tsx'),
 
   },
+  {
+    name: 'test-001-hover',
+    isTs: true,
+    isTest: true,
+    title: locate(
+      'T:hover \n ',
+      'T:hover \n '
+    ),
+    component: require('doc/pages/components/Table/test-001-hover.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/test-001-hover.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Table/test-001-hover.tsx'),
+
+  },
+  {
+    name: 'test-002-value',
+    isTs: true,
+    isTest: true,
+    title: locate(
+      'T:value \n ',
+      'T:value \n '
+    ),
+    component: require('doc/pages/components/Table/test-002-value.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/test-002-value.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Table/test-002-value.tsx'),
+
+  },
+  {
+    name: 'test-003-sticky',
+    isTs: true,
+    isTest: true,
+    title: locate(
+      'T:sticky \n fixed: 修复 Table 在配置 Sticky 具体属性后可能导致表头渲染异常的问题 \n https://github.com/sheinsight/shineout/pull/1890',
+      'T:sticky \n '
+    ),
+    component: require('doc/pages/components/Table/test-003-sticky.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/test-003-sticky.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Table/test-003-sticky.tsx'),
+
+  },
 ]
 
 const codes = undefined

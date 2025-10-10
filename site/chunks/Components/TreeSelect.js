@@ -117,6 +117,19 @@ const examples = [
     parseTsText: require('!raw-loader!doc/pages/components/TreeSelect/example-07-componentref.tsx'),
 
   },
+  {
+    name: 'test-01-absolute-big-width',
+    isTs: true,
+    isTest: true,
+    title: locate(
+      'absolute-position \n absolute-position',
+      'absolute-position \n absolute-position'
+    ),
+    component: require('doc/pages/components/TreeSelect/test-01-absolute-big-width.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/TreeSelect/test-01-absolute-big-width.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/TreeSelect/test-01-absolute-big-width.tsx'),
+
+  },
 ]
 
 const codes = undefined
