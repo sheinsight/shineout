@@ -170,11 +170,12 @@ class Dropdown extends PureComponent<DropdownProps, DropDownState> {
   }
 
   handleFocus() {
-    const { onCollapse } = this.props
+    const { onCollapse, trigger } = this.props
     if (this.closeTimer) {
       clearTimeout(this.closeTimer)
     }
 
+    if (this.show && trigger === 'hover') return
     const newShow = !this.show
     this.setState({
       show: newShow,
