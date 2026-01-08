@@ -66,6 +66,7 @@ class OptionList<Item, Value> extends Component<OptionListProps<Item, Value>, Op
   }
 
   hoverMove(step: number) {
+    if (!this.optionInner) return
     const max = this.props.data.length
     const { lineHeight, height, groupKey } = this.props
     let { hoverIndex, currentIndex } = this.state
