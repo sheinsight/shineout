@@ -1159,40 +1159,35 @@ exports[`Form[snapshot] Snapshot test: Form[site/pages/components/Form/example-1
   </div>
   <div>
     <div>
-      Friends
+      <div>
+        <label>
+          <input />
+        </label>
+        <label>
+          <input />
+        </label>
+        <a>
+          <i />
+        </a>
+        <a>
+          <i />
+        </a>
+      </div>
     </div>
     <div>
       <div>
-        <div>
-          <label>
-            <input />
-          </label>
-          <label>
-            <input />
-          </label>
-          <a>
-            <i />
-          </a>
-          <a>
-            <i />
-          </a>
-        </div>
-      </div>
-      <div>
-        <div>
-          <label>
-            <input />
-          </label>
-          <label>
-            <input />
-          </label>
-          <a>
-            <i />
-          </a>
-          <a>
-            <i />
-          </a>
-        </div>
+        <label>
+          <input />
+        </label>
+        <label>
+          <input />
+        </label>
+        <a>
+          <i />
+        </a>
+        <a>
+          <i />
+        </a>
       </div>
     </div>
   </div>
