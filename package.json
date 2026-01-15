@@ -36,7 +36,7 @@
     "build-es5": "node scripts/build-es5.js",
     "build-ts": "node scripts/build-ts.js",
     "build-css": "node scripts/build-css.js",
-    "build": "NODE_OPTIONS=--openssl-legacy-provider npm-run-all build-*",
+    "build": "npm-run-all build-*",
     "cypress:open": "cross-env NODE_ENV=development cypress open",
     "cypress:run": "cross-env NODE_ENV=development cypress run --browser chrome",
     "release": "node scripts/publish.js"
@@ -151,5 +151,6 @@
     "webpack-dev-server": "^3.1.14",
     "webpack-merge": "^4.1.2",
     "whatwg-fetch": "^2.0.4"
-  }
+  },
+  "packageManager": "yarn@1.22.19+sha1.4ba7fc5c6e704fce2066ecbfb0b0d8976fe62447"
 }
