@@ -81,17 +81,20 @@ class Number extends PureComponent<InputNumber> {
 
   handleBlur(e: React.FocusEvent<HTMLInputElement>) {
     this.hold = false
-    let value: number | null = parseFloat(e.target.value)
+    let value: number | null | undefined = parseFloat(e.target.value)
     // for the empty
     if (e.target.value === '' && this.props.allowNull) {
       value = null
     }
     // eslint-disable-next-line no-restricted-globals
-    if (isNaN(value as number)) value = 0
+    if (isNaN(value as number)) {
+      // 当输入为空时，如果不是 allowNull 模式，保持为 undefined 而不是自动填充 0
+      value = this.props.allowNull ? null : undefined
+    }
     if (this.props.clearToUndefined && e.target.value === '' && this.props.value === undefined) {
       this.handleChange(undefined, true, true)
     } else {
-      this.handleChange(value, true, value === null)
+      this.handleChange(value, true, value === null || value === undefined)
     }
     this.props.onBlur(e)
   }

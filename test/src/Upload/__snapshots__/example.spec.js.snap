@@ -165,16 +165,14 @@ exports[`Upload[snapshot] Snapshot test: Upload[site/pages/components/Upload/exa
 
 exports[`Upload[snapshot] Snapshot test: Upload[site/pages/components/Upload/example-08-request-ignore.tsx] 1`] = `
 <div>
-  <div>
-    <div>
+  <span>
+    <button>
       <span>
-        <div>
-          <div />
-        </div>
-        <input />
+        点击上传
       </span>
-    </div>
-  </div>
+    </button>
+    <input />
+  </span>
 </div>
 `;
 
