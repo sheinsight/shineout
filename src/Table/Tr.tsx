@@ -232,6 +232,13 @@ class Tr<DataItem, Value> extends Component<TrProps<DataItem, Value>> {
         if (treeExpandKeys instanceof Map) {
           treeExpand = treeExpandKeys.has(other.originKey)
         }
+        let lastFixedByColSpan = false
+        if (columns[i]?.fixed === 'left') {
+          const colSpan = columns[i].colSpan?.(data[i] as DataItem, index)
+          if(colSpan && colSpan > 1) {
+              lastFixedByColSpan = columns[i + colSpan - 1].fixed === 'left'
+          }
+        }
         const td = (
           <Td
             {...other}
@@ -245,7 +252,7 @@ class Tr<DataItem, Value> extends Component<TrProps<DataItem, Value>> {
             style={style}
             fixed={fixed}
             firstFixed={firstFixed}
-            lastFixed={lastFixed}
+            lastFixed={lastFixed || lastFixedByColSpan}
             align={align}
             render={render}
             // @ts-ignore  这儿重复了
