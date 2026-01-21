@@ -1,17 +1,16 @@
-import dayjs from 'dayjs'
-import zonedTimeToUtc from 'date-fns-tz/zonedTimeToUtc'
 import utcToZonedTime from 'date-fns-tz/utcToZonedTime'
-import advancedFormat from 'dayjs/plugin/advancedFormat'
-import quarterOfYear from 'dayjs/plugin/quarterOfYear'
-import isoWeek from 'dayjs/plugin/isoWeek'
-import weekday from 'dayjs/plugin/weekday'
-import weekYear from 'dayjs/plugin/weekYear'
-import weekOfYear from 'dayjs/plugin/weekOfYear'
-import customParseFormat from 'dayjs/plugin/customParseFormat'
-import relativeTime from 'dayjs/plugin/relativeTime'
+import zonedTimeToUtc from 'date-fns-tz/zonedTimeToUtc'
+import dayjs from 'dayjs'
 import enLocale from 'dayjs/locale/en'
-import { DateTimeType } from './Props'
-import { DateMode } from './Props'
+import advancedFormat from 'dayjs/plugin/advancedFormat'
+import customParseFormat from 'dayjs/plugin/customParseFormat'
+import isoWeek from 'dayjs/plugin/isoWeek'
+import quarterOfYear from 'dayjs/plugin/quarterOfYear'
+import relativeTime from 'dayjs/plugin/relativeTime'
+import weekday from 'dayjs/plugin/weekday'
+import weekOfYear from 'dayjs/plugin/weekOfYear'
+import weekYear from 'dayjs/plugin/weekYear'
+import { DateMode, DateTimeType } from './Props'
 
 interface DateOptions {
   timeZone?: string
@@ -411,6 +410,21 @@ function formatted(date: Date, fmt: string | Function, options: DateOptions) {
   return format(date, fmt, options)
 }
 
+function isDisabledByTime(date: Date, disabled: (date: Date) => boolean) {
+  const startOfDay = new Date(date)
+  startOfDay.setHours(0, 0, 0, 0)
+  const endOfDay = new Date(date)
+  endOfDay.setHours(23, 59, 59, 999)
+  const currentTime = new Date(startOfDay)
+  while (currentTime <= endOfDay) {
+    if (!disabled(currentTime)) {
+      return false
+    }
+    currentTime.setHours(currentTime.getHours() + 1)
+  }
+  return true
+}
+
 export default {
   clearHMS,
   addDays,
@@ -445,4 +459,5 @@ export default {
   getDateInfo,
   compatibleFmt,
   transDateWithZone,
+  isDisabledByTime,
 }
