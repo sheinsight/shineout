@@ -10,7 +10,7 @@ import { getLocale } from '../locale'
 import { getParent } from '../utils/dom/element'
 import ready from '../utils/dom/ready'
 import { docSize } from '../utils/dom/document'
-import { isRTL, getDefaultContainer } from '../config'
+import { isRTL, getDefaultContainer, getRTLPosition } from '../config'
 import { Methods, Options } from './Props'
 
 const containers: {
@@ -118,7 +118,7 @@ export function open(props: Options, isPortal?: boolean) {
   containers[props.id!].visible = true
 
   const panel = (
-    <Panel {...otherProps} onClose={handleClose} container={div}>
+    <Panel {...otherProps} onClose={handleClose} container={div} position={getRTLPosition(props.position || '') as any}>
       {content}
     </Panel>
   )
