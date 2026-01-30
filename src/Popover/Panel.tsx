@@ -15,6 +15,7 @@ import { isInDocument } from '../utils/dom/isInDocument'
 import getCommonContainer from '../utils/dom/popContainer'
 import { Provider as ScrollProvider } from '../Scroll/context'
 import { PanelProps, PopoverPositionType } from './Props'
+import { getRTLPosition } from '../config'
 
 const emptyEvent = <U extends { stopPropagation: () => void }>(e: U) => e.stopPropagation()
 
@@ -146,7 +147,7 @@ class Panel extends Component<PanelProps, PanelState> {
   getPositionStr() {
     let { position } = this.props
     const { priorityDirection } = this.props
-    if (position) return position
+    if (position) return getRTLPosition(position) 
 
     const rect = this.parentElement.getBoundingClientRect()
     const horizontalPoint = rect.left + rect.width / 2

@@ -6,6 +6,7 @@ import { getPosition } from '../utils/dom/popover'
 import getCommonContainer from '../utils/dom/popContainer'
 import { ContainerOptions, ContainerProps, ToolPosition, TriggerType } from './Props'
 import { ObjectType } from '../@types/common'
+import { getRTLPosition } from '../config'
 
 const DefaultProps = {
   animation: true,
@@ -62,7 +63,7 @@ export default function(options: ContainerOptions) {
     getPosition() {
       const { position = DefaultProps.position } = this.props
       const el = this.getElement()
-      return getPosition(position, el, this.getContainer())
+      return getPosition(getRTLPosition(position) as any, el, this.getContainer())
     }
 
     elementRef(el: HTMLElement) {
@@ -113,7 +114,7 @@ export default function(options: ContainerOptions) {
         },
         {} as CSSProperties
       )
-      const props = Object.assign({}, this.props, { style })
+      const props = Object.assign({}, this.props, { style, position: getRTLPosition(this.props.position) })
       show(props, this.id, this.props.style, getCommonContainer())
     }
 

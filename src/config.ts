@@ -51,6 +51,17 @@ export function isRTL() {
   return config.direction === 'rtl'
 }
 
+export function getRTLPosition(position?: string) {
+  if (!position || !isRTL()) return position
+  if (position.indexOf('left') !== -1) {
+    return position.replace('left', 'right')
+  }
+  if (position.indexOf('right') !== -1) {
+    return position.replace('right', 'left')
+  }
+  return position
+}
+
 export function getDefaultContainer() {
   if (isFunc(config.popupContainer)) {
     const container = config.popupContainer()
