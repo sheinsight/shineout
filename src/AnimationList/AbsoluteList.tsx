@@ -22,7 +22,9 @@ function initRoot(element?: HTMLElement) {
   const defaultContainer = getDefaultContainer()
   root = document.createElement('div')
   root.className = listClass('root', isRTL() && 'rtl')
-  defaultContainer.appendChild(root)
+  if (defaultContainer) {
+    defaultContainer.appendChild(root)
+  }
 
   if (element && isInDocument(element) === false) {
     root.appendChild(element)
