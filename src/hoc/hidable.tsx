@@ -126,7 +126,7 @@ export default function<U extends HideableProps>(
       }
 
       setTimeout(() => {
-        if (this.state.show === false && element) {
+        if (this.state.show === false && element && element) {
           element.style.display = 'none'
         }
       }, duration)
