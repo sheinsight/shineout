@@ -122,7 +122,9 @@ class Node<DataItem, Value extends any[]> extends PureComponent<NodeProps<DataIt
     event.dataTransfer.setDragImage(this.dragImage, event.clientX - rect.left, event.clientY - rect.top)
 
     setTimeout(() => {
-      this.element.style.display = 'none'
+      if (this.element) {
+        this.element.style.display = 'none'
+      }
     }, 0)
   }
 
