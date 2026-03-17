@@ -13,7 +13,9 @@ const getContainer = () => {
   Container = document.createElement('div')
   Container.setAttribute('style', 'position: absolute; top: 0; left: 0; width: 100%; contain: size')
   const target = getDefaultContainer()
-  target.appendChild(Container)
+  if (target) {
+    target.appendChild(Container)
+  }
   return Container
 }
 
