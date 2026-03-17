@@ -19,12 +19,11 @@ const PICKER_V_MARGIN = 4
 let root: HTMLDivElement
 
 function initRoot(element?: HTMLElement) {
-  const defaultContainer = getDefaultContainer()
+  const defaultContainer = getDefaultContainer() || document.body
+  if (!defaultContainer) return
   root = document.createElement('div')
   root.className = listClass('root', isRTL() && 'rtl')
-  if (defaultContainer) {
-    defaultContainer.appendChild(root)
-  }
+  defaultContainer.appendChild(root)
 
   if (element && isInDocument(element) === false) {
     root.appendChild(element)
@@ -87,7 +86,9 @@ export default function<U extends {}>(List: ComponentType<U>) {
     componentDidMount() {
       if (this.props.absolute && !this.container) {
         this.container = this.getContainer()
-        this.container.appendChild(this.element)
+        if (this.container) {
+          this.container.appendChild(this.element)
+        }
         if (this.props.focus) {
           this.forceUpdate()
         }
@@ -154,6 +155,7 @@ export default function<U extends {}>(List: ComponentType<U>) {
       const container = this.getContainer(this.element)
       const defaultContainer = getDefaultContainer()
       const rootContainer = container === getRoot() || !container ? defaultContainer : container
+      if (!rootContainer) return style
       const containerRect = rootContainer.getBoundingClientRect()
       const currentCSSZoom = getCurrentCSSZoom()
       const containerScroll = {
