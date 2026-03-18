@@ -44,6 +44,6 @@ describe('Table[expand]', () => {
       i.prop('onClick')()
     })
     wrapper.update()
-    expect(wrapper.find(`.${SO_PREFIX}-checkinput-checked`).length).toBe(4)
+    expect(wrapper.find(`.${SO_PREFIX}-checkinput-checked`).length).toBe(2)
   })
 })

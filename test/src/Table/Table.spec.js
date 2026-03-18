@@ -381,9 +381,15 @@ describe('Table[onColumnResize]', () => {
       const eventMouseMove = new UIEvent('mousemove')
       eventMouseMove.initUIEvent('mousemove')
       document.dispatchEvent(eventMouseMove)
+      const mockColElements = columns.map(col => ({
+        getBoundingClientRect: () => ({ width: col.width }),
+      }))
       wrapper.find('Thead').instance().resizingCol = {
         style: {
           width: `${columns[index].width}px`,
+        },
+        parentElement: {
+          children: mockColElements,
         },
       }
       const eventMouseUp = new UIEvent('mouseup')
