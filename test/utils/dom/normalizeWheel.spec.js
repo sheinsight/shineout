@@ -5,7 +5,7 @@ describe('normalizeWheel.js[normalizeWheel]', () => {
     const event = {
       wheelDeltaY: 240,
     }
-    expect(normalizeWheel(event).spinY).toBe(-2)
+    expect(normalizeWheel(event).spinY).toBe(-1)
     event.deltaY = 1000
     expect(normalizeWheel(event).pixelY).toBe(1000)
   })
@@ -13,7 +13,7 @@ describe('normalizeWheel.js[normalizeWheel]', () => {
     const event = {
       wheelDeltaX: 480,
     }
-    expect(normalizeWheel(event).spinX).toBe(-4)
+    expect(normalizeWheel(event).spinX).toBe(-1)
     event.deltaX = 1000
     expect(normalizeWheel(event).pixelX).toBe(1000)
   })
@@ -22,7 +22,7 @@ describe('normalizeWheel.js[normalizeWheel]', () => {
       wheelDeltaY: -240,
       wheelDeltaX: -480,
     }
-    expect(normalizeWheel(event).spinX).toBe(4)
-    expect(normalizeWheel(event).spinY).toBe(2)
+    expect(normalizeWheel(event).spinX).toBe(1)
+    expect(normalizeWheel(event).spinY).toBe(0)
   })
 })
