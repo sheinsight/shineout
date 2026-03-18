@@ -5,7 +5,7 @@ import { TreeSelectPropsWithAdvancedFilter, TreeSelectPropsWithDatum, TreeSelect
 import { KeygenResult } from '../@types/common'
 
 function toArray<Value>(value: Value) {
-  if (!value) return []
+  if (value === undefined || value === null || value === '') return []
   if (!Array.isArray(value)) return [value]
   return value
 }
