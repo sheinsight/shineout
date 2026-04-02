@@ -1,13 +1,12 @@
-import React from 'react'
-import { datepickerClass } from './styles'
-import utils from './utils'
-import paramUtils from './paramUtils'
-import Icon from './Icon'
-import { getLocale } from '../locale'
 import { PureComponent } from '../component'
-import Time from './Time'
+import { getLocale } from '../locale'
 import { isArray } from '../utils/is'
+import Icon from './Icon'
+import paramUtils from './paramUtils'
 import { UnionPannelProps } from './Props'
+import { datepickerClass } from './styles'
+import Time from './Time'
+import utils from './utils'
 
 const minStr = 'YYYY-MM-DD 00:00:00'
 const maxStr = 'YYYY-MM-DD 23:59:59'
@@ -151,6 +150,18 @@ class Day extends PureComponent<UnionPannelProps, DayState> {
     const minD = minDate || (min && utils.toDate(utils.format(min, minStr, this.getOptions()), this.getOptions()))
     const maxD = maxDate || (max && utils.toDate(utils.format(max, maxStr, this.getOptions()), this.getOptions()))
     let isDisabled = disabled && typeof disabled === 'function' ? disabled(date) : false
+
+    // range && datetime && disabled function
+    if (index !== undefined && type === 'datetime' && typeof disabled === 'function') {
+      isDisabled = utils.isDisabledByTime(date, disabled)
+      if (!isDisabled && minD instanceof Date) {
+        minD.setDate(minD.getDate() + 1)
+        if (minD.getDate() === 1) {
+          minD.setMonth(minD.getMonth() + 1)
+        }
+      }
+    }
+
     // only for single, single picker don't has index
     if (index === undefined && !isDisabled) {
       if (type === 'week') {
