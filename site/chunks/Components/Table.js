@@ -572,6 +572,19 @@ const examples = [
     parseTsText: require('!raw-loader!doc/pages/components/Table/test-003-sticky.tsx'),
 
   },
+  {
+    name: 'test-004-tree-expand-mutate',
+    isTs: true,
+    isTest: true,
+    title: locate(
+      'T:tree-expand-mutate \n fixed: 修复 Table treeExpandKeys 在 data 包含不可序列化字段（DOM 节点、React ref）时报循环引用错误 \n 验证直接修改 data 引用后 Table 仍能正常响应式更新',
+      'T:tree-expand-mutate \n '
+    ),
+    component: require('doc/pages/components/Table/test-004-tree-expand-mutate.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Table/test-004-tree-expand-mutate.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Table/test-004-tree-expand-mutate.tsx'),
+
+  },
 ]
 
 const codes = undefined

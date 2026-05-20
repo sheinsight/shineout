@@ -42,3 +42,34 @@ export const deepClone = (source: any) => {
   if (isMergeable(source)) return cloneObject(source)
   return shallowClone(source)
 }
+
+export const safeDeepClone = (source: any, seen?: WeakMap<object, any>): any => {
+  if (source === null || typeof source !== 'object') return source
+  if (isDate(source)) return new Date(source.getTime())
+  if (isRegexp(source)) return new RegExp(source)
+  if ((source as any).$$typeof !== undefined) return source
+  if (typeof Node !== 'undefined' && source instanceof Node) return source
+
+  if (!seen) seen = new WeakMap()
+  if (seen.has(source)) return seen.get(source)
+
+  if (isArray(source)) {
+    const arr: any[] = []
+    seen.set(source, arr)
+    for (let i = 0; i < source.length; i++) {
+      arr[i] = safeDeepClone(source[i], seen)
+    }
+    return arr
+  }
+
+  const proto = Object.getPrototypeOf(source)
+  if (proto !== Object.prototype && proto !== null) return source
+
+  const clone: any = {}
+  seen.set(source, clone)
+  const keys = Object.keys(source)
+  for (let i = 0; i < keys.length; i++) {
+    clone[keys[i]] = safeDeepClone(source[keys[i]], seen)
+  }
+  return clone
+}
