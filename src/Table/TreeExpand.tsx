@@ -2,6 +2,7 @@ import React, { ComponentType } from 'react'
 import immer from 'immer'
 import { getKey } from '../utils/uid'
 import { keysToArray } from '../utils/transform'
+import { safeDeepClone } from '../utils/clone'
 import { KeygenResult } from '../@types/common'
 import { TableProps, GetTreeExpandProps } from './Props'
 
@@ -81,7 +82,7 @@ export default <DataItem, Value>(WrappedComponent: ComponentType<TableProps<Data
 
       const storeExpandKeys = new Map()
       expandKeys.forEach((value, key) => storeExpandKeys.set(key, value))
-      const cloneData = JSON.parse(JSON.stringify(data))
+      const cloneData = safeDeepClone(data)
       return immer(cloneData, (draft: any) => {
         let dataCo = draft
         for (let i = 0; i < dataCo.length; i++) {
