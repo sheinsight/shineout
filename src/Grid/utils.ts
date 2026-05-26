@@ -16,9 +16,13 @@ const GridFullClassName = `${config.prefix}-grid-full`
 const defaultResponsive = 'md'
 
 function createStyle(text: string, id: string) {
+  if (document.head.querySelector(`#${id}`)) {
+    return
+  }
+
   const style = document.createElement('style')
   style.type = 'text/css'
-  style.setAttribute('data-id', id)
+  style.id = id
   style.innerHTML = text
   document.head.appendChild(style)
 }
