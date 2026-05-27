@@ -130,6 +130,19 @@ const examples = [
     parseTsText: require('!raw-loader!doc/pages/components/Dropdown/test-001-open.tsx'),
 
   },
+  {
+    name: 'test-002-nested-absolute',
+    isTs: true,
+    isTest: true,
+    title: locate(
+      '嵌套 absolute Dropdown \n 验证 Popover 内嵌套 absolute Dropdown 的 item onClick 能正常触发',
+      'Nested absolute Dropdown \n Verify item onClick works in nested absolute Dropdown inside Popover'
+    ),
+    component: require('doc/pages/components/Dropdown/test-002-nested-absolute.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Dropdown/test-002-nested-absolute.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Dropdown/test-002-nested-absolute.tsx'),
+
+  },
 ]
 
 const codes = undefined
