@@ -37,7 +37,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Build
-        run: yarn build:doc
+        run: yarn docs-build
 
       - name: Set version directory
         id: set_version
