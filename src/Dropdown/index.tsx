@@ -156,14 +156,17 @@ class Dropdown extends PureComponent<DropdownProps, DropDownState> {
 
   toggleDocumentEvent(bind: boolean) {
     const method = bind ? 'addEventListener' : 'removeEventListener'
-    document[method]('click', (this.clickAway as unknown) as EventListener, true)
+    document[method]('mousedown', (this.clickAway as unknown) as EventListener, true)
   }
 
   clickAway(e: React.MouseEvent) {
+    const target = e.target as HTMLElement
+    // 避免 mousedown 与 click 的竞态：点击 placeholder 关闭受控 Dropdown 时，跳过 clickAway，由 handleFocus 处理 toggle
+    if (this.element && getParent(target, `.${dropdownClass('button')}`) && this.element.contains(target)) return
     const { absolute } = this.props
-    const el = getParent(e.target as HTMLElement, 'a')
+    const el = getParent(target, 'a')
     const onSelf = absolute
-      ? getParent(e.target as HTMLElement, `[data-id=${this.dropdownId}]`)
+      ? getParent(target, `[data-id=${this.dropdownId}]`)
       : el === this.element || this.element.contains(el)
     if (el && onSelf && el.getAttribute('data-role') === 'item') return
     this.handleHide(0)
