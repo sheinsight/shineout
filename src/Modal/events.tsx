@@ -224,14 +224,22 @@ export const method = (type: Methods) => (option: Options) => {
   return () => close(props)
 }
 
+let closingAll = false
 export const closeAll = () => {
-  Object.keys(containers)
-    .filter(id => containers[id].props.from === 'method' && containers[id].visible)
-    .forEach(id => {
-      const { onClose, usePortal } = containers[id].props
-      if (onClose) onClose()
-      if (!usePortal) close(containers[id].props)
-    })
+  // 防止用户在 onClose 回调中再次调用 closeAll 造成无限递归
+  if (closingAll) return
+  closingAll = true
+  try {
+    Object.keys(containers)
+      .filter(id => containers[id].props.from === 'method' && containers[id].visible)
+      .forEach(id => {
+        const { onClose, usePortal } = containers[id].props
+        if (onClose) onClose()
+        if (!usePortal) close(containers[id].props)
+      })
+  } finally {
+    closingAll = false
+  }
 }
 
 ready(() => {
