@@ -224,22 +224,35 @@ export const method = (type: Methods) => (option: Options) => {
   return () => close(props)
 }
 
-let closingAll = false
+// PR #1908 (commit 76cba77d) 在 closeAll 中新增了同步调用 onClose 的逻辑，
+// 这引发了两个问题：
+//
+// 1. 无限递归 —— 用户在 onClose 中再次调用 closeAll() 会导致栈溢出
+//    (RangeError: Maximum call stack size exceeded)，
+//    后续 commit eb355ef4 通过 closingAll 重入守卫修复了此问题。
+//
+// 2. Breaking Change —— 与 V1 行为不一致。
+//    典型场景：用户在 Modal.show 的 content 中通过 onClick 调用
+//    closeAll() + resolve(true)，同时在 onClose 中调用
+//    closeAll() + resolve(false)。
+//    V1: closeAll 不触发 onClose → resolve(true) 先执行 → 结果为 true。
+//    V2(同步): closeAll 同步触发 onClose → resolve(false) 抢先执行 → 结果为 false。
+//    这对 V1 升级 V2 的用户是一个 Breaking Change。
+//
+// 修复方案：将 onClose 改为 setTimeout 异步触发。
+// - 保留 PR #1908 "closeAll 触发 onClose" 的 feature（通知业务层做清理）。
+// - closeAll 同步完成所有 close() 调用后，调用者的后续代码先执行，
+//   onClose 在下一个事件循环才触发，不会抢占调用者的 resolve。
+// - close() 同步将 visible 置为 false，onClose 异步执行时即使再调
+//   closeAll()，filter 结果为空数组，天然不会递归，无需重入守卫。
 export const closeAll = () => {
-  // 防止用户在 onClose 回调中再次调用 closeAll 造成无限递归
-  if (closingAll) return
-  closingAll = true
-  try {
-    Object.keys(containers)
-      .filter(id => containers[id].props.from === 'method' && containers[id].visible)
-      .forEach(id => {
-        const { onClose, usePortal } = containers[id].props
-        if (onClose) onClose()
-        if (!usePortal) close(containers[id].props)
-      })
-  } finally {
-    closingAll = false
-  }
+  Object.keys(containers)
+    .filter(id => containers[id].props.from === 'method' && containers[id].visible)
+    .forEach(id => {
+      const { onClose, usePortal } = containers[id].props
+      if (onClose) setTimeout(() => onClose(), 0)
+      if (!usePortal) close(containers[id].props)
+    })
 }
 
 ready(() => {
