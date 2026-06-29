@@ -224,7 +224,8 @@ export default class Panel extends PureComponent<ModalPanelProps> {
     const showClose = typeof hideClose === 'boolean' ? !hideClose : maskCloseAble || maskCloseAble === null
     const maskStyle = { paddingBottom: fullScreen ? 0 : top }
     return (
-      <ZProvider value>
+      <ZProvider value={{}}>
+
         <Provider value={{ element: undefined }}>
           <div
             {...events}
