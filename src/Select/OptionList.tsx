@@ -98,7 +98,7 @@ class OptionList<Item, Value> extends Component<OptionListProps<Item, Value>, Op
       this.lastScrollTop = emptyHeight - offset
 
       currentIndex = hoverIndex - 1
-      if (currentIndex < 0) currentIndex = max
+      if (currentIndex < 0) currentIndex = 0
       this.setState({ currentIndex, scrollTop: emptyHeight / (lineHeight * max) })
     } else if (emptyHeight + lineHeight > this.lastScrollTop + offset + height) {
       // absolute at bottom
