@@ -255,6 +255,7 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
   }
 
   handleClickAway(e: any) {
+    if (this.getDisabledStatus() === true) return
     const desc = this.isDescendent(e.target, this.selectId)
     if (!desc) {
       if (!getParent(e.target, `[data-id=${this.selectId}]`)) {
@@ -362,6 +363,7 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
   }
 
   handleFocus(e: React.FocusEvent<HTMLDivElement>) {
+    if (this.getDisabledStatus() === true) return
     if (!this.shouldFocus(e.target)) return
     this.props.onFocus(e)
   }
@@ -439,6 +441,8 @@ class Select<Item, Value> extends PureComponent<BaseSelectProps<Item, Value>, Se
   }
 
   handleKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
+    if (this.getDisabledStatus() === true) return
+
     const { onEnterExpand } = this.props
     this.keyLocked = true
     // just for enter to open the list

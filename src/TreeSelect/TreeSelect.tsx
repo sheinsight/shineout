@@ -195,6 +195,7 @@ export default class TreeSelect<Item, Value extends TreeSelectValueType> extends
   }
 
   handleClickAway(e: any) {
+    if (this.props.disabled === true) return
     const desc = isDescendent(e.target, this.treeSelectId)
     if (!desc) {
       this.clearClickAway()
@@ -225,12 +226,15 @@ export default class TreeSelect<Item, Value extends TreeSelectValueType> extends
   }
 
   handleFocus(e: React.FocusEvent<HTMLDivElement>) {
+    if (this.props.disabled === true) return
     if (!this.shouldFocus(e.target)) return
     this.props.onFocus(e)
     this.bindClickAway()
   }
 
   handleKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
+    if (this.props.disabled === true) return
+
     const { onEnterExpand } = this.props
     if (e.keyCode === 13) {
       e.preventDefault()
