@@ -35,6 +35,7 @@
   },
   "Feedback": {
     "Alert": "提示框",
+    "Watermark": "水印",
     "Message": "消息提示",
     "Spin": "加载中",
     "Modal": "对话框",

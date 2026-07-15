@@ -7,6 +7,7 @@ import { modalClass } from './styles'
 import { Provider } from '../Scroll/context'
 import { Provider as ZProvider } from './context'
 import { ModalPanelProps } from './Props'
+import WatermarkContext, { WatermarkContextValue } from '../Watermark/context'
 
 const DefaultValue = {
   ...defaultProps,
@@ -41,7 +42,11 @@ export default class Panel extends PureComponent<ModalPanelProps> {
 
   static displayName: string
 
+  static contextType = WatermarkContext
+
   panel: HTMLDivElement | null
+
+  watermarkContext: WatermarkContextValue | null = null
 
   handleMaskDown: () => void
 
@@ -59,6 +64,7 @@ export default class Panel extends PureComponent<ModalPanelProps> {
   }
 
   componentDidMount() {
+    this.updateWatermarkTarget()
     const { container } = this.props
     this.updateOrigin()
     this.animate()
@@ -70,10 +76,25 @@ export default class Panel extends PureComponent<ModalPanelProps> {
     ;(el as HTMLElement).focus()
   }
 
-  componentDidUpdate() {
+  componentWillUnmount() {
+    const { container } = this.props
+    if (container && this.watermarkContext) this.watermarkContext.remove(container as HTMLElement)
+    this.watermarkContext = null
+  }
+
+  componentDidUpdate(prevProps: ModalPanelProps) {
+    this.updateWatermarkTarget(prevProps.container as HTMLElement | undefined)
     if (this.getShow()) return
     this.updateOrigin()
     this.animate()
+  }
+
+  updateWatermarkTarget(previousContainer?: HTMLElement) {
+    const container = this.props.container as HTMLElement | undefined
+    if (this.watermarkContext === this.context && previousContainer === container) return
+    if (previousContainer && this.watermarkContext) this.watermarkContext.remove(previousContainer)
+    if (container) this.context.add(container)
+    this.watermarkContext = this.context
   }
 
   getShow() {
@@ -225,7 +246,6 @@ export default class Panel extends PureComponent<ModalPanelProps> {
     const maskStyle = { paddingBottom: fullScreen ? 0 : top }
     return (
       <ZProvider value={{}}>
-
         <Provider value={{ element: undefined }}>
           <div
             {...events}

@@ -42,6 +42,7 @@ import * as TransferType from './Transfer/interface'
 import * as TreeType from './Tree/interface'
 import * as TreeSelectType from './TreeSelect/interface'
 import * as UploadType from './Upload/interface'
+import * as WatermarkType from './Watermark/interface'
 export declare namespace TYPE {
   export import Alert = AlertType
   export import Breadcrumb = BreadcrumbType
@@ -86,6 +87,7 @@ export declare namespace TYPE {
   export import Tree = TreeType
   export import TreeSelect = TreeSelectType
   export import Upload = UploadType
+  export import Watermark = WatermarkType
 }
 import * as utils from './utils'
 
@@ -148,3 +150,4 @@ export { default as Transfer } from './Transfer'
 export { default as Tree } from './Tree'
 export { default as TreeSelect } from './TreeSelect'
 export { default as Upload } from './Upload'
+export { default as Watermark } from './Watermark'

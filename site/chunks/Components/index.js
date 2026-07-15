@@ -231,6 +231,12 @@ const pages = [
     level: 2,
     component: lazy(() => import(/* webpackChunkName: "Tooltip" */ './Tooltip')),
   },
+  {
+    name: 'Watermark',
+    cn: '水印',
+    level: 2,
+    component: lazy(() => import(/* webpackChunkName: "Watermark" */ './Watermark')),
+  },
   'Layout',
   {
     name: 'Card',
