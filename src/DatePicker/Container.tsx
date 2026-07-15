@@ -274,6 +274,7 @@ class Container extends PureComponent<ContainerProps, ContainerState> {
   }
 
   handleClickAway(e: MouseEvent) {
+    if (this.props.disabled === true) return
     const onPicker = e.target === this.element || this.element.contains(e.target as HTMLElement)
     const onAbsolutePicker = getParent(e.target as HTMLElement, `.${datepickerClass('location')}`)
     if (!onPicker && !onAbsolutePicker) {
@@ -284,12 +285,15 @@ class Container extends PureComponent<ContainerProps, ContainerState> {
   }
 
   handleFocus(e: FocusEvent<HTMLDivElement>) {
+    if (this.props.disabled === true) return
     if (!this.shouldFocus(e.target)) return
     if (this.props.onFocus) this.props.onFocus(e)
     this.bindClickAway()
   }
 
   handleKeyDown(e: KeyboardEvent<HTMLDivElement>) {
+    if (this.props.disabled === true) return
+
     if (e.keyCode === 13) {
       e.preventDefault()
       this.handleToggle(!this.focus)

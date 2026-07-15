@@ -269,6 +269,7 @@ class Cascader<DataItem, Value extends CascaderBaseValue> extends PureComponent<
   }
 
   handleClickAway(e: MouseEvent) {
+    if (this.props.disabled === true) return
     const desc = isDescendent(e.target as HTMLElement, this.selectId)
     if (!desc) {
       if (this.props.inputFocus) this.props.onBlur()
@@ -295,6 +296,7 @@ class Cascader<DataItem, Value extends CascaderBaseValue> extends PureComponent<
   }
 
   handleFocus(e: any) {
+    if (this.props.disabled === true) return
     if (!this.shouldFocus(e.target as HTMLDivElement)) return
     this.props.onFocus(e)
   }
@@ -343,6 +345,8 @@ class Cascader<DataItem, Value extends CascaderBaseValue> extends PureComponent<
   }
 
   handleKeyDown(e: any) {
+    if (this.props.disabled === true) return
+
     if (e.keyCode === 13) {
       e.preventDefault()
       this.handleState(!this.focus)
