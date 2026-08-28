@@ -1,8 +1,9 @@
 import deepEqual from 'deep-eql'
 import { unflatten, insertValue, spliceValue, getSthByName } from '../utils/flat'
-import { fastClone, deepClone } from '../utils/clone'
+import { fastClone } from '../utils/clone'
 import { deepGet, deepSet, deepRemove, objectValues, deepHas } from '../utils/objects'
 import { isObject, isArray } from '../utils/is'
+import { safeDeepClone } from '../utils/clone'
 import { promiseAll, FormError } from '../utils/errors'
 import { FormItemRule } from '../Rule/Props'
 import {
@@ -250,7 +251,7 @@ export default class<V extends ObjectType> {
   }
 
   getValue() {
-    return deepClone(this.$values)
+    return safeDeepClone(this.$values)
   }
 
   setValue(v: any = {}, type?: typeof IGNORE_VALIDATE | typeof FORCE_PASS, forceSet?: boolean) {
@@ -260,7 +261,7 @@ export default class<V extends ObjectType> {
     }
     // 兼容 value 传入 null 等错误等值
     if (!forceSet && deepEqual(values, this.$values)) return
-    this.$values = deepClone(values)
+    this.$values = safeDeepClone(values)
 
     // wait render end.
     setTimeout(() => {
