@@ -6,6 +6,10 @@
   "module": "./es/index.js",
   "typings": "./lib/index.d.ts",
   "author": "lobos841@gmail.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sheinsight/shineout.git"
+  },
   "license": "MIT",
   "scripts": {
     "test": "cross-env NODE_ENV=test jest --config jest.config.js",
