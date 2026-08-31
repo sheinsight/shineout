@@ -1,5 +1,10 @@
 English | [简体中文](./README-zh_CN.md)
 
+> [!IMPORTANT]
+> **This is the 2.x version of shineout, which is now in maintenance mode.**
+> The latest **3.x version** has been released in a new repository: 👉 [sheinsight/shineout-next](https://github.com/sheinsight/shineout-next)
+> We recommend using 3.x for new projects.
+
 <p align="center">
   <img alt="react-router" src="https://user-images.githubusercontent.com/101764/44770646-44f53000-ab9b-11e8-834e-2b1394cea318.png" width="300">
 </p>
