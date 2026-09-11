@@ -40,6 +40,12 @@ export interface FormDatumOptions<Value extends {}> {
    * @override object
    */
   defaultValue?: Value
+  /**
+   * @en Whether to deep clone value in getValue/setValue. Default is true. Set to false to improve performance in complex forms.
+   * @cn 是否在 getValue/setValue 中深拷贝数据。默认为 true。复杂表单场景可设为 false 以提升性能
+   * @default true
+   */
+  deepClone?: boolean
 }
 
 export interface ListDatumOptions<DataItem, Value> {

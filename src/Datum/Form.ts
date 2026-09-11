@@ -29,6 +29,8 @@ export default class<V extends ObjectType> {
 
   removeUndefined: FormDatumOptions<V>['removeUndefined']
 
+  deepClone: boolean
+
   $defaultValues: V
 
   $inputNames: { [name: string]: boolean }
@@ -48,10 +50,11 @@ export default class<V extends ObjectType> {
   formUnmount: boolean
 
   constructor(options: FormDatumOptions<V> = {}) {
-    const { removeUndefined = true, rules, onChange, value, error, initValidate, defaultValue } = options
+    const { removeUndefined = true, rules, onChange, value, error, initValidate, defaultValue, deepClone = true } = options
     this.rules = rules
     this.onChange = onChange
     this.removeUndefined = removeUndefined
+    this.deepClone = deepClone
 
     // store names
     this.$inputNames = {}
@@ -251,7 +254,8 @@ export default class<V extends ObjectType> {
   }
 
   getValue() {
-    return safeDeepClone(this.$values)
+    if (this.deepClone) return safeDeepClone(this.$values)
+    return {...this.$values};
   }
 
   setValue(v: any = {}, type?: typeof IGNORE_VALIDATE | typeof FORCE_PASS, forceSet?: boolean) {
@@ -261,7 +265,7 @@ export default class<V extends ObjectType> {
     }
     // 兼容 value 传入 null 等错误等值
     if (!forceSet && deepEqual(values, this.$values)) return
-    this.$values = safeDeepClone(values)
+    this.$values = this.deepClone ? safeDeepClone(values) : values
 
     // wait render end.
     setTimeout(() => {
