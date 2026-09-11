@@ -220,19 +220,6 @@ const examples = [
     parseTsText: require('!raw-loader!doc/pages/components/Input/example-14-limit.tsx'),
 
   },
-  {
-    name: 'test-001-blurAndTrim',
-    isTs: true,
-    isTest: true,
-    title: locate(
-      'blur trim \n 修复 Form 中 点击提交按钮触发 input blur 的时候由于 delay 导致 form onSubmit 的input数据没有触发trim问题',
-      ''
-    ),
-    component: require('doc/pages/components/Input/test-001-blurAndTrim.tsx').default,
-    rawText: require('!raw-loader!doc/pages/components/Input/test-001-blurAndTrim.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Input/test-001-blurAndTrim.tsx'),
-
-  },
 ]
 
 const codes = undefined
