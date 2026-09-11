@@ -19,7 +19,7 @@ import {
 } from './Props'
 
 const formCardConsumerKey: FormCardConsumerKey[] = ['setFormStatus']
-const formDatumKey: FormDatumKey[] = ['removeUndefined', 'error']
+const formDatumKey: FormDatumKey[] = ['removeUndefined', 'error', 'deepClone']
 const formItemWithFormConsumerKeys: FormItemWithFormConsumerKeys[] = [
   'formDatum',
   'labelWidth',
