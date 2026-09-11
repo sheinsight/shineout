@@ -312,32 +312,6 @@ const examples = [
     parseTsText: require('!raw-loader!doc/pages/components/Form/example-21-mode.tsx'),
 
   },
-  {
-    name: 'test-01-deep-clone',
-    isTs: true,
-    isTest: true,
-    title: locate(
-      'deepClone=false 受控模式交互测试 \n 测试 deepClone={false} 在受控模式下的各种外部修改模式。左侧为 deepClone=true，右侧为 deepClone=false。 \n ④⑤⑥ 通过 datum.getValue() 拿到值后直接 mutate 嵌套对象，再 datum.setValue() 写回，模拟真实的"拿到 onChange value 后直接修改"场景。',
-      'deepClone=false Controlled Mode Interactive Test \n Test various external value modification patterns with deepClone={false} in controlled mode.'
-    ),
-    component: require('doc/pages/components/Form/test-01-deep-clone.tsx').default,
-    rawText: require('!raw-loader!doc/pages/components/Form/test-01-deep-clone.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Form/test-01-deep-clone.tsx'),
-
-  },
-  {
-    name: 'test-02-deep-clone-benchmark',
-    isTs: true,
-    isTest: true,
-    title: locate(
-      'deepClone 性能 Benchmark \n 当表单数据量较大时，deepClone 会导致 onChange 性能下降。设置 deepClone={false} 可以使用浅拷贝替代深拷贝，提升性能。 \n deepClone={false} 时 getValue 返回浅拷贝（新的顶层引用），受控模式下 React 可正常检测变化。',
-      'deepClone Performance Benchmark \n When the form data is large, deepClone may cause performance issues. Set deepClone={false} to use shallow clone instead of deep clone. \n When deepClone={false}, getValue returns a shallow copy (new top-level reference), so controlled mode works correctly.'
-    ),
-    component: require('doc/pages/components/Form/test-02-deep-clone-benchmark.tsx').default,
-    rawText: require('!raw-loader!doc/pages/components/Form/test-02-deep-clone-benchmark.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Form/test-02-deep-clone-benchmark.tsx'),
-
-  },
 ]
 
 const codes = undefined

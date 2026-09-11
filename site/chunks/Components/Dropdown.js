@@ -104,45 +104,6 @@ const examples = [
     parseTsText: require('!raw-loader!doc/pages/components/Dropdown/example-7-base.tsx'),
 
   },
-  {
-    name: 'test-001-disabled',
-    isTs: true,
-    isTest: true,
-    title: locate(
-      'disabled 后 hover 无效 \n 开启 disabled 后，hover、click 不可展开菜单',
-      ' \n '
-    ),
-    component: require('doc/pages/components/Dropdown/test-001-disabled.tsx').default,
-    rawText: require('!raw-loader!doc/pages/components/Dropdown/test-001-disabled.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Dropdown/test-001-disabled.tsx'),
-
-  },
-  {
-    name: 'test-001-open',
-    isTs: true,
-    isTest: true,
-    title: locate(
-      '控制弹层（受控） \n Dropdown 通过 open 控制弹层的显示和隐藏',
-      'Controlled \n Component controlled by open property'
-    ),
-    component: require('doc/pages/components/Dropdown/test-001-open.tsx').default,
-    rawText: require('!raw-loader!doc/pages/components/Dropdown/test-001-open.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Dropdown/test-001-open.tsx'),
-
-  },
-  {
-    name: 'test-002-nested-absolute',
-    isTs: true,
-    isTest: true,
-    title: locate(
-      '嵌套 absolute Dropdown \n 验证 Popover 内嵌套 absolute Dropdown 的 item onClick 能正常触发',
-      'Nested absolute Dropdown \n Verify item onClick works in nested absolute Dropdown inside Popover'
-    ),
-    component: require('doc/pages/components/Dropdown/test-002-nested-absolute.tsx').default,
-    rawText: require('!raw-loader!doc/pages/components/Dropdown/test-002-nested-absolute.tsx'),
-    parseTsText: require('!raw-loader!doc/pages/components/Dropdown/test-002-nested-absolute.tsx'),
-
-  },
 ]
 
 const codes = undefined
