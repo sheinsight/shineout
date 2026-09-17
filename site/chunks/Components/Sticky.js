@@ -52,6 +52,19 @@ const examples = [
     parseTsText: require('!raw-loader!doc/pages/components/Sticky/example-3-bottom.tsx'),
 
   },
+  {
+    name: 'test-001-bottom',
+    isTs: true,
+    isTest: true,
+    title: locate(
+      'T:bottom \n ',
+      'T:bottom \n '
+    ),
+    component: require('doc/pages/components/Sticky/test-001-bottom.tsx').default,
+    rawText: require('!raw-loader!doc/pages/components/Sticky/test-001-bottom.tsx'),
+    parseTsText: require('!raw-loader!doc/pages/components/Sticky/test-001-bottom.tsx'),
+
+  },
 ]
 
 const codes = undefined

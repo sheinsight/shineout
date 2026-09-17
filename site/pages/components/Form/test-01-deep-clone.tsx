@@ -5,7 +5,7 @@
  * en - deepClone=false Controlled Mode Interactive Test
  *    -- Test various external value modification patterns with deepClone={false} in controlled mode.
  */
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { Form, Input } from 'shineout'
 
 interface FormValue {
@@ -54,6 +54,12 @@ function Panel({ title, titleColor, deepClone }: PanelProps) {
   const datumRef = useRef<any>(null)
   const renderCount = useRef(0)
   renderCount.current += 1
+
+  useEffect(() => {
+    console.log('======================')
+    console.log('测试useEffect监听 value.tags.length: >>', value.tags.length)
+    console.log('======================')
+  }, [value.tags])
 
   function log(label: string, msg: string, ok = true) {
     setLogs(prev => addLog(prev, label, msg, ok))
@@ -124,7 +130,7 @@ function Panel({ title, titleColor, deepClone }: PanelProps) {
     const v = datum.getValue()
     v.tags.push('pushed') // 直接 mutate 数组
     log('⑥数组直接push', `tags.push("pushed")，长度: ${v.tags.length}`, deepClone)
-    datum.setValue({ ...v })
+    datum.set({ ...v })
     setValue(datum.getValue())
   }
 
