@@ -183,7 +183,7 @@ describe('deepClone=false 受控模式 - 已知限制场景', () => {
     expect(datum.$values.user.name).toBe('MUTATED_VIA_REF')
   })
 
-  it('⑪ ⚠️ 外部 server 数据 setValue：$values 与外部对象共享引用，后续 set 会 mutate 原始对象', () => {
+  it('⑪ 外部 server 数据 setValue：deepClone=false 自动开启 immutable，set 不再 mutate 原始对象', () => {
     const datum = makeDatum(null)
     const serverData = {
       name: 'Server',
@@ -193,12 +193,24 @@ describe('deepClone=false 受控模式 - 已知限制场景', () => {
 
     datum.setValue(serverData, undefined, true) // forceSet=true 跳过 deepEqual
 
-    // $values 与 serverData 是同一引用
+    // setValue 后 $values 与 serverData 仍是同一引用
     expect(datum.$values).toBe(serverData)
 
-    // 之后通过 datum.set 修改字段，会直接 mutate serverData
+    const prevValues = datum.$values
     datum.set('name', 'Changed')
-    expect(serverData.name).toBe('Changed') // 原始 server 数据被污染
+
+    // immutable 按路径局部浅拷贝，$values 换成新引用，原始 server 数据不再被污染
+    expect(datum.get('name')).toBe('Changed')
+    expect(datum.$values).not.toBe(prevValues)
+    expect(serverData.name).toBe('Server')
+
+    // 嵌套字段同样不污染原始数据，且旁系节点复用引用
+    const prevUser = datum.$values.user
+    datum.set('user.address.city', 'Shenzhen')
+    expect(datum.get('user.address.city')).toBe('Shenzhen')
+    expect(serverData.user.address.city).toBe('Guangzhou')
+    expect(datum.$values.user).not.toBe(prevUser)
+    expect(datum.$values.tags).toBe(prevValues.tags)
   })
 })
 

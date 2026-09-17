@@ -46,6 +46,14 @@ export interface FormDatumOptions<Value extends {}> {
    * @default true
    */
   deepClone?: boolean
+  /**
+   * @en Whether to set value by immutable update (path based shallow copy) instead of mutating it in place.
+   * Leave it unset to turn it on automatically when deepClone is false, set it to false to turn it off explicitly.
+   * @cn 是否以不可变方式更新数据（基于路径的局部浅拷贝）而非原地修改。
+   * 不传时，deepClone 为 false 会自动开启；传 false 可显式关闭
+   * @default undefined
+   */
+  immutable?: boolean
 }
 
 export interface ListDatumOptions<DataItem, Value> {

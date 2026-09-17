@@ -489,7 +489,7 @@ export interface FlowProps {
 /** ----------------index-----------------------* */
 // Form
 export type FormCardConsumerKey = 'setFormStatus'
-export type FormDatumKey = 'removeUndefined' | 'error' | 'deepClone'
+export type FormDatumKey = 'removeUndefined' | 'error' | 'deepClone' | 'immutable'
 export type FormPropsWithCardConsumer<Value> = CardConsumerType<SimpleFormProps<Value>, FormCardConsumerKey>
 export type FormPropsWithProvider<Value> = GetFormProviderProps<FormPropsWithCardConsumer<Value>, Value>
 

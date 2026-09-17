@@ -1,7 +1,15 @@
 import deepEqual from 'deep-eql'
 import { unflatten, insertValue, spliceValue, getSthByName } from '../utils/flat'
 import { fastClone } from '../utils/clone'
-import { deepGet, deepSet, deepRemove, objectValues, deepHas } from '../utils/objects'
+import {
+  deepGet,
+  deepSet,
+  deepSetImmutable,
+  deepRemove,
+  deepRemoveImmutable,
+  objectValues,
+  deepHas,
+} from '../utils/objects'
 import { isObject, isArray } from '../utils/is'
 import { safeDeepClone } from '../utils/clone'
 import { promiseAll, FormError } from '../utils/errors'
@@ -31,6 +39,9 @@ export default class<V extends ObjectType> {
 
   deepClone: boolean
 
+  // undefined means auto: on when deepClone is false
+  immutable?: boolean
+
   $defaultValues: V
 
   $inputNames: { [name: string]: boolean }
@@ -50,11 +61,22 @@ export default class<V extends ObjectType> {
   formUnmount: boolean
 
   constructor(options: FormDatumOptions<V> = {}) {
-    const { removeUndefined = true, rules, onChange, value, error, initValidate, defaultValue, deepClone = true } = options
+    const {
+      removeUndefined = true,
+      rules,
+      onChange,
+      value,
+      error,
+      initValidate,
+      defaultValue,
+      deepClone = true,
+      immutable,
+    } = options
     this.rules = rules
     this.onChange = onChange
     this.removeUndefined = removeUndefined
     this.deepClone = deepClone
+    this.immutable = immutable
 
     // store names
     this.$inputNames = {}
@@ -73,6 +95,11 @@ export default class<V extends ObjectType> {
 
     if (initValue) this.setValue(initValue, initValidate ? undefined : IGNORE_VALIDATE)
     if (error) this.resetFormError(error)
+  }
+
+  // immutable 生效条件：显式开启；或 deepClone 为 false 时自动开启（显式传 immutable={false} 可关闭）
+  get useImmutable() {
+    return (this.deepClone === false && this.immutable !== false) || this.immutable === true
   }
 
   handleChange() {
@@ -112,7 +139,12 @@ export default class<V extends ObjectType> {
 
     if (typeof name === 'string') {
       if (value === this.get(name)) return
-      deepSet(this.$values, name, value, this.deepSetOptions)
+      if (this.useImmutable) {
+        // immutable update returns a new root, so the result must be assigned back
+        this.$values = deepSetImmutable(this.$values, name, value, this.deepSetOptions)
+      } else {
+        deepSet(this.$values, name, value, this.deepSetOptions)
+      }
 
       if (this.$inputNames[name]) {
         this.dispatch(updateSubscribe(name), value, name)
@@ -128,7 +160,11 @@ export default class<V extends ObjectType> {
 
   setArrayValue(names: string[], values: any[]) {
     names.forEach((name, index) => {
-      deepSet(this.$values, name, values[index], this.deepSetOptions)
+      if (this.useImmutable) {
+        this.$values = deepSetImmutable(this.$values, name, values[index], this.deepSetOptions)
+      } else {
+        deepSet(this.$values, name, values[index], this.deepSetOptions)
+      }
     })
 
     names.forEach((name, index) => {
@@ -146,7 +182,14 @@ export default class<V extends ObjectType> {
     this.insertError(name, index, undefined)
     const val = this.get(name)
     if (val) {
-      val.splice(index, 0, value)
+      if (this.useImmutable) {
+        // deepSetOptions has forceSet, which would overwrite instead of splice, so omit it here
+        this.$values = deepSetImmutable(this.$values, `${name}[${index}]^`, value, {
+          removeUndefined: this.removeUndefined,
+        })
+      } else {
+        val.splice(index, 0, value)
+      }
       this.publishValue(name, IGNORE_VALIDATE)
       this.publishError(name)
       // insert value into Form in onAppend will trigger Form onChange
@@ -158,8 +201,12 @@ export default class<V extends ObjectType> {
 
   splice(name: string, index: number) {
     this.spliceError(name, index)
-    const list = this.get(name)
-    list.splice(index, 1)
+    if (this.useImmutable) {
+      this.$values = deepRemoveImmutable(this.$values, `${name}[${index}]`)
+    } else {
+      const list = this.get(name)
+      list.splice(index, 1)
+    }
     this.publishValue(name, IGNORE_VALIDATE)
     this.publishError(name)
     // remove value from Form in onRemove will trigger Form onChange
@@ -167,7 +214,11 @@ export default class<V extends ObjectType> {
   }
 
   remove(name: string) {
-    deepRemove(this.$values, name)
+    if (this.useImmutable) {
+      this.$values = deepRemoveImmutable(this.$values, name)
+    } else {
+      deepRemove(this.$values, name)
+    }
   }
 
   publishValue(name: string, type: PublishType) {
@@ -316,7 +367,7 @@ export default class<V extends ObjectType> {
     if (this.updateLock) return
     if (!deepHas(this.$values, name)) return
     if (reserveAble) return
-    deepRemove(this.$values, name)
+    this.remove(name)
 
     if (!this.formUnmount) {
       setTimeout(() => {
