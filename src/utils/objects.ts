@@ -1,5 +1,6 @@
 import { isObject, isMergeable } from './is'
 import { insertPoint } from './flat'
+import { shallowClone } from './clone'
 import { ObjectType } from '../@types/common'
 
 const { hasOwnProperty } = Object.prototype
@@ -149,6 +150,86 @@ export const deepSet = (target: ObjectType, path: string, value: any, options: d
   return target
 }
 
+// shallow copy for the nodes on the path, keeping the prototype for class instances
+const shallowCopy = (node: any) => {
+  if (Array.isArray(node)) return node.slice()
+  if (isMergeable(node)) {
+    const copy = Object.create(Object.getPrototypeOf(node))
+    return Object.assign(copy, node)
+  }
+  return shallowClone(node)
+}
+
+/**
+ * Immutable version of `deepSet`, based on path-based shallow copy.
+ *
+ * It walks down the path and shallow copies every node **on that path**, while all the
+ * sibling nodes outside the path are reused by reference. The `target` is never mutated,
+ * a new root is returned instead.
+ *
+ * The path syntax, the options and the semantic are the same as `deepSet`, so both of them
+ * produce the same value, `deepSet` mutating `target` in place and this one returning a copy.
+ *
+ * @example
+ * const target = { user: { info: { city: 'SH', age: 18 } }, list: [1, 2] }
+ * const next = deepSetImmutable(target, 'user.info.city', 'BJ')
+ * next.user.info.city // 'BJ'
+ * next.user !== target.user // true, on the path
+ * next.list === target.list // true, sibling reused
+ */
+export const deepSetImmutable = (target: ObjectType, path: string, value: any, options: deepOptions = {}) => {
+  if (!isObject(target)) throw new Error('Target must be an object.')
+  if (typeof path !== 'string') throw new Error('Path must be a string.')
+
+  const { removeUndefined, skipUndefined } = options
+  const mergeOptions = { clone: true, removeUndefined, skipUndefined }
+
+  // empty root, only the root is copied
+  if (path === '') {
+    return deepMerge(target, value, { clone: false, removeUndefined, skipUndefined })
+  }
+
+  const root = shallowCopy(target)
+  let current: any = root
+
+  for (const [prop, next, mode] of pathGenerator(path)) {
+    if (!next) {
+      if (options.forceSet) {
+        current[prop] = value
+      } else if (mode === PATH_MODE.insert) {
+        current.splice(prop, 0, value)
+      } else if (mode === PATH_MODE.append) {
+        current.splice((prop as number) + 1, 0, value)
+      } else {
+        if (skipUndefined && value === undefined) break
+
+        current[prop] =
+          isMergeable(current[prop]) && isMergeable(value) ? deepMerge(current[prop], value, mergeOptions) : value
+      }
+      if (removeUndefined && value === undefined) delete current[prop]
+      break
+    }
+
+    // same rule as deepSet: only the `[n]` syntax means an array index, so a plain numeric
+    // segment like `users.0.name` is an object key instead
+    const nextIsArray = /^\[\d+\]/.test(next)
+    const child = current[prop]
+
+    if (!child) {
+      current[prop] = nextIsArray ? [] : {}
+    } else if (nextIsArray && !Array.isArray(child)) {
+      throw new Error(`Path ${path} expect an array.`)
+    } else if (Array.isArray(child) && !nextIsArray) {
+      throw new Error(`Path ${path} is an array, expect an object.`)
+    } else {
+      current[prop] = shallowCopy(child)
+    }
+
+    current = current[prop]
+  }
+  return root
+}
+
 export const deepGet = (target: ObjectType, path: string, options: deepOptions = {}) => {
   if (!isObject(target)) throw new Error('Target must be an object.')
   if (typeof path !== 'string') throw new Error('Path must be a string.')
@@ -200,10 +281,61 @@ export const deepRemove = (target: ObjectType, path: string) => {
   return target
 }
 
+/**
+ * Immutable version of `deepRemove`, based on path-based shallow copy.
+ *
+ * Like `deepSetImmutable`, it shallow copies the nodes on the path and reuses the siblings,
+ * so the `target` is never mutated and a new root is returned. An array item is spliced out
+ * of the copied array and an object key is deleted from the copied object.
+ *
+ * When the path does not exist there is nothing to remove, so the very same `target` is
+ * returned instead of a copy, which matches the `deepRemove` behaviour.
+ *
+ * @example
+ * const target = { a: { b: 1, c: 2 }, list: [1, 2, 3] }
+ * const next = deepRemoveImmutable(target, 'a.b')
+ * next.a // { c: 2 }
+ * next.a !== target.a // true, on the path
+ * next.list === target.list // true, sibling reused
+ */
+export const deepRemoveImmutable = (target: ObjectType, path: string) => {
+  if (!isObject(target)) throw new Error('Target must be an object.')
+  if (typeof path !== 'string' || !path) throw new Error('Path must be a string.')
+
+  const segments = pathGenerator(path)
+
+  // same as deepRemove: a path that does not exist leaves the target untouched,
+  // returning the target itself avoids a pointless new reference
+  let probe: any = target
+  for (const [prop] of segments) {
+    if (probe == null || !hasOwnProperty.call(probe, prop)) return target
+    probe = probe[prop]
+  }
+
+  const root = shallowCopy(target)
+  let current: any = root
+  let nextIsArray = false
+
+  for (const [prop, next] of segments) {
+    if (next) {
+      current[prop] = shallowCopy(current[prop])
+      current = current[prop]
+      nextIsArray = /^\[\d+\]/.test(next)
+    } else if (isObject(current)) {
+      if (nextIsArray) throw new Error('Target is an object, expect array')
+      delete current[prop]
+    } else {
+      if (!nextIsArray) throw new Error('Target is an array, expect object')
+      current.splice(prop as number, 1)
+    }
+  }
+
+  return root
+}
+
 export const deepHas = (target: ObjectType, path: string) => {
   if (!isObject(target)) throw new Error('Target must be an object.')
   if (typeof path !== 'string') throw new Error('Path must be a string.')
-
   if (path === '') return true
 
   let current: any = target
