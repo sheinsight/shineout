@@ -95,8 +95,8 @@ describe('clone.js[safeDeepClone]', () => {
     expect(result).toBe(node)
   })
 
-  // 自定义 class 实例返回引用
-  it('should return class instances as-is', () => {
+  // 自定义 class 实例：深拷贝属性，保留原型链
+  it('should deep clone class instances while preserving prototype', () => {
     class MyModel {
       constructor(id) {
         this.id = id
@@ -105,7 +105,9 @@ describe('clone.js[safeDeepClone]', () => {
     const instance = new MyModel(1)
     const source = { model: instance, name: 'test' }
     const result = safeDeepClone(source)
-    expect(result.model).toBe(instance) // class 实例返回原引用
+    expect(result.model).not.toBe(instance)
+    expect(result.model).toBeInstanceOf(MyModel)
+    expect(result.model.id).toBe(1)
     expect(result).not.toBe(source)
     expect(result.name).toBe('test')
   })
@@ -138,6 +140,25 @@ describe('clone.js[safeDeepClone]', () => {
 
     // File 保持引用，不报错
     expect(result.avatar).toBe(file)
+  })
+
+  // 数组中多个元素共享同一对象引用时，克隆后应各自独立
+  it('should clone shared references in array into independent copies', () => {
+    const shared = { a: '' }
+    const source = { rule: [shared, shared, shared] }
+    const result = safeDeepClone(source)
+
+    // 每个元素是独立副本，不共享引用
+    expect(result.rule[0]).not.toBe(result.rule[1])
+    expect(result.rule[1]).not.toBe(result.rule[2])
+
+    // 修改其中一个不影响其他
+    result.rule[0].a = 'changed'
+    expect(result.rule[1].a).toBe('')
+    expect(result.rule[2].a).toBe('')
+
+    // 原始数据不受影响
+    expect(shared.a).toBe('')
   })
 
   // Object.create(null) 对象
