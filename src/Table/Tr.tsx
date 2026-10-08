@@ -234,9 +234,9 @@ class Tr<DataItem, Value> extends Component<TrProps<DataItem, Value>> {
         }
         let lastFixedByColSpan = false
         if (columns[i]?.fixed === 'left') {
-          const colSpan = columns[i].colSpan?.(data[i] as DataItem, index)
+          const { colSpan } = data[i]
           if(colSpan && colSpan > 1) {
-              lastFixedByColSpan = columns[i + colSpan - 1].fixed === 'left'
+              lastFixedByColSpan = columns[i + colSpan - 1]?.fixed === 'left'
           }
         }
         const td = (
