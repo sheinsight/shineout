@@ -147,7 +147,7 @@ class Panel extends Component<PanelProps, PanelState> {
   getPositionStr() {
     let { position } = this.props
     const { priorityDirection } = this.props
-    if (position) return getRTLPosition(position) 
+    if (position) return getRTLPosition(position) as PopoverPositionType
 
     const rect = this.parentElement.getBoundingClientRect()
     const horizontalPoint = rect.left + rect.width / 2
