@@ -70,7 +70,9 @@ export const safeDeepClone = (x: any, seen?: WeakMap<object, any>): any => {
   const str = Object.prototype.toString.call(x)
 
   if (str === '[object Object]') {
-    tmp = Object.create(x.__proto__ || null)
+    // use getPrototypeOf instead of x.__proto__: on an immer draft, reading __proto__ goes through
+    // the proxy get trap, which drafts Object.prototype and makes later writes on tmp hit the draft's set trap
+    tmp = Object.create(Object.getPrototypeOf(x))
   } else if (str === '[object Array]') {
     tmp = Array(x.length)
   } else if (str === '[object Set]') {
