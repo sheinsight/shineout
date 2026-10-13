@@ -46,6 +46,10 @@ export const deepClone = (source: any) => {
 // based on klona/full (MIT) https://github.com/lukeed/klona
 function klonaSet(obj: any, key: any, val: PropertyDescriptor, seen: WeakMap<object, any>) {
   if (typeof val.value === 'object') val.value = safeDeepClone(val.value, seen)
+  // the clone must stay mutable: frozen sources (e.g. values from useImmer / immer produce) have
+  // non-writable, non-configurable descriptors, copying them as-is would make the clone read-only
+  val.configurable = true
+  if (!val.get && !val.set) val.writable = true
   if (!val.enumerable || val.get || val.set || !val.configurable || !val.writable || key === '__proto__') {
     Object.defineProperty(obj, key, val)
   } else {
