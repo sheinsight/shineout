@@ -171,4 +171,36 @@ describe('clone.js[safeDeepClone]', () => {
     expect(result.b).toEqual({ c: 2 })
     expect(result.b).not.toBe(source.b)
   })
+
+  // 冻结对象（如 useImmer / immer produce 产出的 value）克隆后应可修改
+  it('should produce a writable clone from frozen objects', () => {
+    const source = Object.freeze({ a: 1, b: Object.freeze({ c: 2 }), list: Object.freeze([Object.freeze({ d: 3 })]) })
+    const result = safeDeepClone(source)
+
+    expect(() => {
+      result.a = 2
+      result.b.c = 3
+      result.list[0].d = 4
+      result.e = 5
+    }).not.toThrow()
+    expect(result).toEqual({ a: 2, b: { c: 3 }, list: [{ d: 4 }], e: 5 })
+    expect(source).toEqual({ a: 1, b: { c: 2 }, list: [{ d: 3 }] })
+  })
+
+  it('should produce a writable clone from immer produced value', () => {
+    // eslint-disable-next-line global-require
+    const { default: produce, setAutoFreeze } = require('immer')
+    setAutoFreeze(true)
+    const base = produce({ a: 1, b: { c: 2 } }, draft => {
+      draft.a = 10
+    })
+    expect(Object.isFrozen(base)).toBe(true)
+
+    const result = safeDeepClone(base)
+    expect(() => {
+      result.a = 11
+      result.b.c = 3
+    }).not.toThrow()
+    expect(result).toEqual({ a: 11, b: { c: 3 } })
+  })
 })
