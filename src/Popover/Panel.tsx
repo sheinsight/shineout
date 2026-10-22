@@ -275,8 +275,25 @@ class Panel extends Component<PanelProps, PanelState> {
     if (this.delayTimeout) clearTimeout(this.delayTimeout)
   }
 
+  // 鼠标在触发元素与弹出层之间移动时，不应触发关闭
+  isHoverInside(el: EventTarget | null) {
+    if (!(el instanceof Node)) return false
+    if (this.parentElement && this.parentElement.contains(el)) return true
+    if (this.element && this.element.contains(el)) return true
+    return false
+  }
+
   handleHide(e?: MouseEvent | 0) {
     if (e && this.isChildren(e.relatedTarget as HTMLElement)) return
+    // 仅对组件自身绑定的 mouseleave 生效，业务方通过 children(close) 手动调用时保持原逻辑
+    if (
+      e &&
+      e.type === 'mouseleave' &&
+      (e.currentTarget === this.parentElement || e.currentTarget === this.element) &&
+      this.isHoverInside(e.relatedTarget)
+    ) {
+      return
+    }
     if (this.delayTimeout) clearTimeout(this.delayTimeout)
     this.setShow(false)
   }
