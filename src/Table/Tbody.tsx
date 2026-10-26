@@ -118,7 +118,8 @@ class Tbody<DataItem, Value> extends PureComponent<TbodyProps<DataItem, Value>, 
     const tr = this.body.querySelector('tr')
     if (!tr) return
     this.colgroupSetted = true
-    onBodyRender(tr.querySelectorAll('td'))
+    // only direct cells, ignore nested td rendered inside cell content
+    onBodyRender(tr.cells)
   }
 
   bindBody(el: HTMLTableSectionElement) {

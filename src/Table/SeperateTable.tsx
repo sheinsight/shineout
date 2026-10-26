@@ -559,14 +559,15 @@ class SeperateTable<DataItem, Value> extends PureComponent<SeperateTableProps<Da
     this.props.onSortChange(...args)
   }
 
-  handleColgroup(tds: NodeListOf<HTMLTableCellElement>) {
+  handleColgroup(tds: ArrayLike<HTMLTableCellElement>) {
     const { columns } = this.props
     const colgroup = []
     for (let i = 0, count = tds.length; i < count; i++) {
       const { width } = tds[i].getBoundingClientRect()
       const colSpan = parseInt(tds[i].getAttribute('colspan')!, 10)
       if (colSpan && colSpan > 1) {
-        split(width, range(colSpan).map(j => columns[i + j].width!)).forEach(w => colgroup.push(w))
+        const span = Math.min(colSpan, columns.length - i)
+        split(width, range(span).map(j => columns[i + j].width!)).forEach(w => colgroup.push(w))
       } else {
         colgroup.push(width)
       }

@@ -392,7 +392,7 @@ export interface TbodyProps<DataItem, Value> extends Omit<SimpleTableProps<DataI
   lazy?: boolean
   colgroup?: number[]
   index: number
-  onBodyRender?: (trs: NodeListOf<HTMLTableCellElement>) => void
+  onBodyRender?: (trs: ArrayLike<HTMLTableCellElement>) => void
   resize?: number | boolean
   offsetLeft?: number
   offsetRight?: number

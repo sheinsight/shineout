@@ -129,7 +129,7 @@ class SimpleTable<DataItem, Value> extends PureComponent<SimpleTableProps<DataIt
     this.props.onSortChange(finalOrder, sorter, index, cancelOrder, manual)
   }
 
-  handleColgroup(tds: NodeListOf<HTMLTableCellElement>) {
+  handleColgroup(tds: ArrayLike<HTMLTableCellElement>) {
     const { columns } = this.props
     const colgroup = []
     for (let i = 0, count = tds.length; i < count; i++) {
